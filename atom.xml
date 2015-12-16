@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-12-15T15:17:11.000Z</updated>
+  <updated>2015-12-16T06:04:58.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,23 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[新配置了多说]]></title>
+    <link href="http://yoursite.com/2015/12/16/creatDuoshuo/"/>
+    <id>http://yoursite.com/2015/12/16/creatDuoshuo/</id>
+    <published>2015-12-16T05:35:25.000Z</published>
+    <updated>2015-12-16T06:04:58.000Z</updated>
+    <content type="html"><![CDATA[<p>测试一下！配置好像相当简单嘛！:) 而且好像不是用域名而是ID单匹配的，自己本地的测试服务也能用，所以像我这种两个域名的配置起来完全无障碍，注册、改config一站式完成，赞！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>测试一下！配置好像相当简单嘛！:) 而且好像不是用域名而是ID单匹配的，自己本地的测试服务也能用，所以像我这种两个域名的配置起来完全无障碍，注册、改config一站式完成，赞！</p>
+]]>
+    </summary>
+    
+      <category term="其他" scheme="http://yoursite.com/categories/%E5%85%B6%E4%BB%96/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[使用原生库解析JSON]]></title>
@@ -1473,93 +1490,6 @@ sudo xcode-select --reset
       <category term="BookList" scheme="http://yoursite.com/tags/BookList/"/>
     
       <category term="Kindle&amp;Reading" scheme="http://yoursite.com/categories/Kindle-Reading/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Hexo搜索引擎支持和访问分析（基于Next主题）]]></title>
-    <link href="http://yoursite.com/2015/10/15/HexoSearch/"/>
-    <id>http://yoursite.com/2015/10/15/HexoSearch/</id>
-    <published>2015-10-15T11:22:33.000Z</published>
-    <updated>2015-12-03T05:44:07.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="独立Blog提交入口">独立Blog提交入口</h2><p>仅为博客提交，不是站点</p>
-<ul>
-<li>百度博客提交:<br><a href="http://ping.baidu.com/ping.html" target="_blank" rel="external">http://ping.baidu.com/ping.html</a></li>
-<li>Google博客提交<br><a href="http://blogsearch.google.com/ping" target="_blank" rel="external">http://blogsearch.google.com/ping</a></li>
-<li>搜狗(SoGou)博客提交<br><a href="http://www.sogou.com/feedback/blogfeedback.php" target="_blank" rel="external">http://www.sogou.com/feedback/blogfeedback.php</a></li>
-<li>必应 Bing博客提交<br><a href="http://www.bing.com/toolbox/submit-site-url" target="_blank" rel="external">http://www.bing.com/toolbox/submit-site-url</a></li>
-</ul>
-<h2 id="站内搜索Swiftype">站内搜索Swiftype</h2><a id="more"></a>
-<ol>
-<li>注册：<a href="https://swiftype.com/users/sign_up" target="_blank" rel="external">Swiftype 注册页面</a></li>
-<li><strong>CREATE AN ENGINE</strong>->CREATE A SEARCH ENGINE(STANDARD WEB CRAWLER)->WEBSITE URL，verify</li>
-<li><p>进入engine，菜单：Integrate -> Install Search </p>
-<pre><code>&lt;script type=<span class="string">"text/javascript"</span>&gt;
-  <span class="list">(<span class="keyword">function</span><span class="list">(<span class="keyword">w</span>,d,<span class="literal">t</span>,u,n,s,e)</span>{w[<span class="quoted">'SwiftypeObject</span>']=n<span class="comment">;w[n]=w[n]||function(){</span>
-  <span class="list">(<span class="keyword">w</span>[n].q=w[n].q||[])</span>.push<span class="list">(<span class="keyword">arguments</span>)</span><span class="comment">;};s=d.createElement(t);</span>
-  e=d.getElementsByTagName<span class="list">(<span class="keyword">t</span>)</span>[<span class="number">0</span>]<span class="comment">;s.async=1;s.src=u;e.parentNode.insertBefore(s,e);</span>
-  })</span><span class="list">(<span class="keyword">window</span>,document,<span class="quoted">'script</span>',<span class="quoted">'//s</span>.swiftypecdn.com/install/v2/st.js',<span class="quoted">'_st</span>')</span><span class="comment">;</span>
-
-  _st<span class="list">(<span class="quoted">'install</span>',<span class="quoted">'**YOUR_STRING**</span>','<span class="number">2.0</span>.<span class="number">0</span>')</span><span class="comment">;</span>
-&lt;/script&gt;
-</code></pre><p>获得<strong>YOUR_STRING</strong>作为你的code</p>
-</li>
-<li>站点_config.yml文件中添加：<pre><code># <span class="keyword">Swiftype </span>Search Key
-<span class="keyword">swiftype_key: </span>xxxxxxxxx
-</code></pre></li>
-</ol>
-<h2 id="向Google_搜索引擎提交站点">向Google 搜索引擎提交站点</h2><h3 id="注册并验证">注册并验证</h3><ol>
-<li>打开验证：<a href="https://www.google.com/webmasters/verification/home?hl=cn" target="_blank" rel="external">https://www.google.com/webmasters/verification/home?hl=cn</a>，用Google账户登录</li>
-<li>添加站点地址，选择验证方法：</li>
-<li>HTML file upload（HTML文件上传）<br>通用的方法，下载文件，直接放在_yourblog/themes/next/source/_下并重新生成提交即可。可以用来给相同网站的两个不同的域名重复验证（分别用tag和file两种方法）</li>
-</ol>
-<ul>
-<li>HTML tag(HTML标记)<br>将标记中的content记下<pre><code>&lt;meta <span class="property">name</span>=<span class="string">"google-site-verification"</span> content=<span class="string">"XXXXXXXXXXXXXXXXXXXX"</span> /&gt;
-</code></pre>站点_config.yml文件中添加：<pre><code><span class="attribute">google_site_verification</span>: <span class="string">XXXXXXXXXXXXXXXXXXXX</span>
-</code></pre></li>
-</ul>
-<h3 id="提交sitemap">提交sitemap</h3><ol>
-<li>安装插件生成sitemap<blockquote>
-<p>  npm install hexo-generator-sitemap –save<br>_config.yml<br>  sitemap:</p>
-<pre><code><span class="attribute">path</span>: <span class="string">sitemap.xml</span>
-</code></pre><p>提交生成的file，可以在浏览器中打开”abc.com/sitemap.xml”看一下</p>
-</blockquote>
-</li>
-<li>提交给Google</li>
-<li>打开<a href="https://www.google.com/webmasters/tools/home?hl=zh-CN" target="_blank" rel="external">https://www.google.com/webmasters/tools/home?hl=zh-CN</a></li>
-<li>Sitemap（站点地图）->Add->填写url，提交</li>
-</ol>
-<h2 id="向百度搜索引擎提交站点">向百度搜索引擎提交站点</h2><p>主要使用百度站长平台：<a href="http://zhanzhang.baidu.com" target="_blank" rel="external">http://zhanzhang.baidu.com</a>，提交使用网页抓取->链接提交->自动提交，每次更新后提交一下，以gitcafe为例</p>
-<ol>
-<li>生成待提交本地url：<pre><code>find ~/YourBlog/<span class="keyword">public</span> -<span class="keyword">name</span> <span class="built_in">index</span>.html &gt; urls.txt
-</code></pre></li>
-<li>替换成网址：<pre><code>vi urls.txt &lt;&lt;-!
-:g/\/Users\/ABC\/YourBlog\/public/<span class="regexp">s//username.gitcafe.io/g</span>
-:wq
-!
-</code></pre></li>
-<li>提交：　<pre><code>curl -H <span class="string">'Content-Type:text/plain'</span> --data-<span class="built_in">binary</span> <span class="constant">@urls</span>.txt <span class="string">"http://data.zz.baidu.com/urls?site=XXXXX.gitcafe.io&amp;token=XXXXXXX”</span>
-</code></pre>提交的范例代码为百度提供</li>
-</ol>
-<h2 id="访问分析">访问分析</h2><p>见<a href="http://theme-next.iissnan.com/third-party-services.html#DISUQS" target="_blank" rel="external">http://theme-next.iissnan.com/third-party-services.html#DISUQS</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="独立Blog提交入口">独立Blog提交入口</h2><p>仅为博客提交，不是站点</p>
-<ul>
-<li>百度博客提交:<br><a href="http://ping.baidu.com/ping.html">http://ping.baidu.com/ping.html</a></li>
-<li>Google博客提交<br><a href="http://blogsearch.google.com/ping">http://blogsearch.google.com/ping</a></li>
-<li>搜狗(SoGou)博客提交<br><a href="http://www.sogou.com/feedback/blogfeedback.php">http://www.sogou.com/feedback/blogfeedback.php</a></li>
-<li>必应 Bing博客提交<br><a href="http://www.bing.com/toolbox/submit-site-url">http://www.bing.com/toolbox/submit-site-url</a></li>
-</ul>
-<h2 id="站内搜索Swiftype">站内搜索Swiftype</h2>]]>
-    
-    </summary>
-    
-      <category term="Git" scheme="http://yoursite.com/tags/Git/"/>
-    
-      <category term="Hexo" scheme="http://yoursite.com/tags/Hexo/"/>
-    
-      <category term="其他" scheme="http://yoursite.com/categories/%E5%85%B6%E4%BB%96/"/>
     
   </entry>
   
