@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-12-16T06:04:58.000Z</updated>
+  <updated>2015-12-21T17:59:13.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,104 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[从打造新闻app学到的(3)：让自定义的类可排序]]></title>
+    <link href="http://yoursite.com/2015/12/21/newsreader-3/"/>
+    <id>http://yoursite.com/2015/12/21/newsreader-3/</id>
+    <published>2015-12-21T11:14:35.000Z</published>
+    <updated>2015-12-21T17:59:13.000Z</updated>
+    <content type="html"><![CDATA[<p>假如你有一个自定义类的列表，想要对它排序，怎么办？在新闻APP中，我的新闻列表就是一个自定义class的数组，用户一会儿要最新、一会儿要更多旧数据的可能性，使得它需要按时间有序。我是懒人，自己一个个拿key比较写起来觉得好麻烦，Swift这么高级的语言，应该有别的更好的办法才对！又祭出官方文档找灵感，然后看到了：<strong>Comparable</strong>。<br>Comparable是一个协议，遵守这个协议的所有类型，都可以直接比大小。而对于自定义的类型，遵守它就行了：</p>
+<pre><code><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> : <span class="title">Comparable</span> </span>{
+    <span class="keyword">var</span> key : <span class="type">Int</span> = <span class="number">0</span>
+}
+<span class="comment">//在Class定义之外实现</span>
+<span class="func"><span class="keyword">func</span> <span class="generics">&lt; (left: MyClass, right: MyClass) -&gt;</span> <span class="title">Bool</span> </span>{
+    <span class="keyword">return</span> <span class="keyword">left</span>.key &lt; <span class="keyword">right</span>.key
+}
+<span class="func"><span class="keyword">func</span> == <span class="params">(<span class="keyword">left</span>: MyClass, <span class="keyword">right</span>: MyClass)</span></span> -&gt; <span class="type">Bool</span>{
+    <span class="keyword">return</span> <span class="keyword">left</span>.key == <span class="keyword">right</span>.key
+}   
+</code></pre><p>我们只要实现<strong>\&lt;</strong>和<strong>==</strong>两个函数，编译器会自动帮我们判断>和!=的情况。于是，现在这样的排序或者比较都是合法的了：超easy!😄</p>
+<pre><code><span class="tag">var</span> <span class="tag">a</span> : MyClass = []
+<span class="comment">//TODO：a填了一些数据之后……</span>
+<span class="tag">a</span>.<span class="function"><span class="title">sort</span><span class="params">()</span></span>
+<span class="tag">a</span>[<span class="number">1</span>] &gt; <span class="tag">a</span>[<span class="number">0</span>]
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<p>假如你有一个自定义类的列表，想要对它排序，怎么办？在新闻APP中，我的新闻列表就是一个自定义class的数组，用户一会儿要最新、一会儿要更多旧数据的可能性，使得它需要按时间有序。我是懒人，自己一个个拿key比较写起来觉得好麻烦，Swift这么高级的语言，应该有别的更好的办法]]>
+    </summary>
+    
+      <category term="Dev" scheme="http://yoursite.com/tags/Dev/"/>
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+      <category term="Swift" scheme="http://yoursite.com/categories/Swift/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[从打造新闻app学到的(2)：定义类中的只读属性]]></title>
+    <link href="http://yoursite.com/2015/12/21/newsreader-2/"/>
+    <id>http://yoursite.com/2015/12/21/newsreader-2/</id>
+    <published>2015-12-21T09:14:35.000Z</published>
+    <updated>2015-12-21T10:00:22.000Z</updated>
+    <content type="html"><![CDATA[<p>在定义各种接口的过程中，我碰到了这样一个问题：我希望定义一个只读的属性，却找不到合适的前缀（原谅我是Class白痴）。翻了一遍Class的相关文档，找到了个曲线救国的办法：计算属性。<br>所谓的计算属性，就是自己定义一个属性的名字和get/set方法，外人看不见get/set的实现，只能看作是一个普通属性来使用。而如果只实现了get部分，这个属性对外而言就是只读的了。<br>我的数据结构大致这样：</p>
+<pre><code><span class="class"><span class="keyword">class</span> <span class="title">myclass</span> {</span>
+    <span class="keyword">private</span> var data =  ( <span class="string">api :</span> typeX, <span class="string">list:</span>  typeY,  <span class="string">post:</span> typeZ,  <span class="string">channel:</span> typeA) (xxx, <span class="string">list:</span> yyy, <span class="string">post:</span> zzz, .news)
+}
+</code></pre><p>我想要把这一组相关数据打包成元组使用，又只想把其中某些暴露出来，并且部分是只读，那么就将其设成private并且在类中实现：</p>
+<pre><code><span class="built_in">var</span> <span class="built_in">list</span> : typeY {<span class="comment">//只有get，实现只读封装</span>
+    get {
+        <span class="keyword">return</span> <span class="built_in">data</span><span class="built_in">.</span><span class="built_in">list</span>
+    }
+}
+
+<span class="built_in">var</span> ch : typeA {
+    get {
+        <span class="keyword">return</span> <span class="built_in">data</span><span class="built_in">.</span>channel
+    }
+    <span class="built_in">set</span> (channel) {<span class="comment">//这次可读写了</span>
+        <span class="built_in">data</span><span class="built_in">.</span>channel = channel
+    }
+}
+</code></pre><p>现在，外部可以用myclass.list来获取list，或者用myclass.ch来改变channel了</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在定义各种接口的过程中，我碰到了这样一个问题：我希望定义一个只读的属性，却找不到合适的前缀（原谅我是Class白痴）。翻了一遍Class的相关文档，找到了个曲线救国的办法：计算属性。<br>所谓的计算属性，就是自己定义一个属性的名字和get/set方法，外人看不见get/s]]>
+    </summary>
+    
+      <category term="Dev" scheme="http://yoursite.com/tags/Dev/"/>
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+      <category term="Swift" scheme="http://yoursite.com/categories/Swift/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[从打造新闻app学到的(1)：抽象概念，定义好的数据结构]]></title>
+    <link href="http://yoursite.com/2015/12/20/newsreader-1/"/>
+    <id>http://yoursite.com/2015/12/20/newsreader-1/</id>
+    <published>2015-12-20T09:14:35.000Z</published>
+    <updated>2015-12-21T09:41:56.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>怎么从JSON拿数据学会了，那么接下来就是正式打造一个自己的新闻客户端了。虽然我Swift语法还没认真学完，但实在是心痒痒，就跳过一点基础，先来个实战吧！经过这个礼拜，我的APP也基本成型了。网上关于怎么做一个新闻客户端的例子很多，我就不赘述了，只是把过程中碰到的一些小问题和心得、我自己无法很容易搜到完美答案的写一写。过程中的弯路肯定没少走，但经验的收获也是不少的。</p>
+</blockquote>
+<p>关于这个APP使用的数据结构，其实我是重构过的。新闻一般都是有两种数据源：新闻列表(List)，和单条新闻(Post)详细信息。开始我在playground写了对应的List&amp;Post数据结构，以及处理数据的函数。打印测试成功后，往project里面放的时候……不忍直视！作为一个初学者，我往DidView()里面塞了几乎所有的流程调用，以至于第一次运行成功在模拟器中看到数据的时候，我最大的感觉不是兴奋，而是我怎么把code写得这么丑陋！😖<br><strong>功能不行可以再学习怎么做，但代码太丑是真真正正不能忍！</strong>我曾经的经验如是告诉我。我试着模块化各种数据和过程，一番思考和尝试后，变成了现在的结构：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_wxc_data.png" alt="" title="新闻APP拿取数据框图"><br>DataManager是整个业务的最顶层类，它提供了很少的几个接口供ViewController使用：请求最新列表、请求更多列表数据、请求某个新闻、少量设置，并且设置也都是有default值的。考虑到将来有可能支持更多的新闻网站，GetURL和数据解析部分也是独立可更换的模块。在数据结构部分，我定义了一个Item类型，包括几个通用的属性，以及几个通用函数的实现，然后让ListItem，PostItem，CommentItem分别继承。这样既逻辑清晰，减少重复代码，也便于调试。所有上层不需要知道的参数都封装在内部，只有一个Manger和它的API，以及几个配置属性暴露在外。<br>也许这样的抽象定义过程，对于老手来说是不值一提的基础，就像吃饭要先煮饭一样简单。但我想对于刚刚接触APP开发的新人来说，如何更好的定义数据结构和API，恰当地抽象各种概念，还是值得多多思考的功课。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>怎么从JSON拿数据学会了，那么接下来就是正式打造一个自己的新闻客户端了。虽然我Swift语法还没认真学完，但实在是心痒痒，就跳过一点基础，先来个实战吧！经过这个礼拜，我的APP也基本成型了。网上关于怎么做一个新闻客户端的例子很多，我就不赘述了，只]]>
+    </summary>
+    
+      <category term="Dev" scheme="http://yoursite.com/tags/Dev/"/>
+    
+      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
+    
+      <category term="Swift" scheme="http://yoursite.com/categories/Swift/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[新配置了多说]]></title>
@@ -1333,163 +1431,6 @@ str.capitalizedString
       <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
     
       <category term="Swift" scheme="http://yoursite.com/categories/Swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[升级Xcode后失效的解决办法]]></title>
-    <link href="http://yoursite.com/2015/11/05/Alcatraz/"/>
-    <id>http://yoursite.com/2015/11/05/Alcatraz/</id>
-    <published>2015-11-05T09:25:39.000Z</published>
-    <updated>2015-11-05T09:31:16.000Z</updated>
-    <content type="html"><![CDATA[<p>最近升级Xcode以后，Alcatraz就不见了，从开发者的issue list里面找到了解决办法</p>
-<ol>
-<li>关闭Xcode，卸载Alcatraz：<pre><code>rm -rf ~<span class="regexp">/Library/</span>Application\ Support<span class="regexp">/Developer/</span>Shared<span class="regexp">/Xcode/</span>Plug-ins<span class="regexp">/Alcatraz.xcplugin</span>
-</code></pre></li>
-<li>清理残留文件：<pre><code><span class="keyword">find</span> ~<span class="regexp">/Library/</span>Application\ Support<span class="regexp">/Developer/</span>Shared<span class="regexp">/Xcode/</span>Plug-ins -name Info.plist -maxdepth <span class="number">3</span> | xargs -I{} defaults <span class="keyword">write</span> {} DVTPlugInCompatibilityUUIDs -array-add defaults <span class="keyword">read</span> <span class="regexp">/Applications/</span>Xcode.app<span class="regexp">/Contents/I</span>nfo DVTPlugInCompatibilityUUID
-sudo xcode-select --reset
-</code></pre></li>
-<li>打开Xcode，重新安装Alcatraz，再重启Xcode，在弹出框中选择”Load Bundles”</li>
-</ol>
-<p>讨论原帖地址：<a href="https://github.com/supermarin/Alcatraz/issues/352#issuecomment-153556597" target="_blank" rel="external">https://github.com/supermarin/Alcatraz/issues/352#issuecomment-153556597</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>最近升级Xcode以后，Alcatraz就不见了，从开发者的issue list里面找到了解决办法</p>
-<ol>
-<li>关闭Xcode，卸载Alcatraz：<pre><code>rm -rf ~<span class="regexp">/Library/</span]]>
-    </summary>
-    
-      <category term="Xcode" scheme="http://yoursite.com/tags/Xcode/"/>
-    
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-      <category term="Xcode&amp;DevTools" scheme="http://yoursite.com/categories/Xcode-DevTools/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Swift 2.x 函数变化]]></title>
-    <link href="http://yoursite.com/2015/11/02/Swift%202.x%20Function/"/>
-    <id>http://yoursite.com/2015/11/02/Swift 2.x Function/</id>
-    <published>2015-11-02T15:29:26.000Z</published>
-    <updated>2015-12-03T07:46:55.000Z</updated>
-    <content type="html"><![CDATA[<p>之前写了一篇全局函数，现在Swift2.1后，使用方法大变样-_-|||<br><strong>示例代码：</strong><br><a href="https://github.com/conanwhf/swiftplayground/blob/master/Swift_StandardFunc.playground/Contents.swift" target="_blank" rel="external">https://github.com/conanwhf/swiftplayground/blob/master/Swift_StandardFunc.playground/Contents.swift</a></p>
-<blockquote>
-<p>!!!<br>String不再是一个集合序列，所有相关调用需要改为<strong>String.chatacters</strong><br>e.g. <em>find(<strong>String</strong>, X)-> String.characters.indexOf(X)</em></p>
-</blockquote>
-<h2 id="func(obj,_optional)->obj-func(optional)">func(obj, <em>optional</em>)->obj.func(<em>optional</em>)</h2><ul>
-<li>enumerate()</li>
-<li>dropFirst()</li>
-<li>dropLast()</li>
-<li>contains() (不适用于String)</li>
-<li>indices()</li>
-<li>maxElement()<a id="more"></a></li>
-<li>minElement()</li>
-<li>startsWith()</li>
-<li>underestimateCount()</li>
-</ul>
-<h2 id="func(obj,_optional)->obj-newfunc(optional)">func(obj, <em>optional</em>)->obj.newfunc(<em>optional</em>)</h2><ul>
-<li>advance(obj,x)-> obj.advancedBy(x)</li>
-<li>distance(obj,x)-> obj.distanceTo(x)</li>
-<li>contanins(<strong>String</strong>,str)->String.contaninsString(str)</li>
-<li>equalElements(seq1,seq2)-> seq1.elementsEqual(seq2)</li>
-<li>find(seq,x)-> seq.indexOf(x) (不适用于String)</li>
-<li>join(seq,x)-> seq.joinWithSeparator(x)</li>
-</ul>
-<h2 id="rename/merged">rename/merged</h2><ul>
-<li>toString(n)->String(n)</li>
-<li>*println()->*print()</li>
-<li>count(obj)-> obj.enumerate()</li>
-</ul>
-<h2 id="other">other</h2><ul>
-<li>count(obj)-> obj.count</li>
-<li>reduce(seq, init, combineClosure)-> seq.reduce(init, <strong>combine:</strong>combineClosure)</li>
-<li>reflect(obj)-> Mirror(reflecting: obj)</li>
-<li>reverse(arr)-> Array(reverse()）</li>
-<li>一些条件序列操作函数由produce变成了function，即不修改序列本身，而是返回一个新的序列：func(obj,{rule})-> newobj = obj.func({rule})，包括filter(), map(), flatMap()等</li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>之前写了一篇全局函数，现在Swift2.1后，使用方法大变样-_-|||<br><strong>示例代码：</strong><br><a href="https://github.com/conanwhf/swiftplayground/blob/master/Swift_StandardFunc.playground/Contents.swift">https://github.com/conanwhf/swiftplayground/blob/master/Swift_StandardFunc.playground/Contents.swift</a></p>
-<blockquote>
-<p>!!!<br>String不再是一个集合序列，所有相关调用需要改为<strong>String.chatacters</strong><br>e.g. <em>find(<strong>String</strong>, X)-> String.characters.indexOf(X)</em></p>
-</blockquote>
-<h2 id="func(obj,_optional)->obj-func(optional)">func(obj, <em>optional</em>)->obj.func(<em>optional</em>)</h2><ul>
-<li>enumerate()</li>
-<li>dropFirst()</li>
-<li>dropLast()</li>
-<li>contains() (不适用于String)</li>
-<li>indices()</li>
-<li>maxElement()]]>
-    
-    </summary>
-    
-      <category term="Dev" scheme="http://yoursite.com/tags/Dev/"/>
-    
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-      <category term="Swift" scheme="http://yoursite.com/categories/Swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[读书清单 2015-10]]></title>
-    <link href="http://yoursite.com/2015/11/01/ReadingList2015-10/"/>
-    <id>http://yoursite.com/2015/11/01/ReadingList2015-10/</id>
-    <published>2015-11-01T12:02:38.000Z</published>
-    <updated>2015-12-03T05:45:05.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="读完的书">读完的书</h2><ol>
-<li><strong>新加坡的那些事儿</strong><br>讲新加坡的方方面面，社会、规则、历史、文化，等等。有些东西闻所未闻未免怀疑，就我所知道的部分来说，基本上没有胡说八道。想适当了解新加坡的话，还是值得一看。</li>
-<li><strong>时代的变换</strong><br>不愧为中国人写的凑字数的东西，只能说是个PPT，还是个没什么内容光有废话的PPT。题目很大，其实就是讲讲新时代的信息传播方式变化，或者说，就是讲“现在是信息化时代了，有好多好多巨大的变化哦！”，没了，别奢望看到更多具体的。</li>
-<li><strong>Swift for Beginners</strong><br>图书馆借的。开始的时候很浅，后来又有点点深得过快了，总的来说还是本好书，就是字有点小，看着累。</li>
-<li><strong>罗辑思维1</strong><br>有点类似于梁文道的我读，夹带的私货比较少，基本上都是在讲书里的观点和故事，每个topic短短三篇，蛮容易看的，内容也挺有意思。据说就是脱口秀的文字记录，文学性几乎为0，相当口语化，不过内容好看的话倒不必在乎这个。我讨厌的是没多远就插一段网友的评论或者留言，在kindle上是浅色字体看着费劲，又出戏，后来都跳过去了。</li>
-<li><strong>逃离北上广（1-3）</strong><a id="more"></a>
-其实这个不算读完，先看了点上海卷，感觉太有失偏颇，又去看了看北京和广州的。书名就起得相当的偏激，什么“北京很势力”之类，章节名字也是多用贬义词。每一节拿几个Loser的例子摆摆，以示翔实。比如说本地人看不起外地人，都是说烂了的例子，无非是被人挤兑两句，或是买不起房扎不了根结不了婚之类的。总之，多看两眼都嫌浪费时间的书。</li>
-<li><strong>如何阅读一本书</strong><br>久负盛名，其实……难副。这本书在各种推荐、排行榜里见了一遍又一遍，终于决定读一下。读了三分之一就有点想放弃了：言语啰嗦乏味，讲的东西又是那么显而易见。害怕自己因为偏见和自大错过一本好书，于是硬着头皮读完，还是Get不到精髓。里面讲的东西，实在是不需要特意大张旗鼓教一遍，因为平常就是这么读的呀！更何况表达又繁复，前情提要讲一大堆，我反正是受不了这种。归根结底，也许我不是这本书的目标读者吧，比较适合初中生或者阅读有点点障碍的高中生看看。</li>
-<li><strong>你一定爱读的极简欧洲史</strong><br>我一向不大爱读历史，前段时间某人帮我先看了，说还不错，反正也不长，我又是彻底的历史盲总觉得需要补习一下，就拿起来读了。确实是本好书，扫盲太合适了。重要的不是讲史实，而是捋清脉络：事情为什么会这么发展，当时是种什么社会背景，导致了什么后续……刚好最近在看《权利的游戏》，联系起来一想，好多地方直拍大腿啊！类似于君主制，分封制的由来，世袭制度，新神旧神，教会僧侣之类的，过去模模糊糊的那些欧洲的事情，一下子变清晰了。当然，也有可能是因为我高中没读历史的缘故，其实这些别人都懂。-_-<br>另外，这书的翻译是文化人啊！里面有两三次出现了我不认识的字或者词,很古很书面的那种！我读书也不算太少了，见过知道大意却不会读的字不少，从没见过完全傻眼的词还真不多。</li>
-<li><strong>MacTalk人生元编程</strong><br>个人Blog合集，原以为可以看到一些Mac的高级用法和原理之类，其实内容很松散，水平也相当一般般。了解了一些Apple的历史，别的收获不大。</li>
-</ol>
-<h2 id="读完的杂志">读完的杂志</h2><ol>
-<li>知乎周刊：像大侦探一样思考</li>
-<li>知乎周刊：日常经济学2</li>
-<li>码农：算法</li>
-</ol>
-<h2 id="其他阅读">其他阅读</h2><ol>
-<li>中文传媒精选</li>
-<li>每日开发者订阅源&amp;新闻</li>
-<li>百度Google等大公司面试题（这个主要在讨论算法）　</li>
-<li>杂七杂八开发相关网页推送</li>
-</ol>
-<h2 id="正在读的书">正在读的书</h2><ol>
-<li>家庭医学全书</li>
-<li>金粉世家</li>
-<li>谣言粉碎机</li>
-<li>英国语文</li>
-<li>The Swift Programming Language</li>
-<li>玩转Swift江湖</li>
-</ol>
-<h2 id="中亚买的书（22-96）">中亚买的书（<strong>22.96</strong>）</h2><ol>
-<li>美国历史(出国留学英文版)   <strong>1.00</strong></li>
-<li>安德的影子  <strong>4.99</strong>　</li>
-<li>反乌托邦小说三部曲（美丽新世界，1984，我们）  <strong>5.99</strong></li>
-<li>阿瑟·克拉克经典科幻超值套装(神的九十亿个名字+最后一个地球人+遥远地球之歌+地光) <strong>9.99</strong></li>
-<li>怀孕这件大事儿：知乎杜小溪特约撰稿  <strong>0.99</strong></li>
-</ol>
-<h2 id="总结">总结</h2><p>这个月在看电视剧琅琊榜，再加上大部头的金粉世家，看书时间有所减少。看看这些杂书，慢慢的有点不满足的感觉，时候到了，下个月开始读经典。<br>另外，中文传媒精选质量不错，每天晚上睡前开个读书会，我念标题某人玩iPad，碰到感兴趣的就读一读内容。相当于一起把大事过了一遍，也获得了很多不懂的信息。虽然有点耗时间，但可以作为常态坚持。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="读完的书">读完的书</h2><ol>
-<li><strong>新加坡的那些事儿</strong><br>讲新加坡的方方面面，社会、规则、历史、文化，等等。有些东西闻所未闻未免怀疑，就我所知道的部分来说，基本上没有胡说八道。想适当了解新加坡的话，还是值得一看。</li>
-<li><strong>时代的变换</strong><br>不愧为中国人写的凑字数的东西，只能说是个PPT，还是个没什么内容光有废话的PPT。题目很大，其实就是讲讲新时代的信息传播方式变化，或者说，就是讲“现在是信息化时代了，有好多好多巨大的变化哦！”，没了，别奢望看到更多具体的。</li>
-<li><strong>Swift for Beginners</strong><br>图书馆借的。开始的时候很浅，后来又有点点深得过快了，总的来说还是本好书，就是字有点小，看着累。</li>
-<li><strong>罗辑思维1</strong><br>有点类似于梁文道的我读，夹带的私货比较少，基本上都是在讲书里的观点和故事，每个topic短短三篇，蛮容易看的，内容也挺有意思。据说就是脱口秀的文字记录，文学性几乎为0，相当口语化，不过内容好看的话倒不必在乎这个。我讨厌的是没多远就插一段网友的评论或者留言，在kindle上是浅色字体看着费劲，又出戏，后来都跳过去了。</li>
-<li><strong>逃离北上广（1-3）</strong>]]>
-    
-    </summary>
-    
-      <category term="BookList" scheme="http://yoursite.com/tags/BookList/"/>
-    
-      <category term="Kindle&amp;Reading" scheme="http://yoursite.com/categories/Kindle-Reading/"/>
     
   </entry>
   

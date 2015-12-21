@@ -3,6 +3,72 @@
 
     
   <url>
+    <loc>http://yoursite.com/2015/12/21/newsreader-3/</loc>
+    <lastmod>2015-12-21T17:59:13.000Z</lastmod>
+    <data>
+        <display>
+        <title>从打造新闻app学到的(3)：让自定义的类可排序</title>
+        <pubTime>2015-12-21T11:14:35.000Z</pubTime>
+        
+        <tag>Dev </tag>
+         
+        <tag>iOS </tag>
+         
+         
+           
+             
+              <breadCrumb title="Swift" url="http://yoursite.com/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2015/12/21/newsreader-2/</loc>
+    <lastmod>2015-12-21T10:00:22.000Z</lastmod>
+    <data>
+        <display>
+        <title>从打造新闻app学到的(2)：定义类中的只读属性</title>
+        <pubTime>2015-12-21T09:14:35.000Z</pubTime>
+        
+        <tag>Dev </tag>
+         
+        <tag>iOS </tag>
+         
+         
+           
+             
+              <breadCrumb title="Swift" url="http://yoursite.com/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2015/12/20/newsreader-1/</loc>
+    <lastmod>2015-12-21T09:41:56.000Z</lastmod>
+    <data>
+        <display>
+        <title>从打造新闻app学到的(1)：抽象概念，定义好的数据结构</title>
+        <pubTime>2015-12-20T09:14:35.000Z</pubTime>
+        
+        <tag>Dev </tag>
+         
+        <tag>iOS </tag>
+         
+         
+           
+             
+              <breadCrumb title="Swift" url="http://yoursite.com/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2015/12/16/creatDuoshuo/</loc>
     <lastmod>2015-12-16T06:04:58.000Z</lastmod>
     <data>
