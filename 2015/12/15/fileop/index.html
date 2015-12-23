@@ -34,7 +34,7 @@
 
 
 
-  <meta name="keywords" content="Dev,iOS," />
+  <meta name="keywords" content="File," />
 
 
 
@@ -51,13 +51,13 @@ let manager = NSFileManager.defaultManager()
 而文件路径的表示有两种方式：String和NSURL。在NSURL的视角中，本地文件作为一种特殊的网络文件而存在，以“file://">
 <meta property="og:type" content="article">
 <meta property="og:title" content="文件操作">
-<meta property="og:url" content="http://yoursite.com/2015/12/15/fileop/index.html">
+<meta property="og:url" content="http://conanwhf.gitcafe.io/2015/12/15/fileop/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="（挖坑自己跳系列二）上回说到文件操作，那就把文件操作来一遍吧，先放源码：GitHub某个地方
 初始化 &amp;amp; 文件路径所有的文件操作都要先声明一个根控制器以获得文件的句柄：
 let manager = NSFileManager.defaultManager()
 而文件路径的表示有两种方式：String和NSURL。在NSURL的视角中，本地文件作为一种特殊的网络文件而存在，以“file://">
-<meta property="og:updated_time" content="2015-12-15T15:16:50.000Z">
+<meta property="og:updated_time" content="2015-12-23T16:17:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文件操作">
 <meta name="twitter:description" content="（挖坑自己跳系列二）上回说到文件操作，那就把文件操作来一遍吧，先放源码：GitHub某个地方
@@ -291,7 +291,7 @@ let manager = NSFileManager.defaultManager()
     <span class="keyword">return</span> url
     }
 }
-</code></pre><p>这里使用参数<strong>fileURLWithPath:</strong>而不是<strong>string:</strong>就是为了上述原因。<br>对于路径的修改，String表示方法很简单，直接相加即可；NSURL需要用以下代码：<br><a id="more"></a></p>
+</code></pre><p>这里使用参数<strong>fileURLWithPath:</strong>而不是<strong>string:</strong>就是为了上述原因。<br>对于路径的修改，String表示方法很简单，直接相加即可；NSURL需要用以下代码：<a id="more"></a></p>
 <pre><code>let newUrl = url.<span class="function"><span class="title">URLByAppendingPathComponent</span><span class="params">(<span class="string">"/urlNewDir/"</span>, isDirectory: true)</span></span>   
 <span class="comment">//当然false也是可以的，但要注意匹配，别把参数给错了</span>
 </code></pre><h2 id="获取用户目录">获取用户目录</h2><p>由于Apple的沙盒机制，平时在iOS上能操作的文件也只存在于App当前用户目录、临时文件之类的地方而已，获得这个地址的方法是：</p>
@@ -481,9 +481,7 @@ manager.<span class="function"><span class="title">contentsEqualAtPath</span><sp
       
         <div class="post-tags">
           
-            <a href="/tags/Dev/" rel="tag">#Dev</a>
-          
-            <a href="/tags/iOS/" rel="tag">#iOS</a>
+            <a href="/tags/File/" rel="tag">#File</a>
           
         </div>
       
@@ -516,7 +514,7 @@ manager.<span class="function"><span class="title">contentsEqualAtPath</span><sp
         <div class="ds-share flat" data-thread-key="2015/12/15/fileop/"
      data-title="文件操作"
      data-content=""
-     data-url="http://yoursite.com/2015/12/15/fileop/">
+     data-url="http://conanwhf.gitcafe.io/2015/12/15/fileop/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -538,16 +536,16 @@ manager.<span class="function"><span class="title">contentsEqualAtPath</span><sp
  </div>
 
         
-            <!-- 多说热评文章-->
-            <p>热评文章</p>
-            <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+            <!-- 多说热评文章 start -->
+            <div class="ds-top-threads" data-range="monthly" data-num-items="5"></div>
+            <!-- 多说热评文章 end -->
         
 
         
           <div class="comments" id="comments">
             
               <div class="ds-thread" data-thread-key="2015/12/15/fileop/"
-                   data-title="文件操作" data-url="http://yoursite.com/2015/12/15/fileop/">
+                   data-title="文件操作" data-url="http://conanwhf.gitcafe.io/2015/12/15/fileop/">
               </div>
             
           </div>
@@ -587,21 +585,21 @@ manager.<span class="function"><span class="title">contentsEqualAtPath</span><sp
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">45</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

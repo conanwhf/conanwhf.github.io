@@ -34,7 +34,7 @@
 
 
 
-  <meta name="keywords" content="BookList," />
+  <meta name="keywords" content="Segue,iOS," />
 
 
 
@@ -45,22 +45,22 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="读完的书
-金粉世家大部头，看了好久才看完，看得有点累。可能受电视剧影响太深，我一边看一边不停地脑补陈坤、董洁、天线。小说写得是不错，那种世家的感觉，各种支线带来的社会整体描绘，感情线的冲突……虽然不至于欲罢不能但每次放下也有点恋恋不舍。我蛮喜欢小说里面的金燕西的，反倒对冷清秋有点反感，感觉多少有点想攀龙附凤又扔不掉自己的清高吧，特别是早期，很多经济上的便宜占得没骨气。
-The Swift Prog">
+<meta name="description" content="在从TableCell跳转到具体新闻页面的时候，我遇到了一个问题：整个流程的时序跟我想的不太一样。因为我需要在点击Cell的时候知道这是哪个Cell，再将它作为参数传递给下一个View，所以我实现了函数 didSelectRowAtIndexPath，然后设好一个private的变量，供prepareForSegue调用。可是事实上的流程却变成了：
+
+prepareForSegue() -&amp;gt; ne">
 <meta property="og:type" content="article">
-<meta property="og:title" content="读书清单 2015-11">
-<meta property="og:url" content="http://yoursite.com/2015/12/01/ReadingList201511/index.html">
+<meta property="og:title" content="从打造新闻app学到的(5)：解决TableCell调用segue的时序问题">
+<meta property="og:url" content="http://conanwhf.gitcafe.io/2015/12/23/newsreader-5/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
-<meta property="og:description" content="读完的书
-金粉世家大部头，看了好久才看完，看得有点累。可能受电视剧影响太深，我一边看一边不停地脑补陈坤、董洁、天线。小说写得是不错，那种世家的感觉，各种支线带来的社会整体描绘，感情线的冲突……虽然不至于欲罢不能但每次放下也有点恋恋不舍。我蛮喜欢小说里面的金燕西的，反倒对冷清秋有点反感，感觉多少有点想攀龙附凤又扔不掉自己的清高吧，特别是早期，很多经济上的便宜占得没骨气。
-The Swift Prog">
-<meta property="og:updated_time" content="2015-12-03T05:42:32.000Z">
+<meta property="og:description" content="在从TableCell跳转到具体新闻页面的时候，我遇到了一个问题：整个流程的时序跟我想的不太一样。因为我需要在点击Cell的时候知道这是哪个Cell，再将它作为参数传递给下一个View，所以我实现了函数 didSelectRowAtIndexPath，然后设好一个private的变量，供prepareForSegue调用。可是事实上的流程却变成了：
+
+prepareForSegue() -&amp;gt; ne">
+<meta property="og:updated_time" content="2015-12-23T16:15:48.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="读书清单 2015-11">
-<meta name="twitter:description" content="读完的书
-金粉世家大部头，看了好久才看完，看得有点累。可能受电视剧影响太深，我一边看一边不停地脑补陈坤、董洁、天线。小说写得是不错，那种世家的感觉，各种支线带来的社会整体描绘，感情线的冲突……虽然不至于欲罢不能但每次放下也有点恋恋不舍。我蛮喜欢小说里面的金燕西的，反倒对冷清秋有点反感，感觉多少有点想攀龙附凤又扔不掉自己的清高吧，特别是早期，很多经济上的便宜占得没骨气。
-The Swift Prog">
+<meta name="twitter:title" content="从打造新闻app学到的(5)：解决TableCell调用segue的时序问题">
+<meta name="twitter:description" content="在从TableCell跳转到具体新闻页面的时候，我遇到了一个问题：整个流程的时序跟我想的不太一样。因为我需要在点击Cell的时候知道这是哪个Cell，再将它作为参数传递给下一个View，所以我实现了函数 didSelectRowAtIndexPath，然后设好一个private的变量，供prepareForSegue调用。可是事实上的流程却变成了：
+
+prepareForSegue() -&amp;gt; ne">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -70,7 +70,7 @@ The Swift Prog">
   };
 </script>
 
-  <title> 读书清单 2015-11 | iOS开发和七七八八 </title>
+  <title> 从打造新闻app学到的(5)：解决TableCell调用segue的时序问题 | iOS开发和七七八八 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -228,7 +228,7 @@ The Swift Prog">
           
           
             
-              读书清单 2015-11
+              从打造新闻app学到的(5)：解决TableCell调用segue的时序问题
             
           
         </h1>
@@ -237,8 +237,8 @@ The Swift Prog">
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-12-01T20:02:38+08:00" content="2015-12-01">
-            2015-12-01
+          <time itemprop="dateCreated" datetime="2015-12-23T10:56:35+08:00" content="2015-12-23">
+            2015-12-23
           </time>
         </span>
 
@@ -247,8 +247,8 @@ The Swift Prog">
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Kindle-Reading/" itemprop="url" rel="index">
-                  <span itemprop="name">Kindle&Reading</span>
+                <a href="/categories/Cocoa/" itemprop="url" rel="index">
+                  <span itemprop="name">Cocoa</span>
                 </a>
               </span>
 
@@ -263,8 +263,8 @@ The Swift Prog">
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/12/01/ReadingList201511/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/01/ReadingList201511/" itemprop="commentsCount"></span>
+              <a href="/2015/12/23/newsreader-5/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/23/newsreader-5/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -278,33 +278,27 @@ The Swift Prog">
       
 
       
-        <span itemprop="articleBody"><h2 id="读完的书">读完的书</h2><ol>
-<li><strong>金粉世家</strong><br>大部头，看了好久才看完，看得有点累。可能受电视剧影响太深，我一边看一边不停地脑补陈坤、董洁、天线。小说写得是不错，那种世家的感觉，各种支线带来的社会整体描绘，感情线的冲突……虽然不至于欲罢不能但每次放下也有点恋恋不舍。我蛮喜欢小说里面的金燕西的，反倒对冷清秋有点反感，感觉多少有点想攀龙附凤又扔不掉自己的清高吧，特别是早期，很多经济上的便宜占得没骨气。</li>
-<li><strong>The Swift Programming Language</strong><br>开发文档，算是看完了吧，不过还有很多东西待查</li>
-<li><strong>AppStore经营之道</strong><br>台湾人写的东西，怎么看都是嗲嗲的，哪怕是在讲纯技术的东西。而且台版的书籍通常都是内容不多，图多、啰嗦，所以这本书虽然开了个很大的标题，其实里面的干货一般般，很快就读完了。对利用Appstore来挣钱（开发APP，不是刷榜）的各种方式和努力方向讲得还不错，其他的随便瞄一瞄就好</li>
-<li><strong>使用Google Apps服務開店的九堂課</strong><br>图书馆看到的，打发时间翻了翻，主要讲GAE建站、做小型服务器的东西，讲得很浅<a id="more"></a>
-<h2 id="读完的杂志">读完的杂志</h2></li>
-<li>开源启示录 第一季</li>
-<li>云生态专刊2015年第5期</li>
-<li>知乎话题精华之独立开发者　</li>
-</ol>
-<h2 id="其他阅读">其他阅读</h2><ol>
-<li>中文传媒精选</li>
-<li>每日开发者订阅源&amp;新闻</li>
-</ol>
-<h2 id="正在读的书">正在读的书</h2><ol>
-<li>家庭医学全书</li>
-<li>谣言粉碎机</li>
-<li>英国语文</li>
-<li>玩转Swift江湖</li>
-</ol>
-<h2 id="中亚买的书">中亚买的书</h2><ol>
-<li>你不可错过的32部欧美文学不朽名作  <strong>9.99</strong></li>
-<li>你不可错过的24部西方思想大师巨著  <strong>9.99</strong></li>
-<li>安德的游戏 (全球顶级科幻大师系列) <strong>5.99</strong></li>
-<li>沿街尝，回家做：街边小吃炮制全攻略  <strong>1.00</strong></li>
-</ol>
-<h2 id="总结">总结</h2><p>这个月花了很多时间在研究Swift上，包括开发的资源整理、读文档、写练习code等等。不过感觉不管是学习还是读书都不是很有效率……仔细想了想，这个月双十一 + 黑五，怪不得！每天激动地买买买去了！:)话说现在这个外接键盘太难用了！盼着我的茶轴圣手快点送到……因为surge的热度，这个月还研究了下翻墙，可是从国内翻出来是多么的容易啊！！！从外面翻进去又是多么的麻烦啊！本来想省事买服务，找了很久也找不到一个可以两边翻的，偶尔有一个还是按流量计算，我看爱奇艺什么的就别想了。自己搭建吧，国内的服务器也是按流量的，还贵！算了，我还是平时老老实实呆着，等什么时候回国再用自己搭的梯子玩玩吧。<br>另外，我好像已经过了刚买Kindle的时候那种老鼠掉进米缸的感觉了，那种每天看到什么书都想要的感觉。现在看看亚马逊特价、论坛资源，真没什么特别想收的……那就先消耗屯的</p>
+        <span itemprop="articleBody"><p>在从TableCell跳转到具体新闻页面的时候，我遇到了一个问题：整个流程的时序跟我想的不太一样。因为我需要在点击Cell的时候知道这是哪个Cell，再将它作为参数传递给下一个View，所以我实现了函数<strong> didSelectRowAtIndexPath</strong>，然后设好一个private的变量，供prepareForSegue调用。可是事实上的流程却变成了：</p>
+<blockquote>
+<p>prepareForSegue() -> next.viewDidLoad() -> didSelectRowAtIndexPath()]</p>
+</blockquote>
+<p>也就是说当Cell的点击发生，会先调用StroyBaord中设置的Segue，新的View初始化完成后再回调didSelectRowAtIndexPath，导致我在viewDidLoad()中拿不到想要的数据。<br>在网上搜了一下，有人也遇到了同样的问题，他的解决方法是：<br>1) 将->NextView的Segue改为->NextViewController(NextView的代理)<br>2) 在StoryBoard中配置此Segue的ID为<strong>“ABC”</strong><br>3) 在didSelectRowAtIndexPath()准备好数据之后手动调用转场：</p>
+<pre><code><span class="comment">//跳转到下一个页面，识别“ABC”</span>
+self.<span class="function"><span class="title">performSegueWithIdentifier</span><span class="params">(“ABC”, sender: self)</span></span>
+</code></pre><p>实测这个方法是有效的，不过我总感觉不够漂亮……于是打开Dash把所有tableView()的相关Callback都过了一遍，挑出几个加打印实测，<a id="more"></a>找到了这个：<strong>willSelectRowAtIndexPath</strong><br>看起来这是一个专门给人做点特殊需求的API，如果我们将其返回nil而不是当前的Index：</p>
+<pre><code><span class="func"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView,  willSelectRowAtIndexPath indexPath: NSIndexPath)</span></span> -&gt; <span class="type">NSIndexPath</span>?    {
+<span class="comment">//TODO anything you want</span>
+<span class="keyword">return</span> <span class="literal">nil</span>
+<span class="comment">//return indexPath</span>
+}
+</code></pre><p>那么无论你怎么点击，Cell都不会再响应任何selected事件了……😈虽然没有做更多的尝试，但我猜如果这时候返回一个修改过的indexPath也是可以做到的，比如怎么点都是同一个结果之类……😏<br>说回正事。现在我们可以把数据的获得放到willSelectRowAtIndexPath()中了，流程变成了：</p>
+<blockquote>
+<p>willSelectRowAtIndexPath() ，_获得要传递的数据_</p>
+<p>-> prepareForSegue() ，_传递数据的准备_</p>
+<p>-> next.viewDidLoad()，_通过Segue调用新的View_</p>
+<p>-> [如果你依然需要]didSelectRowAtIndexPath()</p>
+</blockquote>
+<p>问题解决!😄</p>
 </span>
       
     </div>
@@ -313,7 +307,9 @@ The Swift Prog">
       
         <div class="post-tags">
           
-            <a href="/tags/BookList/" rel="tag">#BookList</a>
+            <a href="/tags/Segue/" rel="tag">#Segue</a>
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
           
         </div>
       
@@ -322,13 +318,11 @@ The Swift Prog">
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/02/Swift_Syntax/" rel="prev">Swift2.0语法笔记</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/11/30/Tips201511/" rel="next">开发Tips收集-2015年11月</a>
+              <a href="/2015/12/22/newsreader-4/" rel="next">从打造新闻app学到的(4)：使用Segue在ViewController之间传递数据</a>
             
           </div>
         </div>
@@ -343,10 +337,10 @@ The Swift Prog">
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/12/01/ReadingList201511/"
-     data-title="读书清单 2015-11"
+        <div class="ds-share flat" data-thread-key="2015/12/23/newsreader-5/"
+     data-title="从打造新闻app学到的(5)：解决TableCell调用segue的时序问题"
      data-content=""
-     data-url="http://yoursite.com/2015/12/01/ReadingList201511/">
+     data-url="http://conanwhf.gitcafe.io/2015/12/23/newsreader-5/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -368,16 +362,16 @@ The Swift Prog">
  </div>
 
         
-            <!-- 多说热评文章-->
-            <p>热评文章</p>
-            <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+            <!-- 多说热评文章 start -->
+            <div class="ds-top-threads" data-range="monthly" data-num-items="5"></div>
+            <!-- 多说热评文章 end -->
         
 
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/12/01/ReadingList201511/"
-                   data-title="读书清单 2015-11" data-url="http://yoursite.com/2015/12/01/ReadingList201511/">
+              <div class="ds-thread" data-thread-key="2015/12/23/newsreader-5/"
+                   data-title="从打造新闻app学到的(5)：解决TableCell调用segue的时序问题" data-url="http://conanwhf.gitcafe.io/2015/12/23/newsreader-5/">
               </div>
             
           </div>
@@ -417,21 +411,21 @@ The Swift Prog">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">45</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -515,7 +509,7 @@ The Swift Prog">
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#读完的书"><span class="nav-number">1.</span> <span class="nav-text">读完的书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读完的杂志"><span class="nav-number">2.</span> <span class="nav-text">读完的杂志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他阅读"><span class="nav-number">3.</span> <span class="nav-text">其他阅读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正在读的书"><span class="nav-number">4.</span> <span class="nav-text">正在读的书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中亚买的书"><span class="nav-number">5.</span> <span class="nav-text">中亚买的书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

@@ -34,7 +34,7 @@
 
 
 
-  <meta name="keywords" content="Dev,iOS," />
+  <meta name="keywords" content="Conan" />
 
 
 
@@ -48,10 +48,10 @@
 <meta name="description" content="好几天没做总结了，一直被写code的欲望牵引着，噼里啪啦打了很多code，也走了很多弯路。好多时候，突然搞定的时候，才发现自己真真像个新新手一样，给自己挖了好多坑，真是傻到家了！好在我一直觉得，在debug上浪费的时间通常都不会是彻底浪费掉的，总有那么一些东西是留在脑子里，通俗地来讲，就是经验。是时候把过程理一理，记录下来了。之前也说过，之所以把String顺了一遍，其根本缘由是想找到一个编码转换">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在终端运行Swift程序">
-<meta property="og:url" content="http://yoursite.com/2015/12/15/runInTerm/index.html">
+<meta property="og:url" content="http://conanwhf.gitcafe.io/2015/12/15/runInTerm/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="好几天没做总结了，一直被写code的欲望牵引着，噼里啪啦打了很多code，也走了很多弯路。好多时候，突然搞定的时候，才发现自己真真像个新新手一样，给自己挖了好多坑，真是傻到家了！好在我一直觉得，在debug上浪费的时间通常都不会是彻底浪费掉的，总有那么一些东西是留在脑子里，通俗地来讲，就是经验。是时候把过程理一理，记录下来了。之前也说过，之所以把String顺了一遍，其根本缘由是想找到一个编码转换">
-<meta property="og:updated_time" content="2015-12-15T15:03:11.000Z">
+<meta property="og:updated_time" content="2015-12-23T16:17:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在终端运行Swift程序">
 <meta name="twitter:description" content="好几天没做总结了，一直被写code的欲望牵引着，噼里啪啦打了很多code，也走了很多弯路。好多时候，突然搞定的时候，才发现自己真真像个新新手一样，给自己挖了好多坑，真是傻到家了！好在我一直觉得，在debug上浪费的时间通常都不会是彻底浪费掉的，总有那么一些东西是留在脑子里，通俗地来讲，就是经验。是时候把过程理一理，记录下来了。之前也说过，之所以把String顺了一遍，其根本缘由是想找到一个编码转换">
@@ -277,7 +277,7 @@
 ./<span class="keyword">test</span>
 </code></pre><p>这是有编译过程的，更省事的是直接跑了：</p>
 <pre><code><span class="built_in">swift</span> test.<span class="built_in">swift</span>
-</code></pre><p>当然这个<strong>swift</strong>命令还有更多用法和参数，需要的话可以自己研究研究。<br><a id="more"></a><br>现在程序可以跑了，但是还缺自动重命名的环节，这个需要用到文件操作，先按下不表，总之是我做完这个小工具，又花了扎扎实实一整天把各种文件操作实现了一遍。在这个程序里，我搜索了某个目录下的文件名，将他们转换成UTF8再批量重命名。<br>这样显然还不够完美，那就是如果我的文件不是放在这个固定目录，而是想用参数传进去怎么办？解决方案依然那么简单：</p>
+</code></pre><p>当然这个<strong>swift</strong>命令还有更多用法和参数，<a id="more"></a>需要的话可以自己研究研究。<br>现在程序可以跑了，但是还缺自动重命名的环节，这个需要用到文件操作，先按下不表，总之是我做完这个小工具，又花了扎扎实实一整天把各种文件操作实现了一遍。在这个程序里，我搜索了某个目录下的文件名，将他们转换成UTF8再批量重命名。<br>这样显然还不够完美，那就是如果我的文件不是放在这个固定目录，而是想用参数传进去怎么办？解决方案依然那么简单：</p>
 <pre><code><span class="keyword">for</span> s <span class="keyword">in</span> Process.arguments {  
     <span class="built_in">print</span>(s)
 } 
@@ -287,14 +287,6 @@
     </div>
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Dev/" rel="tag">#Dev</a>
-          
-            <a href="/tags/iOS/" rel="tag">#iOS</a>
-          
-        </div>
       
 
       
@@ -325,7 +317,7 @@
         <div class="ds-share flat" data-thread-key="2015/12/15/runInTerm/"
      data-title="在终端运行Swift程序"
      data-content=""
-     data-url="http://yoursite.com/2015/12/15/runInTerm/">
+     data-url="http://conanwhf.gitcafe.io/2015/12/15/runInTerm/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -347,16 +339,16 @@
  </div>
 
         
-            <!-- 多说热评文章-->
-            <p>热评文章</p>
-            <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+            <!-- 多说热评文章 start -->
+            <div class="ds-top-threads" data-range="monthly" data-num-items="5"></div>
+            <!-- 多说热评文章 end -->
         
 
         
           <div class="comments" id="comments">
             
               <div class="ds-thread" data-thread-key="2015/12/15/runInTerm/"
-                   data-title="在终端运行Swift程序" data-url="http://yoursite.com/2015/12/15/runInTerm/">
+                   data-title="在终端运行Swift程序" data-url="http://conanwhf.gitcafe.io/2015/12/15/runInTerm/">
               </div>
             
           </div>
@@ -396,21 +388,21 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">45</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

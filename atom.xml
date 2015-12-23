@@ -3,9 +3,9 @@
   <title><![CDATA[iOS开发和七七八八]]></title>
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
-  <link href="http://yoursite.com/"/>
-  <updated>2015-12-21T17:59:13.000Z</updated>
-  <id>http://yoursite.com/</id>
+  <link href="http://conanwhf.gitcafe.io/"/>
+  <updated>2015-12-23T16:15:48.000Z</updated>
+  <id>http://conanwhf.gitcafe.io/</id>
   
   <author>
     <name><![CDATA[Conan Wang]]></name>
@@ -15,11 +15,86 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[从打造新闻app学到的(5)：解决TableCell调用segue的时序问题]]></title>
+    <link href="http://conanwhf.gitcafe.io/2015/12/23/newsreader-5/"/>
+    <id>http://conanwhf.gitcafe.io/2015/12/23/newsreader-5/</id>
+    <published>2015-12-23T02:56:35.000Z</published>
+    <updated>2015-12-23T16:15:48.000Z</updated>
+    <content type="html"><![CDATA[<p>在从TableCell跳转到具体新闻页面的时候，我遇到了一个问题：整个流程的时序跟我想的不太一样。因为我需要在点击Cell的时候知道这是哪个Cell，再将它作为参数传递给下一个View，所以我实现了函数<strong> didSelectRowAtIndexPath</strong>，然后设好一个private的变量，供prepareForSegue调用。可是事实上的流程却变成了：</p>
+<blockquote>
+<p>prepareForSegue() -> next.viewDidLoad() -> didSelectRowAtIndexPath()]</p>
+</blockquote>
+<p>也就是说当Cell的点击发生，会先调用StroyBaord中设置的Segue，新的View初始化完成后再回调didSelectRowAtIndexPath，导致我在viewDidLoad()中拿不到想要的数据。<br>在网上搜了一下，有人也遇到了同样的问题，他的解决方法是：<br>1) 将->NextView的Segue改为->NextViewController(NextView的代理)<br>2) 在StoryBoard中配置此Segue的ID为<strong>“ABC”</strong><br>3) 在didSelectRowAtIndexPath()准备好数据之后手动调用转场：</p>
+<pre><code><span class="comment">//跳转到下一个页面，识别“ABC”</span>
+self.<span class="function"><span class="title">performSegueWithIdentifier</span><span class="params">(“ABC”, sender: self)</span></span>
+</code></pre><p>实测这个方法是有效的，不过我总感觉不够漂亮……于是打开Dash把所有tableView()的相关Callback都过了一遍，挑出几个加打印实测，<a id="more"></a>找到了这个：<strong>willSelectRowAtIndexPath</strong><br>看起来这是一个专门给人做点特殊需求的API，如果我们将其返回nil而不是当前的Index：</p>
+<pre><code><span class="func"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView,  willSelectRowAtIndexPath indexPath: NSIndexPath)</span></span> -&gt; <span class="type">NSIndexPath</span>?    {
+<span class="comment">//TODO anything you want</span>
+<span class="keyword">return</span> <span class="literal">nil</span>
+<span class="comment">//return indexPath</span>
+}
+</code></pre><p>那么无论你怎么点击，Cell都不会再响应任何selected事件了……😈虽然没有做更多的尝试，但我猜如果这时候返回一个修改过的indexPath也是可以做到的，比如怎么点都是同一个结果之类……😏<br>说回正事。现在我们可以把数据的获得放到willSelectRowAtIndexPath()中了，流程变成了：</p>
+<blockquote>
+<p>willSelectRowAtIndexPath() ，_获得要传递的数据_</p>
+<p>-> prepareForSegue() ，_传递数据的准备_</p>
+<p>-> next.viewDidLoad()，_通过Segue调用新的View_</p>
+<p>-> [如果你依然需要]didSelectRowAtIndexPath()</p>
+</blockquote>
+<p>问题解决!😄</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在从TableCell跳转到具体新闻页面的时候，我遇到了一个问题：整个流程的时序跟我想的不太一样。因为我需要在点击Cell的时候知道这是哪个Cell，再将它作为参数传递给下一个View，所以我实现了函数<strong> didSelectRowAtIndexPath</strong>，然后设好一个private的变量，供prepareForSegue调用。可是事实上的流程却变成了：</p>
+<blockquote>
+<p>prepareForSegue() -> next.viewDidLoad() -> didSelectRowAtIndexPath()]</p>
+</blockquote>
+<p>也就是说当Cell的点击发生，会先调用StroyBaord中设置的Segue，新的View初始化完成后再回调didSelectRowAtIndexPath，导致我在viewDidLoad()中拿不到想要的数据。<br>在网上搜了一下，有人也遇到了同样的问题，他的解决方法是：<br>1) 将->NextView的Segue改为->NextViewController(NextView的代理)<br>2) 在StoryBoard中配置此Segue的ID为<strong>“ABC”</strong><br>3) 在didSelectRowAtIndexPath()准备好数据之后手动调用转场：</p>
+<pre><code><span class="comment">//跳转到下一个页面，识别“ABC”</span>
+self.<span class="function"><span class="title">performSegueWithIdentifier</span><span class="params">(“ABC”, sender: self)</span></span>
+</code></pre><p>实测这个方法是有效的，不过我总感觉不够漂亮……于是打开Dash把所有tableView()的相关Callback都过了一遍，挑出几个加打印实测，]]>
+    
+    </summary>
+    
+      <category term="Segue" scheme="http://conanwhf.gitcafe.io/tags/Segue/"/>
+    
+      <category term="iOS" scheme="http://conanwhf.gitcafe.io/tags/iOS/"/>
+    
+      <category term="Cocoa" scheme="http://conanwhf.gitcafe.io/categories/Cocoa/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[从打造新闻app学到的(4)：使用Segue在ViewController之间传递数据]]></title>
+    <link href="http://conanwhf.gitcafe.io/2015/12/22/newsreader-4/"/>
+    <id>http://conanwhf.gitcafe.io/2015/12/22/newsreader-4/</id>
+    <published>2015-12-22T13:14:35.000Z</published>
+    <updated>2015-12-23T16:15:54.000Z</updated>
+    <content type="html"><![CDATA[<p>要实现不同界面的跳转，简单的办法是在StroyBoard中直接拖动控件。<strong>按住^</strong>将触发跳转的控件拖到待触发的View中，松开鼠标在弹出的菜单中选择对应的选项（跳转为View），一个segue(大致译为“转场、过渡”)就完成了：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_create_segue.gif" alt=""><br>而要实现在两个ViewController之间传数据，在这种建立segue的情况下也很简单。假设我们需要在从ViewA（ControllerA代理）跳转去ViewB（ControllerB代理）时传递一个Int变量id，那么先要在ControllerB中定义.id属性，然后在ControllerA中实现：</p>
+<pre><code><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">prepareForSegue</span><span class="params">(segue: UIStoryboardSegue, sender: AnyObject?)</span></span> {
+<span class="comment">//print(“this is segue \(segue.identifier), \(sender.debugDescription)")</span>
+<span class="type">ControllerB</span>.id = passValue
+}
+</code></pre><p>这样的方式适合参数比较少或者已经打包的情况，缺点是必须将待传递的参数在ControllerB中暴露出来。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>要实现不同界面的跳转，简单的办法是在StroyBoard中直接拖动控件。<strong>按住^</strong>将触发跳转的控件拖到待触发的View中，松开鼠标在弹出的菜单中选择对应的选项（跳转为View），一个segue(大致译为“转场、过渡”)就完成了：<br><img]]>
+    </summary>
+    
+      <category term="Segue" scheme="http://conanwhf.gitcafe.io/tags/Segue/"/>
+    
+      <category term="StroyBoard" scheme="http://conanwhf.gitcafe.io/tags/StroyBoard/"/>
+    
+      <category term="iOS" scheme="http://conanwhf.gitcafe.io/tags/iOS/"/>
+    
+      <category term="Cocoa" scheme="http://conanwhf.gitcafe.io/categories/Cocoa/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[从打造新闻app学到的(3)：让自定义的类可排序]]></title>
-    <link href="http://yoursite.com/2015/12/21/newsreader-3/"/>
-    <id>http://yoursite.com/2015/12/21/newsreader-3/</id>
+    <link href="http://conanwhf.gitcafe.io/2015/12/21/newsreader-3/"/>
+    <id>http://conanwhf.gitcafe.io/2015/12/21/newsreader-3/</id>
     <published>2015-12-21T11:14:35.000Z</published>
-    <updated>2015-12-21T17:59:13.000Z</updated>
+    <updated>2015-12-23T16:25:55.000Z</updated>
     <content type="html"><![CDATA[<p>假如你有一个自定义类的列表，想要对它排序，怎么办？在新闻APP中，我的新闻列表就是一个自定义class的数组，用户一会儿要最新、一会儿要更多旧数据的可能性，使得它需要按时间有序。我是懒人，自己一个个拿key比较写起来觉得好麻烦，Swift这么高级的语言，应该有别的更好的办法才对！又祭出官方文档找灵感，然后看到了：<strong>Comparable</strong>。<br>Comparable是一个协议，遵守这个协议的所有类型，都可以直接比大小。而对于自定义的类型，遵守它就行了：</p>
 <pre><code><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> : <span class="title">Comparable</span> </span>{
     <span class="keyword">var</span> key : <span class="type">Int</span> = <span class="number">0</span>
@@ -31,7 +106,7 @@
 <span class="func"><span class="keyword">func</span> == <span class="params">(<span class="keyword">left</span>: MyClass, <span class="keyword">right</span>: MyClass)</span></span> -&gt; <span class="type">Bool</span>{
     <span class="keyword">return</span> <span class="keyword">left</span>.key == <span class="keyword">right</span>.key
 }   
-</code></pre><p>我们只要实现<strong>\&lt;</strong>和<strong>==</strong>两个函数，编译器会自动帮我们判断>和!=的情况。于是，现在这样的排序或者比较都是合法的了：超easy!😄</p>
+</code></pre><p>我们只要实现<strong>\&lt;</strong>和<strong>== </strong>两个函数，编译器会自动帮我们判断>和!=的情况。于是，现在这样的排序或者比较都是合法的了：超easy!😄</p>
 <pre><code><span class="tag">var</span> <span class="tag">a</span> : MyClass = []
 <span class="comment">//TODO：a填了一些数据之后……</span>
 <span class="tag">a</span>.<span class="function"><span class="title">sort</span><span class="params">()</span></span>
@@ -41,20 +116,18 @@
     <![CDATA[<p>假如你有一个自定义类的列表，想要对它排序，怎么办？在新闻APP中，我的新闻列表就是一个自定义class的数组，用户一会儿要最新、一会儿要更多旧数据的可能性，使得它需要按时间有序。我是懒人，自己一个个拿key比较写起来觉得好麻烦，Swift这么高级的语言，应该有别的更好的办法]]>
     </summary>
     
-      <category term="Dev" scheme="http://yoursite.com/tags/Dev/"/>
+      <category term="Class" scheme="http://conanwhf.gitcafe.io/tags/Class/"/>
     
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-      <category term="Swift" scheme="http://yoursite.com/categories/Swift/"/>
+      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[从打造新闻app学到的(2)：定义类中的只读属性]]></title>
-    <link href="http://yoursite.com/2015/12/21/newsreader-2/"/>
-    <id>http://yoursite.com/2015/12/21/newsreader-2/</id>
+    <link href="http://conanwhf.gitcafe.io/2015/12/21/newsreader-2/"/>
+    <id>http://conanwhf.gitcafe.io/2015/12/21/newsreader-2/</id>
     <published>2015-12-21T09:14:35.000Z</published>
-    <updated>2015-12-21T10:00:22.000Z</updated>
+    <updated>2015-12-23T15:19:05.000Z</updated>
     <content type="html"><![CDATA[<p>在定义各种接口的过程中，我碰到了这样一个问题：我希望定义一个只读的属性，却找不到合适的前缀（原谅我是Class白痴）。翻了一遍Class的相关文档，找到了个曲线救国的办法：计算属性。<br>所谓的计算属性，就是自己定义一个属性的名字和get/set方法，外人看不见get/set的实现，只能看作是一个普通属性来使用。而如果只实现了get部分，这个属性对外而言就是只读的了。<br>我的数据结构大致这样：</p>
 <pre><code><span class="class"><span class="keyword">class</span> <span class="title">myclass</span> {</span>
     <span class="keyword">private</span> var data =  ( <span class="string">api :</span> typeX, <span class="string">list:</span>  typeY,  <span class="string">post:</span> typeZ,  <span class="string">channel:</span> typeA) (xxx, <span class="string">list:</span> yyy, <span class="string">post:</span> zzz, .news)
@@ -80,44 +153,38 @@
     <![CDATA[<p>在定义各种接口的过程中，我碰到了这样一个问题：我希望定义一个只读的属性，却找不到合适的前缀（原谅我是Class白痴）。翻了一遍Class的相关文档，找到了个曲线救国的办法：计算属性。<br>所谓的计算属性，就是自己定义一个属性的名字和get/set方法，外人看不见get/s]]>
     </summary>
     
-      <category term="Dev" scheme="http://yoursite.com/tags/Dev/"/>
+      <category term="Class" scheme="http://conanwhf.gitcafe.io/tags/Class/"/>
     
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-      <category term="Swift" scheme="http://yoursite.com/categories/Swift/"/>
+      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[从打造新闻app学到的(1)：抽象概念，定义好的数据结构]]></title>
-    <link href="http://yoursite.com/2015/12/20/newsreader-1/"/>
-    <id>http://yoursite.com/2015/12/20/newsreader-1/</id>
+    <link href="http://conanwhf.gitcafe.io/2015/12/20/newsreader-1/"/>
+    <id>http://conanwhf.gitcafe.io/2015/12/20/newsreader-1/</id>
     <published>2015-12-20T09:14:35.000Z</published>
-    <updated>2015-12-21T09:41:56.000Z</updated>
+    <updated>2015-12-23T15:18:57.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>怎么从JSON拿数据学会了，那么接下来就是正式打造一个自己的新闻客户端了。虽然我Swift语法还没认真学完，但实在是心痒痒，就跳过一点基础，先来个实战吧！经过这个礼拜，我的APP也基本成型了。网上关于怎么做一个新闻客户端的例子很多，我就不赘述了，只是把过程中碰到的一些小问题和心得、我自己无法很容易搜到完美答案的写一写。过程中的弯路肯定没少走，但经验的收获也是不少的。</p>
 </blockquote>
-<p>关于这个APP使用的数据结构，其实我是重构过的。新闻一般都是有两种数据源：新闻列表(List)，和单条新闻(Post)详细信息。开始我在playground写了对应的List&amp;Post数据结构，以及处理数据的函数。打印测试成功后，往project里面放的时候……不忍直视！作为一个初学者，我往DidView()里面塞了几乎所有的流程调用，以至于第一次运行成功在模拟器中看到数据的时候，我最大的感觉不是兴奋，而是我怎么把code写得这么丑陋！😖<br><strong>功能不行可以再学习怎么做，但代码太丑是真真正正不能忍！</strong>我曾经的经验如是告诉我。我试着模块化各种数据和过程，一番思考和尝试后，变成了现在的结构：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_wxc_data.png" alt="" title="新闻APP拿取数据框图"><br>DataManager是整个业务的最顶层类，它提供了很少的几个接口供ViewController使用：请求最新列表、请求更多列表数据、请求某个新闻、少量设置，并且设置也都是有default值的。考虑到将来有可能支持更多的新闻网站，GetURL和数据解析部分也是独立可更换的模块。在数据结构部分，我定义了一个Item类型，包括几个通用的属性，以及几个通用函数的实现，然后让ListItem，PostItem，CommentItem分别继承。这样既逻辑清晰，减少重复代码，也便于调试。所有上层不需要知道的参数都封装在内部，只有一个Manger和它的API，以及几个配置属性暴露在外。<br>也许这样的抽象定义过程，对于老手来说是不值一提的基础，就像吃饭要先煮饭一样简单。但我想对于刚刚接触APP开发的新人来说，如何更好的定义数据结构和API，恰当地抽象各种概念，还是值得多多思考的功课。</p>
+<p>关于这个APP使用的数据结构，其实我是重构过的。新闻一般都是有两种数据源：新闻列表(List)，和单条新闻(Post)详细信息。开始我在playground写了对应的List&amp;Post数据结构，以及处理数据的函数。打印测试成功后，往project里面放的时候……不忍直视！作为一个初学者，我往viewDidLoad()里面塞了几乎所有的流程调用，以至于第一次运行成功在模拟器中看到数据的时候，我最大的感觉不是兴奋，而是我怎么把code写得这么丑陋！😖<br><strong>功能不行可以再学习怎么做，但代码太丑是真真正正不能忍！</strong>我曾经的经验如是告诉我。我试着模块化各种数据和过程，一番思考和尝试后，变成了现在的结构：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_wxc_data.png" alt="" title="新闻APP拿取数据框图"><br>DataManager是整个业务的最顶层类，它提供了很少的几个接口供ViewController使用：请求最新列表、请求更多列表数据、请求某个新闻、少量设置，并且设置也都是有default值的。考虑到将来有可能支持更多的新闻网站，GetURL和数据解析部分也是独立可更换的模块。在数据结构部分，我定义了一个Item类型，包括几个通用的属性，以及几个通用函数的实现，然后让ListItem，PostItem，CommentItem分别继承。这样既逻辑清晰，减少重复代码，也便于调试。所有上层不需要知道的参数都封装在内部，只有一个Manger和它的API，以及几个配置属性暴露在外。<br>也许这样的抽象定义过程，对于老手来说是不值一提的基础，就像吃饭要先煮饭一样简单。但我想对于刚刚接触APP开发的新人来说，如何更好的定义数据结构和API，恰当地抽象各种概念，还是值得多多思考的功课。</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<blockquote>
 <p>怎么从JSON拿数据学会了，那么接下来就是正式打造一个自己的新闻客户端了。虽然我Swift语法还没认真学完，但实在是心痒痒，就跳过一点基础，先来个实战吧！经过这个礼拜，我的APP也基本成型了。网上关于怎么做一个新闻客户端的例子很多，我就不赘述了，只]]>
     </summary>
     
-      <category term="Dev" scheme="http://yoursite.com/tags/Dev/"/>
-    
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-      <category term="Swift" scheme="http://yoursite.com/categories/Swift/"/>
+      <category term="iOS开发杂项" scheme="http://conanwhf.gitcafe.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[新配置了多说]]></title>
-    <link href="http://yoursite.com/2015/12/16/creatDuoshuo/"/>
-    <id>http://yoursite.com/2015/12/16/creatDuoshuo/</id>
+    <link href="http://conanwhf.gitcafe.io/2015/12/16/creatDuoshuo/"/>
+    <id>http://conanwhf.gitcafe.io/2015/12/16/creatDuoshuo/</id>
     <published>2015-12-16T05:35:25.000Z</published>
-    <updated>2015-12-16T06:04:58.000Z</updated>
+    <updated>2015-12-23T12:10:49.000Z</updated>
     <content type="html"><![CDATA[<p>测试一下！配置好像相当简单嘛！:) 而且好像不是用域名而是ID单匹配的，自己本地的测试服务也能用，所以像我这种两个域名的配置起来完全无障碍，注册、改config一站式完成，赞！</p>
 ]]></content>
     <summary type="html">
@@ -125,23 +192,23 @@
 ]]>
     </summary>
     
-      <category term="其他" scheme="http://yoursite.com/categories/%E5%85%B6%E4%BB%96/"/>
+      <category term="Life &amp; Other" scheme="http://conanwhf.gitcafe.io/categories/Life-Other/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[使用原生库解析JSON]]></title>
-    <link href="http://yoursite.com/2015/12/15/swift_json/"/>
-    <id>http://yoursite.com/2015/12/15/swift_json/</id>
+    <link href="http://conanwhf.gitcafe.io/2015/12/15/swift_json/"/>
+    <id>http://conanwhf.gitcafe.io/2015/12/15/swift_json/</id>
     <published>2015-12-15T12:14:35.000Z</published>
-    <updated>2015-12-15T15:17:11.000Z</updated>
+    <updated>2015-12-23T16:16:45.000Z</updated>
     <content type="html"><![CDATA[<p>（挖坑自己跳系列四）<br>以为实现了xml的解析，我就能拿到所有想要的数据，可是经过几次尝试，发现有的API失效了！😱无论我怎么尝试，有的数据就是拿不到，苦恼了好久，灵光一闪：前阵子买的surge可以派上用场了！不知道surge是啥的我给解释一下，是个iOS App，利用iOS9的特性能给设备做个全局代理，前阵子大家纷纷用来流畅FQ，已下架。对我来说，用来过滤下广告正好，偶尔还能看看http log。<br>看了下自己手机上的第三方客户端，request居然直接是网页，看来是直接解析网页了，这个太高深、放弃；只好去下载官方客户端来看，在网页看同样的请求，返回居然换成JSON了……😥<br>还能说啥呢，去找找JSON怎么解析呗！这次看了看，似乎比XML简单多了……先拿数据：</p>
 <pre><code><span class="built_in">let</span> url = NSURL(string:TESTURL)!
 guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
     <span class="built_in">print</span>(<span class="string">"Can't get any data"</span>)
     <span class="built_in">exit</span>(<span class="number">0</span>)
 }
-</code></pre><p>然后解析出来：<br><a id="more"></a></p>
+</code></pre><p>然后解析出来：<a id="more"></a></p>
 <pre><code><span class="keyword">do</span> {
     let json = <span class="keyword">try</span> NSJSONSerialization.JSONObjectWithData(data, <span class="keyword">options</span>: NSJSONReadingOptions.MutableContainers)
     <span class="comment">// TODO：</span>
@@ -177,24 +244,22 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
     <span class="built_in">print</span>(<span class="string">"Can't get any data"</span>)
     <span class="built_in">exit</span>(<span class="number">0</span>)
 }
-</code></pre><p>然后解析出来：<br>]]>
+</code></pre><p>然后解析出来：]]>
     
     </summary>
     
-      <category term="Dev" scheme="http://yoursite.com/tags/Dev/"/>
+      <category term="JSON" scheme="http://conanwhf.gitcafe.io/tags/JSON/"/>
     
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-      <category term="Swift" scheme="http://yoursite.com/categories/Swift/"/>
+      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[使用Swift原生库解析XML数据]]></title>
-    <link href="http://yoursite.com/2015/12/15/swift_xml/"/>
-    <id>http://yoursite.com/2015/12/15/swift_xml/</id>
+    <link href="http://conanwhf.gitcafe.io/2015/12/15/swift_xml/"/>
+    <id>http://conanwhf.gitcafe.io/2015/12/15/swift_xml/</id>
     <published>2015-12-15T10:14:35.000Z</published>
-    <updated>2015-12-15T15:17:00.000Z</updated>
+    <updated>2015-12-23T15:19:31.000Z</updated>
     <content type="html"><![CDATA[<p>（挖坑自己跳系列三）<br>在实现文件操作的时候我意识到了一个事实：由于NSURL是可支持的路径，很多文件的操作实际上可以扩充到网络上去，比如从网上下载一个文件、拿取一些数据……想到这里，埋藏在心中很久的愿望又开始蠢蠢欲动：写一个新闻客户端！<br>我有一个常看的新闻网站（不要问我是哪个，要FQ），官方客户端很难用，第三方广告满天飞，严重影响心情。所以当初开始学iOS的时候就把重做一个客户端的目标放在了首位。最开始的时候想得太简单，兴冲冲地开了个project，搞了两下TableView，然后发现……对于我这种从来只写底层代码，swift/OC语法都不会的人，做这个简直是异想天开好嘛！<br>折腾的过程中，为了拿到数据，还跑去下了Android的官方客户端反编译，find + grep出来了人家的数据接口地址（论一个爱折腾的程序员是怎么给自己挖坑的），返回的是XML数据，连蒙带猜试了试，可以用！不过后来做UI受挫（其实不止做UI，挫败感太大），就把那份东西闲置起来了。这两天突然想起来，现在我貌似感觉有点良好，何不捡起来继续写我的客户端？<br>因为UI我还一窍不通，不懂怎么调试，也不懂怎么把数据显示出来，为了避免到处打印的麻烦，我选择playground。这样也就是需要用原生库，这个很简单，搜一下就有了：NSXMLParserDelegate，还有好些源码，虽然大多是OC的。<br>问题是有源码，我依！然！看！不！懂！怎么用！每个教程都是扔了源码上来，可没人解释清楚到底怎么运行。我研究了好一阵，终于明白了大概的机制：</p>
 <blockquote>
 <p><strong>自己写一个类继承NSXMLParserDelegate，就叫它XmlReader吧；并且实现一些必须的callback函数，在XmlReader的Init中调用.parse()方法，最后在new XmlReader的时候就会自动完成整个parse了</strong><br><a id="more"></a></p>
@@ -288,20 +353,18 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
     
     </summary>
     
-      <category term="Dev" scheme="http://yoursite.com/tags/Dev/"/>
+      <category term="XML" scheme="http://conanwhf.gitcafe.io/tags/XML/"/>
     
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-      <category term="Swift" scheme="http://yoursite.com/categories/Swift/"/>
+      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[文件操作]]></title>
-    <link href="http://yoursite.com/2015/12/15/fileop/"/>
-    <id>http://yoursite.com/2015/12/15/fileop/</id>
+    <link href="http://conanwhf.gitcafe.io/2015/12/15/fileop/"/>
+    <id>http://conanwhf.gitcafe.io/2015/12/15/fileop/</id>
     <published>2015-12-15T08:14:35.000Z</published>
-    <updated>2015-12-15T15:16:50.000Z</updated>
+    <updated>2015-12-23T16:17:14.000Z</updated>
     <content type="html"><![CDATA[<p>（挖坑自己跳系列二）<br>上回说到文件操作，那就把文件操作来一遍吧，先放源码：<a href="https://github.com/conanwhf/swiftplayground/tree/master/Play.playground/Pages/File.xcplaygroundpage" target="_blank" rel="external">GitHub某个地方</a></p>
 <h2 id="初始化_&amp;_文件路径">初始化 &amp; 文件路径</h2><p>所有的文件操作都要先声明一个根控制器以获得文件的句柄：</p>
 <pre><code>let manager = NSFileManager.<span class="function"><span class="title">defaultManager</span><span class="params">()</span></span>
@@ -312,7 +375,7 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
     <span class="keyword">return</span> url
     }
 }
-</code></pre><p>这里使用参数<strong>fileURLWithPath:</strong>而不是<strong>string:</strong>就是为了上述原因。<br>对于路径的修改，String表示方法很简单，直接相加即可；NSURL需要用以下代码：<br><a id="more"></a></p>
+</code></pre><p>这里使用参数<strong>fileURLWithPath:</strong>而不是<strong>string:</strong>就是为了上述原因。<br>对于路径的修改，String表示方法很简单，直接相加即可；NSURL需要用以下代码：<a id="more"></a></p>
 <pre><code>let newUrl = url.<span class="function"><span class="title">URLByAppendingPathComponent</span><span class="params">(<span class="string">"/urlNewDir/"</span>, isDirectory: true)</span></span>   
 <span class="comment">//当然false也是可以的，但要注意匹配，别把参数给错了</span>
 </code></pre><h2 id="获取用户目录">获取用户目录</h2><p>由于Apple的沙盒机制，平时在iOS上能操作的文件也只存在于App当前用户目录、临时文件之类的地方而已，获得这个地址的方法是：</p>
@@ -506,30 +569,28 @@ manager.<span class="function"><span class="title">contentsEqualAtPath</span><sp
     <span class="keyword">return</span> url
     }
 }
-</code></pre><p>这里使用参数<strong>fileURLWithPath:</strong>而不是<strong>string:</strong>就是为了上述原因。<br>对于路径的修改，String表示方法很简单，直接相加即可；NSURL需要用以下代码：<br>]]>
+</code></pre><p>这里使用参数<strong>fileURLWithPath:</strong>而不是<strong>string:</strong>就是为了上述原因。<br>对于路径的修改，String表示方法很简单，直接相加即可；NSURL需要用以下代码：]]>
     
     </summary>
     
-      <category term="Dev" scheme="http://yoursite.com/tags/Dev/"/>
+      <category term="File" scheme="http://conanwhf.gitcafe.io/tags/File/"/>
     
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-      <category term="Swift" scheme="http://yoursite.com/categories/Swift/"/>
+      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[在终端运行Swift程序]]></title>
-    <link href="http://yoursite.com/2015/12/15/runInTerm/"/>
-    <id>http://yoursite.com/2015/12/15/runInTerm/</id>
+    <link href="http://conanwhf.gitcafe.io/2015/12/15/runInTerm/"/>
+    <id>http://conanwhf.gitcafe.io/2015/12/15/runInTerm/</id>
     <published>2015-12-15T04:14:35.000Z</published>
-    <updated>2015-12-15T15:03:11.000Z</updated>
+    <updated>2015-12-23T16:17:37.000Z</updated>
     <content type="html"><![CDATA[<p>好几天没做总结了，一直被写code的欲望牵引着，噼里啪啦打了很多code，也走了很多弯路。好多时候，突然搞定的时候，才发现自己真真像个新新手一样，给自己挖了好多坑，真是傻到家了！<br>好在我一直觉得，在debug上浪费的时间通常都不会是彻底浪费掉的，总有那么一些东西是留在脑子里，通俗地来讲，就是经验。是时候把过程理一理，记录下来了。<br>之前也说过，之所以把String顺了一遍，其根本缘由是想找到一个编码转换的函数，把我那些下载下来的书名乱码都改过来。后来编码是解决了，但改名还需要自己来……于是我琢磨着给Mac写个文件pickup的界面？刚巧看到源码推荐一个swift开源的命令行增强工具，突然意识到swift也是可以直接编译跑在终端的！做起来简单得不能更简单（先要装好Xcode command line tool，如果没装，在终端跑<code>xcode-select --install</code>）：</p>
 <pre><code>swiftc <span class="keyword">test</span>.swift<span class="comment">//生成一个test二进制程序</span>
 ./<span class="keyword">test</span>
 </code></pre><p>这是有编译过程的，更省事的是直接跑了：</p>
 <pre><code><span class="built_in">swift</span> test.<span class="built_in">swift</span>
-</code></pre><p>当然这个<strong>swift</strong>命令还有更多用法和参数，需要的话可以自己研究研究。<br><a id="more"></a><br>现在程序可以跑了，但是还缺自动重命名的环节，这个需要用到文件操作，先按下不表，总之是我做完这个小工具，又花了扎扎实实一整天把各种文件操作实现了一遍。在这个程序里，我搜索了某个目录下的文件名，将他们转换成UTF8再批量重命名。<br>这样显然还不够完美，那就是如果我的文件不是放在这个固定目录，而是想用参数传进去怎么办？解决方案依然那么简单：</p>
+</code></pre><p>当然这个<strong>swift</strong>命令还有更多用法和参数，<a id="more"></a>需要的话可以自己研究研究。<br>现在程序可以跑了，但是还缺自动重命名的环节，这个需要用到文件操作，先按下不表，总之是我做完这个小工具，又花了扎扎实实一整天把各种文件操作实现了一遍。在这个程序里，我搜索了某个目录下的文件名，将他们转换成UTF8再批量重命名。<br>这样显然还不够完美，那就是如果我的文件不是放在这个固定目录，而是想用参数传进去怎么办？解决方案依然那么简单：</p>
 <pre><code><span class="keyword">for</span> s <span class="keyword">in</span> Process.arguments {  
     <span class="built_in">print</span>(s)
 } 
@@ -541,38 +602,34 @@ manager.<span class="function"><span class="title">contentsEqualAtPath</span><sp
 ./<span class="keyword">test</span>
 </code></pre><p>这是有编译过程的，更省事的是直接跑了：</p>
 <pre><code><span class="built_in">swift</span> test.<span class="built_in">swift</span>
-</code></pre><p>当然这个<strong>swift</strong>命令还有更多用法和参数，需要的话可以自己研究研究。<br>]]>
+</code></pre><p>当然这个<strong>swift</strong>命令还有更多用法和参数，]]>
     
     </summary>
     
-      <category term="Dev" scheme="http://yoursite.com/tags/Dev/"/>
-    
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-      <category term="Swift" scheme="http://yoursite.com/categories/Swift/"/>
+      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Swift2.0 中的String（六）：正则匹配]]></title>
-    <link href="http://yoursite.com/2015/12/09/Swift_String_6/"/>
-    <id>http://yoursite.com/2015/12/09/Swift_String_6/</id>
+    <link href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/"/>
+    <id>http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/</id>
     <published>2015-12-09T08:20:16.000Z</published>
-    <updated>2015-12-09T14:59:56.000Z</updated>
+    <updated>2015-12-23T16:22:40.000Z</updated>
     <content type="html"><![CDATA[<p>Swift中的字符串，第六篇，正则匹配。其他的几篇传送门：</p>
 <ul>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性" target="_blank" rel="external">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作" target="_blank" rel="external">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换" target="_blank" rel="external">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换" target="_blank" rel="external">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换" target="_blank" rel="external">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配" target="_blank" rel="external">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
 </ul>
 <p>对于字符串的操作来说，正则匹配算是很重要的一项应用了。虽然其实我不太用，但偶尔需要的时候还是感到这东西真挺有用的。在网上找了找，对于iOS中使用正则，基本上都是说有三种方法，可惜给的Swift源码比较少，版本问题也不能直接跑，于是自己动手做一遍。总结了下其实所谓的三种方法其中两种还是很有局限性的。</p>
 <p>首先我们定义好待匹配的字符串和pattern：</p>
 <pre><code>let str = "18800002222---13144445555"
 let pattern = "1[<span class="link_label">3|5|7|8</span>][<span class="link_reference">0-9</span>]\\d{8}"
-</code></pre><p>简单示范，就不搞太复杂了。这个pattern是手机号码的正则，因为准备demo匹配多个结果，没有加开头和结尾的限制。<br><a id="more"></a></p>
+</code></pre><p>简单示范，就不搞太复杂了。这个pattern是手机号码的正则，因为准备demo匹配多个结果，没有加开头和结尾的限制。<a id="more"></a></p>
 <h2 id="String直接支持的匹配方式">String直接支持的匹配方式</h2><p>严格地来说，只有这一种才算是真正的“Swift中的正则”，其他的都是使用了OC继承过来的类。而这种方法也很简单，就是简单的使用rangOfString而已。</p>
 <pre><code>str.<span class="function"><span class="title">rangeOfString</span><span class="params">(pattern, options: NSStringCompareOptions.RegularExpressionSearch)</span></span>
 </code></pre><p>很简单吧？只是把option的参数改成<strong>RegularExpressionSearch</strong>就行了。这种方法会得到一个Range类型的返回值，是匹配到的第一个子串的位置。在这个例子中，返回0..\&lt;11；如果找不到匹配，返回nil</p>
@@ -585,7 +642,7 @@ pred.<span class="function"><span class="title">evaluateWithObject</span><span c
 expr<span class="class">.pattern</span>    <span class="comment">// Show the pattern</span>
 </code></pre><p>这一步可以看到正则表达式已经设置好了，可以使用这个变量对各种字符串进行匹配。<br>匹配的方法有两种，一种是Block的方式（在Swift中可以近似于闭包），另外一种是普通的（我也不知道是不是可以说成non-block）。</p>
 <blockquote>
-<p>插播吐个槽：<em>这个什么鬼Block真的搞得我好困惑啊！在C里面的Block函数是指那些阻塞进程的，而在OC里面是个反的！有callback专门做异步的！搞得我每次看到都要反应一下！求问为啥这么定义？！😖</em></p>
+<p>插播吐个槽：_这个什么鬼Block真的搞得我好困惑啊！在C里面的Block函数是指那些阻塞进程的，而在OC里面是个反的！有callback专门做异步的！搞得我每次看到都要反应一下！求问为啥这么定义？！😖_</p>
 </blockquote>
 <p>另外我在网上看到的示例中某些API都已经找不到了，这个类的完善看来也经历了一些过程……言归正传。Block的方法还要用到Callback来拿返回值，懒得用，我们的数据量反正也不大，先拿普通用法来解释：</p>
 <pre><code><span class="tag">var</span> range             = <span class="function"><span class="title">NSMakeRange</span><span class="params">(<span class="number">0</span>, str.characters.count)</span></span>
@@ -601,7 +658,7 @@ resAll.<span class="keyword">forEach</span>{ <span class="keyword">print</span>(
 <pre><code><span class="tag">var</span> newStr = <span class="function"><span class="title">NSMutableString</span><span class="params">(string: str)</span></span>
 expr.<span class="function"><span class="title">replaceMatchesInString</span><span class="params">(newStr, options: [] , range: range, withTemplate: <span class="string">"phoneNum"</span>)</span></span>
 newStr
-</code></pre><p>结果newStr变成了<em>“phoneNum—phoneNum”</em>。这里要用NSMutableString当作Input，是因为它本身是给OC~NSString系统用的，而NSString是固定memory的，替换可能改变字符串长度，所以需要强制要求提供一个NSMutableString的入口。Swift中的String类型是没有这种问题的。<br>这个方法其实靠rangeOfString + stringByReplacingCharactersInRange 也能做到，就是麻烦点儿。参数中的Template应该还有别的动态用法，我没深入研究了。</p>
+</code></pre><p>结果newStr变成了_“phoneNum—phoneNum”_。这里要用NSMutableString当作Input，是因为它本身是给OC~NSString系统用的，而NSString是固定memory的，替换可能改变字符串长度，所以需要强制要求提供一个NSMutableString的入口。Swift中的String类型是没有这种问题的。<br>这个方法其实靠rangeOfString + stringByReplacingCharactersInRange 也能做到，就是麻烦点儿。参数中的Template应该还有别的动态用法，我没深入研究了。</p>
 <h2 id="URL的匹配和解析">URL的匹配和解析</h2><p>说了这么多，最后顺便来一点URL吧。URL的解析在实用中也是很常见的，虽然也是可以使用正则表达式，但其实它有自己的接口来实现parser。下面就是范例代码：</p>
 <pre><code><span class="keyword">let</span> url        = NSURL(string: <span class="string">"http://weibo.com/u/1864854042?sudaref=conanwhf.github.io&amp;test=???&amp;lalalvy=irobot"</span>)!
 <span class="keyword">let</span> components = NSURLComponents(URL: url, resolvingAgainstBaseURL: <span class="literal">false</span>)
@@ -626,34 +683,32 @@ newStr
 <p>首先我们定义好待匹配的字符串和pattern：</p>
 <pre><code>let str = "18800002222---13144445555"
 let pattern = "1[<span class="link_label">3|5|7|8</span>][<span class="link_reference">0-9</span>]\\d{8}"
-</code></pre><p>简单示范，就不搞太复杂了。这个pattern是手机号码的正则，因为准备demo匹配多个结果，没有加开头和结尾的限制。<br>]]>
+</code></pre><p>简单示范，就不搞太复杂了。这个pattern是手机号码的正则，因为准备demo匹配多个结果，没有加开头和结尾的限制。]]>
     
     </summary>
     
-      <category term="Dev" scheme="http://yoursite.com/tags/Dev/"/>
+      <category term="String" scheme="http://conanwhf.gitcafe.io/tags/String/"/>
     
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-      <category term="Swift" scheme="http://yoursite.com/categories/Swift/"/>
+      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Swift2.0 中的String（五）：String和NS-XXX系列的互相转换]]></title>
-    <link href="http://yoursite.com/2015/12/08/Swift_String_5/"/>
-    <id>http://yoursite.com/2015/12/08/Swift_String_5/</id>
+    <link href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/"/>
+    <id>http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/</id>
     <published>2015-12-08T08:20:16.000Z</published>
-    <updated>2015-12-09T14:59:49.000Z</updated>
+    <updated>2015-12-23T16:22:33.000Z</updated>
     <content type="html"><![CDATA[<p>Swift中的字符串，第五篇，常用NS-XXX系列的类型转换。其他的几篇传送门：</p>
 <ul>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性" target="_blank" rel="external">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作" target="_blank" rel="external">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换" target="_blank" rel="external">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换" target="_blank" rel="external">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换" target="_blank" rel="external">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配" target="_blank" rel="external">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
 </ul>
-<p>刚开始碰String的时候着实被各种繁琐的操作折腾得不轻，不能随便取字串、比较、赋值，不能获得实际编码值……往往想干点什么，一搜，就是NSString，NSData的API，晕头转向。研究了一阵子编码，慢慢也摸清了这些数据类型和它们的方法，简单总结一下互相转换的方法，给新手一点方向。这篇文章里的类型包括了String, NSString, NSURL, NSData这几种，String是Swift的字符串类型不用多讲，封装得很豪华但各种概念多用起来有点麻烦；NSString是OC里面的字符串，但有很多实用且方便的API；NSData其实属于无差别的Data类型，存储字符串的话是RawData，有点像C语言里面的string，其实是数据块；NSURL专门用来表示网络地址，有一些网络相关API。<br><a id="more"></a><br>一些主要的操作其实在（四）编码转换 中特别是手动编码转换那一节实现过，这里更多的是总结。首先定义几个变量：</p>
+<p>刚开始碰String的时候着实被各种繁琐的操作折腾得不轻，不能随便取字串、比较、赋值，不能获得实际编码值……往往想干点什么，一搜，就是NSString，NSData的API，晕头转向。研究了一阵子编码，慢慢也摸清了这些数据类型和它们的方法，简单总结一下互相转换的方法，给新手一点方向。这篇文章里的类型包括了String, NSString, NSURL, NSData这几种，String是Swift的字符串类型不用多讲，封装得很豪华但各种概念多用起来有点麻烦；NSString是OC里面的字符串，但有很多实用且方便的API；NSData其实属于无差别的Data类型，存储字符串的话是RawData，有点像C语言里面的string，其实是数据块；NSURL专门用来表示网络地址，有一些网络相关API。<a id="more"></a>一些主要的操作其实在（四）编码转换 中特别是手动编码转换那一节实现过，这里更多的是总结。首先定义几个变量：</p>
 <pre><code><span class="variable"><span class="keyword">var</span> str</span> = “测试”
 <span class="variable"><span class="keyword">var</span> data</span> :NSData?
 <span class="variable"><span class="keyword">var</span> nstr</span> : NSString?
@@ -691,34 +746,32 @@ url                 = <span class="function"><span class="title">NSURL</span><sp
 <li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
 <li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages">这里</a>看到</li>
 </ul>
-<p>刚开始碰String的时候着实被各种繁琐的操作折腾得不轻，不能随便取字串、比较、赋值，不能获得实际编码值……往往想干点什么，一搜，就是NSString，NSData的API，晕头转向。研究了一阵子编码，慢慢也摸清了这些数据类型和它们的方法，简单总结一下互相转换的方法，给新手一点方向。这篇文章里的类型包括了String, NSString, NSURL, NSData这几种，String是Swift的字符串类型不用多讲，封装得很豪华但各种概念多用起来有点麻烦；NSString是OC里面的字符串，但有很多实用且方便的API；NSData其实属于无差别的Data类型，存储字符串的话是RawData，有点像C语言里面的string，其实是数据块；NSURL专门用来表示网络地址，有一些网络相关API。<br>]]>
+<p>刚开始碰String的时候着实被各种繁琐的操作折腾得不轻，不能随便取字串、比较、赋值，不能获得实际编码值……往往想干点什么，一搜，就是NSString，NSData的API，晕头转向。研究了一阵子编码，慢慢也摸清了这些数据类型和它们的方法，简单总结一下互相转换的方法，给新手一点方向。这篇文章里的类型包括了String, NSString, NSURL, NSData这几种，String是Swift的字符串类型不用多讲，封装得很豪华但各种概念多用起来有点麻烦；NSString是OC里面的字符串，但有很多实用且方便的API；NSData其实属于无差别的Data类型，存储字符串的话是RawData，有点像C语言里面的string，其实是数据块；NSURL专门用来表示网络地址，有一些网络相关API。]]>
     
     </summary>
     
-      <category term="Dev" scheme="http://yoursite.com/tags/Dev/"/>
+      <category term="String" scheme="http://conanwhf.gitcafe.io/tags/String/"/>
     
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-      <category term="Swift" scheme="http://yoursite.com/categories/Swift/"/>
+      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Swift2.0 中的String（四）：编码转换]]></title>
-    <link href="http://yoursite.com/2015/12/08/Swift_String_4/"/>
-    <id>http://yoursite.com/2015/12/08/Swift_String_4/</id>
+    <link href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/"/>
+    <id>http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/</id>
     <published>2015-12-08T07:20:16.000Z</published>
-    <updated>2015-12-09T14:59:45.000Z</updated>
+    <updated>2015-12-23T16:22:21.000Z</updated>
     <content type="html"><![CDATA[<p>Swift中的字符串，第四篇，中文字符编码的转换。其他的几篇传送门：</p>
 <ul>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性" target="_blank" rel="external">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作" target="_blank" rel="external">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换" target="_blank" rel="external">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换" target="_blank" rel="external">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换" target="_blank" rel="external">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配" target="_blank" rel="external">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
 </ul>
-<p>不知道是不是Safari的原因，我用浏览器下载中文名文件的时候常常文件名会变成乱码，就是“%EF%77%3D%20”那种，又因为很多是电子书，名称也不能乱改，还需要自己去copy一遍重命名，很烦，于是想到用Swift自己写个函数试试纠正这个乱码。<br><a id="more"></a><br>最开始我的想法是在String的API里面找，所有encoding相关的都过滤了一遍，未果（后来证明其实我找对了方向，只是用错了编码参数）；然后决定用自己拿手的方式，读取乱码数值填进数据块中，然后变成字符串。于是去网上搜索怎么填充字符串（顺便吐槽：我这边抽风cocoachina打不开，烦死），发现牵涉到NSData，NSString等等，同时也发现有人提供了一个字符串中文乱码的解决方案（UTF8转GBK）：</p>
+<p>不知道是不是Safari的原因，我用浏览器下载中文名文件的时候常常文件名会变成乱码，就是“%EF%77%3D%20”那种，又因为很多是电子书，名称也不能乱改，还需要自己去copy一遍重命名，很烦，于是想到用Swift自己写个函数试试纠正这个乱码。<br>最开始我的想法是在String的API里面找，所有encoding相关的都过滤了一遍，<a id="more"></a>未果（后来证明其实我找对了方向，只是用错了编码参数）；然后决定用自己拿手的方式，读取乱码数值填进数据块中，然后变成字符串。于是去网上搜索怎么填充字符串（顺便吐槽：我这边抽风cocoachina打不开，烦死），发现牵涉到NSData，NSString等等，同时也发现有人提供了一个字符串中文乱码的解决方案（UTF8转GBK）：</p>
 <pre><code><span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:urlStr];
 <span class="built_in">NSData</span> *data = [<span class="built_in">NSData</span> dataWithContentsOfURL:url]; 
 <span class="built_in">NSStringEncoding</span> enc =  <span class="built_in">CFStringConvertEncodingToNSStringEncoding</span>(k<span class="built_in">CFStringEncodingGB_18030_2000</span>);
@@ -814,7 +867,7 @@ stConvert("</span><span class="number">1</span><span class="variable">%2B12</spa
 <blockquote>
 <p>This type is used to define the constants for the <strong>built-in encodings</strong> (see Built-in String Encodings for a list) and for platform-dependent encodings (see <strong>External String Encodings</strong>). If CFString does not recognize or support the string encoding of a particular string, CFString functions will identify the string’s encoding as kCFStringEncodingInvalidId.</p>
 </blockquote>
-<p>在Swift中Built-in的编码是有对应的类似<em>NSXXXXEncoding</em>可以作为参数直接使用，而External那些则需要申请一个NSStringEncoding类型的变量，按照前面<em>func UTF8ToGB2312</em>的方式去赋值使用了。顺手附上<a href="https://developer.apple.com/library/ios/documentation/CoreFoundation/Reference/CFStringRef/index.html#//apple_ref/c/tdef/CFStringBuiltInEncodings" target="_blank" rel="external">Build-in</a>和<a href="https://developer.apple.com/library/ios/documentation/CoreFoundation/Reference/CFStringRef/index.html#//apple_ref/doc/constant_group/External_String_Encodings" target="_blank" rel="external">Externel</a>编码的列表供查询。<br>OK，编码部分结束！</p>
+<p>在Swift中Built-in的编码是有对应的类似_NSXXXXEncoding_可以作为参数直接使用，而External那些则需要申请一个NSStringEncoding类型的变量，按照前面_func UTF8ToGB2312_的方式去赋值使用了。顺手附上<a href="https://developer.apple.com/library/ios/documentation/CoreFoundation/Reference/CFStringRef/index.html#//apple_ref/c/tdef/CFStringBuiltInEncodings" target="_blank" rel="external">Build-in</a>和<a href="https://developer.apple.com/library/ios/documentation/CoreFoundation/Reference/CFStringRef/index.html#//apple_ref/doc/constant_group/External_String_Encodings" target="_blank" rel="external">Externel</a>编码的列表供查询。<br>OK，编码部分结束！</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>Swift中的字符串，第四篇，中文字符编码的转换。其他的几篇传送门：</p>
@@ -826,22 +879,20 @@ stConvert("</span><span class="number">1</span><span class="variable">%2B12</spa
 <li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
 <li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages">这里</a>看到</li>
 </ul>
-<p>不知道是不是Safari的原因，我用浏览器下载中文名文件的时候常常文件名会变成乱码，就是“%EF%77%3D%20”那种，又因为很多是电子书，名称也不能乱改，还需要自己去copy一遍重命名，很烦，于是想到用Swift自己写个函数试试纠正这个乱码。<br>]]>
+<p>不知道是不是Safari的原因，我用浏览器下载中文名文件的时候常常文件名会变成乱码，就是“%EF%77%3D%20”那种，又因为很多是电子书，名称也不能乱改，还需要自己去copy一遍重命名，很烦，于是想到用Swift自己写个函数试试纠正这个乱码。<br>最开始我的想法是在String的API里面找，所有encoding相关的都过滤了一遍，]]>
     
     </summary>
     
-      <category term="Dev" scheme="http://yoursite.com/tags/Dev/"/>
+      <category term="String" scheme="http://conanwhf.gitcafe.io/tags/String/"/>
     
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-      <category term="Swift" scheme="http://yoursite.com/categories/Swift/"/>
+      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Swift开源了！！！]]></title>
-    <link href="http://yoursite.com/2015/12/04/Swift_open/"/>
-    <id>http://yoursite.com/2015/12/04/Swift_open/</id>
+    <link href="http://conanwhf.gitcafe.io/2015/12/04/Swift_open/"/>
+    <id>http://conanwhf.gitcafe.io/2015/12/04/Swift_open/</id>
     <published>2015-12-04T10:29:26.000Z</published>
     <updated>2015-12-04T10:50:36.000Z</updated>
     <content type="html"><![CDATA[<p>这篇都不知道该算吐槽还是开发文章😀。<br>早晨起床一刷新闻，Swift承诺中的开源实现了！想想读书的时候写Pascal玩，进了大学才发现原来这玩意儿早过时了，大学的时候也是东搞西搞像无头苍蝇一样没有方向，偶尔有需要写程序的偏门作业就突击什么vfox, delphi, jsp之类的……等毕业工作半年了才开始学C，后来对着个Android1.2研究了下就觉得一层一层好复杂啊！😥这么些年永远走在潮流之后，什么GitHub是什么鬼从来没用过，学习Swift的过程就跟不断发现新大陆一样感觉信息爆炸性扑面而来，这次突然有一种自己终于跟上了时代的感觉，哈哈！<br>下午跑去Github上观光了一下Swift，手贱Watch了，结果十几分钟来了20封邮件！吓得我赶紧去unwatch，终于懂了为什么star的那么多watch的却很少了。这效率让我有点瞠目结舌：才一天，搭搭环境看看代码结构就差不多了吧，哪里来那么多大神神速找了bug出来还fix了！！膜拜的同时心生自卑：人家是怎么做到的？是我智商低吗？难道说这就是老人被拍死在沙滩上的真实写照……😱<br>看看文档，Swift3.0还要大改，居然都有计划做什么2.0到3.0的迁移器，那多半是改动多得大项目根本无法用人力迁移了。1.2到2.0的改动就够让我晕头转向的了，还没整明白呢，又来，我也真是醉……跟钱同学讨论这个问题，他相当不能理解这种不稳定性，觉得iOS开发者都这么好脾气吗？！其实我一个月前也不能忍，那种随便一找资料就过时、网上几乎所有的sample都编不过又不知道怎么改的感觉太令人抓狂，不过随着慢慢入门，这种感觉就好多了，也知道如何应对。也许对于这种剧烈变动的语言，亦步亦趋比猛插一杠子开干还是要容易吧！<br>最近读了一些文档、文章，感觉自己虽然语法差不多知道了些，思维却还是旧式的。对于那些流行的（或者其实是已经用了很长时间了，只是我不知道）的编程思想和范式，还很陌生。这种思维方式的转变，需要更多的时间来磨练和体会，不求成为大牛，只想做一个不是吃青春饭的工程师。给自己加油！🤗</p>
@@ -850,24 +901,24 @@ stConvert("</span><span class="number">1</span><span class="variable">%2B12</spa
     <![CDATA[<p>这篇都不知道该算吐槽还是开发文章😀。<br>早晨起床一刷新闻，Swift承诺中的开源实现了！想想读书的时候写Pascal玩，进了大学才发现原来这玩意儿早过时了，大学的时候也是东搞西搞像无头苍蝇一样没有方向，偶尔有需要写程序的偏门作业就突击什么vfox, delphi, j]]>
     </summary>
     
-      <category term="Swift" scheme="http://yoursite.com/categories/Swift/"/>
+      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Swift2.0 中的String（三）：类型转换]]></title>
-    <link href="http://yoursite.com/2015/12/03/Swift_String_3/"/>
-    <id>http://yoursite.com/2015/12/03/Swift_String_3/</id>
+    <link href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/"/>
+    <id>http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/</id>
     <published>2015-12-03T07:20:26.000Z</published>
-    <updated>2015-12-09T15:00:02.000Z</updated>
+    <updated>2015-12-23T16:22:52.000Z</updated>
     <content type="html"><![CDATA[<p>本系列第三篇，String相关的类型转换。其他的几篇传送门：</p>
 <ul>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性" target="_blank" rel="external">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作" target="_blank" rel="external">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换" target="_blank" rel="external">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换" target="_blank" rel="external">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换" target="_blank" rel="external">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配" target="_blank" rel="external">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
 </ul>
 <p>虽然Swift是强类型语言，但简单的String类型转换其实还是比较方便的，最暴力的就是强制类型转换，百试百灵：</p>
 <pre><code><span class="func"><span class="keyword">func</span> <span class="title">toString</span><span class="generics">&lt;T&gt;</span><span class="params">(a: T)</span></span> -&gt; <span class="type">String</span>{
@@ -883,7 +934,7 @@ stConvert("</span><span class="number">1</span><span class="variable">%2B12</spa
 </code></pre><p>同样照葫芦画瓢也能转回来：</p>
 <pre><code><span class="function"><span class="title">Int</span><span class="params">(<span class="string">"123"</span>)</span></span>
 <span class="function"><span class="title">Float</span><span class="params">(<span class="string">"3.1"</span>)</span></span>
-</code></pre><p>但这个太简单、太有局限性了！我最喜欢的是下面这个，利用了New的时候format方法，简直就是<strong>sprintf()</strong>的替代品！<br><a id="more"></a></p>
+</code></pre><p>但这个太简单、太有局限性了！我最喜欢的是下面这个，利用了New的时候format方法，简直就是<strong>sprintf()</strong>的替代品！ <a id="more"></a></p>
 <pre><code><span class="comment">// Way 1, 格式化转String</span>
 <span class="function"><span class="title">String</span><span class="params">(format:<span class="string">"%i,  0x%x,  0o%o,  %.2f"</span>, <span class="number">31</span>, <span class="number">31</span>,  <span class="number">31</span>, <span class="number">3.1</span>)</span></span>
 <span class="comment">// Way 2</span>
@@ -949,32 +1000,30 @@ ASCII char to int value
 </code></pre><p>同样照葫芦画瓢也能转回来：</p>
 <pre><code><span class="function"><span class="title">Int</span><span class="params">(<span class="string">"123"</span>)</span></span>
 <span class="function"><span class="title">Float</span><span class="params">(<span class="string">"3.1"</span>)</span></span>
-</code></pre><p>但这个太简单、太有局限性了！我最喜欢的是下面这个，利用了New的时候format方法，简直就是<strong>sprintf()</strong>的替代品！<br>]]>
+</code></pre><p>但这个太简单、太有局限性了！我最喜欢的是下面这个，利用了New的时候format方法，简直就是<strong>sprintf()</strong>的替代品！]]>
     
     </summary>
     
-      <category term="Dev" scheme="http://yoursite.com/tags/Dev/"/>
+      <category term="String" scheme="http://conanwhf.gitcafe.io/tags/String/"/>
     
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-      <category term="Swift" scheme="http://yoursite.com/categories/Swift/"/>
+      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Swift2.0 中的String（二）：基本操作]]></title>
-    <link href="http://yoursite.com/2015/12/03/Swift_String_2/"/>
-    <id>http://yoursite.com/2015/12/03/Swift_String_2/</id>
+    <link href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/"/>
+    <id>http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/</id>
     <published>2015-12-03T07:20:16.000Z</published>
-    <updated>2015-12-09T14:59:38.000Z</updated>
+    <updated>2015-12-23T16:22:11.000Z</updated>
     <content type="html"><![CDATA[<p>Swift中的字符串，第二篇，基本操作。其他的几篇传送门：</p>
 <ul>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性" target="_blank" rel="external">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作" target="_blank" rel="external">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换" target="_blank" rel="external">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换" target="_blank" rel="external">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换" target="_blank" rel="external">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配" target="_blank" rel="external">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
 </ul>
 <p>首先，我们要记得使用字符串最常用的两个参数：下标(Index)和范围(Range)，几乎所有API都要用到它们</p>
 <pre><code><span class="built_in">let</span> <span class="built_in">offset</span> = <span class="built_in">str</span>.startIndex.advancedBy(<span class="number">2</span>)<span class="comment">// offset: 3rd char</span>
@@ -983,7 +1032,7 @@ ASCII char to int value
 <pre><code>let n      = <span class="function"><span class="title">Int</span><span class="params">(str)</span></span>!
 <span class="function"><span class="title">String</span><span class="params">(<span class="string">"the number is \(n)"</span>)</span></span>
 <span class="function"><span class="title">String</span><span class="params">(format:<span class="string">"%.2f,  %i"</span>, <span class="number">9.1</span>, <span class="number">304</span>)</span></span>
-</code></pre><p><strong>内容反转</strong><br><a id="more"></a></p>
+</code></pre><p><strong>内容反转</strong><a id="more"></a></p>
 <pre><code>String<span class="list">(<span class="keyword">str</span>.characters.reverse<span class="list">()</span>)</span>
 </code></pre><p><strong>删除和部分删除</strong></p>
 <pre><code>str.<span class="function"><span class="title">removeRange</span><span class="params">(range)</span></span>
@@ -1062,36 +1111,36 @@ str.<span class="function"><span class="title">stringByReplacingCharactersInRang
 <pre><code>let n      = <span class="function"><span class="title">Int</span><span class="params">(str)</span></span>!
 <span class="function"><span class="title">String</span><span class="params">(<span class="string">"the number is \(n)"</span>)</span></span>
 <span class="function"><span class="title">String</span><span class="params">(format:<span class="string">"%.2f,  %i"</span>, <span class="number">9.1</span>, <span class="number">304</span>)</span></span>
-</code></pre><p><strong>内容反转</strong><br>]]>
+</code></pre><p><strong>内容反转</strong>]]>
     
     </summary>
     
-      <category term="Dev" scheme="http://yoursite.com/tags/Dev/"/>
+      <category term="String" scheme="http://conanwhf.gitcafe.io/tags/String/"/>
     
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-      <category term="Swift" scheme="http://yoursite.com/categories/Swift/"/>
+      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Swift2.0 中的String（一）：常用属性]]></title>
-    <link href="http://yoursite.com/2015/12/03/Swift_String_1/"/>
-    <id>http://yoursite.com/2015/12/03/Swift_String_1/</id>
+    <link href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/"/>
+    <id>http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/</id>
     <published>2015-12-03T07:20:06.000Z</published>
-    <updated>2015-12-09T14:59:30.000Z</updated>
+    <updated>2015-12-23T16:22:03.000Z</updated>
     <content type="html"><![CDATA[<p>字符串算是平常用的比较多、花样也比较多的一个类型，昨天有空把相关的一些常用操作都写了一遍，总结出来。其实iOS里面的字符串更复杂，还有NSString系列等等，那些API太多将来需要用的时候再慢慢学。<br>这个系列目前写了三篇，这篇是第一部分，String的一些常用属性。其他的几篇传送门：</p>
 <ul>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性" target="_blank" rel="external">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作" target="_blank" rel="external">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换" target="_blank" rel="external">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换" target="_blank" rel="external">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换" target="_blank" rel="external">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配" target="_blank" rel="external">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
+<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
 </ul>
 <p><strong>判断是否为空</strong></p>
 <pre><code><span class="keyword">str</span>.isEmpty
-</code></pre><p><strong>获取字符数组</strong><br><a id="more"></a><br>Swfit里面的String很有意思，它并不是由很多个Character组成的，而是在其上面又封装了一些东西。另外因为要兼容不同的编码，每个组成字符所占的内存也不一样（例如中文和英文的区别），所以它的下标并不是一个Int型，也不能通过下标来直接定位、获取字符。<br>    Array(str.characters)<br><strong>获取长度</strong></p>
+</code></pre><p><strong>获取字符数组</strong><br>Swfit里面的String很有意思，它并不是由很多个Character组成的，<a id="more"></a>而是在其上面又封装了一些东西。另外因为要兼容不同的编码，每个组成字符所占的内存也不一样（例如中文和英文的区别），所以它的下标并不是一个Int型，也不能通过下标来直接定位、获取字符。</p>
+<pre><code><span class="function"><span class="title">Array</span><span class="params">(str.characters)</span></span>
+</code></pre><p><strong>获取长度</strong></p>
 <pre><code>str<span class="class">.characters</span><span class="class">.count</span>
 </code></pre><p><strong>下标（Index）操作</strong></p>
 <pre><code>str<span class="class">.startIndex</span>  <span class="comment">//起始下标</span>
@@ -1124,31 +1173,29 @@ str.capitalizedString
 </ul>
 <p><strong>判断是否为空</strong></p>
 <pre><code><span class="keyword">str</span>.isEmpty
-</code></pre><p><strong>获取字符数组</strong><br>]]>
+</code></pre><p><strong>获取字符数组</strong><br>Swfit里面的String很有意思，它并不是由很多个Character组成的，]]>
     
     </summary>
     
-      <category term="Dev" scheme="http://yoursite.com/tags/Dev/"/>
+      <category term="String" scheme="http://conanwhf.gitcafe.io/tags/String/"/>
     
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-      <category term="Swift" scheme="http://yoursite.com/categories/Swift/"/>
+      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Swift2.0语法笔记]]></title>
-    <link href="http://yoursite.com/2015/12/02/Swift_Syntax/"/>
-    <id>http://yoursite.com/2015/12/02/Swift_Syntax/</id>
+    <link href="http://conanwhf.gitcafe.io/2015/12/02/Swift_Syntax/"/>
+    <id>http://conanwhf.gitcafe.io/2015/12/02/Swift_Syntax/</id>
     <published>2015-12-02T08:29:26.000Z</published>
-    <updated>2015-12-03T05:53:16.000Z</updated>
+    <updated>2015-12-23T16:23:00.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>作为一个一直在玩Linux kernel的码农，从来不知道什么叫面向对象，也没有一点面向对象的概念，学Swift的时候还是感觉蛮不适应的，很多东西不一样。不像以前从Pascal转到C，只是书写的语法规则有点变化而已。C用久了，对指针、地址、内存的敏感性已经深入骨髓，突然看到这么个不怎么需要考虑内存的语言，有点儿混乱…… :-)<br>惭愧，一直懒懒散散，现在总算是把基础的语法部分学完了。不知道是不是因为C没有那么多面向对象的复杂用法的原因，我总想要慢慢把语法弄扎实，没有急着去做UI(其实心里还挺急的，哈哈)，不知是走对了路还是舍近求远了<br>Swift自己也是个不断变化的语言，玩了一阵子，更新到2.0以后好多东西又不一样了，我也是挺晕的<br>这里把过程中的笔记写一写，主要是基于一个C程序员的角度，有些容易出错的地方以及和C的异同<br>练习源码见：<a href="https://github.com/conanwhf/swiftplayground/tree/master/Swift_Syntax.playground/Pages" target="_blank" rel="external">GitHub</a>　</p>
 </blockquote>
 <p>首先很重要的一点：<strong>空格不能少！！养成习惯！</strong></p>
 <h2 id="变量类型&amp;数值计算">变量类型&amp;数值计算</h2><ul>
-<li>Float/Double/Int可强制用<strong>String()</strong>转换，通用类型转换可用”\(var)”，String转换Int可用<strong>Int()</strong><a id="more"></a></li>
-<li>变量名大小写区分</li>
+<li>Float/Double/Int可强制用<strong>String()</strong>转换，通用类型转换可用”\(var)”，String转换Int可用<strong>Int()</strong></li>
+<li>变量名大小写区分<a id="more"></a></li>
 <li>类型推断支持float=1+0.3, 但不支持float=int+0.3，即a=b(为一个整数变量)+0.3非法</li>
 <li>元祖类似于简单typedef，可定义不同类型数据为一组，但无指针和数组；强制类型定义不可与元素命名共存</li>
 <li>赋值语句<strong>不返回值</strong>，语句执行成功与否不能作为bool值赋给变量或作为判断条件，即succ=(b=a+1)非法</li>
@@ -1173,8 +1220,8 @@ str.capitalizedString
 <li>每个字符都是一个<strong>可扩展的字母集</strong>（Extended Grapheme Clusters），可能由一个或多个Unicode标量构成，类似于偏旁部首组成一个字</li>
 <li>对于字符来说，不可使用<strong>+</strong>运算来组成字母集，即使相加也是几个字符而不会自动生成一个；但对于字符串，会自动归集</li>
 <li>使用()时，括号内不能有转义符，包括“”</li>
-<li>和C不同，字符串并非字符数组，在Swift里<strong>String.characters</strong>才是和数组类似的存在，拥有类似的属性和方法
-   　<h2 id="函数调用">函数调用</h2></li>
+<li>和C不同，字符串并非字符数组，在Swift里<strong>String.characters</strong>才是和数组类似的存在，拥有类似的属性和方法<pre><code>　
+</code></pre><h2 id="函数调用">函数调用</h2></li>
 <li>返回值可以为空（Void），Void实际上是一个空的元组</li>
 <li>参数可加外部参数名，有外部参数名的参数调用时必须全部强制使用外部参数；也可加默认参数值；有默认值的参数调用时必须加上外部参数名，除非强制用占位符<strong>_</strong>命名外部参数名</li>
 <li>可变参数最多一个且必须放在最后</li>
@@ -1198,30 +1245,28 @@ str.capitalizedString
 </blockquote>
 <p>首先很重要的一点：<strong>空格不能少！！养成习惯！</strong></p>
 <h2 id="变量类型&amp;数值计算">变量类型&amp;数值计算</h2><ul>
-<li>Float/Double/Int可强制用<strong>String()</strong>转换，通用类型转换可用”\(var)”，String转换Int可用<strong>Int()</strong>]]>
+<li>Float/Double/Int可强制用<strong>String()</strong>转换，通用类型转换可用”\(var)”，String转换Int可用<strong>Int()</strong></li>
+<li>变量名大小写区分]]>
     
     </summary>
     
-      <category term="Dev" scheme="http://yoursite.com/tags/Dev/"/>
-    
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-      <category term="Swift" scheme="http://yoursite.com/categories/Swift/"/>
+      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[读书清单 2015-11]]></title>
-    <link href="http://yoursite.com/2015/12/01/ReadingList201511/"/>
-    <id>http://yoursite.com/2015/12/01/ReadingList201511/</id>
+    <link href="http://conanwhf.gitcafe.io/2015/12/01/ReadingList2015-11/"/>
+    <id>http://conanwhf.gitcafe.io/2015/12/01/ReadingList2015-11/</id>
     <published>2015-12-01T12:02:38.000Z</published>
-    <updated>2015-12-03T05:42:32.000Z</updated>
+    <updated>2015-12-23T16:20:52.000Z</updated>
     <content type="html"><![CDATA[<h2 id="读完的书">读完的书</h2><ol>
 <li><strong>金粉世家</strong><br>大部头，看了好久才看完，看得有点累。可能受电视剧影响太深，我一边看一边不停地脑补陈坤、董洁、天线。小说写得是不错，那种世家的感觉，各种支线带来的社会整体描绘，感情线的冲突……虽然不至于欲罢不能但每次放下也有点恋恋不舍。我蛮喜欢小说里面的金燕西的，反倒对冷清秋有点反感，感觉多少有点想攀龙附凤又扔不掉自己的清高吧，特别是早期，很多经济上的便宜占得没骨气。</li>
 <li><strong>The Swift Programming Language</strong><br>开发文档，算是看完了吧，不过还有很多东西待查</li>
-<li><strong>AppStore经营之道</strong><br>台湾人写的东西，怎么看都是嗲嗲的，哪怕是在讲纯技术的东西。而且台版的书籍通常都是内容不多，图多、啰嗦，所以这本书虽然开了个很大的标题，其实里面的干货一般般，很快就读完了。对利用Appstore来挣钱（开发APP，不是刷榜）的各种方式和努力方向讲得还不错，其他的随便瞄一瞄就好</li>
-<li><strong>使用Google Apps服務開店的九堂課</strong><br>图书馆看到的，打发时间翻了翻，主要讲GAE建站、做小型服务器的东西，讲得很浅<a id="more"></a>
-<h2 id="读完的杂志">读完的杂志</h2></li>
+<li><strong>AppStore经营之道</strong><br>台湾人写的东西，怎么看都是嗲嗲的，哪怕是在讲纯技术的东西。而且台版的书籍通常都是内容不多，图多、啰嗦，所以这本书虽然开了个很大的标题，其实里面的干货一般般，很快就读完了。对利用Appstore来挣钱（开发APP，不是刷榜）<a id="more"></a>的各种方式和努力方向讲得还不错，其他的随便瞄一瞄就好</li>
+<li><strong>使用Google Apps服務開店的九堂課</strong><br>图书馆看到的，打发时间翻了翻，主要讲GAE建站、做小型服务器的东西，讲得很浅</li>
+</ol>
+<h2 id="读完的杂志">读完的杂志</h2><ol>
 <li>开源启示录 第一季</li>
 <li>云生态专刊2015年第5期</li>
 <li>知乎话题精华之独立开发者　</li>
@@ -1248,31 +1293,30 @@ str.capitalizedString
     <![CDATA[<h2 id="读完的书">读完的书</h2><ol>
 <li><strong>金粉世家</strong><br>大部头，看了好久才看完，看得有点累。可能受电视剧影响太深，我一边看一边不停地脑补陈坤、董洁、天线。小说写得是不错，那种世家的感觉，各种支线带来的社会整体描绘，感情线的冲突……虽然不至于欲罢不能但每次放下也有点恋恋不舍。我蛮喜欢小说里面的金燕西的，反倒对冷清秋有点反感，感觉多少有点想攀龙附凤又扔不掉自己的清高吧，特别是早期，很多经济上的便宜占得没骨气。</li>
 <li><strong>The Swift Programming Language</strong><br>开发文档，算是看完了吧，不过还有很多东西待查</li>
-<li><strong>AppStore经营之道</strong><br>台湾人写的东西，怎么看都是嗲嗲的，哪怕是在讲纯技术的东西。而且台版的书籍通常都是内容不多，图多、啰嗦，所以这本书虽然开了个很大的标题，其实里面的干货一般般，很快就读完了。对利用Appstore来挣钱（开发APP，不是刷榜）的各种方式和努力方向讲得还不错，其他的随便瞄一瞄就好</li>
-<li><strong>使用Google Apps服務開店的九堂課</strong><br>图书馆看到的，打发时间翻了翻，主要讲GAE建站、做小型服务器的东西，讲得很浅]]>
+<li><strong>AppStore经营之道</strong><br>台湾人写的东西，怎么看都是嗲嗲的，哪怕是在讲纯技术的东西。而且台版的书籍通常都是内容不多，图多、啰嗦，所以这本书虽然开了个很大的标题，其实里面的干货一般般，很快就读完了。对利用Appstore来挣钱（开发APP，不是刷榜）]]>
     
     </summary>
     
-      <category term="BookList" scheme="http://yoursite.com/tags/BookList/"/>
+      <category term="BookList" scheme="http://conanwhf.gitcafe.io/tags/BookList/"/>
     
-      <category term="Kindle&amp;Reading" scheme="http://yoursite.com/categories/Kindle-Reading/"/>
+      <category term="Life &amp; Other" scheme="http://conanwhf.gitcafe.io/categories/Life-Other/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[开发Tips收集-2015年11月]]></title>
-    <link href="http://yoursite.com/2015/11/30/Tips201511/"/>
-    <id>http://yoursite.com/2015/11/30/Tips201511/</id>
+    <link href="http://conanwhf.gitcafe.io/2015/11/30/Tips201511/"/>
+    <id>http://conanwhf.gitcafe.io/2015/11/30/Tips201511/</id>
     <published>2015-11-30T09:25:39.000Z</published>
-    <updated>2015-12-03T05:42:54.000Z</updated>
+    <updated>2015-12-23T16:24:00.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
 </blockquote>
 <ul>
 <li>UICollectionView如果在数据不够一屏时上下滚动 当数据不多，collectionView.contentSize小于collectionView.frame.size的时候，UICollectionView是不会滚动的，可以增加下面代码就可以： self.myCollectionView.alwaysBounceVertical = YES;</li>
-<li>drawRect &amp; layoutSubviews两个方法都是异步执行，layoutSubviews方便数据计算，drawRect方便视图重绘。 <a id="more"></a></li>
+<li>drawRect &amp; layoutSubviews两个方法都是异步执行，layoutSubviews方便数据计算，drawRect方便视图重绘。 </li>
 <li>drawRect方法使用注意点：<ol>
-<li>若使用UIView绘图，只能在drawRect：方法中获取相应的contextRef并绘图。如果在其他方法中获取将获取到一个invalidate 的ref并且不能用于画图。drawRect：方法不能手动显示调用，必须通过调用setNeedsDisplay 或 者 setNeedsDisplayInRect，让系统自动调该方法。</li>
+<li>若使用UIView绘图，只能在drawRect：方法中获取相应的contextRef并绘图。如果在其他方法中获取将获取到一个invalidate 的ref并且不能用于画图。drawRect：方法不能手动显示调用，必须通过调用setNeedsDisplay 或 者 setNeedsDisplayInRect，让系统自动调该方法。<a id="more"></a></li>
 <li>若使用calayer绘图，只能在drawInContext: 中（类似鱼drawRect）绘制，或者在delegate中的相应方法绘制。同样也是调用setNeedDisplay等间接调用以上方法</li>
 <li>若要实时画图，不能使用gestureRecognizer，只能使用touchbegan等方法来掉用setNeedsDisplay实时刷新屏幕</li>
 </ol>
@@ -1336,101 +1380,13 @@ str.capitalizedString
 </blockquote>
 <ul>
 <li>UICollectionView如果在数据不够一屏时上下滚动 当数据不多，collectionView.contentSize小于collectionView.frame.size的时候，UICollectionView是不会滚动的，可以增加下面代码就可以： self.myCollectionView.alwaysBounceVertical = YES;</li>
-<li>drawRect &amp; layoutSubviews两个方法都是异步执行，layoutSubviews方便数据计算，drawRect方便视图重绘。]]>
+<li>drawRect &amp; layoutSubviews两个方法都是异步执行，layoutSubviews方便数据计算，drawRect方便视图重绘。 </li>
+<li>drawRect方法使用注意点：<ol>
+<li>若使用UIView绘图，只能在drawRect：方法中获取相应的contextRef并绘图。如果在其他方法中获取将获取到一个invalidate 的ref并且不能用于画图。drawRect：方法不能手动显示调用，必须通过调用setNeedsDisplay 或 者 setNeedsDisplayInRect，让系统自动调该方法。]]>
     
     </summary>
     
-      <category term="Xcode" scheme="http://yoursite.com/tags/Xcode/"/>
-    
-      <category term="iOS - Swift" scheme="http://yoursite.com/tags/iOS-Swift/"/>
-    
-      <category term="DevTips" scheme="http://yoursite.com/categories/DevTips/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[开发Tips收集-2015年11月以前]]></title>
-    <link href="http://yoursite.com/2015/11/12/Tips201510/"/>
-    <id>http://yoursite.com/2015/11/12/Tips201510/</id>
-    <published>2015-11-12T09:25:39.000Z</published>
-    <updated>2015-12-03T05:43:31.000Z</updated>
-    <content type="html"><![CDATA[<blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>当view被添加其他view中之前时，会调用viewWillAppear，而之后会调用viewDidAppear；当view从其他view中移出之前时，会调用viewWillDisAppear，而之后会调用viewDidDisappear；当view不在使用，而且是disappeared，受到内存警告时，那么viewController会将view释放并将其指向nil</li>
-<li>UIImageView的用户交互是默认关闭的，加在它上面的控件自然也响应不了事件。只要把UIImageView的userInteractionEnabled改为YES就能解决问题了。<a id="more"></a></li>
-<li>delegate的回调更多的面向过程，而block则是面向结果的。如果你需要得到一条多步进程的通知，你应该使用delegation。而当你只是希望得到你请求的信息（或者获取信息时的错误提示），你应该使用block。</li>
-<li>如果将数据块传递给一个函数或方法，可以通过传递一个自动释放NSData来实现，无需担心内存清除问题</li>
-<li>data source也是一种特殊的delegate，data source负责传输数据给View例如data、at、count等，而delegate负责处理View的did、should、will等问题，View把需要的数据信息或者事件信息传输给dalegate，dalegate则负责回复这些信息</li>
-<li>让表视图进入编辑模式，进入编辑模式的方法有两种，一种是使用导航栏的edit按钮，另一种是设置tableView的editing属性进入编辑模式</li>
-<li>const常量是一个在编译时或者编译解析时被初始化的变量。通过let创建的是一个运行时常量，是不可变得。它可以使用stattic 或者dynamic关键字来初始化。谨记它的的值只能被分配一次</li>
-<li>多使用结构体，除非你用了继承和引用语义。类支持继承，结构体不支持。 类是引用类型，结构体是值类型。在运行时，结构体的在性能方面更优于类，原因是结构体的方法调用是静态绑定，而类的方法调用是动态实现的。这就是尽可能得使用结构体代替类的又一个好的原因。</li>
-<li>nil：指向oc中对象的空指针 Nil：指向oc中类的空指针 NULL：指向其他类型的空指针，如一个c类型的内存指针</li>
-<li>final 关键字可以用在 class，func 或者 var 前面进行修饰，表示不允许对该内容进行继承或者重写操作。</li>
-<li>为了降低程序的内存空间占用，Cocoa在程序开始处理事件之前创建一个自动释放池，并在事件处理结束后销毁自动释放池。这样可以使累积的临时对象的数量保持在最低程度</li>
-<li>UITableViewCell有个NSString* reuseIdentifier属性，可以在初始化UITableViewCell的时候传入一个特定的字符串标识来设置reuseIdentifier(一般用UITableViewCell的类名)。当UITableView要求dataSource返回UITableViewCell时，先通过一个字符串标识到对象池中查找对应类型的UITableViewCell对象，如果有，就重用，如果没有，就传入这个字符串标识来初始化一个UITableViewCell对象</li>
-<li>Cocoa采用了一种称为引用计数的技术，有时也叫做保留计数。每个对象有一个与之相关联的整数，称作它的引用计数器或保留计数器。当某段代码需要访问一个对象时，该代码将该对象的保留计数器值加1，表示“我要访问该对象”。当这段代码结束对象访问时，将对象的保留计数器值减1，表示它不再访问该对象。当保留计数器值为0时，表示不再有代码访问该对象了，因此对象将被销毁，其占用的内存被系统回收以便重用。</li>
-<li>TableView自带滑动删除功能，只要实现代理的方法tableView:commitEditingStyle:forRowAtIndexPath:方法即可，在方法中做数据的操作，刷新表格就行。 </li>
-<li>刷新表格有两种方法： tableView:reloadRowsAtIndexPath:该方法使用前提是模型数据与tableView的行数要求一致。 tableView:deleteRowsAtIndexPath:该方法使用前提是模型数据删除的个数和表格删掉的行数要一致。</li>
-<li>UITabBarConroller子控件的声明周期： 第一个子控件加载完毕，即将显示，显示完毕。 第二个子控件加载完毕，即将显示，第一个子控件即将消失，第一个子控件消失完毕，第二个子控件显示完毕。 </li>
-<li>程序载入时会执行didFinishLaunchingWithOptions:方法，然后调用applicationDidBecomeActive:，之后如果按Home键进入后台，程序会先调用applicationWillResignActive:，然后执行applicationDidEnterBackground:方法。如果重新进入前台，则会调用applicationWillEnterBackground:方法，之后是applicationDidBecomeActive方法。</li>
-<li>CAGradientLayer是一种特殊的层，用于渲染渐变效果。它继承自CALayer，可使用CALayer所有的属性，是除了在图形上下文绘制渐变效果外的另一种方法，它不需要借助图形上下文，是直接渲染在层上的，因此易于使用。</li>
-<li>CAShapeLayer需要和贝塞尔曲线配合使用才有意义，贝塞尔曲线为其提供渲染的图形，可以实现不再view的drawRect方法中画出一些想要的图形。<br>  在drawRect中绘制图形调用CoreGraphics框架中的方法，占用CPU，消耗性能大；而CAShapeLayer属于CoreAnimation框架，通过GPU来渲染图形，节省性能。动画渲染直接提交给GPU，不消耗内存。</li>
-<li>目前所有iphone机型共有5种屏幕（竖屏）：  <ol>
-<li>Retina1x（320*480）（iphone3GS之前，现已不用搭理）  </li>
-<li>Retina2x（640*960）（iphone4/4s）  </li>
-<li>Retina4（640*1136）（iphone5/5s/5c）  </li>
-<li>Retina HD4.7（750*1334）（iphone6/6s）  </li>
-<li>Retina HD5.5（1242*2208）（iphone6p/6sp） </li>
-</ol>
-</li>
-<li>点用来构建一个坐标系，它是根据实际情况和需求制定的，是人为设想的，并不是真实存在的。在ios开发中，坐标系的单位长度就是点。在iphone3GS上，一个点包含一个像素，这种屏幕俗称一倍屏；iphone4、4s、iphone5等2倍retina屏上，一个点包含两个像素（这里说的是一维的长度），也就是二倍屏，用@2x表示这种屏幕模式；对于3倍retina的iphone6p和iphone6sp，一个点包含3个像素。开发中在通过点搭建的坐标系中布局界面，方便适配，因为无需再去理会屏幕的分辨率，系统会在显示的时候自动进行适配。</li>
-<li>启动图片更大的职能其实是在图片显示期间做一些初始化处理，其中包括检查适配情况。系统识别适配的方法同样是根据是否设置了相应屏幕的启动图来判断。</li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>当view被添加其他view中之前时，会调用viewWillAppear，而之后会调用viewDidAppear；当view从其他view中移出之前时，会调用viewWillDisAppear，而之后会调用viewDidDisappear；当view不在使用，而且是disappeared，受到内存警告时，那么viewController会将view释放并将其指向nil</li>
-<li>UIImageView的用户交互是默认关闭的，加在它上面的控件自然也响应不了事件。只要把UIImageView的userInteractionEnabled改为YES就能解决问题了。]]>
-    
-    </summary>
-    
-      <category term="Xcode" scheme="http://yoursite.com/tags/Xcode/"/>
-    
-      <category term="iOS - Swift" scheme="http://yoursite.com/tags/iOS-Swift/"/>
-    
-      <category term="DevTips" scheme="http://yoursite.com/categories/DevTips/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[iOS开发资源]]></title>
-    <link href="http://yoursite.com/2015/11/05/ResourceInGit/"/>
-    <id>http://yoursite.com/2015/11/05/ResourceInGit/</id>
-    <published>2015-11-05T10:40:05.000Z</published>
-    <updated>2015-11-19T09:28:52.000Z</updated>
-    <content type="html"><![CDATA[<p>把自己收集的iOS开发资源，包括官方教程、视频、社区、插件、第三方库、文章等等， 绝大多数是基于Swift和中文，共享一下，顺便当作备份。绝大多数是基于Swift，中文资源优先，欢迎收藏！<br>网上学习开发的资料多如牛毛，类似的整合项目也比比皆是，多数没有更新且过于纷杂，有的已经过时，质量参差不齐，所以自己重新收录备查。<br>收录原则：内容适合最新版本，尽量iOS8+/Xcode7+/Swift2.0+（教程所用语言版本规则较宽松，无关语法不影响阅读），尽量中文原创/翻译，少量OC（很多控件都是用OC）&amp;英文原文。以总结性文章、教程和可重用项目为主，不收录小的tips，<strong>只收自己看过的觉得有用的、好的东西</strong></p>
-<p><em>目前本人还在学习过程中，开发类教程文章看得不多，第三方库也用得比较少，还在慢慢增补。源码基本上都在Github，资源收集自用，持续更新。如有失效资源或侵权请告知，谢谢！</em></p>
-<p>另外看到一个练手的小项目合集，准备有空就自己跟着练练，开放源码以示鞭策，<a href="https://github.com/conanwhf/ResourceDoc/blob/master/tryList.md" target="_blank" rel="external">列表清单</a>传送门</p>
-<h2 id="地址（可能需要翻墙）">地址（可能需要翻墙）</h2><blockquote>
-<p>GitHub  <a href="https://github.com/conanwhf/ResourceDoc" target="_blank" rel="external">https://github.com/conanwhf/ResourceDoc</a></p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>把自己收集的iOS开发资源，包括官方教程、视频、社区、插件、第三方库、文章等等， 绝大多数是基于Swift和中文，共享一下，顺便当作备份。绝大多数是基于Swift，中文资源优先，欢迎收藏！<br>网上学习开发的资料多如牛毛，类似的整合项目也比比皆是，多数没有更新且过于纷杂，]]>
-    </summary>
-    
-      <category term="Dev" scheme="http://yoursite.com/tags/Dev/"/>
-    
-      <category term="Git" scheme="http://yoursite.com/tags/Git/"/>
-    
-      <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
-    
-      <category term="Swift" scheme="http://yoursite.com/categories/Swift/"/>
+      <category term="DevTips" scheme="http://conanwhf.gitcafe.io/categories/DevTips/"/>
     
   </entry>
   

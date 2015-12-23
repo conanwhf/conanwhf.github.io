@@ -34,7 +34,7 @@
 
 
 
-  <meta name="keywords" content="Dev,iOS," />
+  <meta name="keywords" content="TableView," />
 
 
 
@@ -51,13 +51,13 @@
 拖动新控件TableView到AB">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在UIViewController中添加TableView">
-<meta property="og:url" content="http://yoursite.com/2015/09/12/AddTableViewInUIViewController/index.html">
+<meta property="og:url" content="http://conanwhf.gitcafe.io/2015/09/12/AddTableViewInUIViewController/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="TableViewController定制性差，用TableView放在UIViewController里比较方便，但需要做点事情来使TableView包含于UIVIewController，以便于动态显示和操作TableView里的数据
 
 继承一个UIViewController：ABC，并在StroyBoard新建一个UIViewController与之绑定
 拖动新控件TableView到AB">
-<meta property="og:updated_time" content="2015-12-03T05:46:19.000Z">
+<meta property="og:updated_time" content="2015-12-23T16:18:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在UIViewController中添加TableView">
 <meta name="twitter:description" content="TableViewController定制性差，用TableView放在UIViewController里比较方便，但需要做点事情来使TableView包含于UIVIewController，以便于动态显示和操作TableView里的数据
@@ -250,8 +250,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/CocoaUI/" itemprop="url" rel="index">
-                  <span itemprop="name">CocoaUI</span>
+                <a href="/categories/Cocoa/" itemprop="url" rel="index">
+                  <span itemprop="name">Cocoa</span>
                 </a>
               </span>
 
@@ -285,21 +285,23 @@
 <ol>
 <li>继承一个UIViewController：<strong>ABC</strong>，并在StroyBoard新建一个UIViewController与之绑定</li>
 <li>拖动新控件TableView到ABC，并拖动一个TableCell到TableView</li>
-<li>将TableView和ABC绑定：<a id="more"></a></li>
+<li>将TableView和ABC绑定：</li>
 </ol>
 <ul>
-<li>在ABC的实现代码中加一行：<br>  @IBOutlet weak var XYZ: UITableView!<ul>
+<li><p>在ABC的实现代码中加一行：<a id="more"></a></p>
+<pre><code><span class="preprocessor">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> <span class="type">XYZ</span>: <span class="type">UITableView</span>!
+</code></pre><ul>
 <li>点击TableView，右边检查器栏Connection->Referencing Outlets->New Referencing Outlets右边的小圆点，拖动至TableView上松开，选定<strong>XYZ</strong></li>
 </ul>
 </li>
-</ul>
-<ol>
 <li><p>实现TableView必须有的基础代码：</p>
 <pre><code><span class="func"><span class="keyword">func</span> <span class="title">numberOfSectionsInTableView</span><span class="params">(tableView: UITableView)</span></span> -&gt; <span class="type">Int</span> {
 <span class="keyword">return</span> <span class="number">1</span>
 }
-</code></pre><p> func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {<br> return N<br> }<br>注册CellID：<br> func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {<br> let cell = tableView.dequeueReusableCellWithIdentifier(“<strong>TEST</strong>“, forIndexPath: indexPath) as! UITableViewCell<br> return cell<br> }<br>此处虽然在类中添加，但<strong>不要加override前缀！</strong></p>
+</code></pre><p>  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {<br>  return N<br>  }<br>注册CellID：<br>  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {<br>  let cell = tableView.dequeueReusableCellWithIdentifier(“<strong>TEST</strong>“, forIndexPath: indexPath) as! UITableViewCell<br>  return cell<br>  }<br>此处虽然在类中添加，但<strong>不要加override前缀！</strong></p>
 </li>
+</ul>
+<ol>
 <li>绑定Cell：StroyBoard中选中TableViewCell，右侧Attributes->Table View Cell->Identifier，填上<strong>TEST</strong>(与注册的ID保持一致)并回车。在总纲中检查能看到Cell的名字已经变成TEST</li>
 <li>数据源等绑定Controller：StoryBoard中选中TableView，右侧检查器Connection->Outlets->dataSource&amp;delegate拖动到页面上方XYZ图标（UIViewController）</li>
 <li>完成，在TableView中加入控制代码可看到效果</li>
@@ -312,9 +314,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Dev/" rel="tag">#Dev</a>
-          
-            <a href="/tags/iOS/" rel="tag">#iOS</a>
+            <a href="/tags/TableView/" rel="tag">#TableView</a>
           
         </div>
       
@@ -347,7 +347,7 @@
         <div class="ds-share flat" data-thread-key="2015/09/12/AddTableViewInUIViewController/"
      data-title="在UIViewController中添加TableView"
      data-content=""
-     data-url="http://yoursite.com/2015/09/12/AddTableViewInUIViewController/">
+     data-url="http://conanwhf.gitcafe.io/2015/09/12/AddTableViewInUIViewController/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -369,16 +369,16 @@
  </div>
 
         
-            <!-- 多说热评文章-->
-            <p>热评文章</p>
-            <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+            <!-- 多说热评文章 start -->
+            <div class="ds-top-threads" data-range="monthly" data-num-items="5"></div>
+            <!-- 多说热评文章 end -->
         
 
         
           <div class="comments" id="comments">
             
               <div class="ds-thread" data-thread-key="2015/09/12/AddTableViewInUIViewController/"
-                   data-title="在UIViewController中添加TableView" data-url="http://yoursite.com/2015/09/12/AddTableViewInUIViewController/">
+                   data-title="在UIViewController中添加TableView" data-url="http://conanwhf.gitcafe.io/2015/09/12/AddTableViewInUIViewController/">
               </div>
             
           </div>
@@ -418,21 +418,21 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">45</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

@@ -34,7 +34,7 @@
 
 
 
-  <meta name="keywords" content="Dev,iOS," />
+  <meta name="keywords" content="JSON," />
 
 
 
@@ -48,10 +48,10 @@
 <meta name="description" content="（挖坑自己跳系列四）以为实现了xml的解析，我就能拿到所有想要的数据，可是经过几次尝试，发现有的API失效了！😱无论我怎么尝试，有的数据就是拿不到，苦恼了好久，灵光一闪：前阵子买的surge可以派上用场了！不知道surge是啥的我给解释一下，是个iOS App，利用iOS9的特性能给设备做个全局代理，前阵子大家纷纷用来流畅FQ，已下架。对我来说，用来过滤下广告正好，偶尔还能看看http log。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用原生库解析JSON">
-<meta property="og:url" content="http://yoursite.com/2015/12/15/swift_json/index.html">
+<meta property="og:url" content="http://conanwhf.gitcafe.io/2015/12/15/swift_json/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="（挖坑自己跳系列四）以为实现了xml的解析，我就能拿到所有想要的数据，可是经过几次尝试，发现有的API失效了！😱无论我怎么尝试，有的数据就是拿不到，苦恼了好久，灵光一闪：前阵子买的surge可以派上用场了！不知道surge是啥的我给解释一下，是个iOS App，利用iOS9的特性能给设备做个全局代理，前阵子大家纷纷用来流畅FQ，已下架。对我来说，用来过滤下广告正好，偶尔还能看看http log。">
-<meta property="og:updated_time" content="2015-12-15T15:17:11.000Z">
+<meta property="og:updated_time" content="2015-12-23T16:16:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用原生库解析JSON">
 <meta name="twitter:description" content="（挖坑自己跳系列四）以为实现了xml的解析，我就能拿到所有想要的数据，可是经过几次尝试，发现有的API失效了！😱无论我怎么尝试，有的数据就是拿不到，苦恼了好久，灵光一闪：前阵子买的surge可以派上用场了！不知道surge是啥的我给解释一下，是个iOS App，利用iOS9的特性能给设备做个全局代理，前阵子大家纷纷用来流畅FQ，已下架。对我来说，用来过滤下广告正好，偶尔还能看看http log。">
@@ -278,7 +278,7 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
     <span class="built_in">print</span>(<span class="string">"Can't get any data"</span>)
     <span class="built_in">exit</span>(<span class="number">0</span>)
 }
-</code></pre><p>然后解析出来：<br><a id="more"></a></p>
+</code></pre><p>然后解析出来：<a id="more"></a></p>
 <pre><code><span class="keyword">do</span> {
     let json = <span class="keyword">try</span> NSJSONSerialization.JSONObjectWithData(data, <span class="keyword">options</span>: NSJSONReadingOptions.MutableContainers)
     <span class="comment">// TODO：</span>
@@ -314,9 +314,7 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
       
         <div class="post-tags">
           
-            <a href="/tags/Dev/" rel="tag">#Dev</a>
-          
-            <a href="/tags/iOS/" rel="tag">#iOS</a>
+            <a href="/tags/JSON/" rel="tag">#JSON</a>
           
         </div>
       
@@ -349,7 +347,7 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
         <div class="ds-share flat" data-thread-key="2015/12/15/swift_json/"
      data-title="使用原生库解析JSON"
      data-content=""
-     data-url="http://yoursite.com/2015/12/15/swift_json/">
+     data-url="http://conanwhf.gitcafe.io/2015/12/15/swift_json/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -371,16 +369,16 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
  </div>
 
         
-            <!-- 多说热评文章-->
-            <p>热评文章</p>
-            <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+            <!-- 多说热评文章 start -->
+            <div class="ds-top-threads" data-range="monthly" data-num-items="5"></div>
+            <!-- 多说热评文章 end -->
         
 
         
           <div class="comments" id="comments">
             
               <div class="ds-thread" data-thread-key="2015/12/15/swift_json/"
-                   data-title="使用原生库解析JSON" data-url="http://yoursite.com/2015/12/15/swift_json/">
+                   data-title="使用原生库解析JSON" data-url="http://conanwhf.gitcafe.io/2015/12/15/swift_json/">
               </div>
             
           </div>
@@ -420,21 +418,21 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">45</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

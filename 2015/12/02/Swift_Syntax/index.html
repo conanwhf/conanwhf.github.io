@@ -34,7 +34,7 @@
 
 
 
-  <meta name="keywords" content="Dev,iOS," />
+  <meta name="keywords" content="Conan" />
 
 
 
@@ -48,10 +48,10 @@
 <meta name="description" content="作为一个一直在玩Linux kernel的码农，从来不知道什么叫面向对象，也没有一点面向对象的概念，学Swift的时候还是感觉蛮不适应的，很多东西不一样。不像以前从Pascal转到C，只是书写的语法规则有点变化而已。C用久了，对指针、地址、内存的敏感性已经深入骨髓，突然看到这么个不怎么需要考虑内存的语言，有点儿混乱…… :-)惭愧，一直懒懒散散，现在总算是把基础的语法部分学完了。不知道是不是因为C">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Swift2.0语法笔记">
-<meta property="og:url" content="http://yoursite.com/2015/12/02/Swift_Syntax/index.html">
+<meta property="og:url" content="http://conanwhf.gitcafe.io/2015/12/02/Swift_Syntax/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="作为一个一直在玩Linux kernel的码农，从来不知道什么叫面向对象，也没有一点面向对象的概念，学Swift的时候还是感觉蛮不适应的，很多东西不一样。不像以前从Pascal转到C，只是书写的语法规则有点变化而已。C用久了，对指针、地址、内存的敏感性已经深入骨髓，突然看到这么个不怎么需要考虑内存的语言，有点儿混乱…… :-)惭愧，一直懒懒散散，现在总算是把基础的语法部分学完了。不知道是不是因为C">
-<meta property="og:updated_time" content="2015-12-03T05:53:16.000Z">
+<meta property="og:updated_time" content="2015-12-23T16:23:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift2.0语法笔记">
 <meta name="twitter:description" content="作为一个一直在玩Linux kernel的码农，从来不知道什么叫面向对象，也没有一点面向对象的概念，学Swift的时候还是感觉蛮不适应的，很多东西不一样。不像以前从Pascal转到C，只是书写的语法规则有点变化而已。C用久了，对指针、地址、内存的敏感性已经深入骨髓，突然看到这么个不怎么需要考虑内存的语言，有点儿混乱…… :-)惭愧，一直懒懒散散，现在总算是把基础的语法部分学完了。不知道是不是因为C">
@@ -277,8 +277,8 @@
 </blockquote>
 <p>首先很重要的一点：<strong>空格不能少！！养成习惯！</strong></p>
 <h2 id="变量类型&amp;数值计算">变量类型&amp;数值计算</h2><ul>
-<li>Float/Double/Int可强制用<strong>String()</strong>转换，通用类型转换可用”\(var)”，String转换Int可用<strong>Int()</strong><a id="more"></a></li>
-<li>变量名大小写区分</li>
+<li>Float/Double/Int可强制用<strong>String()</strong>转换，通用类型转换可用”\(var)”，String转换Int可用<strong>Int()</strong></li>
+<li>变量名大小写区分<a id="more"></a></li>
 <li>类型推断支持float=1+0.3, 但不支持float=int+0.3，即a=b(为一个整数变量)+0.3非法</li>
 <li>元祖类似于简单typedef，可定义不同类型数据为一组，但无指针和数组；强制类型定义不可与元素命名共存</li>
 <li>赋值语句<strong>不返回值</strong>，语句执行成功与否不能作为bool值赋给变量或作为判断条件，即succ=(b=a+1)非法</li>
@@ -303,8 +303,8 @@
 <li>每个字符都是一个<strong>可扩展的字母集</strong>（Extended Grapheme Clusters），可能由一个或多个Unicode标量构成，类似于偏旁部首组成一个字</li>
 <li>对于字符来说，不可使用<strong>+</strong>运算来组成字母集，即使相加也是几个字符而不会自动生成一个；但对于字符串，会自动归集</li>
 <li>使用()时，括号内不能有转义符，包括“”</li>
-<li>和C不同，字符串并非字符数组，在Swift里<strong>String.characters</strong>才是和数组类似的存在，拥有类似的属性和方法
-   　<h2 id="函数调用">函数调用</h2></li>
+<li>和C不同，字符串并非字符数组，在Swift里<strong>String.characters</strong>才是和数组类似的存在，拥有类似的属性和方法<pre><code>　
+</code></pre><h2 id="函数调用">函数调用</h2></li>
 <li>返回值可以为空（Void），Void实际上是一个空的元组</li>
 <li>参数可加外部参数名，有外部参数名的参数调用时必须全部强制使用外部参数；也可加默认参数值；有默认值的参数调用时必须加上外部参数名，除非强制用占位符<strong>_</strong>命名外部参数名</li>
 <li>可变参数最多一个且必须放在最后</li>
@@ -327,14 +327,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Dev/" rel="tag">#Dev</a>
-          
-            <a href="/tags/iOS/" rel="tag">#iOS</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
@@ -346,7 +338,7 @@
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/01/ReadingList201511/" rel="next">读书清单 2015-11</a>
+              <a href="/2015/12/01/ReadingList2015-11/" rel="next">读书清单 2015-11</a>
             
           </div>
         </div>
@@ -364,7 +356,7 @@
         <div class="ds-share flat" data-thread-key="2015/12/02/Swift_Syntax/"
      data-title="Swift2.0语法笔记"
      data-content=""
-     data-url="http://yoursite.com/2015/12/02/Swift_Syntax/">
+     data-url="http://conanwhf.gitcafe.io/2015/12/02/Swift_Syntax/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -386,16 +378,16 @@
  </div>
 
         
-            <!-- 多说热评文章-->
-            <p>热评文章</p>
-            <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+            <!-- 多说热评文章 start -->
+            <div class="ds-top-threads" data-range="monthly" data-num-items="5"></div>
+            <!-- 多说热评文章 end -->
         
 
         
           <div class="comments" id="comments">
             
               <div class="ds-thread" data-thread-key="2015/12/02/Swift_Syntax/"
-                   data-title="Swift2.0语法笔记" data-url="http://yoursite.com/2015/12/02/Swift_Syntax/">
+                   data-title="Swift2.0语法笔记" data-url="http://conanwhf.gitcafe.io/2015/12/02/Swift_Syntax/">
               </div>
             
           </div>
@@ -435,21 +427,21 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">45</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

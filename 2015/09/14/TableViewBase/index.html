@@ -34,7 +34,7 @@
 
 
 
-  <meta name="keywords" content="Dev,TableView,iOS," />
+  <meta name="keywords" content="TableView,iOS," />
 
 
 
@@ -45,19 +45,34 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="以下基于动态Cell数据源
-必须实现的函数">
+<meta name="description" content="必须实现的函数Sections数目
+override func numberOfSectionsInTableView(tableView: UITableView) -&amp;gt; Int {
+// #warning Potentially incomplete method implementation.
+// Return the number of sections.
+return 1
+}
+每">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TableView基础">
-<meta property="og:url" content="http://yoursite.com/2015/09/14/TableViewBase/index.html">
+<meta property="og:url" content="http://conanwhf.gitcafe.io/2015/09/14/TableViewBase/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
-<meta property="og:description" content="以下基于动态Cell数据源
-必须实现的函数">
-<meta property="og:updated_time" content="2015-12-03T05:46:04.000Z">
+<meta property="og:description" content="必须实现的函数Sections数目
+override func numberOfSectionsInTableView(tableView: UITableView) -&amp;gt; Int {
+// #warning Potentially incomplete method implementation.
+// Return the number of sections.
+return 1
+}
+每">
+<meta property="og:updated_time" content="2015-12-23T16:23:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TableView基础">
-<meta name="twitter:description" content="以下基于动态Cell数据源
-必须实现的函数">
+<meta name="twitter:description" content="必须实现的函数Sections数目
+override func numberOfSectionsInTableView(tableView: UITableView) -&amp;gt; Int {
+// #warning Potentially incomplete method implementation.
+// Return the number of sections.
+return 1
+}
+每">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -244,8 +259,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/CocoaUI/" itemprop="url" rel="index">
-                  <span itemprop="name">CocoaUI</span>
+                <a href="/categories/Cocoa/" itemprop="url" rel="index">
+                  <span itemprop="name">Cocoa</span>
                 </a>
               </span>
 
@@ -275,14 +290,31 @@
       
 
       
-        <span itemprop="articleBody"><p>以下基于动态Cell数据源</p>
-<h2 id="必须实现的函数">必须实现的函数</h2><a id="more"></a>
-<p>Sections数目<br>    override func numberOfSectionsInTableView(tableView: UITableView) -&gt; Int {<br>    // #warning Potentially incomplete method implementation.<br>    // Return the number of sections.<br>    return 1<br>    }<br>每个Section的Cell数目<br>    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {<br>    // #warning Incomplete method implementation.<br>    // Return the number of rows in the section.<br>    return 100<br>    }<br>注册绑定Cell ID<br>    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {<br>    let cell = tableView.dequeueReusableCellWithIdentifier(“conanIdentifier”, forIndexPath: indexPath) as! UITableViewCell<br>    //To config Cells ….<br>    }</p>
-<h2 id="动作">动作</h2><p>选中：<br>    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {}<br>取消选中：<br>    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {}</p>
-<h2 id="其他">其他</h2><ol>
+        <span itemprop="articleBody"><h2 id="必须实现的函数">必须实现的函数</h2><p>Sections数目</p>
+<pre><code><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">numberOfSectionsInTableView</span><span class="params">(tableView: UITableView)</span></span> -&gt; <span class="type">Int</span> {
+<span class="comment">// #warning Potentially incomplete method implementation.</span>
+<span class="comment">// Return the number of sections.</span>
+<span class="keyword">return</span> <span class="number">1</span>
+}
+</code></pre><p>每个Section的Cell数目</p>
+<pre><code><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, numberOfRowsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> {
+<span class="comment">// #warning Incomplete method implementation.</span>
+<span class="comment">// Return the number of rows in the section.</span>
+<span class="keyword">return</span> <span class="number">100</span>
+}
+</code></pre><p>注册绑定Cell ID </p>
+<pre><code><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> {
+<span class="keyword">let</span> cell = tableView.dequeueReusableCellWithIdentifier(<span class="string">"conanIdentifier"</span>, forIndexPath: indexPath) <span class="keyword">as</span>! <span class="type">UITableViewCell</span>
+<span class="comment">//To config Cells ….</span>
+}
+</code></pre><h2 id="动作">动作</h2><p>选中：<a id="more"></a></p>
+<pre><code><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)</span></span> {}
+</code></pre><p>取消选中： </p>
+<pre><code><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath)</span></span> {}
+</code></pre><h2 id="其他">其他</h2><ol>
 <li>indexPath:NSIndexPath<br> <code>indexPath.row</code>拿到Cell Index<br> <code>indexPath.section</code>是section number</li>
 <li>将列表变为选中删除状态：<br> <code>tableView.setEditing(true, animated: true)</code></li>
-<li></li>
+<li>TBD</li>
 </ol>
 </span>
       
@@ -291,8 +323,6 @@
     <footer class="post-footer">
       
         <div class="post-tags">
-          
-            <a href="/tags/Dev/" rel="tag">#Dev</a>
           
             <a href="/tags/TableView/" rel="tag">#TableView</a>
           
@@ -329,7 +359,7 @@
         <div class="ds-share flat" data-thread-key="2015/09/14/TableViewBase/"
      data-title="TableView基础"
      data-content=""
-     data-url="http://yoursite.com/2015/09/14/TableViewBase/">
+     data-url="http://conanwhf.gitcafe.io/2015/09/14/TableViewBase/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -351,16 +381,16 @@
  </div>
 
         
-            <!-- 多说热评文章-->
-            <p>热评文章</p>
-            <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+            <!-- 多说热评文章 start -->
+            <div class="ds-top-threads" data-range="monthly" data-num-items="5"></div>
+            <!-- 多说热评文章 end -->
         
 
         
           <div class="comments" id="comments">
             
               <div class="ds-thread" data-thread-key="2015/09/14/TableViewBase/"
-                   data-title="TableView基础" data-url="http://yoursite.com/2015/09/14/TableViewBase/">
+                   data-title="TableView基础" data-url="http://conanwhf.gitcafe.io/2015/09/14/TableViewBase/">
               </div>
             
           </div>
@@ -400,21 +430,21 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">45</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
