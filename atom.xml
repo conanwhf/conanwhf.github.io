@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.gitcafe.io/"/>
-  <updated>2015-12-23T16:15:48.000Z</updated>
+  <updated>2015-12-31T10:55:10.000Z</updated>
   <id>http://conanwhf.gitcafe.io/</id>
   
   <author>
@@ -15,16 +15,291 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[开发Tips收集-2015年12月]]></title>
+    <link href="http://conanwhf.gitcafe.io/2015/12/31/Tips201512/"/>
+    <id>http://conanwhf.gitcafe.io/2015/12/31/Tips201512/</id>
+    <published>2015-12-31T09:25:39.000Z</published>
+    <updated>2015-12-31T10:55:10.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>所谓闭包，就是函数及其词法作用域的合称</li>
+<li>什么不是重构？:<ol>
+<li>添加新功能</li>
+<li>改变某个类型的公共接口</li>
+<li>改变某个类型的行为<br>这些东西都只能叫做重写。有一个很简单的判断方式：<strong>你是否需要改变单元测试</strong>？如果需要的话，那么只就是重写，否则的话才是重构。</li>
+</ol>
+</li>
+<li>设置UIView的背景图片<ol>
+<li>将图片作为UIView的背景色，会在生成color时占用大量的内存。如果图片大小不够，就会平铺多张图片，不会去拉伸图片以适应View的大小</li>
+<li>在UIView上再添加一个UIImageView显示图片作为UIView的背景图片<a id="more"></a></li>
+</ol>
+</li>
+</ul>
+<ol>
+<li><p>iOS视图都是一个图层，最先放置的图层就会在最底层，如此最先给UIView添加一个UIImageView就可以作为UIView的背景图片使用</p>
+<ol>
+<li>其他方式（推荐）</li>
+</ol>
+<p>NSString <em>path = [[NSBundlemainBundle]pathForResource:@”image”ofType:@”jpg”];<br>UIImage </em>image = [UIImageimageWithContentsOfFile:path];<br>self.view.layer.contents = (id)image.CGImage;</p>
+</li>
+</ol>
+<ul>
+<li>代理，又称委托代理（delegate），是iOS中常用的设计一种模式。顾名思义，它是把某个对象要做的事情委托给别的对象去做。那么别的对象就是这个对象的代理，代替它来打理要做的事。反映到程序中， 首先要明确一个对象的委托方是哪个对象，委托所做的内容是什么。在iOS程序设计中，委托通过一种@protocol的方式实现，所以又称为协议。在iOS的SDK里面，UITableView、UITextField等都有用到这种设计模式。</li>
+<li>协议，是多个类共享的一个方法列表，在协议中所列出的方法没有响应的实现，由其它类来实现。委托是指给一个对象提供机会对另一对象中的变化做出反应或者相应另一个对象的行为。其基本思想是协同解决问题。</li>
+<li>委托模式能够起到两方面的作用：<ol>
+<li>代理协助对象主体完成某项操作，将需要定制化的操作通过代理来自定义实现，达到和子类化对象主体同样的作用。</li>
+<li>事件监听，代理对象监听对象主体的某些重要事件，对事件做出具体响应或广播事件交给需要作出响应的对象。</li>
+</ol>
+</li>
+<li>NSString是不可变的，意思是他声明的对象我们不可以改变，如果要改变，可以使用它的子类：NSMutableString</li>
+<li>高阶函数，指可以将其他函数作为参数或者返回结果的函数。Swift中的函数都是高阶函数</li>
+<li>对象是附有行为的数据，而闭包是附有数据的行为。</li>
+<li>推测苹果审核团队设备验收选型也会遵循原则：验收最新发布的两个系统版本，两个硬件版本。保证游戏可以在市场占有率最高的两个系统版本及硬件配置上可以流畅运行。</li>
+<li>预审组通过细分将预审工作划为3大模块：客户端资源检查、应用内容检查和提审资源检查：<ol>
+<li>客户端资源检查：确保客户端内Plist等配置符合苹果要求，不存在多余的Key值enable;</li>
+<li>应用内容检查：对应用的内容进行审查，确认无涉及色情、庸俗、暴力、枪支等内容;并对公告文字等筛查，无苹果禁止的字眼等;应用内不包含cdkey兑换，好友邀请及炫耀等苹果最新禁止的内容;</li>
+<li>提审资源检查：确保提交的游戏截图、视频符合苹果要求，且截图及视频中没有敏感信息;同时视频截图等均符合苹果的技术要求，帧率分辨率达标.</li>
+</ol>
+</li>
+<li>模块化编程才是正道，尽量使用 struct 和 enum 代替 class，把 extension 和 protocol 当做胶水，把逻辑和行为分开，总结起来就是珍爱POP/VOP，远离OOP</li>
+<li>为了便于客户端使用数据，逐渐形成了一种非正式传输协议，人们把它称作JSONP，该协议的一个要点就是允许用户传递一个callback参数给服务端，然后服务端返回数据时会将这个callback参数作为函数名来包裹住JSON数据，这样客户端就可以随意定制自己的函数来自动处理返回数据了。</li>
+<li>IOS字号转换：<br>  pt=(px/96)*72<br>  1 in = 2.54 cm = 25.4 mm = 72pt<br>  px(Pixel)：像素，相对长度单位。<br>  pt(Point)：点，绝对长度单位。</li>
+<li>系统的这些视图控制器，都实现了CALayer的delegate，当vc的根视图的frame发生变化的时候会接受到通知<strong>layoutSublayersOfLayer</strong>，系统的视图控制器会在这里面调用这两个函数来通知其当前的子VC去做布局的工作：<ol>
+<li>viewWillLayoutSubviews</li>
+<li>viewDidLayoutSubviews</li>
+</ol>
+</li>
+<li>工程Info中：<ol>
+<li>CFBundleVersion，标识（发布或未发布）的内部版本号。这是一个单调增加的字符串，包括一个或多个时期分隔的整数。</li>
+<li>CFBundleShortVersionString标识应用程序的发布版本号。该版本的版本号是三个时期分隔的整数组成的字符串。第一个整数代表重大修改的版本，如实现新的功能或重大变化的修订。第二个整数表示的修订，实现较突出的特点。第三个整数代表维护版本。该键的值不同于“CFBundleVersion”标识。</li>
+<li>Version 对应的就是CFBundleShortVersionString （发布版本号 如当前上架版本为1.1.0  之后你更新的时候可以改为1.1.1）。</li>
+<li>Build 对应的是 CFBundleVersion（内部标示，用以记录开发版本的，每次更新的时候都需要比上一次高 如：当前版本是11，下一次就要大于11 比如 12，13 ….10000）</li>
+</ol>
+</li>
+<li>iOS app icon 通用设计规则：<ol>
+<li>如果品牌 LOGO 在「颜色」上的展示诉求大于「造型」的话，可用白色背景加品牌 LOGO；<ol>
+<li>如果品牌 LOGO 「造型」足够独特具有高识别度，或对「颜色」诉求相对较小的话，则可用品牌色做背景；</li>
+<li>如果产品拥有具象的形象物或场景的话，可设计「拟物化」或「 场景化」的图标（游戏图标居多）。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>当用户点击屏幕后，首先开启的是查找hit-View的过程。从window开始，给所有直接子视图发hit-Test的消息，直到某一个控件没有子视图了，并且这个触点在这个子视图中，则返回这个控件，于是hit-View找到了。找到hit－View后，view则成为了需要第一个为这个事件提供响应的对象，如果，该对象没有提供事件响应，则该事件对象会向视图的父视图继续传递，如果父视图依然没有提供响应，则继续向上传递，直到传递到UIApplication对象，依然没有处理的话，则抛弃该事件。这个过程叫做响应者链。</li>
+<li>Swift 2.1 现在可以在字符串插值中使用双引号。表达式字符串插值现在可以包含字符串了。比如，<code>“My name is \ (attributes[“name”]!)”</code> 现在是有效的。</li>
+<li>通过NSURLConnection主要通过四个类进行网络访问：NSURL,NSURLRequest,NSMutableURLRequest,NSURLConnection<ol>
+<li>NSURL：请求地址</li>
+<li>NSURLRequest：封装一个请求，保存发给服务器的全部数据，包括一个NSURL对象，请求方法、请求头、请求体….</li>
+<li>NSMutableURLRequest：NSURLRequest的子类</li>
+<li>NSURLConnection：负责发送请求，建立客户端和服务器的连接。发送NSURLRequest的数据给服务器，并收集来自服务器的响应数据</li>
+</ol>
+</li>
+<li>缩放的一般实现步骤 (比如缩放UIScrollView内部的UIImageView)<ol>
+<li>设置UIScrollView的delegate为控制器 (self)</li>
+<li>控制器遵守UIScrollViewDelegate协议 \<uiscrollviewdelegate\></uiscrollviewdelegate\></li>
+<li>控制器实现viewForZoomingInScrollView:方法， 返回需要缩放的子控件</li>
+<li>设置最大和最小缩放比例</li>
+</ol>
+</li>
+<li>添加视图代码几个建议：    <ol>
+<li>避免调用 layoutSubviews，在 viewDidLayoutSubviews 和 viewDidAppear 中进行 frame 的获取</li>
+<li>如果你需要尽早地做一些大动作，推荐在 viewDidLayoutSubviews，此时用户还没有看到 UI，用法可以更灵活</li>
+<li>注意 viewDidLayoutSubviews 可能会被多次调用，所以添加元素之类的操作尽量避免在这里做</li>
+<li>viewDidAppear 中可以干一切你想干的事情，但是一些需要用户看到的东西例如动画只能在这里做</li>
+<li>更推荐把需要做的事情尽量全部放到 viewDidAppear 中来做，让用户尽早地看到界面，这是人机交互的基本原则</li>
+</ol>
+</li>
+<li>对view的layer的修改是发生在约束调整之前的如果layer和约束存在关联的话就需要好好调试了</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>所谓闭包，就是函数及其词法作用域的合称</li>
+<li>什么不是重构？:<ol>
+<li>添加新功能</li>
+<li>改变某个类型的公共接口</li>
+<li>改变某个类型的行为<br>这些东西都只能叫做重写。有一个很简单的判断方式：<strong>你是否需要改变单元测试</strong>？如果需要的话，那么只就是重写，否则的话才是重构。</li>
+</ol>
+</li>
+<li>设置UIView的背景图片<ol>
+<li>将图片作为UIView的背景色，会在生成color时占用大量的内存。如果图片大小不够，就会平铺多张图片，不会去拉伸图片以适应View的大小</li>
+<li>在UIView上再添加一个UIImageView显示图片作为UIView的背景图片]]>
+    
+    </summary>
+    
+      <category term="Xcode" scheme="http://conanwhf.gitcafe.io/tags/Xcode/"/>
+    
+      <category term="iOS - Swift" scheme="http://conanwhf.gitcafe.io/tags/iOS-Swift/"/>
+    
+      <category term="DevTips" scheme="http://conanwhf.gitcafe.io/categories/DevTips/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[读书清单 2015-12]]></title>
+    <link href="http://conanwhf.gitcafe.io/2015/12/31/ReadingList2015-12/"/>
+    <id>http://conanwhf.gitcafe.io/2015/12/31/ReadingList2015-12/</id>
+    <published>2015-12-31T02:02:38.000Z</published>
+    <updated>2015-12-31T10:56:59.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="读完的书">读完的书</h2><ol>
+<li>老码说编程之玩转Swift江湖<br>这本书从打开到终于看完也断断续续看了好久，算是中文原作开发教程中相当不错的一本。虽然作者写的例子都很中二，有点自以为幽默其实看着很烦，骗稿费之嫌，但讲正事还是蛮能讲到点子上的，看得出来是有实际经验的开发者。作为语法入门，这本书很好，也很适合曾经会一点别的语言的开发者。该知道的基本知识都有，看中实际操作，甚至是从装黑苹果开始手把手教，有自己的东西，不像很多东拼西凑的教材，新手看了摸不着头脑，半天还是连编译器都不会用。</li>
+</ol>
+<h2 id="读完的杂志">读完的杂志</h2><p>没空读</p>
+<h2 id="其他阅读">其他阅读</h2><ol>
+<li>中文传媒精选</li>
+<li>每日开发者订阅源&amp;新闻</li>
+<li>杂七杂八开发相关网页推送</li>
+</ol>
+<h2 id="正在读的书">正在读的书</h2><ol>
+<li>Swift iOS应用开发实战</li>
+<li>Swift与Cocoa框架开发<a id="more"></a></li>
+<li>Swift语言实战精讲</li>
+<li>移动应用UI设计</li>
+<li>iOS组件与框架　　　</li>
+</ol>
+<h2 id="中亚买的书_（102-45）">中亚买的书 （<strong>102.45</strong>）</h2><ol>
+<li>移动应用UI设计模式（第2版） (图灵交互设计丛书)   <strong>17.5</strong></li>
+<li>O’Reilly精品图书系列共21册     <strong>49.99</strong><br>打折，其实有些不会去读。内容包括：<strong>《机器学习：实用案例解析》</strong>、<strong>《利用Python进行数据分析》、《社交网站的数据挖掘与分析（原书第2版）》、《社会网络分析：方法与实践》、《以用户为中心的软件设计：打造用户友好型应用的有效方法和准则》、《编写可读代码的艺术》、《算法精解：C语言描述》、《算法技术手册》、</strong>《JavaScript权威指南（原书第6版）》、<strong>《Python学习手册（原书第4版）》</strong>、《MySQL核心技术手册》、《HTML5应用开发实践指南》、《嵌入式系统设计与实践》、《PaaS程序设计》、<strong>《程序员度量：改善软件团队的分析学》</strong>、《Android应用开发攻略》、《Android程序设计：第2版》、《GAE编程指南》、《精通Hibernate》、《SQL与关系数据库理论：如何编写健壮的SQL代码（第2版）》、《SEO的艺术（原书第2版）》</li>
+<li>（图灵社区）HTTP权威指南    <strong>6.0</strong></li>
+<li>（图灵社区）机器学习实战     <strong>4.0</strong></li>
+<li>（图灵社区）Web性能权威指南    <strong>3.0</strong></li>
+<li>加拿大语文读本(英汉双语版)    <strong>3.99</strong></li>
+<li>澳大利亚语文（套装共六册)    <strong>4.99</strong></li>
+<li>美国语文：美国中学课文经典读本(英汉双语版)    <strong>2.99</strong></li>
+<li>诺贝尔经济学奖经典收藏版（自由选择、生活中的经济学、增长的极限）    <strong>9.99</strong></li>
+</ol>
+<h2 id="总结">总结</h2><p>这个月可以说没有读书。双十二打折的时候倒是剁了些电子版，只是现在亚马逊的电子书特别是套装打折很有诚意，质量却让人无语。比如这次买的O’Reilly套装，连二级目录都没有，不只是整本书的目录没有做好，而是哪怕你去到了某本书，也没有任何目录！这就有点不靠谱了，只能在电脑上看看，用鼠标勉强翻个页，而且完全不知道这本书的结构，只能从头看到尾。😡另一方面，现在我买的书确实看不完，自己对亚马逊来来回回打折的那些书也有点厌倦了，接下来恐怕会买得比较少。<br>别说看别的书了，最近就算是kindle的每日推送我都是匆匆看完，家里中文传媒精选的读书会也好久没开了，整天埋头对着Xcode（其实玩的时候也不少啦，只是没读书），书桌上堆着的也都是开发书籍。iOS开发要学的东西太多，我又有整理癖，每次写写就要停下来整理总结一下，加上日常生活的各种杂事，感觉学完自己的那一亩三分地遥遥无期啊！年底了，今年过得太懒散玩了十个月学了两个月，实在不好意思写年终总结，明年努力吧！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="读完的书">读完的书</h2><ol>
+<li>老码说编程之玩转Swift江湖<br>这本书从打开到终于看完也断断续续看了好久，算是中文原作开发教程中相当不错的一本。虽然作者写的例子都很中二，有点自以为幽默其实看着很烦，骗稿费之嫌，但讲正事还是蛮能讲到点子上的，看得出来是有实际经验的开发者。作为语法入门，这本书很好，也很适合曾经会一点别的语言的开发者。该知道的基本知识都有，看中实际操作，甚至是从装黑苹果开始手把手教，有自己的东西，不像很多东拼西凑的教材，新手看了摸不着头脑，半天还是连编译器都不会用。</li>
+</ol>
+<h2 id="读完的杂志">读完的杂志</h2><p>没空读</p>
+<h2 id="其他阅读">其他阅读</h2><ol>
+<li>中文传媒精选</li>
+<li>每日开发者订阅源&amp;新闻</li>
+<li>杂七杂八开发相关网页推送</li>
+</ol>
+<h2 id="正在读的书">正在读的书</h2><ol>
+<li>Swift iOS应用开发实战</li>
+<li>Swift与Cocoa框架开发]]>
+    
+    </summary>
+    
+      <category term="BookList" scheme="http://conanwhf.gitcafe.io/tags/BookList/"/>
+    
+      <category term="Life &amp; Other" scheme="http://conanwhf.gitcafe.io/categories/Life-Other/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Swift中数据类型精度的一点探索]]></title>
+    <link href="http://conanwhf.gitcafe.io/2015/12/30/precision/"/>
+    <id>http://conanwhf.gitcafe.io/2015/12/30/precision/</id>
+    <published>2015-12-30T09:14:35.000Z</published>
+    <updated>2015-12-31T10:05:12.000Z</updated>
+    <content type="html"><![CDATA[<p>昨天整理code，顺手写了个UIColor和16进制RGB表示的颜色转换。由于UIColor中的RGBA范围是0..1，所以里面用到了一些乘除法，和强制类型转换：</p>
+<pre><code>CGFloat<span class="list">(<span class="keyword">Float</span><span class="list">(<span class="keyword">r</span>)</span>/255.<span class="number">0</span>)</span>
+Int<span class="list">(<span class="keyword">r*255</span>)</span>
+</code></pre><p>写完以后测试了一下貌似没什么问题，就睡觉去了。后来突然想到，1/255并不是一个有理数，而且<strong>Int()做的是取地板而不是四舍五入</strong>，会不会在这种转换的过程中因为精度的问题造成数据错误呢？于是写了一小段测试代码：</p>
+<pre><code>//精度测试，确认转换不会丢失信息
+<span class="keyword">let</span> a  = Array.init(<span class="number">0</span>...<span class="number">255</span>)
+<span class="keyword">let</span> b = a.<span class="keyword">map</span>{ CGFloat(Float(<span class="variable">$0</span>)/<span class="number">255.0</span>) }
+<span class="keyword">let</span> c = b.<span class="keyword">map</span>{ Int(<span class="variable">$0</span>*<span class="number">255</span>) }
+a.elementsEqual(c)
+</code></pre><p>还好结果是True，这个转换过程并没有出错的机会。但我怎么可能就此罢休？通过修改a的初始化条件发现，乘除255的时候，在算257的时候就出错了。按理说1/255并不是一个很小的数字，如果准确的话，16位的存储结构是可以保留足够信息的，所以我尝试这打印了一下各个数据类型的精度：</p>
+<pre><code><span class="function"><span class="title">sizeof</span><span class="params">(Int)</span></span>*<span class="number">8</span><span class="comment">//64</span>
+<span class="function"><span class="title">sizeof</span><span class="params">(UInt)</span></span>*<span class="number">8</span><span class="comment">//64</span>
+<span class="function"><span class="title">sizeof</span><span class="params">(UInt16)</span></span>*<span class="number">8</span><span class="comment">//16</span>
+<span class="function"><span class="title">sizeof</span><span class="params">(Int32)</span></span>*<span class="number">8</span><span class="comment">//32</span>
+
+<span class="function"><span class="title">sizeof</span><span class="params">(Float)</span></span>*<span class="number">8</span><span class="comment">//32</span>
+<span class="function"><span class="title">sizeof</span><span class="params">(Double)</span></span>*<span class="number">8</span><span class="comment">//64</span>
+<span class="function"><span class="title">sizeof</span><span class="params">(CGFloat)</span></span>*<span class="number">8</span><span class="comment">//64</span>
+
+<span class="function"><span class="title">sizeof</span><span class="params">(Character)</span></span>*<span class="number">8</span><span class="comment">//72</span>
+<span class="function"><span class="title">sizeof</span><span class="params">(String)</span></span>*<span class="number">8</span><span class="comment">//192</span>
+<span class="function"><span class="title">sizeof</span><span class="params">(CGRect)</span></span>*<span class="number">8</span><span class="comment">//256</span>
+<span class="function"><span class="title">sizeof</span><span class="params">(UIColor)</span></span>*<span class="number">8</span><span class="comment">//64</span>
+</code></pre><p>第一组相当的make sense，Int默认就是64位；第二组是实数部分，令我惊讶的是原来<em>CGFloat</em>也是64位的，而<em>Float</em>反而比它差只有32位。第三组的结果比较值得玩味：Swift里面的<em>String</em>搞得比较复杂，是什么都不奇怪，但我以为<em>Character</em>至少会是8，结果却是72；<em>UIColor</em>本身是由4个<em>CGFloat</em>构成，其size却不是4倍的<em>CGFloat</em>；倒是<em>CGRect</em>比较可以解释，因为它是<em>CGSize</em>和<em>CGPoint</em>组合而成，实质上也是4个<em>CGFloat</em>。<a id="more"></a><br>也就是说，sizeof()这个函数，在对某些类型如String等操作的时候，结果是这个结构体所占用的内存空间大小；而对某些类型如Int等，即使它们也是一个结构体（我们已经知道在Swift中所有的类型其实都是结构体），给出的结果却是这个类型所表示的值的内存占用。令人感兴趣的是，在一堆UIXXX的结构体中，为什么独独CGFloat会作为数值类型来看待呢？于是我去翻了翻CGFloat的头文件，发现这家伙真面目是这样的：</p>
+<pre><code><span class="keyword">public</span> struct CGFloat {
+<span class="comment">/// The native type used to store the CGFloat, which is Float on</span>
+<span class="comment">/// 32-bit architectures and Double on 64-bit architectures.</span>
+<span class="keyword">public</span> typealias NativeType = <span class="typename">Double</span>
+<span class="keyword">public</span> init()
+<span class="keyword">public</span> init(_ value: <span class="typename">Float</span>)
+<span class="keyword">public</span> init(_ value: <span class="typename">Double</span>)
+<span class="comment">/// The native value.</span>
+<span class="keyword">public</span> <span class="variable"><span class="keyword">var</span> native</span>: NativeType
+}
+</code></pre><p>真相大白，所以CGFloat在内部实现就是个Double，头文件后面还有很长的各种协议……也就是说，其实CGFloat是可以直接做运算的？试了试，果然没错。那么<code>CGFloat(Float(r)/255.0)</code>这种计算就不妥了，人家一个好好的64位，给生生转成32位了，改成<code>CGFloat(r)/255.0</code>即可。<br>回到最开始的问题—精度。为了便于测试，我写了个函数：</p>
+<pre><code><span class="func"><span class="keyword">func</span> <span class="title">precisionTest</span> <span class="params">(div: CGFloat)</span></span> {
+<span class="keyword">var</span> a : <span class="type">Int</span> = <span class="number">0</span>
+<span class="keyword">var</span> b : <span class="type">CGFloat</span>
+<span class="keyword">var</span> <span class="built_in">c</span> : <span class="type">Int</span>
+repeat {
+a = a + <span class="number">1</span>
+<span class="comment">//b = CGFloat(Float(a) / Float(div)) // for Float</span>
+b = <span class="type">CGFloat</span>(a) / div    <span class="comment">// for CGFloat</span>
+<span class="built_in">c</span> = <span class="type">Int</span>(b * div)
+}<span class="keyword">while</span> <span class="built_in">c</span> == a
+<span class="built_in">print</span>(<span class="string">"div=<span class="subst">\(div)</span>, a=<span class="subst">\(a)</span>, b=<span class="subst">\(b)</span> @<span class="subst">\(b*div)</span>, c=<span class="subst">\(<span class="built_in">c</span>)</span> @ <span class="subst">\(Double(<span class="built_in">c</span>)</span>/Double(div))"</span>)
+}
+</code></pre><p>这个函数会从1开始找，计算在div(除数)固定的情况下，第一个将常数先除再乘后丢失精度的case。之前我们已经知道了在div=255且中间变量使用Float的时候，<code>257/255*255 != 257</code>，但中间变量换成CGFloat之后，程序跑到10000+还没找到错误，被我手动停了👻。另外随机试了几个数字，都是使用CGFloat比Float出错概率要小，<strong>这也印证了这两个类型的精度大小区别</strong>，只是这种错误的结果随机性比较高，有的用1就已经出错，有的跑了很久也没事，跟div的数值变化没有什么关联性，也就是说这种错误并不全是保存精度大小和Int()截取而造成的。<br>那么大概是因为除法吧？接下来我固定使用Float（更容易出错便于观察结果），调整不同的div数值来测试，发现：</p>
+<ol>
+<li>1，2，4，8，16，…，512，1024…这些div永远不会出错</li>
+<li>除了2^n作为div，其他数字都会出错（只测试了10000以内的）</li>
+<li>出错的数字都是奇数，但没什么特别明显的规律，跟div的相关性也不大</li>
+<li>有个别出错特别晚的div（超过div本身的数值），他们都可被分解成2^n1+2^n2+2^n3…+2^nm-1<br>综上所述，在我所测试的这个问题上，结果的误差主要影响还是因为除法。<strong>除法实现到最底层（硬件层），终究还是靠电子元器件，也就归结到了二进制计算。所以那些2^n作为除数，只靠移位操作就能解决，没有精度损失；而其他数字则是有一套算法，这也和我们所知的计算机原理相吻合。</strong>至于具体怎么算的……如果我搞清楚了也许就能解释3和4了吧……😌（其实我对着打印信息研究了好半天，但数学不行实在研究不出来个结果😭）<br>以上就是我对Swift中数据类型精度的一些相关探索，如果你想看测试代码，在<a href="https://github.com/conanwhf/swiftplayground/blob/master/Play.playground/Pages/Precision.xcplaygroundpage/Contents.swift" target="_blank" rel="external">这里</a>（然而其实真没啥好看）</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>昨天整理code，顺手写了个UIColor和16进制RGB表示的颜色转换。由于UIColor中的RGBA范围是0..1，所以里面用到了一些乘除法，和强制类型转换：</p>
+<pre><code>CGFloat<span class="list">(<span class="keyword">Float</span><span class="list">(<span class="keyword">r</span>)</span>/255.<span class="number">0</span>)</span>
+Int<span class="list">(<span class="keyword">r*255</span>)</span>
+</code></pre><p>写完以后测试了一下貌似没什么问题，就睡觉去了。后来突然想到，1/255并不是一个有理数，而且<strong>Int()做的是取地板而不是四舍五入</strong>，会不会在这种转换的过程中因为精度的问题造成数据错误呢？于是写了一小段测试代码：</p>
+<pre><code>//精度测试，确认转换不会丢失信息
+<span class="keyword">let</span> a  = Array.init(<span class="number">0</span>...<span class="number">255</span>)
+<span class="keyword">let</span> b = a.<span class="keyword">map</span>{ CGFloat(Float(<span class="variable">$0</span>)/<span class="number">255.0</span>) }
+<span class="keyword">let</span> c = b.<span class="keyword">map</span>{ Int(<span class="variable">$0</span>*<span class="number">255</span>) }
+a.elementsEqual(c)
+</code></pre><p>还好结果是True，这个转换过程并没有出错的机会。但我怎么可能就此罢休？通过修改a的初始化条件发现，乘除255的时候，在算257的时候就出错了。按理说1/255并不是一个很小的数字，如果准确的话，16位的存储结构是可以保留足够信息的，所以我尝试这打印了一下各个数据类型的精度：</p>
+<pre><code><span class="function"><span class="title">sizeof</span><span class="params">(Int)</span></span>*<span class="number">8</span><span class="comment">//64</span>
+<span class="function"><span class="title">sizeof</span><span class="params">(UInt)</span></span>*<span class="number">8</span><span class="comment">//64</span>
+<span class="function"><span class="title">sizeof</span><span class="params">(UInt16)</span></span>*<span class="number">8</span><span class="comment">//16</span>
+<span class="function"><span class="title">sizeof</span><span class="params">(Int32)</span></span>*<span class="number">8</span><span class="comment">//32</span>
+
+<span class="function"><span class="title">sizeof</span><span class="params">(Float)</span></span>*<span class="number">8</span><span class="comment">//32</span>
+<span class="function"><span class="title">sizeof</span><span class="params">(Double)</span></span>*<span class="number">8</span><span class="comment">//64</span>
+<span class="function"><span class="title">sizeof</span><span class="params">(CGFloat)</span></span>*<span class="number">8</span><span class="comment">//64</span>
+
+<span class="function"><span class="title">sizeof</span><span class="params">(Character)</span></span>*<span class="number">8</span><span class="comment">//72</span>
+<span class="function"><span class="title">sizeof</span><span class="params">(String)</span></span>*<span class="number">8</span><span class="comment">//192</span>
+<span class="function"><span class="title">sizeof</span><span class="params">(CGRect)</span></span>*<span class="number">8</span><span class="comment">//256</span>
+<span class="function"><span class="title">sizeof</span><span class="params">(UIColor)</span></span>*<span class="number">8</span><span class="comment">//64</span>
+</code></pre><p>第一组相当的make sense，Int默认就是64位；第二组是实数部分，令我惊讶的是原来<em>CGFloat</em>也是64位的，而<em>Float</em>反而比它差只有32位。第三组的结果比较值得玩味：Swift里面的<em>String</em>搞得比较复杂，是什么都不奇怪，但我以为<em>Character</em>至少会是8，结果却是72；<em>UIColor</em>本身是由4个<em>CGFloat</em>构成，其size却不是4倍的<em>CGFloat</em>；倒是<em>CGRect</em>比较可以解释，因为它是<em>CGSize</em>和<em>CGPoint</em>组合而成，实质上也是4个<em>CGFloat</em>。]]>
+    
+    </summary>
+    
+      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[从打造新闻app学到的(5)：解决TableCell调用segue的时序问题]]></title>
     <link href="http://conanwhf.gitcafe.io/2015/12/23/newsreader-5/"/>
     <id>http://conanwhf.gitcafe.io/2015/12/23/newsreader-5/</id>
     <published>2015-12-23T02:56:35.000Z</published>
-    <updated>2015-12-23T16:15:48.000Z</updated>
+    <updated>2015-12-24T06:01:32.000Z</updated>
     <content type="html"><![CDATA[<p>在从TableCell跳转到具体新闻页面的时候，我遇到了一个问题：整个流程的时序跟我想的不太一样。因为我需要在点击Cell的时候知道这是哪个Cell，再将它作为参数传递给下一个View，所以我实现了函数<strong> didSelectRowAtIndexPath</strong>，然后设好一个private的变量，供prepareForSegue调用。可是事实上的流程却变成了：</p>
 <blockquote>
-<p>prepareForSegue() -> next.viewDidLoad() -> didSelectRowAtIndexPath()]</p>
+<p>prepareForSegue() -> next.viewDidLoad() -> didSelectRowAtIndexPath()</p>
 </blockquote>
-<p>也就是说当Cell的点击发生，会先调用StroyBaord中设置的Segue，新的View初始化完成后再回调didSelectRowAtIndexPath，导致我在viewDidLoad()中拿不到想要的数据。<br>在网上搜了一下，有人也遇到了同样的问题，他的解决方法是：<br>1) 将->NextView的Segue改为->NextViewController(NextView的代理)<br>2) 在StoryBoard中配置此Segue的ID为<strong>“ABC”</strong><br>3) 在didSelectRowAtIndexPath()准备好数据之后手动调用转场：</p>
+<p>也就是说当Cell的点击发生，会先调用StroyBaord中设置的Segue，新的View初始化完成后再回调didSelectRowAtIndexPath，导致我在viewDidLoad()中拿不到想要的数据。<br>在网上搜了一下，有人也遇到了同样的问题，他的解决方法是：<br>1) 将 ->NextView的Segue改为 ->NextViewController(NextView的代理)<br>2) 在StoryBoard中配置此Segue的ID为<strong>“ABC”</strong><br>3) 在didSelectRowAtIndexPath()准备好数据之后手动调用转场：</p>
 <pre><code><span class="comment">//跳转到下一个页面，识别“ABC”</span>
 self.<span class="function"><span class="title">performSegueWithIdentifier</span><span class="params">(“ABC”, sender: self)</span></span>
 </code></pre><p>实测这个方法是有效的，不过我总感觉不够漂亮……于是打开Dash把所有tableView()的相关Callback都过了一遍，挑出几个加打印实测，<a id="more"></a>找到了这个：<strong>willSelectRowAtIndexPath</strong><br>看起来这是一个专门给人做点特殊需求的API，如果我们将其返回nil而不是当前的Index：</p>
@@ -35,19 +310,19 @@ self.<span class="function"><span class="title">performSegueWithIdentifier</span
 }
 </code></pre><p>那么无论你怎么点击，Cell都不会再响应任何selected事件了……😈虽然没有做更多的尝试，但我猜如果这时候返回一个修改过的indexPath也是可以做到的，比如怎么点都是同一个结果之类……😏<br>说回正事。现在我们可以把数据的获得放到willSelectRowAtIndexPath()中了，流程变成了：</p>
 <blockquote>
-<p>willSelectRowAtIndexPath() ，_获得要传递的数据_</p>
-<p>-> prepareForSegue() ，_传递数据的准备_</p>
-<p>-> next.viewDidLoad()，_通过Segue调用新的View_</p>
-<p>-> [如果你依然需要]didSelectRowAtIndexPath()</p>
+<p>willSelectRowAtIndexPath() ，<em>获得要传递的数据</em></p>
+<p>-> prepareForSegue() ，<em>传递数据的准备</em></p>
+<p>-> next.viewDidLoad()，<em>通过Segue调用新的View</em></p>
+<p>-> [如果你依然需要] didSelectRowAtIndexPath()</p>
 </blockquote>
 <p>问题解决!😄</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>在从TableCell跳转到具体新闻页面的时候，我遇到了一个问题：整个流程的时序跟我想的不太一样。因为我需要在点击Cell的时候知道这是哪个Cell，再将它作为参数传递给下一个View，所以我实现了函数<strong> didSelectRowAtIndexPath</strong>，然后设好一个private的变量，供prepareForSegue调用。可是事实上的流程却变成了：</p>
 <blockquote>
-<p>prepareForSegue() -> next.viewDidLoad() -> didSelectRowAtIndexPath()]</p>
+<p>prepareForSegue() -> next.viewDidLoad() -> didSelectRowAtIndexPath()</p>
 </blockquote>
-<p>也就是说当Cell的点击发生，会先调用StroyBaord中设置的Segue，新的View初始化完成后再回调didSelectRowAtIndexPath，导致我在viewDidLoad()中拿不到想要的数据。<br>在网上搜了一下，有人也遇到了同样的问题，他的解决方法是：<br>1) 将->NextView的Segue改为->NextViewController(NextView的代理)<br>2) 在StoryBoard中配置此Segue的ID为<strong>“ABC”</strong><br>3) 在didSelectRowAtIndexPath()准备好数据之后手动调用转场：</p>
+<p>也就是说当Cell的点击发生，会先调用StroyBaord中设置的Segue，新的View初始化完成后再回调didSelectRowAtIndexPath，导致我在viewDidLoad()中拿不到想要的数据。<br>在网上搜了一下，有人也遇到了同样的问题，他的解决方法是：<br>1) 将 ->NextView的Segue改为 ->NextViewController(NextView的代理)<br>2) 在StoryBoard中配置此Segue的ID为<strong>“ABC”</strong><br>3) 在didSelectRowAtIndexPath()准备好数据之后手动调用转场：</p>
 <pre><code><span class="comment">//跳转到下一个页面，识别“ABC”</span>
 self.<span class="function"><span class="title">performSegueWithIdentifier</span><span class="params">(“ABC”, sender: self)</span></span>
 </code></pre><p>实测这个方法是有效的，不过我总感觉不够漂亮……于是打开Dash把所有tableView()的相关Callback都过了一遍，挑出几个加打印实测，]]>
@@ -259,7 +534,7 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
     <link href="http://conanwhf.gitcafe.io/2015/12/15/swift_xml/"/>
     <id>http://conanwhf.gitcafe.io/2015/12/15/swift_xml/</id>
     <published>2015-12-15T10:14:35.000Z</published>
-    <updated>2015-12-23T15:19:31.000Z</updated>
+    <updated>2015-12-23T16:17:05.000Z</updated>
     <content type="html"><![CDATA[<p>（挖坑自己跳系列三）<br>在实现文件操作的时候我意识到了一个事实：由于NSURL是可支持的路径，很多文件的操作实际上可以扩充到网络上去，比如从网上下载一个文件、拿取一些数据……想到这里，埋藏在心中很久的愿望又开始蠢蠢欲动：写一个新闻客户端！<br>我有一个常看的新闻网站（不要问我是哪个，要FQ），官方客户端很难用，第三方广告满天飞，严重影响心情。所以当初开始学iOS的时候就把重做一个客户端的目标放在了首位。最开始的时候想得太简单，兴冲冲地开了个project，搞了两下TableView，然后发现……对于我这种从来只写底层代码，swift/OC语法都不会的人，做这个简直是异想天开好嘛！<br>折腾的过程中，为了拿到数据，还跑去下了Android的官方客户端反编译，find + grep出来了人家的数据接口地址（论一个爱折腾的程序员是怎么给自己挖坑的），返回的是XML数据，连蒙带猜试了试，可以用！不过后来做UI受挫（其实不止做UI，挫败感太大），就把那份东西闲置起来了。这两天突然想起来，现在我貌似感觉有点良好，何不捡起来继续写我的客户端？<br>因为UI我还一窍不通，不懂怎么调试，也不懂怎么把数据显示出来，为了避免到处打印的麻烦，我选择playground。这样也就是需要用原生库，这个很简单，搜一下就有了：NSXMLParserDelegate，还有好些源码，虽然大多是OC的。<br>问题是有源码，我依！然！看！不！懂！怎么用！每个教程都是扔了源码上来，可没人解释清楚到底怎么运行。我研究了好一阵，终于明白了大概的机制：</p>
 <blockquote>
 <p><strong>自己写一个类继承NSXMLParserDelegate，就叫它XmlReader吧；并且实现一些必须的callback函数，在XmlReader的Init中调用.parse()方法，最后在new XmlReader的时候就会自动完成整个parse了</strong><br><a id="more"></a></p>
@@ -615,7 +890,7 @@ manager.<span class="function"><span class="title">contentsEqualAtPath</span><sp
     <link href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/"/>
     <id>http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/</id>
     <published>2015-12-09T08:20:16.000Z</published>
-    <updated>2015-12-23T16:22:40.000Z</updated>
+    <updated>2015-12-23T16:22:41.000Z</updated>
     <content type="html"><![CDATA[<p>Swift中的字符串，第六篇，正则匹配。其他的几篇传送门：</p>
 <ul>
 <li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
@@ -1126,7 +1401,7 @@ str.<span class="function"><span class="title">stringByReplacingCharactersInRang
     <link href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/"/>
     <id>http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/</id>
     <published>2015-12-03T07:20:06.000Z</published>
-    <updated>2015-12-23T16:22:03.000Z</updated>
+    <updated>2015-12-23T16:22:04.000Z</updated>
     <content type="html"><![CDATA[<p>字符串算是平常用的比较多、花样也比较多的一个类型，昨天有空把相关的一些常用操作都写了一遍，总结出来。其实iOS里面的字符串更复杂，还有NSString系列等等，那些API太多将来需要用的时候再慢慢学。<br>这个系列目前写了三篇，这篇是第一部分，String的一些常用属性。其他的几篇传送门：</p>
 <ul>
 <li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
@@ -1180,213 +1455,6 @@ str.capitalizedString
       <category term="String" scheme="http://conanwhf.gitcafe.io/tags/String/"/>
     
       <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Swift2.0语法笔记]]></title>
-    <link href="http://conanwhf.gitcafe.io/2015/12/02/Swift_Syntax/"/>
-    <id>http://conanwhf.gitcafe.io/2015/12/02/Swift_Syntax/</id>
-    <published>2015-12-02T08:29:26.000Z</published>
-    <updated>2015-12-23T16:23:00.000Z</updated>
-    <content type="html"><![CDATA[<blockquote>
-<p>作为一个一直在玩Linux kernel的码农，从来不知道什么叫面向对象，也没有一点面向对象的概念，学Swift的时候还是感觉蛮不适应的，很多东西不一样。不像以前从Pascal转到C，只是书写的语法规则有点变化而已。C用久了，对指针、地址、内存的敏感性已经深入骨髓，突然看到这么个不怎么需要考虑内存的语言，有点儿混乱…… :-)<br>惭愧，一直懒懒散散，现在总算是把基础的语法部分学完了。不知道是不是因为C没有那么多面向对象的复杂用法的原因，我总想要慢慢把语法弄扎实，没有急着去做UI(其实心里还挺急的，哈哈)，不知是走对了路还是舍近求远了<br>Swift自己也是个不断变化的语言，玩了一阵子，更新到2.0以后好多东西又不一样了，我也是挺晕的<br>这里把过程中的笔记写一写，主要是基于一个C程序员的角度，有些容易出错的地方以及和C的异同<br>练习源码见：<a href="https://github.com/conanwhf/swiftplayground/tree/master/Swift_Syntax.playground/Pages" target="_blank" rel="external">GitHub</a>　</p>
-</blockquote>
-<p>首先很重要的一点：<strong>空格不能少！！养成习惯！</strong></p>
-<h2 id="变量类型&amp;数值计算">变量类型&amp;数值计算</h2><ul>
-<li>Float/Double/Int可强制用<strong>String()</strong>转换，通用类型转换可用”\(var)”，String转换Int可用<strong>Int()</strong></li>
-<li>变量名大小写区分<a id="more"></a></li>
-<li>类型推断支持float=1+0.3, 但不支持float=int+0.3，即a=b(为一个整数变量)+0.3非法</li>
-<li>元祖类似于简单typedef，可定义不同类型数据为一组，但无指针和数组；强制类型定义不可与元素命名共存</li>
-<li>赋值语句<strong>不返回值</strong>，语句执行成功与否不能作为bool值赋给变量或作为判断条件，即succ=(b=a+1)非法</li>
-<li>求余运算%支持实数，但<strong>不准</strong>！！！因为是实数操作，能用二进制表示的正确，否则无法获取正确值。如(1 % 0.25) OK, (1 % 0.2)则结果不对（0.2无法准确表示的原因）</li>
-<li>基础数据类型都是结构体</li>
-<li>枚举的值是case名本身，而不是Int的另称</li>
-</ul>
-<h2 id="流程控制">流程控制</h2><ul>
-<li>if接受<strong>可选变量／绑定</strong>作为判断条件，assert不行</li>
-<li>assert(bool, string)的意义表示<strong>条件不成立</strong>的话则退出，所以判断条件要写永远成立的那种；正式版中不起作用</li>
-<li>for-in循环中间用来做index的变量不需要定义，在循环内部不可改变，即使定义为变量；跟C相似的for (;;)循环(事实上不需要括号)却相反：<strong>必须定义，循环内可变</strong></li>
-<li>case语句中，不需要写break，一个case后必须有语句；default则可以在case全范围覆盖条件时省略，否则必须写</li>
-<li>case语句的判断条件可以重复，但只会执行第一个匹配</li>
-<li>case中的<strong>fallthrough</strong>不能用在有有变量pickup的case中　</li>
-<li>continue &amp; break有一个类似goto的用法，可以跳转出不止一轮循环，但只能用于循环内</li>
-</ul>
-<h2 id="字符串">字符串</h2><ul>
-<li>不必关心内存，指针等问题，已封装</li>
-<li>大量API使用<strong>Foundation</strong>，即继承自oc</li>
-<li>与数组不同，其API中的<strong>Index</strong>是范型而不是整型</li>
-<li>字符串之间可以相加，字符不行</li>
-<li>每个字符都是一个<strong>可扩展的字母集</strong>（Extended Grapheme Clusters），可能由一个或多个Unicode标量构成，类似于偏旁部首组成一个字</li>
-<li>对于字符来说，不可使用<strong>+</strong>运算来组成字母集，即使相加也是几个字符而不会自动生成一个；但对于字符串，会自动归集</li>
-<li>使用()时，括号内不能有转义符，包括“”</li>
-<li>和C不同，字符串并非字符数组，在Swift里<strong>String.characters</strong>才是和数组类似的存在，拥有类似的属性和方法<pre><code>　
-</code></pre><h2 id="函数调用">函数调用</h2></li>
-<li>返回值可以为空（Void），Void实际上是一个空的元组</li>
-<li>参数可加外部参数名，有外部参数名的参数调用时必须全部强制使用外部参数；也可加默认参数值；有默认值的参数调用时必须加上外部参数名，除非强制用占位符<strong>_</strong>命名外部参数名</li>
-<li>可变参数最多一个且必须放在最后</li>
-<li>即使参数为var，也不可改变函数外的值，需要用<strong>inout</strong>（即传指针）　</li>
-<li>C中函数本质为指针，指向入口；Swift中函数为Function Type变量，可以赋值，调用，作为参数传递，作为返回值等，只要参数&amp;返回值定义匹配即可　</li>
-</ul>
-<h2 id="数组_&amp;_字典_&amp;_集合">数组 &amp; 字典 &amp; 集合</h2><ul>
-<li>数组可以理解为一个相同元素链表</li>
-<li>可以使用<strong>arr[a…b]=[…]</strong>来做替换操作，甚至增加减少元素个数，但表达式中下标不能越界</li>
-<li>字典存储数据对，<strong>无序</strong>，不可用下标访问，但<strong>enumerate</strong>可以拿到一个index</li>
-<li>字典的key是唯一的，相当于有对应键值的关键字集合，对应的键值可以相同</li>
-<li>字典可以用<strong>.keys &amp; .values</strong>来分别获取关键字和键值的数组，但只是罗列，不去重</li>
-<li>遍历数组用“for i in 0..<strong>\&lt;</strong>arry.count”时， 记得别弄错区间！！</li>
-<li>如果没有指定类型，数组<strong>默认使用Object类型</strong>，本质上是OC的NSArray，且无法使用append（使用count&amp;repeatedValue构造器除外，会自动推导类型）</li>
-<li><code>[ [ [Type] ] ]</code>申明的多维数组不是严格N维矩阵，相同维度上的元素数量可以不同，且可以通过赋值改变，更像是多维链表</li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<blockquote>
-<p>作为一个一直在玩Linux kernel的码农，从来不知道什么叫面向对象，也没有一点面向对象的概念，学Swift的时候还是感觉蛮不适应的，很多东西不一样。不像以前从Pascal转到C，只是书写的语法规则有点变化而已。C用久了，对指针、地址、内存的敏感性已经深入骨髓，突然看到这么个不怎么需要考虑内存的语言，有点儿混乱…… :-)<br>惭愧，一直懒懒散散，现在总算是把基础的语法部分学完了。不知道是不是因为C没有那么多面向对象的复杂用法的原因，我总想要慢慢把语法弄扎实，没有急着去做UI(其实心里还挺急的，哈哈)，不知是走对了路还是舍近求远了<br>Swift自己也是个不断变化的语言，玩了一阵子，更新到2.0以后好多东西又不一样了，我也是挺晕的<br>这里把过程中的笔记写一写，主要是基于一个C程序员的角度，有些容易出错的地方以及和C的异同<br>练习源码见：<a href="https://github.com/conanwhf/swiftplayground/tree/master/Swift_Syntax.playground/Pages">GitHub</a>　</p>
-</blockquote>
-<p>首先很重要的一点：<strong>空格不能少！！养成习惯！</strong></p>
-<h2 id="变量类型&amp;数值计算">变量类型&amp;数值计算</h2><ul>
-<li>Float/Double/Int可强制用<strong>String()</strong>转换，通用类型转换可用”\(var)”，String转换Int可用<strong>Int()</strong></li>
-<li>变量名大小写区分]]>
-    
-    </summary>
-    
-      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[读书清单 2015-11]]></title>
-    <link href="http://conanwhf.gitcafe.io/2015/12/01/ReadingList2015-11/"/>
-    <id>http://conanwhf.gitcafe.io/2015/12/01/ReadingList2015-11/</id>
-    <published>2015-12-01T12:02:38.000Z</published>
-    <updated>2015-12-23T16:20:52.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="读完的书">读完的书</h2><ol>
-<li><strong>金粉世家</strong><br>大部头，看了好久才看完，看得有点累。可能受电视剧影响太深，我一边看一边不停地脑补陈坤、董洁、天线。小说写得是不错，那种世家的感觉，各种支线带来的社会整体描绘，感情线的冲突……虽然不至于欲罢不能但每次放下也有点恋恋不舍。我蛮喜欢小说里面的金燕西的，反倒对冷清秋有点反感，感觉多少有点想攀龙附凤又扔不掉自己的清高吧，特别是早期，很多经济上的便宜占得没骨气。</li>
-<li><strong>The Swift Programming Language</strong><br>开发文档，算是看完了吧，不过还有很多东西待查</li>
-<li><strong>AppStore经营之道</strong><br>台湾人写的东西，怎么看都是嗲嗲的，哪怕是在讲纯技术的东西。而且台版的书籍通常都是内容不多，图多、啰嗦，所以这本书虽然开了个很大的标题，其实里面的干货一般般，很快就读完了。对利用Appstore来挣钱（开发APP，不是刷榜）<a id="more"></a>的各种方式和努力方向讲得还不错，其他的随便瞄一瞄就好</li>
-<li><strong>使用Google Apps服務開店的九堂課</strong><br>图书馆看到的，打发时间翻了翻，主要讲GAE建站、做小型服务器的东西，讲得很浅</li>
-</ol>
-<h2 id="读完的杂志">读完的杂志</h2><ol>
-<li>开源启示录 第一季</li>
-<li>云生态专刊2015年第5期</li>
-<li>知乎话题精华之独立开发者　</li>
-</ol>
-<h2 id="其他阅读">其他阅读</h2><ol>
-<li>中文传媒精选</li>
-<li>每日开发者订阅源&amp;新闻</li>
-</ol>
-<h2 id="正在读的书">正在读的书</h2><ol>
-<li>家庭医学全书</li>
-<li>谣言粉碎机</li>
-<li>英国语文</li>
-<li>玩转Swift江湖</li>
-</ol>
-<h2 id="中亚买的书">中亚买的书</h2><ol>
-<li>你不可错过的32部欧美文学不朽名作  <strong>9.99</strong></li>
-<li>你不可错过的24部西方思想大师巨著  <strong>9.99</strong></li>
-<li>安德的游戏 (全球顶级科幻大师系列) <strong>5.99</strong></li>
-<li>沿街尝，回家做：街边小吃炮制全攻略  <strong>1.00</strong></li>
-</ol>
-<h2 id="总结">总结</h2><p>这个月花了很多时间在研究Swift上，包括开发的资源整理、读文档、写练习code等等。不过感觉不管是学习还是读书都不是很有效率……仔细想了想，这个月双十一 + 黑五，怪不得！每天激动地买买买去了！:)话说现在这个外接键盘太难用了！盼着我的茶轴圣手快点送到……因为surge的热度，这个月还研究了下翻墙，可是从国内翻出来是多么的容易啊！！！从外面翻进去又是多么的麻烦啊！本来想省事买服务，找了很久也找不到一个可以两边翻的，偶尔有一个还是按流量计算，我看爱奇艺什么的就别想了。自己搭建吧，国内的服务器也是按流量的，还贵！算了，我还是平时老老实实呆着，等什么时候回国再用自己搭的梯子玩玩吧。<br>另外，我好像已经过了刚买Kindle的时候那种老鼠掉进米缸的感觉了，那种每天看到什么书都想要的感觉。现在看看亚马逊特价、论坛资源，真没什么特别想收的……那就先消耗屯的</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="读完的书">读完的书</h2><ol>
-<li><strong>金粉世家</strong><br>大部头，看了好久才看完，看得有点累。可能受电视剧影响太深，我一边看一边不停地脑补陈坤、董洁、天线。小说写得是不错，那种世家的感觉，各种支线带来的社会整体描绘，感情线的冲突……虽然不至于欲罢不能但每次放下也有点恋恋不舍。我蛮喜欢小说里面的金燕西的，反倒对冷清秋有点反感，感觉多少有点想攀龙附凤又扔不掉自己的清高吧，特别是早期，很多经济上的便宜占得没骨气。</li>
-<li><strong>The Swift Programming Language</strong><br>开发文档，算是看完了吧，不过还有很多东西待查</li>
-<li><strong>AppStore经营之道</strong><br>台湾人写的东西，怎么看都是嗲嗲的，哪怕是在讲纯技术的东西。而且台版的书籍通常都是内容不多，图多、啰嗦，所以这本书虽然开了个很大的标题，其实里面的干货一般般，很快就读完了。对利用Appstore来挣钱（开发APP，不是刷榜）]]>
-    
-    </summary>
-    
-      <category term="BookList" scheme="http://conanwhf.gitcafe.io/tags/BookList/"/>
-    
-      <category term="Life &amp; Other" scheme="http://conanwhf.gitcafe.io/categories/Life-Other/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[开发Tips收集-2015年11月]]></title>
-    <link href="http://conanwhf.gitcafe.io/2015/11/30/Tips201511/"/>
-    <id>http://conanwhf.gitcafe.io/2015/11/30/Tips201511/</id>
-    <published>2015-11-30T09:25:39.000Z</published>
-    <updated>2015-12-23T16:24:00.000Z</updated>
-    <content type="html"><![CDATA[<blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>UICollectionView如果在数据不够一屏时上下滚动 当数据不多，collectionView.contentSize小于collectionView.frame.size的时候，UICollectionView是不会滚动的，可以增加下面代码就可以： self.myCollectionView.alwaysBounceVertical = YES;</li>
-<li>drawRect &amp; layoutSubviews两个方法都是异步执行，layoutSubviews方便数据计算，drawRect方便视图重绘。 </li>
-<li>drawRect方法使用注意点：<ol>
-<li>若使用UIView绘图，只能在drawRect：方法中获取相应的contextRef并绘图。如果在其他方法中获取将获取到一个invalidate 的ref并且不能用于画图。drawRect：方法不能手动显示调用，必须通过调用setNeedsDisplay 或 者 setNeedsDisplayInRect，让系统自动调该方法。<a id="more"></a></li>
-<li>若使用calayer绘图，只能在drawInContext: 中（类似鱼drawRect）绘制，或者在delegate中的相应方法绘制。同样也是调用setNeedDisplay等间接调用以上方法</li>
-<li>若要实时画图，不能使用gestureRecognizer，只能使用touchbegan等方法来掉用setNeedsDisplay实时刷新屏幕</li>
-</ol>
-</li>
-<li>layoutSubviews在以下情况下会被调用： <ol>
-<li>init初始化不会触发layoutSubviews。 </li>
-<li>addSubview会触发layoutSubviews。</li>
-<li>设置view的Frame会触发layoutSubviews，当然前提是frame的值设置前后发生了变化。</li>
-<li>滚动一个UIScrollView会触发layoutSubviews。</li>
-<li>旋转Screen会触发父UIView上的layoutSubviews事件。</li>
-<li>改变一个UIView大小的时候也会触发父UIView上的layoutSubviews事件。 </li>
-<li>直接调用setLayoutSubviews。   </li>
-</ol>
-</li>
-<li>drawRect在以下情况下会被调用： <ol>
-<li>如果在UIView初始化时没有设置rect大小，将直接导致drawRect不被自动调用。drawRect 掉用是在Controller->loadView, Controller->viewDidLoad 两方法之后掉用的.所以不用担心在 控制器中,这些View的drawRect就开始画了.这样可以在控制器中设置一些值给View(如果这些View draw的时候需要用到某些变量 值). </li>
-<li>该方法在调用sizeToFit后被调用，所以可以先调用sizeToFit计算出size。然后系统自动调用drawRect:方法。</li>
-<li>通过设置contentMode属性值为UIViewContentModeRedraw。那么将在每次设置或更改frame的时候自动调用drawRect:。</li>
-<li>直接调用setNeedsDisplay，或者setNeedsDisplayInRect:触发drawRect:，但是有个前提条件是rect不能为0。<br>以上1,2推荐；而3,4不提倡</li>
-</ol>
-</li>
-<li>ARC 是编译器特性，他不是运行时特性，更不是垃圾回收器「GC」。 ARC 能够解决 iOS 开发中90%的内存管理问题，但是另外10%的内存管理问题是需要开发人员自己处理的，这主要是与底层 Core Foundation 对象交互的部分，底层 Core Foundation 对象由于不在 ARC 的管理下，所以需要自己维护这些对象的引用计数。</li>
-<li>在 Xcode 中有「Instruments」工具集可以很方便地检测循环引用。</li>
-<li>弱引用虽然持有对象，但是并不增加他的引用计数。弱引用的一个经典使用场景就是委托代理「delegate」协议模式。</li>
-<li>StoryBoard 的本质是一个 XML 文件，描述了若干窗体、组件、Auto Layout 约束等关键信息。</li>
-<li>通过@asmname加stringAppend映射成为Swift函数（注意重新映射的Swift函数名称不一定和C语言函数相同）</li>
-<li>任何一个AutoLayout语法都是通过创建一个NSLayoutConstraint约束对象添加到view的约束中去的。</li>
-<li>当闭包被声明的时候，抓捕列表就复制一份thing变量，所以被捕捉的值并没有改变，即使你给thing赋了一个新值。</li>
-<li>在程序中如果需要创建运动管理器的实例,应由一个实例向整个程序提供加速计和陀螺仪运动服务.因为设备中只有一个加速计和一个陀螺仪,使用单例更合乎逻辑.</li>
-<li>在iOS 8下： 如果我们要从字符串第一个字符开始显示下划线，直接从字符串开头设置 NSUnderlineStyleAttributeName 可以正确显示 如果我们是从字符串中间某个字符开始显示下划线，需要从字符串开头设置 NSUnderlineStyleAttributeName 为 NSUnderlineStyleNone方可正确显示</li>
-<li>很多ios的应用软件都会滚动显示单个或多个图片，UIScrollView控件主要就是用来 满足这种需求的，展示一张超出屏幕的图片    UIScorllView控件有三个与显示相关的重要属性：contentSize、contentInset和contentOffSet。</li>
-<li>iOS 的相册是支持保存 GIF 和 APNG 动图的，只是不能直接播放。用 ALAssetsLibrary writeImageDataToSavedPhotosAlbum:metadata:completionBlock可以直接把 APNG、GIF 的数据写入相册。如果图省事直接用 UIImageWriteToSavedPhotosAlbum() 写相册，那么图像会被强制转码为 PNG。</li>
-<li>iOS9 HTTP 不能正常使用的解决办法<ol>
-<li>在Info.plist中添加NSAppTransportSecurity类型Dictionary。</li>
-<li>在NSAppTransportSecurity下添加NSAllowsArbitraryLoads类型Boolean,值设为YES</li>
-</ol>
-</li>
-<li>UIPickerView是一个选择器控件，它比UIDatePicker更加通用，它可以生成单列的选择器，也可生成多列的选择器，而且开发者完全可以自定义选择项的外观。UIPickerView直接继承了UIView，没有继承UIControl，因此，它不能像UIControl那样绑定事件处理方法，UIPickerView的事件处理由其委托对象完成.</li>
-<li>UIApplication类有一个方法叫sharedApplication，从任何地方调用这个方法，都将返回与当前正在运行的应用程序相关联的UIApplication实例。除了这个，NSNotificationCenter(消息中心) 、NSFileManager(文件管理) 、 NSUserDefaults(应用程序设置) 、NSURLCache(请求缓存)、NSHTTPCookieStorage(应用程序cookies池)都是系统单例；单例类保证了应用程序的生命周期中有且仅有一个该类的实例对象，而且易于外界访问。</li>
-<li>单例模式的要点：一是某个类只能有一个实例；二是它必须自行创建这个实例；三是它必须自行向整个系统提供这个实例。</li>
-<li>要想随意调整xib中view的尺寸,首先要设置size为Freeform</li>
-<li>一般可以使用属性列表文件存储NSArray或者NSDictionary之类的数据,这种 属性列表文件的扩展名是plist,因此也称为Plist文件</li>
-<li>无论nib也好，xib也好，最终在执行UIViewController生命周期函数loadView之前，都会转化成可执行的nib文件。 </li>
-<li>storyboard是多个xib文件集合的描述文件,一个xib文件对应着一个视图控制器和多个视图。 　　</li>
-<li>iOS开发中，因为大部分函数都不是线程安全的，所以UI子线程中操作UI是非常危险的事</li>
-<li>图像简单调整　</li>
-<li>色温：GPUImageWhiteBalanceFilter类提供了此功能。该类中有2个属性temperature（最大值10000，最小值1000，正常值5000）和tint（最大值1000，最小值-1000，正常值0.0）</li>
-<li>曝光度：GPUImageExposureFilter类提供了此功能。该类中有一个属性exposure,我们可以通过修改此属性值（最大值10.0，最小值－10.0，正常值0.0）</li>
-<li>饱和度：GPUImageSaturationFilter类提供了此功能，我们通过修改此类的saturation的属性值（最大值2.0，最小值0.0，正常值1.0）</li>
-<li>对比度：GPUImageContrastFilter类提供了此功能。该类中有一个属性contrast,我们可以通过修改此属性值（最大值4.0，最小值0.0，正常值1.0）</li>
-<li>色阶：表示图像亮度强弱的指数标准，图像的色彩丰满度和精细度是由色阶决定的。在GPUImage中GPUImageLevelsFilter提供了此功能。</li>
-<li>GPUImageLevelsFilter定义了修改红色，绿色，蓝色，和所有通道的方法，有效值范围时0.0-1.0之间，如果你想想像ps中那样，你必须先转为［0，1］</li>
-<li>String 的格式化初始方法可以帮助我们利用格式化的字符串： let format = String(format:”%.2f”,b)  print(“double:(format)”)  // 输出：double:1.23</li>
-<li>发生内存泄露实在找不出问题所在的话，将那个对象直接赋值为nil，因为ARC下对象没有指针指向，马上会被释放。</li>
-<li>Xcode中 Target -> General中的bundle identifier ; info.plist中的Bundle identifier; 证书中心的Identifiers中App IDs新建App时的Explicit App ID; 以及iTunes Connect中App信息的套装ID 必须保持一致！！</li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>UICollectionView如果在数据不够一屏时上下滚动 当数据不多，collectionView.contentSize小于collectionView.frame.size的时候，UICollectionView是不会滚动的，可以增加下面代码就可以： self.myCollectionView.alwaysBounceVertical = YES;</li>
-<li>drawRect &amp; layoutSubviews两个方法都是异步执行，layoutSubviews方便数据计算，drawRect方便视图重绘。 </li>
-<li>drawRect方法使用注意点：<ol>
-<li>若使用UIView绘图，只能在drawRect：方法中获取相应的contextRef并绘图。如果在其他方法中获取将获取到一个invalidate 的ref并且不能用于画图。drawRect：方法不能手动显示调用，必须通过调用setNeedsDisplay 或 者 setNeedsDisplayInRect，让系统自动调该方法。]]>
-    
-    </summary>
-    
-      <category term="DevTips" scheme="http://conanwhf.gitcafe.io/categories/DevTips/"/>
     
   </entry>
   
