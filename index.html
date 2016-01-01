@@ -223,6 +223,107 @@
           
           
             
+              <a class="post-title-link" href="/2016/01/01/newsreader-7/" itemprop="url">
+                从打造新闻app学到的(7)：下拉刷新和上拉更多
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-01-01T14:56:35+08:00" content="2016-01-01">
+            2016-01-01
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Cocoa/" itemprop="url" rel="index">
+                  <span itemprop="name">Cocoa</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/01/01/newsreader-7/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/01/newsreader-7/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>新闻的实时性，必然导致其列表清单对“下拉刷新”和“上拉更多”的实现要求。一开始我以为这两个可以很容易地通过手势的处理来实现，找了找先是发现了个控件<strong>UIRefreshControl</strong>，很简单地实现了下拉刷新，想着上拉不是一样嘛，先用用再研究上拉怎么搞，于是放进了Code里面：</p>
+<pre><code><span class="preprocessor">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> loading: <span class="type">UIActivityIndicatorView</span>!
+<span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> {
+    <span class="comment">//添加下拉刷新</span>
+    sliding.addTarget(<span class="keyword">self</span>, action: <span class="string">"updateLatesList"</span>, forControlEvents: <span class="type">UIControlEvents</span>.<span class="type">ValueChanged</span>)
+    sliding.attributedTitle = <span class="type">NSAttributedString</span>(string: <span class="string">"下拉松手刷新..."</span>)
+    <span class="keyword">self</span>.<span class="type">ListTableView</span>.addSubview(sliding)
+}
+
+<span class="func"><span class="keyword">func</span> <span class="title">updateLatesList</span><span class="params">()</span></span>{
+    <span class="comment">//TODO：刷新数据</span>
+    <span class="keyword">self</span>.sliding.endRefreshing()
+}
+</code></pre><p>这个一看便知，注册一下回调，修改一下显示的字符串；然后在控件的监听回调里面刷新好数据，关掉动画，搞定！简直顺利得不敢相信。然后开始研究怎么通过这个改上拉更多……恕我驽钝，搞不定。上网查了一圈，貌似大家的上拉都不是用这个控件，这个控件的可定制性据说也比较差……😰没办法，乖乖自己写了。<br>去找了个第三方的“上拉更多”库，看源码（Sorry，已经不知道是哪个库了，GitHub上一大堆，我直接在浏览器里面看完就关了），发现里面的关键就是监听滑动事件，然后通过计算坐标来判断是否是上拉：
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/01/newsreader-7/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/12/31/newsreader-6/" itemprop="url">
                 从打造新闻app学到的(6)：显示html格式文件/数据
               </a>
@@ -585,7 +686,7 @@ a.elementsEqual(c)
 <span class="function"><span class="title">sizeof</span><span class="params">(String)</span></span>*<span class="number">8</span><span class="comment">//192</span>
 <span class="function"><span class="title">sizeof</span><span class="params">(CGRect)</span></span>*<span class="number">8</span><span class="comment">//256</span>
 <span class="function"><span class="title">sizeof</span><span class="params">(UIColor)</span></span>*<span class="number">8</span><span class="comment">//64</span>
-</code></pre><p>第一组相当的make sense，Int默认就是64位；第二组是实数部分，令我惊讶的是原来<em>CGFloat</em>也是64位的，而<em>Float</em>反而比它差只有32位。第三组的结果比较值得玩味：Swift里面的<em>String</em>搞得比较复杂，是什么都不奇怪，但我以为<em>Character</em>至少会是8，结果却是72；<em>UIColor</em>本身是由4个<em>CGFloat</em>构成，其size却不是4倍的<em>CGFloat</em>；倒是<em>CGRect</em>比较可以解释，因为它是<em>CGSize</em>和<em>CGPoint</em>组合而成，实质上也是4个<em>CGFloat</em>。
+</code></pre><p>第一组相当的make sense，Int默认就是64位；第二组是实数部分，令我惊讶的是原来_CGFloat_也是64位的，而_Float_反而比它差只有32位。第三组的结果比较值得玩味：Swift里面的_String_搞得比较复杂，是什么都不奇怪，但我以为_Character_至少会是8，结果却是72；_UIColor_本身是由4个_CGFloat_构成，其size却不是4倍的_CGFloat_；倒是_CGRect_比较可以解释，因为它是_CGSize_和_CGPoint_组合而成，实质上也是4个_CGFloat_。
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/12/30/precision/#more" rel="contents">
               阅读全文 &raquo;
@@ -892,109 +993,6 @@ self.<span class="function"><span class="title">performSegueWithIdentifier</span
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/21/newsreader-2/" itemprop="url">
-                从打造新闻app学到的(2)：定义类中的只读属性
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-21T17:14:35+08:00" content="2015-12-21">
-            2015-12-21
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Swift/" itemprop="url" rel="index">
-                  <span itemprop="name">Swift</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/12/21/newsreader-2/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/21/newsreader-2/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>在定义各种接口的过程中，我碰到了这样一个问题：我希望定义一个只读的属性，却找不到合适的前缀（原谅我是Class白痴）。翻了一遍Class的相关文档，找到了个曲线救国的办法：计算属性。<br>所谓的计算属性，就是自己定义一个属性的名字和get/set方法，外人看不见get/set的实现，只能看作是一个普通属性来使用。而如果只实现了get部分，这个属性对外而言就是只读的了。<br>我的数据结构大致这样：</p>
-<pre><code><span class="class"><span class="keyword">class</span> <span class="title">myclass</span> {</span>
-    <span class="keyword">private</span> var data =  ( <span class="string">api :</span> typeX, <span class="string">list:</span>  typeY,  <span class="string">post:</span> typeZ,  <span class="string">channel:</span> typeA) (xxx, <span class="string">list:</span> yyy, <span class="string">post:</span> zzz, .news)
-}
-</code></pre><p>我想要把这一组相关数据打包成元组使用，又只想把其中某些暴露出来，并且部分是只读，那么就将其设成private并且在类中实现：</p>
-<pre><code><span class="built_in">var</span> <span class="built_in">list</span> : typeY {<span class="comment">//只有get，实现只读封装</span>
-    get {
-        <span class="keyword">return</span> <span class="built_in">data</span><span class="built_in">.</span><span class="built_in">list</span>
-    }
-}
-
-<span class="built_in">var</span> ch : typeA {
-    get {
-        <span class="keyword">return</span> <span class="built_in">data</span><span class="built_in">.</span>channel
-    }
-    <span class="built_in">set</span> (channel) {<span class="comment">//这次可读写了</span>
-        <span class="built_in">data</span><span class="built_in">.</span>channel = channel
-    }
-}
-</code></pre><p>现在，外部可以用myclass.list来获取list，或者用myclass.ch来改变channel了</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1033,7 +1031,7 @@ self.<span class="function"><span class="title">performSegueWithIdentifier</span
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">49</span>
+              <span class="site-state-item-count">50</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1047,7 +1045,7 @@ self.<span class="function"><span class="title">performSegueWithIdentifier</span
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -1136,8 +1134,8 @@ self.<span class="function"><span class="title">performSegueWithIdentifier</span
     <footer id="footer" class="footer">
       <div class="footer-inner"> <div class="copyright" >
   
-  &copy; &nbsp; 
-  <span itemprop="copyrightYear">2015</span>
+  &copy; &nbsp;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="icon-next-heart"></i>
   </span>

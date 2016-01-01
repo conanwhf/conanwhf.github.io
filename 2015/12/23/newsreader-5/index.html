@@ -34,7 +34,7 @@
 
 
 
-  <meta name="keywords" content="Segue,iOS," />
+  <meta name="keywords" content="NewsAPP,Segue,iOS," />
 
 
 
@@ -55,7 +55,7 @@ prepareForSegue() -&amp;gt; ne">
 <meta property="og:description" content="在从TableCell跳转到具体新闻页面的时候，我遇到了一个问题：整个流程的时序跟我想的不太一样。因为我需要在点击Cell的时候知道这是哪个Cell，再将它作为参数传递给下一个View，所以我实现了函数 didSelectRowAtIndexPath，然后设好一个private的变量，供prepareForSegue调用。可是事实上的流程却变成了：
 
 prepareForSegue() -&amp;gt; ne">
-<meta property="og:updated_time" content="2015-12-24T06:01:32.000Z">
+<meta property="og:updated_time" content="2015-12-31T18:38:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从打造新闻app学到的(5)：解决TableCell调用segue的时序问题">
 <meta name="twitter:description" content="在从TableCell跳转到具体新闻页面的时候，我遇到了一个问题：整个流程的时序跟我想的不太一样。因为我需要在点击Cell的时候知道这是哪个Cell，再将它作为参数传递给下一个View，所以我实现了函数 didSelectRowAtIndexPath，然后设好一个private的变量，供prepareForSegue调用。可是事实上的流程却变成了：
@@ -293,9 +293,9 @@ self.<span class="function"><span class="title">performSegueWithIdentifier</span
 }
 </code></pre><p>那么无论你怎么点击，Cell都不会再响应任何selected事件了……😈虽然没有做更多的尝试，但我猜如果这时候返回一个修改过的indexPath也是可以做到的，比如怎么点都是同一个结果之类……😏<br>说回正事。现在我们可以把数据的获得放到willSelectRowAtIndexPath()中了，流程变成了：</p>
 <blockquote>
-<p>willSelectRowAtIndexPath() ，<em>获得要传递的数据</em></p>
-<p>-> prepareForSegue() ，<em>传递数据的准备</em></p>
-<p>-> next.viewDidLoad()，<em>通过Segue调用新的View</em></p>
+<p>willSelectRowAtIndexPath() ，_获得要传递的数据_</p>
+<p>-> prepareForSegue() ，_传递数据的准备_</p>
+<p>-> next.viewDidLoad()，_通过Segue调用新的View_</p>
 <p>-> [如果你依然需要] didSelectRowAtIndexPath()</p>
 </blockquote>
 <p>问题解决!😄</p>
@@ -306,6 +306,8 @@ self.<span class="function"><span class="title">performSegueWithIdentifier</span
     <footer class="post-footer">
       
         <div class="post-tags">
+          
+            <a href="/tags/NewsAPP/" rel="tag">#NewsAPP</a>
           
             <a href="/tags/Segue/" rel="tag">#Segue</a>
           
@@ -413,7 +415,7 @@ self.<span class="function"><span class="title">performSegueWithIdentifier</span
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">49</span>
+              <span class="site-state-item-count">50</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -427,7 +429,7 @@ self.<span class="function"><span class="title">performSegueWithIdentifier</span
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -527,8 +529,8 @@ self.<span class="function"><span class="title">performSegueWithIdentifier</span
     <footer id="footer" class="footer">
       <div class="footer-inner"> <div class="copyright" >
   
-  &copy; &nbsp; 
-  <span itemprop="copyrightYear">2015</span>
+  &copy; &nbsp;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="icon-next-heart"></i>
   </span>
