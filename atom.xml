@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.gitcafe.io/"/>
-  <updated>2016-01-01T16:23:29.000Z</updated>
+  <updated>2016-01-03T10:43:49.000Z</updated>
   <id>http://conanwhf.gitcafe.io/</id>
   
   <author>
@@ -15,11 +15,94 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[UIController中Slider监听回调具体实现的分离]]></title>
+    <link href="http://conanwhf.gitcafe.io/2016/01/03/UISlider/"/>
+    <id>http://conanwhf.gitcafe.io/2016/01/03/UISlider/</id>
+    <published>2016-01-03T09:32:45.000Z</published>
+    <updated>2016-01-03T10:43:49.000Z</updated>
+    <content type="html"><![CDATA[<p>作为初学者，基础的几个UI控件必须要熟练，现在的我还处于打开Xcode在控件表里面瞎找，看着谁好像是我想要的就往StoryBoard里面拖的阶段……正式写了点东西以后，越来越感觉到，该认真把控件过一遍了。上周写了这么个UIView的Demo，本意是看看各种效果，结果各种状况，花了不少时间。最终效果如下：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_UIViewtest.gif" alt=""><br>因为准备做不止一个控件的Demo测试，又不愿意每个控件开一个ViewController，想所有的Demo都重用同一个页面，于是妖蛾子就出来了。（背景：这个Demo的具体实现部分和ViewController是分开的两个File）<a id="more"></a><br>最主要的问题出在UISlider的监听上。网上UISlider的基本用法大把而且很简单，我照葫芦画瓢写了个包含一个Slider和Label的结构体，并且申明一个数组作config用：</p>
+<pre><code><span class="class"><span class="keyword">class</span> <span class="title">ConfigSlider</span> {</span>
+let <span class="string">label :</span> UILabel
+let <span class="string">slider :</span> UISlider
+let <span class="string">name :</span> String
+
+init( <span class="string">n:</span> Int, <span class="string">size :</span> CGSize, <span class="string">max:</span> Float, <span class="string">name:</span> String, <span class="string">defaultValue:</span> Float = <span class="number">0</span>) {
+    <span class="comment">// 各种计算初始化位置，略</span>
+    var newFrame = CGRect(<span class="string">x:</span> x, <span class="string">y:</span> y, <span class="string">width:</span> defaultLabelWidth, <span class="string">height:</span> defaultSliderHeight)
+    label = UILabel(<span class="string">frame:</span> newFrame)
+    label.text = name
+    newFrame = CGRect(<span class="string">x:</span> x+defaultLabelWidth, <span class="string">y:</span> y, <span class="string">width:</span> w - defaultLabelWidth, <span class="string">height:</span> defaultSliderHeight)
+    slider = UISlider(<span class="string">frame:</span> newFrame)
+    slider.minimumValue = <span class="number">0</span>
+    slider.maximumValue = Float(max)
+    slider.setValue(defaultValue, <span class="string">animated:</span> <span class="literal">true</span>)
+    }
+}
+
+var <span class="string">sliderConfigs :</span> Array &lt;ConfigSlider&gt; = []
+</code></pre><p>我的设想是通过初始化一组这样的结构体，能够自动添加n项配置选项到View，包括配置的标题和当前的值，并且当滑动条变动的时候当前值的显示也会跟着变化。要做到这一点，就要监听Slider的变化。之前写过button的handler，很简单用addTarget就行，看看定义：</p>
+<pre><code>slider.addTarget(&lt;<span class="array">#T</span>#<span class="array">#target</span>: AnyObject?#<span class="array">#AnyObject</span>?#&gt;, action: &lt;<span class="array">#T</span>#<span class="array">#Selector</span>#&gt;, forControlEvents: &lt;<span class="array">#T</span>#<span class="array">#UIControlEvents</span>#&gt;)
+</code></pre><p>于是我就直接把监听的函数写到ConfigSlider的定义里面了：</p>
+<pre><code><span class="func"><span class="keyword">func</span> <span class="title">configChanged</span><span class="params">(sender: AnyObject?)</span></span> {
+    label.text = name + <span class="string">":<span class="subst">\(Int(slider.value)</span>)"</span>
+}
+</code></pre><p>而在addTarget的时候，犯了难：参数target指的是什么呢？所有的范例都是用的ViewController，这里也拿不到啊，看看这是个可选型，那么用nil试试看？编译完一跑，拖动Slider没有任何反应……好吧也许是需要一个sender，那么拿ViewController的试试？这次有反应了-直接挂掉，显示“<strong>unrecognized selector sent to instance 0x7feecbe10260</strong>“那么我把handler放到结构体外面试试、添加打印信息试试、用不同的参数试试……各种”试试“，各种”<strong>unrecognized selector sent to instance XXX</strong>“……调试过程就不多提了，直接说结论吧：</p>
+<blockquote>
+<ol>
+<li>错误信息”<strong>unrecognized selector sent to instance 0x7feecbe10260</strong>“中的那个内存地址就是参数”target“的指针，系统会根据你传的那个参数，在相应的类里找你注册的action，通常这是一个Controller，这也是”代理“的意义所在</li>
+<li>所以监听的回调函数要写在Controller的实现里，或者是另一个代理的实现里，第二种方式有点复杂，按下不表</li>
+<li>注册action的时候，<strong>如果回调函数是有参数的，要加”:”</strong>！！！</li>
+</ol>
+</blockquote>
+<p>这些测试，让我对”代理“的概念有了更深刻的理解，自学的新手就是这样啊，好多概念要慢慢摸索才会懂。但我的问题还没解决。之前说了，我的Controller是打算重用的，和几个Demo的具体实现分离，那么这个slider的回调，如果一定要写在Contoller中，那也太丑陋了……🤔并且有几个Demo就得塞几个不同的回调，怎么能忍？！想了想，利用Swift中Function的特性（我并不知道OC中是不是也一样）：<br><em>StepA: 在在ViewContoller中实现</em></p>
+<pre><code><span class="comment">//定义updateDemo()，具体写哪儿看着办</span>
+<span class="keyword">var</span> updateDemo : (<span class="type">ShowController</span>)-\&gt;() = {<span class="number">_</span> <span class="keyword">in</span> }
+
+<span class="keyword">if</span> (某个判断条件<span class="type">A</span>，判断出<span class="type">DemoA</span>的情况) {
+    <span class="comment">//重定向到函数refreshUIViewTest</span>
+    updateDemo = refreshUIViewTest
+}
+
+<span class="comment">//实现回调函数</span>
+<span class="func"><span class="keyword">func</span> <span class="title">configChanged</span><span class="params">(sender: AnyObject?)</span></span> {
+    <span class="comment">//将callback转成具体的实现，此时无需判断</span>
+    updateDemo(<span class="keyword">self</span>)
+}
+</code></pre><p><em>StepB：在具体实现的File中</em></p>
+<pre><code><span class="comment">//注册监听函数</span>
+<span class="tag">slider</span><span class="class">.addTarget</span>(ctl, <span class="attribute">action</span>: <span class="function">Selector</span>(<span class="string">"configChanged:"</span>), <span class="tag">forControlEvents</span>: <span class="tag">UIControlEvents</span><span class="class">.ValueChanged</span>)
+
+<span class="tag">func</span> <span class="tag">refreshUIViewTest</span>(<span class="attribute">ctl</span>: ShowController) {
+    <span class="comment">//TODO，任何具体的回调实现</span>
+}
+</code></pre><p>这样一来，既实现了想要的功能，又做到了具体实现和ViewContoller分离。不过还有个小小问题：ConfigSlider作为一个小小的自定义控件，Label上的数值显示如果每次变化都要放在外面去修改刷新，那也太……不处女座了。想了想给它添加了这样的方法：</p>
+<pre><code><span class="keyword">var</span> <span class="keyword">value</span> : Float{
+    <span class="keyword">get</span> {
+        label.text = name + <span class="string">":\(Int(slider.value))"</span>
+        <span class="keyword">return</span> slider.<span class="keyword">value</span>
+    }
+}
+</code></pre><p>这样，每次当外界需要获取其变化后数值的时候，就自动刷新Label，而这个获取数值的操作（至少）必然是在监听handler中要用到的（不然难道做个slider摆看吗？😄）至此，这个歪门邪道解决的方案全部完成。<br>整个项目的代码在<a href="https://github.com/conanwhf/Demos/tree/master/UIDemoTest" target="_blank" rel="external">这里</a>，具体这个Demo的实现文件是<em><strong>ShowTestsController.swift</strong></em></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>作为初学者，基础的几个UI控件必须要熟练，现在的我还处于打开Xcode在控件表里面瞎找，看着谁好像是我想要的就往StoryBoard里面拖的阶段……正式写了点东西以后，越来越感觉到，该认真把控件过一遍了。上周写了这么个UIView的Demo，本意是看看各种效果，结果各种状况，花了不少时间。最终效果如下：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_UIViewtest.gif" alt=""><br>因为准备做不止一个控件的Demo测试，又不愿意每个控件开一个ViewController，想所有的Demo都重用同一个页面，于是妖蛾子就出来了。（背景：这个Demo的具体实现部分和ViewController是分开的两个File）]]>
+    
+    </summary>
+    
+      <category term="Slider" scheme="http://conanwhf.gitcafe.io/tags/Slider/"/>
+    
+      <category term="iOS" scheme="http://conanwhf.gitcafe.io/tags/iOS/"/>
+    
+      <category term="Cocoa" scheme="http://conanwhf.gitcafe.io/categories/Cocoa/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[从打造新闻app学到的(7)：下拉刷新和上拉更多]]></title>
     <link href="http://conanwhf.gitcafe.io/2016/01/01/newsreader-7/"/>
     <id>http://conanwhf.gitcafe.io/2016/01/01/newsreader-7/</id>
     <published>2016-01-01T06:56:35.000Z</published>
-    <updated>2016-01-01T16:23:29.000Z</updated>
+    <updated>2016-01-01T16:27:10.000Z</updated>
     <content type="html"><![CDATA[<p>新闻的实时性，必然导致其列表清单对“下拉刷新”和“上拉更多”的实现要求。一开始我以为这两个可以很容易地通过手势的处理来实现，找了找先是发现了个控件<strong>UIRefreshControl</strong>，很简单地实现了下拉刷新，想着上拉不是一样嘛，先用用再研究上拉怎么搞，于是放进了Code里面：</p>
 <pre><code><span class="preprocessor">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> loading: <span class="type">UIActivityIndicatorView</span>!
 <span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> {
@@ -70,7 +153,7 @@
 <li>如果要把菊花加到主视图上，也是需要配置才能看得见，包括大小、位置、层级等等</li>
 <li><strong>所有跟UI相关的刷新操作必须放在主进程中，否则可能无效。</strong>多线程是另外一块东西了，等过些天我整理好再写</li>
 </ol>
-<p>目前我还是用“UIRefreshControl做下拉+ UIActivityIndicatorView做上拉”的组合，毕竟原生下拉控件安全方便又好看😊。但这个_scrollViewDidEndDragging_的监听是个很好的例子，通过它我想我们还能做更多包括侧滑、翻页等等等等，当然真做起来还是需要结合别的Event。</p>
+<p>目前我还是用“UIRefreshControl做下拉+ UIActivityIndicatorView做上拉”的组合，毕竟原生下拉控件安全方便又好看😊。但这个、<em>scrollViewDidEndDragging</em>的监听是个很好的例子，通过它我想我们还能做更多包括侧滑、翻页等等等等，当然真做起来还是需要结合别的Event。</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>新闻的实时性，必然导致其列表清单对“下拉刷新”和“上拉更多”的实现要求。一开始我以为这两个可以很容易地通过手势的处理来实现，找了找先是发现了个控件<strong>UIRefreshControl</strong>，很简单地实现了下拉刷新，想着上拉不是一样嘛，先用用再研究上拉怎么搞，于是放进了Code里面：</p>
@@ -1311,111 +1394,6 @@ stConvert("</span><span class="number">1</span><span class="variable">%2B12</spa
     <summary type="html">
     <![CDATA[<p>这篇都不知道该算吐槽还是开发文章😀。<br>早晨起床一刷新闻，Swift承诺中的开源实现了！想想读书的时候写Pascal玩，进了大学才发现原来这玩意儿早过时了，大学的时候也是东搞西搞像无头苍蝇一样没有方向，偶尔有需要写程序的偏门作业就突击什么vfox, delphi, j]]>
     </summary>
-    
-      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Swift2.0 中的String（三）：类型转换]]></title>
-    <link href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/"/>
-    <id>http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/</id>
-    <published>2015-12-03T07:20:26.000Z</published>
-    <updated>2015-12-31T18:44:38.000Z</updated>
-    <content type="html"><![CDATA[<p>本系列第三篇，String相关的类型转换。其他的几篇传送门：</p>
-<ul>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
-</ul>
-<p>虽然Swift是强类型语言，但简单的String类型转换其实还是比较方便的，最暴力的就是强制类型转换，百试百灵：</p>
-<pre><code><span class="func"><span class="keyword">func</span> <span class="title">toString</span><span class="generics">&lt;T&gt;</span><span class="params">(a: T)</span></span> -&gt; <span class="type">String</span>{
-    <span class="comment">// Way one, format</span>
-    <span class="comment">//return "\(a)"</span>
-    <span class="comment">// Way two, new string</span>
-    <span class="keyword">return</span> <span class="type">String</span>(a)
-}
-<span class="built_in">toString</span>(<span class="number">123</span>)
-<span class="built_in">toString</span>(<span class="number">0.007</span>)
-<span class="built_in">toString</span>([<span class="number">4</span>, <span class="number">8</span>, <span class="number">32</span>, <span class="number">5</span> ])
-<span class="built_in">toString</span>(<span class="string">"test"</span>.startIndex)
-</code></pre><p>同样照葫芦画瓢也能转回来：</p>
-<pre><code><span class="function"><span class="title">Int</span><span class="params">(<span class="string">"123"</span>)</span></span>
-<span class="function"><span class="title">Float</span><span class="params">(<span class="string">"3.1"</span>)</span></span>
-</code></pre><p>但这个太简单、太有局限性了！我最喜欢的是下面这个，利用了New的时候format方法，简直就是<strong>sprintf()</strong>的替代品！ <a id="more"></a></p>
-<pre><code><span class="comment">// Way 1, 格式化转String</span>
-<span class="function"><span class="title">String</span><span class="params">(format:<span class="string">"%i,  0x%x,  0o%o,  %.2f"</span>, <span class="number">31</span>, <span class="number">31</span>,  <span class="number">31</span>, <span class="number">3.1</span>)</span></span>
-<span class="comment">// Way 2</span>
-<span class="function"><span class="title">String</span><span class="params">()</span></span>.<span class="function"><span class="title">stringByAppendingFormat</span><span class="params">(<span class="string">"%x"</span>,<span class="number">31</span>)</span></span>
-<span class="function"><span class="title">String</span><span class="params">()</span></span>.<span class="function"><span class="title">stringByAppendingFormat</span><span class="params">(<span class="string">"%o"</span>,<span class="number">31</span>)</span></span>
-</code></pre><p>同样的，有了sprintf()，怎么能没有<strong>sscanf()</strong>？？</p>
-<pre><code><span class="comment">//十六进制String转整数</span>
-<span class="tag">var</span> res:UInt32   = <span class="number">0</span>
-NSScanner.<span class="function"><span class="title">localizedScannerWithString</span><span class="params">(str)</span></span>.<span class="function"><span class="title">scanHexInt</span><span class="params">(&amp;res)</span></span>
-</code></pre><p>当然，这个用起来就要麻烦许多，类似的一堆API:</p>
-<pre><code>    NSScanner.<span class="function"><span class="title">localizedScannerWithString</span><span class="params">(str)</span></span>.<span class="function"><span class="title">scanInt</span><span class="params">(&amp;res)</span></span>
-    NSScanner.<span class="function"><span class="title">localizedScannerWithString</span><span class="params">(str)</span></span>.<span class="function"><span class="title">scanFloat</span><span class="params">(&amp;res)</span></span>
-    NSScanner.<span class="function"><span class="title">localizedScannerWithString</span><span class="params">(str)</span></span>.<span class="function"><span class="title">scanDouble</span><span class="params">(&amp;res)</span></span>
-    NSScanner.<span class="function"><span class="title">localizedScannerWithString</span><span class="params">(str)</span></span>.<span class="function"><span class="title">scanInteger</span><span class="params">(&amp;res)</span></span>
-NSScanner.<span class="function"><span class="title">localizedScannerWithString</span><span class="params">(str)</span></span>.<span class="function"><span class="title">scanHexFloat</span><span class="params">(&amp;res)</span></span>
-</code></pre><p>最后，虽然ASCII码现在不大常用了，但我这种老人家还是很喜欢……写个ASCII码的转换函数吧：</p>
-<pre><code><span class="comment">/**
-ASCII value to char
-*/</span>
-<span class="func"><span class="keyword">func</span> <span class="title">ASCII</span> <span class="params">( n : Int)</span></span> -&gt; <span class="type">String</span>? {
-    guard (n &gt;= <span class="number">0</span> &amp;&amp; n &lt; <span class="number">255</span> ) <span class="keyword">else</span> {
-    <span class="keyword">return</span> <span class="literal">nil</span>
-    }
-<span class="keyword">return</span> <span class="type">String</span>(format:<span class="string">"%c"</span>, n)
-}
-
-<span class="comment">/**
-ASCII char to int value
-*/</span>
-<span class="func"><span class="keyword">func</span> <span class="title">ASCII</span> <span class="params">(<span class="built_in">c</span> : String)</span></span> -&gt; <span class="type">Int8</span>?{
-    <span class="keyword">let</span> str:<span class="type">NSString</span> = <span class="built_in">c</span>
-    <span class="keyword">let</span> n = str.<span class="type">UTF8String</span>[<span class="number">0</span>]
-    guard n&gt;=<span class="number">0</span> <span class="keyword">else</span> {
-        <span class="keyword">return</span> <span class="literal">nil</span>
-    }
-    <span class="keyword">return</span> n
-}
-
-<span class="type">ASCII</span>(<span class="number">70</span>)
-<span class="type">ASCII</span>(<span class="string">"B"</span>)
-</code></pre>]]></content>
-    <summary type="html">
-    <![CDATA[<p>本系列第三篇，String相关的类型转换。其他的几篇传送门：</p>
-<ul>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages">这里</a>看到</li>
-</ul>
-<p>虽然Swift是强类型语言，但简单的String类型转换其实还是比较方便的，最暴力的就是强制类型转换，百试百灵：</p>
-<pre><code><span class="func"><span class="keyword">func</span> <span class="title">toString</span><span class="generics">&lt;T&gt;</span><span class="params">(a: T)</span></span> -&gt; <span class="type">String</span>{
-    <span class="comment">// Way one, format</span>
-    <span class="comment">//return "\(a)"</span>
-    <span class="comment">// Way two, new string</span>
-    <span class="keyword">return</span> <span class="type">String</span>(a)
-}
-<span class="built_in">toString</span>(<span class="number">123</span>)
-<span class="built_in">toString</span>(<span class="number">0.007</span>)
-<span class="built_in">toString</span>([<span class="number">4</span>, <span class="number">8</span>, <span class="number">32</span>, <span class="number">5</span> ])
-<span class="built_in">toString</span>(<span class="string">"test"</span>.startIndex)
-</code></pre><p>同样照葫芦画瓢也能转回来：</p>
-<pre><code><span class="function"><span class="title">Int</span><span class="params">(<span class="string">"123"</span>)</span></span>
-<span class="function"><span class="title">Float</span><span class="params">(<span class="string">"3.1"</span>)</span></span>
-</code></pre><p>但这个太简单、太有局限性了！我最喜欢的是下面这个，利用了New的时候format方法，简直就是<strong>sprintf()</strong>的替代品！]]>
-    
-    </summary>
-    
-      <category term="String" scheme="http://conanwhf.gitcafe.io/tags/String/"/>
     
       <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
     

@@ -56,7 +56,7 @@ override f">
 @IBOutlet weak var loading: UIActivityIndicatorView!
 override f">
 <meta property="og:image" content="http://7xkzuv.com1.z0.glb.clouddn.com/img_ScrollView.jpg">
-<meta property="og:updated_time" content="2016-01-01T16:23:29.000Z">
+<meta property="og:updated_time" content="2016-01-01T16:27:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从打造新闻app学到的(7)：下拉刷新和上拉更多">
 <meta name="twitter:description" content="新闻的实时性，必然导致其列表清单对“下拉刷新”和“上拉更多”的实现要求。一开始我以为这两个可以很容易地通过手势的处理来实现，找了找先是发现了个控件UIRefreshControl，很简单地实现了下拉刷新，想着上拉不是一样嘛，先用用再研究上拉怎么搞，于是放进了Code里面：
@@ -329,7 +329,7 @@ override f">
 <li>如果要把菊花加到主视图上，也是需要配置才能看得见，包括大小、位置、层级等等</li>
 <li><strong>所有跟UI相关的刷新操作必须放在主进程中，否则可能无效。</strong>多线程是另外一块东西了，等过些天我整理好再写</li>
 </ol>
-<p>目前我还是用“UIRefreshControl做下拉+ UIActivityIndicatorView做上拉”的组合，毕竟原生下拉控件安全方便又好看😊。但这个_scrollViewDidEndDragging_的监听是个很好的例子，通过它我想我们还能做更多包括侧滑、翻页等等等等，当然真做起来还是需要结合别的Event。</p>
+<p>目前我还是用“UIRefreshControl做下拉+ UIActivityIndicatorView做上拉”的组合，毕竟原生下拉控件安全方便又好看😊。但这个、<em>scrollViewDidEndDragging</em>的监听是个很好的例子，通过它我想我们还能做更多包括侧滑、翻页等等等等，当然真做起来还是需要结合别的Event。</p>
 </span>
       
     </div>
@@ -350,6 +350,8 @@ override f">
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/01/03/UISlider/" rel="prev">UIController中Slider监听回调具体实现的分离</a>
             
           </div>
 
@@ -444,7 +446,7 @@ override f">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">51</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -458,7 +460,7 @@ override f">
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

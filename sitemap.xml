@@ -3,8 +3,30 @@
 
     
   <url>
+    <loc>http://conanwhf.gitcafe.io/2016/01/03/UISlider/</loc>
+    <lastmod>2016-01-03T10:43:49.000Z</lastmod>
+    <data>
+        <display>
+        <title>UIController中Slider监听回调具体实现的分离</title>
+        <pubTime>2016-01-03T09:32:45.000Z</pubTime>
+        
+        <tag>Slider </tag>
+         
+        <tag>iOS </tag>
+         
+         
+           
+             
+              <breadCrumb title="Cocoa" url="http://conanwhf.gitcafe.io/categories/Cocoa/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.gitcafe.io/2016/01/01/newsreader-7/</loc>
-    <lastmod>2016-01-01T16:23:29.000Z</lastmod>
+    <lastmod>2016-01-01T16:27:10.000Z</lastmod>
     <data>
         <display>
         <title>从打造新闻app学到的(7)：下拉刷新和上拉更多</title>
