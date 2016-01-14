@@ -3,6 +3,28 @@
 
     
   <url>
+    <loc>http://conanwhf.gitcafe.io/2016/01/14/rpi-toolchain/</loc>
+    <lastmod>2016-01-14T16:12:57.000Z</lastmod>
+    <data>
+        <display>
+        <title>自己编译给树莓派的交叉编译工具</title>
+        <pubTime>2016-01-14T03:31:26.000Z</pubTime>
+        
+        <tag>crosstool-ng </tag>
+         
+        <tag>toolchain </tag>
+         
+         
+           
+             
+              <breadCrumb title="RaspberryPi" url="http://conanwhf.gitcafe.io/categories/RaspberryPi/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.gitcafe.io/2016/01/12/rpi-get/</loc>
     <lastmod>2016-01-14T15:37:18.000Z</lastmod>
     <data>

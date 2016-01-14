@@ -34,7 +34,7 @@
 
 
 
-  <meta name="keywords" content="Class,NewsAPP," />
+  <meta name="keywords" content="crosstool-ng,toolchain," />
 
 
 
@@ -45,16 +45,16 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="假如你有一个自定义类的列表，想要对它排序，怎么办？在新闻APP中，我的新闻列表就是一个自定义class的数组，用户一会儿要最新、一会儿要更多旧数据的可能性，使得它需要按时间有序。我是懒人，自己一个个拿key比较写起来觉得好麻烦，Swift这么高级的语言，应该有别的更好的办法才对！又祭出官方文档找灵感，然后看到了：Comparable。Comparable是一个协议，遵守这个协议的所有类型，都可以直">
+<meta name="description" content="说到交叉编译工具，真是血泪史。搞了快两天，才终于迂回搞定。老规矩，先放Script传送门，_build/build-toolchain.sh_  一开始我以为这东西用的人多，交叉编译工具应该不是事儿，去官网下一个就行了，可是我去GitHub一看，这toolchain最近的更新也是三年前，这……能用？先下载吧，同时各种搜，感觉我没有走错地方，大家就是用的这一款！  可是我忘了我是OSX。不出所料，在">
 <meta property="og:type" content="article">
-<meta property="og:title" content="从打造新闻app学到的(3)：让自定义的类可排序">
-<meta property="og:url" content="http://conanwhf.gitcafe.io/2015/12/21/newsreader-3/index.html">
+<meta property="og:title" content="自己编译给树莓派的交叉编译工具">
+<meta property="og:url" content="http://conanwhf.gitcafe.io/2016/01/14/rpi-toolchain/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
-<meta property="og:description" content="假如你有一个自定义类的列表，想要对它排序，怎么办？在新闻APP中，我的新闻列表就是一个自定义class的数组，用户一会儿要最新、一会儿要更多旧数据的可能性，使得它需要按时间有序。我是懒人，自己一个个拿key比较写起来觉得好麻烦，Swift这么高级的语言，应该有别的更好的办法才对！又祭出官方文档找灵感，然后看到了：Comparable。Comparable是一个协议，遵守这个协议的所有类型，都可以直">
-<meta property="og:updated_time" content="2015-12-31T18:38:50.000Z">
+<meta property="og:description" content="说到交叉编译工具，真是血泪史。搞了快两天，才终于迂回搞定。老规矩，先放Script传送门，_build/build-toolchain.sh_  一开始我以为这东西用的人多，交叉编译工具应该不是事儿，去官网下一个就行了，可是我去GitHub一看，这toolchain最近的更新也是三年前，这……能用？先下载吧，同时各种搜，感觉我没有走错地方，大家就是用的这一款！  可是我忘了我是OSX。不出所料，在">
+<meta property="og:updated_time" content="2016-01-14T16:12:57.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="从打造新闻app学到的(3)：让自定义的类可排序">
-<meta name="twitter:description" content="假如你有一个自定义类的列表，想要对它排序，怎么办？在新闻APP中，我的新闻列表就是一个自定义class的数组，用户一会儿要最新、一会儿要更多旧数据的可能性，使得它需要按时间有序。我是懒人，自己一个个拿key比较写起来觉得好麻烦，Swift这么高级的语言，应该有别的更好的办法才对！又祭出官方文档找灵感，然后看到了：Comparable。Comparable是一个协议，遵守这个协议的所有类型，都可以直">
+<meta name="twitter:title" content="自己编译给树莓派的交叉编译工具">
+<meta name="twitter:description" content="说到交叉编译工具，真是血泪史。搞了快两天，才终于迂回搞定。老规矩，先放Script传送门，_build/build-toolchain.sh_  一开始我以为这东西用的人多，交叉编译工具应该不是事儿，去官网下一个就行了，可是我去GitHub一看，这toolchain最近的更新也是三年前，这……能用？先下载吧，同时各种搜，感觉我没有走错地方，大家就是用的这一款！  可是我忘了我是OSX。不出所料，在">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -64,7 +64,7 @@
   };
 </script>
 
-  <title> 从打造新闻app学到的(3)：让自定义的类可排序 | iOS开发和七七八八 </title>
+  <title> 自己编译给树莓派的交叉编译工具 | iOS开发和七七八八 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -222,7 +222,7 @@
           
           
             
-              从打造新闻app学到的(3)：让自定义的类可排序
+              自己编译给树莓派的交叉编译工具
             
           
         </h1>
@@ -231,8 +231,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-12-21T19:14:35+08:00" content="2015-12-21">
-            2015-12-21
+          <time itemprop="dateCreated" datetime="2016-01-14T11:31:26+08:00" content="2016-01-14">
+            2016-01-14
           </time>
         </span>
 
@@ -241,8 +241,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Swift/" itemprop="url" rel="index">
-                  <span itemprop="name">Swift</span>
+                <a href="/categories/RaspberryPi/" itemprop="url" rel="index">
+                  <span itemprop="name">RaspberryPi</span>
                 </a>
               </span>
 
@@ -257,8 +257,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/12/21/newsreader-3/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/21/newsreader-3/" itemprop="commentsCount"></span>
+              <a href="/2016/01/14/rpi-toolchain/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/14/rpi-toolchain/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -272,23 +272,61 @@
       
 
       
-        <span itemprop="articleBody"><p>假如你有一个自定义类的列表，想要对它排序，怎么办？在新闻APP中，我的新闻列表就是一个自定义class的数组，用户一会儿要最新、一会儿要更多旧数据的可能性，使得它需要按时间有序。我是懒人，自己一个个拿key比较写起来觉得好麻烦，Swift这么高级的语言，应该有别的更好的办法才对！又祭出官方文档找灵感，然后看到了：<strong>Comparable</strong>。<br>Comparable是一个协议，遵守这个协议的所有类型，都可以直接比大小。而对于自定义的类型，遵守它就行了：</p>
-<pre><code><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> : <span class="title">Comparable</span> </span>{
-    <span class="keyword">var</span> key : <span class="type">Int</span> = <span class="number">0</span>
-}
-<span class="comment">//在Class定义之外实现</span>
-<span class="func"><span class="keyword">func</span> <span class="generics">&lt; (left: MyClass, right: MyClass) -&gt;</span> <span class="title">Bool</span> </span>{
-    <span class="keyword">return</span> <span class="keyword">left</span>.key &lt; <span class="keyword">right</span>.key
-}
-<span class="func"><span class="keyword">func</span> == <span class="params">(<span class="keyword">left</span>: MyClass, <span class="keyword">right</span>: MyClass)</span></span> -&gt; <span class="type">Bool</span>{
-    <span class="keyword">return</span> <span class="keyword">left</span>.key == <span class="keyword">right</span>.key
-}   
-</code></pre><p>我们只要实现<strong>\&lt;</strong>和<strong>== </strong>两个函数，编译器会自动帮我们判断>和!=的情况。于是，现在这样的排序或者比较都是合法的了：超easy!😄</p>
-<pre><code><span class="tag">var</span> <span class="tag">a</span> : MyClass = []
-<span class="comment">//TODO：a填了一些数据之后……</span>
-<span class="tag">a</span>.<span class="function"><span class="title">sort</span><span class="params">()</span></span>
-<span class="tag">a</span>[<span class="number">1</span>] &gt; <span class="tag">a</span>[<span class="number">0</span>]
-</code></pre></span>
+        <span itemprop="articleBody"><p>  说到交叉编译工具，真是血泪史。搞了快两天，才终于迂回搞定。老规矩，先放Script<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a>，_build/build-toolchain.sh_<br>  一开始我以为这东西用的人多，交叉编译工具应该不是事儿，去官网下一个就行了，可是我去GitHub一看，这toolchain最近的更新也是<strong>三年</strong>前，这……能用？先下载吧，同时各种搜，感觉我没有走错地方，大家就是用的这一款！<br>  可是我忘了我是OSX。不出所料，在我的电脑上跑不了。而且看了下这个toolchain还是给ARMv6编的好吗，现在明明就是ARMv7了！这么跑性能不受影响吗？更让我无语的是板子上的gcc也是ARMv6的……😰编译个内核什么的那么慢，官方的toolchain又不能用，自己编译势在必行。<br>又是一通各种搜，搜到了个别人2014年编译的mac用toolchain，试了试，普通的程序没问题，编kernel编不过。搜到了个比较详细的在Mac上编译的blog，可惜也是几年前的，跟现在的环境不一样，各种出状况又goole解决，最后还是编译crosstool不成功。可能这一两年，不论是crosstool，OSX，还是GCC，都已经又改了不少吧。<br>  最后，我放弃了，毕竟还是要做iOS开发的，不敢随便乱sudo，还是上虚拟机吧。竭尽全力把所有能删的都删了，看看剩余的18G空间（128G MBP你懂的），哭着做了个Debian的虚拟机……为了节约，GUI都不要，命令行的最小系统。后来还是吃亏在这上面了，编译到一半空间不够，临时扩展磁盘，fdisk,format,mount,ln -s😞所以，根据我经验，不管在哪里，请<strong>至少至少至少准备10G有效空间！！！</strong>（12G是我调整后整个虚拟机大小，最后还剩了2G；如果系统已经有了，那free space至少8G）<br>废话说完，正经操作其实不多，主要就是装一个神器<strong>crosstool-ng</strong>，配置好，然后交给它编译交叉编译工具就行了！具体如下：<br><a id="more"></a></p>
+<h2 id="虚拟机配置">虚拟机配置</h2><p>基于最纯粹最小系统，改个vi，加个sudo账户，如果系统以前就用可以跳过。</p>
+<pre><code><span class="keyword">sudo</span> apt-get install -y vim
+<span class="keyword">echo</span> “deb <span class="literal">ALL</span>=(<span class="literal">ALL</span>) NOPASSWD: <span class="literal">ALL</span>” | sudo tee -a /etc/sudoers
+</code></pre><h2 id="环境准备">环境准备</h2><p>因为是新系统，要装的库实在太多，我一边编，一边google，无数次出错了就多装一个库再来，这些是最精简的要求了，一般的系统里应该很多都已经装了</p>
+<pre><code>sudo apt-get -y <span class="operator"><span class="keyword">update</span>
+sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -y bison flex texinfo gawk automake subversion
+sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -y gperf help2man make libtool libncurses5-dev 
+sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -y gcj-jdk python-dev <span class="keyword">g</span>++</span>
+</code></pre><p>这个libtool我不知道为什么，明明装了却总说没装，于是我自己手动装了一遍。不过后来想想，可能应该装libtool-dev？没去验证</p>
+<pre><code>git clone gi<span class="variable">t:</span>//git.savannah.gnu.org/libtool.git
+<span class="keyword">cd</span> libtool
+./configure; <span class="keyword">make</span>; <span class="keyword">make</span> install
+</code></pre><h2 id="编译crosstool-ng">编译crosstool-ng</h2><pre><code>git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/crosstool-ng/crosstool-ng.git
+<span class="keyword">cd</span> crosstool-ng
+./bootstrap
+./configure --prefix=/<span class="keyword">opt</span>/crosstool-ng
+<span class="keyword">make</span>
+<span class="keyword">make</span> install
+</code></pre><p>然后加环境变量<code>export PATH=$PATH:/opt/crosstool-ng/bin</code></p>
+<h2 id="编译交叉编译工具(不能是root用户)">编译交叉编译工具(不能是root用户)</h2><h3 id="检查tools版本">检查tools版本</h3><p>编译过程中要用到很多库，有几个比较关键的库的版本需要提前看好，否则可能导致编译失败。</p>
+<ol>
+<li>Glibc版本：<code>lld —v</code></li>
+<li>GCC版本：<code>gcc —v</code></li>
+<li>目标板Kernel版本：<code>uname -r</code>。这个是要在树莓派的终端看的，不是指编译环境的kernel版本！目前我用的最新版本是Linux-4.1.15</li>
+</ol>
+<h3 id="配置编译选项">配置编译选项</h3><ul>
+<li><p>首先去一个随便什么地方（要有读写权限）建立一个文件夹作为当前目录，用来存放临时的配置文件</p>
+<pre><code><span class="built_in">mkdir</span> toolchain
+<span class="built_in">cd</span> toolchain
+</code></pre></li>
+<li><p>crosstool-ng是有一些不同平台的default配置的，他们放在<strong>crosstool-ng/samples/$PLATFORM/crosstool.config</strong>。很幸运树莓派2B正好是有默认配置的，可以用：</p>
+<pre><code><span class="keyword">ct</span>-ng armv7-rpi2-linux-gnueabihf
+</code></pre><p>来调用，然后就会自动保存为.config文件，这个跟kernel有点像。</p>
+</li>
+<li><p>默认的配置还是有些地方需要调整，我们要手动配置一下：</p>
+<pre><code><span class="keyword">ct</span>-ng menuconfig
+</code></pre><p>这里面的界面就非常像Kernel的Config了。基于默认配置，需要修改的部分不多，重要的有以下几个：</p>
+<blockquote>
+<ol>
+<li>Paths and misc options  —><br>[X]  Try features marked as EXPERIMENTAL<br>(3)  Number of parallel jobs  //同时进行编译的线程，如果机器好点的话可以改大点加快速度</li>
+<li>Toolchain options  —><br>(rpi2)  Tuple’s vendor string  //一个标识符，会出现在最终编译工具的文件名上</li>
+<li>Operating System  —><br>Linux kernel version()  //内核版本，之前记录下来的</li>
+<li>C-library  —><br>glibc version ()  // Glibc版本</li>
+<li>C compiler  —><br>gcc version ()  //GCC版本</li>
+<li>Companion libraries  —><br>这里面有一些其他的库的版本选择，不太会影响编译成功与否，有需要可以改</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<p>最后看看还有什么自己的特殊需要，例如目标Path之类，改完以后保存</p>
+<h3 id="编译">编译</h3><p>一句话：</p>
+<pre><code><span class="keyword">ct</span>-ng build
+</code></pre><p>然后等着吧！首先还会下载GCC之类的源码，所以准备好网络环境。如果没有出错的话，也要等个两三个钟头。完成之后，会在<code>~/xtool</code>（默认设置）里看到最终的交叉编译工具。拿去用吧！我测试了普通程序、内核、驱动，都跑得好好的，搞定收工！😄</p>
+</span>
       
     </div>
 
@@ -296,9 +334,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Class/" rel="tag">#Class</a>
+            <a href="/tags/crosstool-ng/" rel="tag">#crosstool-ng</a>
           
-            <a href="/tags/NewsAPP/" rel="tag">#NewsAPP</a>
+            <a href="/tags/toolchain/" rel="tag">#toolchain</a>
           
         </div>
       
@@ -307,13 +345,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/22/newsreader-4/" rel="prev">从打造新闻app学到的(4)：使用Segue在ViewController之间传递数据</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/21/newsreader-2/" rel="next">从打造新闻app学到的(2)：定义类中的只读属性</a>
+              <a href="/2016/01/12/rpi-start/" rel="next">树莓派初始配置指南（2代B型）</a>
             
           </div>
         </div>
@@ -328,10 +364,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/12/21/newsreader-3/"
-     data-title="从打造新闻app学到的(3)：让自定义的类可排序"
+        <div class="ds-share flat" data-thread-key="2016/01/14/rpi-toolchain/"
+     data-title="自己编译给树莓派的交叉编译工具"
      data-content=""
-     data-url="http://conanwhf.gitcafe.io/2015/12/21/newsreader-3/">
+     data-url="http://conanwhf.gitcafe.io/2016/01/14/rpi-toolchain/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -361,8 +397,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/12/21/newsreader-3/"
-                   data-title="从打造新闻app学到的(3)：让自定义的类可排序" data-url="http://conanwhf.gitcafe.io/2015/12/21/newsreader-3/">
+              <div class="ds-thread" data-thread-key="2016/01/14/rpi-toolchain/"
+                   data-title="自己编译给树莓派的交叉编译工具" data-url="http://conanwhf.gitcafe.io/2016/01/14/rpi-toolchain/">
               </div>
             
           </div>
@@ -500,7 +536,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟机配置"><span class="nav-number">1.</span> <span class="nav-text">虚拟机配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境准备"><span class="nav-number">2.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译crosstool-ng"><span class="nav-number">3.</span> <span class="nav-text">编译crosstool-ng</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译交叉编译工具(不能是root用户)"><span class="nav-number">4.</span> <span class="nav-text">编译交叉编译工具(不能是root用户)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#检查tools版本"><span class="nav-number">4.1.</span> <span class="nav-text">检查tools版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置编译选项"><span class="nav-number">4.2.</span> <span class="nav-text">配置编译选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译"><span class="nav-number">4.3.</span> <span class="nav-text">编译</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

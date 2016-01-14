@@ -223,6 +223,95 @@
           
           
             
+              <a class="post-title-link" href="/2015/12/31/ReadingList2015-12/" itemprop="url">
+                读书清单 2015-12
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-31T10:02:38+08:00" content="2015-12-31">
+            2015-12-31
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Life-Other/" itemprop="url" rel="index">
+                  <span itemprop="name">Life & Other</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/12/31/ReadingList2015-12/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/31/ReadingList2015-12/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h2 id="读完的书">读完的书</h2><ol>
+<li>老码说编程之玩转Swift江湖<br>这本书从打开到终于看完也断断续续看了好久，算是中文原作开发教程中相当不错的一本。虽然作者写的例子都很中二，有点自以为幽默其实看着很烦，骗稿费之嫌，但讲正事还是蛮能讲到点子上的，看得出来是有实际经验的开发者。作为语法入门，这本书很好，也很适合曾经会一点别的语言的开发者。该知道的基本知识都有，看中实际操作，甚至是从装黑苹果开始手把手教，有自己的东西，不像很多东拼西凑的教材，新手看了摸不着头脑，半天还是连编译器都不会用。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/12/31/ReadingList2015-12/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/12/30/precision/" itemprop="url">
                 Swift中数据类型精度的一点探索
               </a>
@@ -880,100 +969,6 @@ self.<span class="function"><span class="title">performSegueWithIdentifier</span
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/15/swift_json/" itemprop="url">
-                使用原生库解析JSON
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-15T20:14:35+08:00" content="2015-12-15">
-            2015-12-15
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Swift/" itemprop="url" rel="index">
-                  <span itemprop="name">Swift</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/12/15/swift_json/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/15/swift_json/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>（挖坑自己跳系列四）<br>以为实现了xml的解析，我就能拿到所有想要的数据，可是经过几次尝试，发现有的API失效了！😱无论我怎么尝试，有的数据就是拿不到，苦恼了好久，灵光一闪：前阵子买的surge可以派上用场了！不知道surge是啥的我给解释一下，是个iOS App，利用iOS9的特性能给设备做个全局代理，前阵子大家纷纷用来流畅FQ，已下架。对我来说，用来过滤下广告正好，偶尔还能看看http log。<br>看了下自己手机上的第三方客户端，request居然直接是网页，看来是直接解析网页了，这个太高深、放弃；只好去下载官方客户端来看，在网页看同样的请求，返回居然换成JSON了……😥<br>还能说啥呢，去找找JSON怎么解析呗！这次看了看，似乎比XML简单多了……先拿数据：</p>
-<pre><code><span class="built_in">let</span> url = NSURL(string:TESTURL)!
-guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
-    <span class="built_in">print</span>(<span class="string">"Can't get any data"</span>)
-    <span class="built_in">exit</span>(<span class="number">0</span>)
-}
-</code></pre><p>然后解析出来：
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/15/swift_json/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1012,7 +1007,7 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">54</span>
+              <span class="site-state-item-count">55</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

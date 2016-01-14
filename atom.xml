@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.gitcafe.io/"/>
-  <updated>2016-01-14T12:11:38.000Z</updated>
+  <updated>2016-01-14T16:12:57.000Z</updated>
   <id>http://conanwhf.gitcafe.io/</id>
   
   <author>
@@ -15,40 +15,74 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[树莓派内核编译]]></title>
-    <link href="http://conanwhf.gitcafe.io/2016/01/12/rpi-kernel/"/>
-    <id>http://conanwhf.gitcafe.io/2016/01/12/rpi-kernel/</id>
-    <published>2016-01-12T06:31:26.000Z</published>
-    <updated>2016-01-14T12:11:38.000Z</updated>
-    <content type="html"><![CDATA[<p>作为一个（曾经的）内核开发者，弄到块板子怎么能不重新编译内核？系统配好跑起来后的第二件事，就是编译内核了。在树莓派上编译内核很简单，基本上就是按照官方文档跑脚本，先放GitHub上的Script<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a>，<em>build/kernel.sh</em></p>
-<h2 id="系统简介">系统简介</h2><h3 id="文件系统">文件系统</h3><p>树莓派的文件系统设计还是不错的，能比较方便地更新内核和各种固件。整个文件系统分为两个部分：Fat32分区和Ext4分区。Fat32分区是mount到/boot上的，里面放了内核和启动的核心固件；Ext4就是一般的根文件系统了，放其他的所有东西，包括firmware和各种ko等。这种设计免去了用户烧录的麻烦，只是他们的bootloader没有开放源码，对于极客来说是很不爽的事情。<br>所谓的系统更新，就是每次编译kernel之后，直接把生成的文件放到特定的地方，重启就行。这也是为什么系统自带的工具<strong>rpi-update</strong>可以自动更新内核、firmware等等一切东西。</p>
-<h3 id="硬件的选择和启动">硬件的选择和启动</h3><p>树莓派一代和二代用的两个不同的ARM芯片，这个差别在操作系统中并没有体现出来，我是指：官方提供的系统镜像是同一个。开始我很奇怪，后来看到了它的文件系统，才明白，它是靠不同的kernel文件名来区分的。这两种板子的platform分别叫”bcm2708”和”bcm2709”，启动的时候bootloader会根据硬件情况自动区分，读取不同的kernel image，进而load不同的firmware和driver。<br><a id="more"></a></p>
-<h2 id="源码下载_&amp;_环境准备">源码下载 &amp; 环境准备</h2><p>要说编译内核有什么好准备的，那恐怕就是要准备一个好点的网络环境和大大的耐心了。不算下载source code，我整个系统编了五六个小时吧。好在编译是一直有输出的，有点盼头，不然真是要cancel掉了……<br>先是源码下载：</p>
-<pre><code>git clone --depth=<span class="number">1</span> gi<span class="variable">t:</span>//github.<span class="keyword">com</span>/raspberrypi/linux.git linux  
-然后是工具的准备，最好先`apt-<span class="built_in">get</span> -<span class="keyword">y</span> <span class="keyword">update</span>`一下
-sudo apt-<span class="built_in">get</span> -<span class="keyword">y</span> install gcc <span class="keyword">make</span> bc screen ncurses-dev
-</code></pre><h2 id="正式编译（二代B为例）">正式编译（二代B为例）</h2><p>源码和编译环境准备好了以后，就要开编了。kernel的config文件官方已经给出，什么都不改也是可以跑得很好的，看看有什么要改的然后就让它跑着自己睡觉去吧：</p>
-<pre><code><span class="label">KERNEL</span><span class="label">=kernel7</span>
-<span class="label">make</span> <span class="keyword">bcm2709_defconfig
-</span><span class="label">make</span> menuconfig
-
-<span class="label">make</span> -j4 zImage modules dtbs
-<span class="label">sudo</span> make modules_install
-<span class="label">sudo</span> <span class="preprocessor">cp</span> arch/<span class="preprocessor">arm</span>/<span class="keyword">boot/dts/*.dtb </span>/<span class="keyword">boot/
-</span><span class="label">sudo</span> <span class="preprocessor">cp</span> arch/<span class="preprocessor">arm</span>/<span class="keyword">boot/dts/overlays/*.dtb* </span>/<span class="keyword">boot/overlays/
-</span><span class="label">sudo</span> <span class="preprocessor">cp</span> arch/<span class="preprocessor">arm</span>/<span class="keyword">boot/dts/overlays/README </span>/<span class="keyword">boot/overlays/
-</span><span class="label">sudo</span> scripts/mkknlimg arch/<span class="preprocessor">arm</span>/<span class="keyword">boot/zImage </span>/<span class="keyword">boot/$KERNEL.img</span>
-</code></pre><h2 id="完成">完成</h2><p>一觉醒来，终于跑完了！看看输出有没有什么错误，不要太鲁莽。如果没什么问题，就可以<code>reboot</code>了，enjoy!</p>
-<h2 id="万一……">万一……</h2><p>万一，编译出了什么问题，系统跑不起来了……🤔我是不是应该先写这一部分？最简单的办法当然是重烧官方img，不过码农怎么会这么粗暴……你只要备份好/boot, /lib/firmware, /lib/modules这三个文件夹就行了。<br>最坏的情况，你之前没有备份？另外拿张卡，烧进官方系统跑起来，插入之前的卡，mount上去（系统应该会自动做了，在~/media/底下），更新那三个文件夹。<br>最最坏的情况，你没有第二张卡？那只好simulate一个disk出来，把上面的解决办法在主机上做一遍了……😏</p>
+    <title><![CDATA[自己编译给树莓派的交叉编译工具]]></title>
+    <link href="http://conanwhf.gitcafe.io/2016/01/14/rpi-toolchain/"/>
+    <id>http://conanwhf.gitcafe.io/2016/01/14/rpi-toolchain/</id>
+    <published>2016-01-14T03:31:26.000Z</published>
+    <updated>2016-01-14T16:12:57.000Z</updated>
+    <content type="html"><![CDATA[<p>  说到交叉编译工具，真是血泪史。搞了快两天，才终于迂回搞定。老规矩，先放Script<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a>，_build/build-toolchain.sh_<br>  一开始我以为这东西用的人多，交叉编译工具应该不是事儿，去官网下一个就行了，可是我去GitHub一看，这toolchain最近的更新也是<strong>三年</strong>前，这……能用？先下载吧，同时各种搜，感觉我没有走错地方，大家就是用的这一款！<br>  可是我忘了我是OSX。不出所料，在我的电脑上跑不了。而且看了下这个toolchain还是给ARMv6编的好吗，现在明明就是ARMv7了！这么跑性能不受影响吗？更让我无语的是板子上的gcc也是ARMv6的……😰编译个内核什么的那么慢，官方的toolchain又不能用，自己编译势在必行。<br>又是一通各种搜，搜到了个别人2014年编译的mac用toolchain，试了试，普通的程序没问题，编kernel编不过。搜到了个比较详细的在Mac上编译的blog，可惜也是几年前的，跟现在的环境不一样，各种出状况又goole解决，最后还是编译crosstool不成功。可能这一两年，不论是crosstool，OSX，还是GCC，都已经又改了不少吧。<br>  最后，我放弃了，毕竟还是要做iOS开发的，不敢随便乱sudo，还是上虚拟机吧。竭尽全力把所有能删的都删了，看看剩余的18G空间（128G MBP你懂的），哭着做了个Debian的虚拟机……为了节约，GUI都不要，命令行的最小系统。后来还是吃亏在这上面了，编译到一半空间不够，临时扩展磁盘，fdisk,format,mount,ln -s😞所以，根据我经验，不管在哪里，请<strong>至少至少至少准备10G有效空间！！！</strong>（12G是我调整后整个虚拟机大小，最后还剩了2G；如果系统已经有了，那free space至少8G）<br>废话说完，正经操作其实不多，主要就是装一个神器<strong>crosstool-ng</strong>，配置好，然后交给它编译交叉编译工具就行了！具体如下：<br><a id="more"></a></p>
+<h2 id="虚拟机配置">虚拟机配置</h2><p>基于最纯粹最小系统，改个vi，加个sudo账户，如果系统以前就用可以跳过。</p>
+<pre><code><span class="keyword">sudo</span> apt-get install -y vim
+<span class="keyword">echo</span> “deb <span class="literal">ALL</span>=(<span class="literal">ALL</span>) NOPASSWD: <span class="literal">ALL</span>” | sudo tee -a /etc/sudoers
+</code></pre><h2 id="环境准备">环境准备</h2><p>因为是新系统，要装的库实在太多，我一边编，一边google，无数次出错了就多装一个库再来，这些是最精简的要求了，一般的系统里应该很多都已经装了</p>
+<pre><code>sudo apt-get -y <span class="operator"><span class="keyword">update</span>
+sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -y bison flex texinfo gawk automake subversion
+sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -y gperf help2man make libtool libncurses5-dev 
+sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -y gcj-jdk python-dev <span class="keyword">g</span>++</span>
+</code></pre><p>这个libtool我不知道为什么，明明装了却总说没装，于是我自己手动装了一遍。不过后来想想，可能应该装libtool-dev？没去验证</p>
+<pre><code>git clone gi<span class="variable">t:</span>//git.savannah.gnu.org/libtool.git
+<span class="keyword">cd</span> libtool
+./configure; <span class="keyword">make</span>; <span class="keyword">make</span> install
+</code></pre><h2 id="编译crosstool-ng">编译crosstool-ng</h2><pre><code>git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/crosstool-ng/crosstool-ng.git
+<span class="keyword">cd</span> crosstool-ng
+./bootstrap
+./configure --prefix=/<span class="keyword">opt</span>/crosstool-ng
+<span class="keyword">make</span>
+<span class="keyword">make</span> install
+</code></pre><p>然后加环境变量<code>export PATH=$PATH:/opt/crosstool-ng/bin</code></p>
+<h2 id="编译交叉编译工具(不能是root用户)">编译交叉编译工具(不能是root用户)</h2><h3 id="检查tools版本">检查tools版本</h3><p>编译过程中要用到很多库，有几个比较关键的库的版本需要提前看好，否则可能导致编译失败。</p>
+<ol>
+<li>Glibc版本：<code>lld —v</code></li>
+<li>GCC版本：<code>gcc —v</code></li>
+<li>目标板Kernel版本：<code>uname -r</code>。这个是要在树莓派的终端看的，不是指编译环境的kernel版本！目前我用的最新版本是Linux-4.1.15</li>
+</ol>
+<h3 id="配置编译选项">配置编译选项</h3><ul>
+<li><p>首先去一个随便什么地方（要有读写权限）建立一个文件夹作为当前目录，用来存放临时的配置文件</p>
+<pre><code><span class="built_in">mkdir</span> toolchain
+<span class="built_in">cd</span> toolchain
+</code></pre></li>
+<li><p>crosstool-ng是有一些不同平台的default配置的，他们放在<strong>crosstool-ng/samples/$PLATFORM/crosstool.config</strong>。很幸运树莓派2B正好是有默认配置的，可以用：</p>
+<pre><code><span class="keyword">ct</span>-ng armv7-rpi2-linux-gnueabihf
+</code></pre><p>来调用，然后就会自动保存为.config文件，这个跟kernel有点像。</p>
+</li>
+<li><p>默认的配置还是有些地方需要调整，我们要手动配置一下：</p>
+<pre><code><span class="keyword">ct</span>-ng menuconfig
+</code></pre><p>这里面的界面就非常像Kernel的Config了。基于默认配置，需要修改的部分不多，重要的有以下几个：</p>
+<blockquote>
+<ol>
+<li>Paths and misc options  —><br>[X]  Try features marked as EXPERIMENTAL<br>(3)  Number of parallel jobs  //同时进行编译的线程，如果机器好点的话可以改大点加快速度</li>
+<li>Toolchain options  —><br>(rpi2)  Tuple’s vendor string  //一个标识符，会出现在最终编译工具的文件名上</li>
+<li>Operating System  —><br>Linux kernel version()  //内核版本，之前记录下来的</li>
+<li>C-library  —><br>glibc version ()  // Glibc版本</li>
+<li>C compiler  —><br>gcc version ()  //GCC版本</li>
+<li>Companion libraries  —><br>这里面有一些其他的库的版本选择，不太会影响编译成功与否，有需要可以改</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<p>最后看看还有什么自己的特殊需要，例如目标Path之类，改完以后保存</p>
+<h3 id="编译">编译</h3><p>一句话：</p>
+<pre><code><span class="keyword">ct</span>-ng build
+</code></pre><p>然后等着吧！首先还会下载GCC之类的源码，所以准备好网络环境。如果没有出错的话，也要等个两三个钟头。完成之后，会在<code>~/xtool</code>（默认设置）里看到最终的交叉编译工具。拿去用吧！我测试了普通程序、内核、驱动，都跑得好好的，搞定收工！😄</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>作为一个（曾经的）内核开发者，弄到块板子怎么能不重新编译内核？系统配好跑起来后的第二件事，就是编译内核了。在树莓派上编译内核很简单，基本上就是按照官方文档跑脚本，先放GitHub上的Script<a href="https://github.com/conanwhf/RaspberryPi-script">传送门</a>，<em>build/kernel.sh</em></p>
-<h2 id="系统简介">系统简介</h2><h3 id="文件系统">文件系统</h3><p>树莓派的文件系统设计还是不错的，能比较方便地更新内核和各种固件。整个文件系统分为两个部分：Fat32分区和Ext4分区。Fat32分区是mount到/boot上的，里面放了内核和启动的核心固件；Ext4就是一般的根文件系统了，放其他的所有东西，包括firmware和各种ko等。这种设计免去了用户烧录的麻烦，只是他们的bootloader没有开放源码，对于极客来说是很不爽的事情。<br>所谓的系统更新，就是每次编译kernel之后，直接把生成的文件放到特定的地方，重启就行。这也是为什么系统自带的工具<strong>rpi-update</strong>可以自动更新内核、firmware等等一切东西。</p>
-<h3 id="硬件的选择和启动">硬件的选择和启动</h3><p>树莓派一代和二代用的两个不同的ARM芯片，这个差别在操作系统中并没有体现出来，我是指：官方提供的系统镜像是同一个。开始我很奇怪，后来看到了它的文件系统，才明白，它是靠不同的kernel文件名来区分的。这两种板子的platform分别叫”bcm2708”和”bcm2709”，启动的时候bootloader会根据硬件情况自动区分，读取不同的kernel image，进而load不同的firmware和driver。<br>]]>
+    <![CDATA[<p>  说到交叉编译工具，真是血泪史。搞了快两天，才终于迂回搞定。老规矩，先放Script<a href="https://github.com/conanwhf/RaspberryPi-script">传送门</a>，_build/build-toolchain.sh_<br>  一开始我以为这东西用的人多，交叉编译工具应该不是事儿，去官网下一个就行了，可是我去GitHub一看，这toolchain最近的更新也是<strong>三年</strong>前，这……能用？先下载吧，同时各种搜，感觉我没有走错地方，大家就是用的这一款！<br>  可是我忘了我是OSX。不出所料，在我的电脑上跑不了。而且看了下这个toolchain还是给ARMv6编的好吗，现在明明就是ARMv7了！这么跑性能不受影响吗？更让我无语的是板子上的gcc也是ARMv6的……😰编译个内核什么的那么慢，官方的toolchain又不能用，自己编译势在必行。<br>又是一通各种搜，搜到了个别人2014年编译的mac用toolchain，试了试，普通的程序没问题，编kernel编不过。搜到了个比较详细的在Mac上编译的blog，可惜也是几年前的，跟现在的环境不一样，各种出状况又goole解决，最后还是编译crosstool不成功。可能这一两年，不论是crosstool，OSX，还是GCC，都已经又改了不少吧。<br>  最后，我放弃了，毕竟还是要做iOS开发的，不敢随便乱sudo，还是上虚拟机吧。竭尽全力把所有能删的都删了，看看剩余的18G空间（128G MBP你懂的），哭着做了个Debian的虚拟机……为了节约，GUI都不要，命令行的最小系统。后来还是吃亏在这上面了，编译到一半空间不够，临时扩展磁盘，fdisk,format,mount,ln -s😞所以，根据我经验，不管在哪里，请<strong>至少至少至少准备10G有效空间！！！</strong>（12G是我调整后整个虚拟机大小，最后还剩了2G；如果系统已经有了，那free space至少8G）<br>废话说完，正经操作其实不多，主要就是装一个神器<strong>crosstool-ng</strong>，配置好，然后交给它编译交叉编译工具就行了！具体如下：<br>]]>
     
     </summary>
     
-      <category term="kernel" scheme="http://conanwhf.gitcafe.io/tags/kernel/"/>
+      <category term="crosstool-ng" scheme="http://conanwhf.gitcafe.io/tags/crosstool-ng/"/>
+    
+      <category term="toolchain" scheme="http://conanwhf.gitcafe.io/tags/toolchain/"/>
     
       <category term="RaspberryPi" scheme="http://conanwhf.gitcafe.io/categories/RaspberryPi/"/>
     
@@ -126,6 +160,46 @@ sudo service networking restart
     <![CDATA[<p>关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，<a href="https://github.com/conanwhf/RaspberryPi-script">传送门</a></p>]]>
     
     </summary>
+    
+      <category term="RaspberryPi" scheme="http://conanwhf.gitcafe.io/categories/RaspberryPi/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[树莓派内核编译]]></title>
+    <link href="http://conanwhf.gitcafe.io/2016/01/12/rpi-kernel/"/>
+    <id>http://conanwhf.gitcafe.io/2016/01/12/rpi-kernel/</id>
+    <published>2016-01-12T06:31:26.000Z</published>
+    <updated>2016-01-14T12:11:38.000Z</updated>
+    <content type="html"><![CDATA[<p>作为一个（曾经的）内核开发者，弄到块板子怎么能不重新编译内核？系统配好跑起来后的第二件事，就是编译内核了。在树莓派上编译内核很简单，基本上就是按照官方文档跑脚本，先放GitHub上的Script<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a>，<em>build/kernel.sh</em></p>
+<h2 id="系统简介">系统简介</h2><h3 id="文件系统">文件系统</h3><p>树莓派的文件系统设计还是不错的，能比较方便地更新内核和各种固件。整个文件系统分为两个部分：Fat32分区和Ext4分区。Fat32分区是mount到/boot上的，里面放了内核和启动的核心固件；Ext4就是一般的根文件系统了，放其他的所有东西，包括firmware和各种ko等。这种设计免去了用户烧录的麻烦，只是他们的bootloader没有开放源码，对于极客来说是很不爽的事情。<br>所谓的系统更新，就是每次编译kernel之后，直接把生成的文件放到特定的地方，重启就行。这也是为什么系统自带的工具<strong>rpi-update</strong>可以自动更新内核、firmware等等一切东西。</p>
+<h3 id="硬件的选择和启动">硬件的选择和启动</h3><p>树莓派一代和二代用的两个不同的ARM芯片，这个差别在操作系统中并没有体现出来，我是指：官方提供的系统镜像是同一个。开始我很奇怪，后来看到了它的文件系统，才明白，它是靠不同的kernel文件名来区分的。这两种板子的platform分别叫”bcm2708”和”bcm2709”，启动的时候bootloader会根据硬件情况自动区分，读取不同的kernel image，进而load不同的firmware和driver。<br><a id="more"></a></p>
+<h2 id="源码下载_&amp;_环境准备">源码下载 &amp; 环境准备</h2><p>要说编译内核有什么好准备的，那恐怕就是要准备一个好点的网络环境和大大的耐心了。不算下载source code，我整个系统编了五六个小时吧。好在编译是一直有输出的，有点盼头，不然真是要cancel掉了……<br>先是源码下载：</p>
+<pre><code>git clone --depth=<span class="number">1</span> gi<span class="variable">t:</span>//github.<span class="keyword">com</span>/raspberrypi/linux.git linux  
+然后是工具的准备，最好先`apt-<span class="built_in">get</span> -<span class="keyword">y</span> <span class="keyword">update</span>`一下
+sudo apt-<span class="built_in">get</span> -<span class="keyword">y</span> install gcc <span class="keyword">make</span> bc screen ncurses-dev
+</code></pre><h2 id="正式编译（二代B为例）">正式编译（二代B为例）</h2><p>源码和编译环境准备好了以后，就要开编了。kernel的config文件官方已经给出，什么都不改也是可以跑得很好的，看看有什么要改的然后就让它跑着自己睡觉去吧：</p>
+<pre><code><span class="label">KERNEL</span><span class="label">=kernel7</span>
+<span class="label">make</span> <span class="keyword">bcm2709_defconfig
+</span><span class="label">make</span> menuconfig
+
+<span class="label">make</span> -j4 zImage modules dtbs
+<span class="label">sudo</span> make modules_install
+<span class="label">sudo</span> <span class="preprocessor">cp</span> arch/<span class="preprocessor">arm</span>/<span class="keyword">boot/dts/*.dtb </span>/<span class="keyword">boot/
+</span><span class="label">sudo</span> <span class="preprocessor">cp</span> arch/<span class="preprocessor">arm</span>/<span class="keyword">boot/dts/overlays/*.dtb* </span>/<span class="keyword">boot/overlays/
+</span><span class="label">sudo</span> <span class="preprocessor">cp</span> arch/<span class="preprocessor">arm</span>/<span class="keyword">boot/dts/overlays/README </span>/<span class="keyword">boot/overlays/
+</span><span class="label">sudo</span> scripts/mkknlimg arch/<span class="preprocessor">arm</span>/<span class="keyword">boot/zImage </span>/<span class="keyword">boot/$KERNEL.img</span>
+</code></pre><h2 id="完成">完成</h2><p>一觉醒来，终于跑完了！看看输出有没有什么错误，不要太鲁莽。如果没什么问题，就可以<code>reboot</code>了，enjoy!</p>
+<h2 id="万一……">万一……</h2><p>万一，编译出了什么问题，系统跑不起来了……🤔我是不是应该先写这一部分？最简单的办法当然是重烧官方img，不过码农怎么会这么粗暴……你只要备份好/boot, /lib/firmware, /lib/modules这三个文件夹就行了。<br>最坏的情况，你之前没有备份？另外拿张卡，烧进官方系统跑起来，插入之前的卡，mount上去（系统应该会自动做了，在~/media/底下），更新那三个文件夹。<br>最最坏的情况，你没有第二张卡？那只好simulate一个disk出来，把上面的解决办法在主机上做一遍了……😏</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>作为一个（曾经的）内核开发者，弄到块板子怎么能不重新编译内核？系统配好跑起来后的第二件事，就是编译内核了。在树莓派上编译内核很简单，基本上就是按照官方文档跑脚本，先放GitHub上的Script<a href="https://github.com/conanwhf/RaspberryPi-script">传送门</a>，<em>build/kernel.sh</em></p>
+<h2 id="系统简介">系统简介</h2><h3 id="文件系统">文件系统</h3><p>树莓派的文件系统设计还是不错的，能比较方便地更新内核和各种固件。整个文件系统分为两个部分：Fat32分区和Ext4分区。Fat32分区是mount到/boot上的，里面放了内核和启动的核心固件；Ext4就是一般的根文件系统了，放其他的所有东西，包括firmware和各种ko等。这种设计免去了用户烧录的麻烦，只是他们的bootloader没有开放源码，对于极客来说是很不爽的事情。<br>所谓的系统更新，就是每次编译kernel之后，直接把生成的文件放到特定的地方，重启就行。这也是为什么系统自带的工具<strong>rpi-update</strong>可以自动更新内核、firmware等等一切东西。</p>
+<h3 id="硬件的选择和启动">硬件的选择和启动</h3><p>树莓派一代和二代用的两个不同的ARM芯片，这个差别在操作系统中并没有体现出来，我是指：官方提供的系统镜像是同一个。开始我很奇怪，后来看到了它的文件系统，才明白，它是靠不同的kernel文件名来区分的。这两种板子的platform分别叫”bcm2708”和”bcm2709”，启动的时候bootloader会根据硬件情况自动区分，读取不同的kernel image，进而load不同的firmware和driver。<br>]]>
+    
+    </summary>
+    
+      <category term="kernel" scheme="http://conanwhf.gitcafe.io/tags/kernel/"/>
     
       <category term="RaspberryPi" scheme="http://conanwhf.gitcafe.io/categories/RaspberryPi/"/>
     
@@ -1233,89 +1307,6 @@ manager.<span class="function"><span class="title">contentsEqualAtPath</span><sp
 </code></pre><p>当然这个<strong>swift</strong>命令还有更多用法和参数，]]>
     
     </summary>
-    
-      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Swift2.0 中的String（六）：正则匹配]]></title>
-    <link href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/"/>
-    <id>http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/</id>
-    <published>2015-12-09T08:20:16.000Z</published>
-    <updated>2015-12-31T18:44:34.000Z</updated>
-    <content type="html"><![CDATA[<p>Swift中的字符串，第六篇，正则匹配。其他的几篇传送门：</p>
-<ul>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
-</ul>
-<p>对于字符串的操作来说，正则匹配算是很重要的一项应用了。虽然其实我不太用，但偶尔需要的时候还是感到这东西真挺有用的。在网上找了找，对于iOS中使用正则，基本上都是说有三种方法，可惜给的Swift源码比较少，版本问题也不能直接跑，于是自己动手做一遍。总结了下其实所谓的三种方法其中两种还是很有局限性的。</p>
-<p>首先我们定义好待匹配的字符串和pattern：</p>
-<pre><code>let str = "18800002222---13144445555"
-let pattern = "1[<span class="link_label">3|5|7|8</span>][<span class="link_reference">0-9</span>]\\d{8}"
-</code></pre><p>简单示范，就不搞太复杂了。这个pattern是手机号码的正则，因为准备demo匹配多个结果，没有加开头和结尾的限制。<a id="more"></a></p>
-<h2 id="String直接支持的匹配方式">String直接支持的匹配方式</h2><p>严格地来说，只有这一种才算是真正的“Swift中的正则”，其他的都是使用了OC继承过来的类。而这种方法也很简单，就是简单的使用rangOfString而已。</p>
-<pre><code>str.<span class="function"><span class="title">rangeOfString</span><span class="params">(pattern, options: NSStringCompareOptions.RegularExpressionSearch)</span></span>
-</code></pre><p>很简单吧？只是把option的参数改成<strong>RegularExpressionSearch</strong>就行了。这种方法会得到一个Range类型的返回值，是匹配到的第一个子串的位置。在这个例子中，返回0..\&lt;11；如果找不到匹配，返回nil</p>
-<h2 id="使用NSPredicate的方式">使用NSPredicate的方式</h2><p>这是我最不推荐的方式。NSPredicate本身是数据查找、过滤的强大工具，他自己本身有一套语法，而正则只是其中的一小部分方式：</p>
-<pre><code>let pred: NSPredicate = <span class="function"><span class="title">NSPredicate</span><span class="params">(format: <span class="string">"SELF MATCHES %@"</span>, pattern)</span></span>
-pred.<span class="function"><span class="title">evaluateWithObject</span><span class="params">(str)</span></span>
-</code></pre><p>这个方法返回一个bool来说明是否匹配到，而且只能匹配全字符串（在这个例子中就会返回false），比第一种方法还复杂，除非是想用NSPredicate相关的奇技淫巧，否则还是用rangOfString要好得多。</p>
-<h2 id="使用NSRegularExpression的方式">使用NSRegularExpression的方式</h2><p>NSRegularExpression是专门的正则匹配类型，如果你需要更专业的匹配，推荐使用这种方法。<br>首先需要声明一个新的NSRegularExpression类型，并且设定它的匹配pattern:</p>
-<pre><code><span class="tag">var</span> expr              = try <span class="function"><span class="title">NSRegularExpression</span><span class="params">(pattern: pattern, options: [])</span></span>
-expr<span class="class">.pattern</span>    <span class="comment">// Show the pattern</span>
-</code></pre><p>这一步可以看到正则表达式已经设置好了，可以使用这个变量对各种字符串进行匹配。<br>匹配的方法有两种，一种是Block的方式（在Swift中可以近似于闭包），另外一种是普通的（我也不知道是不是可以说成non-block）。</p>
-<blockquote>
-<p>插播吐个槽：_这个什么鬼Block真的搞得我好困惑啊！在C里面的Block函数是指那些阻塞进程的，而在OC里面是个反的！有callback专门做异步的！搞得我每次看到都要反应一下！求问为啥这么定义？！😖_</p>
-</blockquote>
-<p>另外我在网上看到的示例中某些API都已经找不到了，这个类的完善看来也经历了一些过程……言归正传。Block的方法还要用到Callback来拿返回值，懒得用，我们的数据量反正也不大，先拿普通用法来解释：</p>
-<pre><code><span class="tag">var</span> range             = <span class="function"><span class="title">NSMakeRange</span><span class="params">(<span class="number">0</span>, str.characters.count)</span></span>
-<span class="tag">var</span> res               = expr.<span class="function"><span class="title">firstMatchInString</span><span class="params">(str, options: NSMatchingOptions.ReportProgress, range: range)</span></span>
-<span class="function"><span class="title">print</span><span class="params">(res?.range)</span></span>
-</code></pre><p>这是最简单常用的匹配，匹配第一个字串，返回一个封装好的类。如果没有结果，返回nil。通常我们只需要拿到它的range属性，注意：<strong>!!!这里的range是NSRange而不是Range，它的结构是（start, length）！！！</strong></p>
-<p>然后是另外一种获取全部匹配的方法：</p>
-<pre><code><span class="keyword">var</span> resAll            = expr.matchesInString(str, options: NSMatchingOptions.ReportProgress, <span class="keyword">range</span>: <span class="keyword">range</span>)
-resAll.<span class="keyword">forEach</span>{ <span class="keyword">print</span>(<span class="label">$0</span>.<span class="keyword">range</span>) }
-</code></pre><p>这个方法返回一个数组，内容是每一个匹配结果。<strong>使用NSRegularExpression是唯一一种能够获得所有匹配结果的方法</strong>，如果没有匹配，则返回一个空数组。<br>同时我们还可以直接获取匹配到的结果的数量：</p>
-<pre><code><span class="type">expr</span>.numberOfMatchesInString(str, options: <span class="type">NSMatchingOptions</span>.<span class="type">ReportProgress</span>, <span class="type">range</span>: <span class="type">range</span>)
-</code></pre><p>很方便的另一个方法，是将所有匹配替换为另外的字符串：</p>
-<pre><code><span class="tag">var</span> newStr = <span class="function"><span class="title">NSMutableString</span><span class="params">(string: str)</span></span>
-expr.<span class="function"><span class="title">replaceMatchesInString</span><span class="params">(newStr, options: [] , range: range, withTemplate: <span class="string">"phoneNum"</span>)</span></span>
-newStr
-</code></pre><p>结果newStr变成了_“phoneNum—phoneNum”_。这里要用NSMutableString当作Input，是因为它本身是给OC~NSString系统用的，而NSString是固定memory的，替换可能改变字符串长度，所以需要强制要求提供一个NSMutableString的入口。Swift中的String类型是没有这种问题的。<br>这个方法其实靠rangeOfString + stringByReplacingCharactersInRange 也能做到，就是麻烦点儿。参数中的Template应该还有别的动态用法，我没深入研究了。</p>
-<h2 id="URL的匹配和解析">URL的匹配和解析</h2><p>说了这么多，最后顺便来一点URL吧。URL的解析在实用中也是很常见的，虽然也是可以使用正则表达式，但其实它有自己的接口来实现parser。下面就是范例代码：</p>
-<pre><code><span class="keyword">let</span> url        = NSURL(string: <span class="string">"http://weibo.com/u/1864854042?sudaref=conanwhf.github.io&amp;test=???&amp;lalalvy=irobot"</span>)!
-<span class="keyword">let</span> components = NSURLComponents(URL: url, resolvingAgainstBaseURL: <span class="literal">false</span>)
-<span class="keyword">let</span> <span class="literal">item</span>       = components?.queryItems
-<span class="literal">item</span>?.forEach { print(<span class="variable">$0</span>.name, <span class="variable">$0</span>.value!) }
-</code></pre><p>最后打印出结果：<br>    <em>sudaref conanwhf.github.io<br>    test ???<br>    lalalvy irobot</em><br>很方便！</p>
-<blockquote>
-<p>至此，字符串的部分应该是差不多了，如果说还有待研究的部分，那就是xml和json数据解析了吧。String本身在C语言中是作为数据存储万金油的存在，而在Swift中，它的数据层面被淡化了很多，同时多了很多新特性。学习它的时候，我常常会想，为什么要这么设置API，和旧的API相比这么做有什么好处，为什么会有这样的属性，什么情况下会用到……希望能通过这样的思考弥补自己对于面向对象概念的不足，慢慢找到感觉。</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>Swift中的字符串，第六篇，正则匹配。其他的几篇传送门：</p>
-<ul>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages">这里</a>看到</li>
-</ul>
-<p>对于字符串的操作来说，正则匹配算是很重要的一项应用了。虽然其实我不太用，但偶尔需要的时候还是感到这东西真挺有用的。在网上找了找，对于iOS中使用正则，基本上都是说有三种方法，可惜给的Swift源码比较少，版本问题也不能直接跑，于是自己动手做一遍。总结了下其实所谓的三种方法其中两种还是很有局限性的。</p>
-<p>首先我们定义好待匹配的字符串和pattern：</p>
-<pre><code>let str = "18800002222---13144445555"
-let pattern = "1[<span class="link_label">3|5|7|8</span>][<span class="link_reference">0-9</span>]\\d{8}"
-</code></pre><p>简单示范，就不搞太复杂了。这个pattern是手机号码的正则，因为准备demo匹配多个结果，没有加开头和结尾的限制。]]>
-    
-    </summary>
-    
-      <category term="String" scheme="http://conanwhf.gitcafe.io/tags/String/"/>
     
       <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
     
