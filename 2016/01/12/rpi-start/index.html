@@ -51,7 +51,7 @@
 <meta property="og:url" content="http://conanwhf.gitcafe.io/2016/01/12/rpi-start/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，传送门">
-<meta property="og:updated_time" content="2016-01-14T12:11:43.000Z">
+<meta property="og:updated_time" content="2016-01-14T16:19:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="树莓派初始配置指南（2代B型）">
 <meta name="twitter:description" content="关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，传送门">
@@ -292,21 +292,23 @@ sudo rpi-<span class="keyword">update</span></span>
 </code></pre><h2 id="修改vi">修改vi</h2><p>Debian的默认vi太难用！改之。我的Github里还放了我的vi配置文件，随意取用</p>
 <pre><code>sudo apt-<span class="built_in">get</span> -<span class="keyword">y</span> <span class="built_in">remove</span> <span class="keyword">vim</span>-common
 sudo apt-<span class="built_in">get</span> -<span class="keyword">y</span> install <span class="keyword">vim</span>
-</code></pre><h2 id="中文支持">中文支持</h2><p>字库和输入法，平时都用SSH的人其实用不到<br>sudo apt-get -y install ttf-wqy-zenhei ttf-wqy-microhei<br>sudo apt-get -y install fcitx fcitx-googlepinyin fcitx-module-cloudpinyin fcitx-sunpinyin</p>
-<h2 id="官方自带的menuconfig">官方自带的menuconfig</h2><p>跑(sudo raspi-config)，这个命令行跑起来的界面和GUI上打开的不一样，不过内容差不多，建议修改以下几个</p>
-<ol>
+</code></pre><h2 id="中文支持">中文支持</h2><p>字库和输入法，平时都用SSH的人其实用不到</p>
+<pre><code>sudo apt-get -y <span class="operator"><span class="keyword">install</span> ttf-wqy-zenhei ttf-wqy-microhei
+sudo apt-<span class="keyword">get</span> -y <span class="keyword">install</span> fcitx fcitx-googlepinyin fcitx-<span class="keyword">module</span>-cloudpinyin fcitx-sunpinyin</span>
+</code></pre><h2 id="官方自带的menuconfig">官方自带的menuconfig</h2><p>跑(sudo raspi-config)，这个命令行跑起来的界面和GUI上打开的不一样，不过内容差不多，建议修改以下几个</p>
+<ul>
 <li>用户pi密码，hostname</li>
 <li>开启ssh,spi,i2c</li>
 <li>修改时区</li>
 <li>扩展卡上分区<br>然后就可以reboot了</li>
-</ol>
+</ul>
 <h2 id="VNC支持">VNC支持</h2><h3 id="安装服务器端tightVNC">安装服务器端tightVNC</h3><pre><code>sudo apt-<span class="keyword">get</span> -y install tightvncserver
 sudo apt-<span class="keyword">get</span> -y install xfonts-<span class="keyword">base</span>
 </code></pre><h3 id="配置">配置</h3><ol>
 <li>配置连接密码：vncpasswd</li>
 <li><p>添加开机启动：</p>
 <ul>
-<li>创建/etc/init.d/tightvncserver，内容（见<a href="https://github.com/conanwhf/RaspberryPi-script/blob/master/setup/tightvncserver" target="_blank" rel="external">这里</a>）</li>
+<li>创建/etc/init.d/tightvncserver，内容见<a href="https://github.com/conanwhf/RaspberryPi-script/blob/master/setup/tightvncserver" target="_blank" rel="external">这里</a></li>
 <li><p>更新改变：</p>
 <pre><code>sudo chmod +x /etc/init.d/tightvncserver
 sudo <span class="operator"><span class="keyword">update</span>-rc.<span class="keyword">d</span> tightvncserver <span class="keyword">defaults</span></span>
@@ -344,13 +346,13 @@ sudo service networking restart
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/01/14/rpi-toolchain/" rel="prev">自己编译给树莓派的交叉编译工具</a>
+              <a href="/2016/01/12/rpi-kernel/" rel="prev">树莓派内核编译</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/12/rpi-kernel/" rel="next">树莓派内核编译</a>
+              <a href="/2016/01/12/rpi-get/" rel="next">树莓派入手</a>
             
           </div>
         </div>

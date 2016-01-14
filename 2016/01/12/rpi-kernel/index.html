@@ -53,7 +53,7 @@
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="作为一个（曾经的）内核开发者，弄到块板子怎么能不重新编译内核？系统配好跑起来后的第二件事，就是编译内核了。在树莓派上编译内核很简单，基本上就是按照官方文档跑脚本，先放GitHub上的Script传送门，build/kernel.sh
 系统简介文件系统树莓派的文件系统设计还是不错的，能比较方便地更新内核和各种固件。整个文件系统分为两个部分：Fat32分区和Ext4分区。Fat32分区是mount到/">
-<meta property="og:updated_time" content="2016-01-14T12:11:38.000Z">
+<meta property="og:updated_time" content="2016-01-14T16:26:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="树莓派内核编译">
 <meta name="twitter:description" content="作为一个（曾经的）内核开发者，弄到块板子怎么能不重新编译内核？系统配好跑起来后的第二件事，就是编译内核了。在树莓派上编译内核很简单，基本上就是按照官方文档跑脚本，先放GitHub上的Script传送门，build/kernel.sh
@@ -234,7 +234,7 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2016-01-12T14:31:26+08:00" content="2016-01-12">
+          <time itemprop="dateCreated" datetime="2016-01-12T15:31:26+08:00" content="2016-01-12">
             2016-01-12
           </time>
         </span>
@@ -279,9 +279,9 @@
 <h2 id="系统简介">系统简介</h2><h3 id="文件系统">文件系统</h3><p>树莓派的文件系统设计还是不错的，能比较方便地更新内核和各种固件。整个文件系统分为两个部分：Fat32分区和Ext4分区。Fat32分区是mount到/boot上的，里面放了内核和启动的核心固件；Ext4就是一般的根文件系统了，放其他的所有东西，包括firmware和各种ko等。这种设计免去了用户烧录的麻烦，只是他们的bootloader没有开放源码，对于极客来说是很不爽的事情。<br>所谓的系统更新，就是每次编译kernel之后，直接把生成的文件放到特定的地方，重启就行。这也是为什么系统自带的工具<strong>rpi-update</strong>可以自动更新内核、firmware等等一切东西。</p>
 <h3 id="硬件的选择和启动">硬件的选择和启动</h3><p>树莓派一代和二代用的两个不同的ARM芯片，这个差别在操作系统中并没有体现出来，我是指：官方提供的系统镜像是同一个。开始我很奇怪，后来看到了它的文件系统，才明白，它是靠不同的kernel文件名来区分的。这两种板子的platform分别叫”bcm2708”和”bcm2709”，启动的时候bootloader会根据硬件情况自动区分，读取不同的kernel image，进而load不同的firmware和driver。<br><a id="more"></a></p>
 <h2 id="源码下载_&amp;_环境准备">源码下载 &amp; 环境准备</h2><p>要说编译内核有什么好准备的，那恐怕就是要准备一个好点的网络环境和大大的耐心了。不算下载source code，我整个系统编了五六个小时吧。好在编译是一直有输出的，有点盼头，不然真是要cancel掉了……<br>先是源码下载：</p>
-<pre><code>git clone --depth=<span class="number">1</span> gi<span class="variable">t:</span>//github.<span class="keyword">com</span>/raspberrypi/linux.git linux  
-然后是工具的准备，最好先`apt-<span class="built_in">get</span> -<span class="keyword">y</span> <span class="keyword">update</span>`一下
-sudo apt-<span class="built_in">get</span> -<span class="keyword">y</span> install gcc <span class="keyword">make</span> bc screen ncurses-dev
+<pre><code>git clone --depth=<span class="number">1</span> git:<span class="comment">//github.com/raspberrypi/linux.git linux  </span>
+</code></pre><p>然后是工具的准备，最好先<code>apt-get -y update</code>一下</p>
+<pre><code><span class="label">sudo</span> apt-<span class="preprocessor">get</span> -y install gcc make <span class="keyword">bc </span>screen ncurses-dev
 </code></pre><h2 id="正式编译（二代B为例）">正式编译（二代B为例）</h2><p>源码和编译环境准备好了以后，就要开编了。kernel的config文件官方已经给出，什么都不改也是可以跑得很好的，看看有什么要改的然后就让它跑着自己睡觉去吧：</p>
 <pre><code><span class="label">KERNEL</span><span class="label">=kernel7</span>
 <span class="label">make</span> <span class="keyword">bcm2709_defconfig
@@ -312,13 +312,13 @@ sudo apt-<span class="built_in">get</span> -<span class="keyword">y</span> insta
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/01/12/rpi-start/" rel="prev">树莓派初始配置指南（2代B型）</a>
+              <a href="/2016/01/14/rpi-toolchain/" rel="prev">自己编译给树莓派的交叉编译工具</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/12/rpi-get/" rel="next">树莓派入手</a>
+              <a href="/2016/01/12/rpi-start/" rel="next">树莓派初始配置指南（2代B型）</a>
             
           </div>
         </div>
