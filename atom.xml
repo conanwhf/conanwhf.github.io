@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.gitcafe.io/"/>
-  <updated>2016-01-03T10:43:49.000Z</updated>
+  <updated>2016-01-03T16:54:57.000Z</updated>
   <id>http://conanwhf.gitcafe.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://conanwhf.gitcafe.io/2016/01/03/UISlider/"/>
     <id>http://conanwhf.gitcafe.io/2016/01/03/UISlider/</id>
     <published>2016-01-03T09:32:45.000Z</published>
-    <updated>2016-01-03T10:43:49.000Z</updated>
+    <updated>2016-01-03T16:54:57.000Z</updated>
     <content type="html"><![CDATA[<p>作为初学者，基础的几个UI控件必须要熟练，现在的我还处于打开Xcode在控件表里面瞎找，看着谁好像是我想要的就往StoryBoard里面拖的阶段……正式写了点东西以后，越来越感觉到，该认真把控件过一遍了。上周写了这么个UIView的Demo，本意是看看各种效果，结果各种状况，花了不少时间。最终效果如下：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_UIViewtest.gif" alt=""><br>因为准备做不止一个控件的Demo测试，又不愿意每个控件开一个ViewController，想所有的Demo都重用同一个页面，于是妖蛾子就出来了。（背景：这个Demo的具体实现部分和ViewController是分开的两个File）<a id="more"></a><br>最主要的问题出在UISlider的监听上。网上UISlider的基本用法大把而且很简单，我照葫芦画瓢写了个包含一个Slider和Label的结构体，并且申明一个数组作config用：</p>
 <pre><code><span class="class"><span class="keyword">class</span> <span class="title">ConfigSlider</span> {</span>
 let <span class="string">label :</span> UILabel
@@ -56,7 +56,7 @@ var <span class="string">sliderConfigs :</span> Array &lt;ConfigSlider&gt; = []
 </blockquote>
 <p>这些测试，让我对”代理“的概念有了更深刻的理解，自学的新手就是这样啊，好多概念要慢慢摸索才会懂。但我的问题还没解决。之前说了，我的Controller是打算重用的，和几个Demo的具体实现分离，那么这个slider的回调，如果一定要写在Contoller中，那也太丑陋了……🤔并且有几个Demo就得塞几个不同的回调，怎么能忍？！想了想，利用Swift中Function的特性（我并不知道OC中是不是也一样）：<br><em>StepA: 在在ViewContoller中实现</em></p>
 <pre><code><span class="comment">//定义updateDemo()，具体写哪儿看着办</span>
-<span class="keyword">var</span> updateDemo : (<span class="type">ShowController</span>)-\&gt;() = {<span class="number">_</span> <span class="keyword">in</span> }
+<span class="keyword">var</span> updateDemo : (<span class="type">ShowController</span>)-&gt;() = {<span class="number">_</span> <span class="keyword">in</span> }
 
 <span class="keyword">if</span> (某个判断条件<span class="type">A</span>，判断出<span class="type">DemoA</span>的情况) {
     <span class="comment">//重定向到函数refreshUIViewTest</span>
