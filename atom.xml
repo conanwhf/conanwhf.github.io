@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.gitcafe.io/"/>
-  <updated>2016-01-03T16:54:57.000Z</updated>
+  <updated>2016-01-14T12:11:38.000Z</updated>
   <id>http://conanwhf.gitcafe.io/</id>
   
   <author>
@@ -13,6 +13,140 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[树莓派内核编译]]></title>
+    <link href="http://conanwhf.gitcafe.io/2016/01/12/rpi-kernel/"/>
+    <id>http://conanwhf.gitcafe.io/2016/01/12/rpi-kernel/</id>
+    <published>2016-01-12T06:31:26.000Z</published>
+    <updated>2016-01-14T12:11:38.000Z</updated>
+    <content type="html"><![CDATA[<p>作为一个（曾经的）内核开发者，弄到块板子怎么能不重新编译内核？系统配好跑起来后的第二件事，就是编译内核了。在树莓派上编译内核很简单，基本上就是按照官方文档跑脚本，先放GitHub上的Script<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a>，<em>build/kernel.sh</em></p>
+<h2 id="系统简介">系统简介</h2><h3 id="文件系统">文件系统</h3><p>树莓派的文件系统设计还是不错的，能比较方便地更新内核和各种固件。整个文件系统分为两个部分：Fat32分区和Ext4分区。Fat32分区是mount到/boot上的，里面放了内核和启动的核心固件；Ext4就是一般的根文件系统了，放其他的所有东西，包括firmware和各种ko等。这种设计免去了用户烧录的麻烦，只是他们的bootloader没有开放源码，对于极客来说是很不爽的事情。<br>所谓的系统更新，就是每次编译kernel之后，直接把生成的文件放到特定的地方，重启就行。这也是为什么系统自带的工具<strong>rpi-update</strong>可以自动更新内核、firmware等等一切东西。</p>
+<h3 id="硬件的选择和启动">硬件的选择和启动</h3><p>树莓派一代和二代用的两个不同的ARM芯片，这个差别在操作系统中并没有体现出来，我是指：官方提供的系统镜像是同一个。开始我很奇怪，后来看到了它的文件系统，才明白，它是靠不同的kernel文件名来区分的。这两种板子的platform分别叫”bcm2708”和”bcm2709”，启动的时候bootloader会根据硬件情况自动区分，读取不同的kernel image，进而load不同的firmware和driver。<br><a id="more"></a></p>
+<h2 id="源码下载_&amp;_环境准备">源码下载 &amp; 环境准备</h2><p>要说编译内核有什么好准备的，那恐怕就是要准备一个好点的网络环境和大大的耐心了。不算下载source code，我整个系统编了五六个小时吧。好在编译是一直有输出的，有点盼头，不然真是要cancel掉了……<br>先是源码下载：</p>
+<pre><code>git clone --depth=<span class="number">1</span> gi<span class="variable">t:</span>//github.<span class="keyword">com</span>/raspberrypi/linux.git linux  
+然后是工具的准备，最好先`apt-<span class="built_in">get</span> -<span class="keyword">y</span> <span class="keyword">update</span>`一下
+sudo apt-<span class="built_in">get</span> -<span class="keyword">y</span> install gcc <span class="keyword">make</span> bc screen ncurses-dev
+</code></pre><h2 id="正式编译（二代B为例）">正式编译（二代B为例）</h2><p>源码和编译环境准备好了以后，就要开编了。kernel的config文件官方已经给出，什么都不改也是可以跑得很好的，看看有什么要改的然后就让它跑着自己睡觉去吧：</p>
+<pre><code><span class="label">KERNEL</span><span class="label">=kernel7</span>
+<span class="label">make</span> <span class="keyword">bcm2709_defconfig
+</span><span class="label">make</span> menuconfig
+
+<span class="label">make</span> -j4 zImage modules dtbs
+<span class="label">sudo</span> make modules_install
+<span class="label">sudo</span> <span class="preprocessor">cp</span> arch/<span class="preprocessor">arm</span>/<span class="keyword">boot/dts/*.dtb </span>/<span class="keyword">boot/
+</span><span class="label">sudo</span> <span class="preprocessor">cp</span> arch/<span class="preprocessor">arm</span>/<span class="keyword">boot/dts/overlays/*.dtb* </span>/<span class="keyword">boot/overlays/
+</span><span class="label">sudo</span> <span class="preprocessor">cp</span> arch/<span class="preprocessor">arm</span>/<span class="keyword">boot/dts/overlays/README </span>/<span class="keyword">boot/overlays/
+</span><span class="label">sudo</span> scripts/mkknlimg arch/<span class="preprocessor">arm</span>/<span class="keyword">boot/zImage </span>/<span class="keyword">boot/$KERNEL.img</span>
+</code></pre><h2 id="完成">完成</h2><p>一觉醒来，终于跑完了！看看输出有没有什么错误，不要太鲁莽。如果没什么问题，就可以<code>reboot</code>了，enjoy!</p>
+<h2 id="万一……">万一……</h2><p>万一，编译出了什么问题，系统跑不起来了……🤔我是不是应该先写这一部分？最简单的办法当然是重烧官方img，不过码农怎么会这么粗暴……你只要备份好/boot, /lib/firmware, /lib/modules这三个文件夹就行了。<br>最坏的情况，你之前没有备份？另外拿张卡，烧进官方系统跑起来，插入之前的卡，mount上去（系统应该会自动做了，在~/media/底下），更新那三个文件夹。<br>最最坏的情况，你没有第二张卡？那只好simulate一个disk出来，把上面的解决办法在主机上做一遍了……😏</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>作为一个（曾经的）内核开发者，弄到块板子怎么能不重新编译内核？系统配好跑起来后的第二件事，就是编译内核了。在树莓派上编译内核很简单，基本上就是按照官方文档跑脚本，先放GitHub上的Script<a href="https://github.com/conanwhf/RaspberryPi-script">传送门</a>，<em>build/kernel.sh</em></p>
+<h2 id="系统简介">系统简介</h2><h3 id="文件系统">文件系统</h3><p>树莓派的文件系统设计还是不错的，能比较方便地更新内核和各种固件。整个文件系统分为两个部分：Fat32分区和Ext4分区。Fat32分区是mount到/boot上的，里面放了内核和启动的核心固件；Ext4就是一般的根文件系统了，放其他的所有东西，包括firmware和各种ko等。这种设计免去了用户烧录的麻烦，只是他们的bootloader没有开放源码，对于极客来说是很不爽的事情。<br>所谓的系统更新，就是每次编译kernel之后，直接把生成的文件放到特定的地方，重启就行。这也是为什么系统自带的工具<strong>rpi-update</strong>可以自动更新内核、firmware等等一切东西。</p>
+<h3 id="硬件的选择和启动">硬件的选择和启动</h3><p>树莓派一代和二代用的两个不同的ARM芯片，这个差别在操作系统中并没有体现出来，我是指：官方提供的系统镜像是同一个。开始我很奇怪，后来看到了它的文件系统，才明白，它是靠不同的kernel文件名来区分的。这两种板子的platform分别叫”bcm2708”和”bcm2709”，启动的时候bootloader会根据硬件情况自动区分，读取不同的kernel image，进而load不同的firmware和driver。<br>]]>
+    
+    </summary>
+    
+      <category term="kernel" scheme="http://conanwhf.gitcafe.io/tags/kernel/"/>
+    
+      <category term="RaspberryPi" scheme="http://conanwhf.gitcafe.io/categories/RaspberryPi/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[树莓派初始配置指南（2代B型）]]></title>
+    <link href="http://conanwhf.gitcafe.io/2016/01/12/rpi-start/"/>
+    <id>http://conanwhf.gitcafe.io/2016/01/12/rpi-start/</id>
+    <published>2016-01-12T06:31:26.000Z</published>
+    <updated>2016-01-14T12:11:43.000Z</updated>
+    <content type="html"><![CDATA[<p>关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a></p>
+<a id="more"></a>
+<h2 id="制作启动img">制作启动img</h2><ol>
+<li>从官网下载最新的image，解包，TF卡插入电脑</li>
+<li>用mount查看，将TF卡umount</li>
+<li><p>randisk<strong>X</strong>是要自己根据情况修改的</p>
+<pre><code>sudo dd bs=<span class="number">1</span>m <span class="keyword">if</span>=<span class="number">2015</span>-<span class="number">11</span>-<span class="number">21</span>-raspbian-jessie.img of=/dev/rdisk2
+diskutil umount /Volumes/boot
+</code></pre></li>
+<li>拔卡，插入树莓派，上电，这时候系统应该跑起来了。最新的系统是默认打开SSH的，所以如果你插了网线、知道IP的话，已经可以直接SSH上去。初始用户pi,密码raspberry</li>
+<li><strong>下面的命令都是在树莓派上跑的，请不要随便在自己主电脑上sudo!!!</strong></li>
+</ol>
+<h2 id="更新到最新版本">更新到最新版本</h2><p>要花点时间，放到后面做也可以。<strong>另外我看到有人说国内连官方源太慢，我不在国内测不到，如果需要请自己搜索添加合适的源</strong></p>
+<pre><code>sudo apt-get -y <span class="operator"><span class="keyword">update</span>
+sudo apt-<span class="keyword">get</span> -y <span class="keyword">upgrade</span>
+sudo apt-<span class="keyword">get</span> -y dist-<span class="keyword">upgrade</span>
+sudo rpi-<span class="keyword">update</span></span>
+</code></pre><h2 id="修改vi">修改vi</h2><p>Debian的默认vi太难用！改之。我的Github里还放了我的vi配置文件，随意取用</p>
+<pre><code>sudo apt-<span class="built_in">get</span> -<span class="keyword">y</span> <span class="built_in">remove</span> <span class="keyword">vim</span>-common
+sudo apt-<span class="built_in">get</span> -<span class="keyword">y</span> install <span class="keyword">vim</span>
+</code></pre><h2 id="中文支持">中文支持</h2><p>字库和输入法，平时都用SSH的人其实用不到<br>sudo apt-get -y install ttf-wqy-zenhei ttf-wqy-microhei<br>sudo apt-get -y install fcitx fcitx-googlepinyin fcitx-module-cloudpinyin fcitx-sunpinyin</p>
+<h2 id="官方自带的menuconfig">官方自带的menuconfig</h2><p>跑(sudo raspi-config)，这个命令行跑起来的界面和GUI上打开的不一样，不过内容差不多，建议修改以下几个</p>
+<ol>
+<li>用户pi密码，hostname</li>
+<li>开启ssh,spi,i2c</li>
+<li>修改时区</li>
+<li>扩展卡上分区<br>然后就可以reboot了</li>
+</ol>
+<h2 id="VNC支持">VNC支持</h2><h3 id="安装服务器端tightVNC">安装服务器端tightVNC</h3><pre><code>sudo apt-<span class="keyword">get</span> -y install tightvncserver
+sudo apt-<span class="keyword">get</span> -y install xfonts-<span class="keyword">base</span>
+</code></pre><h3 id="配置">配置</h3><ol>
+<li>配置连接密码：vncpasswd</li>
+<li><p>添加开机启动：</p>
+<ul>
+<li>创建/etc/init.d/tightvncserver，内容（见<a href="https://github.com/conanwhf/RaspberryPi-script/blob/master/setup/tightvncserver" target="_blank" rel="external">这里</a>）</li>
+<li><p>更新改变：</p>
+<pre><code>sudo chmod +x /etc/init.d/tightvncserver
+sudo <span class="operator"><span class="keyword">update</span>-rc.<span class="keyword">d</span> tightvncserver <span class="keyword">defaults</span></span>
+</code></pre></li>
+</ul>
+</li>
+</ol>
+<h2 id="客户端连接">客户端连接</h2><p>在我的Mac上，Finder里面⌘+k，填<code>vnc://&lt;rpi IP&gt;:5901</code>即可。人家都说可以用<code>vnc://IP:1</code>这样的方式，但我不行，不知道为啥</p>
+<h2 id="配置固定IP地址">配置固定IP地址</h2><ol>
+<li>修改<strong>/etc/network/interfaces</strong>，当然下面的IP要换成你自己的</li>
+</ol>
+<p><em>iface eth0 inet manual</em> –>  </p>
+<blockquote>
+<p>iface eth0 inet static<br>address 192.168.0.120<br>netmask 255.255.255.0<br>gateway 192.168.0.1</p>
+</blockquote>
+<ol>
+<li><p>重启服务</p>
+<pre><code><span class="title">sudo</span> systemctl daemon-reload
+sudo service networking restart
+</code></pre></li>
+</ol>
+<h2 id="SSH特殊配置">SSH特殊配置</h2><p>主要是给SSH的中文支持用的</p>
+<pre><code><span class="built_in">echo</span> LC_ALL=en_US.UTF-<span class="number">8</span> | sudo tee <span class="operator">-a</span> /etc/environment
+<span class="built_in">echo</span> LANG=en_US.UTF-<span class="number">8</span> | sudo tee <span class="operator">-a</span> /etc/environment
+</code></pre><h2 id="加大USB供电">加大USB供电</h2><p>修改后可以使能USB的1.2V供电，不然插USB硬盘是不能用的</p>
+<pre><code><span class="built_in">echo</span> “max_usb_current=<span class="number">1</span>” | sudo tee <span class="operator">-a</span> /boot/config.txt
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<p>关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，<a href="https://github.com/conanwhf/RaspberryPi-script">传送门</a></p>]]>
+    
+    </summary>
+    
+      <category term="RaspberryPi" scheme="http://conanwhf.gitcafe.io/categories/RaspberryPi/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[树莓派入手]]></title>
+    <link href="http://conanwhf.gitcafe.io/2016/01/12/rpi-get/"/>
+    <id>http://conanwhf.gitcafe.io/2016/01/12/rpi-get/</id>
+    <published>2016-01-12T05:31:26.000Z</published>
+    <updated>2016-01-14T12:11:53.000Z</updated>
+    <content type="html"><![CDATA[<p>不知是哪根天线收到了什么隐藏信息，突发奇想想去买个树莓派玩玩。其实家里还有一块前公司齐活的开发板，但性能差了点，板子又大，总之就是腻味了以后哪儿哪儿都是缺点，新的诱惑无限大。于是去买了块树莓派2B，打算配个服务器学点Python玩玩，从下午一直折腾到半夜，终于配置得算是差不多成型了。<br>以前没怎么研究过，认真四处看看，大致上情况是摸清了：硬件上总共出了算是三代n个型号（第三代Zero刚出），第一代硬件资料全齐，第二代就有点遮遮掩掩。我买的第二代B型，外设方面4口USB2.0，TF插槽、网口、HDMI、耳机插口、DSI摄像头接口、DSI屏幕接口各一。首先，我感觉USB2.0有点落伍，至少给一个3.0吧；其次，没有Nand flash，略不方便；再次，GPIO接口有点少，就那么40Pin还共用了串口+i2c+spi*2，也没数模转换，有点不够用；最后，那个LCDC接口是给谁用的啊？要自己单独做块转接板那么麻烦……除此之外，硬件凑合，但拿来做开发板太浪费，除非你的东西计算量很大；用来当个小小服务器、小小Linux机还不错。<br>软件方面，官方操作系统是Debian的。那套GUI对我来说真的有点鸡肋，居然还有Office和Mathematical，然而这种配置跑图形界面，我还不如去用iPad（当然价格也是不能比啦）。整个社区，国外的相对比较活跃，国内的就不行了。上各种贴吧论坛里看看，小白居多，而且论坛商业化严重，随便一点资料就是需要会员，或者引导你去他们的淘宝店买配件。我英文不行，所以常常还是用的中文搜索，学习iOS的时候中文资料多基本可以满足我需求；但对于各种树莓派的相关问题，我却需要用英文才能找到答案。从这一点上来说，贴吧人气和质量不行也是正常的。<br>另外就是官方的Support。我去看了官网、官方论坛、官方Github等好几个地方，感觉官方在二次开发上面的支持并不是很热情，而是更倾向于提供一个小型电脑的使用环境而已。很多事情，官方文档只会告诉你应该怎么做，而不是其所以然。比如重新编译Kernel，他会有一个文档给出如何编译，如何更新Image，但没有关于文件系统、启动流程的解释，以及需要更新的文件都是用来干嘛的……对于有经验的工程师来说看看脚本也就大致明白了，但对于新手来说肯定是一头雾水，因为官方对树莓派的启动流程用的是一套自己的方式。再看看Github上，不少项目，可是每个项目具体是啥、怎么用、什么情况下用，并没有什么交代。刚开始我完全没搞明白，因为这是一个自定义的系统，有很多自定义的细节和方式，而我要去哪里搞明白这些事情？只有碰碰钉子了。<br>啰嗦了一大堆，只是随便扯扯。折腾了两天，现在我终于把整个环境差不多搭好，n个传感器躺在淘宝购物车里，已经好几天没看iOS了，等把树莓派的东西总结总结，赶紧回归正事！<br><a id="more"></a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>不知是哪根天线收到了什么隐藏信息，突发奇想想去买个树莓派玩玩。其实家里还有一块前公司齐活的开发板，但性能差了点，板子又大，总之就是腻味了以后哪儿哪儿都是缺点，新的诱惑无限大。于是去买了块树莓派2B，打算配个服务器学点Python玩玩，从下午一直折腾到半夜，终于配置得算是差不多成型了。<br>以前没怎么研究过，认真四处看看，大致上情况是摸清了：硬件上总共出了算是三代n个型号（第三代Zero刚出），第一代硬件资料全齐，第二代就有点遮遮掩掩。我买的第二代B型，外设方面4口USB2.0，TF插槽、网口、HDMI、耳机插口、DSI摄像头接口、DSI屏幕接口各一。首先，我感觉USB2.0有点落伍，至少给一个3.0吧；其次，没有Nand flash，略不方便；再次，GPIO接口有点少，就那么40Pin还共用了串口+i2c+spi*2，也没数模转换，有点不够用；最后，那个LCDC接口是给谁用的啊？要自己单独做块转接板那么麻烦……除此之外，硬件凑合，但拿来做开发板太浪费，除非你的东西计算量很大；用来当个小小服务器、小小Linux机还不错。<br>软件方面，官方操作系统是Debian的。那套GUI对我来说真的有点鸡肋，居然还有Office和Mathematical，然而这种配置跑图形界面，我还不如去用iPad（当然价格也是不能比啦）。整个社区，国外的相对比较活跃，国内的就不行了。上各种贴吧论坛里看看，小白居多，而且论坛商业化严重，随便一点资料就是需要会员，或者引导你去他们的淘宝店买配件。我英文不行，所以常常还是用的中文搜索，学习iOS的时候中文资料多基本可以满足我需求；但对于各种树莓派的相关问题，我却需要用英文才能找到答案。从这一点上来说，贴吧人气和质量不行也是正常的。<br>另外就是官方的Support。我去看了官网、官方论坛、官方Github等好几个地方，感觉官方在二次开发上面的支持并不是很热情，而是更倾向于提供一个小型电脑的使用环境而已。很多事情，官方文档只会告诉你应该怎么做，而不是其所以然。比如重新编译Kernel，他会有一个文档给出如何编译，如何更新Image，但没有关于文件系统、启动流程的解释，以及需要更新的文件都是用来干嘛的……对于有经验的工程师来说看看脚本也就大致明白了，但对于新手来说肯定是一头雾水，因为官方对树莓派的启动流程用的是一套自己的方式。再看看Github上，不少项目，可是每个项目具体是啥、怎么用、什么情况下用，并没有什么交代。刚开始我完全没搞明白，因为这是一个自定义的系统，有很多自定义的细节和方式，而我要去哪里搞明白这些事情？只有碰碰钉子了。<br>啰嗦了一大堆，只是随便扯扯。折腾了两天，现在我终于把整个环境差不多搭好，n个传感器躺在淘宝购物车里，已经好几天没看iOS了，等把树莓派的东西总结总结，赶紧回归正事！<br>]]>
+    
+    </summary>
+    
+      <category term="RaspberryPi" scheme="http://conanwhf.gitcafe.io/categories/RaspberryPi/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[UIController中Slider监听回调具体实现的分离]]></title>
@@ -1182,218 +1316,6 @@ let pattern = "1[<span class="link_label">3|5|7|8</span>][<span class="link_refe
     </summary>
     
       <category term="String" scheme="http://conanwhf.gitcafe.io/tags/String/"/>
-    
-      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Swift2.0 中的String（五）：String和NS-XXX系列的互相转换]]></title>
-    <link href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/"/>
-    <id>http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/</id>
-    <published>2015-12-08T08:20:16.000Z</published>
-    <updated>2015-12-31T18:44:30.000Z</updated>
-    <content type="html"><![CDATA[<p>Swift中的字符串，第五篇，常用NS-XXX系列的类型转换。其他的几篇传送门：</p>
-<ul>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
-</ul>
-<p>刚开始碰String的时候着实被各种繁琐的操作折腾得不轻，不能随便取字串、比较、赋值，不能获得实际编码值……往往想干点什么，一搜，就是NSString，NSData的API，晕头转向。研究了一阵子编码，慢慢也摸清了这些数据类型和它们的方法，简单总结一下互相转换的方法，给新手一点方向。这篇文章里的类型包括了String, NSString, NSURL, NSData这几种，String是Swift的字符串类型不用多讲，封装得很豪华但各种概念多用起来有点麻烦；NSString是OC里面的字符串，但有很多实用且方便的API；NSData其实属于无差别的Data类型，存储字符串的话是RawData，有点像C语言里面的string，其实是数据块；NSURL专门用来表示网络地址，有一些网络相关API。<a id="more"></a>一些主要的操作其实在（四）编码转换 中特别是手动编码转换那一节实现过，这里更多的是总结。首先定义几个变量：</p>
-<pre><code><span class="variable"><span class="keyword">var</span> str</span> = “测试”
-<span class="variable"><span class="keyword">var</span> data</span> :NSData?
-<span class="variable"><span class="keyword">var</span> nstr</span> : NSString?
-<span class="variable"><span class="keyword">var</span> url</span> : NSURL?
-</code></pre><h2 id="NSString和String的转换">NSString和String的转换</h2><p>NSString和String就是兄弟，可以简单地直接赋值或者强制类型转换：</p>
-<pre><code>nstr = <span class="built_in">str</span>
-<span class="built_in">str</span> = <span class="keyword">String</span>(nstr)
-</code></pre><h2 id="NSURL和其他类型的转换">NSURL和其他类型的转换</h2><p>从String到NSURL使用初始化函数即可，但NSURL由于是网络传递用字符串，编码使用UTF8，如果原始地址String中有中文字符，直接转换会返回nil，所以需要先将String转换一下编码。而对于NSString，则可以简单地强制换为String操作。</p>
-<pre><code>let utf8str = str.<span class="function"><span class="title">stringByAddingPercentEncodingWithAllowedCharacters</span><span class="params">(.URLHostAllowedCharacterSet()</span></span>)!
-nstr = utf8str
-url = <span class="function"><span class="title">NSURL</span><span class="params">(string: utf8str)</span></span>
-url = <span class="function"><span class="title">NSURL</span><span class="params">(string: String(nstr!)</span></span>)
-</code></pre><p>NSURL转换成String或NSString也是使用相应的初始化函数（不考虑编码）</p>
-<pre><code>str = <span class="function"><span class="title">String</span><span class="params">(url!)</span></span>
-nstr = <span class="function"><span class="title">NSString</span><span class="params">(string: url!.absoluteString)</span></span>
-</code></pre><h2 id="NSData和其他类型的转换">NSData和其他类型的转换</h2><p>理论上来说NSData可以是任何数据，有时候我们需要其数据层面的操作API，又需要解读数据里面的文本，那么需要将NSData转换为其他类型。将字符串转换成Data的接口都是同一个dataUsingEncoding，记得不要弄错编码，编码不同会改变数据。</p>
-<pre><code><span class="typedef"><span class="keyword">data</span> = str.dataUsingEncoding<span class="container">(<span class="type">NSUTF8StringEncoding</span>)</span></span>
-<span class="typedef"><span class="keyword">data</span> = nstr?.dataUsingEncoding<span class="container">(<span class="type">NSUTF8StringEncoding</span>)</span></span>
-<span class="typedef"><span class="keyword">data</span> = url?.absoluteString.dataUsingEncoding<span class="container">(<span class="type">NSUTF8StringEncoding</span>)</span></span>
-</code></pre><p>而有时候我们需要自己填充数据，再转换为字符串，这种时候以填充Ascii码值比较多，毕竟汉字和Unicode的编码规则比较复杂，不过也是可以用的：</p>
-<pre><code>let byte :[UInt8]    = [<span class="number">0</span>xe4, <span class="number">0</span>x8d, <span class="number">0</span>xa9, <span class="number">0</span>x20, <span class="number">0</span>xe3, <span class="number">0</span>x8e, <span class="number">0</span>x8f]
-data                 = <span class="function"><span class="title">NSData</span><span class="params">(bytes: byte, length: byte.count)</span></span>
-str = <span class="function"><span class="title">String</span><span class="params">(data: data!, encoding: NSUTF8StringEncoding)</span></span>!
-nstr = <span class="function"><span class="title">NSString</span><span class="params">(data: data!, encoding: NSUTF8StringEncoding)</span></span>
-url                 = <span class="function"><span class="title">NSURL</span><span class="params">(dataRepresentation: data!, relativeToURL: nil)</span></span>
-</code></pre><p>上面的做法是先将一个Uint8数组填充好，转化为NSData，然后再变成需要的字符串。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>Swift中的字符串，第五篇，常用NS-XXX系列的类型转换。其他的几篇传送门：</p>
-<ul>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages">这里</a>看到</li>
-</ul>
-<p>刚开始碰String的时候着实被各种繁琐的操作折腾得不轻，不能随便取字串、比较、赋值，不能获得实际编码值……往往想干点什么，一搜，就是NSString，NSData的API，晕头转向。研究了一阵子编码，慢慢也摸清了这些数据类型和它们的方法，简单总结一下互相转换的方法，给新手一点方向。这篇文章里的类型包括了String, NSString, NSURL, NSData这几种，String是Swift的字符串类型不用多讲，封装得很豪华但各种概念多用起来有点麻烦；NSString是OC里面的字符串，但有很多实用且方便的API；NSData其实属于无差别的Data类型，存储字符串的话是RawData，有点像C语言里面的string，其实是数据块；NSURL专门用来表示网络地址，有一些网络相关API。]]>
-    
-    </summary>
-    
-      <category term="String" scheme="http://conanwhf.gitcafe.io/tags/String/"/>
-    
-      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Swift2.0 中的String（四）：编码转换]]></title>
-    <link href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/"/>
-    <id>http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/</id>
-    <published>2015-12-08T07:20:16.000Z</published>
-    <updated>2015-12-31T18:44:26.000Z</updated>
-    <content type="html"><![CDATA[<p>Swift中的字符串，第四篇，中文字符编码的转换。其他的几篇传送门：</p>
-<ul>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
-</ul>
-<p>不知道是不是Safari的原因，我用浏览器下载中文名文件的时候常常文件名会变成乱码，就是“%EF%77%3D%20”那种，又因为很多是电子书，名称也不能乱改，还需要自己去copy一遍重命名，很烦，于是想到用Swift自己写个函数试试纠正这个乱码。<br>最开始我的想法是在String的API里面找，所有encoding相关的都过滤了一遍，<a id="more"></a>未果（后来证明其实我找对了方向，只是用错了编码参数）；然后决定用自己拿手的方式，读取乱码数值填进数据块中，然后变成字符串。于是去网上搜索怎么填充字符串（顺便吐槽：我这边抽风cocoachina打不开，烦死），发现牵涉到NSData，NSString等等，同时也发现有人提供了一个字符串中文乱码的解决方案（UTF8转GBK）：</p>
-<pre><code><span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:urlStr];
-<span class="built_in">NSData</span> *data = [<span class="built_in">NSData</span> dataWithContentsOfURL:url]; 
-<span class="built_in">NSStringEncoding</span> enc =  <span class="built_in">CFStringConvertEncodingToNSStringEncoding</span>(k<span class="built_in">CFStringEncodingGB_18030_2000</span>);
-<span class="built_in">NSString</span> *retStr = [[<span class="built_in">NSString</span> alloc] initWithData:data encoding:enc];
-</code></pre><p>这一段OC又是url又是data的，看得我这个新手晕晕的，_kCFStringEncodingGB_18030_2000_在swift里面又没了，只好去看文档、头文件，试了很久还是没搞定。但这个过程让我又回到最开始的路子上了：找对应的函数，于是很快找到另外一个Swift的方案：</p>
-<pre><code>func UTF8ToGB2312(str: <span class="built_in">String</span>) <span class="subst">-&gt; </span>(NSData?, UInt) {
-<span class="keyword">let</span> enc              = CFStringConvertEncodingToNSStringEncoding(UInt32(CFStringEncodings<span class="built_in">.</span>GB_18030_2000<span class="built_in">.</span>rawValue))
-<span class="keyword">let</span> <span class="built_in">data</span>             = str<span class="built_in">.</span>dataUsingEncoding(enc, allowLossyConversion: <span class="literal">false</span>)    
-<span class="keyword">return</span> (<span class="built_in">data</span>, enc)
-}
-<span class="keyword">let</span> (<span class="built_in">data</span>, enc)      = UTF8ToGB2312(<span class="string">"123中文"</span>)
-NSString(<span class="built_in">data</span>: <span class="built_in">data</span><span class="subst">!</span>, encoding: enc)<span class="subst">!</span>
-</code></pre><p>说实话这个也没有用啊！逻辑上是这个意思，但事实上input什么样output还是什么样！纠缠于GB_18030这么久却一无所获，我开始怀疑是Swift语法更新导致的差异了……（没有根据胡说而已）<br>好在几经胡乱努力，我终于找到了正确的API：</p>
-<pre><code><span class="function"><span class="keyword">func</span> <span class="title">addEncoding</span><span class="params">(st : String )</span> -&gt;<span class="title">String</span>? {</span>
-    <span class="keyword">if</span> <span class="preprocessor">#available(iOS 7.0, OSX 10.9, *) {</span>
-        <span class="keyword">return</span> st.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
-    }
-    <span class="keyword">else</span> {
-        <span class="keyword">return</span>  st.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-    }
-}
-
-
-<span class="function"><span class="keyword">func</span> <span class="title">rmEncoding</span><span class="params">(st : String )</span> -&gt;<span class="title">String</span>? {</span>
-    <span class="keyword">if</span> <span class="preprocessor">#available(iOS 7.0, OSX 10.9, *) {</span>
-        <span class="keyword">return</span>  st.stringByRemovingPercentEncoding
-    }
-    <span class="keyword">else</span> {
-    <span class="keyword">return</span> st.stringByReplacingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-    }
-}
-</code></pre><p>其中stringByAdding(Replacing)PercentEncodingWithAllowedCharacters已经失效，iOS7以上使用两个替代品。如果说把重新编码看成是某种操作的话，上面的两个函数就是对字符串叠加和消除这种操作。经过测试，效果如下：</p>
-<pre><code>let s1 = <span class="string">"王"</span><span class="comment">// 中文字符串：王</span>
-let s2 = <span class="function"><span class="title">addEncoding</span><span class="params">(s1)</span></span>!   <span class="comment">// UTF8重编码后：%E7%8E%8B</span>
-let s3 = <span class="function"><span class="title">addEncoding</span><span class="params">(s2)</span></span>!   <span class="comment">// 补全%25(即为空字符)后：%25E7%258E%258B</span>
-let s4  = <span class="function"><span class="title">addEncoding</span><span class="params">(s3)</span></span>!  <span class="comment">// %2525E7%25258E%25258B</span>
-
-<span class="function"><span class="title">rmEncoding</span><span class="params">(s4)</span></span>  <span class="comment">// %25E7%258E%258B == s3</span>
-<span class="function"><span class="title">rmEncoding</span><span class="params">(s3)</span></span>  <span class="comment">// %E7%8E%8B == s2</span>
-<span class="function"><span class="title">rmEncoding</span><span class="params">(s2)</span></span>  <span class="comment">// 王 == s1</span>
-<span class="function"><span class="title">rmEncoding</span><span class="params">(s1)</span></span>  <span class="comment">// 王 == s1 == self</span>
-</code></pre><p>由此可见，（仅对UTF8编码，别的没测过）加减是相反的操作，有点像加壳脱壳的过程。已编码的字符串每继续叠加一次编码，就会用0x25填充每个字符；而有填充码时每remove一次编码就删掉一组填充码，直到最后还原为原始字符串后就不做任何操作了。于是，UTF8的中文编码转换变得很简单：</p>
-<pre><code><span class="comment">// 包含中文字符串转成utf8编码</span>
-let st               = <span class="string">"www.google.com/测 🙃test/."</span>
-let utf8str          = <span class="function"><span class="title">addEncoding</span><span class="params">(st)</span></span>
-<span class="comment">// UTF8转成中文</span>
-<span class="function"><span class="title">rmEncoding</span><span class="params">(utf8str!)</span></span>
-</code></pre><p>至此，事情基本解决了，不过我还没有忘记最开始“手动填充数据的”梦想……😎正好在之前的研究过程中对String,NSData这些也有了一些了解，于是自己动手写了个相同功能的UTF8转中文，顺便练习String，还特意去用String中的Range：</p>
-<pre><code>func stConvert(var st: String) -&gt;String{
-var byte :[UInt8]    = []
-let start            = st.startIndex
-var range: Range?    = Range(start: start, end: start)
-
-<span class="keyword">while</span> !st.isEmpty {
-    range                = String(st.characters.dropFirst()).rangeOfString(<span class="string">"<span class="variable">%"</span>)
-    if (range != nil) {     
-        /*still have next "</span><span class="variable">%"</span>
-         because the range is <span class="keyword">for</span> dropfirst, the endIndex is the the true endof <span class="keyword">no</span> % *<span class="regexp">/
-        range!.startIndex    = start
-    }
-    else {  /</span>*<span class="keyword">no</span> <span class="string">"<span class="variable">%"</span> any more */
-        range                = Range(start:start, end:st.endIndex)
-    }
-    if st.hasPrefix("</span><span class="variable">%"</span>){
-        var res:UInt32       = <span class="number">0</span>
-        range!.endIndex      = range!.startIndex.advancedBy(<span class="number">3</span>)
-        var temp             = st.substringWithRange(range!)
-        temp                 = temp.stringByReplacingOccurrencesOfString(<span class="string">"<span class="variable">%"</span>, withString: "</span>0x<span class="string">")
-        NSScanner.localizedScannerWithString(temp).scanHexInt(&amp;res)
-        byte.append(UInt8(res))
-    }
-    else {
-        let temp :NSString   = st.substringWithRange(range!)
-        for i in 0..&lt;temp.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) {
-            byte.append(UInt8(temp.UTF8String[i]))
-        }
-
-    }
-    st.removeRange(range!)
-}
-
-let data             = NSData(bytes: byte, length: byte.count)
-return String(data: data, encoding: NSUTF8StringEncoding)!
-}
-
-stConvert("</span><span class="number">1</span><span class="variable">%2B12</span><span class="variable">%EF</span><span class="variable">%BC</span><span class="variable">%9A</span><span class="variable">%E9</span><span class="variable">%80</span><span class="variable">%9A</span><span class="variable">%E5</span><span class="variable">%90</span><span class="variable">%91</span><span class="variable">%E5</span><span class="variable">%B8</span><span class="variable">%B8</span><span class="variable">%E8</span><span class="variable">%AF</span><span class="variable">%86</span><span class="variable">%E7</span><span class="variable">%9A</span><span class="variable">%84</span><span class="variable">%E9</span><span class="variable">%81</span><span class="variable">%93</span><span class="variable">%E8</span><span class="variable">%B7</span><span class="variable">%AF</span><span class="variable">%20</span><span class="variable">%28</span><span class="variable">%E6</span><span class="variable">%80</span><span class="variable">%9D</span><span class="variable">%E4</span><span class="variable">%BA</span><span class="variable">%AB</span><span class="variable">%E5</span><span class="variable">%AE</span><span class="variable">%B6</span><span class="variable">%E4</span><span class="variable">%B8</span><span class="variable">%9B</span><span class="variable">%E4</span><span class="variable">%B9</span><span class="variable">%A6</span><span class="variable">%29</span><span class="variable">%20</span>-<span class="variable">%20</span><span class="variable">%E5</span><span class="variable">%88</span><span class="variable">%98</span><span class="variable">%E8</span><span class="variable">%8B</span><span class="variable">%8F</span><span class="variable">%E9</span><span class="variable">%87</span><span class="variable">%8C</span><span class="variable">%F0</span><span class="variable">%9F</span><span class="variable">%90</span><span class="variable">%B6</span>.mobi<span class="string">")</span>
-</code></pre><p>主要的思路就是找“%”，然后将格式化的十六进制数转换为数值按次序填进NSData中，最后用RawData转换成字符串。考虑到给的字符串可能包含部分不会被重编码的部分（例如数字之类），需要判断一下，这部份字符串就转换成Ascii码填充进去。在做的过程中我碰到了一个很无语的坑：</p>
-<blockquote>
-<p><strong>Rang获取的范围(start, end)表示的是String的start..\&lt;end，即[start…end-1]部分！string[end]是不包括的！</strong></p>
-</blockquote>
-<p>我不知道我是不是一个人，虽然文档明明白白写了，但没太注意到，用的时候又想当然了，结果死循环差点把Xcode搞死……😂话说没有找到在字符串中匹配某个字符第一个位置的API，感觉用Range还是蛮不方便的……</p>
-<p>其实编码无非是编码和解码，所以String中的转换基本上就这样了。关于不同的编码类型NSStringEncoding，其实是一个UInt32。这里通篇都用的<strong>NSUTF8StringEncoding</strong>，按照文档的描述：</p>
-<blockquote>
-<p>This type is used to define the constants for the <strong>built-in encodings</strong> (see Built-in String Encodings for a list) and for platform-dependent encodings (see <strong>External String Encodings</strong>). If CFString does not recognize or support the string encoding of a particular string, CFString functions will identify the string’s encoding as kCFStringEncodingInvalidId.</p>
-</blockquote>
-<p>在Swift中Built-in的编码是有对应的类似_NSXXXXEncoding_可以作为参数直接使用，而External那些则需要申请一个NSStringEncoding类型的变量，按照前面_func UTF8ToGB2312_的方式去赋值使用了。顺手附上<a href="https://developer.apple.com/library/ios/documentation/CoreFoundation/Reference/CFStringRef/index.html#//apple_ref/c/tdef/CFStringBuiltInEncodings" target="_blank" rel="external">Build-in</a>和<a href="https://developer.apple.com/library/ios/documentation/CoreFoundation/Reference/CFStringRef/index.html#//apple_ref/doc/constant_group/External_String_Encodings" target="_blank" rel="external">Externel</a>编码的列表供查询。<br>OK，编码部分结束！</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>Swift中的字符串，第四篇，中文字符编码的转换。其他的几篇传送门：</p>
-<ul>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages">这里</a>看到</li>
-</ul>
-<p>不知道是不是Safari的原因，我用浏览器下载中文名文件的时候常常文件名会变成乱码，就是“%EF%77%3D%20”那种，又因为很多是电子书，名称也不能乱改，还需要自己去copy一遍重命名，很烦，于是想到用Swift自己写个函数试试纠正这个乱码。<br>最开始我的想法是在String的API里面找，所有encoding相关的都过滤了一遍，]]>
-    
-    </summary>
-    
-      <category term="String" scheme="http://conanwhf.gitcafe.io/tags/String/"/>
-    
-      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Swift开源了！！！]]></title>
-    <link href="http://conanwhf.gitcafe.io/2015/12/04/Swift_open/"/>
-    <id>http://conanwhf.gitcafe.io/2015/12/04/Swift_open/</id>
-    <published>2015-12-04T10:29:26.000Z</published>
-    <updated>2015-12-04T10:50:36.000Z</updated>
-    <content type="html"><![CDATA[<p>这篇都不知道该算吐槽还是开发文章😀。<br>早晨起床一刷新闻，Swift承诺中的开源实现了！想想读书的时候写Pascal玩，进了大学才发现原来这玩意儿早过时了，大学的时候也是东搞西搞像无头苍蝇一样没有方向，偶尔有需要写程序的偏门作业就突击什么vfox, delphi, jsp之类的……等毕业工作半年了才开始学C，后来对着个Android1.2研究了下就觉得一层一层好复杂啊！😥这么些年永远走在潮流之后，什么GitHub是什么鬼从来没用过，学习Swift的过程就跟不断发现新大陆一样感觉信息爆炸性扑面而来，这次突然有一种自己终于跟上了时代的感觉，哈哈！<br>下午跑去Github上观光了一下Swift，手贱Watch了，结果十几分钟来了20封邮件！吓得我赶紧去unwatch，终于懂了为什么star的那么多watch的却很少了。这效率让我有点瞠目结舌：才一天，搭搭环境看看代码结构就差不多了吧，哪里来那么多大神神速找了bug出来还fix了！！膜拜的同时心生自卑：人家是怎么做到的？是我智商低吗？难道说这就是老人被拍死在沙滩上的真实写照……😱<br>看看文档，Swift3.0还要大改，居然都有计划做什么2.0到3.0的迁移器，那多半是改动多得大项目根本无法用人力迁移了。1.2到2.0的改动就够让我晕头转向的了，还没整明白呢，又来，我也真是醉……跟钱同学讨论这个问题，他相当不能理解这种不稳定性，觉得iOS开发者都这么好脾气吗？！其实我一个月前也不能忍，那种随便一找资料就过时、网上几乎所有的sample都编不过又不知道怎么改的感觉太令人抓狂，不过随着慢慢入门，这种感觉就好多了，也知道如何应对。也许对于这种剧烈变动的语言，亦步亦趋比猛插一杠子开干还是要容易吧！<br>最近读了一些文档、文章，感觉自己虽然语法差不多知道了些，思维却还是旧式的。对于那些流行的（或者其实是已经用了很长时间了，只是我不知道）的编程思想和范式，还很陌生。这种思维方式的转变，需要更多的时间来磨练和体会，不求成为大牛，只想做一个不是吃青春饭的工程师。给自己加油！🤗</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>这篇都不知道该算吐槽还是开发文章😀。<br>早晨起床一刷新闻，Swift承诺中的开源实现了！想想读书的时候写Pascal玩，进了大学才发现原来这玩意儿早过时了，大学的时候也是东搞西搞像无头苍蝇一样没有方向，偶尔有需要写程序的偏门作业就突击什么vfox, delphi, j]]>
-    </summary>
     
       <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
     

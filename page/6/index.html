@@ -223,6 +223,305 @@
           
           
             
+              <a class="post-title-link" href="/2015/09/14/TableViewBase/" itemprop="url">
+                TableView基础
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-14T17:51:28+08:00" content="2015-09-14">
+            2015-09-14
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Cocoa/" itemprop="url" rel="index">
+                  <span itemprop="name">Cocoa</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/14/TableViewBase/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/14/TableViewBase/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h2 id="必须实现的函数">必须实现的函数</h2><p>Sections数目</p>
+<pre><code><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">numberOfSectionsInTableView</span><span class="params">(tableView: UITableView)</span></span> -&gt; <span class="type">Int</span> {
+<span class="comment">// #warning Potentially incomplete method implementation.</span>
+<span class="comment">// Return the number of sections.</span>
+<span class="keyword">return</span> <span class="number">1</span>
+}
+</code></pre><p>每个Section的Cell数目</p>
+<pre><code><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, numberOfRowsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> {
+<span class="comment">// #warning Incomplete method implementation.</span>
+<span class="comment">// Return the number of rows in the section.</span>
+<span class="keyword">return</span> <span class="number">100</span>
+}
+</code></pre><p>注册绑定Cell ID </p>
+<pre><code><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> {
+<span class="keyword">let</span> cell = tableView.dequeueReusableCellWithIdentifier(<span class="string">"conanIdentifier"</span>, forIndexPath: indexPath) <span class="keyword">as</span>! <span class="type">UITableViewCell</span>
+<span class="comment">//To config Cells ….</span>
+}
+</code></pre><h2 id="动作">动作</h2><p>选中：
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/09/14/TableViewBase/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/09/13/StoryBoardBase/" itemprop="url">
+                StoryBoard基础
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-13T17:50:41+08:00" content="2015-09-13">
+            2015-09-13
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/iOS开发杂项/" itemprop="url" rel="index">
+                  <span itemprop="name">iOS开发杂项</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/13/StoryBoardBase/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/13/StoryBoardBase/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
+<ul>
+<li>相当于App的界面流程图，直观显示视图之间的关系和控件位置，本质上是xib文件的集合</li>
+<li>一般项目只有一个StroyBoard，系统自动生成，Main.storyboard</li>
+<li>使用谁作为主StoryBoard的配置定义在_Info.plist_文件中的“Main storyboard file base name”</li>
+</ul>
+</blockquote>
+<h2 id="总体分区">总体分区</h2><ul>
+<li>中间视图显示</li>
+<li>下方调试区，显示调试信息，模拟发送坐标，步进调试等</li>
+<li>左下角可唤出大纲视图　</li>
+<li>右下角模块区，包含新文件、控件、代码块等，供拖拽添加
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/09/13/StoryBoardBase/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/09/12/AddTableViewInUIViewController/" itemprop="url">
+                在UIViewController中添加TableView
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-12T17:32:45+08:00" content="2015-09-12">
+            2015-09-12
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Cocoa/" itemprop="url" rel="index">
+                  <span itemprop="name">Cocoa</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/12/AddTableViewInUIViewController/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/12/AddTableViewInUIViewController/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>TableViewController定制性差，用TableView放在UIViewController里比较方便，但需要做点事情来使TableView包含于UIVIewController，以便于动态显示和操作TableView里的数据</p>
+<ol>
+<li>继承一个UIViewController：<strong>ABC</strong>，并在StroyBoard新建一个UIViewController与之绑定</li>
+<li>拖动新控件TableView到ABC，并拖动一个TableCell到TableView</li>
+<li>将TableView和ABC绑定：</li>
+</ol>
+<ul>
+<li><p>在ABC的实现代码中加一行：
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/09/12/AddTableViewInUIViewController/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/09/07/Kindle/" itemprop="url">
                 Kindle配置记录
               </a>
@@ -691,278 +990,6 @@
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/09/04/LinkWidgetsFromStoryBoard/" itemprop="url">
-                从StoryBoard中把控件绑定到源码
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-09-04T17:16:06+08:00" content="2015-09-04">
-            2015-09-04
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/iOS开发杂项/" itemprop="url" rel="index">
-                  <span itemprop="name">iOS开发杂项</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/09/04/LinkWidgetsFromStoryBoard/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/04/LinkWidgetsFromStoryBoard/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>在StoryBoard中的控件除了使用工具箱不会自动生成可见源码，而源码中Add的控件也不会自动显示在StoryBoard。所以如果有些function实现需要用Code，又想用StroyBoard调整界面，就需要绑定<br>代码和控件绑定后，可以自由修改和编程控件的属性动作。_如果代码中的配置和StoryBoard不一致，则通常会看到代码中的效果_，因为运行时间比较靠后</p>
-<h2 id="自己定义了新的控件继承类">自己定义了新的控件继承类</h2><p>通常用于UIViewController等上层控件</p>
-<ol>
-<li>自己定义个继承自标准的子类（跟控件类型一样），改好名字</li>
-<li>在StoryBoard中选中控件
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/09/04/LinkWidgetsFromStoryBoard/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/09/03/StructPic/" itemprop="url">
-                Cocoa库的架构
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-09-03T17:19:33+08:00" content="2015-09-03">
-            2015-09-03
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Cocoa/" itemprop="url" rel="index">
-                  <span itemprop="name">Cocoa</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/09/03/StructPic/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/03/StructPic/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>自己画的Cocoa Touch 架构图：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_CocoaTouchStruct.png" alt=""><br>参考iOS8&amp;7的开发书籍，不过iOS9可能又有变化了<br>在需要的文件中<code>import 库名</code>即可，不用考虑头文件</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/09/03/New Project, Code mode only/" itemprop="url">
-                第一个带UI的程序(New Project, Code mode only)
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-09-03T17:18:08+08:00" content="2015-09-03">
-            2015-09-03
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Cocoa/" itemprop="url" rel="index">
-                  <span itemprop="name">Cocoa</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/09/03/New Project, Code mode only/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/03/New Project, Code mode only/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>使用源代码让App跑起来进入界面的方法，但觉得其实StoryBoard比较好用</p>
-<h2 id="界面初始化入口">界面初始化入口</h2><p><strong>AppDelegate.swift</strong><br>func <em>application()</em> 中添加：<br>self.window = UIWindow(frame: UIScreen.mainScreen().bounds)<br>self.window！.rootViewController = ViewController()<br>获得了Application的主窗口和根视图</p>
-<h2 id="视图控制初始化入口">视图控制初始化入口</h2><p><strong>ViewContorller.swift</strong></p>
-<ul>
-<li>若已链接rootViewController，则可以着手在_func viewDidLoad()_插入初始代码，绘图等</li>
-<li>通过_self.view_获取根视图对象</li>
-</ul>
-<h2 id="多余？">多余？</h2><ul>
-<li>UIScreen 代表一块物理屏幕；</li>
-<li>UIWindow 代表一个窗口，在iPhone上每个app一般只有一个窗口，而在Mac上一个app经常有多个窗口；</li>
-<li>UIView 代表窗口里某一块矩形显示区域，用来展示用户界面和响应用户操作；</li>
-<li>UILabel和UIButton，继承自UIView的特定UI控件，实现了特定的样式和行为</li>
-</ul>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1001,7 +1028,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">54</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

@@ -223,6 +223,287 @@
           
           
             
+              <a class="post-title-link" href="/2015/12/15/swift_xml/" itemprop="url">
+                使用Swift原生库解析XML数据
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-15T18:14:35+08:00" content="2015-12-15">
+            2015-12-15
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Swift/" itemprop="url" rel="index">
+                  <span itemprop="name">Swift</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/12/15/swift_xml/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/15/swift_xml/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>（挖坑自己跳系列三）<br>在实现文件操作的时候我意识到了一个事实：由于NSURL是可支持的路径，很多文件的操作实际上可以扩充到网络上去，比如从网上下载一个文件、拿取一些数据……想到这里，埋藏在心中很久的愿望又开始蠢蠢欲动：写一个新闻客户端！<br>我有一个常看的新闻网站（不要问我是哪个，要FQ），官方客户端很难用，第三方广告满天飞，严重影响心情。所以当初开始学iOS的时候就把重做一个客户端的目标放在了首位。最开始的时候想得太简单，兴冲冲地开了个project，搞了两下TableView，然后发现……对于我这种从来只写底层代码，swift/OC语法都不会的人，做这个简直是异想天开好嘛！<br>折腾的过程中，为了拿到数据，还跑去下了Android的官方客户端反编译，find + grep出来了人家的数据接口地址（论一个爱折腾的程序员是怎么给自己挖坑的），返回的是XML数据，连蒙带猜试了试，可以用！不过后来做UI受挫（其实不止做UI，挫败感太大），就把那份东西闲置起来了。这两天突然想起来，现在我貌似感觉有点良好，何不捡起来继续写我的客户端？<br>因为UI我还一窍不通，不懂怎么调试，也不懂怎么把数据显示出来，为了避免到处打印的麻烦，我选择playground。这样也就是需要用原生库，这个很简单，搜一下就有了：NSXMLParserDelegate，还有好些源码，虽然大多是OC的。<br>问题是有源码，我依！然！看！不！懂！怎么用！每个教程都是扔了源码上来，可没人解释清楚到底怎么运行。我研究了好一阵，终于明白了大概的机制：</p>
+<blockquote>
+<p><strong>自己写一个类继承NSXMLParserDelegate，就叫它XmlReader吧；并且实现一些必须的callback函数，在XmlReader的Init中调用.parse()方法，最后在new XmlReader的时候就会自动完成整个parse了</strong><br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/12/15/swift_xml/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/12/15/fileop/" itemprop="url">
+                文件操作
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-15T16:14:35+08:00" content="2015-12-15">
+            2015-12-15
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Swift/" itemprop="url" rel="index">
+                  <span itemprop="name">Swift</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/12/15/fileop/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/15/fileop/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>（挖坑自己跳系列二）<br>上回说到文件操作，那就把文件操作来一遍吧，先放源码：<a href="https://github.com/conanwhf/swiftplayground/tree/master/Play.playground/Pages/File.xcplaygroundpage">GitHub某个地方</a></p>
+<h2 id="初始化_&amp;_文件路径">初始化 &amp; 文件路径</h2><p>所有的文件操作都要先声明一个根控制器以获得文件的句柄：</p>
+<pre><code>let manager = NSFileManager.<span class="function"><span class="title">defaultManager</span><span class="params">()</span></span>
+</code></pre><p>而文件路径的表示有两种方式：String和NSURL。在NSURL的视角中，本地文件作为一种特殊的网络文件而存在，以“file://”开头。多数的操作对于两种路径方式都有两个相对应的接口，要注意对于NSURL，表示本地文件时必须以“file://”开头，否则很多API会失败。为了测试方便，我给String加了个转换的扩展：</p>
+<pre><code><span class="class"><span class="keyword">extension</span> <span class="title">String</span> </span>{
+    <span class="keyword">var</span> toFilePathURL : <span class="type">NSURL</span> {
+    <span class="keyword">let</span> url =  <span class="type">NSURL</span>( fileURLWithPath: <span class="keyword">self</span>)
+    <span class="keyword">return</span> url
+    }
+}
+</code></pre><p>这里使用参数<strong>fileURLWithPath:</strong>而不是<strong>string:</strong>就是为了上述原因。<br>对于路径的修改，String表示方法很简单，直接相加即可；NSURL需要用以下代码：
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/12/15/fileop/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/12/15/runInTerm/" itemprop="url">
+                在终端运行Swift程序
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-15T12:14:35+08:00" content="2015-12-15">
+            2015-12-15
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Swift/" itemprop="url" rel="index">
+                  <span itemprop="name">Swift</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/12/15/runInTerm/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/15/runInTerm/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>好几天没做总结了，一直被写code的欲望牵引着，噼里啪啦打了很多code，也走了很多弯路。好多时候，突然搞定的时候，才发现自己真真像个新新手一样，给自己挖了好多坑，真是傻到家了！<br>好在我一直觉得，在debug上浪费的时间通常都不会是彻底浪费掉的，总有那么一些东西是留在脑子里，通俗地来讲，就是经验。是时候把过程理一理，记录下来了。<br>之前也说过，之所以把String顺了一遍，其根本缘由是想找到一个编码转换的函数，把我那些下载下来的书名乱码都改过来。后来编码是解决了，但改名还需要自己来……于是我琢磨着给Mac写个文件pickup的界面？刚巧看到源码推荐一个swift开源的命令行增强工具，突然意识到swift也是可以直接编译跑在终端的！做起来简单得不能更简单（先要装好Xcode command line tool，如果没装，在终端跑<code>xcode-select --install</code>）：</p>
+<pre><code>swiftc <span class="keyword">test</span>.swift<span class="comment">//生成一个test二进制程序</span>
+./<span class="keyword">test</span>
+</code></pre><p>这是有编译过程的，更省事的是直接跑了：</p>
+<pre><code><span class="built_in">swift</span> test.<span class="built_in">swift</span>
+</code></pre><p>当然这个<strong>swift</strong>命令还有更多用法和参数，
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/12/15/runInTerm/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/12/09/Swift_String_6/" itemprop="url">
                 Swift2.0 中的String（六）：正则匹配
               </a>
@@ -702,303 +983,6 @@ let pattern = "1[<span class="link_label">3|5|7|8</span>][<span class="link_refe
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/03/Swift_String_2/" itemprop="url">
-                Swift2.0 中的String（二）：基本操作
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-03T15:20:16+08:00" content="2015-12-03">
-            2015-12-03
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Swift/" itemprop="url" rel="index">
-                  <span itemprop="name">Swift</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/12/03/Swift_String_2/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/03/Swift_String_2/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>Swift中的字符串，第二篇，基本操作。其他的几篇传送门：</p>
-<ul>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages">这里</a>看到</li>
-</ul>
-<p>首先，我们要记得使用字符串最常用的两个参数：下标(Index)和范围(Range)，几乎所有API都要用到它们</p>
-<pre><code><span class="built_in">let</span> <span class="built_in">offset</span> = <span class="built_in">str</span>.startIndex.advancedBy(<span class="number">2</span>)<span class="comment">// offset: 3rd char</span>
-<span class="built_in">let</span> range  = Range(start: <span class="built_in">str</span>.startIndex.advancedBy(<span class="number">3</span>), end: <span class="built_in">str</span>.endIndex.advancedBy(-<span class="number">2</span>))<span class="comment">// range: 3..&lt;6, "345"</span>
-</code></pre><p><strong>强制类型转换</strong></p>
-<pre><code>let n      = <span class="function"><span class="title">Int</span><span class="params">(str)</span></span>!
-<span class="function"><span class="title">String</span><span class="params">(<span class="string">"the number is \(n)"</span>)</span></span>
-<span class="function"><span class="title">String</span><span class="params">(format:<span class="string">"%.2f,  %i"</span>, <span class="number">9.1</span>, <span class="number">304</span>)</span></span>
-</code></pre><p><strong>内容反转</strong>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/03/Swift_String_2/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/03/Swift_String_1/" itemprop="url">
-                Swift2.0 中的String（一）：常用属性
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-03T15:20:06+08:00" content="2015-12-03">
-            2015-12-03
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Swift/" itemprop="url" rel="index">
-                  <span itemprop="name">Swift</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/12/03/Swift_String_1/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/03/Swift_String_1/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>字符串算是平常用的比较多、花样也比较多的一个类型，昨天有空把相关的一些常用操作都写了一遍，总结出来。其实iOS里面的字符串更复杂，还有NSString系列等等，那些API太多将来需要用的时候再慢慢学。<br>这个系列目前写了三篇，这篇是第一部分，String的一些常用属性。其他的几篇传送门：</p>
-<ul>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages">这里</a>看到</li>
-</ul>
-<p><strong>判断是否为空</strong></p>
-<pre><code><span class="keyword">str</span>.isEmpty
-</code></pre><p><strong>获取字符数组</strong><br>Swfit里面的String很有意思，它并不是由很多个Character组成的，
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/03/Swift_String_1/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/02/Swift_Syntax/" itemprop="url">
-                Swift2.0语法笔记
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-02T16:29:26+08:00" content="2015-12-02">
-            2015-12-02
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Swift/" itemprop="url" rel="index">
-                  <span itemprop="name">Swift</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/12/02/Swift_Syntax/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/02/Swift_Syntax/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>作为一个一直在玩Linux kernel的码农，从来不知道什么叫面向对象，也没有一点面向对象的概念，学Swift的时候还是感觉蛮不适应的，很多东西不一样。不像以前从Pascal转到C，只是书写的语法规则有点变化而已。C用久了，对指针、地址、内存的敏感性已经深入骨髓，突然看到这么个不怎么需要考虑内存的语言，有点儿混乱…… :-)<br>惭愧，一直懒懒散散，现在总算是把基础的语法部分学完了。不知道是不是因为C没有那么多面向对象的复杂用法的原因，我总想要慢慢把语法弄扎实，没有急着去做UI(其实心里还挺急的，哈哈)，不知是走对了路还是舍近求远了<br>Swift自己也是个不断变化的语言，玩了一阵子，更新到2.0以后好多东西又不一样了，我也是挺晕的<br>这里把过程中的笔记写一写，主要是基于一个C程序员的角度，有些容易出错的地方以及和C的异同<br>练习源码见：<a href="https://github.com/conanwhf/swiftplayground/tree/master/Swift_Syntax.playground/Pages">GitHub</a>　</p>
-</blockquote>
-<p>首先很重要的一点：<strong>空格不能少！！养成习惯！</strong></p>
-<h2 id="变量类型&amp;数值计算">变量类型&amp;数值计算</h2><ul>
-<li>Float/Double/Int可强制用<strong>String()</strong>转换，通用类型转换可用”\(var)”，String转换Int可用<strong>Int()</strong></li>
-<li>变量名大小写区分
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/02/Swift_Syntax/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1037,7 +1021,7 @@ let pattern = "1[<span class="link_label">3|5|7|8</span>][<span class="link_refe
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">54</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

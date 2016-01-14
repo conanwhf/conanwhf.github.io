@@ -3,6 +3,62 @@
 
     
   <url>
+    <loc>http://conanwhf.gitcafe.io/2016/01/12/rpi-get/</loc>
+    <lastmod>2016-01-14T12:11:53.000Z</lastmod>
+    <data>
+        <display>
+        <title>树莓派入手</title>
+        <pubTime>2016-01-12T05:31:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="RaspberryPi" url="http://conanwhf.gitcafe.io/categories/RaspberryPi/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.gitcafe.io/2016/01/12/rpi-start/</loc>
+    <lastmod>2016-01-14T12:11:43.000Z</lastmod>
+    <data>
+        <display>
+        <title>树莓派初始配置指南（2代B型）</title>
+        <pubTime>2016-01-12T06:31:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="RaspberryPi" url="http://conanwhf.gitcafe.io/categories/RaspberryPi/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.gitcafe.io/2016/01/12/rpi-kernel/</loc>
+    <lastmod>2016-01-14T12:11:38.000Z</lastmod>
+    <data>
+        <display>
+        <title>树莓派内核编译</title>
+        <pubTime>2016-01-12T06:31:26.000Z</pubTime>
+        
+        <tag>kernel </tag>
+         
+         
+           
+             
+              <breadCrumb title="RaspberryPi" url="http://conanwhf.gitcafe.io/categories/RaspberryPi/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.gitcafe.io/2016/01/03/UISlider/</loc>
     <lastmod>2016-01-03T16:54:57.000Z</lastmod>
     <data>

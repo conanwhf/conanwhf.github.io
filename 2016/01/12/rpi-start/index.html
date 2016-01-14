@@ -1,0 +1,841 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+  <meta name="google-site-verification" content="fm7O971xqa-IgxCWIey5wM-1kAOR1sTDp_gZfHxonGc" />
+
+
+
+  <meta name="baidu-site-verification" content="HnBZtBD6xL" />
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="入门iOS开发，相关不相关乱七八糟的一切" />
+
+
+
+  <meta name="keywords" content="Conan" />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="iOS开发和七七八八" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，传送门">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派初始配置指南（2代B型）">
+<meta property="og:url" content="http://conanwhf.gitcafe.io/2016/01/12/rpi-start/index.html">
+<meta property="og:site_name" content="iOS开发和七七八八">
+<meta property="og:description" content="关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，传送门">
+<meta property="og:updated_time" content="2016-01-14T12:11:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="树莓派初始配置指南（2代B型）">
+<meta name="twitter:description" content="关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，传送门">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+  <title> 树莓派初始配置指南（2代B型） | iOS开发和七七八八 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-68644901-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?99ff66396b2736a42a7744075ec7fa1c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">iOS开发和七七八八</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            <i class="menu-item-icon icon-next-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            <i class="menu-item-icon icon-next-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="#" class="st-search-show-outputs">
+            <i class="menu-item-icon icon-next-search"></i> <br />
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '-wAdEzF15RczmAqPJh93','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              树莓派初始配置指南（2代B型）
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-01-12T14:31:26+08:00" content="2016-01-12">
+            2016-01-12
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/RaspberryPi/" itemprop="url" rel="index">
+                  <span itemprop="name">RaspberryPi</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/01/12/rpi-start/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/12/rpi-start/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a></p>
+<a id="more"></a>
+<h2 id="制作启动img">制作启动img</h2><ol>
+<li>从官网下载最新的image，解包，TF卡插入电脑</li>
+<li>用mount查看，将TF卡umount</li>
+<li><p>randisk<strong>X</strong>是要自己根据情况修改的</p>
+<pre><code>sudo dd bs=<span class="number">1</span>m <span class="keyword">if</span>=<span class="number">2015</span>-<span class="number">11</span>-<span class="number">21</span>-raspbian-jessie.img of=/dev/rdisk2
+diskutil umount /Volumes/boot
+</code></pre></li>
+<li>拔卡，插入树莓派，上电，这时候系统应该跑起来了。最新的系统是默认打开SSH的，所以如果你插了网线、知道IP的话，已经可以直接SSH上去。初始用户pi,密码raspberry</li>
+<li><strong>下面的命令都是在树莓派上跑的，请不要随便在自己主电脑上sudo!!!</strong></li>
+</ol>
+<h2 id="更新到最新版本">更新到最新版本</h2><p>要花点时间，放到后面做也可以。<strong>另外我看到有人说国内连官方源太慢，我不在国内测不到，如果需要请自己搜索添加合适的源</strong></p>
+<pre><code>sudo apt-get -y <span class="operator"><span class="keyword">update</span>
+sudo apt-<span class="keyword">get</span> -y <span class="keyword">upgrade</span>
+sudo apt-<span class="keyword">get</span> -y dist-<span class="keyword">upgrade</span>
+sudo rpi-<span class="keyword">update</span></span>
+</code></pre><h2 id="修改vi">修改vi</h2><p>Debian的默认vi太难用！改之。我的Github里还放了我的vi配置文件，随意取用</p>
+<pre><code>sudo apt-<span class="built_in">get</span> -<span class="keyword">y</span> <span class="built_in">remove</span> <span class="keyword">vim</span>-common
+sudo apt-<span class="built_in">get</span> -<span class="keyword">y</span> install <span class="keyword">vim</span>
+</code></pre><h2 id="中文支持">中文支持</h2><p>字库和输入法，平时都用SSH的人其实用不到<br>sudo apt-get -y install ttf-wqy-zenhei ttf-wqy-microhei<br>sudo apt-get -y install fcitx fcitx-googlepinyin fcitx-module-cloudpinyin fcitx-sunpinyin</p>
+<h2 id="官方自带的menuconfig">官方自带的menuconfig</h2><p>跑(sudo raspi-config)，这个命令行跑起来的界面和GUI上打开的不一样，不过内容差不多，建议修改以下几个</p>
+<ol>
+<li>用户pi密码，hostname</li>
+<li>开启ssh,spi,i2c</li>
+<li>修改时区</li>
+<li>扩展卡上分区<br>然后就可以reboot了</li>
+</ol>
+<h2 id="VNC支持">VNC支持</h2><h3 id="安装服务器端tightVNC">安装服务器端tightVNC</h3><pre><code>sudo apt-<span class="keyword">get</span> -y install tightvncserver
+sudo apt-<span class="keyword">get</span> -y install xfonts-<span class="keyword">base</span>
+</code></pre><h3 id="配置">配置</h3><ol>
+<li>配置连接密码：vncpasswd</li>
+<li><p>添加开机启动：</p>
+<ul>
+<li>创建/etc/init.d/tightvncserver，内容（见<a href="https://github.com/conanwhf/RaspberryPi-script/blob/master/setup/tightvncserver" target="_blank" rel="external">这里</a>）</li>
+<li><p>更新改变：</p>
+<pre><code>sudo chmod +x /etc/init.d/tightvncserver
+sudo <span class="operator"><span class="keyword">update</span>-rc.<span class="keyword">d</span> tightvncserver <span class="keyword">defaults</span></span>
+</code></pre></li>
+</ul>
+</li>
+</ol>
+<h2 id="客户端连接">客户端连接</h2><p>在我的Mac上，Finder里面⌘+k，填<code>vnc://&lt;rpi IP&gt;:5901</code>即可。人家都说可以用<code>vnc://IP:1</code>这样的方式，但我不行，不知道为啥</p>
+<h2 id="配置固定IP地址">配置固定IP地址</h2><ol>
+<li>修改<strong>/etc/network/interfaces</strong>，当然下面的IP要换成你自己的</li>
+</ol>
+<p><em>iface eth0 inet manual</em> –>  </p>
+<blockquote>
+<p>iface eth0 inet static<br>address 192.168.0.120<br>netmask 255.255.255.0<br>gateway 192.168.0.1</p>
+</blockquote>
+<ol>
+<li><p>重启服务</p>
+<pre><code><span class="title">sudo</span> systemctl daemon-reload
+sudo service networking restart
+</code></pre></li>
+</ol>
+<h2 id="SSH特殊配置">SSH特殊配置</h2><p>主要是给SSH的中文支持用的</p>
+<pre><code><span class="built_in">echo</span> LC_ALL=en_US.UTF-<span class="number">8</span> | sudo tee <span class="operator">-a</span> /etc/environment
+<span class="built_in">echo</span> LANG=en_US.UTF-<span class="number">8</span> | sudo tee <span class="operator">-a</span> /etc/environment
+</code></pre><h2 id="加大USB供电">加大USB供电</h2><p>修改后可以使能USB的1.2V供电，不然插USB硬盘是不能用的</p>
+<pre><code><span class="built_in">echo</span> “max_usb_current=<span class="number">1</span>” | sudo tee <span class="operator">-a</span> /boot/config.txt
+</code></pre></span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/01/12/rpi-kernel/" rel="prev">树莓派内核编译</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/12/rpi-get/" rel="next">树莓派入手</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/01/12/rpi-start/"
+     data-title="树莓派初始配置指南（2代B型）"
+     data-content=""
+     data-url="http://conanwhf.gitcafe.io/2016/01/12/rpi-start/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+            <!-- 多说热评文章 start -->
+            <div class="ds-top-threads" data-range="monthly" data-num-items="5"></div>
+            <!-- 多说热评文章 end -->
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div class="ds-thread" data-thread-key="2016/01/12/rpi-start/"
+                   data-title="树莓派初始配置指南（2代B型）" data-url="http://conanwhf.gitcafe.io/2016/01/12/rpi-start/">
+              </div>
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/logo.png" alt="Conan Wang" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Conan Wang</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">入门iOS开发，相关不相关乱七八糟的一切</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">54</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/conanwhf" target="_blank">Github</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://git.oschina.net/conanwhf/" target="_blank">OSchina</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/1864854042" target="_blank">Weibo</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:conanwhf@gmail.com" target="_blank">MailtoMe</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">Links</p>
+            
+              <span class="links-of-author-item">
+              <a href="http://conanwhf.gitcafe.io" target="_blank">本站墙内链接</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://conanwhf.github.io" target="_blank">本站墙外链接</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">我的资源收集</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://conanwhf.github.io/2015/09/06/RoadMap/" target="_blank">学习进度表</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/conanwhf/ResourceDoc/blob/master/tryList.md" target="_blank">练手小项目清单</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://www.imooc.com/" target="_blank">慕课网</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://toutiao.io" target="_blank">开发者头条</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#制作启动img"><span class="nav-number">1.</span> <span class="nav-text">制作启动img</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新到最新版本"><span class="nav-number">2.</span> <span class="nav-text">更新到最新版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改vi"><span class="nav-number">3.</span> <span class="nav-text">修改vi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中文支持"><span class="nav-number">4.</span> <span class="nav-text">中文支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#官方自带的menuconfig"><span class="nav-number">5.</span> <span class="nav-text">官方自带的menuconfig</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VNC支持"><span class="nav-number">6.</span> <span class="nav-text">VNC支持</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装服务器端tightVNC"><span class="nav-number">6.1.</span> <span class="nav-text">安装服务器端tightVNC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">6.2.</span> <span class="nav-text">配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端连接"><span class="nav-number">7.</span> <span class="nav-text">客户端连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置固定IP地址"><span class="nav-number">8.</span> <span class="nav-text">配置固定IP地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH特殊配置"><span class="nav-number">9.</span> <span class="nav-text">SSH特殊配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加大USB供电"><span class="nav-number">10.</span> <span class="nav-text">加大USB供电</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Conan Wang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"conanwhfgithub"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>
