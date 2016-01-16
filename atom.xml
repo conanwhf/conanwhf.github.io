@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.gitcafe.io/"/>
-  <updated>2016-01-16T15:41:20.000Z</updated>
+  <updated>2016-01-16T16:04:56.000Z</updated>
   <id>http://conanwhf.gitcafe.io/</id>
   
   <author>
@@ -19,22 +19,22 @@
     <link href="http://conanwhf.gitcafe.io/2016/01/16/transf/"/>
     <id>http://conanwhf.gitcafe.io/2016/01/16/transf/</id>
     <published>2016-01-16T09:32:45.000Z</published>
-    <updated>2016-01-16T15:41:20.000Z</updated>
+    <updated>2016-01-16T16:04:56.000Z</updated>
     <content type="html"><![CDATA[<p>这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。<br>关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周Blog<a href="http://conanwhf.gitcafe.io/2016/01/03/UISlider/" title="UIController中Slider监听回调具体实现的分离">UIController中Slider监听回调具体实现的分离</a>），我也添加了旋转的功能，开始是在handler中这么写的(back是一个UIView)：</p>
 <pre><code>let x = (<span class="function"><span class="title">Float</span><span class="params">(ctl.show.frame.width)</span></span> - conf[<span class="number">0</span>] )/<span class="number">2</span>
 let y = (<span class="function"><span class="title">Float</span><span class="params">(ctl.show.frame.height)</span></span> - conf[<span class="number">1</span>] )/<span class="number">2</span>
 back<span class="class">.frame</span><span class="class">.size</span> = <span class="function"><span class="title">CGSize</span><span class="params">(width: CGFloat(conf[<span class="number">0</span>], height: CGFloat(conf[<span class="number">1</span>])</span></span>
 back<span class="class">.frame</span><span class="class">.origin</span> = <span class="function"><span class="title">CGPoint</span><span class="params">(x: Int(x)</span></span>, y: <span class="function"><span class="title">Int</span><span class="params">(y)</span></span>)
 back<span class="class">.transform</span> = <span class="function"><span class="title">CGAffineTransformMakeRotation</span><span class="params">( CGFloat(Double(conf[<span class="number">7</span>] * M_PI  / <span class="number">180.0</span>)</span></span>)
-</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样的：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_error.gif" alt=""><br><a id="more"></a><br>添加了打印信息以后发现，经过旋转的View.frame，不管是size还是position都变掉了，并且完全不是按照希望的样子变化的。不论我把旋转放在整个片段的哪里，都不对，frame的size总是不受控制。后来只好把scaling的部分改成了CGAffineTransformScale()。去看了看transform系列的文档，它其实是一类矩阵变换方式，旋转、缩放、平移只是其中的一些常用算法，系统给出了这些功能的API。如果你数学够好，其实也是可以自己设置这种变换的映射方式，最后转换后的View，其frame size是包含目标图形的一个最小矩形。而我猜，我碰到的问题，是因为系统对于旋转的处理有点特殊。<br>于是我在playground里面做了点测试，先申请了一个100*300的矩形，然后做了两个transform的参数分别表示旋转90度和缩放至200*200（长宽缩放比例为1:2和1:0.667）：</p>
-<pre><code>let backView = UIView(frame:CGRectMake(<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">100.0</span>,  <span class="number">300.0</span>))
+</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样有时候会自己拉扁的：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_error.gif" alt=""><br><a id="more"></a><br>添加了打印信息以后发现，经过旋转的View.frame，不管是size还是position都变掉了，并且完全不是按照希望的样子变化的。不论我把旋转放在整个片段的哪里，都不对，frame的size总是不受控制。后来只好把scaling的部分改成了CGAffineTransformScale()。去看了看transform系列的文档，它其实是一类矩阵变换方式，旋转、缩放、平移只是其中的一些常用算法，系统给出了这些功能的API。如果你数学够好，其实也是可以自己设置这种变换的映射方式，最后转换后的View，其frame size是包含目标图形的一个最小矩形。而我猜，我碰到的问题，是因为系统对于旋转的处理有点特殊，因为scaling时拿到的参数不正确（当时的frame还没有画成缩放后的样子）导致。<br>于是我将UIView的变化都改为用CGAffineTransform系列函数进行，又发现对transform的操作先后顺序会影响最终的效果。出于兴趣我在playground里面做了点测试，先申请了一个100*300的矩形，然后做了两个transform的参数分别表示旋转90度和缩放至200*200（长宽缩放比例为1:2和1:0.667）：</p>
+<pre><code>let demo = UIView(frame:CGRectMake(<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">100.0</span>,  <span class="number">300.0</span>))
 <span class="comment">//缩放参数</span>
 let sx =  <span class="number">200</span> / demo.frame.width
 let sy =  <span class="number">200</span> / demo.frame.height
 let transf_scale = CGAffineTransformMakeScale(sx, sy)
 <span class="comment">//旋转参数</span>
 let transf_rotate = CGAffineTransformMakeRotation(CGFloat(Double(<span class="number">90</span>) * M_PI  / <span class="number">180.0</span>))
-</code></pre><p>四个测试Case分别如下，两个先缩放再旋转，两个先旋转再缩放，后两个用的是CGAffineTransformConcat()函数直接跑。</p>
+</code></pre><p>对这个View分别进行缩放和旋转操作，理想的情况是变成一个200*200的正方形。四个测试Case分别如下：两个先缩放再旋转，两个先旋转再缩放，后两个用的是CGAffineTransformConcat()函数直接跑。</p>
 <pre><code>//<span class="keyword">case</span> <span class="number">1</span>, rotate(<span class="built_in">scale</span>, x)
 demo.transform = CGAffineTransformRotate(transf_scale, CGFloat(<span class="type">Double</span>(<span class="number">90</span>) * M_PI  / <span class="number">180.0</span>))
 demo.frame.<span class="built_in">size</span>     //<span class="number">600</span>*<span class="number">67</span>
@@ -50,13 +50,13 @@ demo.frame.<span class="built_in">size</span>     //<span class="number">200</sp
 //<span class="keyword">case</span> <span class="number">4</span>, rotate+<span class="built_in">scale</span>
 demo.transform = CGAffineTransformConcat(transf_rotate, transf_scale)
 demo.frame.<span class="built_in">size</span>     //<span class="number">600</span>*<span class="number">67</span>
-</code></pre><p>有兴趣的可以把这一段code放到playground里面自己跑跑，看看会是什么结果。先旋转再缩放的case2 &amp; case3，结果如我们所想象的那样，是个200*200的正方形；而case1 &amp; case4，结果却变成了600*66.7的长条矩形。看起来正如下图的几种情况：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_order.png" alt=""><br>图中，暗红色部分是先做缩放再做旋转，有了正确的结果，对应scale(rotate, x) &amp; scale+rotate；银色部分则是先旋转再缩放，成了错误的样子，对应rotate+scale &amp; rotate(scale, x)。原来这是有顺序要求的。那么问题来了：CGAffineTransformXXX(t, args)系列的函数，感觉上应该是对t用新的参数做叠加，为什么结果却是反的呢？于是我去查了它们的头文件，看到是这么定义的：</p>
+</code></pre><p>有兴趣的可以把这一段code放到playground里面自己跑跑，看看会是什么结果。case2 &amp; case3，结果如我们所想象的那样，是个200*200的正方形；而case1 &amp; case4，却变成了600*66.7的长条矩形。看起来正如下图的几种情况：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_order.png" alt=""><br>图中，暗红色部分是先做缩放再做旋转，有了正确的结果，对应scale(rotate, x) &amp; scale+rotate；银色部分则是先旋转再缩放，成了错误的样子，对应rotate+scale &amp; rotate(scale, x)。原来这是有顺序要求的。那么问题又来了：CGAffineTransformXXX(t, args)系列的函数，感觉上应该是对t用新的参数做叠加，为什么结果却是反的呢？于是我去查了它们的头文件，看到是这么定义的：</p>
 <blockquote>
 <p>  /* Scale t’ by (sx, sy)’ and return the result:<br>  t’ = [ sx 0 0 sy 0 0 ] * t */<br>  @available(iOS 2.0, *)<br>  public func CGAffineTransformScale(t: CGAffineTransform, _ sx: CGFloat, _ sy: CGFloat) -> CGAffineTransform</p>
 <p>  /* Rotate t’ by angle’ radians and return the result:<br>  t’ =  [ cos(angle) sin(angle) -sin(angle) cos(angle) 0 0 ] * t */<br>  @available(iOS 2.0, *)<br>  public func CGAffineTransformRotate(t: CGAffineTransform, _ angle: CGFloat) -> CGAffineTransform</p>
 <p>  /* Concatenate t2’ to t1’ and return the result:<br>  t’ = t1 * t2 */<br>  @available(iOS 2.0, *)<br>  public func CGAffineTransformConcat(t1: CGAffineTransform, _ t2: CGAffineTransform) -> CGAffineTransform</p>
 </blockquote>
-<p>于是真相大白：原来，<strong>CGAffineTransformScale(t1, args)= t-scale*t1，而CGAffineTransformConcat(t1, t2)= t1 *t2，它们的顺序是反的</strong>。这个坑有点绕得人人晕晕的😳<br>综上所述，最后对于transform的使用，要记住以下几点：</p>
+<p>于是真相大白：原来，<strong>CGAffineTransformScale(t1, args)= t-scale*t1，而CGAffineTransformConcat(t1, t2)= t1 *t2，它们的顺序是反的</strong>。这个坑有点绕得人人晕晕的😳<br>最后，综上所述，对于transform的使用，我总结了以下几点：</p>
 <ol>
 <li>transform参数，事实上是一些形变映射矩阵的叠加。</li>
 <li>Scale的时候设置的参数，代表的是缩放的系数，不是目标size，所以如果有其他transform参数在此之前做，要重新计算系数</li>
@@ -71,7 +71,7 @@ let y = (<span class="function"><span class="title">Float</span><span class="par
 back<span class="class">.frame</span><span class="class">.size</span> = <span class="function"><span class="title">CGSize</span><span class="params">(width: CGFloat(conf[<span class="number">0</span>], height: CGFloat(conf[<span class="number">1</span>])</span></span>
 back<span class="class">.frame</span><span class="class">.origin</span> = <span class="function"><span class="title">CGPoint</span><span class="params">(x: Int(x)</span></span>, y: <span class="function"><span class="title">Int</span><span class="params">(y)</span></span>)
 back<span class="class">.transform</span> = <span class="function"><span class="title">CGAffineTransformMakeRotation</span><span class="params">( CGFloat(Double(conf[<span class="number">7</span>] * M_PI  / <span class="number">180.0</span>)</span></span>)
-</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样的：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_error.gif" alt=""><br>]]>
+</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样有时候会自己拉扁的：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_error.gif" alt=""><br>]]>
     
     </summary>
     
