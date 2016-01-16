@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.gitcafe.io/"/>
-  <updated>2016-01-14T16:13:58.000Z</updated>
+  <updated>2016-01-16T15:41:20.000Z</updated>
   <id>http://conanwhf.gitcafe.io/</id>
   
   <author>
@@ -15,12 +15,81 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[使用.transform旋转带来的坑]]></title>
+    <link href="http://conanwhf.gitcafe.io/2016/01/16/transf/"/>
+    <id>http://conanwhf.gitcafe.io/2016/01/16/transf/</id>
+    <published>2016-01-16T09:32:45.000Z</published>
+    <updated>2016-01-16T15:41:20.000Z</updated>
+    <content type="html"><![CDATA[<p>这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。<br>关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周Blog<a href="http://conanwhf.gitcafe.io/2016/01/03/UISlider/" title="UIController中Slider监听回调具体实现的分离">UIController中Slider监听回调具体实现的分离</a>），我也添加了旋转的功能，开始是在handler中这么写的(back是一个UIView)：</p>
+<pre><code>let x = (<span class="function"><span class="title">Float</span><span class="params">(ctl.show.frame.width)</span></span> - conf[<span class="number">0</span>] )/<span class="number">2</span>
+let y = (<span class="function"><span class="title">Float</span><span class="params">(ctl.show.frame.height)</span></span> - conf[<span class="number">1</span>] )/<span class="number">2</span>
+back<span class="class">.frame</span><span class="class">.size</span> = <span class="function"><span class="title">CGSize</span><span class="params">(width: CGFloat(conf[<span class="number">0</span>], height: CGFloat(conf[<span class="number">1</span>])</span></span>
+back<span class="class">.frame</span><span class="class">.origin</span> = <span class="function"><span class="title">CGPoint</span><span class="params">(x: Int(x)</span></span>, y: <span class="function"><span class="title">Int</span><span class="params">(y)</span></span>)
+back<span class="class">.transform</span> = <span class="function"><span class="title">CGAffineTransformMakeRotation</span><span class="params">( CGFloat(Double(conf[<span class="number">7</span>] * M_PI  / <span class="number">180.0</span>)</span></span>)
+</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样的：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_error.gif" alt=""><br><a id="more"></a><br>添加了打印信息以后发现，经过旋转的View.frame，不管是size还是position都变掉了，并且完全不是按照希望的样子变化的。不论我把旋转放在整个片段的哪里，都不对，frame的size总是不受控制。后来只好把scaling的部分改成了CGAffineTransformScale()。去看了看transform系列的文档，它其实是一类矩阵变换方式，旋转、缩放、平移只是其中的一些常用算法，系统给出了这些功能的API。如果你数学够好，其实也是可以自己设置这种变换的映射方式，最后转换后的View，其frame size是包含目标图形的一个最小矩形。而我猜，我碰到的问题，是因为系统对于旋转的处理有点特殊。<br>于是我在playground里面做了点测试，先申请了一个100*300的矩形，然后做了两个transform的参数分别表示旋转90度和缩放至200*200（长宽缩放比例为1:2和1:0.667）：</p>
+<pre><code>let backView = UIView(frame:CGRectMake(<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">100.0</span>,  <span class="number">300.0</span>))
+<span class="comment">//缩放参数</span>
+let sx =  <span class="number">200</span> / demo.frame.width
+let sy =  <span class="number">200</span> / demo.frame.height
+let transf_scale = CGAffineTransformMakeScale(sx, sy)
+<span class="comment">//旋转参数</span>
+let transf_rotate = CGAffineTransformMakeRotation(CGFloat(Double(<span class="number">90</span>) * M_PI  / <span class="number">180.0</span>))
+</code></pre><p>四个测试Case分别如下，两个先缩放再旋转，两个先旋转再缩放，后两个用的是CGAffineTransformConcat()函数直接跑。</p>
+<pre><code>//<span class="keyword">case</span> <span class="number">1</span>, rotate(<span class="built_in">scale</span>, x)
+demo.transform = CGAffineTransformRotate(transf_scale, CGFloat(<span class="type">Double</span>(<span class="number">90</span>) * M_PI  / <span class="number">180.0</span>))
+demo.frame.<span class="built_in">size</span>     //<span class="number">600</span>*<span class="number">67</span>
+
+//<span class="keyword">case</span> <span class="number">2</span>, <span class="built_in">scale</span>(rotate, x)
+demo.transform = CGAffineTransformScale(transf_rotate, sx, sy)
+demo.frame.<span class="built_in">size</span>     //<span class="number">200</span>*<span class="number">200</span>
+
+//<span class="keyword">case</span> <span class="number">3</span>, <span class="built_in">scale</span>+rotate
+demo.transform = CGAffineTransformConcat(transf_scale, transf_rotate)
+demo.frame.<span class="built_in">size</span>     //<span class="number">200</span>*<span class="number">200</span>
+
+//<span class="keyword">case</span> <span class="number">4</span>, rotate+<span class="built_in">scale</span>
+demo.transform = CGAffineTransformConcat(transf_rotate, transf_scale)
+demo.frame.<span class="built_in">size</span>     //<span class="number">600</span>*<span class="number">67</span>
+</code></pre><p>有兴趣的可以把这一段code放到playground里面自己跑跑，看看会是什么结果。先旋转再缩放的case2 &amp; case3，结果如我们所想象的那样，是个200*200的正方形；而case1 &amp; case4，结果却变成了600*66.7的长条矩形。看起来正如下图的几种情况：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_order.png" alt=""><br>图中，暗红色部分是先做缩放再做旋转，有了正确的结果，对应scale(rotate, x) &amp; scale+rotate；银色部分则是先旋转再缩放，成了错误的样子，对应rotate+scale &amp; rotate(scale, x)。原来这是有顺序要求的。那么问题来了：CGAffineTransformXXX(t, args)系列的函数，感觉上应该是对t用新的参数做叠加，为什么结果却是反的呢？于是我去查了它们的头文件，看到是这么定义的：</p>
+<blockquote>
+<p>  /* Scale t’ by (sx, sy)’ and return the result:<br>  t’ = [ sx 0 0 sy 0 0 ] * t */<br>  @available(iOS 2.0, *)<br>  public func CGAffineTransformScale(t: CGAffineTransform, _ sx: CGFloat, _ sy: CGFloat) -> CGAffineTransform</p>
+<p>  /* Rotate t’ by angle’ radians and return the result:<br>  t’ =  [ cos(angle) sin(angle) -sin(angle) cos(angle) 0 0 ] * t */<br>  @available(iOS 2.0, *)<br>  public func CGAffineTransformRotate(t: CGAffineTransform, _ angle: CGFloat) -> CGAffineTransform</p>
+<p>  /* Concatenate t2’ to t1’ and return the result:<br>  t’ = t1 * t2 */<br>  @available(iOS 2.0, *)<br>  public func CGAffineTransformConcat(t1: CGAffineTransform, _ t2: CGAffineTransform) -> CGAffineTransform</p>
+</blockquote>
+<p>于是真相大白：原来，<strong>CGAffineTransformScale(t1, args)= t-scale*t1，而CGAffineTransformConcat(t1, t2)= t1 *t2，它们的顺序是反的</strong>。这个坑有点绕得人人晕晕的😳<br>综上所述，最后对于transform的使用，要记住以下几点：</p>
+<ol>
+<li>transform参数，事实上是一些形变映射矩阵的叠加。</li>
+<li>Scale的时候设置的参数，代表的是缩放的系数，不是目标size，所以如果有其他transform参数在此之前做，要重新计算系数</li>
+<li>CGAffineTansform系列本质是矩阵运算，顺序很重要</li>
+<li>CGAffineTransformConcat(t1,t2)的顺序是t1->t2, 而CGAffineTransformXXX(t1, (args to t2))的顺序是t2->t1，不要搞错</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。<br>关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周Blog<a href="http://conanwhf.gitcafe.io/2016/01/03/UISlider/" title="UIController中Slider监听回调具体实现的分离">UIController中Slider监听回调具体实现的分离</a>），我也添加了旋转的功能，开始是在handler中这么写的(back是一个UIView)：</p>
+<pre><code>let x = (<span class="function"><span class="title">Float</span><span class="params">(ctl.show.frame.width)</span></span> - conf[<span class="number">0</span>] )/<span class="number">2</span>
+let y = (<span class="function"><span class="title">Float</span><span class="params">(ctl.show.frame.height)</span></span> - conf[<span class="number">1</span>] )/<span class="number">2</span>
+back<span class="class">.frame</span><span class="class">.size</span> = <span class="function"><span class="title">CGSize</span><span class="params">(width: CGFloat(conf[<span class="number">0</span>], height: CGFloat(conf[<span class="number">1</span>])</span></span>
+back<span class="class">.frame</span><span class="class">.origin</span> = <span class="function"><span class="title">CGPoint</span><span class="params">(x: Int(x)</span></span>, y: <span class="function"><span class="title">Int</span><span class="params">(y)</span></span>)
+back<span class="class">.transform</span> = <span class="function"><span class="title">CGAffineTransformMakeRotation</span><span class="params">( CGFloat(Double(conf[<span class="number">7</span>] * M_PI  / <span class="number">180.0</span>)</span></span>)
+</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样的：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_error.gif" alt=""><br>]]>
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://conanwhf.gitcafe.io/tags/iOS/"/>
+    
+      <category term="transform　" scheme="http://conanwhf.gitcafe.io/tags/transform/"/>
+    
+      <category term="Cocoa" scheme="http://conanwhf.gitcafe.io/categories/Cocoa/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[自己编译给树莓派的交叉编译工具]]></title>
     <link href="http://conanwhf.gitcafe.io/2016/01/14/rpi-toolchain/"/>
     <id>http://conanwhf.gitcafe.io/2016/01/14/rpi-toolchain/</id>
     <published>2016-01-14T03:31:26.000Z</published>
-    <updated>2016-01-14T16:13:58.000Z</updated>
-    <content type="html"><![CDATA[<p>  说到交叉编译工具，真是血泪史。搞了快两天，才终于迂回搞定。老规矩，先放Script<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a>，<em>build/build-toolchain.sh</em><br>  一开始我以为这东西用的人多，交叉编译工具应该不是事儿，去官网下一个就行了，可是我去GitHub一看，这toolchain最近的更新也是<strong>三年</strong>前，这……能用？先下载吧，同时各种搜，感觉我没有走错地方，大家就是用的这一款！<br>  可是我忘了我是OSX。不出所料，在我的电脑上跑不了。而且看了下这个toolchain还是给ARMv6编的好吗，现在明明就是ARMv7了！这么跑性能不受影响吗？更让我无语的是板子上的gcc也是ARMv6的……😰编译个内核什么的那么慢，官方的toolchain又不能用，自己编译势在必行。<br>又是一通各种搜，搜到了个别人2014年编译的mac用toolchain，试了试，普通的程序没问题，编kernel编不过。搜到了个比较详细的在Mac上编译的blog，可惜也是几年前的，跟现在的环境不一样，各种出状况又goole解决，最后还是编译crosstool不成功。可能这一两年，不论是crosstool，OSX，还是GCC，都已经又改了不少吧。<br>  最后，我放弃了，毕竟还是要做iOS开发的，不敢随便乱sudo，还是上虚拟机吧。竭尽全力把所有能删的都删了，看看剩余的18G空间（128G MBP你懂的），哭着做了个Debian的虚拟机……为了节约，GUI都不要，命令行的最小系统。后来还是吃亏在这上面了，编译到一半空间不够，临时扩展磁盘，fdisk,format,mount,ln -s😞所以，根据我经验，不管在哪里，请<strong>至少至少至少准备10G有效空间！！！</strong>（12G是我调整后整个虚拟机大小，最后还剩了2G；如果系统已经有了，那free space至少8G）<br>废话说完，正经操作其实不多，主要就是装一个神器<strong>crosstool-ng</strong>，配置好，然后交给它编译交叉编译工具就行了！具体如下：<br><a id="more"></a></p>
+    <updated>2016-01-15T17:14:36.000Z</updated>
+    <content type="html"><![CDATA[<p>  说到交叉编译工具，真是血泪史。搞了快两天，才终于迂回搞定。老规矩，先放Script<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a>，<strong>build/build-toolchain.sh</strong><br>  一开始我以为这东西用的人多，交叉编译工具应该不是事儿，去官网下一个就行了，可是我去GitHub一看，这toolchain最近的更新也是<strong>三年</strong>前，这……能用？先下载吧，同时各种搜，感觉我没有走错地方，大家就是用的这一款！<br>  可是我忘了我是OSX。不出所料，在我的电脑上跑不了。而且看了下这个toolchain还是给ARMv6编的好吗，现在明明就是ARMv7了！这么跑性能不受影响吗？更让我无语的是板子上的gcc也是ARMv6的……😰编译个内核什么的那么慢，官方的toolchain又不能用，自己编译势在必行。<br>又是一通各种搜，搜到了个别人2014年编译的mac用toolchain，试了试，普通的程序没问题，编kernel编不过。搜到了个比较详细的在Mac上编译的blog，可惜也是几年前的，跟现在的环境不一样，各种出状况又goole解决，最后还是编译crosstool不成功。可能这一两年，不论是crosstool，OSX，还是GCC，都已经又改了不少吧。<br>  最后，我放弃了，毕竟还是要做iOS开发的，不敢随便乱sudo，还是上虚拟机吧。竭尽全力把所有能删的都删了，看看剩余的18G空间（128G MBP你懂的），哭着做了个Debian的虚拟机……为了节约，GUI都不要，命令行的最小系统。后来还是吃亏在这上面了，编译到一半空间不够，临时扩展磁盘，fdisk,format,mount,ln -s😞所以，根据我经验，不管在哪里，请<strong>至少至少至少准备10G有效空间！！！</strong>（12G是我调整后整个虚拟机大小，最后还剩了2G；如果系统已经有了，那free space至少8G）<br>废话说完，正经操作其实不多，主要就是装一个神器<strong>crosstool-ng</strong>，配置好，然后交给它编译交叉编译工具就行了！具体如下：<br><a id="more"></a></p>
 <h2 id="虚拟机配置">虚拟机配置</h2><p>基于最纯粹最小系统，改个vi，加个sudo账户，如果系统以前就用可以跳过。</p>
 <pre><code><span class="keyword">sudo</span> apt-get install -y vim
 <span class="keyword">echo</span> “deb <span class="literal">ALL</span>=(<span class="literal">ALL</span>) NOPASSWD: <span class="literal">ALL</span>” | sudo tee -a /etc/sudoers
@@ -74,9 +143,10 @@ sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -
 <h3 id="编译">编译</h3><p>一句话：</p>
 <pre><code><span class="keyword">ct</span>-ng build
 </code></pre><p>然后等着吧！首先还会下载GCC之类的源码，所以准备好网络环境。如果没有出错的话，也要等个两三个钟头。完成之后，会在<code>~/xtool</code>（默认设置）里看到最终的交叉编译工具。拿去用吧！我测试了普通程序、内核、驱动，都跑得好好的，搞定收工！😄</p>
+<h3 id="有关Mac的几句话">有关Mac的几句话</h3><p>关于Mac的OSX系统，多废话两句。在Mac上的crosstool-ng之所以用不了，一是因为很多工具没有，二是即使有也太过于陈旧，第三点最重要：Mac上的GCC等一套工具并不是基于GNU的，而是Apple自己弄的Clang。虽然我们有brew这样的神器，但GCC, grep, awk, libtool, automake……这么多关键的库都要重来，又不能影响系统，就算是写脚本做软链接也是相当浩大的工程。所以，如果不是对自己特别有信心，又特别爱折腾，我真心建议还是用虚拟机吧。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>  说到交叉编译工具，真是血泪史。搞了快两天，才终于迂回搞定。老规矩，先放Script<a href="https://github.com/conanwhf/RaspberryPi-script">传送门</a>，<em>build/build-toolchain.sh</em><br>  一开始我以为这东西用的人多，交叉编译工具应该不是事儿，去官网下一个就行了，可是我去GitHub一看，这toolchain最近的更新也是<strong>三年</strong>前，这……能用？先下载吧，同时各种搜，感觉我没有走错地方，大家就是用的这一款！<br>  可是我忘了我是OSX。不出所料，在我的电脑上跑不了。而且看了下这个toolchain还是给ARMv6编的好吗，现在明明就是ARMv7了！这么跑性能不受影响吗？更让我无语的是板子上的gcc也是ARMv6的……😰编译个内核什么的那么慢，官方的toolchain又不能用，自己编译势在必行。<br>又是一通各种搜，搜到了个别人2014年编译的mac用toolchain，试了试，普通的程序没问题，编kernel编不过。搜到了个比较详细的在Mac上编译的blog，可惜也是几年前的，跟现在的环境不一样，各种出状况又goole解决，最后还是编译crosstool不成功。可能这一两年，不论是crosstool，OSX，还是GCC，都已经又改了不少吧。<br>  最后，我放弃了，毕竟还是要做iOS开发的，不敢随便乱sudo，还是上虚拟机吧。竭尽全力把所有能删的都删了，看看剩余的18G空间（128G MBP你懂的），哭着做了个Debian的虚拟机……为了节约，GUI都不要，命令行的最小系统。后来还是吃亏在这上面了，编译到一半空间不够，临时扩展磁盘，fdisk,format,mount,ln -s😞所以，根据我经验，不管在哪里，请<strong>至少至少至少准备10G有效空间！！！</strong>（12G是我调整后整个虚拟机大小，最后还剩了2G；如果系统已经有了，那free space至少8G）<br>废话说完，正经操作其实不多，主要就是装一个神器<strong>crosstool-ng</strong>，配置好，然后交给它编译交叉编译工具就行了！具体如下：<br>]]>
+    <![CDATA[<p>  说到交叉编译工具，真是血泪史。搞了快两天，才终于迂回搞定。老规矩，先放Script<a href="https://github.com/conanwhf/RaspberryPi-script">传送门</a>，<strong>build/build-toolchain.sh</strong><br>  一开始我以为这东西用的人多，交叉编译工具应该不是事儿，去官网下一个就行了，可是我去GitHub一看，这toolchain最近的更新也是<strong>三年</strong>前，这……能用？先下载吧，同时各种搜，感觉我没有走错地方，大家就是用的这一款！<br>  可是我忘了我是OSX。不出所料，在我的电脑上跑不了。而且看了下这个toolchain还是给ARMv6编的好吗，现在明明就是ARMv7了！这么跑性能不受影响吗？更让我无语的是板子上的gcc也是ARMv6的……😰编译个内核什么的那么慢，官方的toolchain又不能用，自己编译势在必行。<br>又是一通各种搜，搜到了个别人2014年编译的mac用toolchain，试了试，普通的程序没问题，编kernel编不过。搜到了个比较详细的在Mac上编译的blog，可惜也是几年前的，跟现在的环境不一样，各种出状况又goole解决，最后还是编译crosstool不成功。可能这一两年，不论是crosstool，OSX，还是GCC，都已经又改了不少吧。<br>  最后，我放弃了，毕竟还是要做iOS开发的，不敢随便乱sudo，还是上虚拟机吧。竭尽全力把所有能删的都删了，看看剩余的18G空间（128G MBP你懂的），哭着做了个Debian的虚拟机……为了节约，GUI都不要，命令行的最小系统。后来还是吃亏在这上面了，编译到一半空间不够，临时扩展磁盘，fdisk,format,mount,ln -s😞所以，根据我经验，不管在哪里，请<strong>至少至少至少准备10G有效空间！！！</strong>（12G是我调整后整个虚拟机大小，最后还剩了2G；如果系统已经有了，那free space至少8G）<br>废话说完，正经操作其实不多，主要就是装一个神器<strong>crosstool-ng</strong>，配置好，然后交给它编译交叉编译工具就行了！具体如下：<br>]]>
     
     </summary>
     
@@ -133,7 +203,7 @@ sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -
     <link href="http://conanwhf.gitcafe.io/2016/01/12/rpi-start/"/>
     <id>http://conanwhf.gitcafe.io/2016/01/12/rpi-start/</id>
     <published>2016-01-12T06:31:26.000Z</published>
-    <updated>2016-01-14T16:19:59.000Z</updated>
+    <updated>2016-01-15T04:29:35.000Z</updated>
     <content type="html"><![CDATA[<p>关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a></p>
 <a id="more"></a>
 <h2 id="制作启动img">制作启动img</h2><ol>
@@ -167,7 +237,7 @@ sudo apt-<span class="keyword">get</span> -y <span class="keyword">install</span
 <h2 id="VNC支持">VNC支持</h2><h3 id="安装服务器端tightVNC">安装服务器端tightVNC</h3><pre><code>sudo apt-<span class="keyword">get</span> -y install tightvncserver
 sudo apt-<span class="keyword">get</span> -y install xfonts-<span class="keyword">base</span>
 </code></pre><h3 id="配置">配置</h3><ol>
-<li>配置连接密码：vncpasswd</li>
+<li>配置连接密码：<code>vncpasswd</code></li>
 <li><p>添加开机启动：</p>
 <ul>
 <li>创建/etc/init.d/tightvncserver，内容见<a href="https://github.com/conanwhf/RaspberryPi-script/blob/master/setup/tightvncserver" target="_blank" rel="external">这里</a></li>
@@ -195,7 +265,7 @@ sudo service networking restart
 <h2 id="SSH特殊配置">SSH特殊配置</h2><p>主要是给SSH的中文支持用的</p>
 <pre><code><span class="built_in">echo</span> LC_ALL=en_US.UTF-<span class="number">8</span> | sudo tee <span class="operator">-a</span> /etc/environment
 <span class="built_in">echo</span> LANG=en_US.UTF-<span class="number">8</span> | sudo tee <span class="operator">-a</span> /etc/environment
-</code></pre><h2 id="加大USB供电">加大USB供电</h2><p>修改后可以使能USB的1.2V供电，不然插USB硬盘是不能用的</p>
+</code></pre><h2 id="加大USB供电">加大USB供电</h2><p>修改后可以使能USB的1.2A供电，不然插USB硬盘是不能用的</p>
 <pre><code><span class="built_in">echo</span> “max_usb_current=<span class="number">1</span>” | sudo tee <span class="operator">-a</span> /boot/config.txt
 </code></pre>]]></content>
     <summary type="html">
@@ -1278,37 +1348,6 @@ manager.<span class="function"><span class="title">contentsEqualAtPath</span><sp
     </summary>
     
       <category term="File" scheme="http://conanwhf.gitcafe.io/tags/File/"/>
-    
-      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[在终端运行Swift程序]]></title>
-    <link href="http://conanwhf.gitcafe.io/2015/12/15/runInTerm/"/>
-    <id>http://conanwhf.gitcafe.io/2015/12/15/runInTerm/</id>
-    <published>2015-12-15T04:14:35.000Z</published>
-    <updated>2015-12-23T16:17:37.000Z</updated>
-    <content type="html"><![CDATA[<p>好几天没做总结了，一直被写code的欲望牵引着，噼里啪啦打了很多code，也走了很多弯路。好多时候，突然搞定的时候，才发现自己真真像个新新手一样，给自己挖了好多坑，真是傻到家了！<br>好在我一直觉得，在debug上浪费的时间通常都不会是彻底浪费掉的，总有那么一些东西是留在脑子里，通俗地来讲，就是经验。是时候把过程理一理，记录下来了。<br>之前也说过，之所以把String顺了一遍，其根本缘由是想找到一个编码转换的函数，把我那些下载下来的书名乱码都改过来。后来编码是解决了，但改名还需要自己来……于是我琢磨着给Mac写个文件pickup的界面？刚巧看到源码推荐一个swift开源的命令行增强工具，突然意识到swift也是可以直接编译跑在终端的！做起来简单得不能更简单（先要装好Xcode command line tool，如果没装，在终端跑<code>xcode-select --install</code>）：</p>
-<pre><code>swiftc <span class="keyword">test</span>.swift<span class="comment">//生成一个test二进制程序</span>
-./<span class="keyword">test</span>
-</code></pre><p>这是有编译过程的，更省事的是直接跑了：</p>
-<pre><code><span class="built_in">swift</span> test.<span class="built_in">swift</span>
-</code></pre><p>当然这个<strong>swift</strong>命令还有更多用法和参数，<a id="more"></a>需要的话可以自己研究研究。<br>现在程序可以跑了，但是还缺自动重命名的环节，这个需要用到文件操作，先按下不表，总之是我做完这个小工具，又花了扎扎实实一整天把各种文件操作实现了一遍。在这个程序里，我搜索了某个目录下的文件名，将他们转换成UTF8再批量重命名。<br>这样显然还不够完美，那就是如果我的文件不是放在这个固定目录，而是想用参数传进去怎么办？解决方案依然那么简单：</p>
-<pre><code><span class="keyword">for</span> s <span class="keyword">in</span> Process.arguments {  
-    <span class="built_in">print</span>(s)
-} 
-</code></pre><p>这个跟C一样，Process.arguments是一个字符串数组，第[0]个元素就是程序本身跑起来的名字。这个用法对于Linux程序员来说，简直是打开了新世界的大门啊！<br>好了，现在OK，虽然我还不会写Mac的应用，但给自己写点简单的小工具用用是没问题了。虽然其实之前也可以用C写，但毕竟Swift的API多，写起来方便，学以致用嘛！<br>源码传送门<a href="https://github.com/conanwhf/swiftplayground/blob/master/Play.playground/Pages/Rename.xcplaygroundpage/Contents.swift" target="_blank" rel="external">在此</a><br>P.S.这种模式下，貌似UIKit不能用</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>好几天没做总结了，一直被写code的欲望牵引着，噼里啪啦打了很多code，也走了很多弯路。好多时候，突然搞定的时候，才发现自己真真像个新新手一样，给自己挖了好多坑，真是傻到家了！<br>好在我一直觉得，在debug上浪费的时间通常都不会是彻底浪费掉的，总有那么一些东西是留在脑子里，通俗地来讲，就是经验。是时候把过程理一理，记录下来了。<br>之前也说过，之所以把String顺了一遍，其根本缘由是想找到一个编码转换的函数，把我那些下载下来的书名乱码都改过来。后来编码是解决了，但改名还需要自己来……于是我琢磨着给Mac写个文件pickup的界面？刚巧看到源码推荐一个swift开源的命令行增强工具，突然意识到swift也是可以直接编译跑在终端的！做起来简单得不能更简单（先要装好Xcode command line tool，如果没装，在终端跑<code>xcode-select --install</code>）：</p>
-<pre><code>swiftc <span class="keyword">test</span>.swift<span class="comment">//生成一个test二进制程序</span>
-./<span class="keyword">test</span>
-</code></pre><p>这是有编译过程的，更省事的是直接跑了：</p>
-<pre><code><span class="built_in">swift</span> test.<span class="built_in">swift</span>
-</code></pre><p>当然这个<strong>swift</strong>命令还有更多用法和参数，]]>
-    
-    </summary>
     
       <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
     

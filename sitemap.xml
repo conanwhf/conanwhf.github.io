@@ -3,14 +3,38 @@
 
     
   <url>
-    <loc>http://conanwhf.gitcafe.io/2016/01/12/rpi-kernel/</loc>
-    <lastmod>2016-01-14T16:26:03.000Z</lastmod>
+    <loc>http://conanwhf.gitcafe.io/2016/01/16/transf/</loc>
+    <lastmod>2016-01-16T15:41:20.000Z</lastmod>
     <data>
         <display>
-        <title>树莓派内核编译</title>
-        <pubTime>2016-01-12T07:31:26.000Z</pubTime>
+        <title>使用.transform旋转带来的坑</title>
+        <pubTime>2016-01-16T09:32:45.000Z</pubTime>
         
-        <tag>kernel </tag>
+        <tag>iOS </tag>
+         
+        <tag>transform　 </tag>
+         
+         
+           
+             
+              <breadCrumb title="Cocoa" url="http://conanwhf.gitcafe.io/categories/Cocoa/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.gitcafe.io/2016/01/14/rpi-toolchain/</loc>
+    <lastmod>2016-01-15T17:14:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>自己编译给树莓派的交叉编译工具</title>
+        <pubTime>2016-01-14T03:31:26.000Z</pubTime>
+        
+        <tag>crosstool-ng </tag>
+         
+        <tag>toolchain </tag>
          
          
            
@@ -24,7 +48,7 @@
     
   <url>
     <loc>http://conanwhf.gitcafe.io/2016/01/12/rpi-start/</loc>
-    <lastmod>2016-01-14T16:19:59.000Z</lastmod>
+    <lastmod>2016-01-15T04:29:35.000Z</lastmod>
     <data>
         <display>
         <title>树莓派初始配置指南（2代B型）</title>
@@ -41,16 +65,14 @@
 
     
   <url>
-    <loc>http://conanwhf.gitcafe.io/2016/01/14/rpi-toolchain/</loc>
-    <lastmod>2016-01-14T16:13:58.000Z</lastmod>
+    <loc>http://conanwhf.gitcafe.io/2016/01/12/rpi-kernel/</loc>
+    <lastmod>2016-01-14T16:26:03.000Z</lastmod>
     <data>
         <display>
-        <title>自己编译给树莓派的交叉编译工具</title>
-        <pubTime>2016-01-14T03:31:26.000Z</pubTime>
+        <title>树莓派内核编译</title>
+        <pubTime>2016-01-12T07:31:26.000Z</pubTime>
         
-        <tag>crosstool-ng </tag>
-         
-        <tag>toolchain </tag>
+        <tag>kernel </tag>
          
          
            

@@ -34,7 +34,7 @@
 
 
 
-  <meta name="keywords" content="Swift,iOS," />
+  <meta name="keywords" content="iOS,transform　," />
 
 
 
@@ -45,25 +45,18 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。如有侵权不得转载等情况，请联系我告知，谢谢！
-
-
-当view被添加其他view中之前时，会调用viewWillAppear，而之后会调用viewDidAppear；当view从其他view中移出之前时，会调用viewWillDisAppear，而之后会调用viewDidDisapp">
+<meta name="description" content="这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周BlogUIController中Slider监听回调">
 <meta property="og:type" content="article">
-<meta property="og:title" content="开发Tips收集-2015年11月以前">
-<meta property="og:url" content="http://conanwhf.gitcafe.io/2015/11/12/Tips201510/index.html">
+<meta property="og:title" content="使用.transform旋转带来的坑">
+<meta property="og:url" content="http://conanwhf.gitcafe.io/2016/01/16/transf/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
-<meta property="og:description" content="这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。如有侵权不得转载等情况，请联系我告知，谢谢！
-
-
-当view被添加其他view中之前时，会调用viewWillAppear，而之后会调用viewDidAppear；当view从其他view中移出之前时，会调用viewWillDisAppear，而之后会调用viewDidDisapp">
-<meta property="og:updated_time" content="2015-12-31T18:45:22.000Z">
+<meta property="og:description" content="这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周BlogUIController中Slider监听回调">
+<meta property="og:image" content="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_error.gif">
+<meta property="og:image" content="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_order.png">
+<meta property="og:updated_time" content="2016-01-16T15:41:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="开发Tips收集-2015年11月以前">
-<meta name="twitter:description" content="这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。如有侵权不得转载等情况，请联系我告知，谢谢！
-
-
-当view被添加其他view中之前时，会调用viewWillAppear，而之后会调用viewDidAppear；当view从其他view中移出之前时，会调用viewWillDisAppear，而之后会调用viewDidDisapp">
+<meta name="twitter:title" content="使用.transform旋转带来的坑">
+<meta name="twitter:description" content="这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周BlogUIController中Slider监听回调">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -73,7 +66,7 @@
   };
 </script>
 
-  <title> 开发Tips收集-2015年11月以前 | iOS开发和七七八八 </title>
+  <title> 使用.transform旋转带来的坑 | iOS开发和七七八八 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -231,7 +224,7 @@
           
           
             
-              开发Tips收集-2015年11月以前
+              使用.transform旋转带来的坑
             
           
         </h1>
@@ -240,8 +233,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-11-12T17:25:39+08:00" content="2015-11-12">
-            2015-11-12
+          <time itemprop="dateCreated" datetime="2016-01-16T17:32:45+08:00" content="2016-01-16">
+            2016-01-16
           </time>
         </span>
 
@@ -250,8 +243,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/DevTips/" itemprop="url" rel="index">
-                  <span itemprop="name">DevTips</span>
+                <a href="/categories/Cocoa/" itemprop="url" rel="index">
+                  <span itemprop="name">Cocoa</span>
                 </a>
               </span>
 
@@ -266,8 +259,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/11/12/Tips201510/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/12/Tips201510/" itemprop="commentsCount"></span>
+              <a href="/2016/01/16/transf/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/16/transf/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -281,40 +274,49 @@
       
 
       
-        <span itemprop="articleBody"><blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+        <span itemprop="articleBody"><p>这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。<br>关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周Blog<a href="http://conanwhf.gitcafe.io/2016/01/03/UISlider/" title="UIController中Slider监听回调具体实现的分离">UIController中Slider监听回调具体实现的分离</a>），我也添加了旋转的功能，开始是在handler中这么写的(back是一个UIView)：</p>
+<pre><code>let x = (<span class="function"><span class="title">Float</span><span class="params">(ctl.show.frame.width)</span></span> - conf[<span class="number">0</span>] )/<span class="number">2</span>
+let y = (<span class="function"><span class="title">Float</span><span class="params">(ctl.show.frame.height)</span></span> - conf[<span class="number">1</span>] )/<span class="number">2</span>
+back<span class="class">.frame</span><span class="class">.size</span> = <span class="function"><span class="title">CGSize</span><span class="params">(width: CGFloat(conf[<span class="number">0</span>], height: CGFloat(conf[<span class="number">1</span>])</span></span>
+back<span class="class">.frame</span><span class="class">.origin</span> = <span class="function"><span class="title">CGPoint</span><span class="params">(x: Int(x)</span></span>, y: <span class="function"><span class="title">Int</span><span class="params">(y)</span></span>)
+back<span class="class">.transform</span> = <span class="function"><span class="title">CGAffineTransformMakeRotation</span><span class="params">( CGFloat(Double(conf[<span class="number">7</span>] * M_PI  / <span class="number">180.0</span>)</span></span>)
+</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样的：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_error.gif" alt=""><br><a id="more"></a><br>添加了打印信息以后发现，经过旋转的View.frame，不管是size还是position都变掉了，并且完全不是按照希望的样子变化的。不论我把旋转放在整个片段的哪里，都不对，frame的size总是不受控制。后来只好把scaling的部分改成了CGAffineTransformScale()。去看了看transform系列的文档，它其实是一类矩阵变换方式，旋转、缩放、平移只是其中的一些常用算法，系统给出了这些功能的API。如果你数学够好，其实也是可以自己设置这种变换的映射方式，最后转换后的View，其frame size是包含目标图形的一个最小矩形。而我猜，我碰到的问题，是因为系统对于旋转的处理有点特殊。<br>于是我在playground里面做了点测试，先申请了一个100*300的矩形，然后做了两个transform的参数分别表示旋转90度和缩放至200*200（长宽缩放比例为1:2和1:0.667）：</p>
+<pre><code>let backView = UIView(frame:CGRectMake(<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">100.0</span>,  <span class="number">300.0</span>))
+<span class="comment">//缩放参数</span>
+let sx =  <span class="number">200</span> / demo.frame.width
+let sy =  <span class="number">200</span> / demo.frame.height
+let transf_scale = CGAffineTransformMakeScale(sx, sy)
+<span class="comment">//旋转参数</span>
+let transf_rotate = CGAffineTransformMakeRotation(CGFloat(Double(<span class="number">90</span>) * M_PI  / <span class="number">180.0</span>))
+</code></pre><p>四个测试Case分别如下，两个先缩放再旋转，两个先旋转再缩放，后两个用的是CGAffineTransformConcat()函数直接跑。</p>
+<pre><code>//<span class="keyword">case</span> <span class="number">1</span>, rotate(<span class="built_in">scale</span>, x)
+demo.transform = CGAffineTransformRotate(transf_scale, CGFloat(<span class="type">Double</span>(<span class="number">90</span>) * M_PI  / <span class="number">180.0</span>))
+demo.frame.<span class="built_in">size</span>     //<span class="number">600</span>*<span class="number">67</span>
+
+//<span class="keyword">case</span> <span class="number">2</span>, <span class="built_in">scale</span>(rotate, x)
+demo.transform = CGAffineTransformScale(transf_rotate, sx, sy)
+demo.frame.<span class="built_in">size</span>     //<span class="number">200</span>*<span class="number">200</span>
+
+//<span class="keyword">case</span> <span class="number">3</span>, <span class="built_in">scale</span>+rotate
+demo.transform = CGAffineTransformConcat(transf_scale, transf_rotate)
+demo.frame.<span class="built_in">size</span>     //<span class="number">200</span>*<span class="number">200</span>
+
+//<span class="keyword">case</span> <span class="number">4</span>, rotate+<span class="built_in">scale</span>
+demo.transform = CGAffineTransformConcat(transf_rotate, transf_scale)
+demo.frame.<span class="built_in">size</span>     //<span class="number">600</span>*<span class="number">67</span>
+</code></pre><p>有兴趣的可以把这一段code放到playground里面自己跑跑，看看会是什么结果。先旋转再缩放的case2 &amp; case3，结果如我们所想象的那样，是个200*200的正方形；而case1 &amp; case4，结果却变成了600*66.7的长条矩形。看起来正如下图的几种情况：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_order.png" alt=""><br>图中，暗红色部分是先做缩放再做旋转，有了正确的结果，对应scale(rotate, x) &amp; scale+rotate；银色部分则是先旋转再缩放，成了错误的样子，对应rotate+scale &amp; rotate(scale, x)。原来这是有顺序要求的。那么问题来了：CGAffineTransformXXX(t, args)系列的函数，感觉上应该是对t用新的参数做叠加，为什么结果却是反的呢？于是我去查了它们的头文件，看到是这么定义的：</p>
+<blockquote>
+<p>  /* Scale t’ by (sx, sy)’ and return the result:<br>  t’ = [ sx 0 0 sy 0 0 ] * t */<br>  @available(iOS 2.0, *)<br>  public func CGAffineTransformScale(t: CGAffineTransform, _ sx: CGFloat, _ sy: CGFloat) -> CGAffineTransform</p>
+<p>  /* Rotate t’ by angle’ radians and return the result:<br>  t’ =  [ cos(angle) sin(angle) -sin(angle) cos(angle) 0 0 ] * t */<br>  @available(iOS 2.0, *)<br>  public func CGAffineTransformRotate(t: CGAffineTransform, _ angle: CGFloat) -> CGAffineTransform</p>
+<p>  /* Concatenate t2’ to t1’ and return the result:<br>  t’ = t1 * t2 */<br>  @available(iOS 2.0, *)<br>  public func CGAffineTransformConcat(t1: CGAffineTransform, _ t2: CGAffineTransform) -> CGAffineTransform</p>
 </blockquote>
-<ul>
-<li>当view被添加其他view中之前时，会调用viewWillAppear，而之后会调用viewDidAppear；当view从其他view中移出之前时，会调用viewWillDisAppear，而之后会调用viewDidDisappear；当view不在使用，而且是disappeared，受到内存警告时，那么viewController会将view释放并将其指向nil</li>
-<li>UIImageView的用户交互是默认关闭的，加在它上面的控件自然也响应不了事件。只要把UIImageView的userInteractionEnabled改为YES就能解决问题了。<a id="more"></a></li>
-<li>delegate的回调更多的面向过程，而block则是面向结果的。如果你需要得到一条多步进程的通知，你应该使用delegation。而当你只是希望得到你请求的信息（或者获取信息时的错误提示），你应该使用block。</li>
-<li>如果将数据块传递给一个函数或方法，可以通过传递一个自动释放NSData来实现，无需担心内存清除问题</li>
-<li>data source也是一种特殊的delegate，data source负责传输数据给View例如data、at、count等，而delegate负责处理View的did、should、will等问题，View把需要的数据信息或者事件信息传输给dalegate，dalegate则负责回复这些信息</li>
-<li>让表视图进入编辑模式，进入编辑模式的方法有两种，一种是使用导航栏的edit按钮，另一种是设置tableView的editing属性进入编辑模式</li>
-<li>const常量是一个在编译时或者编译解析时被初始化的变量。通过let创建的是一个运行时常量，是不可变得。它可以使用stattic 或者dynamic关键字来初始化。谨记它的的值只能被分配一次</li>
-<li>多使用结构体，除非你用了继承和引用语义。类支持继承，结构体不支持。 类是引用类型，结构体是值类型。在运行时，结构体的在性能方面更优于类，原因是结构体的方法调用是静态绑定，而类的方法调用是动态实现的。这就是尽可能得使用结构体代替类的又一个好的原因。</li>
-<li>nil：指向oc中对象的空指针 Nil：指向oc中类的空指针 NULL：指向其他类型的空指针，如一个c类型的内存指针</li>
-<li>final 关键字可以用在 class，func 或者 var 前面进行修饰，表示不允许对该内容进行继承或者重写操作。</li>
-<li>为了降低程序的内存空间占用，Cocoa在程序开始处理事件之前创建一个自动释放池，并在事件处理结束后销毁自动释放池。这样可以使累积的临时对象的数量保持在最低程度</li>
-<li>UITableViewCell有个NSString* reuseIdentifier属性，可以在初始化UITableViewCell的时候传入一个特定的字符串标识来设置reuseIdentifier(一般用UITableViewCell的类名)。当UITableView要求dataSource返回UITableViewCell时，先通过一个字符串标识到对象池中查找对应类型的UITableViewCell对象，如果有，就重用，如果没有，就传入这个字符串标识来初始化一个UITableViewCell对象</li>
-<li>Cocoa采用了一种称为引用计数的技术，有时也叫做保留计数。每个对象有一个与之相关联的整数，称作它的引用计数器或保留计数器。当某段代码需要访问一个对象时，该代码将该对象的保留计数器值加1，表示“我要访问该对象”。当这段代码结束对象访问时，将对象的保留计数器值减1，表示它不再访问该对象。当保留计数器值为0时，表示不再有代码访问该对象了，因此对象将被销毁，其占用的内存被系统回收以便重用。</li>
-<li>TableView自带滑动删除功能，只要实现代理的方法tableView:commitEditingStyle:forRowAtIndexPath:方法即可，在方法中做数据的操作，刷新表格就行。 </li>
-<li>刷新表格有两种方法： tableView:reloadRowsAtIndexPath:该方法使用前提是模型数据与tableView的行数要求一致。 tableView:deleteRowsAtIndexPath:该方法使用前提是模型数据删除的个数和表格删掉的行数要一致。</li>
-<li>UITabBarConroller子控件的声明周期： 第一个子控件加载完毕，即将显示，显示完毕。 第二个子控件加载完毕，即将显示，第一个子控件即将消失，第一个子控件消失完毕，第二个子控件显示完毕。 </li>
-<li>程序载入时会执行didFinishLaunchingWithOptions:方法，然后调用applicationDidBecomeActive:，之后如果按Home键进入后台，程序会先调用applicationWillResignActive:，然后执行applicationDidEnterBackground:方法。如果重新进入前台，则会调用applicationWillEnterBackground:方法，之后是applicationDidBecomeActive方法。</li>
-<li>CAGradientLayer是一种特殊的层，用于渲染渐变效果。它继承自CALayer，可使用CALayer所有的属性，是除了在图形上下文绘制渐变效果外的另一种方法，它不需要借助图形上下文，是直接渲染在层上的，因此易于使用。</li>
-<li>CAShapeLayer需要和贝塞尔曲线配合使用才有意义，贝塞尔曲线为其提供渲染的图形，可以实现不再view的drawRect方法中画出一些想要的图形。<br>  在drawRect中绘制图形调用CoreGraphics框架中的方法，占用CPU，消耗性能大；而CAShapeLayer属于CoreAnimation框架，通过GPU来渲染图形，节省性能。动画渲染直接提交给GPU，不消耗内存。</li>
-<li>目前所有iphone机型共有5种屏幕（竖屏）：  <ol>
-<li>Retina1x（320*480）（iphone3GS之前，现已不用搭理）  </li>
-<li>Retina2x（640*960）（iphone4/4s）  </li>
-<li>Retina4（640*1136）（iphone5/5s/5c）  </li>
-<li>Retina HD4.7（750*1334）（iphone6/6s）  </li>
-<li>Retina HD5.5（1242*2208）（iphone6p/6sp） </li>
+<p>于是真相大白：原来，<strong>CGAffineTransformScale(t1, args)= t-scale*t1，而CGAffineTransformConcat(t1, t2)= t1 *t2，它们的顺序是反的</strong>。这个坑有点绕得人人晕晕的😳<br>综上所述，最后对于transform的使用，要记住以下几点：</p>
+<ol>
+<li>transform参数，事实上是一些形变映射矩阵的叠加。</li>
+<li>Scale的时候设置的参数，代表的是缩放的系数，不是目标size，所以如果有其他transform参数在此之前做，要重新计算系数</li>
+<li>CGAffineTansform系列本质是矩阵运算，顺序很重要</li>
+<li>CGAffineTransformConcat(t1,t2)的顺序是t1->t2, 而CGAffineTransformXXX(t1, (args to t2))的顺序是t2->t1，不要搞错</li>
 </ol>
-</li>
-<li>点用来构建一个坐标系，它是根据实际情况和需求制定的，是人为设想的，并不是真实存在的。在ios开发中，坐标系的单位长度就是点。在iphone3GS上，一个点包含一个像素，这种屏幕俗称一倍屏；iphone4、4s、iphone5等2倍retina屏上，一个点包含两个像素（这里说的是一维的长度），也就是二倍屏，用@2x表示这种屏幕模式；对于3倍retina的iphone6p和iphone6sp，一个点包含3个像素。开发中在通过点搭建的坐标系中布局界面，方便适配，因为无需再去理会屏幕的分辨率，系统会在显示的时候自动进行适配。</li>
-<li>启动图片更大的职能其实是在图片显示期间做一些初始化处理，其中包括检查适配情况。系统识别适配的方法同样是根据是否设置了相应屏幕的启动图来判断。</li>
-</ul>
 </span>
       
     </div>
@@ -323,9 +325,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Swift/" rel="tag">#Swift</a>
-          
             <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+            <a href="/tags/transform/" rel="tag">#transform　</a>
           
         </div>
       
@@ -334,13 +336,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/11/30/Tips201511/" rel="prev">开发Tips收集-2015年11月</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/11/05/ResourceInGit/" rel="next">iOS开发资源</a>
+              <a href="/2016/01/14/rpi-toolchain/" rel="next">自己编译给树莓派的交叉编译工具</a>
             
           </div>
         </div>
@@ -355,10 +355,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/11/12/Tips201510/"
-     data-title="开发Tips收集-2015年11月以前"
+        <div class="ds-share flat" data-thread-key="2016/01/16/transf/"
+     data-title="使用.transform旋转带来的坑"
      data-content=""
-     data-url="http://conanwhf.gitcafe.io/2015/11/12/Tips201510/">
+     data-url="http://conanwhf.gitcafe.io/2016/01/16/transf/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -388,8 +388,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/11/12/Tips201510/"
-                   data-title="开发Tips收集-2015年11月以前" data-url="http://conanwhf.gitcafe.io/2015/11/12/Tips201510/">
+              <div class="ds-thread" data-thread-key="2016/01/16/transf/"
+                   data-title="使用.transform旋转带来的坑" data-url="http://conanwhf.gitcafe.io/2016/01/16/transf/">
               </div>
             
           </div>
