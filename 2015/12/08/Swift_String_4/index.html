@@ -65,7 +65,7 @@ Swift2.0 中的String（三）：类型转换
 Swift2.0 中的String（四）：编码转换
 Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 
 Swift2.0 中的String">
-<meta property="og:updated_time" content="2015-12-31T18:44:26.000Z">
+<meta property="og:updated_time" content="2016-01-17T18:07:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift2.0 中的String（四）：编码转换">
 <meta name="twitter:description" content="Swift中的字符串，第四篇，中文字符编码的转换。其他的几篇传送门：
@@ -302,7 +302,28 @@ Swift2.0 中的String">
 <li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
 <li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
 </ul>
-<p>不知道是不是Safari的原因，我用浏览器下载中文名文件的时候常常文件名会变成乱码，就是“%EF%77%3D%20”那种，又因为很多是电子书，名称也不能乱改，还需要自己去copy一遍重命名，很烦，于是想到用Swift自己写个函数试试纠正这个乱码。<br>最开始我的想法是在String的API里面找，所有encoding相关的都过滤了一遍，<a id="more"></a>未果（后来证明其实我找对了方向，只是用错了编码参数）；然后决定用自己拿手的方式，读取乱码数值填进数据块中，然后变成字符串。于是去网上搜索怎么填充字符串（顺便吐槽：我这边抽风cocoachina打不开，烦死），发现牵涉到NSData，NSString等等，同时也发现有人提供了一个字符串中文乱码的解决方案（UTF8转GBK）：</p>
+<p>不知道是不是Safari的原因，我用浏览器下载中文名文件的时候常常文件名会变成乱码，就是“%EF%77%3D%20”那种，又因为很多是电子书，名称也不能乱改，还需要自己去copy一遍重命名，很烦，于是想到用Swift自己写个函数试试纠正这个乱码。<br>最开始我的想法是在String的API里面找，所有encoding相关的都过滤了一遍，<a id="more"></a><span class='source'><blockquote><p>你看到的为非授权版本！爬虫凶猛，请尊重知识产权</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/'>Swift2.0 中的String（四）：编码转换</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.com', 'conanwhf.gitcafe.com', 'toutiao.io'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+未果（后来证明其实我找对了方向，只是用错了编码参数）；然后决定用自己拿手的方式，读取乱码数值填进数据块中，然后变成字符串。于是去网上搜索怎么填充字符串（顺便吐槽：我这边抽风cocoachina打不开，烦死），发现牵涉到NSData，NSString等等，同时也发现有人提供了一个字符串中文乱码的解决方案（UTF8转GBK）：</p>
 <pre><code><span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:urlStr];
 <span class="built_in">NSData</span> *data = [<span class="built_in">NSData</span> dataWithContentsOfURL:url]; 
 <span class="built_in">NSStringEncoding</span> enc =  <span class="built_in">CFStringConvertEncodingToNSStringEncoding</span>(k<span class="built_in">CFStringEncodingGB_18030_2000</span>);

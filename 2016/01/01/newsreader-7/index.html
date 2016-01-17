@@ -56,7 +56,7 @@ override f">
 @IBOutlet weak var loading: UIActivityIndicatorView!
 override f">
 <meta property="og:image" content="http://7xkzuv.com1.z0.glb.clouddn.com/img_ScrollView.jpg">
-<meta property="og:updated_time" content="2016-01-01T16:27:10.000Z">
+<meta property="og:updated_time" content="2016-01-17T18:07:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从打造新闻app学到的(7)：下拉刷新和上拉更多">
 <meta name="twitter:description" content="新闻的实时性，必然导致其列表清单对“下拉刷新”和“上拉更多”的实现要求。一开始我以为这两个可以很容易地通过手势的处理来实现，找了找先是发现了个控件UIRefreshControl，很简单地实现了下拉刷新，想着上拉不是一样嘛，先用用再研究上拉怎么搞，于是放进了Code里面：
@@ -292,7 +292,28 @@ override f">
     <span class="comment">//TODO：刷新数据</span>
     <span class="keyword">self</span>.sliding.endRefreshing()
 }
-</code></pre><p>这个一看便知，注册一下回调，修改一下显示的字符串；然后在控件的监听回调里面刷新好数据，关掉动画，搞定！简直顺利得不敢相信。然后开始研究怎么通过这个改上拉更多……恕我驽钝，搞不定。上网查了一圈，貌似大家的上拉都不是用这个控件，这个控件的可定制性据说也比较差……😰没办法，乖乖自己写了。<br>去找了个第三方的“上拉更多”库，看源码（Sorry，已经不知道是哪个库了，GitHub上一大堆，我直接在浏览器里面看完就关了），发现里面的关键就是监听滑动事件，然后通过计算坐标来判断是否是上拉：<a id="more"></a></p>
+</code></pre><p>这个一看便知，注册一下回调，修改一下显示的字符串；然后在控件的监听回调里面刷新好数据，关掉动画，搞定！简直顺利得不敢相信。然后开始研究怎么通过这个改上拉更多……恕我驽钝，搞不定。上网查了一圈，貌似大家的上拉都不是用这个控件，这个控件的可定制性据说也比较差……😰没办法，乖乖自己写了。<br>去找了个第三方的“上拉更多”库，看源码（Sorry，已经不知道是哪个库了，GitHub上一大堆，我直接在浏览器里面看完就关了），发现里面的关键就是监听滑动事件，然后通过计算坐标来判断是否是上拉：<a id="more"></a><span class='source'><blockquote><p>你看到的为非授权版本！爬虫凶猛，请尊重知识产权</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/01/newsreader-7/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/01/newsreader-7/'>从打造新闻app学到的(7)：下拉刷新和上拉更多</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.com', 'conanwhf.gitcafe.com', 'toutiao.io'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+</p>
 <pre><code><span class="tag">func</span> <span class="tag">scrollViewDidEndDragging</span>(<span class="attribute">scrollView</span>: UIScrollView, willDecelerate <span class="attribute">decelerate</span>: Bool){  
 <span class="tag">if</span> (scrollView.contentOffset.y &gt; (scrollView.contentSize.height - scrollView.frame.size.height) + <span class="number">70</span>)  {<span class="comment">//触发上拉刷新，70是阀值</span>
 <span class="comment">// TODO anything</span>
@@ -329,7 +350,7 @@ override f">
 <li>如果要把菊花加到主视图上，也是需要配置才能看得见，包括大小、位置、层级等等</li>
 <li><strong>所有跟UI相关的刷新操作必须放在主进程中，否则可能无效。</strong>多线程是另外一块东西了，等过些天我整理好再写</li>
 </ol>
-<p>目前我还是用“UIRefreshControl做下拉+ UIActivityIndicatorView做上拉”的组合，毕竟原生下拉控件安全方便又好看😊。但这个、<em>scrollViewDidEndDragging</em>的监听是个很好的例子，通过它我想我们还能做更多包括侧滑、翻页等等等等，当然真做起来还是需要结合别的Event。</p>
+<p>目前我还是用“UIRefreshControl做下拉+ UIActivityIndicatorView做上拉”的组合，毕竟原生下拉控件安全方便又好看😊。但这个、_scrollViewDidEndDragging_的监听是个很好的例子，通过它我想我们还能做更多包括侧滑、翻页等等等等，当然真做起来还是需要结合别的Event。</p>
 </span>
       
     </div>

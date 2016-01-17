@@ -34,7 +34,7 @@
 
 
 
-  <meta name="keywords" content="Conan" />
+  <meta name="keywords" content="iOS,transform　," />
 
 
 
@@ -45,22 +45,18 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="之前写了一篇全局函数，现在Swift2.1后，使用方法大变样-_-|||示例代码：https://github.com/conanwhf/swiftplayground/blob/master/Swift_StandardFunc.playground/Contents.swift
-
-!!!String不再是一个集合序列，所有相关调用需要改为String.chatacterse.g. find(S">
+<meta name="description" content="这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周BlogUIController中Slider监听回调">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift 2.x 函数变化">
-<meta property="og:url" content="http://conanwhf.gitcafe.io/2015/11/02/Swift 2.x Function/index.html">
+<meta property="og:title" content="使用.transform旋转带来的坑">
+<meta property="og:url" content="http://conanwhf.gitcafe.io/2016/01/16/Transform/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
-<meta property="og:description" content="之前写了一篇全局函数，现在Swift2.1后，使用方法大变样-_-|||示例代码：https://github.com/conanwhf/swiftplayground/blob/master/Swift_StandardFunc.playground/Contents.swift
-
-!!!String不再是一个集合序列，所有相关调用需要改为String.chatacterse.g. find(S">
-<meta property="og:updated_time" content="2015-12-23T16:21:34.000Z">
+<meta property="og:description" content="这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周BlogUIController中Slider监听回调">
+<meta property="og:image" content="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_error.gif">
+<meta property="og:image" content="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_order.png">
+<meta property="og:updated_time" content="2016-01-17T18:06:02.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift 2.x 函数变化">
-<meta name="twitter:description" content="之前写了一篇全局函数，现在Swift2.1后，使用方法大变样-_-|||示例代码：https://github.com/conanwhf/swiftplayground/blob/master/Swift_StandardFunc.playground/Contents.swift
-
-!!!String不再是一个集合序列，所有相关调用需要改为String.chatacterse.g. find(S">
+<meta name="twitter:title" content="使用.transform旋转带来的坑">
+<meta name="twitter:description" content="这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周BlogUIController中Slider监听回调">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -70,7 +66,7 @@
   };
 </script>
 
-  <title> Swift 2.x 函数变化 | iOS开发和七七八八 </title>
+  <title> 使用.transform旋转带来的坑 | iOS开发和七七八八 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -228,7 +224,7 @@
           
           
             
-              Swift 2.x 函数变化
+              使用.transform旋转带来的坑
             
           
         </h1>
@@ -237,8 +233,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-11-02T23:29:26+08:00" content="2015-11-02">
-            2015-11-02
+          <time itemprop="dateCreated" datetime="2016-01-16T17:32:45+08:00" content="2016-01-16">
+            2016-01-16
           </time>
         </span>
 
@@ -247,8 +243,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Swift/" itemprop="url" rel="index">
-                  <span itemprop="name">Swift</span>
+                <a href="/categories/Cocoa/" itemprop="url" rel="index">
+                  <span itemprop="name">Cocoa</span>
                 </a>
               </span>
 
@@ -263,8 +259,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/11/02/Swift 2.x Function/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/02/Swift 2.x Function/" itemprop="commentsCount"></span>
+              <a href="/2016/01/16/Transform/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/16/Transform/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -278,59 +274,94 @@
       
 
       
-        <span itemprop="articleBody"><p>之前写了一篇全局函数，现在Swift2.1后，使用方法大变样-_-|||<br><strong>示例代码：</strong><br><a href="https://github.com/conanwhf/swiftplayground/blob/master/Swift_StandardFunc.playground/Contents.swift" target="_blank" rel="external">https://github.com/conanwhf/swiftplayground/blob/master/Swift_StandardFunc.playground/Contents.swift</a></p>
+        <span itemprop="articleBody"><p>这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。<br>关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周Blog<a href="http://conanwhf.gitcafe.io/2016/01/03/UISlider/" title="UIController中Slider监听回调具体实现的分离">UIController中Slider监听回调具体实现的分离</a>），我也添加了旋转的功能，开始是在handler中这么写的(back是一个UIView)：</p>
+<pre><code>let x = (<span class="function"><span class="title">Float</span><span class="params">(ctl.show.frame.width)</span></span> - conf[<span class="number">0</span>] )/<span class="number">2</span>
+let y = (<span class="function"><span class="title">Float</span><span class="params">(ctl.show.frame.height)</span></span> - conf[<span class="number">1</span>] )/<span class="number">2</span>
+back<span class="class">.frame</span><span class="class">.size</span> = <span class="function"><span class="title">CGSize</span><span class="params">(width: CGFloat(conf[<span class="number">0</span>], height: CGFloat(conf[<span class="number">1</span>])</span></span>
+back<span class="class">.frame</span><span class="class">.origin</span> = <span class="function"><span class="title">CGPoint</span><span class="params">(x: Int(x)</span></span>, y: <span class="function"><span class="title">Int</span><span class="params">(y)</span></span>)
+back<span class="class">.transform</span> = <span class="function"><span class="title">CGAffineTransformMakeRotation</span><span class="params">( CGFloat(Double(conf[<span class="number">7</span>] * M_PI  / <span class="number">180.0</span>)</span></span>)
+</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样有时候会自己拉扁的：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_error.gif" alt=""><br><a id="more"></a><span class='source'><blockquote><p>你看到的为非授权版本！爬虫凶猛，请尊重知识产权</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/16/Transform/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/16/Transform/'>使用.transform旋转带来的坑</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.com', 'conanwhf.gitcafe.com', 'toutiao.io'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+<br>添加了打印信息以后发现，经过旋转的View.frame，不管是size还是position都变掉了，并且完全不是按照希望的样子变化的。不论我把旋转放在整个片段的哪里，都不对，frame的size总是不受控制。后来只好把scaling的部分改成了CGAffineTransformScale()。去看了看transform系列的文档，它其实是一类矩阵变换方式，旋转、缩放、平移只是其中的一些常用算法，系统给出了这些功能的API。如果你数学够好，其实也是可以自己设置这种变换的映射方式，最后转换后的View，其frame size是包含目标图形的一个最小矩形。而我猜，我碰到的问题，是因为系统对于旋转的处理有点特殊，因为scaling时拿到的参数不正确（当时的frame还没有画成缩放后的样子）导致。<br>于是我将UIView的变化都改为用CGAffineTransform系列函数进行，又发现对transform的操作先后顺序会影响最终的效果。出于兴趣我在playground里面做了点测试，先申请了一个100*300的矩形，然后做了两个transform的参数分别表示旋转90度和缩放至200*200（长宽缩放比例为1:2和1:0.667）：</p>
+<pre><code>let demo = UIView(frame:CGRectMake(<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">100.0</span>,  <span class="number">300.0</span>))
+<span class="comment">//缩放参数</span>
+let sx =  <span class="number">200</span> / demo.frame.width
+let sy =  <span class="number">200</span> / demo.frame.height
+let transf_scale = CGAffineTransformMakeScale(sx, sy)
+<span class="comment">//旋转参数</span>
+let transf_rotate = CGAffineTransformMakeRotation(CGFloat(Double(<span class="number">90</span>) * M_PI  / <span class="number">180.0</span>))
+</code></pre><p>对这个View分别进行缩放和旋转操作，理想的情况是变成一个200*200的正方形。四个测试Case分别如下：两个先缩放再旋转，两个先旋转再缩放，后两个用的是CGAffineTransformConcat()函数直接跑。</p>
+<pre><code>//<span class="keyword">case</span> <span class="number">1</span>, rotate(<span class="built_in">scale</span>, x)
+demo.transform = CGAffineTransformRotate(transf_scale, CGFloat(<span class="type">Double</span>(<span class="number">90</span>) * M_PI  / <span class="number">180.0</span>))
+demo.frame.<span class="built_in">size</span>     //<span class="number">600</span>*<span class="number">67</span>
+
+//<span class="keyword">case</span> <span class="number">2</span>, <span class="built_in">scale</span>(rotate, x)
+demo.transform = CGAffineTransformScale(transf_rotate, sx, sy)
+demo.frame.<span class="built_in">size</span>     //<span class="number">200</span>*<span class="number">200</span>
+
+//<span class="keyword">case</span> <span class="number">3</span>, <span class="built_in">scale</span>+rotate
+demo.transform = CGAffineTransformConcat(transf_scale, transf_rotate)
+demo.frame.<span class="built_in">size</span>     //<span class="number">200</span>*<span class="number">200</span>
+
+//<span class="keyword">case</span> <span class="number">4</span>, rotate+<span class="built_in">scale</span>
+demo.transform = CGAffineTransformConcat(transf_rotate, transf_scale)
+demo.frame.<span class="built_in">size</span>     //<span class="number">600</span>*<span class="number">67</span>
+</code></pre><p>有兴趣的可以把这一段code放到playground里面自己跑跑，看看会是什么结果。case2 &amp; case3，结果如我们所想象的那样，是个200*200的正方形；而case1 &amp; case4，却变成了600*66.7的长条矩形。看起来正如下图的几种情况：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_order.png" alt=""><br>图中，暗红色部分是先做缩放再做旋转，有了正确的结果，对应scale(rotate, x) &amp; scale+rotate；银色部分则是先旋转再缩放，成了错误的样子，对应rotate+scale &amp; rotate(scale, x)。原来这是有顺序要求的。那么问题又来了：CGAffineTransformXXX(t, args)系列的函数，感觉上应该是对t用新的参数做叠加，为什么结果却是反的呢？于是我去查了它们的头文件，看到是这么定义的：</p>
 <blockquote>
-<p>!!!<br>String不再是一个集合序列，所有相关调用需要改为<strong>String.chatacters</strong><br>e.g. <em>find(<strong>String</strong>, X)-> String.characters.indexOf(X)</em></p>
+<p>  /* Scale t’ by (sx, sy)’ and return the result:<br>  t’ = [ sx 0 0 sy 0 0 ] * t */<br>  @available(iOS 2.0, *)<br>  public func CGAffineTransformScale(t: CGAffineTransform, _ sx: CGFloat, _ sy: CGFloat) -> CGAffineTransform</p>
+<p>  /* Rotate t’ by angle’ radians and return the result:<br>  t’ =  [ cos(angle) sin(angle) -sin(angle) cos(angle) 0 0 ] * t */<br>  @available(iOS 2.0, *)<br>  public func CGAffineTransformRotate(t: CGAffineTransform, _ angle: CGFloat) -> CGAffineTransform</p>
+<p>  /* Concatenate t2’ to t1’ and return the result:<br>  t’ = t1 * t2 */<br>  @available(iOS 2.0, *)<br>  public func CGAffineTransformConcat(t1: CGAffineTransform, _ t2: CGAffineTransform) -> CGAffineTransform</p>
 </blockquote>
-<h2 id="func(obj,_optional)->obj-func(optional)">func(obj, <em>optional</em>)->obj.func(<em>optional</em>)</h2><ul>
-<li>enumerate()</li>
-<li>dropFirst()</li>
-<li>dropLast()</li>
-<li>contains() (不适用于String)</li>
-<li>indices()</li>
-<li>maxElement()<a id="more"></a></li>
-<li>minElement()</li>
-<li>startsWith()</li>
-<li>underestimateCount()</li>
-</ul>
-<h2 id="func(obj,_optional)->obj-newfunc(optional)">func(obj, <em>optional</em>)->obj.newfunc(<em>optional</em>)</h2><ul>
-<li>advance(obj,x)-> obj.advancedBy(x)</li>
-<li>distance(obj,x)-> obj.distanceTo(x)</li>
-<li>contanins(<strong>String</strong>,str)->String.contaninsString(str)</li>
-<li>equalElements(seq1,seq2)-> seq1.elementsEqual(seq2)</li>
-<li>find(seq,x)-> seq.indexOf(x) (不适用于String)</li>
-<li>join(seq,x)-> seq.joinWithSeparator(x)</li>
-</ul>
-<h2 id="rename/merged">rename/merged</h2><ul>
-<li>toString(n)->String(n)</li>
-<li>*println()->*print()</li>
-<li>count(obj)-> obj.enumerate()</li>
-</ul>
-<h2 id="other">other</h2><ul>
-<li>count(obj)-> obj.count</li>
-<li>reduce(seq, init, combineClosure)-> seq.reduce(init, <strong>combine:</strong>combineClosure)</li>
-<li>reflect(obj)-> Mirror(reflecting: obj)</li>
-<li>reverse(arr)-> Array(reverse()）</li>
-<li>一些条件序列操作函数由produce变成了function，即不修改序列本身，而是返回一个新的序列：func(obj,{rule})-> newobj = obj.func({rule})，包括filter(), map(), flatMap()等</li>
-</ul>
+<p>于是真相大白：原来，<strong>CGAffineTransformScale(t1, args)= t-scale*t1，而CGAffineTransformConcat(t1, t2)= t1 *t2，它们的顺序是反的</strong>。这个坑有点绕得人人晕晕的😳<br>最后，综上所述，对于transform的使用，我总结了以下几点：</p>
+<ol>
+<li>transform参数，事实上是一些形变映射矩阵的叠加。</li>
+<li>Scale的时候设置的参数，代表的是缩放的系数，不是目标size，所以如果有其他transform参数在此之前做，要重新计算系数</li>
+<li>CGAffineTansform系列本质是矩阵运算，顺序很重要</li>
+<li>CGAffineTransformConcat(t1,t2)的顺序是t1->t2, 而CGAffineTransformXXX(t1, (args to t2))的顺序是t2->t1，不要搞错</li>
+</ol>
 </span>
       
     </div>
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+            <a href="/tags/transform/" rel="tag">#transform　</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/11/05/Alcatraz/" rel="prev">升级Xcode后失效的解决办法</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/11/01/ReadingList2015-10/" rel="next">读书清单 2015-10</a>
+              <a href="/2016/01/14/rpi-toolchain/" rel="next">自己编译给树莓派的交叉编译工具</a>
             
           </div>
         </div>
@@ -345,10 +376,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/11/02/Swift 2.x Function/"
-     data-title="Swift 2.x 函数变化"
+        <div class="ds-share flat" data-thread-key="2016/01/16/Transform/"
+     data-title="使用.transform旋转带来的坑"
      data-content=""
-     data-url="http://conanwhf.gitcafe.io/2015/11/02/Swift 2.x Function/">
+     data-url="http://conanwhf.gitcafe.io/2016/01/16/Transform/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -378,8 +409,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/11/02/Swift 2.x Function/"
-                   data-title="Swift 2.x 函数变化" data-url="http://conanwhf.gitcafe.io/2015/11/02/Swift 2.x Function/">
+              <div class="ds-thread" data-thread-key="2016/01/16/Transform/"
+                   data-title="使用.transform旋转带来的坑" data-url="http://conanwhf.gitcafe.io/2016/01/16/Transform/">
               </div>
             
           </div>
@@ -517,7 +548,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#func(obj,_optional)->obj-func(optional)"><span class="nav-number">1.</span> <span class="nav-text">func(obj, optional)->obj.func(optional)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#func(obj,_optional)->obj-newfunc(optional)"><span class="nav-number">2.</span> <span class="nav-text">func(obj, optional)->obj.newfunc(optional)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rename/merged"><span class="nav-number">3.</span> <span class="nav-text">rename/merged</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#other"><span class="nav-number">4.</span> <span class="nav-text">other</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

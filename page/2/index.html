@@ -489,7 +489,7 @@ a.elementsEqual(c)
 <span class="function"><span class="title">sizeof</span><span class="params">(String)</span></span>*<span class="number">8</span><span class="comment">//192</span>
 <span class="function"><span class="title">sizeof</span><span class="params">(CGRect)</span></span>*<span class="number">8</span><span class="comment">//256</span>
 <span class="function"><span class="title">sizeof</span><span class="params">(UIColor)</span></span>*<span class="number">8</span><span class="comment">//64</span>
-</code></pre><p>第一组相当的make sense，Int默认就是64位；第二组是实数部分，令我惊讶的是原来_CGFloat_也是64位的，而_Float_反而比它差只有32位。第三组的结果比较值得玩味：Swift里面的_String_搞得比较复杂，是什么都不奇怪，但我以为_Character_至少会是8，结果却是72；_UIColor_本身是由4个_CGFloat_构成，其size却不是4倍的_CGFloat_；倒是_CGRect_比较可以解释，因为它是_CGSize_和_CGPoint_组合而成，实质上也是4个_CGFloat_。
+</code></pre><p>第一组相当的make sense，Int默认就是64位；第二组是实数部分，令我惊讶的是原来<strong>CGFloat</strong>也是64位的，而Float反而比它差只有32位。第三组的结果比较值得玩味：Swift里面的String搞得比较复杂，是什么都不奇怪，但我以为Character至少会是8，结果却是72；<strong>UIColor</strong>本身是由4个CGFloat构成，其size却不是4倍的CGFloat；倒是<strong>CGRect</strong>比较可以解释，因为它是CGSize和CGPoint组合而成，实质上也是4个CGFloat。
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/12/30/precision/#more" rel="contents">
               阅读全文 &raquo;

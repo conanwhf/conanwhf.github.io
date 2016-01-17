@@ -51,7 +51,7 @@
 <meta property="og:url" content="http://conanwhf.gitcafe.io/2016/01/12/rpi-start/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，传送门">
-<meta property="og:updated_time" content="2016-01-15T04:29:35.000Z">
+<meta property="og:updated_time" content="2016-01-17T18:02:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="树莓派初始配置指南（2代B型）">
 <meta name="twitter:description" content="关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，传送门">
@@ -273,7 +273,28 @@
 
       
         <span itemprop="articleBody"><p>关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a></p>
-<a id="more"></a>
+<a id="more"></a><span class='source'><blockquote><p>你看到的为非授权版本！爬虫凶猛，请尊重知识产权</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/12/rpi-start/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/12/rpi-start/'>树莓派初始配置指南（2代B型）</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.com', 'conanwhf.gitcafe.com', 'toutiao.io'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+
 <h2 id="制作启动img">制作启动img</h2><ol>
 <li>从官网下载最新的image，解包，TF卡插入电脑</li>
 <li>用mount查看，将TF卡umount</li>

@@ -65,7 +65,7 @@ Swift2.0 中的String（三）：类型转换
 Swift2.0 中的String（四）：编码转换
 Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 
 Swift2.0 中的String（六）：正">
-<meta property="og:updated_time" content="2015-12-31T18:44:34.000Z">
+<meta property="og:updated_time" content="2016-01-17T18:07:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift2.0 中的String（六）：正则匹配">
 <meta name="twitter:description" content="Swift中的字符串，第六篇，正则匹配。其他的几篇传送门：
@@ -306,7 +306,28 @@ Swift2.0 中的String（六）：正">
 <p>首先我们定义好待匹配的字符串和pattern：</p>
 <pre><code>let str = "18800002222---13144445555"
 let pattern = "1[<span class="link_label">3|5|7|8</span>][<span class="link_reference">0-9</span>]\\d{8}"
-</code></pre><p>简单示范，就不搞太复杂了。这个pattern是手机号码的正则，因为准备demo匹配多个结果，没有加开头和结尾的限制。<a id="more"></a></p>
+</code></pre><p>简单示范，就不搞太复杂了。这个pattern是手机号码的正则，因为准备demo匹配多个结果，没有加开头和结尾的限制。<a id="more"></a><span class='source'><blockquote><p>你看到的为非授权版本！爬虫凶猛，请尊重知识产权</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/'>Swift2.0 中的String（六）：正则匹配</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.com', 'conanwhf.gitcafe.com', 'toutiao.io'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+</p>
 <h2 id="String直接支持的匹配方式">String直接支持的匹配方式</h2><p>严格地来说，只有这一种才算是真正的“Swift中的正则”，其他的都是使用了OC继承过来的类。而这种方法也很简单，就是简单的使用rangOfString而已。</p>
 <pre><code>str.<span class="function"><span class="title">rangeOfString</span><span class="params">(pattern, options: NSStringCompareOptions.RegularExpressionSearch)</span></span>
 </code></pre><p>很简单吧？只是把option的参数改成<strong>RegularExpressionSearch</strong>就行了。这种方法会得到一个Range类型的返回值，是匹配到的第一个子串的位置。在这个例子中，返回0..\&lt;11；如果找不到匹配，返回nil</p>

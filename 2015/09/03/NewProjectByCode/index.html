@@ -34,7 +34,7 @@
 
 
 
-  <meta name="keywords" content="NAS," />
+  <meta name="keywords" content="iOS," />
 
 
 
@@ -45,28 +45,19 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="应用&amp;amp;服务目录
-Qsync：/etc/init.d/qsyncman.sh 
-BTsync：/share/CACHEDEV1_DATA/.qpkg/BitTorrentSync/btsync.sh 
-迅雷：/share/CACHEDEV1_DATA/.qpkg/XunLeiYuanChengQnap/XunLeiYuanChengQnap.sh 
-DLNA: /etc/init.d/two">
+<meta name="description" content="使用源代码让App跑起来进入界面的方法，但觉得其实StoryBoard比较好用
+界面初始化入口AppDelegate.swiftfunc application() 中添加：self.window = UIWindow(frame: UIScreen.mainScreen().bounds)self.window！.rootViewController = ViewController()获得了A">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Qnap NAS笔记">
-<meta property="og:url" content="http://conanwhf.gitcafe.io/2015/06/02/Qnap NAS Tips/index.html">
+<meta property="og:title" content="第一个带UI的程序(New Project, Code mode only)">
+<meta property="og:url" content="http://conanwhf.gitcafe.io/2015/09/03/NewProjectByCode/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
-<meta property="og:description" content="应用&amp;amp;服务目录
-Qsync：/etc/init.d/qsyncman.sh 
-BTsync：/share/CACHEDEV1_DATA/.qpkg/BitTorrentSync/btsync.sh 
-迅雷：/share/CACHEDEV1_DATA/.qpkg/XunLeiYuanChengQnap/XunLeiYuanChengQnap.sh 
-DLNA: /etc/init.d/two">
-<meta property="og:updated_time" content="2015-12-23T16:20:09.000Z">
+<meta property="og:description" content="使用源代码让App跑起来进入界面的方法，但觉得其实StoryBoard比较好用
+界面初始化入口AppDelegate.swiftfunc application() 中添加：self.window = UIWindow(frame: UIScreen.mainScreen().bounds)self.window！.rootViewController = ViewController()获得了A">
+<meta property="og:updated_time" content="2016-01-17T17:48:23.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Qnap NAS笔记">
-<meta name="twitter:description" content="应用&amp;amp;服务目录
-Qsync：/etc/init.d/qsyncman.sh 
-BTsync：/share/CACHEDEV1_DATA/.qpkg/BitTorrentSync/btsync.sh 
-迅雷：/share/CACHEDEV1_DATA/.qpkg/XunLeiYuanChengQnap/XunLeiYuanChengQnap.sh 
-DLNA: /etc/init.d/two">
+<meta name="twitter:title" content="第一个带UI的程序(New Project, Code mode only)">
+<meta name="twitter:description" content="使用源代码让App跑起来进入界面的方法，但觉得其实StoryBoard比较好用
+界面初始化入口AppDelegate.swiftfunc application() 中添加：self.window = UIWindow(frame: UIScreen.mainScreen().bounds)self.window！.rootViewController = ViewController()获得了A">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -76,7 +67,7 @@ DLNA: /etc/init.d/two">
   };
 </script>
 
-  <title> Qnap NAS笔记 | iOS开发和七七八八 </title>
+  <title> 第一个带UI的程序(New Project, Code mode only) | iOS开发和七七八八 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -234,7 +225,7 @@ DLNA: /etc/init.d/two">
           
           
             
-              Qnap NAS笔记
+              第一个带UI的程序(New Project, Code mode only)
             
           
         </h1>
@@ -243,8 +234,8 @@ DLNA: /etc/init.d/two">
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-06-02T17:49:16+08:00" content="2015-06-02">
-            2015-06-02
+          <time itemprop="dateCreated" datetime="2015-09-03T17:18:08+08:00" content="2015-09-03">
+            2015-09-03
           </time>
         </span>
 
@@ -253,8 +244,8 @@ DLNA: /etc/init.d/two">
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
+                <a href="/categories/Cocoa/" itemprop="url" rel="index">
+                  <span itemprop="name">Cocoa</span>
                 </a>
               </span>
 
@@ -269,8 +260,8 @@ DLNA: /etc/init.d/two">
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/06/02/Qnap NAS Tips/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/02/Qnap NAS Tips/" itemprop="commentsCount"></span>
+              <a href="/2015/09/03/NewProjectByCode/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/03/NewProjectByCode/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -284,20 +275,19 @@ DLNA: /etc/init.d/two">
       
 
       
-        <span itemprop="articleBody"><h2 id="应用&amp;服务目录">应用&amp;服务目录</h2><ul>
-<li>Qsync：/etc/init.d/qsyncman.sh </li>
-<li>BTsync：/share/CACHEDEV1_DATA/.qpkg/BitTorrentSync/btsync.sh </li>
-<li>迅雷：/share/CACHEDEV1_DATA/.qpkg/XunLeiYuanChengQnap/XunLeiYuanChengQnap.sh </li>
-<li>DLNA: /etc/init.d/twonkymedia.sh </li>
+        <span itemprop="articleBody"><p>使用源代码让App跑起来进入界面的方法，但觉得其实StoryBoard比较好用</p>
+<h2 id="界面初始化入口">界面初始化入口</h2><p><strong>AppDelegate.swift</strong><br>func <em>application()</em> 中添加：<br>self.window = UIWindow(frame: UIScreen.mainScreen().bounds)<br>self.window！.rootViewController = ViewController()<br>获得了Application的主窗口和根视图</p>
+<h2 id="视图控制初始化入口">视图控制初始化入口</h2><p><strong>ViewContorller.swift</strong></p>
+<ul>
+<li>若已链接rootViewController，则可以着手在_func viewDidLoad()_插入初始代码，绘图等</li>
+<li>通过_self.view_获取根视图对象</li>
 </ul>
-<h2 id="定时任务">定时任务</h2><ul>
-<li>启动脚本：/etc/config/crond.sh </li>
-<li>定义的定时任务列表：/etc/config/crontab<br>其中一个/etc/init.d/nss2_dusg.sh，根据<a href="http://forum.qnapclub.de/viewtopic.php?f=25&amp;t=21834，用于DVR(视频监控)，可注释" target="_blank" rel="external">http://forum.qnapclub.de/viewtopic.php?f=25&amp;t=21834，用于DVR(视频监控)，可注释</a><a id="more"></a></li>
-<li>修改后应用更改：/etc/init.d/crond.sh restar</li>
+<h2 id="多余？">多余？</h2><ul>
+<li>UIScreen 代表一块物理屏幕；</li>
+<li>UIWindow 代表一个窗口，在iPhone上每个app一般只有一个窗口，而在Mac上一个app经常有多个窗口；</li>
+<li>UIView 代表窗口里某一块矩形显示区域，用来展示用户界面和响应用户操作；</li>
+<li>UILabel和UIButton，继承自UIView的特定UI控件，实现了特定的样式和行为</li>
 </ul>
-<h2 id="硬盘读写进程检测">硬盘读写进程检测</h2><p> ftp://csdread:csdread@ftp.qnap.com/NAS/spindown/blkdevMonitor.sh </p>
-<h2 id="硬盘分区">硬盘分区</h2><p>/dev/sda, sda3-LVM+ext4，主要数据区 </p>
-<h2 id="启动流程">启动流程</h2><p>服务启动（软链接）：关键进程/etc/rcK.d/，应用服务/etc/rcS.d/ </p>
 </span>
       
     </div>
@@ -306,7 +296,7 @@ DLNA: /etc/init.d/two">
       
         <div class="post-tags">
           
-            <a href="/tags/NAS/" rel="tag">#NAS</a>
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
           
         </div>
       
@@ -315,11 +305,13 @@ DLNA: /etc/init.d/two">
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/09/02/MustGet/" rel="prev">iOS开发必知必会（自己总结的）</a>
+              <a href="/2015/09/03/StructPic/" rel="prev">Cocoa库的架构</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/09/03/CommFunctions/" rel="next">Swift常用全局通用函数（Swift1.2 Only）</a>
             
           </div>
         </div>
@@ -334,10 +326,10 @@ DLNA: /etc/init.d/two">
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/06/02/Qnap NAS Tips/"
-     data-title="Qnap NAS笔记"
+        <div class="ds-share flat" data-thread-key="2015/09/03/NewProjectByCode/"
+     data-title="第一个带UI的程序(New Project, Code mode only)"
      data-content=""
-     data-url="http://conanwhf.gitcafe.io/2015/06/02/Qnap NAS Tips/">
+     data-url="http://conanwhf.gitcafe.io/2015/09/03/NewProjectByCode/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -367,8 +359,8 @@ DLNA: /etc/init.d/two">
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/06/02/Qnap NAS Tips/"
-                   data-title="Qnap NAS笔记" data-url="http://conanwhf.gitcafe.io/2015/06/02/Qnap NAS Tips/">
+              <div class="ds-thread" data-thread-key="2015/09/03/NewProjectByCode/"
+                   data-title="第一个带UI的程序(New Project, Code mode only)" data-url="http://conanwhf.gitcafe.io/2015/09/03/NewProjectByCode/">
               </div>
             
           </div>
@@ -506,7 +498,7 @@ DLNA: /etc/init.d/two">
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#应用&服务目录"><span class="nav-number">1.</span> <span class="nav-text">应用&服务目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定时任务"><span class="nav-number">2.</span> <span class="nav-text">定时任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#硬盘读写进程检测"><span class="nav-number">3.</span> <span class="nav-text">硬盘读写进程检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#硬盘分区"><span class="nav-number">4.</span> <span class="nav-text">硬盘分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动流程"><span class="nav-number">5.</span> <span class="nav-text">启动流程</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#界面初始化入口"><span class="nav-number">1.</span> <span class="nav-text">界面初始化入口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视图控制初始化入口"><span class="nav-number">2.</span> <span class="nav-text">视图控制初始化入口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多余？"><span class="nav-number">3.</span> <span class="nav-text">多余？</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
