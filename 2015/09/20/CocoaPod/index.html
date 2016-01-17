@@ -281,28 +281,7 @@ Way 1: shell pod search XXX，拿到List, 每个库列出了名字、源码、�
         <span itemprop="articleBody"><h2 id="Install_&amp;_update">Install &amp; update</h2><p>sudo gem install cocoapods<br> 顺便安装文档工具，则cocoapod会自动把文档整合进Xcode<br>brew install appledoc</p>
 <h2 id="search_lib">search lib</h2><ul>
 <li>Way 1: shell pod search XXX，拿到List, 每个库列出了名字、源码、版本等信息，其中有一行_ pod ‘XXX’, ‘~> 0.2.0’_，即为此库的标准PodInfo</li>
-<li>Way 2: 官网<a href="https://cocoapods.org" target="_blank" rel="external">https://cocoapods.org</a>查找，界面上有按钮把Info Copy to clipborad<a id="more"></a><span class='source'><blockquote><p>你看到的为非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/09/20/CocoaPod/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/09/20/CocoaPod/'>CocoaPod</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-
+<li>Way 2: 官网<a href="https://cocoapods.org" target="_blank" rel="external">https://cocoapods.org</a>查找，界面上有按钮把Info Copy to clipborad<a id="more"></a><!-- indicate-the-source -->
 </li>
 </ul>
 <h2 id="Integrate_to_a_project">Integrate to a project</h2><p>在新建一个Project，未作任何修改时做整合</p>
