@@ -273,21 +273,21 @@
 
       
         <span itemprop="articleBody"><p>假如你有一个自定义类的列表，想要对它排序，怎么办？在新闻APP中，我的新闻列表就是一个自定义class的数组，用户一会儿要最新、一会儿要更多旧数据的可能性，使得它需要按时间有序。我是懒人，自己一个个拿key比较写起来觉得好麻烦，Swift这么高级的语言，应该有别的更好的办法才对！又祭出官方文档找灵感，然后看到了：<strong>Comparable</strong>。<br>Comparable是一个协议，遵守这个协议的所有类型，都可以直接比大小。而对于自定义的类型，遵守它就行了：</p>
-<pre><code><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> : <span class="title">Comparable</span> </span>{
-    <span class="keyword">var</span> key : <span class="type">Int</span> = <span class="number">0</span>
+<pre><code>class MyClass : Comparable {
+    var key : Int = 0
 }
-<span class="comment">//在Class定义之外实现</span>
-<span class="func"><span class="keyword">func</span> <span class="generics">&lt; (left: MyClass, right: MyClass) -&gt;</span> <span class="title">Bool</span> </span>{
-    <span class="keyword">return</span> <span class="keyword">left</span>.key &lt; <span class="keyword">right</span>.key
+//在Class定义之外实现
+func &lt; (left: MyClass, right: MyClass) -&gt; Bool {
+    return left.key &lt; right.key
 }
-<span class="func"><span class="keyword">func</span> == <span class="params">(<span class="keyword">left</span>: MyClass, <span class="keyword">right</span>: MyClass)</span></span> -&gt; <span class="type">Bool</span>{
-    <span class="keyword">return</span> <span class="keyword">left</span>.key == <span class="keyword">right</span>.key
+func == (left: MyClass, right: MyClass) -&gt; Bool{
+    return left.key == right.key
 }   
 </code></pre><p>我们只要实现<strong>\&lt;</strong>和<strong>== </strong>两个函数，编译器会自动帮我们判断>和!=的情况。于是，现在这样的排序或者比较都是合法的了：超easy!😄</p>
-<pre><code><span class="tag">var</span> <span class="tag">a</span> : MyClass = []
-<span class="comment">//TODO：a填了一些数据之后……</span>
-<span class="tag">a</span>.<span class="function"><span class="title">sort</span><span class="params">()</span></span>
-<span class="tag">a</span>[<span class="number">1</span>] &gt; <span class="tag">a</span>[<span class="number">0</span>]
+<pre><code>var a : MyClass = []
+//TODO：a填了一些数据之后……
+a.sort()
+a[1] &gt; a[0]
 </code></pre></span>
       
     </div>

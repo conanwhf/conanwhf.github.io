@@ -376,7 +376,7 @@
 <li>Media类，多媒体播放</li>
 </ul>
 <p>要完成交互必须有Controller，且控件要和Controller连接起来。一个Controller 并不只是“某个界面”的概念，可以作为一个容器包括好几个分层的View；大部分控件也可以当作容器放置别的控件，他们之间的关系可以通过StroyBoard里面的大纲视图看清楚</p>
-<h2 id="官方的分类￼">官方的分类￼</h2><ol>
+<h2 id="u5B98_u65B9_u7684_u5206_u7C7B_uFFFC"><a href="#u5B98_u65B9_u7684_u5206_u7C7B_uFFFC" class="headerlink" title="官方的分类￼"></a>官方的分类￼</h2><ol>
 <li><strong>内容</strong>：显示特定类型的内容，例如图像或文本。<br> 图像视图，标签
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/09/04/WidgetsList/#more" rel="contents">
@@ -466,7 +466,7 @@
       
         
           <p>在StoryBoard中的控件除了使用工具箱不会自动生成可见源码，而源码中Add的控件也不会自动显示在StoryBoard。所以如果有些function实现需要用Code，又想用StroyBoard调整界面，就需要绑定<br>代码和控件绑定后，可以自由修改和编程控件的属性动作。<strong>如果代码中的配置和StoryBoard不一致，则通常会看到代码中的效果</strong>，因为运行时间比较靠后</p>
-<h2 id="自己定义了新的控件继承类">自己定义了新的控件继承类</h2><p>通常用于UIViewController等上层控件</p>
+<h2 id="u81EA_u5DF1_u5B9A_u4E49_u4E86_u65B0_u7684_u63A7_u4EF6_u7EE7_u627F_u7C7B"><a href="#u81EA_u5DF1_u5B9A_u4E49_u4E86_u65B0_u7684_u63A7_u4EF6_u7EE7_u627F_u7C7B" class="headerlink" title="自己定义了新的控件继承类"></a>自己定义了新的控件继承类</h2><p>通常用于UIViewController等上层控件</p>
 <ol>
 <li>自己定义个继承自标准的子类（跟控件类型一样），改好名字</li>
 <li>在StoryBoard中选中控件
@@ -642,13 +642,13 @@
       
         
           <span itemprop="articleBody"><p>使用源代码让App跑起来进入界面的方法，但觉得其实StoryBoard比较好用</p>
-<h2 id="界面初始化入口">界面初始化入口</h2><p><strong>AppDelegate.swift</strong><br>func <em>application()</em> 中添加：<br>self.window = UIWindow(frame: UIScreen.mainScreen().bounds)<br>self.window！.rootViewController = ViewController()<br>获得了Application的主窗口和根视图</p>
-<h2 id="视图控制初始化入口">视图控制初始化入口</h2><p><strong>ViewContorller.swift</strong></p>
+<h2 id="u754C_u9762_u521D_u59CB_u5316_u5165_u53E3"><a href="#u754C_u9762_u521D_u59CB_u5316_u5165_u53E3" class="headerlink" title="界面初始化入口"></a>界面初始化入口</h2><p><strong>AppDelegate.swift</strong><br>func <em>application()</em> 中添加：<br>self.window = UIWindow(frame: UIScreen.mainScreen().bounds)<br>self.window！.rootViewController = ViewController()<br>获得了Application的主窗口和根视图</p>
+<h2 id="u89C6_u56FE_u63A7_u5236_u521D_u59CB_u5316_u5165_u53E3"><a href="#u89C6_u56FE_u63A7_u5236_u521D_u59CB_u5316_u5165_u53E3" class="headerlink" title="视图控制初始化入口"></a>视图控制初始化入口</h2><p><strong>ViewContorller.swift</strong></p>
 <ul>
 <li>若已链接rootViewController，则可以着手在_func viewDidLoad()_插入初始代码，绘图等</li>
 <li>通过_self.view_获取根视图对象</li>
 </ul>
-<h2 id="多余？">多余？</h2><ul>
+<h2 id="u591A_u4F59_uFF1F"><a href="#u591A_u4F59_uFF1F" class="headerlink" title="多余？"></a>多余？</h2><ul>
 <li>UIScreen 代表一块物理屏幕；</li>
 <li>UIWindow 代表一个窗口，在iPhone上每个app一般只有一个窗口，而在Mac上一个app经常有多个窗口；</li>
 <li>UIView 代表窗口里某一块矩形显示区域，用来展示用户界面和响应用户操作；</li>
@@ -738,7 +738,7 @@
       
         
           <p>//<strong>绝对值</strong><br><code>abs(intValue)</code><br>//<strong>移动</strong><br><code>advance(intValue, 30)</code><br>//<strong>生成随机数</strong><br><code>Int(arc4random()%100)</code><br>//<strong>计算距离</strong><br><code>distance(9, 11)</code><br>//<strong>长度计算</strong><br><code>alignof(Float); alignof(Int)</code><br><code>alignofValue(str);alignofValue(constArr)</code><br>//<strong>包含</strong><br><code>contains(constArr, 2)</code><br><code>contains(str, &quot;C&quot;)</code><br>//统计<strong>元素个数</strong><br><code>count(20...39); count(constArr)</code><br>//<strong>最大最小值</strong><br><code>max(1, 2, 4, 8, 19, 200)</code><br><code>min(0.3, 0.5, 0.111, 9.8)</code><br>//<strong>转换成字符串</strong><br><code>toString(constArr); toString(doubleValue)</code></p>
-<h2 id="<!-more-><!-_indicate-the-source_->">
+<h2 id="3C_21-more-_3E_3C_21-_indicate-the-source_-_3E"><a href="#3C_21-more-_3E_3C_21-_indicate-the-source_-_3E" class="headerlink" title="
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/09/03/CommFunctions/#more" rel="contents">
               阅读全文 &raquo;
@@ -926,13 +926,13 @@
 
       
         
-          <h2 id="应用&amp;服务目录">应用&amp;服务目录</h2><ul>
+          <h2 id="u5E94_u7528_26amp_3B_u670D_u52A1_u76EE_u5F55"><a href="#u5E94_u7528_26amp_3B_u670D_u52A1_u76EE_u5F55" class="headerlink" title="应用&amp;服务目录"></a>应用&amp;服务目录</h2><ul>
 <li>Qsync：/etc/init.d/qsyncman.sh </li>
 <li>BTsync：/share/CACHEDEV1_DATA/.qpkg/BitTorrentSync/btsync.sh </li>
 <li>迅雷：/share/CACHEDEV1_DATA/.qpkg/XunLeiYuanChengQnap/XunLeiYuanChengQnap.sh </li>
 <li>DLNA: /etc/init.d/twonkymedia.sh </li>
 </ul>
-<h2 id="定时任务">定时任务</h2><ul>
+<h2 id="u5B9A_u65F6_u4EFB_u52A1"><a href="#u5B9A_u65F6_u4EFB_u52A1" class="headerlink" title="定时任务"></a>定时任务</h2><ul>
 <li>启动脚本：/etc/config/crond.sh </li>
 <li>定义的定时任务列表：/etc/config/crontab<br>其中一个/etc/init.d/nss2_dusg.sh，根据<a href="http://forum.qnapclub.de/viewtopic.php?f=25&amp;t=21834，用于DVR(视频监控)，可注释">http://forum.qnapclub.de/viewtopic.php?f=25&amp;t=21834，用于DVR(视频监控)，可注释</a>
           <div class="post-more-link text-center">

@@ -283,9 +283,9 @@ prepareForSegue() -&amp;gt; ne">
 <p>prepareForSegue() -> next.viewDidLoad() -> didSelectRowAtIndexPath()</p>
 </blockquote>
 <p>也就是说当Cell的点击发生，会先调用StroyBaord中设置的Segue，新的View初始化完成后再回调didSelectRowAtIndexPath，导致我在viewDidLoad()中拿不到想要的数据。<br>在网上搜了一下，有人也遇到了同样的问题，他的解决方法是：<br>1) 将 ->NextView的Segue改为 ->NextViewController(NextView的代理)<br>2) 在StoryBoard中配置此Segue的ID为<strong>“ABC”</strong><br>3) 在didSelectRowAtIndexPath()准备好数据之后手动调用转场：</p>
-<pre><code><span class="comment">//跳转到下一个页面，识别“ABC”</span>
-self.<span class="function"><span class="title">performSegueWithIdentifier</span><span class="params">(“ABC”, sender: self)</span></span>
-</code></pre><p>实测这个方法是有效的，不过我总感觉不够漂亮……于是打开Dash把所有tableView()的相关Callback都过了一遍，挑出几个加打印实测，<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/23/newsreader-5/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/23/newsreader-5/'>从打造新闻app学到的(5)：解决TableCell调用segue的时序问题</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<pre><code>//跳转到下一个页面，识别“ABC”
+self.performSegueWithIdentifier(“ABC”, sender: self)
+</code></pre><p>实测这个方法是有效的，不过我总感觉不够漂亮……于是打开Dash把所有tableView()的相关Callback都过了一遍，挑出几个加打印实测，<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/23/newsreader-5/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/23/newsreader-5/'>从打造新闻app学到的(5)：解决TableCell调用segue的时序问题</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -299,7 +299,7 @@ self.<span class="function"><span class="title">performSegueWithIdentifier</span
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -307,10 +307,10 @@ self.<span class="function"><span class="title">performSegueWithIdentifier</span
 })()
 </script>
 找到了这个：<strong>willSelectRowAtIndexPath</strong><br>看起来这是一个专门给人做点特殊需求的API，如果我们将其返回nil而不是当前的Index：</p>
-<pre><code><span class="func"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView,  willSelectRowAtIndexPath indexPath: NSIndexPath)</span></span> -&gt; <span class="type">NSIndexPath</span>?    {
-<span class="comment">//TODO anything you want</span>
-<span class="keyword">return</span> <span class="literal">nil</span>
-<span class="comment">//return indexPath</span>
+<pre><code>func tableView(tableView: UITableView,  willSelectRowAtIndexPath indexPath: NSIndexPath) -&gt; NSIndexPath?    {
+//TODO anything you want
+return nil
+//return indexPath
 }
 </code></pre><p>那么无论你怎么点击，Cell都不会再响应任何selected事件了……😈虽然没有做更多的尝试，但我猜如果这时候返回一个修改过的indexPath也是可以做到的，比如怎么点都是同一个结果之类……😏<br>说回正事。现在我们可以把数据的获得放到willSelectRowAtIndexPath()中了，流程变成了：</p>
 <blockquote>

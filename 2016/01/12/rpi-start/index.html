@@ -273,7 +273,7 @@
 
       
         <span itemprop="articleBody"><p>关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a></p>
-<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/12/rpi-start/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/12/rpi-start/'>树莓派初始配置指南（2代B型）</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/12/rpi-start/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/12/rpi-start/'>树莓派初始配置指南（2代B型）</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -287,7 +287,7 @@
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -295,50 +295,50 @@
 })()
 </script>
 
-<h2 id="制作启动img">制作启动img</h2><ol>
+<h2 id="u5236_u4F5C_u542F_u52A8img"><a href="#u5236_u4F5C_u542F_u52A8img" class="headerlink" title="制作启动img"></a>制作启动img</h2><ol>
 <li>从官网下载最新的image，解包，TF卡插入电脑</li>
 <li>用mount查看，将TF卡umount</li>
 <li><p>randisk<strong>X</strong>是要自己根据情况修改的</p>
-<pre><code>sudo dd bs=<span class="number">1</span>m <span class="keyword">if</span>=<span class="number">2015</span>-<span class="number">11</span>-<span class="number">21</span>-raspbian-jessie.img of=/dev/rdisk2
+<pre><code>sudo dd bs=1m if=2015-11-21-raspbian-jessie.img of=/dev/rdisk2
 diskutil umount /Volumes/boot
 </code></pre></li>
 <li>拔卡，插入树莓派，上电，这时候系统应该跑起来了。最新的系统是默认打开SSH的，所以如果你插了网线、知道IP的话，已经可以直接SSH上去。初始用户pi,密码raspberry</li>
 <li><strong>下面的命令都是在树莓派上跑的，请不要随便在自己主电脑上sudo!!!</strong></li>
 </ol>
-<h2 id="更新到最新版本">更新到最新版本</h2><p>要花点时间，放到后面做也可以。<strong>另外我看到有人说国内连官方源太慢，我不在国内测不到，如果需要请自己搜索添加合适的源</strong></p>
-<pre><code>sudo apt-get -y <span class="operator"><span class="keyword">update</span>
-sudo apt-<span class="keyword">get</span> -y <span class="keyword">upgrade</span>
-sudo apt-<span class="keyword">get</span> -y dist-<span class="keyword">upgrade</span>
-sudo rpi-<span class="keyword">update</span></span>
-</code></pre><h2 id="修改vi">修改vi</h2><p>Debian的默认vi太难用！改之。我的Github里还放了我的vi配置文件，随意取用</p>
-<pre><code>sudo apt-<span class="built_in">get</span> -<span class="keyword">y</span> <span class="built_in">remove</span> <span class="keyword">vim</span>-common
-sudo apt-<span class="built_in">get</span> -<span class="keyword">y</span> install <span class="keyword">vim</span>
-</code></pre><h2 id="中文支持">中文支持</h2><p>字库和输入法，平时都用SSH的人其实用不到</p>
-<pre><code>sudo apt-get -y <span class="operator"><span class="keyword">install</span> ttf-wqy-zenhei ttf-wqy-microhei
-sudo apt-<span class="keyword">get</span> -y <span class="keyword">install</span> fcitx fcitx-googlepinyin fcitx-<span class="keyword">module</span>-cloudpinyin fcitx-sunpinyin</span>
-</code></pre><h2 id="官方自带的menuconfig">官方自带的menuconfig</h2><p>跑(sudo raspi-config)，这个命令行跑起来的界面和GUI上打开的不一样，不过内容差不多，建议修改以下几个</p>
+<h2 id="u66F4_u65B0_u5230_u6700_u65B0_u7248_u672C"><a href="#u66F4_u65B0_u5230_u6700_u65B0_u7248_u672C" class="headerlink" title="更新到最新版本"></a>更新到最新版本</h2><p>要花点时间，放到后面做也可以。<strong>另外我看到有人说国内连官方源太慢，我不在国内测不到，如果需要请自己搜索添加合适的源</strong></p>
+<pre><code>sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get -y dist-upgrade
+sudo rpi-update
+</code></pre><h2 id="u4FEE_u6539vi"><a href="#u4FEE_u6539vi" class="headerlink" title="修改vi"></a>修改vi</h2><p>Debian的默认vi太难用！改之。我的Github里还放了我的vi配置文件，随意取用</p>
+<pre><code>sudo apt-get -y remove vim-common
+sudo apt-get -y install vim
+</code></pre><h2 id="u4E2D_u6587_u652F_u6301"><a href="#u4E2D_u6587_u652F_u6301" class="headerlink" title="中文支持"></a>中文支持</h2><p>字库和输入法，平时都用SSH的人其实用不到</p>
+<pre><code>sudo apt-get -y install ttf-wqy-zenhei ttf-wqy-microhei
+sudo apt-get -y install fcitx fcitx-googlepinyin fcitx-module-cloudpinyin fcitx-sunpinyin
+</code></pre><h2 id="u5B98_u65B9_u81EA_u5E26_u7684menuconfig"><a href="#u5B98_u65B9_u81EA_u5E26_u7684menuconfig" class="headerlink" title="官方自带的menuconfig"></a>官方自带的menuconfig</h2><p>跑(sudo raspi-config)，这个命令行跑起来的界面和GUI上打开的不一样，不过内容差不多，建议修改以下几个</p>
 <ul>
 <li>用户pi密码，hostname</li>
 <li>开启ssh,spi,i2c</li>
 <li>修改时区</li>
 <li>扩展卡上分区<br>然后就可以reboot了</li>
 </ul>
-<h2 id="VNC支持">VNC支持</h2><h3 id="安装服务器端tightVNC">安装服务器端tightVNC</h3><pre><code>sudo apt-<span class="keyword">get</span> -y install tightvncserver
-sudo apt-<span class="keyword">get</span> -y install xfonts-<span class="keyword">base</span>
-</code></pre><h3 id="配置">配置</h3><ol>
+<h2 id="VNC_u652F_u6301"><a href="#VNC_u652F_u6301" class="headerlink" title="VNC支持"></a>VNC支持</h2><h3 id="u5B89_u88C5_u670D_u52A1_u5668_u7AEFtightVNC"><a href="#u5B89_u88C5_u670D_u52A1_u5668_u7AEFtightVNC" class="headerlink" title="安装服务器端tightVNC"></a>安装服务器端tightVNC</h3><pre><code>sudo apt-get -y install tightvncserver
+sudo apt-get -y install xfonts-base
+</code></pre><h3 id="u914D_u7F6E"><a href="#u914D_u7F6E" class="headerlink" title="配置"></a>配置</h3><ol>
 <li>配置连接密码：<code>vncpasswd</code></li>
 <li><p>添加开机启动：</p>
 <ul>
 <li>创建/etc/init.d/tightvncserver，内容见<a href="https://github.com/conanwhf/RaspberryPi-script/blob/master/setup/tightvncserver" target="_blank" rel="external">这里</a></li>
 <li><p>更新改变：</p>
 <pre><code>sudo chmod +x /etc/init.d/tightvncserver
-sudo <span class="operator"><span class="keyword">update</span>-rc.<span class="keyword">d</span> tightvncserver <span class="keyword">defaults</span></span>
+sudo update-rc.d tightvncserver defaults
 </code></pre></li>
 </ul>
 </li>
 </ol>
-<h2 id="客户端连接">客户端连接</h2><p>在我的Mac上，Finder里面⌘+k，填<code>vnc://&lt;rpi IP&gt;:5901</code>即可。人家都说可以用<code>vnc://IP:1</code>这样的方式，但我不行，不知道为啥</p>
-<h2 id="配置固定IP地址">配置固定IP地址</h2><ol>
+<h2 id="u5BA2_u6237_u7AEF_u8FDE_u63A5"><a href="#u5BA2_u6237_u7AEF_u8FDE_u63A5" class="headerlink" title="客户端连接"></a>客户端连接</h2><p>在我的Mac上，Finder里面⌘+k，填<code>vnc://&lt;rpi IP&gt;:5901</code>即可。人家都说可以用<code>vnc://IP:1</code>这样的方式，但我不行，不知道为啥</p>
+<h2 id="u914D_u7F6E_u56FA_u5B9AIP_u5730_u5740"><a href="#u914D_u7F6E_u56FA_u5B9AIP_u5730_u5740" class="headerlink" title="配置固定IP地址"></a>配置固定IP地址</h2><ol>
 <li>修改<strong>/etc/network/interfaces</strong>，当然下面的IP要换成你自己的</li>
 </ol>
 <p><em>iface eth0 inet manual</em> –>  </p>
@@ -347,15 +347,15 @@ sudo <span class="operator"><span class="keyword">update</span>-rc.<span class="
 </blockquote>
 <ol>
 <li><p>重启服务</p>
-<pre><code><span class="title">sudo</span> systemctl daemon-reload
+<pre><code>sudo systemctl daemon-reload
 sudo service networking restart
 </code></pre></li>
 </ol>
-<h2 id="SSH特殊配置">SSH特殊配置</h2><p>主要是给SSH的中文支持用的</p>
-<pre><code><span class="built_in">echo</span> LC_ALL=en_US.UTF-<span class="number">8</span> | sudo tee <span class="operator">-a</span> /etc/environment
-<span class="built_in">echo</span> LANG=en_US.UTF-<span class="number">8</span> | sudo tee <span class="operator">-a</span> /etc/environment
-</code></pre><h2 id="加大USB供电">加大USB供电</h2><p>修改后可以使能USB的1.2A供电，不然插USB硬盘是不能用的</p>
-<pre><code><span class="built_in">echo</span> “max_usb_current=<span class="number">1</span>” | sudo tee <span class="operator">-a</span> /boot/config.txt
+<h2 id="SSH_u7279_u6B8A_u914D_u7F6E"><a href="#SSH_u7279_u6B8A_u914D_u7F6E" class="headerlink" title="SSH特殊配置"></a>SSH特殊配置</h2><p>主要是给SSH的中文支持用的</p>
+<pre><code>echo LC_ALL=en_US.UTF-8 | sudo tee -a /etc/environment
+echo LANG=en_US.UTF-8 | sudo tee -a /etc/environment
+</code></pre><h2 id="u52A0_u5927USB_u4F9B_u7535"><a href="#u52A0_u5927USB_u4F9B_u7535" class="headerlink" title="加大USB供电"></a>加大USB供电</h2><p>修改后可以使能USB的1.2A供电，不然插USB硬盘是不能用的</p>
+<pre><code>echo “max_usb_current=1” | sudo tee -a /boot/config.txt
 </code></pre></span>
       
     </div>
@@ -560,7 +560,7 @@ sudo service networking restart
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#制作启动img"><span class="nav-number">1.</span> <span class="nav-text">制作启动img</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新到最新版本"><span class="nav-number">2.</span> <span class="nav-text">更新到最新版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改vi"><span class="nav-number">3.</span> <span class="nav-text">修改vi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中文支持"><span class="nav-number">4.</span> <span class="nav-text">中文支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#官方自带的menuconfig"><span class="nav-number">5.</span> <span class="nav-text">官方自带的menuconfig</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VNC支持"><span class="nav-number">6.</span> <span class="nav-text">VNC支持</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装服务器端tightVNC"><span class="nav-number">6.1.</span> <span class="nav-text">安装服务器端tightVNC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">6.2.</span> <span class="nav-text">配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端连接"><span class="nav-number">7.</span> <span class="nav-text">客户端连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置固定IP地址"><span class="nav-number">8.</span> <span class="nav-text">配置固定IP地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH特殊配置"><span class="nav-number">9.</span> <span class="nav-text">SSH特殊配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加大USB供电"><span class="nav-number">10.</span> <span class="nav-text">加大USB供电</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u5236_u4F5C_u542F_u52A8img"><span class="nav-number">1.</span> <span class="nav-text">制作启动img</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u66F4_u65B0_u5230_u6700_u65B0_u7248_u672C"><span class="nav-number">2.</span> <span class="nav-text">更新到最新版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4FEE_u6539vi"><span class="nav-number">3.</span> <span class="nav-text">修改vi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4E2D_u6587_u652F_u6301"><span class="nav-number">4.</span> <span class="nav-text">中文支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5B98_u65B9_u81EA_u5E26_u7684menuconfig"><span class="nav-number">5.</span> <span class="nav-text">官方自带的menuconfig</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VNC_u652F_u6301"><span class="nav-number">6.</span> <span class="nav-text">VNC支持</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u5B89_u88C5_u670D_u52A1_u5668_u7AEFtightVNC"><span class="nav-number">6.1.</span> <span class="nav-text">安装服务器端tightVNC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u914D_u7F6E"><span class="nav-number">6.2.</span> <span class="nav-text">配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5BA2_u6237_u7AEF_u8FDE_u63A5"><span class="nav-number">7.</span> <span class="nav-text">客户端连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u914D_u7F6E_u56FA_u5B9AIP_u5730_u5740"><span class="nav-number">8.</span> <span class="nav-text">配置固定IP地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH_u7279_u6B8A_u914D_u7F6E"><span class="nav-number">9.</span> <span class="nav-text">SSH特殊配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u52A0_u5927USB_u4F9B_u7535"><span class="nav-number">10.</span> <span class="nav-text">加大USB供电</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

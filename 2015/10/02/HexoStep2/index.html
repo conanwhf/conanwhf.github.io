@@ -291,18 +291,18 @@
 
       
         <span itemprop="articleBody"><p>Hexo有很多插件和主题可以使用，功能实现丰富。所有插件list:<a href="https://github.com/hexojs/hexo/wiki/Plugins" target="_blank" rel="external">https://github.com/hexojs/hexo/wiki/Plugins</a></p>
-<h2 id="命令行提交">命令行提交</h2><p>官方教程：<a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">http://hexo.io/docs/deployment.html</a></p>
+<h2 id="u547D_u4EE4_u884C_u63D0_u4EA4"><a href="#u547D_u4EE4_u884C_u63D0_u4EA4" class="headerlink" title="命令行提交"></a>命令行提交</h2><p>官方教程：<a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">http://hexo.io/docs/deployment.html</a></p>
 <ol>
-<li>安装插件<pre><code>npm <span class="operator"><span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></span>
+<li>安装插件<pre><code>npm install hexo-deployer-git --save
 </code></pre></li>
-<li>修改_config.yml<pre><code><span class="attribute">deploy</span>:
- - <span class="attribute">type</span>: git
-  <span class="attribute">repo</span>: <span class="attribute">https</span>:<span class="comment">//github.com/username/username.github.io.git</span>
-  <span class="attribute">branch</span>: master
+<li>修改_config.yml<pre><code>deploy:
+ - type: git
+  repo: https://github.com/username/username.github.io.git
+  branch: master
 </code></pre>之后即可使用<code>hexo d</code>来提交</li>
 </ol>
-<h2 id="添加RSS">添加RSS</h2><ol>
-<li><p>GitHub Source code: <a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/10/02/HexoStep2/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/10/02/HexoStep2/'>Hexo进阶配置</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<h2 id="u6DFB_u52A0RSS"><a href="#u6DFB_u52A0RSS" class="headerlink" title="添加RSS"></a>添加RSS</h2><ol>
+<li><p>GitHub Source code: <a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/10/02/HexoStep2/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/10/02/HexoStep2/'>Hexo进阶配置</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -316,7 +316,7 @@
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -326,39 +326,39 @@
 <br><a href="https://github.com/hexojs/hexo-generator-feed" target="_blank" rel="external">https://github.com/hexojs/hexo-generator-feed</a></p>
 <p> npm install hexo-generator-feed –save</p>
 </li>
-<li>修改_config.yml，添加<pre><code><span class="attribute">feed</span>:
-  <span class="attribute">type</span>: atom
-  <span class="attribute">path</span>: atom.xml
-  <span class="attribute">limit</span>: <span class="number">20</span>
+<li>修改_config.yml，添加<pre><code>feed:
+  type: atom
+  path: atom.xml
+  limit: 20
 </code></pre>即可以使用/atom.xml作为RSS输出</li>
 </ol>
-<h2 id="使用模板">使用模板</h2><p>更换模板只有两步：下载模板，在配置中指定。官网有比较直观显示的一些模板：<a href="https://hexo.io/themes/" target="_blank" rel="external">https://hexo.io/themes/</a>，还有GitHub上有官方收集的所有模板的list:<a href="https://github.com/hexojs/hexo/wiki/Themes" target="_blank" rel="external">https://github.com/hexojs/hexo/wiki/Themes</a>。第二个大多数是有demo的，但要自己一个一个点开看</p>
+<h2 id="u4F7F_u7528_u6A21_u677F"><a href="#u4F7F_u7528_u6A21_u677F" class="headerlink" title="使用模板"></a>使用模板</h2><p>更换模板只有两步：下载模板，在配置中指定。官网有比较直观显示的一些模板：<a href="https://hexo.io/themes/" target="_blank" rel="external">https://hexo.io/themes/</a>，还有GitHub上有官方收集的所有模板的list:<a href="https://github.com/hexojs/hexo/wiki/Themes" target="_blank" rel="external">https://github.com/hexojs/hexo/wiki/Themes</a>。第二个大多数是有demo的，但要自己一个一个点开看</p>
 <ol>
-<li>先在GitHub中找到想要的模板，然后clone到本地（以hueman）为例:<pre><code>git clone <span class="symbol">https:</span>/<span class="regexp">/github.com/ppoffice</span><span class="regexp">/hexo-theme-hueman.git yourblog/themes</span><span class="regexp">/hueman</span>
+<li>先在GitHub中找到想要的模板，然后clone到本地（以hueman）为例:<pre><code>git clone https://github.com/ppoffice/hexo-theme-hueman.git yourblog/themes/hueman
 </code></pre></li>
-<li>配置<strong>_config.yml</strong>中的<strong>theme</strong>，默认是landscape<pre><code><span class="attribute">theme</span>: <span class="string">hueman</span>
+<li>配置<strong>_config.yml</strong>中的<strong>theme</strong>，默认是landscape<pre><code>theme: hueman
 </code></pre></li>
 <li>如果需要中文支持，先查看_yourblog/theme/hueman/languages_，看里面的中文配置文件名，一般是zh-CN或者zh-Hans，修改到config中：<code>language: zh-CN</code></li>
 <li>每个theme也有自己的配置文件，同样为_yourblog/theme/hueman/_config.yml_，具体内容可以查看各自主题的帮助（如果有的话）</li>
 <li>有时候换主题会导致_hexo g_失败，这时需要先_hexo clean_。但clean操作会删除所有生成的静态网页，即_yourblog/public/_，包括其中的Git信息。所以clean以后需要先clone一下再generate，或者事先备份.git文件夹</li>
 </ol>
-<h2 id="公益404">公益404</h2><p>手动生成404文件放在_yourblog/source/404.html_即可。参考腾讯家公益404页面<a href="http://www.qq.com/404/" target="_blank" rel="external">http://www.qq.com/404/</a>，生成静态网页内容如下：</p>
+<h2 id="u516C_u76CA404"><a href="#u516C_u76CA404" class="headerlink" title="公益404"></a>公益404</h2><p>手动生成404文件放在_yourblog/source/404.html_即可。参考腾讯家公益404页面<a href="http://www.qq.com/404/" target="_blank" rel="external">http://www.qq.com/404/</a>，生成静态网页内容如下：</p>
 <blockquote>
 <p>  \&lt;!DOCTYPE HTML><br>  <html><br>  <head><br>  <meta http-equiv="content-type" content="text/html;charset=utf-8;"><br>  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><br>  <meta name="robots" content="all"><br>  <meta name="robots" content="index,follow"><br>  </head><br>  <body><br>  <script type="text/javascript" src="http://www.qq.com/404/search_children.js" charset="utf-8" homepageurl="URL" homepagename="回到我的主页"></script><br>  </body><br>  </html><br>把最后的<strong>homePageUrl</strong>改成主页地址即可</p>
 </blockquote>
-<h2 id="同步提交到GitCafe">同步提交到GitCafe</h2><p>GitHub超慢，需要提高国内访问速度的话可以放一个镜像在gitcafe</p>
+<h2 id="u540C_u6B65_u63D0_u4EA4_u5230GitCafe"><a href="#u540C_u6B65_u63D0_u4EA4_u5230GitCafe" class="headerlink" title="同步提交到GitCafe"></a>同步提交到GitCafe</h2><p>GitHub超慢，需要提高国内访问速度的话可以放一个镜像在gitcafe</p>
 <ol>
 <li>Gitcafe pages init<br>之前步骤类似github，申请帐号并建立一个<strong>同名project</strong>（不是abc.io），注册ssh公钥。但gitcafe使用gitcafe-pages分支:<br> git clone <a href="https://gitcafe.com/username/username" target="_blank" rel="external">https://gitcafe.com/username/username</a> temp<br> cd temp<br> git checkout -b gitcafe-pages<br> git push origin gitcafe-pages<br> cd ../; rm -rf temp</li>
-<li>在_config.yml中的deploy部分添加<pre><code>- <span class="class"><span class="keyword">type</span>: <span class="title">git</span></span>
-  repo: https:<span class="comment">//gitcafe.com/username/username.git</span>
+<li>在_config.yml中的deploy部分添加<pre><code>- type: git
+  repo: https://gitcafe.com/username/username.git
   branch: gitcafe-pages
 </code></pre></li>
 </ol>
-<h2 id="关于Next主题">关于Next主题</h2><ul>
+<h2 id="u5173_u4E8ENext_u4E3B_u9898"><a href="#u5173_u4E8ENext_u4E3B_u9898" class="headerlink" title="关于Next主题"></a>关于Next主题</h2><ul>
 <li>Next是个很好用的主题（主要是不需要自己折腾），也好看。官方地址：<a href="http://theme-next.iissnan.com" target="_blank" rel="external">http://theme-next.iissnan.com</a></li>
 <li>另外有个讲解比较详细的Blog：<a href="http://blog.lmintlcx.com/post/blog-with-hexo.html" target="_blank" rel="external">http://blog.lmintlcx.com/post/blog-with-hexo.html</a></li>
 </ul>
-<h2 id="常用插件">常用插件</h2><ol>
+<h2 id="u5E38_u7528_u63D2_u4EF6"><a href="#u5E38_u7528_u63D2_u4EF6" class="headerlink" title="常用插件"></a>常用插件</h2><ol>
 <li>npm install hexo-generator-category –save</li>
 <li>npm install hexo-generator-tag –save</li>
 <li>npm install hexo-renderer-marked —-save</li>
@@ -575,7 +575,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#命令行提交"><span class="nav-number">1.</span> <span class="nav-text">命令行提交</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加RSS"><span class="nav-number">2.</span> <span class="nav-text">添加RSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用模板"><span class="nav-number">3.</span> <span class="nav-text">使用模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#公益404"><span class="nav-number">4.</span> <span class="nav-text">公益404</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步提交到GitCafe"><span class="nav-number">5.</span> <span class="nav-text">同步提交到GitCafe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于Next主题"><span class="nav-number">6.</span> <span class="nav-text">关于Next主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用插件"><span class="nav-number">7.</span> <span class="nav-text">常用插件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u547D_u4EE4_u884C_u63D0_u4EA4"><span class="nav-number">1.</span> <span class="nav-text">命令行提交</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u6DFB_u52A0RSS"><span class="nav-number">2.</span> <span class="nav-text">添加RSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4F7F_u7528_u6A21_u677F"><span class="nav-number">3.</span> <span class="nav-text">使用模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u516C_u76CA404"><span class="nav-number">4.</span> <span class="nav-text">公益404</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u540C_u6B65_u63D0_u4EA4_u5230GitCafe"><span class="nav-number">5.</span> <span class="nav-text">同步提交到GitCafe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5173_u4E8ENext_u4E3B_u9898"><span class="nav-number">6.</span> <span class="nav-text">关于Next主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5E38_u7528_u63D2_u4EF6"><span class="nav-number">7.</span> <span class="nav-text">常用插件</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

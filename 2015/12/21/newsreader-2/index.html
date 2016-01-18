@@ -276,22 +276,22 @@ class">
 
       
         <span itemprop="articleBody"><p>在定义各种接口的过程中，我碰到了这样一个问题：我希望定义一个只读的属性，却找不到合适的前缀（原谅我是Class白痴）。翻了一遍Class的相关文档，找到了个曲线救国的办法：计算属性。<br>所谓的计算属性，就是自己定义一个属性的名字和get/set方法，外人看不见get/set的实现，只能看作是一个普通属性来使用。而如果只实现了get部分，这个属性对外而言就是只读的了。<br>我的数据结构大致这样：</p>
-<pre><code><span class="class"><span class="keyword">class</span> <span class="title">myclass</span> {</span>
-    <span class="keyword">private</span> var data =  ( <span class="string">api :</span> typeX, <span class="string">list:</span>  typeY,  <span class="string">post:</span> typeZ,  <span class="string">channel:</span> typeA) (xxx, <span class="string">list:</span> yyy, <span class="string">post:</span> zzz, .news)
+<pre><code>class myclass {
+    private var data =  ( api : typeX, list:  typeY,  post: typeZ,  channel: typeA) (xxx, list: yyy, post: zzz, .news)
 }
 </code></pre><p>我想要把这一组相关数据打包成元组使用，又只想把其中某些暴露出来，并且部分是只读，那么就将其设成private并且在类中实现：</p>
-<pre><code><span class="built_in">var</span> <span class="built_in">list</span> : typeY {<span class="comment">//只有get，实现只读封装</span>
+<pre><code>var list : typeY {//只有get，实现只读封装
     get {
-        <span class="keyword">return</span> <span class="built_in">data</span><span class="built_in">.</span><span class="built_in">list</span>
+        return data.list
     }
 }
 
-<span class="built_in">var</span> ch : typeA {
+var ch : typeA {
     get {
-        <span class="keyword">return</span> <span class="built_in">data</span><span class="built_in">.</span>channel
+        return data.channel
     }
-    <span class="built_in">set</span> (channel) {<span class="comment">//这次可读写了</span>
-        <span class="built_in">data</span><span class="built_in">.</span>channel = channel
+    set (channel) {//这次可读写了
+        data.channel = channel
     }
 }
 </code></pre><p>现在，外部可以用myclass.list来获取list，或者用myclass.ch来改变channel了</p>

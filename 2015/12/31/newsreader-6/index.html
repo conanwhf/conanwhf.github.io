@@ -273,14 +273,14 @@
 
       
         <span itemprop="articleBody"><p>虽然我的新闻客户端app进展告一段落，暂停两个礼拜，但之前积攒下来的东西还没有写完，继续总结码字。<br>我从API拿到的数据，具体的新闻信息，使用的是HTML格式，包括图片地址什么的。我不想用WebView，一方面是网络方面的东西我还没怎么接触，怕麻烦、不会，另一方面因为还有标题、评论什么的，最好是能直接解析显示出来，放在一个TextView里面。我的目的是学习，那些第三方库什么的能不用也都不用了，于是找了找，TextView确实能解决这个问题，一般都是OC版的，用Swift写是这样：</p>
-<pre><code><span class="keyword">let</span> opt = [<span class="attribute">NSDocumentTypeDocumentAttribute</span>:NSHTMLTextDocumentType]
-<span class="keyword">let</span> html =  <span class="string">"&lt;div style=\"background-color:<span class="subst">#F1F1F1</span>; font-size:14px; color:#304182; \n  text-align:center; margin-left:10px; padding-right:10px\"&gt; \n&lt;p&gt;Test &lt;span style=\"font-size:18px; color:<span class="subst">#E88834</span>;\"&gt;测试结束&lt;/span&gt; Tips&lt;/p&gt;\n&lt;/div&gt;"</span>
+<pre><code>let opt = [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType]
+let html =  &quot;&lt;div style=\&quot;background-color:#F1F1F1; font-size:14px; color:#304182; \n  text-align:center; margin-left:10px; padding-right:10px\&quot;&gt; \n&lt;p&gt;Test &lt;span style=\&quot;font-size:18px; color:#E88834;\&quot;&gt;测试结束&lt;/span&gt; Tips&lt;/p&gt;\n&lt;/div&gt;&quot;
 
-<span class="keyword">do</span>{
-<span class="keyword">let</span> attributedString = <span class="keyword">try</span> NSMutableAttributedString(<span class="attribute">data</span>: html.dataUsingEncoding(NSUnicodeStringEncoding)!, <span class="attribute">options</span>:opt, <span class="attribute">documentAttributes</span>: nil)
+do{
+let attributedString = try NSMutableAttributedString(data: html.dataUsingEncoding(NSUnicodeStringEncoding)!, options:opt, documentAttributes: nil)
 post.attributedText = attributedString
-}<span class="keyword">catch</span> {<span class="built_in">print</span>(error)}
-</code></pre><p>不但能解析字体、颜色等等html标识，有图片的话也是没问题的。不过，事情没这么容易解决……<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/31/newsreader-6/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/31/newsreader-6/'>从打造新闻app学到的(6)：显示html格式文件/数据</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+}catch {print(error)}
+</code></pre><p>不但能解析字体、颜色等等html标识，有图片的话也是没问题的。不过，事情没这么容易解决……<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/31/newsreader-6/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/31/newsreader-6/'>从打造新闻app学到的(6)：显示html格式文件/数据</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -294,7 +294,7 @@ post.attributedText = attributedString
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -302,15 +302,15 @@ post.attributedText = attributedString
 })()
 </script>
 用这种方法显示的页面，图片是不会自动缩放的，好在我们有万能的互联网😃。我在一个前端开发的回答中找到了很赞的答案：在head的配置中将img配置为按固定宽度缩放：</p>
-<pre><code><span class="tag">&lt;<span class="title">head</span>&gt;</span><span class="tag">&lt;<span class="title">style</span>&gt;</span><span class="css"><span class="tag">img</span><span class="rules">{<span class="rule"><span class="attribute">max-width</span>:<span class="value"><span class="number">200px</span> <span class="important">!important</span></span></span>;}</span></span><span class="tag">&lt;/<span class="title">style</span>&gt;</span><span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<pre><code>&lt;head&gt;&lt;style&gt;img{max-width:200px !important;}&lt;/style&gt;&lt;/head&gt;
 </code></pre><p>一试果然OK了，只要我们能够正确地拿到View的宽度就行了。受到这个的启发，我发现我完全可以自己添加各种配置来config整个页面的细节，只要在我拿到的数据前面加上这个配置好的头部就行了：</p>
-<pre><code>let img_width = <span class="function"><span class="title">Int</span><span class="params">(post.frame.width)</span></span>
-let fontsize = <span class="number">16</span>
-<span class="tag">var</span> config = <span class="string">"img{max-width:\(img_width)px !important;}"</span>   <span class="comment">//img style</span>
-config.<span class="function"><span class="title">appendContentsOf</span><span class="params">(<span class="string">"body {font-size:\(fontsize)px;}"</span>)</span></span>   <span class="comment">//body style</span>
-config.<span class="function"><span class="title">appendContentsOf</span><span class="params">(<span class="string">"h1{font-size: \(fontsize+4)px}"</span>)</span></span>      <span class="comment">//title style</span>
-config = <span class="string">"&lt;head&gt;&lt;style&gt;"</span> + config + <span class="string">"&lt;/style&gt;&lt;/head&gt;"</span>
-<span class="tag">html</span> = config + <span class="string">"&lt;h1&gt;标题测试&lt;/h1&gt;&lt;hr/&gt;"</span> + html
+<pre><code>let img_width = Int(post.frame.width)
+let fontsize = 16
+var config = &quot;img{max-width:\(img_width)px !important;}&quot;   //img style
+config.appendContentsOf(&quot;body {font-size:\(fontsize)px;}&quot;)   //body style
+config.appendContentsOf(&quot;h1{font-size: \(fontsize+4)px}&quot;)      //title style
+config = &quot;&lt;head&gt;&lt;style&gt;&quot; + config + &quot;&lt;/style&gt;&lt;/head&gt;&quot;
+html = config + &quot;&lt;h1&gt;标题测试&lt;/h1&gt;&lt;hr/&gt;&quot; + html
 </code></pre><p>这样一来，不但可以解决图像显示问题，还可以把具体新闻的标题、时间信息、网友评论等等全部糅合到一起，并且字体大小格式Style等随心所欲！😏<br>这里安利一个<a href="http://www.w3school.com.cn/h.asp" target="_blank" rel="external">HTML的教学网站</a>，基本上按照CSS的规则去配置就行了，我完全是开着它照葫芦画瓢，so easy😬！如果你需要看看这篇文章的测试源代码，<a href="https://github.com/conanwhf/swiftplayground/blob/master/UI_test.playground/Pages/Text.xcplaygroundpage/Contents.swift" target="_blank" rel="external">传送门</a></p>
 </span>
       

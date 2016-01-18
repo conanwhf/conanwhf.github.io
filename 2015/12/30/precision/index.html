@@ -282,29 +282,29 @@ Int(r*255)
 
       
         <span itemprop="articleBody"><p>昨天整理code，顺手写了个UIColor和16进制RGB表示的颜色转换。由于UIColor中的RGBA范围是0..1，所以里面用到了一些乘除法，和强制类型转换：</p>
-<pre><code>CGFloat<span class="list">(<span class="keyword">Float</span><span class="list">(<span class="keyword">r</span>)</span>/255.<span class="number">0</span>)</span>
-Int<span class="list">(<span class="keyword">r*255</span>)</span>
+<pre><code>CGFloat(Float(r)/255.0)
+Int(r*255)
 </code></pre><p>写完以后测试了一下貌似没什么问题，就睡觉去了。后来突然想到，1/255并不是一个有理数，而且<strong>Int()做的是取地板而不是四舍五入</strong>，会不会在这种转换的过程中因为精度的问题造成数据错误呢？于是写了一小段测试代码：</p>
 <pre><code>//精度测试，确认转换不会丢失信息
-<span class="keyword">let</span> a  = Array.init(<span class="number">0</span>...<span class="number">255</span>)
-<span class="keyword">let</span> b = a.<span class="keyword">map</span>{ CGFloat(Float(<span class="variable">$0</span>)/<span class="number">255.0</span>) }
-<span class="keyword">let</span> c = b.<span class="keyword">map</span>{ Int(<span class="variable">$0</span>*<span class="number">255</span>) }
+let a  = Array.init(0...255)
+let b = a.map{ CGFloat(Float($0)/255.0) }
+let c = b.map{ Int($0*255) }
 a.elementsEqual(c)
 </code></pre><p>还好结果是True，这个转换过程并没有出错的机会。但我怎么可能就此罢休？通过修改a的初始化条件发现，乘除255的时候，在算257的时候就出错了。按理说1/255并不是一个很小的数字，如果准确的话，16位的存储结构是可以保留足够信息的，所以我尝试这打印了一下各个数据类型的精度：</p>
-<pre><code><span class="function"><span class="title">sizeof</span><span class="params">(Int)</span></span>*<span class="number">8</span><span class="comment">//64</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(UInt)</span></span>*<span class="number">8</span><span class="comment">//64</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(UInt16)</span></span>*<span class="number">8</span><span class="comment">//16</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(Int32)</span></span>*<span class="number">8</span><span class="comment">//32</span>
+<pre><code>sizeof(Int)*8//64
+sizeof(UInt)*8//64
+sizeof(UInt16)*8//16
+sizeof(Int32)*8//32
 
-<span class="function"><span class="title">sizeof</span><span class="params">(Float)</span></span>*<span class="number">8</span><span class="comment">//32</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(Double)</span></span>*<span class="number">8</span><span class="comment">//64</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(CGFloat)</span></span>*<span class="number">8</span><span class="comment">//64</span>
+sizeof(Float)*8//32
+sizeof(Double)*8//64
+sizeof(CGFloat)*8//64
 
-<span class="function"><span class="title">sizeof</span><span class="params">(Character)</span></span>*<span class="number">8</span><span class="comment">//72</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(String)</span></span>*<span class="number">8</span><span class="comment">//192</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(CGRect)</span></span>*<span class="number">8</span><span class="comment">//256</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(UIColor)</span></span>*<span class="number">8</span><span class="comment">//64</span>
-</code></pre><p>第一组相当的make sense，Int默认就是64位；第二组是实数部分，令我惊讶的是原来<strong>CGFloat</strong>也是64位的，而Float反而比它差只有32位。第三组的结果比较值得玩味：Swift里面的String搞得比较复杂，是什么都不奇怪，但我以为Character至少会是8，结果却是72；<strong>UIColor</strong>本身是由4个CGFloat构成，其size却不是4倍的CGFloat；倒是<strong>CGRect</strong>比较可以解释，因为它是CGSize和CGPoint组合而成，实质上也是4个CGFloat。<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/30/precision/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/30/precision/'>Swift中数据类型精度的一点探索</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+sizeof(Character)*8//72
+sizeof(String)*8//192
+sizeof(CGRect)*8//256
+sizeof(UIColor)*8//64
+</code></pre><p>第一组相当的make sense，Int默认就是64位；第二组是实数部分，令我惊讶的是原来<strong>CGFloat</strong>也是64位的，而Float反而比它差只有32位。第三组的结果比较值得玩味：Swift里面的String搞得比较复杂，是什么都不奇怪，但我以为Character至少会是8，结果却是72；<strong>UIColor</strong>本身是由4个CGFloat构成，其size却不是4倍的CGFloat；倒是<strong>CGRect</strong>比较可以解释，因为它是CGSize和CGPoint组合而成，实质上也是4个CGFloat。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/30/precision/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/30/precision/'>Swift中数据类型精度的一点探索</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -318,7 +318,7 @@ a.elementsEqual(c)
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -326,28 +326,28 @@ a.elementsEqual(c)
 })()
 </script>
 <br>也就是说，sizeof()这个函数，在对某些类型如String等操作的时候，结果是这个结构体所占用的内存空间大小；而对某些类型如Int等，即使它们也是一个结构体（我们已经知道在Swift中所有的类型其实都是结构体），给出的结果却是这个类型所表示的值的内存占用。令人感兴趣的是，在一堆UIXXX的结构体中，为什么独独CGFloat会作为数值类型来看待呢？于是我去翻了翻CGFloat的头文件，发现这家伙真面目是这样的：</p>
-<pre><code><span class="keyword">public</span> struct CGFloat {
-<span class="comment">/// The native type used to store the CGFloat, which is Float on</span>
-<span class="comment">/// 32-bit architectures and Double on 64-bit architectures.</span>
-<span class="keyword">public</span> typealias NativeType = <span class="typename">Double</span>
-<span class="keyword">public</span> init()
-<span class="keyword">public</span> init(_ value: <span class="typename">Float</span>)
-<span class="keyword">public</span> init(_ value: <span class="typename">Double</span>)
-<span class="comment">/// The native value.</span>
-<span class="keyword">public</span> <span class="variable"><span class="keyword">var</span> native</span>: NativeType
+<pre><code>public struct CGFloat {
+/// The native type used to store the CGFloat, which is Float on
+/// 32-bit architectures and Double on 64-bit architectures.
+public typealias NativeType = Double
+public init()
+public init(_ value: Float)
+public init(_ value: Double)
+/// The native value.
+public var native: NativeType
 }
 </code></pre><p>真相大白，所以CGFloat在内部实现就是个Double，头文件后面还有很长的各种协议……也就是说，其实CGFloat是可以直接做运算的？试了试，果然没错。那么<code>CGFloat(Float(r)/255.0)</code>这种计算就不妥了，人家一个好好的64位，给生生转成32位了，改成<code>CGFloat(r)/255.0</code>即可。<br>回到最开始的问题—精度。为了便于测试，我写了个函数：</p>
-<pre><code><span class="func"><span class="keyword">func</span> <span class="title">precisionTest</span> <span class="params">(div: CGFloat)</span></span> {
-<span class="keyword">var</span> a : <span class="type">Int</span> = <span class="number">0</span>
-<span class="keyword">var</span> b : <span class="type">CGFloat</span>
-<span class="keyword">var</span> <span class="built_in">c</span> : <span class="type">Int</span>
+<pre><code>func precisionTest (div: CGFloat) {
+var a : Int = 0
+var b : CGFloat
+var c : Int
 repeat {
-a = a + <span class="number">1</span>
-<span class="comment">//b = CGFloat(Float(a) / Float(div)) // for Float</span>
-b = <span class="type">CGFloat</span>(a) / div    <span class="comment">// for CGFloat</span>
-<span class="built_in">c</span> = <span class="type">Int</span>(b * div)
-}<span class="keyword">while</span> <span class="built_in">c</span> == a
-<span class="built_in">print</span>(<span class="string">"div=<span class="subst">\(div)</span>, a=<span class="subst">\(a)</span>, b=<span class="subst">\(b)</span> @<span class="subst">\(b*div)</span>, c=<span class="subst">\(<span class="built_in">c</span>)</span> @ <span class="subst">\(Double(<span class="built_in">c</span>)</span>/Double(div))"</span>)
+a = a + 1
+//b = CGFloat(Float(a) / Float(div)) // for Float
+b = CGFloat(a) / div    // for CGFloat
+c = Int(b * div)
+}while c == a
+print(&quot;div=\(div), a=\(a), b=\(b) @\(b*div), c=\(c) @ \(Double(c)/Double(div))&quot;)
 }
 </code></pre><p>这个函数会从1开始找，计算在div(除数)固定的情况下，第一个将常数先除再乘后丢失精度的case。之前我们已经知道了在div=255且中间变量使用Float的时候，<code>257/255*255 != 257</code>，但中间变量换成CGFloat之后，程序跑到10000+还没找到错误，被我手动停了👻。另外随机试了几个数字，都是使用CGFloat比Float出错概率要小，<strong>这也印证了这两个类型的精度大小区别</strong>，只是这种错误的结果随机性比较高，有的用1就已经出错，有的跑了很久也没事，跟div的数值变化没有什么关联性，也就是说这种错误并不全是保存精度大小和Int()截取而造成的。<br>那么大概是因为除法吧？接下来我固定使用Float（更容易出错便于观察结果），调整不同的div数值来测试，发现：</p>
 <ol>

@@ -286,7 +286,7 @@
 <li>继承一个UIViewController：<strong>ABC</strong>，并在StroyBoard新建一个UIViewController与之绑定</li>
 <li>拖动新控件TableView到ABC，并拖动一个TableCell到TableView</li>
 <li>将TableView和ABC绑定：</li>
-<li><p>在ABC的实现代码中加一行：<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/09/12/AddTableViewInUIViewController/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/09/12/AddTableViewInUIViewController/'>在UIViewController中添加TableView</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<li><p>在ABC的实现代码中加一行：<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/09/12/AddTableViewInUIViewController/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/09/12/AddTableViewInUIViewController/'>在UIViewController中添加TableView</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -300,7 +300,7 @@
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -308,14 +308,14 @@
 })()
 </script>
 </p>
-<pre><code><span class="preprocessor">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> <span class="type">XYZ</span>: <span class="type">UITableView</span>!
+<pre><code>@IBOutlet weak var XYZ: UITableView!
 </code></pre><ul>
 <li>点击TableView，右边检查器栏Connection->Referencing Outlets->New Referencing Outlets右边的小圆点，拖动至TableView上松开，选定<strong>XYZ</strong></li>
 </ul>
 </li>
 <li><p>实现TableView必须有的基础代码：</p>
-<pre><code><span class="func"><span class="keyword">func</span> <span class="title">numberOfSectionsInTableView</span><span class="params">(tableView: UITableView)</span></span> -&gt; <span class="type">Int</span> {
-<span class="keyword">return</span> <span class="number">1</span>
+<pre><code>func numberOfSectionsInTableView(tableView: UITableView) -&gt; Int {
+return 1
 }
 </code></pre><p> func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {<br> return N<br> }<br>注册CellID：<br> func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {<br> let cell = tableView.dequeueReusableCellWithIdentifier(“<strong>TEST</strong>“, forIndexPath: indexPath) as! UITableViewCell<br> return cell<br> }<br>此处虽然在类中添加，但<strong>不要加override前缀！</strong></p>
 </li>

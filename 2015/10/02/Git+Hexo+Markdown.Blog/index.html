@@ -279,18 +279,18 @@ New一个repository即可，域名为username.github.iohttps://pages">
 
       
         <span itemprop="articleBody"><p>GitHub提供域名解析和300MB免费空间，利用静态网站生成工具生成网页，提交后即可看到。网页生成工具有Jekyll, Octopress, Hexo等。这里选择Hexo，速度快，对中文支持较好<br>官网：<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="external">https://hexo.io/zh-cn/docs/</a></p>
-<h2 id="GitHub_Pages_Setup">GitHub Pages Setup</h2><ul>
+<h2 id="GitHub_Pages_Setup"><a href="#GitHub_Pages_Setup" class="headerlink" title="GitHub Pages Setup"></a>GitHub Pages Setup</h2><ul>
 <li>New一个repository即可，域名为username.github.io<br><a href="https://pages.github.com" target="_blank" rel="external">https://pages.github.com</a><br>先不用clone到本地，也不用生成任何类似于index.html的文件</li>
 <li>GitHub客户端：<br><a href="https://central.github.com/mac/latest" title="Download GitHub for Mac" target="_blank" rel="external">Download GitHub for Mac</a></li>
 </ul>
-<h2 id="Hexo_Setup">Hexo Setup</h2><ol>
+<h2 id="Hexo_Setup"><a href="#Hexo_Setup" class="headerlink" title="Hexo Setup"></a>Hexo Setup</h2><ol>
 <li>install node.js<ul>
 <li>命令行：<br>  curl <a href="https://raw.github.com/creationix/nvm/master/install.sh" target="_blank" rel="external">https://raw.github.com/creationix/nvm/master/install.sh</a> | sh<br>  nvm install 0.10</li>
 </ul>
 </li>
 <li>或者客户端：<a href="https://nodejs.org/dist/v4.1.1/node-v4.1.1.pkg" title="Download for OS X (x64)" target="_blank" rel="external">Download for OS X (x64)</a>　</li>
-<li>Install Hexo<pre><code>sudo npm <span class="operator"><span class="keyword">install</span> -<span class="keyword">g</span> hexo-cli</span>
-</code></pre><a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/10/02/Git+Hexo+Markdown.Blog/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/10/02/Git+Hexo+Markdown.Blog/'>Git+Hexo+Markdown搭建Blog</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<li>Install Hexo<pre><code>sudo npm install -g hexo-cli
+</code></pre><a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/10/02/Git+Hexo+Markdown.Blog/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/10/02/Git+Hexo+Markdown.Blog/'>Git+Hexo+Markdown搭建Blog</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -304,7 +304,7 @@ New一个repository即可，域名为username.github.iohttps://pages">
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -314,29 +314,29 @@ New一个repository即可，域名为username.github.iohttps://pages">
 
 </li>
 </ol>
-<h2 id="New_Blog">New Blog</h2><ol>
-<li>Init Blog<pre><code><span class="keyword">mkdir</span> ~/blog; <span class="keyword">cd</span> ~/blog/
+<h2 id="New_Blog"><a href="#New_Blog" class="headerlink" title="New Blog"></a>New Blog</h2><ol>
+<li>Init Blog<pre><code>mkdir ~/blog; cd ~/blog/
 hexo init
 npm install
-hexo <span class="keyword">generate</span>
+hexo generate
 </code></pre></li>
 <li>把GitHub Pages项目clone到<code>~/blog/public</code> from GitHub，先在某处clone然后拷贝.git文件夹也行，总之把public文件夹作为GitHub的source</li>
 <li>commit, 打开username.github.io看效果</li>
 </ol>
-<h2 id="Add/Remove_blogs">Add/Remove blogs</h2><p>Hexo的命令行new本质上是生成一个固定格式的文件，还要二次修改内容才能发布，所以我选择手动添加删除文章，只要采用markdown格式即可</p>
+<h2 id="Add/Remove_blogs"><a href="#Add/Remove_blogs" class="headerlink" title="Add/Remove blogs"></a>Add/Remove blogs</h2><p>Hexo的命令行new本质上是生成一个固定格式的文件，还要二次修改内容才能发布，所以我选择手动添加删除文章，只要采用markdown格式即可</p>
 <ol>
 <li>所有md文件放在source/_posts/下，文件名无要求，手动管理</li>
-<li>文件头部固定格式：<pre><code>title: <span class="variable">$Title</span>
-date:  <span class="number">2015</span>-09-<span class="number">25</span> <span class="number">19</span>:<span class="number">13</span>:<span class="number">06</span>
-categories: <span class="variable">$CATEGRIES</span>
+<li>文件头部固定格式：<pre><code>title: $Title
+date:  2015-09-25 19:13:06
+categories: $CATEGRIES
 tags:  
-- <span class="variable">$Tag1</span> 
-- <span class="variable">$Tag2</span>
+- $Tag1 
+- $Tag2
 --- 
 </code></pre>　所有的东西都可省略，但title若省略则发布后为notitle，date省略则自动把生成静态网页的时间拿来填充。这些头部信息可用_textpexpender_生成</li>
 <li>发布时“hexo generate”，再commit to git即可。注：每次都是整站发布，source里面需要保留所有待发布及已发布的文章</li>
 </ol>
-<h2 id="Hexo简单Config">Hexo简单Config</h2><ol>
+<h2 id="Hexo_u7B80_u5355Config"><a href="#Hexo_u7B80_u5355Config" class="headerlink" title="Hexo简单Config"></a>Hexo简单Config</h2><ol>
 <li>所有配置都在blog目录下进行</li>
 <li>配置文件为_<code>config.yml</code>，基础配置修改即可。基本上只要改_title_，_subtitle_，_description_，_author_这几项就可以了</li>
 <li>需要调试的话先<strong>hexo g</strong>再<strong>hexo s</strong>，就可以在本地<a href="http://0.0.0.0:4000/" target="_blank" rel="external">http://0.0.0.0:4000/</a>看demo，一般的配置修改后直接刷新看效果<ol>
@@ -556,7 +556,7 @@ tags:
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GitHub_Pages_Setup"><span class="nav-number">1.</span> <span class="nav-text">GitHub Pages Setup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo_Setup"><span class="nav-number">2.</span> <span class="nav-text">Hexo Setup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#New_Blog"><span class="nav-number">3.</span> <span class="nav-text">New Blog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Add/Remove_blogs"><span class="nav-number">4.</span> <span class="nav-text">Add/Remove blogs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo简单Config"><span class="nav-number">5.</span> <span class="nav-text">Hexo简单Config</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GitHub_Pages_Setup"><span class="nav-number">1.</span> <span class="nav-text">GitHub Pages Setup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo_Setup"><span class="nav-number">2.</span> <span class="nav-text">Hexo Setup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#New_Blog"><span class="nav-number">3.</span> <span class="nav-text">New Blog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Add/Remove_blogs"><span class="nav-number">4.</span> <span class="nav-text">Add/Remove blogs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo_u7B80_u5355Config"><span class="nav-number">5.</span> <span class="nav-text">Hexo简单Config</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

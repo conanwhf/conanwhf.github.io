@@ -276,7 +276,7 @@
 
       
         
-          <h2 id="读完的书">读完的书</h2><ol>
+          <h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
 <li><strong>程序员的数学思维修炼</strong><br>太小儿科，哪是程序员的思维修炼，高中生数学思维水准，迅速看完</li>
 <li><strong>解忧杂货店</strong><br>第一本东野圭吾的书，对他有了点信心</li>
 <li><strong>Kindle TOP 100人气小说</strong><br>2014年的小说排行榜，里面有每本的介绍和热门评论，看完对那些书还是有一些了解了。里面的小说显然不会每本都看的，过一遍以后感觉一半以上可以不用看了（未必是不好，是没兴趣或者了解梗概即可），除去看过的、正在看的，大概只剩十几本放进将来的书单</li>
@@ -368,8 +368,8 @@
 
       
         
-          <h2 id="Install_&amp;_update">Install &amp; update</h2><p>sudo gem install cocoapods<br> 顺便安装文档工具，则cocoapod会自动把文档整合进Xcode<br>brew install appledoc</p>
-<h2 id="search_lib">search lib</h2><ul>
+          <h2 id="Install__26amp_3B_update"><a href="#Install__26amp_3B_update" class="headerlink" title="Install &amp; update"></a>Install &amp; update</h2><p>sudo gem install cocoapods<br> 顺便安装文档工具，则cocoapod会自动把文档整合进Xcode<br>brew install appledoc</p>
+<h2 id="search_lib"><a href="#search_lib" class="headerlink" title="search lib"></a>search lib</h2><ul>
 <li>Way 1: shell pod search XXX，拿到List, 每个库列出了名字、源码、版本等信息，其中有一行_ pod ‘XXX’, ‘~> 0.2.0’_，即为此库的标准PodInfo</li>
 <li>Way 2: 官网<a href="https://cocoapods.org">https://cocoapods.org</a>查找，界面上有按钮把Info Copy to clipborad
           <div class="post-more-link text-center">
@@ -459,24 +459,24 @@
 
       
         
-          <h2 id="必须实现的函数">必须实现的函数</h2><p>Sections数目</p>
-<pre><code><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">numberOfSectionsInTableView</span><span class="params">(tableView: UITableView)</span></span> -&gt; <span class="type">Int</span> {
-<span class="comment">// #warning Potentially incomplete method implementation.</span>
-<span class="comment">// Return the number of sections.</span>
-<span class="keyword">return</span> <span class="number">1</span>
+          <h2 id="u5FC5_u987B_u5B9E_u73B0_u7684_u51FD_u6570"><a href="#u5FC5_u987B_u5B9E_u73B0_u7684_u51FD_u6570" class="headerlink" title="必须实现的函数"></a>必须实现的函数</h2><p>Sections数目</p>
+<pre><code>override func numberOfSectionsInTableView(tableView: UITableView) -&gt; Int {
+// #warning Potentially incomplete method implementation.
+// Return the number of sections.
+return 1
 }
 </code></pre><p>每个Section的Cell数目</p>
-<pre><code><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, numberOfRowsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> {
-<span class="comment">// #warning Incomplete method implementation.</span>
-<span class="comment">// Return the number of rows in the section.</span>
-<span class="keyword">return</span> <span class="number">100</span>
+<pre><code>override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+// #warning Incomplete method implementation.
+// Return the number of rows in the section.
+return 100
 }
 </code></pre><p>注册绑定Cell ID </p>
-<pre><code><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> {
-<span class="keyword">let</span> cell = tableView.dequeueReusableCellWithIdentifier(<span class="string">"conanIdentifier"</span>, forIndexPath: indexPath) <span class="keyword">as</span>! <span class="type">UITableViewCell</span>
-<span class="comment">//To config Cells ….</span>
+<pre><code>override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
+let cell = tableView.dequeueReusableCellWithIdentifier(&quot;conanIdentifier&quot;, forIndexPath: indexPath) as! UITableViewCell
+//To config Cells ….
 }
-</code></pre><h2 id="动作">动作</h2><p>选中：
+</code></pre><h2 id="u52A8_u4F5C"><a href="#u52A8_u4F5C" class="headerlink" title="动作"></a>动作</h2><p>选中：
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/09/14/TableViewBase/#more" rel="contents">
               阅读全文 &raquo;
@@ -571,7 +571,7 @@
 <li>使用谁作为主StoryBoard的配置定义在_Info.plist_文件中的“Main storyboard file base name”</li>
 </ul>
 </blockquote>
-<h2 id="总体分区">总体分区</h2><ul>
+<h2 id="u603B_u4F53_u5206_u533A"><a href="#u603B_u4F53_u5206_u533A" class="headerlink" title="总体分区"></a>总体分区</h2><ul>
 <li>中间视图显示</li>
 <li>下方调试区，显示调试信息，模拟发送坐标，步进调试等</li>
 <li>左下角可唤出大纲视图　</li>
@@ -756,7 +756,7 @@
 
       
         
-          <h3 id="推送">推送</h3><ol>
+          <h3 id="u63A8_u9001"><a href="#u63A8_u9001" class="headerlink" title="推送"></a>推送</h3><ol>
 <li>PC端网页推送<br>使用PushToKindle，支持中亚账户，支持各种浏览器<br><a href="http://fivefilters.org/kindle-it/">http://fivefilters.org/kindle-it/</a></li>
 <li>微信找书：kindle10000</li>
 <li>手机端网页推送：<strong>A</strong>-微信号stkindle，<strong>B</strong>-亚马逊官方微信公众号（中文支持有问题）</li>
@@ -849,7 +849,7 @@
 
       
         
-          <h2 id="完整学习路线图：">完整学习路线图：</h2><p>从网上看到的一个学习路线图，出处<a href="http://www.cnblogs.com/mjios/archive/2013/02/26/2933200.html">M了个J</a><br>作为一个曾经的Linux Kernel开发者，C语言是已有基础，面向对象有部分基础，iOS开发库部分零基础
+          <h2 id="u5B8C_u6574_u5B66_u4E60_u8DEF_u7EBF_u56FE_uFF1A"><a href="#u5B8C_u6574_u5B66_u4E60_u8DEF_u7EBF_u56FE_uFF1A" class="headerlink" title="完整学习路线图："></a>完整学习路线图：</h2><p>从网上看到的一个学习路线图，出处<a href="http://www.cnblogs.com/mjios/archive/2013/02/26/2933200.html">M了个J</a><br>作为一个曾经的Linux Kernel开发者，C语言是已有基础，面向对象有部分基础，iOS开发库部分零基础
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/09/06/RoadMap/#more" rel="contents">
               阅读全文 &raquo;
@@ -937,27 +937,27 @@
 
       
         
-          <span itemprop="articleBody"><h2 id="信息稍后读&amp;收藏工具">信息稍后读&amp;收藏工具</h2><p>信息整理和知识收藏，主要来源为互联网信息</p>
+          <span itemprop="articleBody"><h2 id="u4FE1_u606F_u7A0D_u540E_u8BFB_26amp_3B_u6536_u85CF_u5DE5_u5177"><a href="#u4FE1_u606F_u7A0D_u540E_u8BFB_26amp_3B_u6536_u85CF_u5DE5_u5177" class="headerlink" title="信息稍后读&amp;收藏工具"></a>信息稍后读&amp;收藏工具</h2><p>信息整理和知识收藏，主要来源为互联网信息</p>
 <ul>
 <li>Pocket: 稍后读，第一暂存站，看情况分发到Kindle &amp; Evernote，并跟HY共享阅读</li>
 <li>Evernote: 知识收藏，或者需要分享的信息，如Family or 金叶账本等，以及可能需要在手机上查阅的信息</li>
 <li>Kindle: 长文&amp;书籍阅读，长文阅后即删</li>
 </ul>
-<h2 id="文档撰写">文档撰写</h2><p>自己写的文档，纯原创部分</p>
+<h2 id="u6587_u6863_u64B0_u5199"><a href="#u6587_u6863_u64B0_u5199" class="headerlink" title="文档撰写"></a>文档撰写</h2><p>自己写的文档，纯原创部分</p>
 <ul>
 <li>Ulysses: 主要文档撰写工具，各种不需要随时共享的笔记和记录，<strong>MAC平台Only</strong></li>
 <li>备忘录: Mac和iOS共享的信息</li>
 <li>DayOne: 日记专用，Mac&amp;iOS通用</li>
 <li>Drafts: iOS通用，第一临时暂存&amp;分发处，或需要iphone&amp;ipad共享的信息</li>
 </ul>
-<h2 id="文件云保存">文件云保存</h2><ul>
+<h2 id="u6587_u4EF6_u4E91_u4FDD_u5B58"><a href="#u6587_u4EF6_u4E91_u4FDD_u5B58" class="headerlink" title="文件云保存"></a>文件云保存</h2><ul>
 <li>DropBox: 个人文档备份，书库，各种应用备份，网络暂存处</li>
 <li>OneDrive: 微软文档，公开的照片</li>
 <li>GoogleDrive: 少用（国内不行），Google邮件附件，杂项</li>
 <li>iCloud: Apple生态，Pages等文档</li>
 <li>Baidu: 他人共享文件转存</li>
 </ul>
-<h2 id="自有平台收藏夹">自有平台收藏夹</h2><ul>
+<h2 id="u81EA_u6709_u5E73_u53F0_u6536_u85CF_u5939"><a href="#u81EA_u6709_u5E73_u53F0_u6536_u85CF_u5939" class="headerlink" title="自有平台收藏夹"></a>自有平台收藏夹</h2><ul>
 <li>微信: 可能需要随时看的链接，for kindle临时中转处</li>
 <li>微博: 临时收藏，每月整理</li>
 <li>开发者头条: 不动，有空看，可推送至pocket &amp; kindle</li>

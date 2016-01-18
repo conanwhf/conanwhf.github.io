@@ -361,10 +361,10 @@
       
         
           <p>（挖坑自己跳系列四）<br>以为实现了xml的解析，我就能拿到所有想要的数据，可是经过几次尝试，发现有的API失效了！😱无论我怎么尝试，有的数据就是拿不到，苦恼了好久，灵光一闪：前阵子买的surge可以派上用场了！不知道surge是啥的我给解释一下，是个iOS App，利用iOS9的特性能给设备做个全局代理，前阵子大家纷纷用来流畅FQ，已下架。对我来说，用来过滤下广告正好，偶尔还能看看http log。<br>看了下自己手机上的第三方客户端，request居然直接是网页，看来是直接解析网页了，这个太高深、放弃；只好去下载官方客户端来看，在网页看同样的请求，返回居然换成JSON了……😥<br>还能说啥呢，去找找JSON怎么解析呗！这次看了看，似乎比XML简单多了……先拿数据：</p>
-<pre><code><span class="built_in">let</span> url = NSURL(string:TESTURL)!
-guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
-    <span class="built_in">print</span>(<span class="string">"Can't get any data"</span>)
-    <span class="built_in">exit</span>(<span class="number">0</span>)
+<pre><code>let url = NSURL(string:TESTURL)!
+guard data = NSData(contentsOfURL: url)  else{
+    print(&quot;Can&apos;t get any data&quot;)
+    exit(0)
 }
 </code></pre><p>然后解析出来：
           <div class="post-more-link text-center">
@@ -545,13 +545,13 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
       
         
           <p>（挖坑自己跳系列二）<br>上回说到文件操作，那就把文件操作来一遍吧，先放源码：<a href="https://github.com/conanwhf/swiftplayground/tree/master/Play.playground/Pages/File.xcplaygroundpage">GitHub某个地方</a></p>
-<h2 id="初始化_&amp;_文件路径">初始化 &amp; 文件路径</h2><p>所有的文件操作都要先声明一个根控制器以获得文件的句柄：</p>
-<pre><code>let manager = NSFileManager.<span class="function"><span class="title">defaultManager</span><span class="params">()</span></span>
+<h2 id="u521D_u59CB_u5316__26amp_3B__u6587_u4EF6_u8DEF_u5F84"><a href="#u521D_u59CB_u5316__26amp_3B__u6587_u4EF6_u8DEF_u5F84" class="headerlink" title="初始化 &amp; 文件路径"></a>初始化 &amp; 文件路径</h2><p>所有的文件操作都要先声明一个根控制器以获得文件的句柄：</p>
+<pre><code>let manager = NSFileManager.defaultManager()
 </code></pre><p>而文件路径的表示有两种方式：String和NSURL。在NSURL的视角中，本地文件作为一种特殊的网络文件而存在，以“file://”开头。多数的操作对于两种路径方式都有两个相对应的接口，要注意对于NSURL，表示本地文件时必须以“file://”开头，否则很多API会失败。为了测试方便，我给String加了个转换的扩展：</p>
-<pre><code><span class="class"><span class="keyword">extension</span> <span class="title">String</span> </span>{
-    <span class="keyword">var</span> toFilePathURL : <span class="type">NSURL</span> {
-    <span class="keyword">let</span> url =  <span class="type">NSURL</span>( fileURLWithPath: <span class="keyword">self</span>)
-    <span class="keyword">return</span> url
+<pre><code>extension String {
+    var toFilePathURL : NSURL {
+    let url =  NSURL( fileURLWithPath: self)
+    return url
     }
 }
 </code></pre><p>这里使用参数<strong>fileURLWithPath:</strong>而不是<strong>string:</strong>就是为了上述原因。<br>对于路径的修改，String表示方法很简单，直接相加即可；NSURL需要用以下代码：
@@ -643,10 +643,10 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
       
         
           <p>好几天没做总结了，一直被写code的欲望牵引着，噼里啪啦打了很多code，也走了很多弯路。好多时候，突然搞定的时候，才发现自己真真像个新新手一样，给自己挖了好多坑，真是傻到家了！<br>好在我一直觉得，在debug上浪费的时间通常都不会是彻底浪费掉的，总有那么一些东西是留在脑子里，通俗地来讲，就是经验。是时候把过程理一理，记录下来了。<br>之前也说过，之所以把String顺了一遍，其根本缘由是想找到一个编码转换的函数，把我那些下载下来的书名乱码都改过来。后来编码是解决了，但改名还需要自己来……于是我琢磨着给Mac写个文件pickup的界面？刚巧看到源码推荐一个swift开源的命令行增强工具，突然意识到swift也是可以直接编译跑在终端的！做起来简单得不能更简单（先要装好Xcode command line tool，如果没装，在终端跑<code>xcode-select --install</code>）：</p>
-<pre><code>swiftc <span class="keyword">test</span>.swift<span class="comment">//生成一个test二进制程序</span>
-./<span class="keyword">test</span>
+<pre><code>swiftc test.swift//生成一个test二进制程序
+./test
 </code></pre><p>这是有编译过程的，更省事的是直接跑了：</p>
-<pre><code><span class="built_in">swift</span> test.<span class="built_in">swift</span>
+<pre><code>swift test.swift
 </code></pre><p>当然这个<strong>swift</strong>命令还有更多用法和参数，
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/12/15/runInTerm/#more" rel="contents">
@@ -746,8 +746,8 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
 </ul>
 <p>对于字符串的操作来说，正则匹配算是很重要的一项应用了。虽然其实我不太用，但偶尔需要的时候还是感到这东西真挺有用的。在网上找了找，对于iOS中使用正则，基本上都是说有三种方法，可惜给的Swift源码比较少，版本问题也不能直接跑，于是自己动手做一遍。总结了下其实所谓的三种方法其中两种还是很有局限性的。</p>
 <p>首先我们定义好待匹配的字符串和pattern：</p>
-<pre><code>let str = "18800002222---13144445555"
-let pattern = "1[<span class="link_label">3|5|7|8</span>][<span class="link_reference">0-9</span>]\\d{8}"
+<pre><code>let str = &quot;18800002222---13144445555&quot;
+let pattern = &quot;1[3|5|7|8][0-9]\\d{8}&quot;
 </code></pre><p>简单示范，就不搞太复杂了。这个pattern是手机号码的正则，因为准备demo匹配多个结果，没有加开头和结尾的限制。
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/12/09/Swift_String_6/#more" rel="contents">

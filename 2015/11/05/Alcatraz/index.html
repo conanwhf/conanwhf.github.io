@@ -286,9 +286,9 @@
       
         <span itemprop="articleBody"><p>最近升级Xcode以后，Alcatraz就不见了，从开发者的issue list里面找到了解决办法</p>
 <ol>
-<li>关闭Xcode，卸载Alcatraz：<pre><code>rm -rf ~<span class="regexp">/Library/</span>Application\ Support<span class="regexp">/Developer/</span>Shared<span class="regexp">/Xcode/</span>Plug-ins<span class="regexp">/Alcatraz.xcplugin</span>
+<li>关闭Xcode，卸载Alcatraz：<pre><code>rm -rf ~/Library/Application\ Support/Developer/Shared/Xcode/Plug-ins/Alcatraz.xcplugin
 </code></pre></li>
-<li>清理残留文件：<pre><code><span class="keyword">find</span> ~<span class="regexp">/Library/</span>Application\ Support<span class="regexp">/Developer/</span>Shared<span class="regexp">/Xcode/</span>Plug-ins -name Info.plist -maxdepth <span class="number">3</span> | xargs -I{} defaults <span class="keyword">write</span> {} DVTPlugInCompatibilityUUIDs -array-add defaults <span class="keyword">read</span> <span class="regexp">/Applications/</span>Xcode.app<span class="regexp">/Contents/I</span>nfo DVTPlugInCompatibilityUUID
+<li>清理残留文件：<pre><code>find ~/Library/Application\ Support/Developer/Shared/Xcode/Plug-ins -name Info.plist -maxdepth 3 | xargs -I{} defaults write {} DVTPlugInCompatibilityUUIDs -array-add defaults read /Applications/Xcode.app/Contents/Info DVTPlugInCompatibilityUUID
 sudo xcode-select --reset
 </code></pre></li>
 <li>打开Xcode，重新安装Alcatraz，再重启Xcode，在弹出框中选择”Load Bundles”</li>

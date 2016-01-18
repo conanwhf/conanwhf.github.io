@@ -304,9 +304,9 @@ Swift2.0 中的String（六）：正">
 </ul>
 <p>对于字符串的操作来说，正则匹配算是很重要的一项应用了。虽然其实我不太用，但偶尔需要的时候还是感到这东西真挺有用的。在网上找了找，对于iOS中使用正则，基本上都是说有三种方法，可惜给的Swift源码比较少，版本问题也不能直接跑，于是自己动手做一遍。总结了下其实所谓的三种方法其中两种还是很有局限性的。</p>
 <p>首先我们定义好待匹配的字符串和pattern：</p>
-<pre><code>let str = "18800002222---13144445555"
-let pattern = "1[<span class="link_label">3|5|7|8</span>][<span class="link_reference">0-9</span>]\\d{8}"
-</code></pre><p>简单示范，就不搞太复杂了。这个pattern是手机号码的正则，因为准备demo匹配多个结果，没有加开头和结尾的限制。<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/'>Swift2.0 中的String（六）：正则匹配</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<pre><code>let str = &quot;18800002222---13144445555&quot;
+let pattern = &quot;1[3|5|7|8][0-9]\\d{8}&quot;
+</code></pre><p>简单示范，就不搞太复杂了。这个pattern是手机号码的正则，因为准备demo匹配多个结果，没有加开头和结尾的限制。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/'>Swift2.0 中的String（六）：正则匹配</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -320,7 +320,7 @@ let pattern = "1[<span class="link_label">3|5|7|8</span>][<span class="link_refe
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -328,40 +328,40 @@ let pattern = "1[<span class="link_label">3|5|7|8</span>][<span class="link_refe
 })()
 </script>
 </p>
-<h2 id="String直接支持的匹配方式">String直接支持的匹配方式</h2><p>严格地来说，只有这一种才算是真正的“Swift中的正则”，其他的都是使用了OC继承过来的类。而这种方法也很简单，就是简单的使用rangOfString而已。</p>
-<pre><code>str.<span class="function"><span class="title">rangeOfString</span><span class="params">(pattern, options: NSStringCompareOptions.RegularExpressionSearch)</span></span>
+<h2 id="String_u76F4_u63A5_u652F_u6301_u7684_u5339_u914D_u65B9_u5F0F"><a href="#String_u76F4_u63A5_u652F_u6301_u7684_u5339_u914D_u65B9_u5F0F" class="headerlink" title="String直接支持的匹配方式"></a>String直接支持的匹配方式</h2><p>严格地来说，只有这一种才算是真正的“Swift中的正则”，其他的都是使用了OC继承过来的类。而这种方法也很简单，就是简单的使用rangOfString而已。</p>
+<pre><code>str.rangeOfString(pattern, options: NSStringCompareOptions.RegularExpressionSearch)
 </code></pre><p>很简单吧？只是把option的参数改成<strong>RegularExpressionSearch</strong>就行了。这种方法会得到一个Range类型的返回值，是匹配到的第一个子串的位置。在这个例子中，返回0..\&lt;11；如果找不到匹配，返回nil</p>
-<h2 id="使用NSPredicate的方式">使用NSPredicate的方式</h2><p>这是我最不推荐的方式。NSPredicate本身是数据查找、过滤的强大工具，他自己本身有一套语法，而正则只是其中的一小部分方式：</p>
-<pre><code>let pred: NSPredicate = <span class="function"><span class="title">NSPredicate</span><span class="params">(format: <span class="string">"SELF MATCHES %@"</span>, pattern)</span></span>
-pred.<span class="function"><span class="title">evaluateWithObject</span><span class="params">(str)</span></span>
+<h2 id="u4F7F_u7528NSPredicate_u7684_u65B9_u5F0F"><a href="#u4F7F_u7528NSPredicate_u7684_u65B9_u5F0F" class="headerlink" title="使用NSPredicate的方式"></a>使用NSPredicate的方式</h2><p>这是我最不推荐的方式。NSPredicate本身是数据查找、过滤的强大工具，他自己本身有一套语法，而正则只是其中的一小部分方式：</p>
+<pre><code>let pred: NSPredicate = NSPredicate(format: &quot;SELF MATCHES %@&quot;, pattern)
+pred.evaluateWithObject(str)
 </code></pre><p>这个方法返回一个bool来说明是否匹配到，而且只能匹配全字符串（在这个例子中就会返回false），比第一种方法还复杂，除非是想用NSPredicate相关的奇技淫巧，否则还是用rangOfString要好得多。</p>
-<h2 id="使用NSRegularExpression的方式">使用NSRegularExpression的方式</h2><p>NSRegularExpression是专门的正则匹配类型，如果你需要更专业的匹配，推荐使用这种方法。<br>首先需要声明一个新的NSRegularExpression类型，并且设定它的匹配pattern:</p>
-<pre><code><span class="tag">var</span> expr              = try <span class="function"><span class="title">NSRegularExpression</span><span class="params">(pattern: pattern, options: [])</span></span>
-expr<span class="class">.pattern</span>    <span class="comment">// Show the pattern</span>
+<h2 id="u4F7F_u7528NSRegularExpression_u7684_u65B9_u5F0F"><a href="#u4F7F_u7528NSRegularExpression_u7684_u65B9_u5F0F" class="headerlink" title="使用NSRegularExpression的方式"></a>使用NSRegularExpression的方式</h2><p>NSRegularExpression是专门的正则匹配类型，如果你需要更专业的匹配，推荐使用这种方法。<br>首先需要声明一个新的NSRegularExpression类型，并且设定它的匹配pattern:</p>
+<pre><code>var expr              = try NSRegularExpression(pattern: pattern, options: [])
+expr.pattern    // Show the pattern
 </code></pre><p>这一步可以看到正则表达式已经设置好了，可以使用这个变量对各种字符串进行匹配。<br>匹配的方法有两种，一种是Block的方式（在Swift中可以近似于闭包），另外一种是普通的（我也不知道是不是可以说成non-block）。</p>
 <blockquote>
 <p>插播吐个槽：_这个什么鬼Block真的搞得我好困惑啊！在C里面的Block函数是指那些阻塞进程的，而在OC里面是个反的！有callback专门做异步的！搞得我每次看到都要反应一下！求问为啥这么定义？！😖_</p>
 </blockquote>
 <p>另外我在网上看到的示例中某些API都已经找不到了，这个类的完善看来也经历了一些过程……言归正传。Block的方法还要用到Callback来拿返回值，懒得用，我们的数据量反正也不大，先拿普通用法来解释：</p>
-<pre><code><span class="tag">var</span> range             = <span class="function"><span class="title">NSMakeRange</span><span class="params">(<span class="number">0</span>, str.characters.count)</span></span>
-<span class="tag">var</span> res               = expr.<span class="function"><span class="title">firstMatchInString</span><span class="params">(str, options: NSMatchingOptions.ReportProgress, range: range)</span></span>
-<span class="function"><span class="title">print</span><span class="params">(res?.range)</span></span>
+<pre><code>var range             = NSMakeRange(0, str.characters.count)
+var res               = expr.firstMatchInString(str, options: NSMatchingOptions.ReportProgress, range: range)
+print(res?.range)
 </code></pre><p>这是最简单常用的匹配，匹配第一个字串，返回一个封装好的类。如果没有结果，返回nil。通常我们只需要拿到它的range属性，注意：<strong>!!!这里的range是NSRange而不是Range，它的结构是（start, length）！！！</strong></p>
 <p>然后是另外一种获取全部匹配的方法：</p>
-<pre><code><span class="keyword">var</span> resAll            = expr.matchesInString(str, options: NSMatchingOptions.ReportProgress, <span class="keyword">range</span>: <span class="keyword">range</span>)
-resAll.<span class="keyword">forEach</span>{ <span class="keyword">print</span>(<span class="label">$0</span>.<span class="keyword">range</span>) }
+<pre><code>var resAll            = expr.matchesInString(str, options: NSMatchingOptions.ReportProgress, range: range)
+resAll.forEach{ print($0.range) }
 </code></pre><p>这个方法返回一个数组，内容是每一个匹配结果。<strong>使用NSRegularExpression是唯一一种能够获得所有匹配结果的方法</strong>，如果没有匹配，则返回一个空数组。<br>同时我们还可以直接获取匹配到的结果的数量：</p>
-<pre><code><span class="type">expr</span>.numberOfMatchesInString(str, options: <span class="type">NSMatchingOptions</span>.<span class="type">ReportProgress</span>, <span class="type">range</span>: <span class="type">range</span>)
+<pre><code>expr.numberOfMatchesInString(str, options: NSMatchingOptions.ReportProgress, range: range)
 </code></pre><p>很方便的另一个方法，是将所有匹配替换为另外的字符串：</p>
-<pre><code><span class="tag">var</span> newStr = <span class="function"><span class="title">NSMutableString</span><span class="params">(string: str)</span></span>
-expr.<span class="function"><span class="title">replaceMatchesInString</span><span class="params">(newStr, options: [] , range: range, withTemplate: <span class="string">"phoneNum"</span>)</span></span>
+<pre><code>var newStr = NSMutableString(string: str)
+expr.replaceMatchesInString(newStr, options: [] , range: range, withTemplate: &quot;phoneNum&quot;)
 newStr
 </code></pre><p>结果newStr变成了_“phoneNum—phoneNum”_。这里要用NSMutableString当作Input，是因为它本身是给OC~NSString系统用的，而NSString是固定memory的，替换可能改变字符串长度，所以需要强制要求提供一个NSMutableString的入口。Swift中的String类型是没有这种问题的。<br>这个方法其实靠rangeOfString + stringByReplacingCharactersInRange 也能做到，就是麻烦点儿。参数中的Template应该还有别的动态用法，我没深入研究了。</p>
-<h2 id="URL的匹配和解析">URL的匹配和解析</h2><p>说了这么多，最后顺便来一点URL吧。URL的解析在实用中也是很常见的，虽然也是可以使用正则表达式，但其实它有自己的接口来实现parser。下面就是范例代码：</p>
-<pre><code><span class="keyword">let</span> url        = NSURL(string: <span class="string">"http://weibo.com/u/1864854042?sudaref=conanwhf.github.io&amp;test=???&amp;lalalvy=irobot"</span>)!
-<span class="keyword">let</span> components = NSURLComponents(URL: url, resolvingAgainstBaseURL: <span class="literal">false</span>)
-<span class="keyword">let</span> <span class="literal">item</span>       = components?.queryItems
-<span class="literal">item</span>?.forEach { print(<span class="variable">$0</span>.name, <span class="variable">$0</span>.value!) }
+<h2 id="URL_u7684_u5339_u914D_u548C_u89E3_u6790"><a href="#URL_u7684_u5339_u914D_u548C_u89E3_u6790" class="headerlink" title="URL的匹配和解析"></a>URL的匹配和解析</h2><p>说了这么多，最后顺便来一点URL吧。URL的解析在实用中也是很常见的，虽然也是可以使用正则表达式，但其实它有自己的接口来实现parser。下面就是范例代码：</p>
+<pre><code>let url        = NSURL(string: &quot;http://weibo.com/u/1864854042?sudaref=conanwhf.github.io&amp;test=???&amp;lalalvy=irobot&quot;)!
+let components = NSURLComponents(URL: url, resolvingAgainstBaseURL: false)
+let item       = components?.queryItems
+item?.forEach { print($0.name, $0.value!) }
 </code></pre><p>最后打印出结果：<br>    <em>sudaref conanwhf.github.io<br>    test ???<br>    lalalvy irobot</em><br>很方便！</p>
 <blockquote>
 <p>至此，字符串的部分应该是差不多了，如果说还有待研究的部分，那就是xml和json数据解析了吧。String本身在C语言中是作为数据存储万金油的存在，而在Swift中，它的数据层面被淡化了很多，同时多了很多新特性。学习它的时候，我常常会想，为什么要这么设置API，和旧的API相比这么做有什么好处，为什么会有这样的属性，什么情况下会用到……希望能通过这样的思考弥补自己对于面向对象概念的不足，慢慢找到感觉。</p>
@@ -576,7 +576,7 @@ newStr
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#String直接支持的匹配方式"><span class="nav-number">1.</span> <span class="nav-text">String直接支持的匹配方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用NSPredicate的方式"><span class="nav-number">2.</span> <span class="nav-text">使用NSPredicate的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用NSRegularExpression的方式"><span class="nav-number">3.</span> <span class="nav-text">使用NSRegularExpression的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URL的匹配和解析"><span class="nav-number">4.</span> <span class="nav-text">URL的匹配和解析</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#String_u76F4_u63A5_u652F_u6301_u7684_u5339_u914D_u65B9_u5F0F"><span class="nav-number">1.</span> <span class="nav-text">String直接支持的匹配方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4F7F_u7528NSPredicate_u7684_u65B9_u5F0F"><span class="nav-number">2.</span> <span class="nav-text">使用NSPredicate的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4F7F_u7528NSRegularExpression_u7684_u65B9_u5F0F"><span class="nav-number">3.</span> <span class="nav-text">使用NSRegularExpression的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URL_u7684_u5339_u914D_u548C_u89E3_u6790"><span class="nav-number">4.</span> <span class="nav-text">URL的匹配和解析</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

@@ -370,19 +370,19 @@
 <li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages">这里</a>看到</li>
 </ul>
 <p>虽然Swift是强类型语言，但简单的String类型转换其实还是比较方便的，最暴力的就是强制类型转换，百试百灵：</p>
-<pre><code><span class="func"><span class="keyword">func</span> <span class="title">toString</span><span class="generics">&lt;T&gt;</span><span class="params">(a: T)</span></span> -&gt; <span class="type">String</span>{
-    <span class="comment">// Way one, format</span>
-    <span class="comment">//return "\(a)"</span>
-    <span class="comment">// Way two, new string</span>
-    <span class="keyword">return</span> <span class="type">String</span>(a)
+<pre><code>func toString&lt;T&gt;(a: T) -&gt; String{
+    // Way one, format
+    //return &quot;\(a)&quot;
+    // Way two, new string
+    return String(a)
 }
-<span class="built_in">toString</span>(<span class="number">123</span>)
-<span class="built_in">toString</span>(<span class="number">0.007</span>)
-<span class="built_in">toString</span>([<span class="number">4</span>, <span class="number">8</span>, <span class="number">32</span>, <span class="number">5</span> ])
-<span class="built_in">toString</span>(<span class="string">"test"</span>.startIndex)
+toString(123)
+toString(0.007)
+toString([4, 8, 32, 5 ])
+toString(&quot;test&quot;.startIndex)
 </code></pre><p>同样照葫芦画瓢也能转回来：</p>
-<pre><code><span class="function"><span class="title">Int</span><span class="params">(<span class="string">"123"</span>)</span></span>
-<span class="function"><span class="title">Float</span><span class="params">(<span class="string">"3.1"</span>)</span></span>
+<pre><code>Int(&quot;123&quot;)
+Float(&quot;3.1&quot;)
 </code></pre><p>但这个太简单、太有局限性了！我最喜欢的是下面这个，利用了New的时候format方法，简直就是<strong>sprintf()</strong>的替代品！
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/12/03/Swift_String_3/#more" rel="contents">
@@ -481,12 +481,12 @@
 <li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages">这里</a>看到</li>
 </ul>
 <p>首先，我们要记得使用字符串最常用的两个参数：下标(Index)和范围(Range)，几乎所有API都要用到它们</p>
-<pre><code><span class="built_in">let</span> <span class="built_in">offset</span> = <span class="built_in">str</span>.startIndex.advancedBy(<span class="number">2</span>)<span class="comment">// offset: 3rd char</span>
-<span class="built_in">let</span> range  = Range(start: <span class="built_in">str</span>.startIndex.advancedBy(<span class="number">3</span>), end: <span class="built_in">str</span>.endIndex.advancedBy(-<span class="number">2</span>))<span class="comment">// range: 3..&lt;6, "345"</span>
+<pre><code>let offset = str.startIndex.advancedBy(2)// offset: 3rd char
+let range  = Range(start: str.startIndex.advancedBy(3), end: str.endIndex.advancedBy(-2))// range: 3..&lt;6, &quot;345&quot;
 </code></pre><p><strong>强制类型转换</strong></p>
-<pre><code>let n      = <span class="function"><span class="title">Int</span><span class="params">(str)</span></span>!
-<span class="function"><span class="title">String</span><span class="params">(<span class="string">"the number is \(n)"</span>)</span></span>
-<span class="function"><span class="title">String</span><span class="params">(format:<span class="string">"%.2f,  %i"</span>, <span class="number">9.1</span>, <span class="number">304</span>)</span></span>
+<pre><code>let n      = Int(str)!
+String(&quot;the number is \(n)&quot;)
+String(format:&quot;%.2f,  %i&quot;, 9.1, 304)
 </code></pre><p><strong>内容反转</strong>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/12/03/Swift_String_2/#more" rel="contents">
@@ -585,7 +585,7 @@
 <li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages">这里</a>看到</li>
 </ul>
 <p><strong>判断是否为空</strong></p>
-<pre><code><span class="keyword">str</span>.isEmpty
+<pre><code>str.isEmpty
 </code></pre><p><strong>获取字符数组</strong><br>Swfit里面的String很有意思，它并不是由很多个Character组成的，
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/12/03/Swift_String_1/#more" rel="contents">
@@ -678,7 +678,7 @@
 <p>作为一个一直在玩Linux kernel的码农，从来不知道什么叫面向对象，也没有一点面向对象的概念，学Swift的时候还是感觉蛮不适应的，很多东西不一样。不像以前从Pascal转到C，只是书写的语法规则有点变化而已。C用久了，对指针、地址、内存的敏感性已经深入骨髓，突然看到这么个不怎么需要考虑内存的语言，有点儿混乱…… :-)<br>惭愧，一直懒懒散散，现在总算是把基础的语法部分学完了。不知道是不是因为C没有那么多面向对象的复杂用法的原因，我总想要慢慢把语法弄扎实，没有急着去做UI(其实心里还挺急的，哈哈)，不知是走对了路还是舍近求远了<br>Swift自己也是个不断变化的语言，玩了一阵子，更新到2.0以后好多东西又不一样了，我也是挺晕的<br>这里把过程中的笔记写一写，主要是基于一个C程序员的角度，有些容易出错的地方以及和C的异同<br>练习源码见：<a href="https://github.com/conanwhf/swiftplayground/tree/master/Swift_Syntax.playground/Pages">GitHub</a>　</p>
 </blockquote>
 <p>首先很重要的一点：<strong>空格不能少！！养成习惯！</strong></p>
-<h2 id="变量类型&amp;数值计算">变量类型&amp;数值计算</h2><ul>
+<h2 id="u53D8_u91CF_u7C7B_u578B_26amp_3B_u6570_u503C_u8BA1_u7B97"><a href="#u53D8_u91CF_u7C7B_u578B_26amp_3B_u6570_u503C_u8BA1_u7B97" class="headerlink" title="变量类型&amp;数值计算"></a>变量类型&amp;数值计算</h2><ul>
 <li>Float/Double/Int可强制用<strong>String()</strong>转换，通用类型转换可用”\(var)”，String转换Int可用<strong>Int()</strong></li>
 <li>变量名大小写区分
           <div class="post-more-link text-center">
@@ -768,7 +768,7 @@
 
       
         
-          <h2 id="读完的书">读完的书</h2><ol>
+          <h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
 <li><strong>金粉世家</strong><br>大部头，看了好久才看完，看得有点累。可能受电视剧影响太深，我一边看一边不停地脑补陈坤、董洁、天线。小说写得是不错，那种世家的感觉，各种支线带来的社会整体描绘，感情线的冲突……虽然不至于欲罢不能但每次放下也有点恋恋不舍。我蛮喜欢小说里面的金燕西的，反倒对冷清秋有点反感，感觉多少有点想攀龙附凤又扔不掉自己的清高吧，特别是早期，很多经济上的便宜占得没骨气。</li>
 <li><strong>The Swift Programming Language</strong><br>开发文档，算是看完了吧，不过还有很多东西待查</li>
 <li><strong>AppStore经营之道</strong><br>台湾人写的东西，怎么看都是嗲嗲的，哪怕是在讲纯技术的东西。而且台版的书籍通常都是内容不多，图多、啰嗦，所以这本书虽然开了个很大的标题，其实里面的干货一般般，很快就读完了。对利用Appstore来挣钱（开发APP，不是刷榜）

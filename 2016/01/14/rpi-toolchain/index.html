@@ -272,7 +272,7 @@
       
 
       
-        <span itemprop="articleBody"><p>  说到交叉编译工具，真是血泪史。搞了快两天，才终于迂回搞定。老规矩，先放Script<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a>，<strong>build/build-toolchain.sh</strong><br>  一开始我以为这东西用的人多，交叉编译工具应该不是事儿，去官网下一个就行了，可是我去GitHub一看，这toolchain最近的更新也是<strong>三年</strong>前，这……能用？先下载吧，同时各种搜，感觉我没有走错地方，大家就是用的这一款！<br>  可是我忘了我是OSX。不出所料，在我的电脑上跑不了。而且看了下这个toolchain还是给ARMv6编的好吗，现在明明就是ARMv7了！这么跑性能不受影响吗？更让我无语的是板子上的gcc也是ARMv6的……😰编译个内核什么的那么慢，官方的toolchain又不能用，自己编译势在必行。<br>又是一通各种搜，搜到了个别人2014年编译的mac用toolchain，试了试，普通的程序没问题，编kernel编不过。搜到了个比较详细的在Mac上编译的blog，可惜也是几年前的，跟现在的环境不一样，各种出状况又goole解决，最后还是编译crosstool不成功。可能这一两年，不论是crosstool，OSX，还是GCC，都已经又改了不少吧。<br>  最后，我放弃了，毕竟还是要做iOS开发的，不敢随便乱sudo，还是上虚拟机吧。竭尽全力把所有能删的都删了，看看剩余的18G空间（128G MBP你懂的），哭着做了个Debian的虚拟机……为了节约，GUI都不要，命令行的最小系统。后来还是吃亏在这上面了，编译到一半空间不够，临时扩展磁盘，fdisk,format,mount,ln -s😞所以，根据我经验，不管在哪里，请<strong>至少至少至少准备10G有效空间！！！</strong>（12G是我调整后整个虚拟机大小，最后还剩了2G；如果系统已经有了，那free space至少8G）<br>废话说完，正经操作其实不多，主要就是装一个神器<strong>crosstool-ng</strong>，配置好，然后交给它编译交叉编译工具就行了！具体如下：<br><a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/14/rpi-toolchain/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/14/rpi-toolchain/'>自己编译给树莓派的交叉编译工具</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+        <span itemprop="articleBody"><p>  说到交叉编译工具，真是血泪史。搞了快两天，才终于迂回搞定。老规矩，先放Script<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a>，<strong>build/build-toolchain.sh</strong><br>  一开始我以为这东西用的人多，交叉编译工具应该不是事儿，去官网下一个就行了，可是我去GitHub一看，这toolchain最近的更新也是<strong>三年</strong>前，这……能用？先下载吧，同时各种搜，感觉我没有走错地方，大家就是用的这一款！<br>  可是我忘了我是OSX。不出所料，在我的电脑上跑不了。而且看了下这个toolchain还是给ARMv6编的好吗，现在明明就是ARMv7了！这么跑性能不受影响吗？更让我无语的是板子上的gcc也是ARMv6的……😰编译个内核什么的那么慢，官方的toolchain又不能用，自己编译势在必行。<br>又是一通各种搜，搜到了个别人2014年编译的mac用toolchain，试了试，普通的程序没问题，编kernel编不过。搜到了个比较详细的在Mac上编译的blog，可惜也是几年前的，跟现在的环境不一样，各种出状况又goole解决，最后还是编译crosstool不成功。可能这一两年，不论是crosstool，OSX，还是GCC，都已经又改了不少吧。<br>  最后，我放弃了，毕竟还是要做iOS开发的，不敢随便乱sudo，还是上虚拟机吧。竭尽全力把所有能删的都删了，看看剩余的18G空间（128G MBP你懂的），哭着做了个Debian的虚拟机……为了节约，GUI都不要，命令行的最小系统。后来还是吃亏在这上面了，编译到一半空间不够，临时扩展磁盘，fdisk,format,mount,ln -s😞所以，根据我经验，不管在哪里，请<strong>至少至少至少准备10G有效空间！！！</strong>（12G是我调整后整个虚拟机大小，最后还剩了2G；如果系统已经有了，那free space至少8G）<br>废话说完，正经操作其实不多，主要就是装一个神器<strong>crosstool-ng</strong>，配置好，然后交给它编译交叉编译工具就行了！具体如下：<br><a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/14/rpi-toolchain/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/14/rpi-toolchain/'>自己编译给树莓派的交叉编译工具</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -286,7 +286,7 @@
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -294,41 +294,41 @@
 })()
 </script>
 </p>
-<h2 id="虚拟机配置">虚拟机配置</h2><p>基于最纯粹最小系统，改个vi，加个sudo账户，如果系统以前就用可以跳过。</p>
-<pre><code><span class="keyword">sudo</span> apt-get install -y vim
-<span class="keyword">echo</span> “deb <span class="literal">ALL</span>=(<span class="literal">ALL</span>) NOPASSWD: <span class="literal">ALL</span>” | sudo tee -a /etc/sudoers
-</code></pre><h2 id="环境准备">环境准备</h2><p>因为是新系统，要装的库实在太多，我一边编，一边google，无数次出错了就多装一个库再来，这些是最精简的要求了，一般的系统里应该很多都已经装了</p>
-<pre><code>sudo apt-get -y <span class="operator"><span class="keyword">update</span>
-sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -y bison flex texinfo gawk automake subversion
-sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -y gperf help2man make libtool libncurses5-dev 
-sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -y gcj-jdk python-dev <span class="keyword">g</span>++</span>
+<h2 id="u865A_u62DF_u673A_u914D_u7F6E"><a href="#u865A_u62DF_u673A_u914D_u7F6E" class="headerlink" title="虚拟机配置"></a>虚拟机配置</h2><p>基于最纯粹最小系统，改个vi，加个sudo账户，如果系统以前就用可以跳过。</p>
+<pre><code>sudo apt-get install -y vim
+echo “deb ALL=(ALL) NOPASSWD: ALL” | sudo tee -a /etc/sudoers
+</code></pre><h2 id="u73AF_u5883_u51C6_u5907"><a href="#u73AF_u5883_u51C6_u5907" class="headerlink" title="环境准备"></a>环境准备</h2><p>因为是新系统，要装的库实在太多，我一边编，一边google，无数次出错了就多装一个库再来，这些是最精简的要求了，一般的系统里应该很多都已经装了</p>
+<pre><code>sudo apt-get -y update
+sudo apt-get install -y bison flex texinfo gawk automake subversion
+sudo apt-get install -y gperf help2man make libtool libncurses5-dev 
+sudo apt-get install -y gcj-jdk python-dev g++
 </code></pre><p>这个libtool我不知道为什么，明明装了却总说没装，于是我自己手动装了一遍。不过后来想想，可能应该装libtool-dev？没去验证</p>
-<pre><code>git clone gi<span class="variable">t:</span>//git.savannah.gnu.org/libtool.git
-<span class="keyword">cd</span> libtool
-./configure; <span class="keyword">make</span>; <span class="keyword">make</span> install
-</code></pre><h2 id="编译crosstool-ng">编译crosstool-ng</h2><pre><code>git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/crosstool-ng/crosstool-ng.git
-<span class="keyword">cd</span> crosstool-ng
+<pre><code>git clone git://git.savannah.gnu.org/libtool.git
+cd libtool
+./configure; make; make install
+</code></pre><h2 id="u7F16_u8BD1crosstool-ng"><a href="#u7F16_u8BD1crosstool-ng" class="headerlink" title="编译crosstool-ng"></a>编译crosstool-ng</h2><pre><code>git clone https://github.com/crosstool-ng/crosstool-ng.git
+cd crosstool-ng
 ./bootstrap
-./configure --prefix=/<span class="keyword">opt</span>/crosstool-ng
-<span class="keyword">make</span>
-<span class="keyword">make</span> install
+./configure --prefix=/opt/crosstool-ng
+make
+make install
 </code></pre><p>然后加环境变量<code>export PATH=$PATH:/opt/crosstool-ng/bin</code></p>
-<h2 id="编译交叉编译工具(不能是root用户)">编译交叉编译工具(不能是root用户)</h2><h3 id="检查tools版本">检查tools版本</h3><p>编译过程中要用到很多库，有几个比较关键的库的版本需要提前看好，否则可能导致编译失败。</p>
+<h2 id="u7F16_u8BD1_u4EA4_u53C9_u7F16_u8BD1_u5DE5_u5177_28_u4E0D_u80FD_u662Froot_u7528_u6237_29"><a href="#u7F16_u8BD1_u4EA4_u53C9_u7F16_u8BD1_u5DE5_u5177_28_u4E0D_u80FD_u662Froot_u7528_u6237_29" class="headerlink" title="编译交叉编译工具(不能是root用户)"></a>编译交叉编译工具(不能是root用户)</h2><h3 id="u68C0_u67E5tools_u7248_u672C"><a href="#u68C0_u67E5tools_u7248_u672C" class="headerlink" title="检查tools版本"></a>检查tools版本</h3><p>编译过程中要用到很多库，有几个比较关键的库的版本需要提前看好，否则可能导致编译失败。</p>
 <ol>
 <li>Glibc版本：<code>lld —v</code></li>
 <li>GCC版本：<code>gcc —v</code></li>
 <li>目标板Kernel版本：<code>uname -r</code>。这个是要在树莓派的终端看的，不是指编译环境的kernel版本！目前我用的最新版本是Linux-4.1.15</li>
 </ol>
-<h3 id="配置编译选项">配置编译选项</h3><ul>
-<li>首先去一个随便什么地方（要有读写权限）建立一个文件夹作为当前目录，用来存放临时的配置文件<pre><code><span class="built_in">mkdir</span> toolchain
-<span class="built_in">cd</span> toolchain
+<h3 id="u914D_u7F6E_u7F16_u8BD1_u9009_u9879"><a href="#u914D_u7F6E_u7F16_u8BD1_u9009_u9879" class="headerlink" title="配置编译选项"></a>配置编译选项</h3><ul>
+<li>首先去一个随便什么地方（要有读写权限）建立一个文件夹作为当前目录，用来存放临时的配置文件<pre><code>mkdir toolchain
+cd toolchain
 </code></pre></li>
 <li><p>crosstool-ng是有一些不同平台的default配置的，他们放在<strong>crosstool-ng/samples/$PLATFORM/crosstool.config</strong>。很幸运树莓派2B正好是有默认配置的，可以用：</p>
-<pre><code><span class="keyword">ct</span>-ng armv7-rpi2-linux-gnueabihf
+<pre><code>ct-ng armv7-rpi2-linux-gnueabihf
 </code></pre><p>来调用，然后就会自动保存为.config文件，这个跟kernel有点像。</p>
 </li>
 <li><p>默认的配置还是有些地方需要调整，我们要手动配置一下：</p>
-<pre><code><span class="keyword">ct</span>-ng menuconfig
+<pre><code>ct-ng menuconfig
 </code></pre><p>这里面的界面就非常像Kernel的Config了。基于默认配置，需要修改的部分不多，重要的有以下几个：</p>
 <blockquote>
 <ol>
@@ -343,10 +343,10 @@ sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -
 </li>
 </ul>
 <p>最后看看还有什么自己的特殊需要，例如目标Path之类，改完以后保存</p>
-<h3 id="编译">编译</h3><p>一句话：</p>
-<pre><code><span class="keyword">ct</span>-ng build
+<h3 id="u7F16_u8BD1"><a href="#u7F16_u8BD1" class="headerlink" title="编译"></a>编译</h3><p>一句话：</p>
+<pre><code>ct-ng build
 </code></pre><p>然后等着吧！首先还会下载GCC之类的源码，所以准备好网络环境。如果没有出错的话，也要等个两三个钟头。完成之后，会在<code>~/xtool</code>（默认设置）里看到最终的交叉编译工具。拿去用吧！我测试了普通程序、内核、驱动，都跑得好好的，搞定收工！😄</p>
-<h3 id="有关Mac的几句话">有关Mac的几句话</h3><p>关于Mac的OSX系统，多废话两句。在Mac上的crosstool-ng之所以用不了，一是因为很多工具没有，二是即使有也太过于陈旧，第三点最重要：Mac上的GCC等一套工具并不是基于GNU的，而是Apple自己弄的Clang。虽然我们有brew这样的神器，但GCC, grep, awk, libtool, automake……这么多关键的库都要重来，又不能影响系统，就算是写脚本做软链接也是相当浩大的工程。所以，如果不是对自己特别有信心，又特别爱折腾，我真心建议还是用虚拟机吧。</p>
+<h3 id="u6709_u5173Mac_u7684_u51E0_u53E5_u8BDD"><a href="#u6709_u5173Mac_u7684_u51E0_u53E5_u8BDD" class="headerlink" title="有关Mac的几句话"></a>有关Mac的几句话</h3><p>关于Mac的OSX系统，多废话两句。在Mac上的crosstool-ng之所以用不了，一是因为很多工具没有，二是即使有也太过于陈旧，第三点最重要：Mac上的GCC等一套工具并不是基于GNU的，而是Apple自己弄的Clang。虽然我们有brew这样的神器，但GCC, grep, awk, libtool, automake……这么多关键的库都要重来，又不能影响系统，就算是写脚本做软链接也是相当浩大的工程。所以，如果不是对自己特别有信心，又特别爱折腾，我真心建议还是用虚拟机吧。</p>
 </span>
       
     </div>
@@ -559,7 +559,7 @@ sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟机配置"><span class="nav-number">1.</span> <span class="nav-text">虚拟机配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境准备"><span class="nav-number">2.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译crosstool-ng"><span class="nav-number">3.</span> <span class="nav-text">编译crosstool-ng</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译交叉编译工具(不能是root用户)"><span class="nav-number">4.</span> <span class="nav-text">编译交叉编译工具(不能是root用户)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#检查tools版本"><span class="nav-number">4.1.</span> <span class="nav-text">检查tools版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置编译选项"><span class="nav-number">4.2.</span> <span class="nav-text">配置编译选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译"><span class="nav-number">4.3.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有关Mac的几句话"><span class="nav-number">4.4.</span> <span class="nav-text">有关Mac的几句话</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u865A_u62DF_u673A_u914D_u7F6E"><span class="nav-number">1.</span> <span class="nav-text">虚拟机配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u73AF_u5883_u51C6_u5907"><span class="nav-number">2.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u7F16_u8BD1crosstool-ng"><span class="nav-number">3.</span> <span class="nav-text">编译crosstool-ng</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u7F16_u8BD1_u4EA4_u53C9_u7F16_u8BD1_u5DE5_u5177_28_u4E0D_u80FD_u662Froot_u7528_u6237_29"><span class="nav-number">4.</span> <span class="nav-text">编译交叉编译工具(不能是root用户)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u68C0_u67E5tools_u7248_u672C"><span class="nav-number">4.1.</span> <span class="nav-text">检查tools版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u914D_u7F6E_u7F16_u8BD1_u9009_u9879"><span class="nav-number">4.2.</span> <span class="nav-text">配置编译选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7F16_u8BD1"><span class="nav-number">4.3.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u6709_u5173Mac_u7684_u51E0_u53E5_u8BDD"><span class="nav-number">4.4.</span> <span class="nav-text">有关Mac的几句话</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

@@ -273,7 +273,7 @@
       
 
       
-        <span itemprop="articleBody"><p>作为初学者，基础的几个UI控件必须要熟练，现在的我还处于打开Xcode在控件表里面瞎找，看着谁好像是我想要的就往StoryBoard里面拖的阶段……正式写了点东西以后，越来越感觉到，该认真把控件过一遍了。上周写了这么个UIView的Demo，本意是看看各种效果，结果各种状况，花了不少时间。最终效果如下：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_UIViewtest.gif" alt=""><br>因为准备做不止一个控件的Demo测试，又不愿意每个控件开一个ViewController，想所有的Demo都重用同一个页面，于是妖蛾子就出来了。（背景：这个Demo的具体实现部分和ViewController是分开的两个File）<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/03/UISlider/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/03/UISlider/'>UIController中Slider监听回调具体实现的分离</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+        <span itemprop="articleBody"><p>作为初学者，基础的几个UI控件必须要熟练，现在的我还处于打开Xcode在控件表里面瞎找，看着谁好像是我想要的就往StoryBoard里面拖的阶段……正式写了点东西以后，越来越感觉到，该认真把控件过一遍了。上周写了这么个UIView的Demo，本意是看看各种效果，结果各种状况，花了不少时间。最终效果如下：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_UIViewtest.gif" alt=""><br>因为准备做不止一个控件的Demo测试，又不愿意每个控件开一个ViewController，想所有的Demo都重用同一个页面，于是妖蛾子就出来了。（背景：这个Demo的具体实现部分和ViewController是分开的两个File）<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/03/UISlider/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/03/UISlider/'>UIController中Slider监听回调具体实现的分离</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -287,7 +287,7 @@
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -295,30 +295,30 @@
 })()
 </script>
 <br>最主要的问题出在UISlider的监听上。网上UISlider的基本用法大把而且很简单，我照葫芦画瓢写了个包含一个Slider和Label的结构体，并且申明一个数组作config用：</p>
-<pre><code><span class="class"><span class="keyword">class</span> <span class="title">ConfigSlider</span> {</span>
-let <span class="string">label :</span> UILabel
-let <span class="string">slider :</span> UISlider
-let <span class="string">name :</span> String
+<pre><code>class ConfigSlider {
+let label : UILabel
+let slider : UISlider
+let name : String
 
-init( <span class="string">n:</span> Int, <span class="string">size :</span> CGSize, <span class="string">max:</span> Float, <span class="string">name:</span> String, <span class="string">defaultValue:</span> Float = <span class="number">0</span>) {
-    <span class="comment">// 各种计算初始化位置，略</span>
-    var newFrame = CGRect(<span class="string">x:</span> x, <span class="string">y:</span> y, <span class="string">width:</span> defaultLabelWidth, <span class="string">height:</span> defaultSliderHeight)
-    label = UILabel(<span class="string">frame:</span> newFrame)
+init( n: Int, size : CGSize, max: Float, name: String, defaultValue: Float = 0) {
+    // 各种计算初始化位置，略
+    var newFrame = CGRect(x: x, y: y, width: defaultLabelWidth, height: defaultSliderHeight)
+    label = UILabel(frame: newFrame)
     label.text = name
-    newFrame = CGRect(<span class="string">x:</span> x+defaultLabelWidth, <span class="string">y:</span> y, <span class="string">width:</span> w - defaultLabelWidth, <span class="string">height:</span> defaultSliderHeight)
-    slider = UISlider(<span class="string">frame:</span> newFrame)
-    slider.minimumValue = <span class="number">0</span>
+    newFrame = CGRect(x: x+defaultLabelWidth, y: y, width: w - defaultLabelWidth, height: defaultSliderHeight)
+    slider = UISlider(frame: newFrame)
+    slider.minimumValue = 0
     slider.maximumValue = Float(max)
-    slider.setValue(defaultValue, <span class="string">animated:</span> <span class="literal">true</span>)
+    slider.setValue(defaultValue, animated: true)
     }
 }
 
-var <span class="string">sliderConfigs :</span> Array &lt;ConfigSlider&gt; = []
+var sliderConfigs : Array &lt;ConfigSlider&gt; = []
 </code></pre><p>我的设想是通过初始化一组这样的结构体，能够自动添加n项配置选项到View，包括配置的标题和当前的值，并且当滑动条变动的时候当前值的显示也会跟着变化。要做到这一点，就要监听Slider的变化。之前写过button的handler，很简单用addTarget就行，看看定义：</p>
-<pre><code>slider.addTarget(&lt;<span class="array">#T</span>#<span class="array">#target</span>: AnyObject?#<span class="array">#AnyObject</span>?#&gt;, action: &lt;<span class="array">#T</span>#<span class="array">#Selector</span>#&gt;, forControlEvents: &lt;<span class="array">#T</span>#<span class="array">#UIControlEvents</span>#&gt;)
+<pre><code>slider.addTarget(&lt;#T##target: AnyObject?##AnyObject?#&gt;, action: &lt;#T##Selector#&gt;, forControlEvents: &lt;#T##UIControlEvents#&gt;)
 </code></pre><p>于是我就直接把监听的函数写到ConfigSlider的定义里面了：</p>
-<pre><code><span class="func"><span class="keyword">func</span> <span class="title">configChanged</span><span class="params">(sender: AnyObject?)</span></span> {
-    label.text = name + <span class="string">":<span class="subst">\(Int(slider.value)</span>)"</span>
+<pre><code>func configChanged(sender: AnyObject?) {
+    label.text = name + &quot;:\(Int(slider.value))&quot;
 }
 </code></pre><p>而在addTarget的时候，犯了难：参数target指的是什么呢？所有的范例都是用的ViewController，这里也拿不到啊，看看这是个可选型，那么用nil试试看？编译完一跑，拖动Slider没有任何反应……好吧也许是需要一个sender，那么拿ViewController的试试？这次有反应了-直接挂掉，显示“<strong>unrecognized selector sent to instance 0x7feecbe10260</strong>“那么我把handler放到结构体外面试试、添加打印信息试试、用不同的参数试试……各种”试试“，各种”<strong>unrecognized selector sent to instance XXX</strong>“……调试过程就不多提了，直接说结论吧：</p>
 <blockquote>
@@ -329,31 +329,31 @@ var <span class="string">sliderConfigs :</span> Array &lt;ConfigSlider&gt; = []
 </ol>
 </blockquote>
 <p>这些测试，让我对”代理“的概念有了更深刻的理解，自学的新手就是这样啊，好多概念要慢慢摸索才会懂。但我的问题还没解决。之前说了，我的Controller是打算重用的，和几个Demo的具体实现分离，那么这个slider的回调，如果一定要写在Contoller中，那也太丑陋了……🤔并且有几个Demo就得塞几个不同的回调，怎么能忍？！想了想，利用Swift中Function的特性（我并不知道OC中是不是也一样）：<br><em>StepA: 在在ViewContoller中实现</em></p>
-<pre><code><span class="comment">//定义updateDemo()，具体写哪儿看着办</span>
-<span class="keyword">var</span> updateDemo : (<span class="type">ShowController</span>)-&gt;() = {<span class="number">_</span> <span class="keyword">in</span> }
+<pre><code>//定义updateDemo()，具体写哪儿看着办
+var updateDemo : (ShowController)-&gt;() = {_ in }
 
-<span class="keyword">if</span> (某个判断条件<span class="type">A</span>，判断出<span class="type">DemoA</span>的情况) {
-    <span class="comment">//重定向到函数refreshUIViewTest</span>
+if (某个判断条件A，判断出DemoA的情况) {
+    //重定向到函数refreshUIViewTest
     updateDemo = refreshUIViewTest
 }
 
-<span class="comment">//实现回调函数</span>
-<span class="func"><span class="keyword">func</span> <span class="title">configChanged</span><span class="params">(sender: AnyObject?)</span></span> {
-    <span class="comment">//将callback转成具体的实现，此时无需判断</span>
-    updateDemo(<span class="keyword">self</span>)
+//实现回调函数
+func configChanged(sender: AnyObject?) {
+    //将callback转成具体的实现，此时无需判断
+    updateDemo(self)
 }
 </code></pre><p><em>StepB：在具体实现的File中</em></p>
-<pre><code><span class="comment">//注册监听函数</span>
-<span class="tag">slider</span><span class="class">.addTarget</span>(ctl, <span class="attribute">action</span>: <span class="function">Selector</span>(<span class="string">"configChanged:"</span>), <span class="tag">forControlEvents</span>: <span class="tag">UIControlEvents</span><span class="class">.ValueChanged</span>)
+<pre><code>//注册监听函数
+slider.addTarget(ctl, action: Selector(&quot;configChanged:&quot;), forControlEvents: UIControlEvents.ValueChanged)
 
-<span class="tag">func</span> <span class="tag">refreshUIViewTest</span>(<span class="attribute">ctl</span>: ShowController) {
-    <span class="comment">//TODO，任何具体的回调实现</span>
+func refreshUIViewTest(ctl: ShowController) {
+    //TODO，任何具体的回调实现
 }
 </code></pre><p>这样一来，既实现了想要的功能，又做到了具体实现和ViewContoller分离。不过还有个小小问题：ConfigSlider作为一个小小的自定义控件，Label上的数值显示如果每次变化都要放在外面去修改刷新，那也太……不处女座了。想了想给它添加了这样的方法：</p>
-<pre><code><span class="keyword">var</span> <span class="keyword">value</span> : Float{
-    <span class="keyword">get</span> {
-        label.text = name + <span class="string">":\(Int(slider.value))"</span>
-        <span class="keyword">return</span> slider.<span class="keyword">value</span>
+<pre><code>var value : Float{
+    get {
+        label.text = name + &quot;:\(Int(slider.value))&quot;
+        return slider.value
     }
 }
 </code></pre><p>这样，每次当外界需要获取其变化后数值的时候，就自动刷新Label，而这个获取数值的操作（至少）必然是在监听handler中要用到的（不然难道做个slider摆看吗？😄）至此，这个歪门邪道解决的方案全部完成。<br>整个项目的代码在<a href="https://github.com/conanwhf/Demos/tree/master/UIDemoTest" target="_blank" rel="external">这里</a>，具体这个Demo的实现文件是<em><strong>ShowTestsController.swift</strong></em></p>

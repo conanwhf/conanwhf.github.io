@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.gitcafe.io/"/>
-  <updated>2016-01-17T18:06:02.000Z</updated>
+  <updated>2016-01-18T15:44:39.000Z</updated>
   <id>http://conanwhf.gitcafe.io/</id>
   
   <author>
@@ -19,14 +19,15 @@
     <link href="http://conanwhf.gitcafe.io/2016/01/16/Transform/"/>
     <id>http://conanwhf.gitcafe.io/2016/01/16/Transform/</id>
     <published>2016-01-16T09:32:45.000Z</published>
-    <updated>2016-01-17T18:06:02.000Z</updated>
+    <updated>2016-01-18T15:44:39.000Z</updated>
     <content type="html"><![CDATA[<p>这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。<br>关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周Blog<a href="http://conanwhf.gitcafe.io/2016/01/03/UISlider/" title="UIController中Slider监听回调具体实现的分离">UIController中Slider监听回调具体实现的分离</a>），我也添加了旋转的功能，开始是在handler中这么写的(back是一个UIView)：</p>
-<pre><code>let x = (<span class="function"><span class="title">Float</span><span class="params">(ctl.show.frame.width)</span></span> - conf[<span class="number">0</span>] )/<span class="number">2</span>
-let y = (<span class="function"><span class="title">Float</span><span class="params">(ctl.show.frame.height)</span></span> - conf[<span class="number">1</span>] )/<span class="number">2</span>
-back<span class="class">.frame</span><span class="class">.size</span> = <span class="function"><span class="title">CGSize</span><span class="params">(width: CGFloat(conf[<span class="number">0</span>], height: CGFloat(conf[<span class="number">1</span>])</span></span>
-back<span class="class">.frame</span><span class="class">.origin</span> = <span class="function"><span class="title">CGPoint</span><span class="params">(x: Int(x)</span></span>, y: <span class="function"><span class="title">Int</span><span class="params">(y)</span></span>)
-back<span class="class">.transform</span> = <span class="function"><span class="title">CGAffineTransformMakeRotation</span><span class="params">( CGFloat(Double(conf[<span class="number">7</span>] * M_PI  / <span class="number">180.0</span>)</span></span>)
-</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样有时候会自己拉扁的：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_error.gif" alt=""><br><a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/16/Transform/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/16/Transform/'>使用.transform旋转带来的坑</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<pre><code>let x = (Float(ctl.show.frame.width) - conf[0] )/2
+let y = (Float(ctl.show.frame.height) - conf[1] )/2
+back.frame.size = CGSize(width: CGFloat(conf[0], height: CGFloat(conf[1])
+back.frame.origin = CGPoint(x: Int(x), y: Int(y))
+back.transform = CGAffineTransformMakeRotation( CGFloat(Double(conf[7] * M_PI  / 180.0))
+</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样有时候会自己拉扁的：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_error.gif" alt=""></p>
+</p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/16/Transform/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/16/Transform/'>使用.transform旋转带来的坑</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -40,37 +41,38 @@ back<span class="class">.transform</span> = <span class="function"><span class="
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
   }
 })()
 </script>
-<br>添加了打印信息以后发现，经过旋转的View.frame，不管是size还是position都变掉了，并且完全不是按照希望的样子变化的。不论我把旋转放在整个片段的哪里，都不对，frame的size总是不受控制。后来只好把scaling的部分改成了CGAffineTransformScale()。去看了看transform系列的文档，它其实是一类矩阵变换方式，旋转、缩放、平移只是其中的一些常用算法，系统给出了这些功能的API。如果你数学够好，其实也是可以自己设置这种变换的映射方式，最后转换后的View，其frame size是包含目标图形的一个最小矩形。而我猜，我碰到的问题，是因为系统对于旋转的处理有点特殊，因为scaling时拿到的参数不正确（当时的frame还没有画成缩放后的样子）导致。<br>于是我将UIView的变化都改为用CGAffineTransform系列函数进行，又发现对transform的操作先后顺序会影响最终的效果。出于兴趣我在playground里面做了点测试，先申请了一个100*300的矩形，然后做了两个transform的参数分别表示旋转90度和缩放至200*200（长宽缩放比例为1:2和1:0.667）：</p>
-<pre><code>let demo = UIView(frame:CGRectMake(<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">100.0</span>,  <span class="number">300.0</span>))
-<span class="comment">//缩放参数</span>
-let sx =  <span class="number">200</span> / demo.frame.width
-let sy =  <span class="number">200</span> / demo.frame.height
+
+<p>添加了打印信息以后发现，经过旋转的View.frame，不管是size还是position都变掉了，并且完全不是按照希望的样子变化的。不论我把旋转放在整个片段的哪里，都不对，frame的size总是不受控制。后来只好把scaling的部分改成了CGAffineTransformScale()。去看了看transform系列的文档，它其实是一类矩阵变换方式，旋转、缩放、平移只是其中的一些常用算法，系统给出了这些功能的API。如果你数学够好，其实也是可以自己设置这种变换的映射方式，最后转换后的View，其frame size是包含目标图形的一个最小矩形。而我猜，我碰到的问题，是因为系统对于旋转的处理有点特殊，因为scaling时拿到的参数不正确（当时的frame还没有画成缩放后的样子）导致。<br>于是我将UIView的变化都改为用CGAffineTransform系列函数进行，又发现对transform的操作先后顺序会影响最终的效果。出于兴趣我在playground里面做了点测试，先申请了一个100*300的矩形，然后做了两个transform的参数分别表示旋转90度和缩放至200*200（长宽缩放比例为1:2和1:0.667）：</p>
+<pre><code>let demo = UIView(frame:CGRectMake(0.0, 0.0, 100.0,  300.0))
+//缩放参数
+let sx =  200 / demo.frame.width
+let sy =  200 / demo.frame.height
 let transf_scale = CGAffineTransformMakeScale(sx, sy)
-<span class="comment">//旋转参数</span>
-let transf_rotate = CGAffineTransformMakeRotation(CGFloat(Double(<span class="number">90</span>) * M_PI  / <span class="number">180.0</span>))
+//旋转参数
+let transf_rotate = CGAffineTransformMakeRotation(CGFloat(Double(90) * M_PI  / 180.0))
 </code></pre><p>对这个View分别进行缩放和旋转操作，理想的情况是变成一个200*200的正方形。四个测试Case分别如下：两个先缩放再旋转，两个先旋转再缩放，后两个用的是CGAffineTransformConcat()函数直接跑。</p>
-<pre><code>//<span class="keyword">case</span> <span class="number">1</span>, rotate(<span class="built_in">scale</span>, x)
-demo.transform = CGAffineTransformRotate(transf_scale, CGFloat(<span class="type">Double</span>(<span class="number">90</span>) * M_PI  / <span class="number">180.0</span>))
-demo.frame.<span class="built_in">size</span>     //<span class="number">600</span>*<span class="number">67</span>
+<pre><code>//case 1, rotate(scale, x)
+demo.transform = CGAffineTransformRotate(transf_scale, CGFloat(Double(90) * M_PI  / 180.0))
+demo.frame.size     //600*67
 
-//<span class="keyword">case</span> <span class="number">2</span>, <span class="built_in">scale</span>(rotate, x)
+//case 2, scale(rotate, x)
 demo.transform = CGAffineTransformScale(transf_rotate, sx, sy)
-demo.frame.<span class="built_in">size</span>     //<span class="number">200</span>*<span class="number">200</span>
+demo.frame.size     //200*200
 
-//<span class="keyword">case</span> <span class="number">3</span>, <span class="built_in">scale</span>+rotate
+//case 3, scale+rotate
 demo.transform = CGAffineTransformConcat(transf_scale, transf_rotate)
-demo.frame.<span class="built_in">size</span>     //<span class="number">200</span>*<span class="number">200</span>
+demo.frame.size     //200*200
 
-//<span class="keyword">case</span> <span class="number">4</span>, rotate+<span class="built_in">scale</span>
+//case 4, rotate+scale
 demo.transform = CGAffineTransformConcat(transf_rotate, transf_scale)
-demo.frame.<span class="built_in">size</span>     //<span class="number">600</span>*<span class="number">67</span>
+demo.frame.size     //600*67
 </code></pre><p>有兴趣的可以把这一段code放到playground里面自己跑跑，看看会是什么结果。case2 &amp; case3，结果如我们所想象的那样，是个200*200的正方形；而case1 &amp; case4，却变成了600*66.7的长条矩形。看起来正如下图的几种情况：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_order.png" alt=""><br>图中，暗红色部分是先做缩放再做旋转，有了正确的结果，对应scale(rotate, x) &amp; scale+rotate；银色部分则是先旋转再缩放，成了错误的样子，对应rotate+scale &amp; rotate(scale, x)。原来这是有顺序要求的。那么问题又来了：CGAffineTransformXXX(t, args)系列的函数，感觉上应该是对t用新的参数做叠加，为什么结果却是反的呢？于是我去查了它们的头文件，看到是这么定义的：</p>
 <blockquote>
 <p>  /* Scale t’ by (sx, sy)’ and return the result:<br>  t’ = [ sx 0 0 sy 0 0 ] * t */<br>  @available(iOS 2.0, *)<br>  public func CGAffineTransformScale(t: CGAffineTransform, _ sx: CGFloat, _ sy: CGFloat) -> CGAffineTransform</p>
@@ -86,14 +88,7 @@ demo.frame.<span class="built_in">size</span>     //<span class="number">600</sp
 </ol>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。<br>关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周Blog<a href="http://conanwhf.gitcafe.io/2016/01/03/UISlider/" title="UIController中Slider监听回调具体实现的分离">UIController中Slider监听回调具体实现的分离</a>），我也添加了旋转的功能，开始是在handler中这么写的(back是一个UIView)：</p>
-<pre><code>let x = (<span class="function"><span class="title">Float</span><span class="params">(ctl.show.frame.width)</span></span> - conf[<span class="number">0</span>] )/<span class="number">2</span>
-let y = (<span class="function"><span class="title">Float</span><span class="params">(ctl.show.frame.height)</span></span> - conf[<span class="number">1</span>] )/<span class="number">2</span>
-back<span class="class">.frame</span><span class="class">.size</span> = <span class="function"><span class="title">CGSize</span><span class="params">(width: CGFloat(conf[<span class="number">0</span>], height: CGFloat(conf[<span class="number">1</span>])</span></span>
-back<span class="class">.frame</span><span class="class">.origin</span> = <span class="function"><span class="title">CGPoint</span><span class="params">(x: Int(x)</span></span>, y: <span class="function"><span class="title">Int</span><span class="params">(y)</span></span>)
-back<span class="class">.transform</span> = <span class="function"><span class="title">CGAffineTransformMakeRotation</span><span class="params">( CGFloat(Double(conf[<span class="number">7</span>] * M_PI  / <span class="number">180.0</span>)</span></span>)
-</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样有时候会自己拉扁的：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_error.gif" alt=""><br>]]>
-    
+    <![CDATA[<p>这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。<br>关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.tr]]>
     </summary>
     
       <category term="iOS" scheme="http://conanwhf.gitcafe.io/tags/iOS/"/>
@@ -110,7 +105,7 @@ back<span class="class">.transform</span> = <span class="function"><span class="
     <id>http://conanwhf.gitcafe.io/2016/01/14/rpi-toolchain/</id>
     <published>2016-01-14T03:31:26.000Z</published>
     <updated>2016-01-17T18:07:29.000Z</updated>
-    <content type="html"><![CDATA[<p>  说到交叉编译工具，真是血泪史。搞了快两天，才终于迂回搞定。老规矩，先放Script<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a>，<strong>build/build-toolchain.sh</strong><br>  一开始我以为这东西用的人多，交叉编译工具应该不是事儿，去官网下一个就行了，可是我去GitHub一看，这toolchain最近的更新也是<strong>三年</strong>前，这……能用？先下载吧，同时各种搜，感觉我没有走错地方，大家就是用的这一款！<br>  可是我忘了我是OSX。不出所料，在我的电脑上跑不了。而且看了下这个toolchain还是给ARMv6编的好吗，现在明明就是ARMv7了！这么跑性能不受影响吗？更让我无语的是板子上的gcc也是ARMv6的……😰编译个内核什么的那么慢，官方的toolchain又不能用，自己编译势在必行。<br>又是一通各种搜，搜到了个别人2014年编译的mac用toolchain，试了试，普通的程序没问题，编kernel编不过。搜到了个比较详细的在Mac上编译的blog，可惜也是几年前的，跟现在的环境不一样，各种出状况又goole解决，最后还是编译crosstool不成功。可能这一两年，不论是crosstool，OSX，还是GCC，都已经又改了不少吧。<br>  最后，我放弃了，毕竟还是要做iOS开发的，不敢随便乱sudo，还是上虚拟机吧。竭尽全力把所有能删的都删了，看看剩余的18G空间（128G MBP你懂的），哭着做了个Debian的虚拟机……为了节约，GUI都不要，命令行的最小系统。后来还是吃亏在这上面了，编译到一半空间不够，临时扩展磁盘，fdisk,format,mount,ln -s😞所以，根据我经验，不管在哪里，请<strong>至少至少至少准备10G有效空间！！！</strong>（12G是我调整后整个虚拟机大小，最后还剩了2G；如果系统已经有了，那free space至少8G）<br>废话说完，正经操作其实不多，主要就是装一个神器<strong>crosstool-ng</strong>，配置好，然后交给它编译交叉编译工具就行了！具体如下：<br><a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/14/rpi-toolchain/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/14/rpi-toolchain/'>自己编译给树莓派的交叉编译工具</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+    <content type="html"><![CDATA[<p>  说到交叉编译工具，真是血泪史。搞了快两天，才终于迂回搞定。老规矩，先放Script<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a>，<strong>build/build-toolchain.sh</strong><br>  一开始我以为这东西用的人多，交叉编译工具应该不是事儿，去官网下一个就行了，可是我去GitHub一看，这toolchain最近的更新也是<strong>三年</strong>前，这……能用？先下载吧，同时各种搜，感觉我没有走错地方，大家就是用的这一款！<br>  可是我忘了我是OSX。不出所料，在我的电脑上跑不了。而且看了下这个toolchain还是给ARMv6编的好吗，现在明明就是ARMv7了！这么跑性能不受影响吗？更让我无语的是板子上的gcc也是ARMv6的……😰编译个内核什么的那么慢，官方的toolchain又不能用，自己编译势在必行。<br>又是一通各种搜，搜到了个别人2014年编译的mac用toolchain，试了试，普通的程序没问题，编kernel编不过。搜到了个比较详细的在Mac上编译的blog，可惜也是几年前的，跟现在的环境不一样，各种出状况又goole解决，最后还是编译crosstool不成功。可能这一两年，不论是crosstool，OSX，还是GCC，都已经又改了不少吧。<br>  最后，我放弃了，毕竟还是要做iOS开发的，不敢随便乱sudo，还是上虚拟机吧。竭尽全力把所有能删的都删了，看看剩余的18G空间（128G MBP你懂的），哭着做了个Debian的虚拟机……为了节约，GUI都不要，命令行的最小系统。后来还是吃亏在这上面了，编译到一半空间不够，临时扩展磁盘，fdisk,format,mount,ln -s😞所以，根据我经验，不管在哪里，请<strong>至少至少至少准备10G有效空间！！！</strong>（12G是我调整后整个虚拟机大小，最后还剩了2G；如果系统已经有了，那free space至少8G）<br>废话说完，正经操作其实不多，主要就是装一个神器<strong>crosstool-ng</strong>，配置好，然后交给它编译交叉编译工具就行了！具体如下：<br><a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/14/rpi-toolchain/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/14/rpi-toolchain/'>自己编译给树莓派的交叉编译工具</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -124,7 +119,7 @@ back<span class="class">.transform</span> = <span class="function"><span class="
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -132,41 +127,41 @@ back<span class="class">.transform</span> = <span class="function"><span class="
 })()
 </script>
 </p>
-<h2 id="虚拟机配置">虚拟机配置</h2><p>基于最纯粹最小系统，改个vi，加个sudo账户，如果系统以前就用可以跳过。</p>
-<pre><code><span class="keyword">sudo</span> apt-get install -y vim
-<span class="keyword">echo</span> “deb <span class="literal">ALL</span>=(<span class="literal">ALL</span>) NOPASSWD: <span class="literal">ALL</span>” | sudo tee -a /etc/sudoers
-</code></pre><h2 id="环境准备">环境准备</h2><p>因为是新系统，要装的库实在太多，我一边编，一边google，无数次出错了就多装一个库再来，这些是最精简的要求了，一般的系统里应该很多都已经装了</p>
-<pre><code>sudo apt-get -y <span class="operator"><span class="keyword">update</span>
-sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -y bison flex texinfo gawk automake subversion
-sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -y gperf help2man make libtool libncurses5-dev 
-sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -y gcj-jdk python-dev <span class="keyword">g</span>++</span>
+<h2 id="u865A_u62DF_u673A_u914D_u7F6E"><a href="#u865A_u62DF_u673A_u914D_u7F6E" class="headerlink" title="虚拟机配置"></a>虚拟机配置</h2><p>基于最纯粹最小系统，改个vi，加个sudo账户，如果系统以前就用可以跳过。</p>
+<pre><code>sudo apt-get install -y vim
+echo “deb ALL=(ALL) NOPASSWD: ALL” | sudo tee -a /etc/sudoers
+</code></pre><h2 id="u73AF_u5883_u51C6_u5907"><a href="#u73AF_u5883_u51C6_u5907" class="headerlink" title="环境准备"></a>环境准备</h2><p>因为是新系统，要装的库实在太多，我一边编，一边google，无数次出错了就多装一个库再来，这些是最精简的要求了，一般的系统里应该很多都已经装了</p>
+<pre><code>sudo apt-get -y update
+sudo apt-get install -y bison flex texinfo gawk automake subversion
+sudo apt-get install -y gperf help2man make libtool libncurses5-dev 
+sudo apt-get install -y gcj-jdk python-dev g++
 </code></pre><p>这个libtool我不知道为什么，明明装了却总说没装，于是我自己手动装了一遍。不过后来想想，可能应该装libtool-dev？没去验证</p>
-<pre><code>git clone gi<span class="variable">t:</span>//git.savannah.gnu.org/libtool.git
-<span class="keyword">cd</span> libtool
-./configure; <span class="keyword">make</span>; <span class="keyword">make</span> install
-</code></pre><h2 id="编译crosstool-ng">编译crosstool-ng</h2><pre><code>git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/crosstool-ng/crosstool-ng.git
-<span class="keyword">cd</span> crosstool-ng
+<pre><code>git clone git://git.savannah.gnu.org/libtool.git
+cd libtool
+./configure; make; make install
+</code></pre><h2 id="u7F16_u8BD1crosstool-ng"><a href="#u7F16_u8BD1crosstool-ng" class="headerlink" title="编译crosstool-ng"></a>编译crosstool-ng</h2><pre><code>git clone https://github.com/crosstool-ng/crosstool-ng.git
+cd crosstool-ng
 ./bootstrap
-./configure --prefix=/<span class="keyword">opt</span>/crosstool-ng
-<span class="keyword">make</span>
-<span class="keyword">make</span> install
+./configure --prefix=/opt/crosstool-ng
+make
+make install
 </code></pre><p>然后加环境变量<code>export PATH=$PATH:/opt/crosstool-ng/bin</code></p>
-<h2 id="编译交叉编译工具(不能是root用户)">编译交叉编译工具(不能是root用户)</h2><h3 id="检查tools版本">检查tools版本</h3><p>编译过程中要用到很多库，有几个比较关键的库的版本需要提前看好，否则可能导致编译失败。</p>
+<h2 id="u7F16_u8BD1_u4EA4_u53C9_u7F16_u8BD1_u5DE5_u5177_28_u4E0D_u80FD_u662Froot_u7528_u6237_29"><a href="#u7F16_u8BD1_u4EA4_u53C9_u7F16_u8BD1_u5DE5_u5177_28_u4E0D_u80FD_u662Froot_u7528_u6237_29" class="headerlink" title="编译交叉编译工具(不能是root用户)"></a>编译交叉编译工具(不能是root用户)</h2><h3 id="u68C0_u67E5tools_u7248_u672C"><a href="#u68C0_u67E5tools_u7248_u672C" class="headerlink" title="检查tools版本"></a>检查tools版本</h3><p>编译过程中要用到很多库，有几个比较关键的库的版本需要提前看好，否则可能导致编译失败。</p>
 <ol>
 <li>Glibc版本：<code>lld —v</code></li>
 <li>GCC版本：<code>gcc —v</code></li>
 <li>目标板Kernel版本：<code>uname -r</code>。这个是要在树莓派的终端看的，不是指编译环境的kernel版本！目前我用的最新版本是Linux-4.1.15</li>
 </ol>
-<h3 id="配置编译选项">配置编译选项</h3><ul>
-<li>首先去一个随便什么地方（要有读写权限）建立一个文件夹作为当前目录，用来存放临时的配置文件<pre><code><span class="built_in">mkdir</span> toolchain
-<span class="built_in">cd</span> toolchain
+<h3 id="u914D_u7F6E_u7F16_u8BD1_u9009_u9879"><a href="#u914D_u7F6E_u7F16_u8BD1_u9009_u9879" class="headerlink" title="配置编译选项"></a>配置编译选项</h3><ul>
+<li>首先去一个随便什么地方（要有读写权限）建立一个文件夹作为当前目录，用来存放临时的配置文件<pre><code>mkdir toolchain
+cd toolchain
 </code></pre></li>
 <li><p>crosstool-ng是有一些不同平台的default配置的，他们放在<strong>crosstool-ng/samples/$PLATFORM/crosstool.config</strong>。很幸运树莓派2B正好是有默认配置的，可以用：</p>
-<pre><code><span class="keyword">ct</span>-ng armv7-rpi2-linux-gnueabihf
+<pre><code>ct-ng armv7-rpi2-linux-gnueabihf
 </code></pre><p>来调用，然后就会自动保存为.config文件，这个跟kernel有点像。</p>
 </li>
 <li><p>默认的配置还是有些地方需要调整，我们要手动配置一下：</p>
-<pre><code><span class="keyword">ct</span>-ng menuconfig
+<pre><code>ct-ng menuconfig
 </code></pre><p>这里面的界面就非常像Kernel的Config了。基于默认配置，需要修改的部分不多，重要的有以下几个：</p>
 <blockquote>
 <ol>
@@ -181,10 +176,10 @@ sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -
 </li>
 </ul>
 <p>最后看看还有什么自己的特殊需要，例如目标Path之类，改完以后保存</p>
-<h3 id="编译">编译</h3><p>一句话：</p>
-<pre><code><span class="keyword">ct</span>-ng build
+<h3 id="u7F16_u8BD1"><a href="#u7F16_u8BD1" class="headerlink" title="编译"></a>编译</h3><p>一句话：</p>
+<pre><code>ct-ng build
 </code></pre><p>然后等着吧！首先还会下载GCC之类的源码，所以准备好网络环境。如果没有出错的话，也要等个两三个钟头。完成之后，会在<code>~/xtool</code>（默认设置）里看到最终的交叉编译工具。拿去用吧！我测试了普通程序、内核、驱动，都跑得好好的，搞定收工！😄</p>
-<h3 id="有关Mac的几句话">有关Mac的几句话</h3><p>关于Mac的OSX系统，多废话两句。在Mac上的crosstool-ng之所以用不了，一是因为很多工具没有，二是即使有也太过于陈旧，第三点最重要：Mac上的GCC等一套工具并不是基于GNU的，而是Apple自己弄的Clang。虽然我们有brew这样的神器，但GCC, grep, awk, libtool, automake……这么多关键的库都要重来，又不能影响系统，就算是写脚本做软链接也是相当浩大的工程。所以，如果不是对自己特别有信心，又特别爱折腾，我真心建议还是用虚拟机吧。</p>
+<h3 id="u6709_u5173Mac_u7684_u51E0_u53E5_u8BDD"><a href="#u6709_u5173Mac_u7684_u51E0_u53E5_u8BDD" class="headerlink" title="有关Mac的几句话"></a>有关Mac的几句话</h3><p>关于Mac的OSX系统，多废话两句。在Mac上的crosstool-ng之所以用不了，一是因为很多工具没有，二是即使有也太过于陈旧，第三点最重要：Mac上的GCC等一套工具并不是基于GNU的，而是Apple自己弄的Clang。虽然我们有brew这样的神器，但GCC, grep, awk, libtool, automake……这么多关键的库都要重来，又不能影响系统，就算是写脚本做软链接也是相当浩大的工程。所以，如果不是对自己特别有信心，又特别爱折腾，我真心建议还是用虚拟机吧。</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>  说到交叉编译工具，真是血泪史。搞了快两天，才终于迂回搞定。老规矩，先放Script<a href="https://github.com/conanwhf/RaspberryPi-script">传送门</a>，<strong>build/build-toolchain.sh</strong><br>  一开始我以为这东西用的人多，交叉编译工具应该不是事儿，去官网下一个就行了，可是我去GitHub一看，这toolchain最近的更新也是<strong>三年</strong>前，这……能用？先下载吧，同时各种搜，感觉我没有走错地方，大家就是用的这一款！<br>  可是我忘了我是OSX。不出所料，在我的电脑上跑不了。而且看了下这个toolchain还是给ARMv6编的好吗，现在明明就是ARMv7了！这么跑性能不受影响吗？更让我无语的是板子上的gcc也是ARMv6的……😰编译个内核什么的那么慢，官方的toolchain又不能用，自己编译势在必行。<br>又是一通各种搜，搜到了个别人2014年编译的mac用toolchain，试了试，普通的程序没问题，编kernel编不过。搜到了个比较详细的在Mac上编译的blog，可惜也是几年前的，跟现在的环境不一样，各种出状况又goole解决，最后还是编译crosstool不成功。可能这一两年，不论是crosstool，OSX，还是GCC，都已经又改了不少吧。<br>  最后，我放弃了，毕竟还是要做iOS开发的，不敢随便乱sudo，还是上虚拟机吧。竭尽全力把所有能删的都删了，看看剩余的18G空间（128G MBP你懂的），哭着做了个Debian的虚拟机……为了节约，GUI都不要，命令行的最小系统。后来还是吃亏在这上面了，编译到一半空间不够，临时扩展磁盘，fdisk,format,mount,ln -s😞所以，根据我经验，不管在哪里，请<strong>至少至少至少准备10G有效空间！！！</strong>（12G是我调整后整个虚拟机大小，最后还剩了2G；如果系统已经有了，那free space至少8G）<br>废话说完，正经操作其实不多，主要就是装一个神器<strong>crosstool-ng</strong>，配置好，然后交给它编译交叉编译工具就行了！具体如下：<br>]]>
@@ -206,8 +201,8 @@ sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -
     <published>2016-01-12T07:31:26.000Z</published>
     <updated>2016-01-18T07:23:03.000Z</updated>
     <content type="html"><![CDATA[<p>作为一个（曾经的）内核开发者，弄到块板子怎么能不重新编译内核？系统配好跑起来后的第二件事，就是编译内核了。在树莓派上编译内核很简单，基本上就是按照官方文档跑脚本，先放GitHub上的Script<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a>，<strong>build/kernel.sh</strong></p>
-<h2 id="系统简介">系统简介</h2><h3 id="文件系统">文件系统</h3><p>树莓派的文件系统设计还是不错的，能比较方便地更新内核和各种固件。整个文件系统分为两个部分：Fat32分区和Ext4分区。Fat32分区是mount到/boot上的，里面放了内核和启动的核心固件；Ext4就是一般的根文件系统了，放其他的所有东西，包括firmware和各种ko等。这种设计免去了用户烧录的麻烦，只是他们的bootloader没有开放源码，对于极客来说是很不爽的事情。<br>所谓的系统更新，就是每次编译kernel之后，直接把生成的文件放到特定的地方，重启就行。这也是为什么系统自带的工具<strong>rpi-update</strong>可以自动更新内核、firmware等等一切东西。</p>
-<h3 id="硬件的选择和启动">硬件的选择和启动</h3><p>树莓派一代和二代用的两个不同的ARM芯片，这个差别在操作系统中并没有体现出来，我是指：官方提供的系统镜像是同一个。开始我很奇怪，后来看到了它的文件系统，才明白，它是靠不同的kernel文件名来区分的。这两种板子的platform分别叫”bcm2708”和”bcm2709”，启动的时候bootloader会根据硬件情况自动区分，读取不同的kernel image，进而load不同的firmware和driver。<br><a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/12/rpi-kernel/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/12/rpi-kernel/'>树莓派内核编译</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<h2 id="u7CFB_u7EDF_u7B80_u4ECB"><a href="#u7CFB_u7EDF_u7B80_u4ECB" class="headerlink" title="系统简介"></a>系统简介</h2><h3 id="u6587_u4EF6_u7CFB_u7EDF"><a href="#u6587_u4EF6_u7CFB_u7EDF" class="headerlink" title="文件系统"></a>文件系统</h3><p>树莓派的文件系统设计还是不错的，能比较方便地更新内核和各种固件。整个文件系统分为两个部分：Fat32分区和Ext4分区。Fat32分区是mount到/boot上的，里面放了内核和启动的核心固件；Ext4就是一般的根文件系统了，放其他的所有东西，包括firmware和各种ko等。这种设计免去了用户烧录的麻烦，只是他们的bootloader没有开放源码，对于极客来说是很不爽的事情。<br>所谓的系统更新，就是每次编译kernel之后，直接把生成的文件放到特定的地方，重启就行。这也是为什么系统自带的工具<strong>rpi-update</strong>可以自动更新内核、firmware等等一切东西。</p>
+<h3 id="u786C_u4EF6_u7684_u9009_u62E9_u548C_u542F_u52A8"><a href="#u786C_u4EF6_u7684_u9009_u62E9_u548C_u542F_u52A8" class="headerlink" title="硬件的选择和启动"></a>硬件的选择和启动</h3><p>树莓派一代和二代用的两个不同的ARM芯片，这个差别在操作系统中并没有体现出来，我是指：官方提供的系统镜像是同一个。开始我很奇怪，后来看到了它的文件系统，才明白，它是靠不同的kernel文件名来区分的。这两种板子的platform分别叫”bcm2708”和”bcm2709”，启动的时候bootloader会根据硬件情况自动区分，读取不同的kernel image，进而load不同的firmware和driver。<br><a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/12/rpi-kernel/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/12/rpi-kernel/'>树莓派内核编译</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -221,7 +216,7 @@ sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -229,28 +224,28 @@ sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -
 })()
 </script>
 </p>
-<h2 id="源码下载_&amp;_环境准备">源码下载 &amp; 环境准备</h2><p>要说编译内核有什么好准备的，那恐怕就是要准备一个好点的网络环境和大大的耐心了。不算下载source code，我整个系统编了五六个小时吧。好在编译是一直有输出的，有点盼头，不然真是要cancel掉了……<br>先是源码下载：</p>
-<pre><code>git clone --depth=<span class="number">1</span> git:<span class="comment">//github.com/raspberrypi/linux.git linux  </span>
+<h2 id="u6E90_u7801_u4E0B_u8F7D__26amp_3B__u73AF_u5883_u51C6_u5907"><a href="#u6E90_u7801_u4E0B_u8F7D__26amp_3B__u73AF_u5883_u51C6_u5907" class="headerlink" title="源码下载 &amp; 环境准备"></a>源码下载 &amp; 环境准备</h2><p>要说编译内核有什么好准备的，那恐怕就是要准备一个好点的网络环境和大大的耐心了。不算下载source code，我整个系统编了五六个小时吧。好在编译是一直有输出的，有点盼头，不然真是要cancel掉了……<br>先是源码下载：</p>
+<pre><code>git clone --depth=1 git://github.com/raspberrypi/linux.git linux  
 </code></pre><p>然后是工具的准备，最好先<code>apt-get -y update</code>一下</p>
-<pre><code><span class="label">sudo</span> apt-<span class="preprocessor">get</span> -y install gcc make <span class="keyword">bc </span>screen ncurses-dev
-</code></pre><h2 id="正式编译（二代B为例）">正式编译（二代B为例）</h2><p>源码和编译环境准备好了以后，就要开编了。kernel的config文件官方已经给出，什么都不改也是可以跑得很好的，看看有什么要改的然后就让它跑着自己睡觉去吧：</p>
-<pre><code><span class="label">KERNEL</span><span class="label">=kernel7</span>
-<span class="label">make</span> <span class="keyword">bcm2709_defconfig
-</span><span class="label">make</span> menuconfig
+<pre><code>sudo apt-get -y install gcc make bc screen ncurses-dev
+</code></pre><h2 id="u6B63_u5F0F_u7F16_u8BD1_uFF08_u4E8C_u4EE3B_u4E3A_u4F8B_uFF09"><a href="#u6B63_u5F0F_u7F16_u8BD1_uFF08_u4E8C_u4EE3B_u4E3A_u4F8B_uFF09" class="headerlink" title="正式编译（二代B为例）"></a>正式编译（二代B为例）</h2><p>源码和编译环境准备好了以后，就要开编了。kernel的config文件官方已经给出，什么都不改也是可以跑得很好的，看看有什么要改的然后就让它跑着自己睡觉去吧：</p>
+<pre><code>KERNEL=kernel7
+make bcm2709_defconfig
+make menuconfig
 
-<span class="label">make</span> -j4 zImage modules dtbs
-<span class="label">sudo</span> make modules_install
-<span class="label">sudo</span> <span class="preprocessor">cp</span> arch/<span class="preprocessor">arm</span>/<span class="keyword">boot/dts/*.dtb </span>/<span class="keyword">boot/
-</span><span class="label">sudo</span> <span class="preprocessor">cp</span> arch/<span class="preprocessor">arm</span>/<span class="keyword">boot/dts/overlays/*.dtb* </span>/<span class="keyword">boot/overlays/
-</span><span class="label">sudo</span> <span class="preprocessor">cp</span> arch/<span class="preprocessor">arm</span>/<span class="keyword">boot/dts/overlays/README </span>/<span class="keyword">boot/overlays/
-</span><span class="label">sudo</span> scripts/mkknlimg arch/<span class="preprocessor">arm</span>/<span class="keyword">boot/zImage </span>/<span class="keyword">boot/$KERNEL.img</span>
-</code></pre><h2 id="完成">完成</h2><p>一觉醒来，终于跑完了！看看输出有没有什么错误，不要太鲁莽。如果没什么问题，就可以<code>reboot</code>了，enjoy!</p>
-<h2 id="万一……">万一……</h2><p>万一，编译出了什么问题，系统跑不起来了……🤔我是不是应该先写这一部分？最简单的办法当然是重烧官方img，不过码农怎么会这么粗暴……你只要备份好/boot, /lib/firmware, /lib/modules这三个文件夹就行了。<br>最坏的情况，你之前没有备份？另外拿张卡，烧进官方系统跑起来，插入之前的卡，mount上去（系统应该会自动做了，在~/media/底下），更新那三个文件夹。<br>最最坏的情况，你没有第二张卡？那只好simulate一个disk出来，把上面的解决办法在主机上做一遍了……😏</p>
+make -j4 zImage modules dtbs
+sudo make modules_install
+sudo cp arch/arm/boot/dts/*.dtb /boot/
+sudo cp arch/arm/boot/dts/overlays/*.dtb* /boot/overlays/
+sudo cp arch/arm/boot/dts/overlays/README /boot/overlays/
+sudo scripts/mkknlimg arch/arm/boot/zImage /boot/$KERNEL.img
+</code></pre><h2 id="u5B8C_u6210"><a href="#u5B8C_u6210" class="headerlink" title="完成"></a>完成</h2><p>一觉醒来，终于跑完了！看看输出有没有什么错误，不要太鲁莽。如果没什么问题，就可以<code>reboot</code>了，enjoy!</p>
+<h2 id="u4E07_u4E00_u2026_u2026"><a href="#u4E07_u4E00_u2026_u2026" class="headerlink" title="万一……"></a>万一……</h2><p>万一，编译出了什么问题，系统跑不起来了……🤔我是不是应该先写这一部分？最简单的办法当然是重烧官方img，不过码农怎么会这么粗暴……你只要备份好/boot, /lib/firmware, /lib/modules这三个文件夹就行了。<br>最坏的情况，你之前没有备份？另外拿张卡，烧进官方系统跑起来，插入之前的卡，mount上去（系统应该会自动做了，在~/media/底下），更新那三个文件夹。<br>最最坏的情况，你没有第二张卡？那只好simulate一个disk出来，把上面的解决办法在主机上做一遍了……😏</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>作为一个（曾经的）内核开发者，弄到块板子怎么能不重新编译内核？系统配好跑起来后的第二件事，就是编译内核了。在树莓派上编译内核很简单，基本上就是按照官方文档跑脚本，先放GitHub上的Script<a href="https://github.com/conanwhf/RaspberryPi-script">传送门</a>，<strong>build/kernel.sh</strong></p>
-<h2 id="系统简介">系统简介</h2><h3 id="文件系统">文件系统</h3><p>树莓派的文件系统设计还是不错的，能比较方便地更新内核和各种固件。整个文件系统分为两个部分：Fat32分区和Ext4分区。Fat32分区是mount到/boot上的，里面放了内核和启动的核心固件；Ext4就是一般的根文件系统了，放其他的所有东西，包括firmware和各种ko等。这种设计免去了用户烧录的麻烦，只是他们的bootloader没有开放源码，对于极客来说是很不爽的事情。<br>所谓的系统更新，就是每次编译kernel之后，直接把生成的文件放到特定的地方，重启就行。这也是为什么系统自带的工具<strong>rpi-update</strong>可以自动更新内核、firmware等等一切东西。</p>
-<h3 id="硬件的选择和启动">硬件的选择和启动</h3><p>树莓派一代和二代用的两个不同的ARM芯片，这个差别在操作系统中并没有体现出来，我是指：官方提供的系统镜像是同一个。开始我很奇怪，后来看到了它的文件系统，才明白，它是靠不同的kernel文件名来区分的。这两种板子的platform分别叫”bcm2708”和”bcm2709”，启动的时候bootloader会根据硬件情况自动区分，读取不同的kernel image，进而load不同的firmware和driver。<br>]]>
+<h2 id="u7CFB_u7EDF_u7B80_u4ECB"><a href="#u7CFB_u7EDF_u7B80_u4ECB" class="headerlink" title="系统简介"></a>系统简介</h2><h3 id="u6587_u4EF6_u7CFB_u7EDF"><a href="#u6587_u4EF6_u7CFB_u7EDF" class="headerlink" title="文件系统"></a>文件系统</h3><p>树莓派的文件系统设计还是不错的，能比较方便地更新内核和各种固件。整个文件系统分为两个部分：Fat32分区和Ext4分区。Fat32分区是mount到/boot上的，里面放了内核和启动的核心固件；Ext4就是一般的根文件系统了，放其他的所有东西，包括firmware和各种ko等。这种设计免去了用户烧录的麻烦，只是他们的bootloader没有开放源码，对于极客来说是很不爽的事情。<br>所谓的系统更新，就是每次编译kernel之后，直接把生成的文件放到特定的地方，重启就行。这也是为什么系统自带的工具<strong>rpi-update</strong>可以自动更新内核、firmware等等一切东西。</p>
+<h3 id="u786C_u4EF6_u7684_u9009_u62E9_u548C_u542F_u52A8"><a href="#u786C_u4EF6_u7684_u9009_u62E9_u548C_u542F_u52A8" class="headerlink" title="硬件的选择和启动"></a>硬件的选择和启动</h3><p>树莓派一代和二代用的两个不同的ARM芯片，这个差别在操作系统中并没有体现出来，我是指：官方提供的系统镜像是同一个。开始我很奇怪，后来看到了它的文件系统，才明白，它是靠不同的kernel文件名来区分的。这两种板子的platform分别叫”bcm2708”和”bcm2709”，启动的时候bootloader会根据硬件情况自动区分，读取不同的kernel image，进而load不同的firmware和driver。<br>]]>
     
     </summary>
     
@@ -267,7 +262,7 @@ sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -
     <published>2016-01-12T06:31:26.000Z</published>
     <updated>2016-01-17T18:02:55.000Z</updated>
     <content type="html"><![CDATA[<p>关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a></p>
-<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/12/rpi-start/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/12/rpi-start/'>树莓派初始配置指南（2代B型）</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/12/rpi-start/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/12/rpi-start/'>树莓派初始配置指南（2代B型）</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -281,7 +276,7 @@ sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -289,50 +284,50 @@ sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -
 })()
 </script>
 
-<h2 id="制作启动img">制作启动img</h2><ol>
+<h2 id="u5236_u4F5C_u542F_u52A8img"><a href="#u5236_u4F5C_u542F_u52A8img" class="headerlink" title="制作启动img"></a>制作启动img</h2><ol>
 <li>从官网下载最新的image，解包，TF卡插入电脑</li>
 <li>用mount查看，将TF卡umount</li>
 <li><p>randisk<strong>X</strong>是要自己根据情况修改的</p>
-<pre><code>sudo dd bs=<span class="number">1</span>m <span class="keyword">if</span>=<span class="number">2015</span>-<span class="number">11</span>-<span class="number">21</span>-raspbian-jessie.img of=/dev/rdisk2
+<pre><code>sudo dd bs=1m if=2015-11-21-raspbian-jessie.img of=/dev/rdisk2
 diskutil umount /Volumes/boot
 </code></pre></li>
 <li>拔卡，插入树莓派，上电，这时候系统应该跑起来了。最新的系统是默认打开SSH的，所以如果你插了网线、知道IP的话，已经可以直接SSH上去。初始用户pi,密码raspberry</li>
 <li><strong>下面的命令都是在树莓派上跑的，请不要随便在自己主电脑上sudo!!!</strong></li>
 </ol>
-<h2 id="更新到最新版本">更新到最新版本</h2><p>要花点时间，放到后面做也可以。<strong>另外我看到有人说国内连官方源太慢，我不在国内测不到，如果需要请自己搜索添加合适的源</strong></p>
-<pre><code>sudo apt-get -y <span class="operator"><span class="keyword">update</span>
-sudo apt-<span class="keyword">get</span> -y <span class="keyword">upgrade</span>
-sudo apt-<span class="keyword">get</span> -y dist-<span class="keyword">upgrade</span>
-sudo rpi-<span class="keyword">update</span></span>
-</code></pre><h2 id="修改vi">修改vi</h2><p>Debian的默认vi太难用！改之。我的Github里还放了我的vi配置文件，随意取用</p>
-<pre><code>sudo apt-<span class="built_in">get</span> -<span class="keyword">y</span> <span class="built_in">remove</span> <span class="keyword">vim</span>-common
-sudo apt-<span class="built_in">get</span> -<span class="keyword">y</span> install <span class="keyword">vim</span>
-</code></pre><h2 id="中文支持">中文支持</h2><p>字库和输入法，平时都用SSH的人其实用不到</p>
-<pre><code>sudo apt-get -y <span class="operator"><span class="keyword">install</span> ttf-wqy-zenhei ttf-wqy-microhei
-sudo apt-<span class="keyword">get</span> -y <span class="keyword">install</span> fcitx fcitx-googlepinyin fcitx-<span class="keyword">module</span>-cloudpinyin fcitx-sunpinyin</span>
-</code></pre><h2 id="官方自带的menuconfig">官方自带的menuconfig</h2><p>跑(sudo raspi-config)，这个命令行跑起来的界面和GUI上打开的不一样，不过内容差不多，建议修改以下几个</p>
+<h2 id="u66F4_u65B0_u5230_u6700_u65B0_u7248_u672C"><a href="#u66F4_u65B0_u5230_u6700_u65B0_u7248_u672C" class="headerlink" title="更新到最新版本"></a>更新到最新版本</h2><p>要花点时间，放到后面做也可以。<strong>另外我看到有人说国内连官方源太慢，我不在国内测不到，如果需要请自己搜索添加合适的源</strong></p>
+<pre><code>sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get -y dist-upgrade
+sudo rpi-update
+</code></pre><h2 id="u4FEE_u6539vi"><a href="#u4FEE_u6539vi" class="headerlink" title="修改vi"></a>修改vi</h2><p>Debian的默认vi太难用！改之。我的Github里还放了我的vi配置文件，随意取用</p>
+<pre><code>sudo apt-get -y remove vim-common
+sudo apt-get -y install vim
+</code></pre><h2 id="u4E2D_u6587_u652F_u6301"><a href="#u4E2D_u6587_u652F_u6301" class="headerlink" title="中文支持"></a>中文支持</h2><p>字库和输入法，平时都用SSH的人其实用不到</p>
+<pre><code>sudo apt-get -y install ttf-wqy-zenhei ttf-wqy-microhei
+sudo apt-get -y install fcitx fcitx-googlepinyin fcitx-module-cloudpinyin fcitx-sunpinyin
+</code></pre><h2 id="u5B98_u65B9_u81EA_u5E26_u7684menuconfig"><a href="#u5B98_u65B9_u81EA_u5E26_u7684menuconfig" class="headerlink" title="官方自带的menuconfig"></a>官方自带的menuconfig</h2><p>跑(sudo raspi-config)，这个命令行跑起来的界面和GUI上打开的不一样，不过内容差不多，建议修改以下几个</p>
 <ul>
 <li>用户pi密码，hostname</li>
 <li>开启ssh,spi,i2c</li>
 <li>修改时区</li>
 <li>扩展卡上分区<br>然后就可以reboot了</li>
 </ul>
-<h2 id="VNC支持">VNC支持</h2><h3 id="安装服务器端tightVNC">安装服务器端tightVNC</h3><pre><code>sudo apt-<span class="keyword">get</span> -y install tightvncserver
-sudo apt-<span class="keyword">get</span> -y install xfonts-<span class="keyword">base</span>
-</code></pre><h3 id="配置">配置</h3><ol>
+<h2 id="VNC_u652F_u6301"><a href="#VNC_u652F_u6301" class="headerlink" title="VNC支持"></a>VNC支持</h2><h3 id="u5B89_u88C5_u670D_u52A1_u5668_u7AEFtightVNC"><a href="#u5B89_u88C5_u670D_u52A1_u5668_u7AEFtightVNC" class="headerlink" title="安装服务器端tightVNC"></a>安装服务器端tightVNC</h3><pre><code>sudo apt-get -y install tightvncserver
+sudo apt-get -y install xfonts-base
+</code></pre><h3 id="u914D_u7F6E"><a href="#u914D_u7F6E" class="headerlink" title="配置"></a>配置</h3><ol>
 <li>配置连接密码：<code>vncpasswd</code></li>
 <li><p>添加开机启动：</p>
 <ul>
 <li>创建/etc/init.d/tightvncserver，内容见<a href="https://github.com/conanwhf/RaspberryPi-script/blob/master/setup/tightvncserver" target="_blank" rel="external">这里</a></li>
 <li><p>更新改变：</p>
 <pre><code>sudo chmod +x /etc/init.d/tightvncserver
-sudo <span class="operator"><span class="keyword">update</span>-rc.<span class="keyword">d</span> tightvncserver <span class="keyword">defaults</span></span>
+sudo update-rc.d tightvncserver defaults
 </code></pre></li>
 </ul>
 </li>
 </ol>
-<h2 id="客户端连接">客户端连接</h2><p>在我的Mac上，Finder里面⌘+k，填<code>vnc://&lt;rpi IP&gt;:5901</code>即可。人家都说可以用<code>vnc://IP:1</code>这样的方式，但我不行，不知道为啥</p>
-<h2 id="配置固定IP地址">配置固定IP地址</h2><ol>
+<h2 id="u5BA2_u6237_u7AEF_u8FDE_u63A5"><a href="#u5BA2_u6237_u7AEF_u8FDE_u63A5" class="headerlink" title="客户端连接"></a>客户端连接</h2><p>在我的Mac上，Finder里面⌘+k，填<code>vnc://&lt;rpi IP&gt;:5901</code>即可。人家都说可以用<code>vnc://IP:1</code>这样的方式，但我不行，不知道为啥</p>
+<h2 id="u914D_u7F6E_u56FA_u5B9AIP_u5730_u5740"><a href="#u914D_u7F6E_u56FA_u5B9AIP_u5730_u5740" class="headerlink" title="配置固定IP地址"></a>配置固定IP地址</h2><ol>
 <li>修改<strong>/etc/network/interfaces</strong>，当然下面的IP要换成你自己的</li>
 </ol>
 <p><em>iface eth0 inet manual</em> –>  </p>
@@ -341,15 +336,15 @@ sudo <span class="operator"><span class="keyword">update</span>-rc.<span class="
 </blockquote>
 <ol>
 <li><p>重启服务</p>
-<pre><code><span class="title">sudo</span> systemctl daemon-reload
+<pre><code>sudo systemctl daemon-reload
 sudo service networking restart
 </code></pre></li>
 </ol>
-<h2 id="SSH特殊配置">SSH特殊配置</h2><p>主要是给SSH的中文支持用的</p>
-<pre><code><span class="built_in">echo</span> LC_ALL=en_US.UTF-<span class="number">8</span> | sudo tee <span class="operator">-a</span> /etc/environment
-<span class="built_in">echo</span> LANG=en_US.UTF-<span class="number">8</span> | sudo tee <span class="operator">-a</span> /etc/environment
-</code></pre><h2 id="加大USB供电">加大USB供电</h2><p>修改后可以使能USB的1.2A供电，不然插USB硬盘是不能用的</p>
-<pre><code><span class="built_in">echo</span> “max_usb_current=<span class="number">1</span>” | sudo tee <span class="operator">-a</span> /boot/config.txt
+<h2 id="SSH_u7279_u6B8A_u914D_u7F6E"><a href="#SSH_u7279_u6B8A_u914D_u7F6E" class="headerlink" title="SSH特殊配置"></a>SSH特殊配置</h2><p>主要是给SSH的中文支持用的</p>
+<pre><code>echo LC_ALL=en_US.UTF-8 | sudo tee -a /etc/environment
+echo LANG=en_US.UTF-8 | sudo tee -a /etc/environment
+</code></pre><h2 id="u52A0_u5927USB_u4F9B_u7535"><a href="#u52A0_u5927USB_u4F9B_u7535" class="headerlink" title="加大USB供电"></a>加大USB供电</h2><p>修改后可以使能USB的1.2A供电，不然插USB硬盘是不能用的</p>
+<pre><code>echo “max_usb_current=1” | sudo tee -a /boot/config.txt
 </code></pre>]]></content>
     <summary type="html">
     <![CDATA[<p>关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，<a href="https://github.com/conanwhf/RaspberryPi-script">传送门</a></p>]]>
@@ -366,7 +361,7 @@ sudo service networking restart
     <id>http://conanwhf.gitcafe.io/2016/01/12/rpi-get/</id>
     <published>2016-01-12T05:31:26.000Z</published>
     <updated>2016-01-17T18:11:40.000Z</updated>
-    <content type="html"><![CDATA[<p>  不知是哪根天线收到了什么隐藏信息，突发奇想想去买个树莓派玩玩。其实家里还有一块前公司齐活的开发板，但性能差了点，板子又大，总之就是腻味了以后哪儿哪儿都是缺点，新的诱惑无限大。于是去买了块树莓派2B，打算配个服务器学点Python玩玩，从下午一直折腾到半夜，终于配置得算是差不多成型了。<br>  以前没怎么研究过，认真四处看看，大致上情况是摸清了：硬件上总共出了算是三代n个型号（第三代Zero刚出），第一代硬件资料全齐，第二代就有点遮遮掩掩。我买的第二代B型，外设方面4口USB2.0，TF插槽、网口、HDMI、耳机插口、DSI摄像头接口、DSI屏幕接口各一。首先，我感觉USB2.0有点落伍，至少给一个3.0吧；其次，没有Nand flash，略不方便；再次，GPIO接口有点少，就那么40Pin还共用了串口+i2c+spi*2，也没数模转换，有点不够用；最后，那个LCDC接口是给谁用的啊？要自己单独做块转接板那么麻烦……除此之外，硬件凑合，但拿来做开发板太浪费，除非你的东西计算量很大；用来当个小小服务器、小小Linux机还不错。<br>  软件方面，官方操作系统是Debian的。那套GUI对我来说真的有点鸡肋，居然还有Office和Mathematical，然而这种配置跑图形界面，<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/12/rpi-get/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/12/rpi-get/'>树莓派入手</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+    <content type="html"><![CDATA[<p>  不知是哪根天线收到了什么隐藏信息，突发奇想想去买个树莓派玩玩。其实家里还有一块前公司齐活的开发板，但性能差了点，板子又大，总之就是腻味了以后哪儿哪儿都是缺点，新的诱惑无限大。于是去买了块树莓派2B，打算配个服务器学点Python玩玩，从下午一直折腾到半夜，终于配置得算是差不多成型了。<br>  以前没怎么研究过，认真四处看看，大致上情况是摸清了：硬件上总共出了算是三代n个型号（第三代Zero刚出），第一代硬件资料全齐，第二代就有点遮遮掩掩。我买的第二代B型，外设方面4口USB2.0，TF插槽、网口、HDMI、耳机插口、DSI摄像头接口、DSI屏幕接口各一。首先，我感觉USB2.0有点落伍，至少给一个3.0吧；其次，没有Nand flash，略不方便；再次，GPIO接口有点少，就那么40Pin还共用了串口+i2c+spi*2，也没数模转换，有点不够用；最后，那个LCDC接口是给谁用的啊？要自己单独做块转接板那么麻烦……除此之外，硬件凑合，但拿来做开发板太浪费，除非你的东西计算量很大；用来当个小小服务器、小小Linux机还不错。<br>  软件方面，官方操作系统是Debian的。那套GUI对我来说真的有点鸡肋，居然还有Office和Mathematical，然而这种配置跑图形界面，<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/12/rpi-get/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/12/rpi-get/'>树莓派入手</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -380,7 +375,7 @@ sudo service networking restart
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -404,7 +399,7 @@ sudo service networking restart
     <id>http://conanwhf.gitcafe.io/2016/01/03/UISlider/</id>
     <published>2016-01-03T09:32:45.000Z</published>
     <updated>2016-01-17T18:03:31.000Z</updated>
-    <content type="html"><![CDATA[<p>作为初学者，基础的几个UI控件必须要熟练，现在的我还处于打开Xcode在控件表里面瞎找，看着谁好像是我想要的就往StoryBoard里面拖的阶段……正式写了点东西以后，越来越感觉到，该认真把控件过一遍了。上周写了这么个UIView的Demo，本意是看看各种效果，结果各种状况，花了不少时间。最终效果如下：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_UIViewtest.gif" alt=""><br>因为准备做不止一个控件的Demo测试，又不愿意每个控件开一个ViewController，想所有的Demo都重用同一个页面，于是妖蛾子就出来了。（背景：这个Demo的具体实现部分和ViewController是分开的两个File）<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/03/UISlider/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/03/UISlider/'>UIController中Slider监听回调具体实现的分离</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+    <content type="html"><![CDATA[<p>作为初学者，基础的几个UI控件必须要熟练，现在的我还处于打开Xcode在控件表里面瞎找，看着谁好像是我想要的就往StoryBoard里面拖的阶段……正式写了点东西以后，越来越感觉到，该认真把控件过一遍了。上周写了这么个UIView的Demo，本意是看看各种效果，结果各种状况，花了不少时间。最终效果如下：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_UIViewtest.gif" alt=""><br>因为准备做不止一个控件的Demo测试，又不愿意每个控件开一个ViewController，想所有的Demo都重用同一个页面，于是妖蛾子就出来了。（背景：这个Demo的具体实现部分和ViewController是分开的两个File）<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/03/UISlider/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/03/UISlider/'>UIController中Slider监听回调具体实现的分离</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -418,7 +413,7 @@ sudo service networking restart
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -426,30 +421,30 @@ sudo service networking restart
 })()
 </script>
 <br>最主要的问题出在UISlider的监听上。网上UISlider的基本用法大把而且很简单，我照葫芦画瓢写了个包含一个Slider和Label的结构体，并且申明一个数组作config用：</p>
-<pre><code><span class="class"><span class="keyword">class</span> <span class="title">ConfigSlider</span> {</span>
-let <span class="string">label :</span> UILabel
-let <span class="string">slider :</span> UISlider
-let <span class="string">name :</span> String
+<pre><code>class ConfigSlider {
+let label : UILabel
+let slider : UISlider
+let name : String
 
-init( <span class="string">n:</span> Int, <span class="string">size :</span> CGSize, <span class="string">max:</span> Float, <span class="string">name:</span> String, <span class="string">defaultValue:</span> Float = <span class="number">0</span>) {
-    <span class="comment">// 各种计算初始化位置，略</span>
-    var newFrame = CGRect(<span class="string">x:</span> x, <span class="string">y:</span> y, <span class="string">width:</span> defaultLabelWidth, <span class="string">height:</span> defaultSliderHeight)
-    label = UILabel(<span class="string">frame:</span> newFrame)
+init( n: Int, size : CGSize, max: Float, name: String, defaultValue: Float = 0) {
+    // 各种计算初始化位置，略
+    var newFrame = CGRect(x: x, y: y, width: defaultLabelWidth, height: defaultSliderHeight)
+    label = UILabel(frame: newFrame)
     label.text = name
-    newFrame = CGRect(<span class="string">x:</span> x+defaultLabelWidth, <span class="string">y:</span> y, <span class="string">width:</span> w - defaultLabelWidth, <span class="string">height:</span> defaultSliderHeight)
-    slider = UISlider(<span class="string">frame:</span> newFrame)
-    slider.minimumValue = <span class="number">0</span>
+    newFrame = CGRect(x: x+defaultLabelWidth, y: y, width: w - defaultLabelWidth, height: defaultSliderHeight)
+    slider = UISlider(frame: newFrame)
+    slider.minimumValue = 0
     slider.maximumValue = Float(max)
-    slider.setValue(defaultValue, <span class="string">animated:</span> <span class="literal">true</span>)
+    slider.setValue(defaultValue, animated: true)
     }
 }
 
-var <span class="string">sliderConfigs :</span> Array &lt;ConfigSlider&gt; = []
+var sliderConfigs : Array &lt;ConfigSlider&gt; = []
 </code></pre><p>我的设想是通过初始化一组这样的结构体，能够自动添加n项配置选项到View，包括配置的标题和当前的值，并且当滑动条变动的时候当前值的显示也会跟着变化。要做到这一点，就要监听Slider的变化。之前写过button的handler，很简单用addTarget就行，看看定义：</p>
-<pre><code>slider.addTarget(&lt;<span class="array">#T</span>#<span class="array">#target</span>: AnyObject?#<span class="array">#AnyObject</span>?#&gt;, action: &lt;<span class="array">#T</span>#<span class="array">#Selector</span>#&gt;, forControlEvents: &lt;<span class="array">#T</span>#<span class="array">#UIControlEvents</span>#&gt;)
+<pre><code>slider.addTarget(&lt;#T##target: AnyObject?##AnyObject?#&gt;, action: &lt;#T##Selector#&gt;, forControlEvents: &lt;#T##UIControlEvents#&gt;)
 </code></pre><p>于是我就直接把监听的函数写到ConfigSlider的定义里面了：</p>
-<pre><code><span class="func"><span class="keyword">func</span> <span class="title">configChanged</span><span class="params">(sender: AnyObject?)</span></span> {
-    label.text = name + <span class="string">":<span class="subst">\(Int(slider.value)</span>)"</span>
+<pre><code>func configChanged(sender: AnyObject?) {
+    label.text = name + &quot;:\(Int(slider.value))&quot;
 }
 </code></pre><p>而在addTarget的时候，犯了难：参数target指的是什么呢？所有的范例都是用的ViewController，这里也拿不到啊，看看这是个可选型，那么用nil试试看？编译完一跑，拖动Slider没有任何反应……好吧也许是需要一个sender，那么拿ViewController的试试？这次有反应了-直接挂掉，显示“<strong>unrecognized selector sent to instance 0x7feecbe10260</strong>“那么我把handler放到结构体外面试试、添加打印信息试试、用不同的参数试试……各种”试试“，各种”<strong>unrecognized selector sent to instance XXX</strong>“……调试过程就不多提了，直接说结论吧：</p>
 <blockquote>
@@ -460,31 +455,31 @@ var <span class="string">sliderConfigs :</span> Array &lt;ConfigSlider&gt; = []
 </ol>
 </blockquote>
 <p>这些测试，让我对”代理“的概念有了更深刻的理解，自学的新手就是这样啊，好多概念要慢慢摸索才会懂。但我的问题还没解决。之前说了，我的Controller是打算重用的，和几个Demo的具体实现分离，那么这个slider的回调，如果一定要写在Contoller中，那也太丑陋了……🤔并且有几个Demo就得塞几个不同的回调，怎么能忍？！想了想，利用Swift中Function的特性（我并不知道OC中是不是也一样）：<br><em>StepA: 在在ViewContoller中实现</em></p>
-<pre><code><span class="comment">//定义updateDemo()，具体写哪儿看着办</span>
-<span class="keyword">var</span> updateDemo : (<span class="type">ShowController</span>)-&gt;() = {<span class="number">_</span> <span class="keyword">in</span> }
+<pre><code>//定义updateDemo()，具体写哪儿看着办
+var updateDemo : (ShowController)-&gt;() = {_ in }
 
-<span class="keyword">if</span> (某个判断条件<span class="type">A</span>，判断出<span class="type">DemoA</span>的情况) {
-    <span class="comment">//重定向到函数refreshUIViewTest</span>
+if (某个判断条件A，判断出DemoA的情况) {
+    //重定向到函数refreshUIViewTest
     updateDemo = refreshUIViewTest
 }
 
-<span class="comment">//实现回调函数</span>
-<span class="func"><span class="keyword">func</span> <span class="title">configChanged</span><span class="params">(sender: AnyObject?)</span></span> {
-    <span class="comment">//将callback转成具体的实现，此时无需判断</span>
-    updateDemo(<span class="keyword">self</span>)
+//实现回调函数
+func configChanged(sender: AnyObject?) {
+    //将callback转成具体的实现，此时无需判断
+    updateDemo(self)
 }
 </code></pre><p><em>StepB：在具体实现的File中</em></p>
-<pre><code><span class="comment">//注册监听函数</span>
-<span class="tag">slider</span><span class="class">.addTarget</span>(ctl, <span class="attribute">action</span>: <span class="function">Selector</span>(<span class="string">"configChanged:"</span>), <span class="tag">forControlEvents</span>: <span class="tag">UIControlEvents</span><span class="class">.ValueChanged</span>)
+<pre><code>//注册监听函数
+slider.addTarget(ctl, action: Selector(&quot;configChanged:&quot;), forControlEvents: UIControlEvents.ValueChanged)
 
-<span class="tag">func</span> <span class="tag">refreshUIViewTest</span>(<span class="attribute">ctl</span>: ShowController) {
-    <span class="comment">//TODO，任何具体的回调实现</span>
+func refreshUIViewTest(ctl: ShowController) {
+    //TODO，任何具体的回调实现
 }
 </code></pre><p>这样一来，既实现了想要的功能，又做到了具体实现和ViewContoller分离。不过还有个小小问题：ConfigSlider作为一个小小的自定义控件，Label上的数值显示如果每次变化都要放在外面去修改刷新，那也太……不处女座了。想了想给它添加了这样的方法：</p>
-<pre><code><span class="keyword">var</span> <span class="keyword">value</span> : Float{
-    <span class="keyword">get</span> {
-        label.text = name + <span class="string">":\(Int(slider.value))"</span>
-        <span class="keyword">return</span> slider.<span class="keyword">value</span>
+<pre><code>var value : Float{
+    get {
+        label.text = name + &quot;:\(Int(slider.value))&quot;
+        return slider.value
     }
 }
 </code></pre><p>这样，每次当外界需要获取其变化后数值的时候，就自动刷新Label，而这个获取数值的操作（至少）必然是在监听handler中要用到的（不然难道做个slider摆看吗？😄）至此，这个歪门邪道解决的方案全部完成。<br>整个项目的代码在<a href="https://github.com/conanwhf/Demos/tree/master/UIDemoTest" target="_blank" rel="external">这里</a>，具体这个Demo的实现文件是<em><strong>ShowTestsController.swift</strong></em></p>
@@ -509,19 +504,19 @@ var <span class="string">sliderConfigs :</span> Array &lt;ConfigSlider&gt; = []
     <published>2016-01-01T06:56:35.000Z</published>
     <updated>2016-01-17T18:07:19.000Z</updated>
     <content type="html"><![CDATA[<p>新闻的实时性，必然导致其列表清单对“下拉刷新”和“上拉更多”的实现要求。一开始我以为这两个可以很容易地通过手势的处理来实现，找了找先是发现了个控件<strong>UIRefreshControl</strong>，很简单地实现了下拉刷新，想着上拉不是一样嘛，先用用再研究上拉怎么搞，于是放进了Code里面：</p>
-<pre><code><span class="preprocessor">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> loading: <span class="type">UIActivityIndicatorView</span>!
-<span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> {
-    <span class="comment">//添加下拉刷新</span>
-    sliding.addTarget(<span class="keyword">self</span>, action: <span class="string">"updateLatesList"</span>, forControlEvents: <span class="type">UIControlEvents</span>.<span class="type">ValueChanged</span>)
-    sliding.attributedTitle = <span class="type">NSAttributedString</span>(string: <span class="string">"下拉松手刷新..."</span>)
-    <span class="keyword">self</span>.<span class="type">ListTableView</span>.addSubview(sliding)
+<pre><code>@IBOutlet weak var loading: UIActivityIndicatorView!
+override func viewDidLoad() {
+    //添加下拉刷新
+    sliding.addTarget(self, action: &quot;updateLatesList&quot;, forControlEvents: UIControlEvents.ValueChanged)
+    sliding.attributedTitle = NSAttributedString(string: &quot;下拉松手刷新...&quot;)
+    self.ListTableView.addSubview(sliding)
 }
 
-<span class="func"><span class="keyword">func</span> <span class="title">updateLatesList</span><span class="params">()</span></span>{
-    <span class="comment">//TODO：刷新数据</span>
-    <span class="keyword">self</span>.sliding.endRefreshing()
+func updateLatesList(){
+    //TODO：刷新数据
+    self.sliding.endRefreshing()
 }
-</code></pre><p>这个一看便知，注册一下回调，修改一下显示的字符串；然后在控件的监听回调里面刷新好数据，关掉动画，搞定！简直顺利得不敢相信。然后开始研究怎么通过这个改上拉更多……恕我驽钝，搞不定。上网查了一圈，貌似大家的上拉都不是用这个控件，这个控件的可定制性据说也比较差……😰没办法，乖乖自己写了。<br>去找了个第三方的“上拉更多”库，看源码（Sorry，已经不知道是哪个库了，GitHub上一大堆，我直接在浏览器里面看完就关了），发现里面的关键就是监听滑动事件，然后通过计算坐标来判断是否是上拉：<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/01/newsreader-7/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/01/newsreader-7/'>从打造新闻app学到的(7)：下拉刷新和上拉更多</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+</code></pre><p>这个一看便知，注册一下回调，修改一下显示的字符串；然后在控件的监听回调里面刷新好数据，关掉动画，搞定！简直顺利得不敢相信。然后开始研究怎么通过这个改上拉更多……恕我驽钝，搞不定。上网查了一圈，貌似大家的上拉都不是用这个控件，这个控件的可定制性据说也比较差……😰没办法，乖乖自己写了。<br>去找了个第三方的“上拉更多”库，看源码（Sorry，已经不知道是哪个库了，GitHub上一大堆，我直接在浏览器里面看完就关了），发现里面的关键就是监听滑动事件，然后通过计算坐标来判断是否是上拉：<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/01/newsreader-7/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/01/newsreader-7/'>从打造新闻app学到的(7)：下拉刷新和上拉更多</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -535,7 +530,7 @@ var <span class="string">sliderConfigs :</span> Array &lt;ConfigSlider&gt; = []
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -543,31 +538,31 @@ var <span class="string">sliderConfigs :</span> Array &lt;ConfigSlider&gt; = []
 })()
 </script>
 </p>
-<pre><code><span class="tag">func</span> <span class="tag">scrollViewDidEndDragging</span>(<span class="attribute">scrollView</span>: UIScrollView, willDecelerate <span class="attribute">decelerate</span>: Bool){  
-<span class="tag">if</span> (scrollView.contentOffset.y &gt; (scrollView.contentSize.height - scrollView.frame.size.height) + <span class="number">70</span>)  {<span class="comment">//触发上拉刷新，70是阀值</span>
-<span class="comment">// TODO anything</span>
+<pre><code>func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool){  
+if (scrollView.contentOffset.y &gt; (scrollView.contentSize.height - scrollView.frame.size.height) + 70)  {//触发上拉刷新，70是阀值
+// TODO anything
 }
 </code></pre><p>这里面有几个参数：</p>
 <ul>
 <li><strong>scrollView.contentOffset.y</strong>，这是指松开的时候显示的顶部处于ScrollView(在我的例子中是TableView)的什么位置</li>
 <li><strong>scrollView.contentSize.height</strong>，这是整个ScrollView的高度，你可以想象一下，整个View很长，通过滑动来显示某一部分，而这个contentSize就是整个的Size</li>
 <li><p><strong>scrollView.frame.size.height</strong>，这是ScrollView显示出来的部分的高度<br>所以这个判断条件就很好理解了。如下图所示：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_ScrollView.jpg" alt="" title="ScrollView"><br>当滑动条拉到最下的时候，<code>contentOffset.y = contentSize.height-frame.size.height</code>，而继续上拉，就会有一段空白，定义这个空白的高度（我设的70），就是上拉刷新的阈值了。同样的，用这个办法也可以判断下拉刷新，而且更加简单：<code>contentOffset.y &lt; -70</code>。<br>判断问题解决了，剩下的就是UI的事儿了。我选择了最基本的<strong>UIActivityIndicatorView</strong>，转菊花，简单到只要在对应的时间start&amp;Stop Animating就行了。于是现在把上拉更多和下拉刷新结合一下，用同一套方法对付：</p>
-<pre><code>private <span class="keyword">let</span> loading = <span class="type">UIActivityIndicatorView</span>()
-<span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> {
-    <span class="keyword">self</span>.<span class="type">ListTableView</span>.addSubview(loading)
-    loading.hidesWhenStopped = <span class="literal">true</span>
+<pre><code>private let loading = UIActivityIndicatorView()
+override func viewDidLoad() {
+    self.ListTableView.addSubview(loading)
+    loading.hidesWhenStopped = true
 }
 
-<span class="func"><span class="keyword">func</span> <span class="title">scrollViewDidEndDragging</span><span class="params">(scrollView: UIScrollView, willDecelerate decelerate: Bool)</span></span> {
+func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
 
-<span class="keyword">if</span> (scrollView.contentOffset.y &gt; (scrollView.contentSize.height - scrollView.frame.size.height) + <span class="number">70</span>) &amp;&amp; (tableViewData.<span class="built_in">count</span> &gt; <span class="number">0</span>) {<span class="comment">//触发上拉刷新</span>
+if (scrollView.contentOffset.y &gt; (scrollView.contentSize.height - scrollView.frame.size.height) + 70) &amp;&amp; (tableViewData.count &gt; 0) {//触发上拉刷新
     loading.startAnimating()
-    <span class="comment">//<span class="doctag">TODO:</span> 要求更多数据并显示</span>
+    //TODO: 要求更多数据并显示
     loading.stopAnimating()
 }
-<span class="keyword">if</span> (scrollView.contentOffset.y &lt; -<span class="number">70</span>  &amp;&amp; manager.wxcList.<span class="built_in">count</span> &gt; <span class="number">0</span>) {<span class="comment">//触发下拉刷新</span>
+if (scrollView.contentOffset.y &lt; -70  &amp;&amp; manager.wxcList.count &gt; 0) {//触发下拉刷新
     loading.startAnimating()
-    <span class="comment">//<span class="doctag">TODO:</span> 要求新数据并显示</span>
+    //TODO: 要求新数据并显示
     loading.stopAnimating()
 }
 }
@@ -583,17 +578,17 @@ var <span class="string">sliderConfigs :</span> Array &lt;ConfigSlider&gt; = []
 ]]></content>
     <summary type="html">
     <![CDATA[<p>新闻的实时性，必然导致其列表清单对“下拉刷新”和“上拉更多”的实现要求。一开始我以为这两个可以很容易地通过手势的处理来实现，找了找先是发现了个控件<strong>UIRefreshControl</strong>，很简单地实现了下拉刷新，想着上拉不是一样嘛，先用用再研究上拉怎么搞，于是放进了Code里面：</p>
-<pre><code><span class="preprocessor">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> loading: <span class="type">UIActivityIndicatorView</span>!
-<span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> {
-    <span class="comment">//添加下拉刷新</span>
-    sliding.addTarget(<span class="keyword">self</span>, action: <span class="string">"updateLatesList"</span>, forControlEvents: <span class="type">UIControlEvents</span>.<span class="type">ValueChanged</span>)
-    sliding.attributedTitle = <span class="type">NSAttributedString</span>(string: <span class="string">"下拉松手刷新..."</span>)
-    <span class="keyword">self</span>.<span class="type">ListTableView</span>.addSubview(sliding)
+<pre><code>@IBOutlet weak var loading: UIActivityIndicatorView!
+override func viewDidLoad() {
+    //添加下拉刷新
+    sliding.addTarget(self, action: &quot;updateLatesList&quot;, forControlEvents: UIControlEvents.ValueChanged)
+    sliding.attributedTitle = NSAttributedString(string: &quot;下拉松手刷新...&quot;)
+    self.ListTableView.addSubview(sliding)
 }
 
-<span class="func"><span class="keyword">func</span> <span class="title">updateLatesList</span><span class="params">()</span></span>{
-    <span class="comment">//TODO：刷新数据</span>
-    <span class="keyword">self</span>.sliding.endRefreshing()
+func updateLatesList(){
+    //TODO：刷新数据
+    self.sliding.endRefreshing()
 }
 </code></pre><p>这个一看便知，注册一下回调，修改一下显示的字符串；然后在控件的监听回调里面刷新好数据，关掉动画，搞定！简直顺利得不敢相信。然后开始研究怎么通过这个改上拉更多……恕我驽钝，搞不定。上网查了一圈，貌似大家的上拉都不是用这个控件，这个控件的可定制性据说也比较差……😰没办法，乖乖自己写了。<br>去找了个第三方的“上拉更多”库，看源码（Sorry，已经不知道是哪个库了，GitHub上一大堆，我直接在浏览器里面看完就关了），发现里面的关键就是监听滑动事件，然后通过计算坐标来判断是否是上拉：]]>
     
@@ -616,14 +611,14 @@ var <span class="string">sliderConfigs :</span> Array &lt;ConfigSlider&gt; = []
     <published>2015-12-31T09:32:45.000Z</published>
     <updated>2016-01-18T07:20:08.000Z</updated>
     <content type="html"><![CDATA[<p>虽然我的新闻客户端app进展告一段落，暂停两个礼拜，但之前积攒下来的东西还没有写完，继续总结码字。<br>我从API拿到的数据，具体的新闻信息，使用的是HTML格式，包括图片地址什么的。我不想用WebView，一方面是网络方面的东西我还没怎么接触，怕麻烦、不会，另一方面因为还有标题、评论什么的，最好是能直接解析显示出来，放在一个TextView里面。我的目的是学习，那些第三方库什么的能不用也都不用了，于是找了找，TextView确实能解决这个问题，一般都是OC版的，用Swift写是这样：</p>
-<pre><code><span class="keyword">let</span> opt = [<span class="attribute">NSDocumentTypeDocumentAttribute</span>:NSHTMLTextDocumentType]
-<span class="keyword">let</span> html =  <span class="string">"&lt;div style=\"background-color:<span class="subst">#F1F1F1</span>; font-size:14px; color:#304182; \n  text-align:center; margin-left:10px; padding-right:10px\"&gt; \n&lt;p&gt;Test &lt;span style=\"font-size:18px; color:<span class="subst">#E88834</span>;\"&gt;测试结束&lt;/span&gt; Tips&lt;/p&gt;\n&lt;/div&gt;"</span>
+<pre><code>let opt = [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType]
+let html =  &quot;&lt;div style=\&quot;background-color:#F1F1F1; font-size:14px; color:#304182; \n  text-align:center; margin-left:10px; padding-right:10px\&quot;&gt; \n&lt;p&gt;Test &lt;span style=\&quot;font-size:18px; color:#E88834;\&quot;&gt;测试结束&lt;/span&gt; Tips&lt;/p&gt;\n&lt;/div&gt;&quot;
 
-<span class="keyword">do</span>{
-<span class="keyword">let</span> attributedString = <span class="keyword">try</span> NSMutableAttributedString(<span class="attribute">data</span>: html.dataUsingEncoding(NSUnicodeStringEncoding)!, <span class="attribute">options</span>:opt, <span class="attribute">documentAttributes</span>: nil)
+do{
+let attributedString = try NSMutableAttributedString(data: html.dataUsingEncoding(NSUnicodeStringEncoding)!, options:opt, documentAttributes: nil)
 post.attributedText = attributedString
-}<span class="keyword">catch</span> {<span class="built_in">print</span>(error)}
-</code></pre><p>不但能解析字体、颜色等等html标识，有图片的话也是没问题的。不过，事情没这么容易解决……<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/31/newsreader-6/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/31/newsreader-6/'>从打造新闻app学到的(6)：显示html格式文件/数据</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+}catch {print(error)}
+</code></pre><p>不但能解析字体、颜色等等html标识，有图片的话也是没问题的。不过，事情没这么容易解决……<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/31/newsreader-6/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/31/newsreader-6/'>从打造新闻app学到的(6)：显示html格式文件/数据</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -637,7 +632,7 @@ post.attributedText = attributedString
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -645,26 +640,26 @@ post.attributedText = attributedString
 })()
 </script>
 用这种方法显示的页面，图片是不会自动缩放的，好在我们有万能的互联网😃。我在一个前端开发的回答中找到了很赞的答案：在head的配置中将img配置为按固定宽度缩放：</p>
-<pre><code><span class="tag">&lt;<span class="title">head</span>&gt;</span><span class="tag">&lt;<span class="title">style</span>&gt;</span><span class="css"><span class="tag">img</span><span class="rules">{<span class="rule"><span class="attribute">max-width</span>:<span class="value"><span class="number">200px</span> <span class="important">!important</span></span></span>;}</span></span><span class="tag">&lt;/<span class="title">style</span>&gt;</span><span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+<pre><code>&lt;head&gt;&lt;style&gt;img{max-width:200px !important;}&lt;/style&gt;&lt;/head&gt;
 </code></pre><p>一试果然OK了，只要我们能够正确地拿到View的宽度就行了。受到这个的启发，我发现我完全可以自己添加各种配置来config整个页面的细节，只要在我拿到的数据前面加上这个配置好的头部就行了：</p>
-<pre><code>let img_width = <span class="function"><span class="title">Int</span><span class="params">(post.frame.width)</span></span>
-let fontsize = <span class="number">16</span>
-<span class="tag">var</span> config = <span class="string">"img{max-width:\(img_width)px !important;}"</span>   <span class="comment">//img style</span>
-config.<span class="function"><span class="title">appendContentsOf</span><span class="params">(<span class="string">"body {font-size:\(fontsize)px;}"</span>)</span></span>   <span class="comment">//body style</span>
-config.<span class="function"><span class="title">appendContentsOf</span><span class="params">(<span class="string">"h1{font-size: \(fontsize+4)px}"</span>)</span></span>      <span class="comment">//title style</span>
-config = <span class="string">"&lt;head&gt;&lt;style&gt;"</span> + config + <span class="string">"&lt;/style&gt;&lt;/head&gt;"</span>
-<span class="tag">html</span> = config + <span class="string">"&lt;h1&gt;标题测试&lt;/h1&gt;&lt;hr/&gt;"</span> + html
+<pre><code>let img_width = Int(post.frame.width)
+let fontsize = 16
+var config = &quot;img{max-width:\(img_width)px !important;}&quot;   //img style
+config.appendContentsOf(&quot;body {font-size:\(fontsize)px;}&quot;)   //body style
+config.appendContentsOf(&quot;h1{font-size: \(fontsize+4)px}&quot;)      //title style
+config = &quot;&lt;head&gt;&lt;style&gt;&quot; + config + &quot;&lt;/style&gt;&lt;/head&gt;&quot;
+html = config + &quot;&lt;h1&gt;标题测试&lt;/h1&gt;&lt;hr/&gt;&quot; + html
 </code></pre><p>这样一来，不但可以解决图像显示问题，还可以把具体新闻的标题、时间信息、网友评论等等全部糅合到一起，并且字体大小格式Style等随心所欲！😏<br>这里安利一个<a href="http://www.w3school.com.cn/h.asp" target="_blank" rel="external">HTML的教学网站</a>，基本上按照CSS的规则去配置就行了，我完全是开着它照葫芦画瓢，so easy😬！如果你需要看看这篇文章的测试源代码，<a href="https://github.com/conanwhf/swiftplayground/blob/master/UI_test.playground/Pages/Text.xcplaygroundpage/Contents.swift" target="_blank" rel="external">传送门</a></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>虽然我的新闻客户端app进展告一段落，暂停两个礼拜，但之前积攒下来的东西还没有写完，继续总结码字。<br>我从API拿到的数据，具体的新闻信息，使用的是HTML格式，包括图片地址什么的。我不想用WebView，一方面是网络方面的东西我还没怎么接触，怕麻烦、不会，另一方面因为还有标题、评论什么的，最好是能直接解析显示出来，放在一个TextView里面。我的目的是学习，那些第三方库什么的能不用也都不用了，于是找了找，TextView确实能解决这个问题，一般都是OC版的，用Swift写是这样：</p>
-<pre><code><span class="keyword">let</span> opt = [<span class="attribute">NSDocumentTypeDocumentAttribute</span>:NSHTMLTextDocumentType]
-<span class="keyword">let</span> html =  <span class="string">"&lt;div style=\"background-color:<span class="subst">#F1F1F1</span>; font-size:14px; color:#304182; \n  text-align:center; margin-left:10px; padding-right:10px\"&gt; \n&lt;p&gt;Test &lt;span style=\"font-size:18px; color:<span class="subst">#E88834</span>;\"&gt;测试结束&lt;/span&gt; Tips&lt;/p&gt;\n&lt;/div&gt;"</span>
+<pre><code>let opt = [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType]
+let html =  &quot;&lt;div style=\&quot;background-color:#F1F1F1; font-size:14px; color:#304182; \n  text-align:center; margin-left:10px; padding-right:10px\&quot;&gt; \n&lt;p&gt;Test &lt;span style=\&quot;font-size:18px; color:#E88834;\&quot;&gt;测试结束&lt;/span&gt; Tips&lt;/p&gt;\n&lt;/div&gt;&quot;
 
-<span class="keyword">do</span>{
-<span class="keyword">let</span> attributedString = <span class="keyword">try</span> NSMutableAttributedString(<span class="attribute">data</span>: html.dataUsingEncoding(NSUnicodeStringEncoding)!, <span class="attribute">options</span>:opt, <span class="attribute">documentAttributes</span>: nil)
+do{
+let attributedString = try NSMutableAttributedString(data: html.dataUsingEncoding(NSUnicodeStringEncoding)!, options:opt, documentAttributes: nil)
 post.attributedText = attributedString
-}<span class="keyword">catch</span> {<span class="built_in">print</span>(error)}
+}catch {print(error)}
 </code></pre><p>不但能解析字体、颜色等等html标识，有图片的话也是没问题的。不过，事情没这么容易解决……]]>
     
     </summary>
@@ -698,7 +693,7 @@ post.attributedText = attributedString
 </li>
 <li>设置UIView的背景图片<ol>
 <li>将图片作为UIView的背景色，会在生成color时占用大量的内存。如果图片大小不够，就会平铺多张图片，不会去拉伸图片以适应View的大小</li>
-<li>在UIView上再添加一个UIImageView显示图片作为UIView的背景图片<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/31/Tips201512/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/31/Tips201512/'>开发Tips收集-2015年12月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<li>在UIView上再添加一个UIImageView显示图片作为UIView的背景图片<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/31/Tips201512/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/31/Tips201512/'>开发Tips收集-2015年12月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -712,7 +707,7 @@ post.attributedText = attributedString
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -831,8 +826,8 @@ post.attributedText = attributedString
     <id>http://conanwhf.gitcafe.io/2015/12/31/ReadingList2015-12/</id>
     <published>2015-12-31T02:02:38.000Z</published>
     <updated>2016-01-17T18:06:47.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="读完的书">读完的书</h2><ol>
-<li>老码说编程之玩转Swift江湖<br>这本书从打开到终于看完也断断续续看了好久，算是中文原作开发教程中相当不错的一本。虽然作者写的例子都很中二，有点自以为幽默其实看着很烦，骗稿费之嫌，但讲正事还是蛮能讲到点子上的，看得出来是有实际经验的开发者。作为语法入门，这本书很好，也很适合曾经会一点别的语言的开发者。该知道的基本知识都有，看中实际操作，甚至是从装黑苹果开始手把手教，有自己的东西，不像很多东拼西凑的教材，新手看了摸不着头脑，半天还是连编译器都不会用。<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/31/ReadingList2015-12/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/31/ReadingList2015-12/'>读书清单 2015-12</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+    <content type="html"><![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
+<li>老码说编程之玩转Swift江湖<br>这本书从打开到终于看完也断断续续看了好久，算是中文原作开发教程中相当不错的一本。虽然作者写的例子都很中二，有点自以为幽默其实看着很烦，骗稿费之嫌，但讲正事还是蛮能讲到点子上的，看得出来是有实际经验的开发者。作为语法入门，这本书很好，也很适合曾经会一点别的语言的开发者。该知道的基本知识都有，看中实际操作，甚至是从装黑苹果开始手把手教，有自己的东西，不像很多东拼西凑的教材，新手看了摸不着头脑，半天还是连编译器都不会用。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/31/ReadingList2015-12/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/31/ReadingList2015-12/'>读书清单 2015-12</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -846,7 +841,7 @@ post.attributedText = attributedString
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -854,21 +849,21 @@ post.attributedText = attributedString
 })()
 </script>
 
-<h2 id="读完的杂志">读完的杂志</h2>没空读</li>
+<h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2>没空读</li>
 </ol>
-<h2 id="其他阅读">其他阅读</h2><ol>
+<h2 id="u5176_u4ED6_u9605_u8BFB"><a href="#u5176_u4ED6_u9605_u8BFB" class="headerlink" title="其他阅读"></a>其他阅读</h2><ol>
 <li>中文传媒精选</li>
 <li>每日开发者订阅源&amp;新闻</li>
 <li>杂七杂八开发相关网页推送</li>
 </ol>
-<h2 id="正在读的书">正在读的书</h2><ol>
+<h2 id="u6B63_u5728_u8BFB_u7684_u4E66"><a href="#u6B63_u5728_u8BFB_u7684_u4E66" class="headerlink" title="正在读的书"></a>正在读的书</h2><ol>
 <li>Swift iOS应用开发实战</li>
 <li>Swift与Cocoa框架开发</li>
 <li>Swift语言实战精讲</li>
 <li>移动应用UI设计</li>
 <li>iOS组件与框架　　　</li>
 </ol>
-<h2 id="中亚买的书_（102-45）">中亚买的书 （<strong>102.45</strong>）</h2><ol>
+<h2 id="u4E2D_u4E9A_u4E70_u7684_u4E66__uFF08102-45_uFF09"><a href="#u4E2D_u4E9A_u4E70_u7684_u4E66__uFF08102-45_uFF09" class="headerlink" title="中亚买的书 （102.45）"></a>中亚买的书 （<strong>102.45</strong>）</h2><ol>
 <li>移动应用UI设计模式（第2版） (图灵交互设计丛书)   <strong>17.5</strong></li>
 <li>O’Reilly精品图书系列共21册     <strong>49.99</strong><br>打折，其实有些不会去读。内容包括：<strong>《机器学习：实用案例解析》</strong>、<strong>《利用Python进行数据分析》、《社交网站的数据挖掘与分析（原书第2版）》、《社会网络分析：方法与实践》、《以用户为中心的软件设计：打造用户友好型应用的有效方法和准则》、《编写可读代码的艺术》、《算法精解：C语言描述》、《算法技术手册》、</strong>《JavaScript权威指南（原书第6版）》、<strong>《Python学习手册（原书第4版）》</strong>、《MySQL核心技术手册》、《HTML5应用开发实践指南》、《嵌入式系统设计与实践》、《PaaS程序设计》、<strong>《程序员度量：改善软件团队的分析学》</strong>、《Android应用开发攻略》、《Android程序设计：第2版》、《GAE编程指南》、《精通Hibernate》、《SQL与关系数据库理论：如何编写健壮的SQL代码（第2版）》、《SEO的艺术（原书第2版）》</li>
 <li>（图灵社区）HTTP权威指南    <strong>6.0</strong></li>
@@ -879,10 +874,10 @@ post.attributedText = attributedString
 <li>美国语文：美国中学课文经典读本(英汉双语版)    <strong>2.99</strong></li>
 <li>诺贝尔经济学奖经典收藏版（自由选择、生活中的经济学、增长的极限）    <strong>9.99</strong></li>
 </ol>
-<h2 id="总结">总结</h2><p>这个月可以说没有读书。双十二打折的时候倒是剁了些电子版，只是现在亚马逊的电子书特别是套装打折很有诚意，质量却让人无语。比如这次买的O’Reilly套装，连二级目录都没有，不只是整本书的目录没有做好，而是哪怕你去到了某本书，也没有任何目录！这就有点不靠谱了，只能在电脑上看看，用鼠标勉强翻个页，而且完全不知道这本书的结构，只能从头看到尾。😡另一方面，现在我买的书确实看不完，自己对亚马逊来来回回打折的那些书也有点厌倦了，接下来恐怕会买得比较少。<br>别说看别的书了，最近就算是kindle的每日推送我都是匆匆看完，家里中文传媒精选的读书会也好久没开了，整天埋头对着Xcode（其实玩的时候也不少啦，只是没读书），书桌上堆着的也都是开发书籍。iOS开发要学的东西太多，我又有整理癖，每次写写就要停下来整理总结一下，加上日常生活的各种杂事，感觉学完自己的那一亩三分地遥遥无期啊！年底了，今年过得太懒散玩了十个月学了两个月，实在不好意思写年终总结，明年努力吧！</p>
+<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>这个月可以说没有读书。双十二打折的时候倒是剁了些电子版，只是现在亚马逊的电子书特别是套装打折很有诚意，质量却让人无语。比如这次买的O’Reilly套装，连二级目录都没有，不只是整本书的目录没有做好，而是哪怕你去到了某本书，也没有任何目录！这就有点不靠谱了，只能在电脑上看看，用鼠标勉强翻个页，而且完全不知道这本书的结构，只能从头看到尾。😡另一方面，现在我买的书确实看不完，自己对亚马逊来来回回打折的那些书也有点厌倦了，接下来恐怕会买得比较少。<br>别说看别的书了，最近就算是kindle的每日推送我都是匆匆看完，家里中文传媒精选的读书会也好久没开了，整天埋头对着Xcode（其实玩的时候也不少啦，只是没读书），书桌上堆着的也都是开发书籍。iOS开发要学的东西太多，我又有整理癖，每次写写就要停下来整理总结一下，加上日常生活的各种杂事，感觉学完自己的那一亩三分地遥遥无期啊！年底了，今年过得太懒散玩了十个月学了两个月，实在不好意思写年终总结，明年努力吧！</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h2 id="读完的书">读完的书</h2><ol>
+    <![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
 <li>老码说编程之玩转Swift江湖<br>这本书从打开到终于看完也断断续续看了好久，算是中文原作开发教程中相当不错的一本。虽然作者写的例子都很中二，有点自以为幽默其实看着很烦，骗稿费之嫌，但讲正事还是蛮能讲到点子上的，看得出来是有实际经验的开发者。作为语法入门，这本书很好，也很适合曾经会一点别的语言的开发者。该知道的基本知识都有，看中实际操作，甚至是从装黑苹果开始手把手教，有自己的东西，不像很多东拼西凑的教材，新手看了摸不着头脑，半天还是连编译器都不会用。]]>
     
     </summary>
@@ -900,29 +895,29 @@ post.attributedText = attributedString
     <published>2015-12-30T09:14:35.000Z</published>
     <updated>2016-01-17T18:05:55.000Z</updated>
     <content type="html"><![CDATA[<p>昨天整理code，顺手写了个UIColor和16进制RGB表示的颜色转换。由于UIColor中的RGBA范围是0..1，所以里面用到了一些乘除法，和强制类型转换：</p>
-<pre><code>CGFloat<span class="list">(<span class="keyword">Float</span><span class="list">(<span class="keyword">r</span>)</span>/255.<span class="number">0</span>)</span>
-Int<span class="list">(<span class="keyword">r*255</span>)</span>
+<pre><code>CGFloat(Float(r)/255.0)
+Int(r*255)
 </code></pre><p>写完以后测试了一下貌似没什么问题，就睡觉去了。后来突然想到，1/255并不是一个有理数，而且<strong>Int()做的是取地板而不是四舍五入</strong>，会不会在这种转换的过程中因为精度的问题造成数据错误呢？于是写了一小段测试代码：</p>
 <pre><code>//精度测试，确认转换不会丢失信息
-<span class="keyword">let</span> a  = Array.init(<span class="number">0</span>...<span class="number">255</span>)
-<span class="keyword">let</span> b = a.<span class="keyword">map</span>{ CGFloat(Float(<span class="variable">$0</span>)/<span class="number">255.0</span>) }
-<span class="keyword">let</span> c = b.<span class="keyword">map</span>{ Int(<span class="variable">$0</span>*<span class="number">255</span>) }
+let a  = Array.init(0...255)
+let b = a.map{ CGFloat(Float($0)/255.0) }
+let c = b.map{ Int($0*255) }
 a.elementsEqual(c)
 </code></pre><p>还好结果是True，这个转换过程并没有出错的机会。但我怎么可能就此罢休？通过修改a的初始化条件发现，乘除255的时候，在算257的时候就出错了。按理说1/255并不是一个很小的数字，如果准确的话，16位的存储结构是可以保留足够信息的，所以我尝试这打印了一下各个数据类型的精度：</p>
-<pre><code><span class="function"><span class="title">sizeof</span><span class="params">(Int)</span></span>*<span class="number">8</span><span class="comment">//64</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(UInt)</span></span>*<span class="number">8</span><span class="comment">//64</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(UInt16)</span></span>*<span class="number">8</span><span class="comment">//16</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(Int32)</span></span>*<span class="number">8</span><span class="comment">//32</span>
+<pre><code>sizeof(Int)*8//64
+sizeof(UInt)*8//64
+sizeof(UInt16)*8//16
+sizeof(Int32)*8//32
 
-<span class="function"><span class="title">sizeof</span><span class="params">(Float)</span></span>*<span class="number">8</span><span class="comment">//32</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(Double)</span></span>*<span class="number">8</span><span class="comment">//64</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(CGFloat)</span></span>*<span class="number">8</span><span class="comment">//64</span>
+sizeof(Float)*8//32
+sizeof(Double)*8//64
+sizeof(CGFloat)*8//64
 
-<span class="function"><span class="title">sizeof</span><span class="params">(Character)</span></span>*<span class="number">8</span><span class="comment">//72</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(String)</span></span>*<span class="number">8</span><span class="comment">//192</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(CGRect)</span></span>*<span class="number">8</span><span class="comment">//256</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(UIColor)</span></span>*<span class="number">8</span><span class="comment">//64</span>
-</code></pre><p>第一组相当的make sense，Int默认就是64位；第二组是实数部分，令我惊讶的是原来<strong>CGFloat</strong>也是64位的，而Float反而比它差只有32位。第三组的结果比较值得玩味：Swift里面的String搞得比较复杂，是什么都不奇怪，但我以为Character至少会是8，结果却是72；<strong>UIColor</strong>本身是由4个CGFloat构成，其size却不是4倍的CGFloat；倒是<strong>CGRect</strong>比较可以解释，因为它是CGSize和CGPoint组合而成，实质上也是4个CGFloat。<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/30/precision/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/30/precision/'>Swift中数据类型精度的一点探索</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+sizeof(Character)*8//72
+sizeof(String)*8//192
+sizeof(CGRect)*8//256
+sizeof(UIColor)*8//64
+</code></pre><p>第一组相当的make sense，Int默认就是64位；第二组是实数部分，令我惊讶的是原来<strong>CGFloat</strong>也是64位的，而Float反而比它差只有32位。第三组的结果比较值得玩味：Swift里面的String搞得比较复杂，是什么都不奇怪，但我以为Character至少会是8，结果却是72；<strong>UIColor</strong>本身是由4个CGFloat构成，其size却不是4倍的CGFloat；倒是<strong>CGRect</strong>比较可以解释，因为它是CGSize和CGPoint组合而成，实质上也是4个CGFloat。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/30/precision/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/30/precision/'>Swift中数据类型精度的一点探索</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -936,7 +931,7 @@ a.elementsEqual(c)
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -944,28 +939,28 @@ a.elementsEqual(c)
 })()
 </script>
 <br>也就是说，sizeof()这个函数，在对某些类型如String等操作的时候，结果是这个结构体所占用的内存空间大小；而对某些类型如Int等，即使它们也是一个结构体（我们已经知道在Swift中所有的类型其实都是结构体），给出的结果却是这个类型所表示的值的内存占用。令人感兴趣的是，在一堆UIXXX的结构体中，为什么独独CGFloat会作为数值类型来看待呢？于是我去翻了翻CGFloat的头文件，发现这家伙真面目是这样的：</p>
-<pre><code><span class="keyword">public</span> struct CGFloat {
-<span class="comment">/// The native type used to store the CGFloat, which is Float on</span>
-<span class="comment">/// 32-bit architectures and Double on 64-bit architectures.</span>
-<span class="keyword">public</span> typealias NativeType = <span class="typename">Double</span>
-<span class="keyword">public</span> init()
-<span class="keyword">public</span> init(_ value: <span class="typename">Float</span>)
-<span class="keyword">public</span> init(_ value: <span class="typename">Double</span>)
-<span class="comment">/// The native value.</span>
-<span class="keyword">public</span> <span class="variable"><span class="keyword">var</span> native</span>: NativeType
+<pre><code>public struct CGFloat {
+/// The native type used to store the CGFloat, which is Float on
+/// 32-bit architectures and Double on 64-bit architectures.
+public typealias NativeType = Double
+public init()
+public init(_ value: Float)
+public init(_ value: Double)
+/// The native value.
+public var native: NativeType
 }
 </code></pre><p>真相大白，所以CGFloat在内部实现就是个Double，头文件后面还有很长的各种协议……也就是说，其实CGFloat是可以直接做运算的？试了试，果然没错。那么<code>CGFloat(Float(r)/255.0)</code>这种计算就不妥了，人家一个好好的64位，给生生转成32位了，改成<code>CGFloat(r)/255.0</code>即可。<br>回到最开始的问题—精度。为了便于测试，我写了个函数：</p>
-<pre><code><span class="func"><span class="keyword">func</span> <span class="title">precisionTest</span> <span class="params">(div: CGFloat)</span></span> {
-<span class="keyword">var</span> a : <span class="type">Int</span> = <span class="number">0</span>
-<span class="keyword">var</span> b : <span class="type">CGFloat</span>
-<span class="keyword">var</span> <span class="built_in">c</span> : <span class="type">Int</span>
+<pre><code>func precisionTest (div: CGFloat) {
+var a : Int = 0
+var b : CGFloat
+var c : Int
 repeat {
-a = a + <span class="number">1</span>
-<span class="comment">//b = CGFloat(Float(a) / Float(div)) // for Float</span>
-b = <span class="type">CGFloat</span>(a) / div    <span class="comment">// for CGFloat</span>
-<span class="built_in">c</span> = <span class="type">Int</span>(b * div)
-}<span class="keyword">while</span> <span class="built_in">c</span> == a
-<span class="built_in">print</span>(<span class="string">"div=<span class="subst">\(div)</span>, a=<span class="subst">\(a)</span>, b=<span class="subst">\(b)</span> @<span class="subst">\(b*div)</span>, c=<span class="subst">\(<span class="built_in">c</span>)</span> @ <span class="subst">\(Double(<span class="built_in">c</span>)</span>/Double(div))"</span>)
+a = a + 1
+//b = CGFloat(Float(a) / Float(div)) // for Float
+b = CGFloat(a) / div    // for CGFloat
+c = Int(b * div)
+}while c == a
+print(&quot;div=\(div), a=\(a), b=\(b) @\(b*div), c=\(c) @ \(Double(c)/Double(div))&quot;)
 }
 </code></pre><p>这个函数会从1开始找，计算在div(除数)固定的情况下，第一个将常数先除再乘后丢失精度的case。之前我们已经知道了在div=255且中间变量使用Float的时候，<code>257/255*255 != 257</code>，但中间变量换成CGFloat之后，程序跑到10000+还没找到错误，被我手动停了👻。另外随机试了几个数字，都是使用CGFloat比Float出错概率要小，<strong>这也印证了这两个类型的精度大小区别</strong>，只是这种错误的结果随机性比较高，有的用1就已经出错，有的跑了很久也没事，跟div的数值变化没有什么关联性，也就是说这种错误并不全是保存精度大小和Int()截取而造成的。<br>那么大概是因为除法吧？接下来我固定使用Float（更容易出错便于观察结果），调整不同的div数值来测试，发现：</p>
 <ol>
@@ -978,28 +973,28 @@ b = <span class="type">CGFloat</span>(a) / div    <span class="comment">// for C
 ]]></content>
     <summary type="html">
     <![CDATA[<p>昨天整理code，顺手写了个UIColor和16进制RGB表示的颜色转换。由于UIColor中的RGBA范围是0..1，所以里面用到了一些乘除法，和强制类型转换：</p>
-<pre><code>CGFloat<span class="list">(<span class="keyword">Float</span><span class="list">(<span class="keyword">r</span>)</span>/255.<span class="number">0</span>)</span>
-Int<span class="list">(<span class="keyword">r*255</span>)</span>
+<pre><code>CGFloat(Float(r)/255.0)
+Int(r*255)
 </code></pre><p>写完以后测试了一下貌似没什么问题，就睡觉去了。后来突然想到，1/255并不是一个有理数，而且<strong>Int()做的是取地板而不是四舍五入</strong>，会不会在这种转换的过程中因为精度的问题造成数据错误呢？于是写了一小段测试代码：</p>
 <pre><code>//精度测试，确认转换不会丢失信息
-<span class="keyword">let</span> a  = Array.init(<span class="number">0</span>...<span class="number">255</span>)
-<span class="keyword">let</span> b = a.<span class="keyword">map</span>{ CGFloat(Float(<span class="variable">$0</span>)/<span class="number">255.0</span>) }
-<span class="keyword">let</span> c = b.<span class="keyword">map</span>{ Int(<span class="variable">$0</span>*<span class="number">255</span>) }
+let a  = Array.init(0...255)
+let b = a.map{ CGFloat(Float($0)/255.0) }
+let c = b.map{ Int($0*255) }
 a.elementsEqual(c)
 </code></pre><p>还好结果是True，这个转换过程并没有出错的机会。但我怎么可能就此罢休？通过修改a的初始化条件发现，乘除255的时候，在算257的时候就出错了。按理说1/255并不是一个很小的数字，如果准确的话，16位的存储结构是可以保留足够信息的，所以我尝试这打印了一下各个数据类型的精度：</p>
-<pre><code><span class="function"><span class="title">sizeof</span><span class="params">(Int)</span></span>*<span class="number">8</span><span class="comment">//64</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(UInt)</span></span>*<span class="number">8</span><span class="comment">//64</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(UInt16)</span></span>*<span class="number">8</span><span class="comment">//16</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(Int32)</span></span>*<span class="number">8</span><span class="comment">//32</span>
+<pre><code>sizeof(Int)*8//64
+sizeof(UInt)*8//64
+sizeof(UInt16)*8//16
+sizeof(Int32)*8//32
 
-<span class="function"><span class="title">sizeof</span><span class="params">(Float)</span></span>*<span class="number">8</span><span class="comment">//32</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(Double)</span></span>*<span class="number">8</span><span class="comment">//64</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(CGFloat)</span></span>*<span class="number">8</span><span class="comment">//64</span>
+sizeof(Float)*8//32
+sizeof(Double)*8//64
+sizeof(CGFloat)*8//64
 
-<span class="function"><span class="title">sizeof</span><span class="params">(Character)</span></span>*<span class="number">8</span><span class="comment">//72</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(String)</span></span>*<span class="number">8</span><span class="comment">//192</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(CGRect)</span></span>*<span class="number">8</span><span class="comment">//256</span>
-<span class="function"><span class="title">sizeof</span><span class="params">(UIColor)</span></span>*<span class="number">8</span><span class="comment">//64</span>
+sizeof(Character)*8//72
+sizeof(String)*8//192
+sizeof(CGRect)*8//256
+sizeof(UIColor)*8//64
 </code></pre><p>第一组相当的make sense，Int默认就是64位；第二组是实数部分，令我惊讶的是原来<strong>CGFloat</strong>也是64位的，而Float反而比它差只有32位。第三组的结果比较值得玩味：Swift里面的String搞得比较复杂，是什么都不奇怪，但我以为Character至少会是8，结果却是72；<strong>UIColor</strong>本身是由4个CGFloat构成，其size却不是4倍的CGFloat；倒是<strong>CGRect</strong>比较可以解释，因为它是CGSize和CGPoint组合而成，实质上也是4个CGFloat。]]>
     
     </summary>
@@ -1019,9 +1014,9 @@ a.elementsEqual(c)
 <p>prepareForSegue() -> next.viewDidLoad() -> didSelectRowAtIndexPath()</p>
 </blockquote>
 <p>也就是说当Cell的点击发生，会先调用StroyBaord中设置的Segue，新的View初始化完成后再回调didSelectRowAtIndexPath，导致我在viewDidLoad()中拿不到想要的数据。<br>在网上搜了一下，有人也遇到了同样的问题，他的解决方法是：<br>1) 将 ->NextView的Segue改为 ->NextViewController(NextView的代理)<br>2) 在StoryBoard中配置此Segue的ID为<strong>“ABC”</strong><br>3) 在didSelectRowAtIndexPath()准备好数据之后手动调用转场：</p>
-<pre><code><span class="comment">//跳转到下一个页面，识别“ABC”</span>
-self.<span class="function"><span class="title">performSegueWithIdentifier</span><span class="params">(“ABC”, sender: self)</span></span>
-</code></pre><p>实测这个方法是有效的，不过我总感觉不够漂亮……于是打开Dash把所有tableView()的相关Callback都过了一遍，挑出几个加打印实测，<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/23/newsreader-5/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/23/newsreader-5/'>从打造新闻app学到的(5)：解决TableCell调用segue的时序问题</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<pre><code>//跳转到下一个页面，识别“ABC”
+self.performSegueWithIdentifier(“ABC”, sender: self)
+</code></pre><p>实测这个方法是有效的，不过我总感觉不够漂亮……于是打开Dash把所有tableView()的相关Callback都过了一遍，挑出几个加打印实测，<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/23/newsreader-5/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/23/newsreader-5/'>从打造新闻app学到的(5)：解决TableCell调用segue的时序问题</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1035,7 +1030,7 @@ self.<span class="function"><span class="title">performSegueWithIdentifier</span
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -1043,10 +1038,10 @@ self.<span class="function"><span class="title">performSegueWithIdentifier</span
 })()
 </script>
 找到了这个：<strong>willSelectRowAtIndexPath</strong><br>看起来这是一个专门给人做点特殊需求的API，如果我们将其返回nil而不是当前的Index：</p>
-<pre><code><span class="func"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView,  willSelectRowAtIndexPath indexPath: NSIndexPath)</span></span> -&gt; <span class="type">NSIndexPath</span>?    {
-<span class="comment">//TODO anything you want</span>
-<span class="keyword">return</span> <span class="literal">nil</span>
-<span class="comment">//return indexPath</span>
+<pre><code>func tableView(tableView: UITableView,  willSelectRowAtIndexPath indexPath: NSIndexPath) -&gt; NSIndexPath?    {
+//TODO anything you want
+return nil
+//return indexPath
 }
 </code></pre><p>那么无论你怎么点击，Cell都不会再响应任何selected事件了……😈虽然没有做更多的尝试，但我猜如果这时候返回一个修改过的indexPath也是可以做到的，比如怎么点都是同一个结果之类……😏<br>说回正事。现在我们可以把数据的获得放到willSelectRowAtIndexPath()中了，流程变成了：</p>
 <blockquote>
@@ -1063,8 +1058,8 @@ self.<span class="function"><span class="title">performSegueWithIdentifier</span
 <p>prepareForSegue() -> next.viewDidLoad() -> didSelectRowAtIndexPath()</p>
 </blockquote>
 <p>也就是说当Cell的点击发生，会先调用StroyBaord中设置的Segue，新的View初始化完成后再回调didSelectRowAtIndexPath，导致我在viewDidLoad()中拿不到想要的数据。<br>在网上搜了一下，有人也遇到了同样的问题，他的解决方法是：<br>1) 将 ->NextView的Segue改为 ->NextViewController(NextView的代理)<br>2) 在StoryBoard中配置此Segue的ID为<strong>“ABC”</strong><br>3) 在didSelectRowAtIndexPath()准备好数据之后手动调用转场：</p>
-<pre><code><span class="comment">//跳转到下一个页面，识别“ABC”</span>
-self.<span class="function"><span class="title">performSegueWithIdentifier</span><span class="params">(“ABC”, sender: self)</span></span>
+<pre><code>//跳转到下一个页面，识别“ABC”
+self.performSegueWithIdentifier(“ABC”, sender: self)
 </code></pre><p>实测这个方法是有效的，不过我总感觉不够漂亮……于是打开Dash把所有tableView()的相关Callback都过了一遍，挑出几个加打印实测，]]>
     
     </summary>
@@ -1086,9 +1081,9 @@ self.<span class="function"><span class="title">performSegueWithIdentifier</span
     <published>2015-12-22T13:14:35.000Z</published>
     <updated>2016-01-17T17:48:23.000Z</updated>
     <content type="html"><![CDATA[<p>要实现不同界面的跳转，简单的办法是在StroyBoard中直接拖动控件。<strong>按住^</strong>将触发跳转的控件拖到待触发的View中，松开鼠标在弹出的菜单中选择对应的选项（跳转为View），一个segue(大致译为“转场、过渡”)就完成了：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_create_segue.gif" alt=""><br>而要实现在两个ViewController之间传数据，在这种建立segue的情况下也很简单。假设我们需要在从ViewA（ControllerA代理）跳转去ViewB（ControllerB代理）时传递一个Int变量id，那么先要在ControllerB中定义.id属性，然后在ControllerA中实现：</p>
-<pre><code><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">prepareForSegue</span><span class="params">(segue: UIStoryboardSegue, sender: AnyObject?)</span></span> {
-<span class="comment">//print(“this is segue \(segue.identifier), \(sender.debugDescription)")</span>
-<span class="type">ControllerB</span>.id = passValue
+<pre><code>override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//print(“this is segue \(segue.identifier), \(sender.debugDescription)&quot;)
+ControllerB.id = passValue
 }
 </code></pre><p>这样的方式适合参数比较少或者已经打包的情况，缺点是必须将待传递的参数在ControllerB中暴露出来。</p>
 ]]></content>
@@ -1115,21 +1110,21 @@ self.<span class="function"><span class="title">performSegueWithIdentifier</span
     <published>2015-12-21T11:14:35.000Z</published>
     <updated>2016-01-17T17:48:23.000Z</updated>
     <content type="html"><![CDATA[<p>假如你有一个自定义类的列表，想要对它排序，怎么办？在新闻APP中，我的新闻列表就是一个自定义class的数组，用户一会儿要最新、一会儿要更多旧数据的可能性，使得它需要按时间有序。我是懒人，自己一个个拿key比较写起来觉得好麻烦，Swift这么高级的语言，应该有别的更好的办法才对！又祭出官方文档找灵感，然后看到了：<strong>Comparable</strong>。<br>Comparable是一个协议，遵守这个协议的所有类型，都可以直接比大小。而对于自定义的类型，遵守它就行了：</p>
-<pre><code><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> : <span class="title">Comparable</span> </span>{
-    <span class="keyword">var</span> key : <span class="type">Int</span> = <span class="number">0</span>
+<pre><code>class MyClass : Comparable {
+    var key : Int = 0
 }
-<span class="comment">//在Class定义之外实现</span>
-<span class="func"><span class="keyword">func</span> <span class="generics">&lt; (left: MyClass, right: MyClass) -&gt;</span> <span class="title">Bool</span> </span>{
-    <span class="keyword">return</span> <span class="keyword">left</span>.key &lt; <span class="keyword">right</span>.key
+//在Class定义之外实现
+func &lt; (left: MyClass, right: MyClass) -&gt; Bool {
+    return left.key &lt; right.key
 }
-<span class="func"><span class="keyword">func</span> == <span class="params">(<span class="keyword">left</span>: MyClass, <span class="keyword">right</span>: MyClass)</span></span> -&gt; <span class="type">Bool</span>{
-    <span class="keyword">return</span> <span class="keyword">left</span>.key == <span class="keyword">right</span>.key
+func == (left: MyClass, right: MyClass) -&gt; Bool{
+    return left.key == right.key
 }   
 </code></pre><p>我们只要实现<strong>\&lt;</strong>和<strong>== </strong>两个函数，编译器会自动帮我们判断>和!=的情况。于是，现在这样的排序或者比较都是合法的了：超easy!😄</p>
-<pre><code><span class="tag">var</span> <span class="tag">a</span> : MyClass = []
-<span class="comment">//TODO：a填了一些数据之后……</span>
-<span class="tag">a</span>.<span class="function"><span class="title">sort</span><span class="params">()</span></span>
-<span class="tag">a</span>[<span class="number">1</span>] &gt; <span class="tag">a</span>[<span class="number">0</span>]
+<pre><code>var a : MyClass = []
+//TODO：a填了一些数据之后……
+a.sort()
+a[1] &gt; a[0]
 </code></pre>]]></content>
     <summary type="html">
     <![CDATA[<p>假如你有一个自定义类的列表，想要对它排序，怎么办？在新闻APP中，我的新闻列表就是一个自定义class的数组，用户一会儿要最新、一会儿要更多旧数据的可能性，使得它需要按时间有序。我是懒人，自己一个个拿key比较写起来觉得好麻烦，Swift这么高级的语言，应该有别的更好的办法]]>
@@ -1150,22 +1145,22 @@ self.<span class="function"><span class="title">performSegueWithIdentifier</span
     <published>2015-12-21T09:14:35.000Z</published>
     <updated>2016-01-17T17:48:23.000Z</updated>
     <content type="html"><![CDATA[<p>在定义各种接口的过程中，我碰到了这样一个问题：我希望定义一个只读的属性，却找不到合适的前缀（原谅我是Class白痴）。翻了一遍Class的相关文档，找到了个曲线救国的办法：计算属性。<br>所谓的计算属性，就是自己定义一个属性的名字和get/set方法，外人看不见get/set的实现，只能看作是一个普通属性来使用。而如果只实现了get部分，这个属性对外而言就是只读的了。<br>我的数据结构大致这样：</p>
-<pre><code><span class="class"><span class="keyword">class</span> <span class="title">myclass</span> {</span>
-    <span class="keyword">private</span> var data =  ( <span class="string">api :</span> typeX, <span class="string">list:</span>  typeY,  <span class="string">post:</span> typeZ,  <span class="string">channel:</span> typeA) (xxx, <span class="string">list:</span> yyy, <span class="string">post:</span> zzz, .news)
+<pre><code>class myclass {
+    private var data =  ( api : typeX, list:  typeY,  post: typeZ,  channel: typeA) (xxx, list: yyy, post: zzz, .news)
 }
 </code></pre><p>我想要把这一组相关数据打包成元组使用，又只想把其中某些暴露出来，并且部分是只读，那么就将其设成private并且在类中实现：</p>
-<pre><code><span class="built_in">var</span> <span class="built_in">list</span> : typeY {<span class="comment">//只有get，实现只读封装</span>
+<pre><code>var list : typeY {//只有get，实现只读封装
     get {
-        <span class="keyword">return</span> <span class="built_in">data</span><span class="built_in">.</span><span class="built_in">list</span>
+        return data.list
     }
 }
 
-<span class="built_in">var</span> ch : typeA {
+var ch : typeA {
     get {
-        <span class="keyword">return</span> <span class="built_in">data</span><span class="built_in">.</span>channel
+        return data.channel
     }
-    <span class="built_in">set</span> (channel) {<span class="comment">//这次可读写了</span>
-        <span class="built_in">data</span><span class="built_in">.</span>channel = channel
+    set (channel) {//这次可读写了
+        data.channel = channel
     }
 }
 </code></pre><p>现在，外部可以用myclass.list来获取list，或者用myclass.ch来改变channel了</p>
@@ -1228,12 +1223,12 @@ self.<span class="function"><span class="title">performSegueWithIdentifier</span
     <published>2015-12-15T12:14:35.000Z</published>
     <updated>2016-01-17T18:06:44.000Z</updated>
     <content type="html"><![CDATA[<p>（挖坑自己跳系列四）<br>以为实现了xml的解析，我就能拿到所有想要的数据，可是经过几次尝试，发现有的API失效了！😱无论我怎么尝试，有的数据就是拿不到，苦恼了好久，灵光一闪：前阵子买的surge可以派上用场了！不知道surge是啥的我给解释一下，是个iOS App，利用iOS9的特性能给设备做个全局代理，前阵子大家纷纷用来流畅FQ，已下架。对我来说，用来过滤下广告正好，偶尔还能看看http log。<br>看了下自己手机上的第三方客户端，request居然直接是网页，看来是直接解析网页了，这个太高深、放弃；只好去下载官方客户端来看，在网页看同样的请求，返回居然换成JSON了……😥<br>还能说啥呢，去找找JSON怎么解析呗！这次看了看，似乎比XML简单多了……先拿数据：</p>
-<pre><code><span class="built_in">let</span> url = NSURL(string:TESTURL)!
-guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
-    <span class="built_in">print</span>(<span class="string">"Can't get any data"</span>)
-    <span class="built_in">exit</span>(<span class="number">0</span>)
+<pre><code>let url = NSURL(string:TESTURL)!
+guard data = NSData(contentsOfURL: url)  else{
+    print(&quot;Can&apos;t get any data&quot;)
+    exit(0)
 }
-</code></pre><p>然后解析出来：<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/15/swift_json/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/15/swift_json/'>使用原生库解析JSON</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+</code></pre><p>然后解析出来：<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/15/swift_json/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/15/swift_json/'>使用原生库解析JSON</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1247,7 +1242,7 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -1255,11 +1250,11 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
 })()
 </script>
 </p>
-<pre><code><span class="keyword">do</span> {
-    let json = <span class="keyword">try</span> NSJSONSerialization.JSONObjectWithData(data, <span class="keyword">options</span>: NSJSONReadingOptions.MutableContainers)
-    <span class="comment">// TODO：</span>
-} <span class="keyword">catch</span> {
-    <span class="keyword">print</span>(<span class="string">"JSONObjectWithData: \(error)"</span>)
+<pre><code>do {
+    let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)
+    // TODO：
+} catch {
+    print(&quot;JSONObjectWithData: \(error)&quot;)
 }
 </code></pre><p>问题是，明明看起来正常的数据，每次解析都报错！开始以为是unicode编码的问题（我的数据里有中文），一头扎进编码里……后来花了好长时间Debug，才发现关键在于我拿到的数据在头尾多了个“CALLBACK({正常的JSON数据})”！手动处理去掉了这个壳，数据才终于正常了……关于这个数据形式，我原本揣测是服务器和官方客户端之间的约定，心里暗骂了他们好多遍（原谅我的无知吧），直到偶然看到了这一段：</p>
 <blockquote>
@@ -1267,28 +1262,28 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
 </blockquote>
 <p>这样就解释了为什么自带的库不能处理这种情况（_非正式协议_），以及为何我用的在线JSON转换器可以处理（_都是喜欢偷偷商量个后门程序员干的哇！_），之前我连啥是JSON都没见过，没注意到只怪自己读书少……😭<br>言归正传。当JSON数据解析完成后，就可以直接拿来用了。API已经返回一个层层嵌套的完整数据字典，供你享用，这一点可比XML方便多了。我们要做的就是强制转换，然后拿数据（当然你也许需要转化为自己的数据结构，称为_模型化_，此处不表）。以简单的数据为例：</p>
 <pre><code>{
-        "<span class="attribute">person</span>": <span class="value">{
-            "<span class="attribute">employees</span>": 
-            <span class="value">[
-                {"<span class="attribute">id</span>": <span class="value"><span class="number">1</span></span>, "<span class="attribute">firstName</span>": <span class="value"><span class="string">"Bill"</span></span>, "<span class="attribute">lastName</span>": <span class="value"><span class="string">"Gates"</span></span>},
-                {"<span class="attribute">id</span>": <span class="value"><span class="number">2</span></span>, "<span class="attribute">firstName</span>": <span class="value"><span class="string">"George"</span></span>, "<span class="attribute">lastName</span>": <span class="value"><span class="string">"Bush"</span></span>}
-            ]</span>,
-        "<span class="attribute">boss</span>": <span class="value">[
-                {"<span class="attribute">id</span>": <span class="value"><span class="number">1</span></span>, "<span class="attribute">firstName</span>": <span class="value"><span class="string">"Bill"</span></span>, "<span class="attribute">lastName</span>": <span class="value"><span class="string">"Gates"</span></span>}
+        &quot;person&quot;: {
+            &quot;employees&quot;: 
+            [
+                {&quot;id&quot;: 1, &quot;firstName&quot;: &quot;Bill&quot;, &quot;lastName&quot;: &quot;Gates&quot;},
+                {&quot;id&quot;: 2, &quot;firstName&quot;: &quot;George&quot;, &quot;lastName&quot;: &quot;Bush&quot;}
+            ],
+        &quot;boss&quot;: [
+                {&quot;id&quot;: 1, &quot;firstName&quot;: &quot;Bill&quot;, &quot;lastName&quot;: &quot;Gates&quot;}
         ]
-</span>}</span>}
+}}
 </code></pre><p>强制转换成字典：　</p>
-<pre><code>let dic : NSDictionary? = json[<span class="link_label">"person"</span>](<span class="link_url"></span>) as? NSDictionary
+<pre><code>let dic : NSDictionary? = json[&quot;person&quot;]() as? NSDictionary
 </code></pre><p>这时的dic就是个包括了employees和boss的字典：[“employess”:[…], “boss”:[…]]，将employess的数据再次强制转换成数组：</p>
-<pre><code>let arr : NSArray? = dic?[<span class="link_label">"employees"</span>](<span class="link_url"></span>) as? NSArray
+<pre><code>let arr : NSArray? = dic?[&quot;employees&quot;]() as? NSArray
 </code></pre><p>你会得到一个包含两个元素的数组，每个元素都是一部雇员信息的字典。够简单吧？如果你需要，源码传送门：<a href="https://github.com/conanwhf/swiftplayground/tree/master/Play.playground/Pages/JSON.xcplaygroundpage" target="_blank" rel="external">这里</a><br><strong>后记</strong><br>JSON确实是个很好用的数据表达方式，也难怪会如此流行。就我个人的感受来说，如果你只是需要从服务器端拿一些少量（我指的是种类）数据，那么用原生的库就行了，简单方便；如果你需要的是整个数据结构，那么手动慢慢填充转换也还是挺累的，建议引入第三方库建模。</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>（挖坑自己跳系列四）<br>以为实现了xml的解析，我就能拿到所有想要的数据，可是经过几次尝试，发现有的API失效了！😱无论我怎么尝试，有的数据就是拿不到，苦恼了好久，灵光一闪：前阵子买的surge可以派上用场了！不知道surge是啥的我给解释一下，是个iOS App，利用iOS9的特性能给设备做个全局代理，前阵子大家纷纷用来流畅FQ，已下架。对我来说，用来过滤下广告正好，偶尔还能看看http log。<br>看了下自己手机上的第三方客户端，request居然直接是网页，看来是直接解析网页了，这个太高深、放弃；只好去下载官方客户端来看，在网页看同样的请求，返回居然换成JSON了……😥<br>还能说啥呢，去找找JSON怎么解析呗！这次看了看，似乎比XML简单多了……先拿数据：</p>
-<pre><code><span class="built_in">let</span> url = NSURL(string:TESTURL)!
-guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
-    <span class="built_in">print</span>(<span class="string">"Can't get any data"</span>)
-    <span class="built_in">exit</span>(<span class="number">0</span>)
+<pre><code>let url = NSURL(string:TESTURL)!
+guard data = NSData(contentsOfURL: url)  else{
+    print(&quot;Can&apos;t get any data&quot;)
+    exit(0)
 }
 </code></pre><p>然后解析出来：]]>
     
@@ -1308,7 +1303,7 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
     <updated>2016-01-17T18:03:04.000Z</updated>
     <content type="html"><![CDATA[<p>（挖坑自己跳系列三）<br>在实现文件操作的时候我意识到了一个事实：由于NSURL是可支持的路径，很多文件的操作实际上可以扩充到网络上去，比如从网上下载一个文件、拿取一些数据……想到这里，埋藏在心中很久的愿望又开始蠢蠢欲动：写一个新闻客户端！<br>我有一个常看的新闻网站（不要问我是哪个，要FQ），官方客户端很难用，第三方广告满天飞，严重影响心情。所以当初开始学iOS的时候就把重做一个客户端的目标放在了首位。最开始的时候想得太简单，兴冲冲地开了个project，搞了两下TableView，然后发现……对于我这种从来只写底层代码，swift/OC语法都不会的人，做这个简直是异想天开好嘛！<br>折腾的过程中，为了拿到数据，还跑去下了Android的官方客户端反编译，find + grep出来了人家的数据接口地址（论一个爱折腾的程序员是怎么给自己挖坑的），返回的是XML数据，连蒙带猜试了试，可以用！不过后来做UI受挫（其实不止做UI，挫败感太大），就把那份东西闲置起来了。这两天突然想起来，现在我貌似感觉有点良好，何不捡起来继续写我的客户端？<br>因为UI我还一窍不通，不懂怎么调试，也不懂怎么把数据显示出来，为了避免到处打印的麻烦，我选择playground。这样也就是需要用原生库，这个很简单，搜一下就有了：NSXMLParserDelegate，还有好些源码，虽然大多是OC的。<br>问题是有源码，我依！然！看！不！懂！怎么用！每个教程都是扔了源码上来，可没人解释清楚到底怎么运行。我研究了好一阵，终于明白了大概的机制：</p>
 <blockquote>
-<p><strong>自己写一个类继承NSXMLParserDelegate，就叫它XmlReader吧；并且实现一些必须的callback函数，在XmlReader的Init中调用.parse()方法，最后在new XmlReader的时候就会自动完成整个parse了</strong><br><a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/15/Swift_xml/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/15/Swift_xml/'>使用Swift原生库解析XML数据</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<p><strong>自己写一个类继承NSXMLParserDelegate，就叫它XmlReader吧；并且实现一些必须的callback函数，在XmlReader的Init中调用.parse()方法，最后在new XmlReader的时候就会自动完成整个parse了</strong><br><a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/15/Swift_xml/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/15/Swift_xml/'>使用Swift原生库解析XML数据</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1322,7 +1317,7 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -1332,84 +1327,84 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
 </p>
 </blockquote>
 <p>当然你也可以不把parse()放在init()中调用，而是在new了XmlReader之后强制调用，重要的是那些callback函数的实现。XmlReader中还可以声明一些变量，来保存解析过程中的状态，而具体的获得到的数据填充，也是需要你自己做的（数据结构自行定义）。<br><strong>鉴于XML是一个有层级的带递归意味的数据结构，程序会层层解析下去直到结束，中间遇到的各种类似section开始、结束、拿到字符串等情况都会call一个固定的函数，将解析出来的数据作为参数传进去，而你要做的，就是实现这些callback以完成自己想要做的事。</strong><br>下面是具体的代码示范。首先是定义一个新的类：</p>
-<pre><code><span class="class"><span class="keyword">class</span> <span class="title">XmlReader</span>: <span class="title">NSObject</span>, <span class="title">NSXMLParserDelegate</span> </span>{
-<span class="keyword">var</span> currentName :<span class="type">String</span>? = <span class="literal">nil</span>
-<span class="keyword">var</span> level :<span class="type">Int</span> = <span class="number">0</span>
+<pre><code>class XmlReader: NSObject, NSXMLParserDelegate {
+var currentName :String? = nil
+var level :Int = 0
 
- <span class="keyword">init</span>(add :<span class="type">String</span> ) {
+ init(add :String ) {
 
-    <span class="keyword">super</span>.<span class="keyword">init</span>()
-    <span class="keyword">let</span> url = <span class="type">NSURL</span>(string:add)!
-    guard <span class="keyword">let</span> parserXML = <span class="type">NSXMLParser</span>(contentsOfURL: url) <span class="keyword">else</span> {
-        <span class="keyword">return</span>
+    super.init()
+    let url = NSURL(string:add)!
+    guard let parserXML = NSXMLParser(contentsOfURL: url) else {
+        return
     }
 
-    parserXML.delegate = <span class="keyword">self</span>
+    parserXML.delegate = self
     parserXML.parse()
     }
 
-<span class="func"><span class="keyword">func</span> <span class="title">parserDidStartDocument</span><span class="params">(parser: NSXMLParser)</span></span> {}
+func parserDidStartDocument(parser: NSXMLParser) {}
 
-<span class="func"><span class="keyword">func</span> <span class="title">parserDidEndDocument</span><span class="params">(parser: NSXMLParser)</span></span>{}
+func parserDidEndDocument(parser: NSXMLParser){}
 
-<span class="func"><span class="keyword">func</span> <span class="title">parser</span><span class="params">(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String])</span></span> {}
+func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {}
 
-<span class="func"><span class="keyword">func</span> <span class="title">parser</span><span class="params">(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?)</span></span> {}
+func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {}
 
-<span class="func"><span class="keyword">func</span> <span class="title">parser</span><span class="params">(parser: NSXMLParser, <span class="keyword">var</span> foundCharacters string: String)</span></span> {}
+func parser(parser: NSXMLParser, var foundCharacters string: String) {}
 
-<span class="func"><span class="keyword">func</span> <span class="title">parser</span><span class="params">(parser: NSXMLParser, parseErrorOccurred parseError: NSError)</span></span> {}
+func parser(parser: NSXMLParser, parseErrorOccurred parseError: NSError) {}
 }
 </code></pre><p>这是一个基础部分，里面定义了一些callback但没有实现它。我把xml的地址作为参数传给了init()，并且声明了两个变量currentName和level分别用来保存当前的标签名字和递归深度。然后我们基于下面这个简单的XML文件继续完成callback部分：</p>
-<pre><code><span class="pi">&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;</span>
-<span class="tag">&lt;<span class="title">language</span> <span class="attribute">cat</span>=<span class="value">"it"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">lan</span> <span class="attribute">id</span>=<span class="value">"1"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">name</span>&gt;</span>C#<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">IDE</span>&gt;</span>vs<span class="tag">&lt;/<span class="title">IDE</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">lan</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">lan</span> <span class="attribute">id</span>=<span class="value">"2"</span> /&gt;</span>
-<span class="tag">&lt;/<span class="title">language</span>&gt;</span>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;language cat=&quot;it&quot;&gt;
+    &lt;lan id=&quot;1&quot;&gt;
+        &lt;name&gt;C#&lt;/name&gt;
+        &lt;IDE&gt;vs&lt;/IDE&gt;
+    &lt;/lan&gt;
+    &lt;lan id=&quot;2&quot; /&gt;
+&lt;/language&gt;
 </code></pre><p> 首先是文档开始和结束时：</p>
-<pre><code><span class="comment">//文档开始解析时触发，只触发一次</span>
-<span class="func"><span class="keyword">func</span> <span class="title">parserDidStartDocument</span><span class="params">(parser: NSXMLParser)</span></span> {
-    <span class="built_in">print</span>(<span class="string">"    start"</span>)
+<pre><code>//文档开始解析时触发，只触发一次
+func parserDidStartDocument(parser: NSXMLParser) {
+    print(&quot;    start&quot;)
 }
 
-<span class="comment">//文档结束时触发，只触发一次，通常需要在这里给出一个信号告诉上层或其他人解析已经结束</span>
-<span class="func"><span class="keyword">func</span> <span class="title">parserDidEndDocument</span><span class="params">(parser: NSXMLParser)</span></span>{
-    <span class="built_in">print</span>(<span class="string">"    end"</span>)
+//文档结束时触发，只触发一次，通常需要在这里给出一个信号告诉上层或其他人解析已经结束
+func parserDidEndDocument(parser: NSXMLParser){
+    print(&quot;    end&quot;)
 }
 </code></pre><p>然后是标签的开始和结束事件：</p>
-<pre><code><span class="comment">//遇到一个开始标签触发，elementName为当前标签，如果当前标签有属性，则字典sttributeDict不为空</span>
-<span class="func"><span class="keyword">func</span> <span class="title">parser</span><span class="params">(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]<span class="params">()</span></span></span>) {
-    <span class="keyword">self</span>.currentName = elementName
-    <span class="keyword">self</span>.level++
-    <span class="built_in">print</span>(<span class="string">"<span class="subst">\(level)</span> start, <span class="subst">\(elementName)</span>, <span class="subst">\(attributeDict)</span>"</span>)
-    <span class="keyword">if</span> currentName == <span class="string">"language"</span> { <span class="comment">// 获取language属性的内容</span>
-        <span class="comment">//print("language: \(attributeDict)")</span>
+<pre><code>//遇到一个开始标签触发，elementName为当前标签，如果当前标签有属性，则字典sttributeDict不为空
+func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]()) {
+    self.currentName = elementName
+    self.level++
+    print(&quot;\(level) start, \(elementName), \(attributeDict)&quot;)
+    if currentName == &quot;language&quot; { // 获取language属性的内容
+        //print(&quot;language: \(attributeDict)&quot;)
     }
 }
 
-<span class="comment">//遇到结束标签触发，该方法主要是做一些清理工作，在这里我修改了当前的深度</span>
-<span class="func"><span class="keyword">func</span> <span class="title">parser</span><span class="params">(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?)</span></span> {
-    <span class="built_in">print</span>(<span class="string">"<span class="subst">\(level)</span> end, <span class="subst">\(elementName)</span>"</span>)
-    <span class="keyword">self</span>.currentName = <span class="literal">nil</span>
-    <span class="keyword">self</span>.level--
+//遇到结束标签触发，该方法主要是做一些清理工作，在这里我修改了当前的深度
+func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+    print(&quot;\(level) end, \(elementName)&quot;)
+    self.currentName = nil
+    self.level--
 }
 </code></pre><p>接下来是字符串值的handler</p>
-<pre><code><span class="comment">// 遇到字符串时触发</span>
-<span class="func"><span class="keyword">func</span> <span class="title">parser</span><span class="params">(parser: NSXMLParser, <span class="keyword">var</span> foundCharacters string: String)</span></span> {
-    <span class="comment">//删除首尾的回车符和空格</span>
-    string = string.stringByTrimmingCharactersInSet(<span class="type">NSCharacterSet</span>.whitespaceAndNewlineCharacterSet())
-    <span class="keyword">if</span> string.isEmpty {
-        <span class="keyword">return</span>
+<pre><code>// 遇到字符串时触发
+func parser(parser: NSXMLParser, var foundCharacters string: String) {
+    //删除首尾的回车符和空格
+    string = string.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+    if string.isEmpty {
+        return
     }
-    <span class="built_in">print</span>(<span class="string">"---- <span class="subst">\(string)</span>"</span>)
+    print(&quot;---- \(string)&quot;)
 }
 </code></pre><p>最后是Error Handler</p>
-<pre><code><span class="comment">// 文档出错时触发</span>
-<span class="func"><span class="keyword">func</span> <span class="title">parser</span><span class="params">(parser: NSXMLParser, parseErrorOccurred parseError: NSError)</span></span> {
-    <span class="built_in">print</span>(parseError)
+<pre><code>// 文档出错时触发
+func parser(parser: NSXMLParser, parseErrorOccurred parseError: NSError) {
+    print(parseError)
 }
 </code></pre><p>以上的callback函数实现都只放了些打印信息，在实际操作中需要把这些获取的信息一一填充进自己的数据结构中。说实话是挺麻烦的，难怪都说XML快要被JSON全面取代（其实对于曾被libxml折磨过的码农来说，这已经挺好了）。全部的代码传送门：<a href="https://github.com/conanwhf/swiftplayground/tree/master/Play.playground/Pages/GetXML.xcplaygroundpage" target="_blank" rel="external">这里</a></p>
 ]]></content>
@@ -1433,16 +1428,16 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
     <published>2015-12-15T08:14:35.000Z</published>
     <updated>2016-01-17T18:07:32.000Z</updated>
     <content type="html"><![CDATA[<p>（挖坑自己跳系列二）<br>上回说到文件操作，那就把文件操作来一遍吧，先放源码：<a href="https://github.com/conanwhf/swiftplayground/tree/master/Play.playground/Pages/File.xcplaygroundpage" target="_blank" rel="external">GitHub某个地方</a></p>
-<h2 id="初始化_&amp;_文件路径">初始化 &amp; 文件路径</h2><p>所有的文件操作都要先声明一个根控制器以获得文件的句柄：</p>
-<pre><code>let manager = NSFileManager.<span class="function"><span class="title">defaultManager</span><span class="params">()</span></span>
+<h2 id="u521D_u59CB_u5316__26amp_3B__u6587_u4EF6_u8DEF_u5F84"><a href="#u521D_u59CB_u5316__26amp_3B__u6587_u4EF6_u8DEF_u5F84" class="headerlink" title="初始化 &amp; 文件路径"></a>初始化 &amp; 文件路径</h2><p>所有的文件操作都要先声明一个根控制器以获得文件的句柄：</p>
+<pre><code>let manager = NSFileManager.defaultManager()
 </code></pre><p>而文件路径的表示有两种方式：String和NSURL。在NSURL的视角中，本地文件作为一种特殊的网络文件而存在，以“file://”开头。多数的操作对于两种路径方式都有两个相对应的接口，要注意对于NSURL，表示本地文件时必须以“file://”开头，否则很多API会失败。为了测试方便，我给String加了个转换的扩展：</p>
-<pre><code><span class="class"><span class="keyword">extension</span> <span class="title">String</span> </span>{
-    <span class="keyword">var</span> toFilePathURL : <span class="type">NSURL</span> {
-    <span class="keyword">let</span> url =  <span class="type">NSURL</span>( fileURLWithPath: <span class="keyword">self</span>)
-    <span class="keyword">return</span> url
+<pre><code>extension String {
+    var toFilePathURL : NSURL {
+    let url =  NSURL( fileURLWithPath: self)
+    return url
     }
 }
-</code></pre><p>这里使用参数<strong>fileURLWithPath:</strong>而不是<strong>string:</strong>就是为了上述原因。<br>对于路径的修改，String表示方法很简单，直接相加即可；NSURL需要用以下代码：<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/15/fileop/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/15/fileop/'>文件操作</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+</code></pre><p>这里使用参数<strong>fileURLWithPath:</strong>而不是<strong>string:</strong>就是为了上述原因。<br>对于路径的修改，String表示方法很简单，直接相加即可；NSURL需要用以下代码：<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/15/fileop/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/15/fileop/'>文件操作</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1456,7 +1451,7 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -1464,197 +1459,197 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
 })()
 </script>
 </p>
-<pre><code>let newUrl = url.<span class="function"><span class="title">URLByAppendingPathComponent</span><span class="params">(<span class="string">"/urlNewDir/"</span>, isDirectory: true)</span></span>   
-<span class="comment">//当然false也是可以的，但要注意匹配，别把参数给错了</span>
-</code></pre><h2 id="获取用户目录">获取用户目录</h2><p>由于Apple的沙盒机制，平时在iOS上能操作的文件也只存在于App当前用户目录、临时文件之类的地方而已，获得这个地址的方法是：</p>
-<pre><code><span class="function"><span class="title">NSHomeDirectory</span><span class="params">()</span></span>
-<span class="function"><span class="title">NSHomeDirectoryForUser</span><span class="params">(<span class="string">"Conan"</span>)</span></span>
+<pre><code>let newUrl = url.URLByAppendingPathComponent(&quot;/urlNewDir/&quot;, isDirectory: true)   
+//当然false也是可以的，但要注意匹配，别把参数给错了
+</code></pre><h2 id="u83B7_u53D6_u7528_u6237_u76EE_u5F55"><a href="#u83B7_u53D6_u7528_u6237_u76EE_u5F55" class="headerlink" title="获取用户目录"></a>获取用户目录</h2><p>由于Apple的沙盒机制，平时在iOS上能操作的文件也只存在于App当前用户目录、临时文件之类的地方而已，获得这个地址的方法是：</p>
+<pre><code>NSHomeDirectory()
+NSHomeDirectoryForUser(&quot;Conan&quot;)
 </code></pre><p>另外还有一些别的”NSXXXDirectory()”，大家自己可以去探索下。对于NSURL的方法如下：</p>
-<pre><code><span class="keyword">let</span> urlForDocument = manager.URLsForDirectory( NSSearchPathDirectory.DocumentDirectory, inDomains:NSSearchPathDomainMask.UserDomainMask)    <span class="comment">//获得用户Document目录</span>
-<span class="keyword">let</span> url = urlForDocument[<span class="number">0</span>] <span class="keyword">as</span> NSURL
+<pre><code>let urlForDocument = manager.URLsForDirectory( NSSearchPathDirectory.DocumentDirectory, inDomains:NSSearchPathDomainMask.UserDomainMask)    //获得用户Document目录
+let url = urlForDocument[0] as NSURL
 </code></pre><p>返回的是Document目录。第一句其实是获得一个搜索集，目标由<strong>NSSearchPathDirectory.XXX</strong>参数指定，在我们知道只有一个搜索结果的情况下，可以直接指定数组中的[0]<br>在第一种方法中，我还没找到怎么拿到Document文件夹，谁知道麻烦留言告诉我，谢谢！🤗<br>在Playground中跑的时候，用户环境其实是在模拟器中，各种权限问题和奇怪的找不到文件之类，调试也不太方便，我就在此吃了点亏。建议有想不通错哪里的时候去终端跑一下，说不准就OK了（怎么跑见前一篇）。</p>
 <blockquote>
 <p>从这里开始进入罗列模式，因为文件操作的很多API实在雷同。我默认文件路径方面已经没有问题了，且你也申明了文件的根控制器manager，那么基本上就是使用：<strong>manager.TODOWHAT(URL/PATH)</strong>，如果有针对String和URL的不同API我会分别列出，写两次。</p>
 </blockquote>
-<h2 id="判断文件或者文件夹是否存在">判断文件或者文件夹是否存在</h2><p>首先是判断文件是否存在：</p>
-<pre><code>manager.<span class="function"><span class="title">fileExistsAtPath</span><span class="params">(workdir)</span></span>       <span class="comment">//文件夹</span>
-manager.<span class="function"><span class="title">fileExistsAtPath</span><span class="params">(workdir + <span class="string">"aaa.txt”) //文件</span></span></span>
-</code></pre><h2 id="新建文件">新建文件</h2><h3 id="创建文件夹">创建文件夹</h3><pre><code><span class="keyword">do</span> {
-<span class="keyword">try</span> manager.createDirectoryAtPath(fn, <span class="attribute">withIntermediateDirectories</span>: <span class="literal">true</span>, <span class="attribute">attributes</span>: nil)
-} <span class="keyword">catch</span> {
-<span class="built_in">print</span>(<span class="string">"Error by createDirectoryAtPath: \(error)\n"</span>)
+<h2 id="u5224_u65AD_u6587_u4EF6_u6216_u8005_u6587_u4EF6_u5939_u662F_u5426_u5B58_u5728"><a href="#u5224_u65AD_u6587_u4EF6_u6216_u8005_u6587_u4EF6_u5939_u662F_u5426_u5B58_u5728" class="headerlink" title="判断文件或者文件夹是否存在"></a>判断文件或者文件夹是否存在</h2><p>首先是判断文件是否存在：</p>
+<pre><code>manager.fileExistsAtPath(workdir)       //文件夹
+manager.fileExistsAtPath(workdir + &quot;aaa.txt”) //文件
+</code></pre><h2 id="u65B0_u5EFA_u6587_u4EF6"><a href="#u65B0_u5EFA_u6587_u4EF6" class="headerlink" title="新建文件"></a>新建文件</h2><h3 id="u521B_u5EFA_u6587_u4EF6_u5939"><a href="#u521B_u5EFA_u6587_u4EF6_u5939" class="headerlink" title="创建文件夹"></a>创建文件夹</h3><pre><code>do {
+try manager.createDirectoryAtPath(fn, withIntermediateDirectories: true, attributes: nil)
+} catch {
+print(&quot;Error by createDirectoryAtPath: \(error)\n&quot;)
 }
 
-<span class="keyword">do</span> {
-<span class="keyword">try</span> manager.createDirectoryAtURL(fnUrl,     <span class="attribute">withIntermediateDirectories</span>: <span class="literal">true</span>, <span class="attribute">attributes</span>: nil)
-} <span class="keyword">catch</span> {
-<span class="built_in">print</span>(<span class="string">"Error by createDirectoryAtURL: \(error)\n"</span>)
+do {
+try manager.createDirectoryAtURL(fnUrl,     withIntermediateDirectories: true, attributes: nil)
+} catch {
+print(&quot;Error by createDirectoryAtURL: \(error)\n&quot;)
 }
 </code></pre><p>其中参数_withIntermediateDirectories_为true则表示路径中间如果有不存在的文件夹都会一并创建</p>
-<h3 id="创建普通文件">创建普通文件</h3><pre><code><span class="keyword">fn</span>          = workdir + <span class="string">"try.txt"</span>
-manager.createFileAtPath(<span class="keyword">fn</span>, <span class="symbol">contents:</span> <span class="keyword">nil</span> , <span class="symbol">attributes:</span> <span class="keyword">nil</span>)
-</code></pre><h3 id="创建符号链接">创建符号链接</h3><pre><code><span class="keyword">do</span> {
-<span class="keyword">try</span> manager.createSymbolicLinkAtPath(workdir + <span class="string">"tryLink.txt"</span>, <span class="attribute">withDestinationPath</span>: fn)
-} <span class="keyword">catch</span> {
-    <span class="built_in">print</span>(<span class="string">"Error by createSymbolicLinkAtPath: \(error)\n"</span>)
+<h3 id="u521B_u5EFA_u666E_u901A_u6587_u4EF6"><a href="#u521B_u5EFA_u666E_u901A_u6587_u4EF6" class="headerlink" title="创建普通文件"></a>创建普通文件</h3><pre><code>fn          = workdir + &quot;try.txt&quot;
+manager.createFileAtPath(fn, contents: nil , attributes: nil)
+</code></pre><h3 id="u521B_u5EFA_u7B26_u53F7_u94FE_u63A5"><a href="#u521B_u5EFA_u7B26_u53F7_u94FE_u63A5" class="headerlink" title="创建符号链接"></a>创建符号链接</h3><pre><code>do {
+try manager.createSymbolicLinkAtPath(workdir + &quot;tryLink.txt&quot;, withDestinationPath: fn)
+} catch {
+    print(&quot;Error by createSymbolicLinkAtPath: \(error)\n&quot;)
 }
 
-<span class="keyword">do</span> {
-<span class="keyword">let</span> linkurl = url.URLByAppendingPathComponent(<span class="string">"link-url"</span>, <span class="attribute">isDirectory</span>: <span class="literal">false</span>)
-<span class="keyword">try</span> manager.createSymbolicLinkAtURL(linkurl, <span class="attribute">withDestinationURL</span>: fnUrl)
-} <span class="keyword">catch</span> {
-<span class="built_in">print</span>(<span class="string">"Error by createSymbolicLinkAtURL: \(error)\n"</span>)
+do {
+let linkurl = url.URLByAppendingPathComponent(&quot;link-url&quot;, isDirectory: false)
+try manager.createSymbolicLinkAtURL(linkurl, withDestinationURL: fnUrl)
+} catch {
+print(&quot;Error by createSymbolicLinkAtURL: \(error)\n&quot;)
 }
 </code></pre><p>以上的文件创建，在默认的情况下如果已有目标文件存在则会失败；除了<strong>createFileAtPath</strong>会直接覆盖掉。</p>
-<h2 id="读取文件">读取文件</h2><p>读取文件的数据结果为NSData，如果需要变成可读的文字，转换成String即可：</p>
-<pre><code><span class="keyword">let</span> st      = <span class="built_in">String</span>(<span class="built_in">data</span>: <span class="built_in">data</span><span class="subst">!</span>, encoding: NSUTF8StringEncoding)
+<h2 id="u8BFB_u53D6_u6587_u4EF6"><a href="#u8BFB_u53D6_u6587_u4EF6" class="headerlink" title="读取文件"></a>读取文件</h2><p>读取文件的数据结果为NSData，如果需要变成可读的文字，转换成String即可：</p>
+<pre><code>let st      = String(data: data!, encoding: NSUTF8StringEncoding)
 </code></pre><p>而读取文件有两种方式，一种直接获取全部数据:</p>
-<pre><code><span class="typedef"><span class="keyword">data</span>        = manager.contentsAtPath<span class="container">(<span class="title">fn</span>)</span></span>
+<pre><code>data        = manager.contentsAtPath(fn)
 </code></pre><p>另一种是使用文件句柄：</p>
-<pre><code>let <span class="keyword">handler</span> = NSFileHandle(forReadingAtPath: fn)
-data        = <span class="keyword">handler</span>?.readDataToEndOfFile()
+<pre><code>let handler = NSFileHandle(forReadingAtPath: fn)
+data        = handler?.readDataToEndOfFile()
 
 do {
-    let <span class="keyword">handler</span> = <span class="keyword">try</span> NSFileHandle(forReadingFromURL: fnUrl)
-    data        = <span class="keyword">handler</span>.readDataToEndOfFile()
-} <span class="keyword">catch</span> {
-    print(<span class="string">"Error by NSFileHandle: \(error)\n"</span>)
+    let handler = try NSFileHandle(forReadingFromURL: fnUrl)
+    data        = handler.readDataToEndOfFile()
+} catch {
+    print(&quot;Error by NSFileHandle: \(error)\n&quot;)
 }
 </code></pre><p>第二种方式比较灵活，还有别的参数可用，通常结合写数据用来修改文件</p>
-<h2 id="将数据写入文件">将数据写入文件</h2><h3 id="整体数据写入">整体数据写入</h3><p>可以通过writeToFile方法，创建并将数据整体写入文件。支持的数据对象包括String，NSString，UIImage，NSArray，NSDictionary等。</p>
-<h4 id="字符串">字符串</h4><pre><code><span class="keyword">let</span> info        = <span class="string">"测试数据1234"</span>
-<span class="keyword">do</span> {
-<span class="keyword">try</span> info.writeToFile(fn + <span class="string">"_string.txt"</span>, <span class="attribute">atomically</span>: <span class="literal">true</span>, <span class="attribute">encoding</span>: NSUTF8StringEncoding)
-} <span class="keyword">catch</span> {
-<span class="built_in">print</span>(<span class="string">"Error by writeToFile: \(error)\n"</span>)
-}
-</code></pre><h4 id="图片">图片</h4><pre><code>let image       = UIImage(named: workdir + "/test/207006981.jpg”)//这里只是先<span class="operator"><span class="keyword">load</span>一下
-let <span class="keyword">data</span>:NSData = UIImagePNGRepresentation(image!)!
-<span class="keyword">data</span>.writeToFile(fn + <span class="string">"_img.jpg"</span>, atomically: <span class="literal">true</span>)</span>
-</code></pre><h4 id="数组">数组</h4><pre><code>let<span class="instruction"> array </span>      =<span class="function"> NSArray(</span>objects: <span class="string">"aaa"</span>,<span class="string">"bbb"</span>,<span class="string">"ccc"</span><span class="function">)</span>
-array.writeToFile(fn + <span class="string">"_arr.txt"</span>, atomically: true<span class="function">)</span>
-</code></pre><h4 id="字典">字典</h4><pre><code>let dictionary  = NSDictionary(<span class="string">objects:</span> [<span class="string">"111"</span>,<span class="string">"222"</span>], <span class="string">forKeys:</span> [<span class="string">"aaa"</span>,<span class="string">"bbb"</span>]
-dictionary.writeToFile(fn + <span class="string">"_dic.txt"</span>, <span class="string">atomically:</span> <span class="literal">true</span>)
-</code></pre><h3 id="末尾添加、修改文件">末尾添加、修改文件</h3><p>修改文件跟C的用法很像，使用文件句柄，结合seek到的某个位置，写入数据。需要注意的是没有专门的插入数据方法，所以如果你想插入数据，就需要把后面的数据都出来（或者另存下来），添加数据，再续上之前的后半截。所以如果数据量大，下面的暴力方法不合适，需要用callback结合缓存去做读写。</p>
-<h4 id="末尾添加数据">末尾添加数据</h4><pre><code>let <span class="operator"><span class="keyword">handler</span> = NSFileHandle(forUpdatingAtPath: fn)
-<span class="keyword">guard</span> <span class="keyword">handler</span> != nil <span class="keyword">else</span> {
-    print(<span class="string">"No such file"</span>)
-    <span class="keyword">return</span>
-}
-<span class="keyword">string</span>      = <span class="string">"\n用forUpdatingAtPath在文件末尾添加XXX"</span>
-<span class="keyword">data</span>        = <span class="keyword">string</span>.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: <span class="literal">true</span>)!
-<span class="keyword">handler</span>!.seekToEndOfFile()
-<span class="keyword">handler</span>!.writeData(<span class="keyword">data</span>)</span>
-</code></pre><h4 id="插入数据">插入数据</h4><pre><code>var string  = <span class="string">"\n用forUpdatingAtURL在文件第10个字节插入XXX\n"</span>
-var data    = string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: <span class="keyword">true</span>)!
+<h2 id="u5C06_u6570_u636E_u5199_u5165_u6587_u4EF6"><a href="#u5C06_u6570_u636E_u5199_u5165_u6587_u4EF6" class="headerlink" title="将数据写入文件"></a>将数据写入文件</h2><h3 id="u6574_u4F53_u6570_u636E_u5199_u5165"><a href="#u6574_u4F53_u6570_u636E_u5199_u5165" class="headerlink" title="整体数据写入"></a>整体数据写入</h3><p>可以通过writeToFile方法，创建并将数据整体写入文件。支持的数据对象包括String，NSString，UIImage，NSArray，NSDictionary等。</p>
+<h4 id="u5B57_u7B26_u4E32"><a href="#u5B57_u7B26_u4E32" class="headerlink" title="字符串"></a>字符串</h4><pre><code>let info        = &quot;测试数据1234&quot;
 do {
-    let <span class="keyword">handler</span> = <span class="keyword">try</span> NSFileHandle(forUpdatingURL: fnUrl)
-    <span class="keyword">handler</span>.seekToFileOffset(10)
-    let data2   = <span class="keyword">handler</span>.readDataToEndOfFile()
-    <span class="keyword">handler</span>.seekToFileOffset(10)
-    <span class="keyword">handler</span>.writeData(data)
-    <span class="keyword">handler</span>.writeData(data2)
-} <span class="keyword">catch</span> {
-    print(<span class="string">"Error by NSFileHandle: \(error)\n"</span>)
+try info.writeToFile(fn + &quot;_string.txt&quot;, atomically: true, encoding: NSUTF8StringEncoding)
+} catch {
+print(&quot;Error by writeToFile: \(error)\n&quot;)
+}
+</code></pre><h4 id="u56FE_u7247"><a href="#u56FE_u7247" class="headerlink" title="图片"></a>图片</h4><pre><code>let image       = UIImage(named: workdir + &quot;/test/207006981.jpg”)//这里只是先load一下
+let data:NSData = UIImagePNGRepresentation(image!)!
+data.writeToFile(fn + &quot;_img.jpg&quot;, atomically: true)
+</code></pre><h4 id="u6570_u7EC4"><a href="#u6570_u7EC4" class="headerlink" title="数组"></a>数组</h4><pre><code>let array       = NSArray(objects: &quot;aaa&quot;,&quot;bbb&quot;,&quot;ccc&quot;)
+array.writeToFile(fn + &quot;_arr.txt&quot;, atomically: true)
+</code></pre><h4 id="u5B57_u5178"><a href="#u5B57_u5178" class="headerlink" title="字典"></a>字典</h4><pre><code>let dictionary  = NSDictionary(objects: [&quot;111&quot;,&quot;222&quot;], forKeys: [&quot;aaa&quot;,&quot;bbb&quot;]
+dictionary.writeToFile(fn + &quot;_dic.txt&quot;, atomically: true)
+</code></pre><h3 id="u672B_u5C3E_u6DFB_u52A0_u3001_u4FEE_u6539_u6587_u4EF6"><a href="#u672B_u5C3E_u6DFB_u52A0_u3001_u4FEE_u6539_u6587_u4EF6" class="headerlink" title="末尾添加、修改文件"></a>末尾添加、修改文件</h3><p>修改文件跟C的用法很像，使用文件句柄，结合seek到的某个位置，写入数据。需要注意的是没有专门的插入数据方法，所以如果你想插入数据，就需要把后面的数据都出来（或者另存下来），添加数据，再续上之前的后半截。所以如果数据量大，下面的暴力方法不合适，需要用callback结合缓存去做读写。</p>
+<h4 id="u672B_u5C3E_u6DFB_u52A0_u6570_u636E"><a href="#u672B_u5C3E_u6DFB_u52A0_u6570_u636E" class="headerlink" title="末尾添加数据"></a>末尾添加数据</h4><pre><code>let handler = NSFileHandle(forUpdatingAtPath: fn)
+guard handler != nil else {
+    print(&quot;No such file&quot;)
+    return
+}
+string      = &quot;\n用forUpdatingAtPath在文件末尾添加XXX&quot;
+data        = string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!
+handler!.seekToEndOfFile()
+handler!.writeData(data)
+</code></pre><h4 id="u63D2_u5165_u6570_u636E"><a href="#u63D2_u5165_u6570_u636E" class="headerlink" title="插入数据"></a>插入数据</h4><pre><code>var string  = &quot;\n用forUpdatingAtURL在文件第10个字节插入XXX\n&quot;
+var data    = string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!
+do {
+    let handler = try NSFileHandle(forUpdatingURL: fnUrl)
+    handler.seekToFileOffset(10)
+    let data2   = handler.readDataToEndOfFile()
+    handler.seekToFileOffset(10)
+    handler.writeData(data)
+    handler.writeData(data2)
+} catch {
+    print(&quot;Error by NSFileHandle: \(error)\n&quot;)
 }
 </code></pre><p>这里两种方式用了不同的句柄获得方式，实际上可以随意互换。</p>
-<h2 id="复制文件（夹）">复制文件（夹）</h2><pre><code><span class="name">do</span> {
+<h2 id="u590D_u5236_u6587_u4EF6_uFF08_u5939_uFF09"><a href="#u590D_u5236_u6587_u4EF6_uFF08_u5939_uFF09" class="headerlink" title="复制文件（夹）"></a>复制文件（夹）</h2><pre><code>do {
     try manager.copyItemAtPath(src, toPath: dest)
-} <span class="name">catch</span> <span class="name">let</span> <span class="name">error</span> <span class="name">as</span> <span class="name">NSError</span> {
-    print(<span class="string">"Error by Path: \(error)\n"</span>)
+} catch let error as NSError {
+    print(&quot;Error by Path: \(error)\n&quot;)
 }
 
-<span class="name">do</span> {
+do {
     try manager.copyItemAtURL( srcUrl, toURL: destUrl)
-} <span class="name">catch</span> <span class="name">let</span> <span class="name">error</span> <span class="name">as</span> <span class="name">NSError</span> {
-    print(<span class="string">"Error by URL: \(error)\n"</span>)
+} catch let error as NSError {
+    print(&quot;Error by URL: \(error)\n&quot;)
 }
-</code></pre><h2 id="移动文件（夹）">移动文件（夹）</h2><pre><code><span class="keyword">do</span> {
-    <span class="keyword">try</span> manager.moveItemAtPath(src, <span class="attribute">toPath</span>: dest)
-} <span class="keyword">catch</span> {
-<span class="built_in">print</span>(<span class="string">"Error by Path: \(error)\n"</span>)
-}
-
-<span class="keyword">do</span> {
-    <span class="keyword">try</span> manager.moveItemAtURL( srcUrl, <span class="attribute">toURL</span>: destUrl)
-} <span class="keyword">catch</span>  {
-    <span class="built_in">print</span>(<span class="string">"Error by URL: \(error)\n"</span>)
-}
-</code></pre><h2 id="删除文件（夹）">删除文件（夹）</h2><pre><code><span class="keyword">do</span> {
-    <span class="keyword">try</span> manager.removeItemAtPath(fn)
-} <span class="keyword">catch</span> {
-    <span class="built_in">print</span>(<span class="string">"Error by Path: \(error)\n"</span>)
+</code></pre><h2 id="u79FB_u52A8_u6587_u4EF6_uFF08_u5939_uFF09"><a href="#u79FB_u52A8_u6587_u4EF6_uFF08_u5939_uFF09" class="headerlink" title="移动文件（夹）"></a>移动文件（夹）</h2><pre><code>do {
+    try manager.moveItemAtPath(src, toPath: dest)
+} catch {
+print(&quot;Error by Path: \(error)\n&quot;)
 }
 
-<span class="keyword">do</span> {
-    <span class="keyword">try</span> manager.removeItemAtURL( fn.toFilePathURL)
-} <span class="keyword">catch</span>  {
-    <span class="built_in">print</span>(<span class="string">"Error by URL: \(error)\n"</span>)
+do {
+    try manager.moveItemAtURL( srcUrl, toURL: destUrl)
+} catch  {
+    print(&quot;Error by URL: \(error)\n&quot;)
+}
+</code></pre><h2 id="u5220_u9664_u6587_u4EF6_uFF08_u5939_uFF09"><a href="#u5220_u9664_u6587_u4EF6_uFF08_u5939_uFF09" class="headerlink" title="删除文件（夹）"></a>删除文件（夹）</h2><pre><code>do {
+    try manager.removeItemAtPath(fn)
+} catch {
+    print(&quot;Error by Path: \(error)\n&quot;)
+}
+
+do {
+    try manager.removeItemAtURL( fn.toFilePathURL)
+} catch  {
+    print(&quot;Error by URL: \(error)\n&quot;)
 }   
-</code></pre><h2 id="遍历文件夹">遍历文件夹</h2><p>遍历文件夹有两种方式：遍历当前文件夹，和递归遍历子文件夹。下面是范例。注意：<strong>使用Path为参数的时候返回的是相对路径和文件名，而使用URL方式时返回的是绝对路径！</strong></p>
-<h3 id="不遍历子文件夹">不遍历子文件夹</h3><pre><code>do {
+</code></pre><h2 id="u904D_u5386_u6587_u4EF6_u5939"><a href="#u904D_u5386_u6587_u4EF6_u5939" class="headerlink" title="遍历文件夹"></a>遍历文件夹</h2><p>遍历文件夹有两种方式：遍历当前文件夹，和递归遍历子文件夹。下面是范例。注意：<strong>使用Path为参数的时候返回的是相对路径和文件名，而使用URL方式时返回的是绝对路径！</strong></p>
+<h3 id="u4E0D_u904D_u5386_u5B50_u6587_u4EF6_u5939"><a href="#u4E0D_u904D_u5386_u5B50_u6587_u4EF6_u5939" class="headerlink" title="不遍历子文件夹"></a>不遍历子文件夹</h3><pre><code>do {
 let contentsOfPath   = try manager.contentsOfDirectoryAtPath(dir)
-    contentsOfPath.forEach{ print(<span class="variable">$0</span>) }
-} <span class="keyword">catch</span> {
-    print(<span class="string">"Error by 1-1: \(error)\n"</span>)
+    contentsOfPath.forEach{ print($0) }
+} catch {
+    print(&quot;Error by 1-1: \(error)\n&quot;)
 }
 
 do {
 let contentsOfURL    = try manager.contentsOfDirectoryAtURL(url, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
-    contentsOfURL.forEach{ print(<span class="variable">$0</span>) }
-} <span class="keyword">catch</span> {
-    print(<span class="string">"Error by 1-2: \(error)\n"</span>)
+    contentsOfURL.forEach{ print($0) }
+} catch {
+    print(&quot;Error by 1-2: \(error)\n&quot;)
 }
-</code></pre><h3 id="递归遍历子文件夹，但不递归符号链接">递归遍历子文件夹，但不递归符号链接</h3><pre><code><span class="keyword">let</span> enumeratorAtPath = manager.enumeratorAtPath(dir)
-<span class="keyword">if</span> enumeratorAtPath == nil  {
-    print(<span class="string">"Error by 2-1: no such folder: \(dir)"</span>)
+</code></pre><h3 id="u9012_u5F52_u904D_u5386_u5B50_u6587_u4EF6_u5939_uFF0C_u4F46_u4E0D_u9012_u5F52_u7B26_u53F7_u94FE_u63A5"><a href="#u9012_u5F52_u904D_u5386_u5B50_u6587_u4EF6_u5939_uFF0C_u4F46_u4E0D_u9012_u5F52_u7B26_u53F7_u94FE_u63A5" class="headerlink" title="递归遍历子文件夹，但不递归符号链接"></a>递归遍历子文件夹，但不递归符号链接</h3><pre><code>let enumeratorAtPath = manager.enumeratorAtPath(dir)
+if enumeratorAtPath == nil  {
+    print(&quot;Error by 2-1: no such folder: \(dir)&quot;)
     //return
 }
-<span class="keyword">else</span> {
-    enumeratorAtPath!.forEach{ print(<span class="variable">$0</span>) }
+else {
+    enumeratorAtPath!.forEach{ print($0) }
 }
 
-<span class="keyword">let</span> enumeratorAtURL  = manager.enumeratorAtURL(url,includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles, errorHandler:nil)
-<span class="keyword">if</span> enumeratorAtURL == nil  {
-    print(<span class="string">"Error by 2-2: no such folder: \(url)"</span>)
+let enumeratorAtURL  = manager.enumeratorAtURL(url,includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles, errorHandler:nil)
+if enumeratorAtURL == nil  {
+    print(&quot;Error by 2-2: no such folder: \(url)&quot;)
     //return
 }
-<span class="keyword">else</span> {
-    enumeratorAtURL!.forEach{ print(<span class="variable">$0</span>) }
+else {
+    enumeratorAtURL!.forEach{ print($0) }
 }
-</code></pre><h3 id="递归遍历子文件夹，包括符号链接">递归遍历子文件夹，包括符号链接</h3><pre><code><span class="keyword">let</span> subpathsAtPath   = manager.subpathsAtPath(dir)
-<span class="keyword">if</span> subpathsAtPath == nil  {
-    print(<span class="string">"-Error by 3: no such folder: \(dir)"</span>)
+</code></pre><h3 id="u9012_u5F52_u904D_u5386_u5B50_u6587_u4EF6_u5939_uFF0C_u5305_u62EC_u7B26_u53F7_u94FE_u63A5"><a href="#u9012_u5F52_u904D_u5386_u5B50_u6587_u4EF6_u5939_uFF0C_u5305_u62EC_u7B26_u53F7_u94FE_u63A5" class="headerlink" title="递归遍历子文件夹，包括符号链接"></a>递归遍历子文件夹，包括符号链接</h3><pre><code>let subpathsAtPath   = manager.subpathsAtPath(dir)
+if subpathsAtPath == nil  {
+    print(&quot;-Error by 3: no such folder: \(dir)&quot;)
     //return
 }
-<span class="keyword">else</span> {
-    subpathsAtPath!.forEach{ print(<span class="variable">$0</span>) }
+else {
+    subpathsAtPath!.forEach{ print($0) }
 }
 </code></pre><p>这个函数有点危险，可能一不小心就死循环了，建议慎用。</p>
-<h2 id="获取文件属性和权限">获取文件属性和权限</h2><h3 id="权限判断">权限判断</h3><pre><code>let readable   = manager.<span class="function"><span class="title">isReadableFileAtPath</span><span class="params">(fn)</span></span>
-let writeable  = manager.<span class="function"><span class="title">isWritableFileAtPath</span><span class="params">(fn)</span></span>
-let executable = manager.<span class="function"><span class="title">isExecutableFileAtPath</span><span class="params">(fn)</span></span>
-let deleteable = manager.<span class="function"><span class="title">isDeletableFileAtPath</span><span class="params">(fn)</span></span>
-<span class="function"><span class="title">print</span><span class="params">(<span class="string">"文件\(fn) \(readable ? "</span><span class="string">" : "</span>不<span class="string">")可读， \(writeable ? "</span><span class="string">" : "</span>不<span class="string">")可写，\(executable ? "</span><span class="string">" : "</span>不<span class="string">")可执行，\(deleteable ? "</span><span class="string">" : "</span>不<span class="string">")可删除"</span>)</span></span>
-</code></pre><h3 id="获取文件属性">获取文件属性</h3><pre><code><span class="keyword">do</span> {
-<span class="keyword">let</span> attributes = <span class="keyword">try</span> manager.attributesOfItemAtPath(fn)
-        <span class="built_in">print</span>(<span class="string">"attributes: \(attributes)"</span>)
-} <span class="keyword">catch</span> {
-    <span class="built_in">print</span>(<span class="string">"Error by attributesOfItemAtPath: \(error)\n"</span>)
+<h2 id="u83B7_u53D6_u6587_u4EF6_u5C5E_u6027_u548C_u6743_u9650"><a href="#u83B7_u53D6_u6587_u4EF6_u5C5E_u6027_u548C_u6743_u9650" class="headerlink" title="获取文件属性和权限"></a>获取文件属性和权限</h2><h3 id="u6743_u9650_u5224_u65AD"><a href="#u6743_u9650_u5224_u65AD" class="headerlink" title="权限判断"></a>权限判断</h3><pre><code>let readable   = manager.isReadableFileAtPath(fn)
+let writeable  = manager.isWritableFileAtPath(fn)
+let executable = manager.isExecutableFileAtPath(fn)
+let deleteable = manager.isDeletableFileAtPath(fn)
+print(&quot;文件\(fn) \(readable ? &quot;&quot; : &quot;不&quot;)可读， \(writeable ? &quot;&quot; : &quot;不&quot;)可写，\(executable ? &quot;&quot; : &quot;不&quot;)可执行，\(deleteable ? &quot;&quot; : &quot;不&quot;)可删除&quot;)
+</code></pre><h3 id="u83B7_u53D6_u6587_u4EF6_u5C5E_u6027"><a href="#u83B7_u53D6_u6587_u4EF6_u5C5E_u6027" class="headerlink" title="获取文件属性"></a>获取文件属性</h3><pre><code>do {
+let attributes = try manager.attributesOfItemAtPath(fn)
+        print(&quot;attributes: \(attributes)&quot;)
+} catch {
+    print(&quot;Error by attributesOfItemAtPath: \(error)\n&quot;)
 }
-</code></pre><h2 id="比较文件（夹）">比较文件（夹）</h2><pre><code>manager.<span class="function"><span class="title">contentsEqualAtPath</span><span class="params">(workdir + <span class="string">"read.md"</span>, andPath: workdir + <span class="string">"copied.txt"</span>)</span></span>   <span class="comment">//文件</span>
-manager.<span class="function"><span class="title">contentsEqualAtPath</span><span class="params">(workdir, andPath: workdir + <span class="string">"/tesst/"</span>)</span></span>  <span class="comment">//文件夹</span>
+</code></pre><h2 id="u6BD4_u8F83_u6587_u4EF6_uFF08_u5939_uFF09"><a href="#u6BD4_u8F83_u6587_u4EF6_uFF08_u5939_uFF09" class="headerlink" title="比较文件（夹）"></a>比较文件（夹）</h2><pre><code>manager.contentsEqualAtPath(workdir + &quot;read.md&quot;, andPath: workdir + &quot;copied.txt&quot;)   //文件
+manager.contentsEqualAtPath(workdir, andPath: workdir + &quot;/tesst/&quot;)  //文件夹
 </code></pre><p>这个函数不是diff，只能判断是否相同，不能做内容对比</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>（挖坑自己跳系列二）<br>上回说到文件操作，那就把文件操作来一遍吧，先放源码：<a href="https://github.com/conanwhf/swiftplayground/tree/master/Play.playground/Pages/File.xcplaygroundpage">GitHub某个地方</a></p>
-<h2 id="初始化_&amp;_文件路径">初始化 &amp; 文件路径</h2><p>所有的文件操作都要先声明一个根控制器以获得文件的句柄：</p>
-<pre><code>let manager = NSFileManager.<span class="function"><span class="title">defaultManager</span><span class="params">()</span></span>
+<h2 id="u521D_u59CB_u5316__26amp_3B__u6587_u4EF6_u8DEF_u5F84"><a href="#u521D_u59CB_u5316__26amp_3B__u6587_u4EF6_u8DEF_u5F84" class="headerlink" title="初始化 &amp; 文件路径"></a>初始化 &amp; 文件路径</h2><p>所有的文件操作都要先声明一个根控制器以获得文件的句柄：</p>
+<pre><code>let manager = NSFileManager.defaultManager()
 </code></pre><p>而文件路径的表示有两种方式：String和NSURL。在NSURL的视角中，本地文件作为一种特殊的网络文件而存在，以“file://”开头。多数的操作对于两种路径方式都有两个相对应的接口，要注意对于NSURL，表示本地文件时必须以“file://”开头，否则很多API会失败。为了测试方便，我给String加了个转换的扩展：</p>
-<pre><code><span class="class"><span class="keyword">extension</span> <span class="title">String</span> </span>{
-    <span class="keyword">var</span> toFilePathURL : <span class="type">NSURL</span> {
-    <span class="keyword">let</span> url =  <span class="type">NSURL</span>( fileURLWithPath: <span class="keyword">self</span>)
-    <span class="keyword">return</span> url
+<pre><code>extension String {
+    var toFilePathURL : NSURL {
+    let url =  NSURL( fileURLWithPath: self)
+    return url
     }
 }
 </code></pre><p>这里使用参数<strong>fileURLWithPath:</strong>而不是<strong>string:</strong>就是为了上述原因。<br>对于路径的修改，String表示方法很简单，直接相加即可；NSURL需要用以下代码：]]>

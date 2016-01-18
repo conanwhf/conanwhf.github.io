@@ -274,7 +274,7 @@
       
         <span itemprop="articleBody"><p>（挖坑自己跳系列三）<br>在实现文件操作的时候我意识到了一个事实：由于NSURL是可支持的路径，很多文件的操作实际上可以扩充到网络上去，比如从网上下载一个文件、拿取一些数据……想到这里，埋藏在心中很久的愿望又开始蠢蠢欲动：写一个新闻客户端！<br>我有一个常看的新闻网站（不要问我是哪个，要FQ），官方客户端很难用，第三方广告满天飞，严重影响心情。所以当初开始学iOS的时候就把重做一个客户端的目标放在了首位。最开始的时候想得太简单，兴冲冲地开了个project，搞了两下TableView，然后发现……对于我这种从来只写底层代码，swift/OC语法都不会的人，做这个简直是异想天开好嘛！<br>折腾的过程中，为了拿到数据，还跑去下了Android的官方客户端反编译，find + grep出来了人家的数据接口地址（论一个爱折腾的程序员是怎么给自己挖坑的），返回的是XML数据，连蒙带猜试了试，可以用！不过后来做UI受挫（其实不止做UI，挫败感太大），就把那份东西闲置起来了。这两天突然想起来，现在我貌似感觉有点良好，何不捡起来继续写我的客户端？<br>因为UI我还一窍不通，不懂怎么调试，也不懂怎么把数据显示出来，为了避免到处打印的麻烦，我选择playground。这样也就是需要用原生库，这个很简单，搜一下就有了：NSXMLParserDelegate，还有好些源码，虽然大多是OC的。<br>问题是有源码，我依！然！看！不！懂！怎么用！每个教程都是扔了源码上来，可没人解释清楚到底怎么运行。我研究了好一阵，终于明白了大概的机制：</p>
 <blockquote>
-<p><strong>自己写一个类继承NSXMLParserDelegate，就叫它XmlReader吧；并且实现一些必须的callback函数，在XmlReader的Init中调用.parse()方法，最后在new XmlReader的时候就会自动完成整个parse了</strong><br><a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/15/Swift_xml/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/15/Swift_xml/'>使用Swift原生库解析XML数据</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<p><strong>自己写一个类继承NSXMLParserDelegate，就叫它XmlReader吧；并且实现一些必须的callback函数，在XmlReader的Init中调用.parse()方法，最后在new XmlReader的时候就会自动完成整个parse了</strong><br><a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/15/Swift_xml/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/15/Swift_xml/'>使用Swift原生库解析XML数据</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -288,7 +288,7 @@
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -298,84 +298,84 @@
 </p>
 </blockquote>
 <p>当然你也可以不把parse()放在init()中调用，而是在new了XmlReader之后强制调用，重要的是那些callback函数的实现。XmlReader中还可以声明一些变量，来保存解析过程中的状态，而具体的获得到的数据填充，也是需要你自己做的（数据结构自行定义）。<br><strong>鉴于XML是一个有层级的带递归意味的数据结构，程序会层层解析下去直到结束，中间遇到的各种类似section开始、结束、拿到字符串等情况都会call一个固定的函数，将解析出来的数据作为参数传进去，而你要做的，就是实现这些callback以完成自己想要做的事。</strong><br>下面是具体的代码示范。首先是定义一个新的类：</p>
-<pre><code><span class="class"><span class="keyword">class</span> <span class="title">XmlReader</span>: <span class="title">NSObject</span>, <span class="title">NSXMLParserDelegate</span> </span>{
-<span class="keyword">var</span> currentName :<span class="type">String</span>? = <span class="literal">nil</span>
-<span class="keyword">var</span> level :<span class="type">Int</span> = <span class="number">0</span>
+<pre><code>class XmlReader: NSObject, NSXMLParserDelegate {
+var currentName :String? = nil
+var level :Int = 0
 
- <span class="keyword">init</span>(add :<span class="type">String</span> ) {
+ init(add :String ) {
 
-    <span class="keyword">super</span>.<span class="keyword">init</span>()
-    <span class="keyword">let</span> url = <span class="type">NSURL</span>(string:add)!
-    guard <span class="keyword">let</span> parserXML = <span class="type">NSXMLParser</span>(contentsOfURL: url) <span class="keyword">else</span> {
-        <span class="keyword">return</span>
+    super.init()
+    let url = NSURL(string:add)!
+    guard let parserXML = NSXMLParser(contentsOfURL: url) else {
+        return
     }
 
-    parserXML.delegate = <span class="keyword">self</span>
+    parserXML.delegate = self
     parserXML.parse()
     }
 
-<span class="func"><span class="keyword">func</span> <span class="title">parserDidStartDocument</span><span class="params">(parser: NSXMLParser)</span></span> {}
+func parserDidStartDocument(parser: NSXMLParser) {}
 
-<span class="func"><span class="keyword">func</span> <span class="title">parserDidEndDocument</span><span class="params">(parser: NSXMLParser)</span></span>{}
+func parserDidEndDocument(parser: NSXMLParser){}
 
-<span class="func"><span class="keyword">func</span> <span class="title">parser</span><span class="params">(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String])</span></span> {}
+func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {}
 
-<span class="func"><span class="keyword">func</span> <span class="title">parser</span><span class="params">(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?)</span></span> {}
+func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {}
 
-<span class="func"><span class="keyword">func</span> <span class="title">parser</span><span class="params">(parser: NSXMLParser, <span class="keyword">var</span> foundCharacters string: String)</span></span> {}
+func parser(parser: NSXMLParser, var foundCharacters string: String) {}
 
-<span class="func"><span class="keyword">func</span> <span class="title">parser</span><span class="params">(parser: NSXMLParser, parseErrorOccurred parseError: NSError)</span></span> {}
+func parser(parser: NSXMLParser, parseErrorOccurred parseError: NSError) {}
 }
 </code></pre><p>这是一个基础部分，里面定义了一些callback但没有实现它。我把xml的地址作为参数传给了init()，并且声明了两个变量currentName和level分别用来保存当前的标签名字和递归深度。然后我们基于下面这个简单的XML文件继续完成callback部分：</p>
-<pre><code><span class="pi">&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;</span>
-<span class="tag">&lt;<span class="title">language</span> <span class="attribute">cat</span>=<span class="value">"it"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">lan</span> <span class="attribute">id</span>=<span class="value">"1"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">name</span>&gt;</span>C#<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">IDE</span>&gt;</span>vs<span class="tag">&lt;/<span class="title">IDE</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">lan</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">lan</span> <span class="attribute">id</span>=<span class="value">"2"</span> /&gt;</span>
-<span class="tag">&lt;/<span class="title">language</span>&gt;</span>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;language cat=&quot;it&quot;&gt;
+    &lt;lan id=&quot;1&quot;&gt;
+        &lt;name&gt;C#&lt;/name&gt;
+        &lt;IDE&gt;vs&lt;/IDE&gt;
+    &lt;/lan&gt;
+    &lt;lan id=&quot;2&quot; /&gt;
+&lt;/language&gt;
 </code></pre><p> 首先是文档开始和结束时：</p>
-<pre><code><span class="comment">//文档开始解析时触发，只触发一次</span>
-<span class="func"><span class="keyword">func</span> <span class="title">parserDidStartDocument</span><span class="params">(parser: NSXMLParser)</span></span> {
-    <span class="built_in">print</span>(<span class="string">"    start"</span>)
+<pre><code>//文档开始解析时触发，只触发一次
+func parserDidStartDocument(parser: NSXMLParser) {
+    print(&quot;    start&quot;)
 }
 
-<span class="comment">//文档结束时触发，只触发一次，通常需要在这里给出一个信号告诉上层或其他人解析已经结束</span>
-<span class="func"><span class="keyword">func</span> <span class="title">parserDidEndDocument</span><span class="params">(parser: NSXMLParser)</span></span>{
-    <span class="built_in">print</span>(<span class="string">"    end"</span>)
+//文档结束时触发，只触发一次，通常需要在这里给出一个信号告诉上层或其他人解析已经结束
+func parserDidEndDocument(parser: NSXMLParser){
+    print(&quot;    end&quot;)
 }
 </code></pre><p>然后是标签的开始和结束事件：</p>
-<pre><code><span class="comment">//遇到一个开始标签触发，elementName为当前标签，如果当前标签有属性，则字典sttributeDict不为空</span>
-<span class="func"><span class="keyword">func</span> <span class="title">parser</span><span class="params">(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]<span class="params">()</span></span></span>) {
-    <span class="keyword">self</span>.currentName = elementName
-    <span class="keyword">self</span>.level++
-    <span class="built_in">print</span>(<span class="string">"<span class="subst">\(level)</span> start, <span class="subst">\(elementName)</span>, <span class="subst">\(attributeDict)</span>"</span>)
-    <span class="keyword">if</span> currentName == <span class="string">"language"</span> { <span class="comment">// 获取language属性的内容</span>
-        <span class="comment">//print("language: \(attributeDict)")</span>
+<pre><code>//遇到一个开始标签触发，elementName为当前标签，如果当前标签有属性，则字典sttributeDict不为空
+func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]()) {
+    self.currentName = elementName
+    self.level++
+    print(&quot;\(level) start, \(elementName), \(attributeDict)&quot;)
+    if currentName == &quot;language&quot; { // 获取language属性的内容
+        //print(&quot;language: \(attributeDict)&quot;)
     }
 }
 
-<span class="comment">//遇到结束标签触发，该方法主要是做一些清理工作，在这里我修改了当前的深度</span>
-<span class="func"><span class="keyword">func</span> <span class="title">parser</span><span class="params">(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?)</span></span> {
-    <span class="built_in">print</span>(<span class="string">"<span class="subst">\(level)</span> end, <span class="subst">\(elementName)</span>"</span>)
-    <span class="keyword">self</span>.currentName = <span class="literal">nil</span>
-    <span class="keyword">self</span>.level--
+//遇到结束标签触发，该方法主要是做一些清理工作，在这里我修改了当前的深度
+func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+    print(&quot;\(level) end, \(elementName)&quot;)
+    self.currentName = nil
+    self.level--
 }
 </code></pre><p>接下来是字符串值的handler</p>
-<pre><code><span class="comment">// 遇到字符串时触发</span>
-<span class="func"><span class="keyword">func</span> <span class="title">parser</span><span class="params">(parser: NSXMLParser, <span class="keyword">var</span> foundCharacters string: String)</span></span> {
-    <span class="comment">//删除首尾的回车符和空格</span>
-    string = string.stringByTrimmingCharactersInSet(<span class="type">NSCharacterSet</span>.whitespaceAndNewlineCharacterSet())
-    <span class="keyword">if</span> string.isEmpty {
-        <span class="keyword">return</span>
+<pre><code>// 遇到字符串时触发
+func parser(parser: NSXMLParser, var foundCharacters string: String) {
+    //删除首尾的回车符和空格
+    string = string.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+    if string.isEmpty {
+        return
     }
-    <span class="built_in">print</span>(<span class="string">"---- <span class="subst">\(string)</span>"</span>)
+    print(&quot;---- \(string)&quot;)
 }
 </code></pre><p>最后是Error Handler</p>
-<pre><code><span class="comment">// 文档出错时触发</span>
-<span class="func"><span class="keyword">func</span> <span class="title">parser</span><span class="params">(parser: NSXMLParser, parseErrorOccurred parseError: NSError)</span></span> {
-    <span class="built_in">print</span>(parseError)
+<pre><code>// 文档出错时触发
+func parser(parser: NSXMLParser, parseErrorOccurred parseError: NSError) {
+    print(parseError)
 }
 </code></pre><p>以上的callback函数实现都只放了些打印信息，在实际操作中需要把这些获取的信息一一填充进自己的数据结构中。说实话是挺麻烦的，难怪都说XML快要被JSON全面取代（其实对于曾被libxml折磨过的码农来说，这已经挺好了）。全部的代码传送门：<a href="https://github.com/conanwhf/swiftplayground/tree/master/Play.playground/Pages/GetXML.xcplaygroundpage" target="_blank" rel="external">这里</a></p>
 </span>

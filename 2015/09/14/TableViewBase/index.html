@@ -290,24 +290,24 @@ return 1
       
 
       
-        <span itemprop="articleBody"><h2 id="必须实现的函数">必须实现的函数</h2><p>Sections数目</p>
-<pre><code><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">numberOfSectionsInTableView</span><span class="params">(tableView: UITableView)</span></span> -&gt; <span class="type">Int</span> {
-<span class="comment">// #warning Potentially incomplete method implementation.</span>
-<span class="comment">// Return the number of sections.</span>
-<span class="keyword">return</span> <span class="number">1</span>
+        <span itemprop="articleBody"><h2 id="u5FC5_u987B_u5B9E_u73B0_u7684_u51FD_u6570"><a href="#u5FC5_u987B_u5B9E_u73B0_u7684_u51FD_u6570" class="headerlink" title="必须实现的函数"></a>必须实现的函数</h2><p>Sections数目</p>
+<pre><code>override func numberOfSectionsInTableView(tableView: UITableView) -&gt; Int {
+// #warning Potentially incomplete method implementation.
+// Return the number of sections.
+return 1
 }
 </code></pre><p>每个Section的Cell数目</p>
-<pre><code><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, numberOfRowsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> {
-<span class="comment">// #warning Incomplete method implementation.</span>
-<span class="comment">// Return the number of rows in the section.</span>
-<span class="keyword">return</span> <span class="number">100</span>
+<pre><code>override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+// #warning Incomplete method implementation.
+// Return the number of rows in the section.
+return 100
 }
 </code></pre><p>注册绑定Cell ID </p>
-<pre><code><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> {
-<span class="keyword">let</span> cell = tableView.dequeueReusableCellWithIdentifier(<span class="string">"conanIdentifier"</span>, forIndexPath: indexPath) <span class="keyword">as</span>! <span class="type">UITableViewCell</span>
-<span class="comment">//To config Cells ….</span>
+<pre><code>override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
+let cell = tableView.dequeueReusableCellWithIdentifier(&quot;conanIdentifier&quot;, forIndexPath: indexPath) as! UITableViewCell
+//To config Cells ….
 }
-</code></pre><h2 id="动作">动作</h2><p>选中：<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/09/14/TableViewBase/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/09/14/TableViewBase/'>TableView基础</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+</code></pre><h2 id="u52A8_u4F5C"><a href="#u52A8_u4F5C" class="headerlink" title="动作"></a>动作</h2><p>选中：<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/09/14/TableViewBase/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/09/14/TableViewBase/'>TableView基础</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -321,7 +321,7 @@ return 1
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -329,10 +329,10 @@ return 1
 })()
 </script>
 </p>
-<pre><code><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)</span></span> {}
+<pre><code>override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {}
 </code></pre><p>取消选中： </p>
-<pre><code><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath)</span></span> {}
-</code></pre><h2 id="其他">其他</h2><ol>
+<pre><code>override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {}
+</code></pre><h2 id="u5176_u4ED6"><a href="#u5176_u4ED6" class="headerlink" title="其他"></a>其他</h2><ol>
 <li>indexPath:NSIndexPath<br> <code>indexPath.row</code>拿到Cell Index<br> <code>indexPath.section</code>是section number</li>
 <li>将列表变为选中删除状态：<br> <code>tableView.setEditing(true, animated: true)</code></li>
 <li>TBD</li>
@@ -549,7 +549,7 @@ return 1
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#必须实现的函数"><span class="nav-number">1.</span> <span class="nav-text">必须实现的函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动作"><span class="nav-number">2.</span> <span class="nav-text">动作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">3.</span> <span class="nav-text">其他</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u5FC5_u987B_u5B9E_u73B0_u7684_u51FD_u6570"><span class="nav-number">1.</span> <span class="nav-text">必须实现的函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u52A8_u4F5C"><span class="nav-number">2.</span> <span class="nav-text">动作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5176_u4ED6"><span class="nav-number">3.</span> <span class="nav-text">其他</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

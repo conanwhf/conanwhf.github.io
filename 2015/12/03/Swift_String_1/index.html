@@ -294,8 +294,8 @@ Swif">
 <li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
 </ul>
 <p><strong>判断是否为空</strong></p>
-<pre><code><span class="keyword">str</span>.isEmpty
-</code></pre><p><strong>获取字符数组</strong><br>Swfit里面的String很有意思，它并不是由很多个Character组成的，<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/'>Swift2.0 中的String（一）：常用属性</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<pre><code>str.isEmpty
+</code></pre><p><strong>获取字符数组</strong><br>Swfit里面的String很有意思，它并不是由很多个Character组成的，<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/'>Swift2.0 中的String（一）：常用属性</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -309,7 +309,7 @@ Swif">
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -317,27 +317,27 @@ Swif">
 })()
 </script>
 而是在其上面又封装了一些东西。另外因为要兼容不同的编码，每个组成字符所占的内存也不一样（例如中文和英文的区别），所以它的下标并不是一个Int型，也不能通过下标来直接定位、获取字符。</p>
-<pre><code><span class="function"><span class="title">Array</span><span class="params">(str.characters)</span></span>
+<pre><code>Array(str.characters)
 </code></pre><p><strong>获取长度</strong></p>
-<pre><code>str<span class="class">.characters</span><span class="class">.count</span>
+<pre><code>str.characters.count
 </code></pre><p><strong>下标（Index）操作</strong></p>
-<pre><code>str<span class="class">.startIndex</span>  <span class="comment">//起始下标</span>
-str<span class="class">.endIndex</span>        <span class="comment">//结束下标</span>
-<span class="tag">var</span> <span class="tag">i</span>      = str<span class="class">.startIndex</span><span class="class">.successor</span>() <span class="comment">//下标的前后移动</span>
-str<span class="class">.endIndex</span><span class="class">.predecessor</span>()
-str[i]  <span class="comment">//通过Index能直接拿到字符</span>
-str<span class="class">.characters</span>[i]   <span class="comment">//第二种方法</span>
-<span class="tag">i</span>          = <span class="tag">i</span>.<span class="function"><span class="title">advancedBy</span><span class="params">(<span class="number">2</span>)</span></span>        <span class="comment">//起始位之后3个字符，即第四个字符</span>
-<span class="tag">i</span>.<span class="function"><span class="title">distanceTo</span><span class="params">(str.endIndex)</span></span>
+<pre><code>str.startIndex  //起始下标
+str.endIndex        //结束下标
+var i      = str.startIndex.successor() //下标的前后移动
+str.endIndex.predecessor()
+str[i]  //通过Index能直接拿到字符
+str.characters[i]   //第二种方法
+i          = i.advancedBy(2)        //起始位之后3个字符，即第四个字符
+i.distanceTo(str.endIndex)
 </code></pre><p><strong>大小写</strong></p>
-<pre><code>str<span class="class">.uppercaseString</span>
-str<span class="class">.lowercaseString</span>
+<pre><code>str.uppercaseString
+str.lowercaseString
 str.capitalizedString
 </code></pre><p><strong>不同的编码输出</strong><br>这里为了Playground可视结果方便，转化成了数组</p>
-<pre><code><span class="function"><span class="title">Array</span><span class="params">(str.utf8.enumerate()</span></span>)
-<span class="function"><span class="title">Array</span><span class="params">(str.utf16.enumerate()</span></span>)
-<span class="function"><span class="title">Array</span><span class="params">(str.unicodeScalars.enumerate()</span></span>)
-<span class="function"><span class="title">Array</span><span class="params">(str.nulTerminatedUTF8)</span></span>
+<pre><code>Array(str.utf8.enumerate())
+Array(str.utf16.enumerate())
+Array(str.unicodeScalars.enumerate())
+Array(str.nulTerminatedUTF8)
 </code></pre></span>
       
     </div>

@@ -280,19 +280,19 @@ override f">
 
       
         <span itemprop="articleBody"><p>新闻的实时性，必然导致其列表清单对“下拉刷新”和“上拉更多”的实现要求。一开始我以为这两个可以很容易地通过手势的处理来实现，找了找先是发现了个控件<strong>UIRefreshControl</strong>，很简单地实现了下拉刷新，想着上拉不是一样嘛，先用用再研究上拉怎么搞，于是放进了Code里面：</p>
-<pre><code><span class="preprocessor">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> loading: <span class="type">UIActivityIndicatorView</span>!
-<span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> {
-    <span class="comment">//添加下拉刷新</span>
-    sliding.addTarget(<span class="keyword">self</span>, action: <span class="string">"updateLatesList"</span>, forControlEvents: <span class="type">UIControlEvents</span>.<span class="type">ValueChanged</span>)
-    sliding.attributedTitle = <span class="type">NSAttributedString</span>(string: <span class="string">"下拉松手刷新..."</span>)
-    <span class="keyword">self</span>.<span class="type">ListTableView</span>.addSubview(sliding)
+<pre><code>@IBOutlet weak var loading: UIActivityIndicatorView!
+override func viewDidLoad() {
+    //添加下拉刷新
+    sliding.addTarget(self, action: &quot;updateLatesList&quot;, forControlEvents: UIControlEvents.ValueChanged)
+    sliding.attributedTitle = NSAttributedString(string: &quot;下拉松手刷新...&quot;)
+    self.ListTableView.addSubview(sliding)
 }
 
-<span class="func"><span class="keyword">func</span> <span class="title">updateLatesList</span><span class="params">()</span></span>{
-    <span class="comment">//TODO：刷新数据</span>
-    <span class="keyword">self</span>.sliding.endRefreshing()
+func updateLatesList(){
+    //TODO：刷新数据
+    self.sliding.endRefreshing()
 }
-</code></pre><p>这个一看便知，注册一下回调，修改一下显示的字符串；然后在控件的监听回调里面刷新好数据，关掉动画，搞定！简直顺利得不敢相信。然后开始研究怎么通过这个改上拉更多……恕我驽钝，搞不定。上网查了一圈，貌似大家的上拉都不是用这个控件，这个控件的可定制性据说也比较差……😰没办法，乖乖自己写了。<br>去找了个第三方的“上拉更多”库，看源码（Sorry，已经不知道是哪个库了，GitHub上一大堆，我直接在浏览器里面看完就关了），发现里面的关键就是监听滑动事件，然后通过计算坐标来判断是否是上拉：<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/01/newsreader-7/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/01/newsreader-7/'>从打造新闻app学到的(7)：下拉刷新和上拉更多</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+</code></pre><p>这个一看便知，注册一下回调，修改一下显示的字符串；然后在控件的监听回调里面刷新好数据，关掉动画，搞定！简直顺利得不敢相信。然后开始研究怎么通过这个改上拉更多……恕我驽钝，搞不定。上网查了一圈，貌似大家的上拉都不是用这个控件，这个控件的可定制性据说也比较差……😰没办法，乖乖自己写了。<br>去找了个第三方的“上拉更多”库，看源码（Sorry，已经不知道是哪个库了，GitHub上一大堆，我直接在浏览器里面看完就关了），发现里面的关键就是监听滑动事件，然后通过计算坐标来判断是否是上拉：<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/01/newsreader-7/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/01/newsreader-7/'>从打造新闻app学到的(7)：下拉刷新和上拉更多</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -306,7 +306,7 @@ override f">
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -314,31 +314,31 @@ override f">
 })()
 </script>
 </p>
-<pre><code><span class="tag">func</span> <span class="tag">scrollViewDidEndDragging</span>(<span class="attribute">scrollView</span>: UIScrollView, willDecelerate <span class="attribute">decelerate</span>: Bool){  
-<span class="tag">if</span> (scrollView.contentOffset.y &gt; (scrollView.contentSize.height - scrollView.frame.size.height) + <span class="number">70</span>)  {<span class="comment">//触发上拉刷新，70是阀值</span>
-<span class="comment">// TODO anything</span>
+<pre><code>func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool){  
+if (scrollView.contentOffset.y &gt; (scrollView.contentSize.height - scrollView.frame.size.height) + 70)  {//触发上拉刷新，70是阀值
+// TODO anything
 }
 </code></pre><p>这里面有几个参数：</p>
 <ul>
 <li><strong>scrollView.contentOffset.y</strong>，这是指松开的时候显示的顶部处于ScrollView(在我的例子中是TableView)的什么位置</li>
 <li><strong>scrollView.contentSize.height</strong>，这是整个ScrollView的高度，你可以想象一下，整个View很长，通过滑动来显示某一部分，而这个contentSize就是整个的Size</li>
 <li><p><strong>scrollView.frame.size.height</strong>，这是ScrollView显示出来的部分的高度<br>所以这个判断条件就很好理解了。如下图所示：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_ScrollView.jpg" alt="" title="ScrollView"><br>当滑动条拉到最下的时候，<code>contentOffset.y = contentSize.height-frame.size.height</code>，而继续上拉，就会有一段空白，定义这个空白的高度（我设的70），就是上拉刷新的阈值了。同样的，用这个办法也可以判断下拉刷新，而且更加简单：<code>contentOffset.y &lt; -70</code>。<br>判断问题解决了，剩下的就是UI的事儿了。我选择了最基本的<strong>UIActivityIndicatorView</strong>，转菊花，简单到只要在对应的时间start&amp;Stop Animating就行了。于是现在把上拉更多和下拉刷新结合一下，用同一套方法对付：</p>
-<pre><code>private <span class="keyword">let</span> loading = <span class="type">UIActivityIndicatorView</span>()
-<span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> {
-    <span class="keyword">self</span>.<span class="type">ListTableView</span>.addSubview(loading)
-    loading.hidesWhenStopped = <span class="literal">true</span>
+<pre><code>private let loading = UIActivityIndicatorView()
+override func viewDidLoad() {
+    self.ListTableView.addSubview(loading)
+    loading.hidesWhenStopped = true
 }
 
-<span class="func"><span class="keyword">func</span> <span class="title">scrollViewDidEndDragging</span><span class="params">(scrollView: UIScrollView, willDecelerate decelerate: Bool)</span></span> {
+func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
 
-<span class="keyword">if</span> (scrollView.contentOffset.y &gt; (scrollView.contentSize.height - scrollView.frame.size.height) + <span class="number">70</span>) &amp;&amp; (tableViewData.<span class="built_in">count</span> &gt; <span class="number">0</span>) {<span class="comment">//触发上拉刷新</span>
+if (scrollView.contentOffset.y &gt; (scrollView.contentSize.height - scrollView.frame.size.height) + 70) &amp;&amp; (tableViewData.count &gt; 0) {//触发上拉刷新
     loading.startAnimating()
-    <span class="comment">//<span class="doctag">TODO:</span> 要求更多数据并显示</span>
+    //TODO: 要求更多数据并显示
     loading.stopAnimating()
 }
-<span class="keyword">if</span> (scrollView.contentOffset.y &lt; -<span class="number">70</span>  &amp;&amp; manager.wxcList.<span class="built_in">count</span> &gt; <span class="number">0</span>) {<span class="comment">//触发下拉刷新</span>
+if (scrollView.contentOffset.y &lt; -70  &amp;&amp; manager.wxcList.count &gt; 0) {//触发下拉刷新
     loading.startAnimating()
-    <span class="comment">//<span class="doctag">TODO:</span> 要求新数据并显示</span>
+    //TODO: 要求新数据并显示
     loading.stopAnimating()
 }
 }

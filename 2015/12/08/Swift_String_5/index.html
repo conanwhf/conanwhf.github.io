@@ -302,7 +302,7 @@ Swift2.0 中的">
 <li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
 <li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
 </ul>
-<p>刚开始碰String的时候着实被各种繁琐的操作折腾得不轻，不能随便取字串、比较、赋值，不能获得实际编码值……往往想干点什么，一搜，就是NSString，NSData的API，晕头转向。研究了一阵子编码，慢慢也摸清了这些数据类型和它们的方法，简单总结一下互相转换的方法，给新手一点方向。这篇文章里的类型包括了String, NSString, NSURL, NSData这几种，String是Swift的字符串类型不用多讲，封装得很豪华但各种概念多用起来有点麻烦；NSString是OC里面的字符串，但有很多实用且方便的API；NSData其实属于无差别的Data类型，存储字符串的话是RawData，有点像C语言里面的string，其实是数据块；NSURL专门用来表示网络地址，有一些网络相关API。<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/'>Swift2.0 中的String（五）：String和NS-XXX系列的互相转换</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<p>刚开始碰String的时候着实被各种繁琐的操作折腾得不轻，不能随便取字串、比较、赋值，不能获得实际编码值……往往想干点什么，一搜，就是NSString，NSData的API，晕头转向。研究了一阵子编码，慢慢也摸清了这些数据类型和它们的方法，简单总结一下互相转换的方法，给新手一点方向。这篇文章里的类型包括了String, NSString, NSURL, NSData这几种，String是Swift的字符串类型不用多讲，封装得很豪华但各种概念多用起来有点麻烦；NSString是OC里面的字符串，但有很多实用且方便的API；NSData其实属于无差别的Data类型，存储字符串的话是RawData，有点像C语言里面的string，其实是数据块；NSURL专门用来表示网络地址，有一些网络相关API。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/'>Swift2.0 中的String（五）：String和NS-XXX系列的互相转换</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -316,7 +316,7 @@ Swift2.0 中的">
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -324,31 +324,31 @@ Swift2.0 中的">
 })()
 </script>
 一些主要的操作其实在（四）编码转换 中特别是手动编码转换那一节实现过，这里更多的是总结。首先定义几个变量：</p>
-<pre><code><span class="variable"><span class="keyword">var</span> str</span> = “测试”
-<span class="variable"><span class="keyword">var</span> data</span> :NSData?
-<span class="variable"><span class="keyword">var</span> nstr</span> : NSString?
-<span class="variable"><span class="keyword">var</span> url</span> : NSURL?
-</code></pre><h2 id="NSString和String的转换">NSString和String的转换</h2><p>NSString和String就是兄弟，可以简单地直接赋值或者强制类型转换：</p>
-<pre><code>nstr = <span class="built_in">str</span>
-<span class="built_in">str</span> = <span class="keyword">String</span>(nstr)
-</code></pre><h2 id="NSURL和其他类型的转换">NSURL和其他类型的转换</h2><p>从String到NSURL使用初始化函数即可，但NSURL由于是网络传递用字符串，编码使用UTF8，如果原始地址String中有中文字符，直接转换会返回nil，所以需要先将String转换一下编码。而对于NSString，则可以简单地强制换为String操作。</p>
-<pre><code>let utf8str = str.<span class="function"><span class="title">stringByAddingPercentEncodingWithAllowedCharacters</span><span class="params">(.URLHostAllowedCharacterSet()</span></span>)!
+<pre><code>var str = “测试”
+var data :NSData?
+var nstr : NSString?
+var url : NSURL?
+</code></pre><h2 id="NSString_u548CString_u7684_u8F6C_u6362"><a href="#NSString_u548CString_u7684_u8F6C_u6362" class="headerlink" title="NSString和String的转换"></a>NSString和String的转换</h2><p>NSString和String就是兄弟，可以简单地直接赋值或者强制类型转换：</p>
+<pre><code>nstr = str
+str = String(nstr)
+</code></pre><h2 id="NSURL_u548C_u5176_u4ED6_u7C7B_u578B_u7684_u8F6C_u6362"><a href="#NSURL_u548C_u5176_u4ED6_u7C7B_u578B_u7684_u8F6C_u6362" class="headerlink" title="NSURL和其他类型的转换"></a>NSURL和其他类型的转换</h2><p>从String到NSURL使用初始化函数即可，但NSURL由于是网络传递用字符串，编码使用UTF8，如果原始地址String中有中文字符，直接转换会返回nil，所以需要先将String转换一下编码。而对于NSString，则可以简单地强制换为String操作。</p>
+<pre><code>let utf8str = str.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
 nstr = utf8str
-url = <span class="function"><span class="title">NSURL</span><span class="params">(string: utf8str)</span></span>
-url = <span class="function"><span class="title">NSURL</span><span class="params">(string: String(nstr!)</span></span>)
+url = NSURL(string: utf8str)
+url = NSURL(string: String(nstr!))
 </code></pre><p>NSURL转换成String或NSString也是使用相应的初始化函数（不考虑编码）</p>
-<pre><code>str = <span class="function"><span class="title">String</span><span class="params">(url!)</span></span>
-nstr = <span class="function"><span class="title">NSString</span><span class="params">(string: url!.absoluteString)</span></span>
-</code></pre><h2 id="NSData和其他类型的转换">NSData和其他类型的转换</h2><p>理论上来说NSData可以是任何数据，有时候我们需要其数据层面的操作API，又需要解读数据里面的文本，那么需要将NSData转换为其他类型。将字符串转换成Data的接口都是同一个dataUsingEncoding，记得不要弄错编码，编码不同会改变数据。</p>
-<pre><code><span class="typedef"><span class="keyword">data</span> = str.dataUsingEncoding<span class="container">(<span class="type">NSUTF8StringEncoding</span>)</span></span>
-<span class="typedef"><span class="keyword">data</span> = nstr?.dataUsingEncoding<span class="container">(<span class="type">NSUTF8StringEncoding</span>)</span></span>
-<span class="typedef"><span class="keyword">data</span> = url?.absoluteString.dataUsingEncoding<span class="container">(<span class="type">NSUTF8StringEncoding</span>)</span></span>
+<pre><code>str = String(url!)
+nstr = NSString(string: url!.absoluteString)
+</code></pre><h2 id="NSData_u548C_u5176_u4ED6_u7C7B_u578B_u7684_u8F6C_u6362"><a href="#NSData_u548C_u5176_u4ED6_u7C7B_u578B_u7684_u8F6C_u6362" class="headerlink" title="NSData和其他类型的转换"></a>NSData和其他类型的转换</h2><p>理论上来说NSData可以是任何数据，有时候我们需要其数据层面的操作API，又需要解读数据里面的文本，那么需要将NSData转换为其他类型。将字符串转换成Data的接口都是同一个dataUsingEncoding，记得不要弄错编码，编码不同会改变数据。</p>
+<pre><code>data = str.dataUsingEncoding(NSUTF8StringEncoding)
+data = nstr?.dataUsingEncoding(NSUTF8StringEncoding)
+data = url?.absoluteString.dataUsingEncoding(NSUTF8StringEncoding)
 </code></pre><p>而有时候我们需要自己填充数据，再转换为字符串，这种时候以填充Ascii码值比较多，毕竟汉字和Unicode的编码规则比较复杂，不过也是可以用的：</p>
-<pre><code>let byte :[UInt8]    = [<span class="number">0</span>xe4, <span class="number">0</span>x8d, <span class="number">0</span>xa9, <span class="number">0</span>x20, <span class="number">0</span>xe3, <span class="number">0</span>x8e, <span class="number">0</span>x8f]
-data                 = <span class="function"><span class="title">NSData</span><span class="params">(bytes: byte, length: byte.count)</span></span>
-str = <span class="function"><span class="title">String</span><span class="params">(data: data!, encoding: NSUTF8StringEncoding)</span></span>!
-nstr = <span class="function"><span class="title">NSString</span><span class="params">(data: data!, encoding: NSUTF8StringEncoding)</span></span>
-url                 = <span class="function"><span class="title">NSURL</span><span class="params">(dataRepresentation: data!, relativeToURL: nil)</span></span>
+<pre><code>let byte :[UInt8]    = [0xe4, 0x8d, 0xa9, 0x20, 0xe3, 0x8e, 0x8f]
+data                 = NSData(bytes: byte, length: byte.count)
+str = String(data: data!, encoding: NSUTF8StringEncoding)!
+nstr = NSString(data: data!, encoding: NSUTF8StringEncoding)
+url                 = NSURL(dataRepresentation: data!, relativeToURL: nil)
 </code></pre><p>上面的做法是先将一个Uint8数组填充好，转化为NSData，然后再变成需要的字符串。</p>
 </span>
       
@@ -560,7 +560,7 @@ url                 = <span class="function"><span class="title">NSURL</span><sp
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#NSString和String的转换"><span class="nav-number">1.</span> <span class="nav-text">NSString和String的转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSURL和其他类型的转换"><span class="nav-number">2.</span> <span class="nav-text">NSURL和其他类型的转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSData和其他类型的转换"><span class="nav-number">3.</span> <span class="nav-text">NSData和其他类型的转换</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#NSString_u548CString_u7684_u8F6C_u6362"><span class="nav-number">1.</span> <span class="nav-text">NSString和String的转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSURL_u548C_u5176_u4ED6_u7C7B_u578B_u7684_u8F6C_u6362"><span class="nav-number">2.</span> <span class="nav-text">NSURL和其他类型的转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSData_u548C_u5176_u4ED6_u7C7B_u578B_u7684_u8F6C_u6362"><span class="nav-number">3.</span> <span class="nav-text">NSData和其他类型的转换</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
