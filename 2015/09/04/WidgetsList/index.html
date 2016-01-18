@@ -310,7 +310,28 @@ Media类，多媒体播放
 </ul>
 <p>要完成交互必须有Controller，且控件要和Controller连接起来。一个Controller 并不只是“某个界面”的概念，可以作为一个容器包括好几个分层的View；大部分控件也可以当作容器放置别的控件，他们之间的关系可以通过StroyBoard里面的大纲视图看清楚</p>
 <h2 id="官方的分类￼">官方的分类￼</h2><ol>
-<li><strong>内容</strong>：显示特定类型的内容，例如图像或文本。<br> 图像视图，标签<a id="more"></a><!-- indicate-the-source --></li>
+<li><strong>内容</strong>：显示特定类型的内容，例如图像或文本。<br> 图像视图，标签<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/09/04/WidgetsList/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/09/04/WidgetsList/'>UI控件概览</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'localhost'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+</li>
 <li><strong>集</strong>：显示视图集或视图组。<br> 集视图，表格视图</li>
 <li><strong>控制</strong>：执行操作或显示信息。<br> 按钮，滑块，开关</li>
 <li><strong>栏</strong>：导航或执行操作。<br> 工具栏，导航栏，标签栏</li>

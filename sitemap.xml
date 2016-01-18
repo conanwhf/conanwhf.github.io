@@ -3,8 +3,28 @@
 
     
   <url>
+    <loc>http://conanwhf.gitcafe.io/2016/01/12/rpi-kernel/</loc>
+    <lastmod>2016-01-18T07:22:54.000Z</lastmod>
+    <data>
+        <display>
+        <title>树莓派内核编译</title>
+        <pubTime>2016-01-12T07:31:26.000Z</pubTime>
+        
+        <tag>kernel </tag>
+         
+         
+           
+             
+              <breadCrumb title="RaspberryPi" url="http://conanwhf.gitcafe.io/categories/RaspberryPi/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.gitcafe.io/2015/12/31/newsreader-6/</loc>
-    <lastmod>2016-01-17T18:14:05.000Z</lastmod>
+    <lastmod>2016-01-18T07:20:08.000Z</lastmod>
     <data>
         <display>
         <title>从打造新闻app学到的(6)：显示html格式文件/数据</title>
@@ -34,26 +54,6 @@
         <title>树莓派入手</title>
         <pubTime>2016-01-12T05:31:26.000Z</pubTime>
         
-         
-           
-             
-              <breadCrumb title="RaspberryPi" url="http://conanwhf.gitcafe.io/categories/RaspberryPi/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.gitcafe.io/2016/01/12/rpi-kernel/</loc>
-    <lastmod>2016-01-17T18:10:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>树莓派内核编译</title>
-        <pubTime>2016-01-12T07:31:26.000Z</pubTime>
-        
-        <tag>kernel </tag>
-         
          
            
              

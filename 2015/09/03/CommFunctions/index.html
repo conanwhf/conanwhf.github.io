@@ -273,7 +273,28 @@
 
       
         <span itemprop="articleBody"><p>//<strong>绝对值</strong><br><code>abs(intValue)</code><br>//<strong>移动</strong><br><code>advance(intValue, 30)</code><br>//<strong>生成随机数</strong><br><code>Int(arc4random()%100)</code><br>//<strong>计算距离</strong><br><code>distance(9, 11)</code><br>//<strong>长度计算</strong><br><code>alignof(Float); alignof(Int)</code><br><code>alignofValue(str);alignofValue(constArr)</code><br>//<strong>包含</strong><br><code>contains(constArr, 2)</code><br><code>contains(str, &quot;C&quot;)</code><br>//统计<strong>元素个数</strong><br><code>count(20...39); count(constArr)</code><br>//<strong>最大最小值</strong><br><code>max(1, 2, 4, 8, 19, 200)</code><br><code>min(0.3, 0.5, 0.111, 9.8)</code><br>//<strong>转换成字符串</strong><br><code>toString(constArr); toString(doubleValue)</code></p>
-<h2 id="<!-more-><!-_indicate-the-source_->"><a id="more"></a><!-- indicate-the-source --></h2><p>//断言，参数如果为true则继续，否则抛出异常<br><code>assert(true, &quot;error&quot;)</code><br>//调试输出<br><code>debugPrintln(“abc&quot;)</code><br>//打印出某个对象object的所有信息<br><code>dump(constArr)</code></p>
+<h2 id="<!-more-><!-_indicate-the-source_->"><a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/09/03/CommFunctions/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/09/03/CommFunctions/'>Swift常用全局通用函数（Swift1.2 Only）</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'localhost'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+</h2><p>//断言，参数如果为true则继续，否则抛出异常<br><code>assert(true, &quot;error&quot;)</code><br>//调试输出<br><code>debugPrintln(“abc&quot;)</code><br>//打印出某个对象object的所有信息<br><code>dump(constArr)</code></p>
 <hr>
 <p>//<strong>导出对象内容</strong><br><code>for (i,j) in enumerate(arrString)</code><br>//<strong>截去第一个元素</strong>后的数组，不改变原始数组<br><code>dropFirst(constArr)</code><br>//<strong>截去最后一个元素</strong>后的数组，不改变原始数组<br><code>dropLast(constArr)</code><br>//<strong>判断两个序列</strong>是否相等<br><code>equal(arr, arr1)</code><br>//<strong>查找元素</strong>，第一个参数为源数据，第二个参数为目标数据,如果序列中不存在此元素，则返回nil。<br><code>find(arrString, &quot;0x2E&quot;)</code><br>//<strong>过滤</strong>，第一个参数为源数据，第二个为过滤方法（闭包）<br><code>arr1 = filter(arr,  $0 &gt; 6  )</code><br>//indices(sequence)：返回序列sequence中所有元素的位置（indices是index的复数）<br><code>indices(arr)</code><br>//<strong>最大最小元素</strong><br><code>maxElement(arr)</code><br><code>minElement(arr1)</code><br>//<strong>连接数组元素</strong>:将序列sequence通过分隔符separator连成一个字符串，并返回此字符串。<br><code>join(&quot;--&quot;, arrString)</code><br>//<strong>映射</strong>，map的第一个参数为源数据，第二个参数为映射的方法（闭包）<br><code>arr1 = Array(map(arr,  $0 + 10 ))</code><br>//<strong>化简</strong>:给定一个序列sequence，以及一个初始值initial，然后将initial和序列里的第1个元素作为参数传入combineClosure中进行运算，得到的结果保存到initial, 然后再将initial和第2个元素传入combineClosure中计算，结果保存到initial；重复计算直到所有sequence中的元素都计算完毕，并返回最终的initial值。<br>// SUM()+base<br>    reduce([1,2,3], 100, { return $0 + $1 })    //1+100=1, 101+2=103, 103+3=106<br>// <em>all : 1</em>1<em>9</em>8<em>4</em>11=3168<br>    reduce(arr, 1, { return $0 <em> $1 })<br>//String<br>    reduce(arrString, “ “, { $0 + $1 + $0 + $1 + “; “})<br>//<strong>逆序</strong>:reverse(sequence)：返回逆序的序列sequence。<br><code>reverse(arr)</code><br>//<strong>排序</strong>，改变原数组<br><code>sort(&amp;arr1)</code><br>//如果序列sequence1中<em>*开头的元素</em></em>跟序列sequence2中的所有元素都相等，则返回true，否则返回false。<br><code>startsWith(&quot;foobar&quot;, &quot;foo&quot;)</code><br><code>startsWith(10...100, 9...15)</code><br><code>startsWith(arr1, 11, 14, 18)</code></p>
 </span>
@@ -486,7 +507,28 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#<!-more-><!-_indicate-the-source_->"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#<!-more-><!-_indicate-the-source_->"><span class="nav-number">1.</span> <span class="nav-text">转载请注明出处：http://conanwhf.gitcafe.io/2015/09/03/CommFunctions/访问原文「Swift常用全局通用函数（Swift1.2 Only）」获取最佳阅读体验并参与讨论
+
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'localhost'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+
+</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

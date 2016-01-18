@@ -277,7 +277,28 @@
 ./<span class="keyword">test</span>
 </code></pre><p>这是有编译过程的，更省事的是直接跑了：</p>
 <pre><code><span class="built_in">swift</span> test.<span class="built_in">swift</span>
-</code></pre><p>当然这个<strong>swift</strong>命令还有更多用法和参数，<a id="more"></a><!-- indicate-the-source -->需要的话可以自己研究研究。<br>现在程序可以跑了，但是还缺自动重命名的环节，这个需要用到文件操作，先按下不表，总之是我做完这个小工具，又花了扎扎实实一整天把各种文件操作实现了一遍。在这个程序里，我搜索了某个目录下的文件名，将他们转换成UTF8再批量重命名。<br>这样显然还不够完美，那就是如果我的文件不是放在这个固定目录，而是想用参数传进去怎么办？解决方案依然那么简单：</p>
+</code></pre><p>当然这个<strong>swift</strong>命令还有更多用法和参数，<a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/15/runInTerm/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/15/runInTerm/'>在终端运行Swift程序</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'localhost'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+需要的话可以自己研究研究。<br>现在程序可以跑了，但是还缺自动重命名的环节，这个需要用到文件操作，先按下不表，总之是我做完这个小工具，又花了扎扎实实一整天把各种文件操作实现了一遍。在这个程序里，我搜索了某个目录下的文件名，将他们转换成UTF8再批量重命名。<br>这样显然还不够完美，那就是如果我的文件不是放在这个固定目录，而是想用参数传进去怎么办？解决方案依然那么简单：</p>
 <pre><code><span class="keyword">for</span> s <span class="keyword">in</span> Process.arguments {  
     <span class="built_in">print</span>(s)
 } 
