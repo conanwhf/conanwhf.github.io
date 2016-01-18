@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.gitcafe.io/"/>
-  <updated>2016-01-18T15:44:39.000Z</updated>
+  <updated>2016-01-18T15:51:44.000Z</updated>
   <id>http://conanwhf.gitcafe.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://conanwhf.gitcafe.io/2016/01/16/Transform/"/>
     <id>http://conanwhf.gitcafe.io/2016/01/16/Transform/</id>
     <published>2016-01-16T09:32:45.000Z</published>
-    <updated>2016-01-18T15:44:39.000Z</updated>
+    <updated>2016-01-18T15:51:44.000Z</updated>
     <content type="html"><![CDATA[<p>这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。<br>关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周Blog<a href="http://conanwhf.gitcafe.io/2016/01/03/UISlider/" title="UIController中Slider监听回调具体实现的分离">UIController中Slider监听回调具体实现的分离</a>），我也添加了旋转的功能，开始是在handler中这么写的(back是一个UIView)：</p>
 <pre><code>let x = (Float(ctl.show.frame.width) - conf[0] )/2
 let y = (Float(ctl.show.frame.height) - conf[1] )/2
@@ -27,7 +27,7 @@ back.frame.size = CGSize(width: CGFloat(conf[0], height: CGFloat(conf[1])
 back.frame.origin = CGPoint(x: Int(x), y: Int(y))
 back.transform = CGAffineTransformMakeRotation( CGFloat(Double(conf[7] * M_PI  / 180.0))
 </code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样有时候会自己拉扁的：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_error.gif" alt=""></p>
-</p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/16/Transform/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/16/Transform/'>使用.transform旋转带来的坑</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/16/Transform/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/16/Transform/'>使用.transform旋转带来的坑</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -41,7 +41,7 @@ back.transform = CGAffineTransformMakeRotation( CGFloat(Double(conf[7] * M_PI  /
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -88,7 +88,14 @@ demo.frame.size     //600*67
 </ol>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。<br>关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.tr]]>
+    <![CDATA[<p>这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。<br>关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周Blog<a href="http://conanwhf.gitcafe.io/2016/01/03/UISlider/" title="UIController中Slider监听回调具体实现的分离">UIController中Slider监听回调具体实现的分离</a>），我也添加了旋转的功能，开始是在handler中这么写的(back是一个UIView)：</p>
+<pre><code>let x = (Float(ctl.show.frame.width) - conf[0] )/2
+let y = (Float(ctl.show.frame.height) - conf[1] )/2
+back.frame.size = CGSize(width: CGFloat(conf[0], height: CGFloat(conf[1])
+back.frame.origin = CGPoint(x: Int(x), y: Int(y))
+back.transform = CGAffineTransformMakeRotation( CGFloat(Double(conf[7] * M_PI  / 180.0))
+</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样有时候会自己拉扁的：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_error.gif" alt=""></p>]]>
+    
     </summary>
     
       <category term="iOS" scheme="http://conanwhf.gitcafe.io/tags/iOS/"/>
@@ -119,7 +126,7 @@ demo.frame.size     //600*67
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -216,7 +223,7 @@ cd toolchain
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -276,7 +283,7 @@ sudo scripts/mkknlimg arch/arm/boot/zImage /boot/$KERNEL.img
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -375,7 +382,7 @@ echo LANG=en_US.UTF-8 | sudo tee -a /etc/environment
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -413,7 +420,7 @@ echo LANG=en_US.UTF-8 | sudo tee -a /etc/environment
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -530,7 +537,7 @@ func updateLatesList(){
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -632,7 +639,7 @@ post.attributedText = attributedString
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -707,7 +714,7 @@ post.attributedText = attributedString
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -841,7 +848,7 @@ post.attributedText = attributedString
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -931,7 +938,7 @@ sizeof(UIColor)*8//64
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -1030,7 +1037,7 @@ self.performSegueWithIdentifier(“ABC”, sender: self)
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -1242,7 +1249,7 @@ guard data = NSData(contentsOfURL: url)  else{
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -1317,7 +1324,7 @@ guard data = NSData(contentsOfURL: url)  else{
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -1451,7 +1458,7 @@ func parser(parser: NSXMLParser, parseErrorOccurred parseError: NSError) {
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', 'localhost'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
