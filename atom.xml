@@ -40,7 +40,7 @@ back<span class="class">.transform</span> = <span class="function"><span class="
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -124,7 +124,7 @@ back<span class="class">.transform</span> = <span class="function"><span class="
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -204,7 +204,7 @@ sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -
     <link href="http://conanwhf.gitcafe.io/2016/01/12/rpi-kernel/"/>
     <id>http://conanwhf.gitcafe.io/2016/01/12/rpi-kernel/</id>
     <published>2016-01-12T07:31:26.000Z</published>
-    <updated>2016-01-18T07:22:54.000Z</updated>
+    <updated>2016-01-18T07:23:03.000Z</updated>
     <content type="html"><![CDATA[<p>作为一个（曾经的）内核开发者，弄到块板子怎么能不重新编译内核？系统配好跑起来后的第二件事，就是编译内核了。在树莓派上编译内核很简单，基本上就是按照官方文档跑脚本，先放GitHub上的Script<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a>，<strong>build/kernel.sh</strong></p>
 <h2 id="系统简介">系统简介</h2><h3 id="文件系统">文件系统</h3><p>树莓派的文件系统设计还是不错的，能比较方便地更新内核和各种固件。整个文件系统分为两个部分：Fat32分区和Ext4分区。Fat32分区是mount到/boot上的，里面放了内核和启动的核心固件；Ext4就是一般的根文件系统了，放其他的所有东西，包括firmware和各种ko等。这种设计免去了用户烧录的麻烦，只是他们的bootloader没有开放源码，对于极客来说是很不爽的事情。<br>所谓的系统更新，就是每次编译kernel之后，直接把生成的文件放到特定的地方，重启就行。这也是为什么系统自带的工具<strong>rpi-update</strong>可以自动更新内核、firmware等等一切东西。</p>
 <h3 id="硬件的选择和启动">硬件的选择和启动</h3><p>树莓派一代和二代用的两个不同的ARM芯片，这个差别在操作系统中并没有体现出来，我是指：官方提供的系统镜像是同一个。开始我很奇怪，后来看到了它的文件系统，才明白，它是靠不同的kernel文件名来区分的。这两种板子的platform分别叫”bcm2708”和”bcm2709”，启动的时候bootloader会根据硬件情况自动区分，读取不同的kernel image，进而load不同的firmware和driver。<br><a id="more"></a><span class='source'><blockquote><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/12/rpi-kernel/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/12/rpi-kernel/'>树莓派内核编译</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
@@ -221,7 +221,7 @@ sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -281,7 +281,7 @@ sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> -
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -380,7 +380,7 @@ sudo service networking restart
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -418,7 +418,7 @@ sudo service networking restart
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -535,7 +535,7 @@ var <span class="string">sliderConfigs :</span> Array &lt;ConfigSlider&gt; = []
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -637,7 +637,7 @@ post.attributedText = attributedString
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -712,7 +712,7 @@ post.attributedText = attributedString
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -846,7 +846,7 @@ post.attributedText = attributedString
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -936,7 +936,7 @@ a.elementsEqual(c)
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -1035,7 +1035,7 @@ self.<span class="function"><span class="title">performSegueWithIdentifier</span
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -1247,7 +1247,7 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -1322,7 +1322,7 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -1456,7 +1456,7 @@ guard data = NSData(contentsOfURL: url)  <span class="keyword">else</span>{
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'localhost'];
+  var white_list = ['conanwhf.gitcafe.io', 'localhost'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
