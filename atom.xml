@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.gitcafe.io/"/>
-  <updated>2016-01-18T15:51:44.000Z</updated>
+  <updated>2016-01-22T09:47:56.000Z</updated>
   <id>http://conanwhf.gitcafe.io/</id>
   
   <author>
@@ -13,6 +13,100 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[微波炉的悲剧]]></title>
+    <link href="http://conanwhf.gitcafe.io/2016/01/22/macrowave/"/>
+    <id>http://conanwhf.gitcafe.io/2016/01/22/macrowave/</id>
+    <published>2016-01-22T09:35:25.000Z</published>
+    <updated>2016-01-22T09:47:56.000Z</updated>
+    <content type="html"><![CDATA[<p>早上起床，从冰箱里拿了蛋糕出来，放微波炉转10秒，然后洗漱去了……等我一切停当出来一看，妈呀……我设的不是10秒是10分钟！！！😱 😱 😱 😱 😱一开微波炉，蛋糕烧成碳就不说了，那个呛！别提了！！！<br>开抽油烟机、开风扇、上网搜解救方法（各种橘子皮茶叶醋什么的）、总算感觉好点了。但是、这只是适应环境了的幻觉！午休后从房间出来，一屋子的烟味呛得我……😂 😂 😂 😂 😂无语，现在全屋开着空调净化器抽风机打字中……</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>早上起床，从冰箱里拿了蛋糕出来，放微波炉转10秒，然后洗漱去了……等我一切停当出来一看，妈呀……我设的不是10秒是10分钟！！！😱 😱 😱 😱 😱一开微波炉，蛋糕烧成碳就不说了，那个呛！别提了！！！<br>开抽油烟机、开风扇、上网搜解救方法（各种橘子皮茶叶醋什么的]]>
+    </summary>
+    
+      <category term="Life &amp; Other" scheme="http://conanwhf.gitcafe.io/categories/Life-Other/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[从打造新闻app学到的(8)：自定义TableViewCell]]></title>
+    <link href="http://conanwhf.gitcafe.io/2016/01/21/newsreader-8/"/>
+    <id>http://conanwhf.gitcafe.io/2016/01/21/newsreader-8/</id>
+    <published>2016-01-21T09:32:45.000Z</published>
+    <updated>2016-01-22T09:40:06.000Z</updated>
+    <content type="html"><![CDATA[<p>新闻App通常是有个新闻的列表，这个列表一般都用TableView来做，每个Cell显示一条新闻，如下图：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_TableViewCell-list.png" alt=""><br>在我做的时候，开始Cell是直接从控件库拖到StoryBoard里面，配置了一点东西就OK了：当Cell的Style设成subtilte时，标题、副标题、以及图像都是可用的，在<strong>cellForRowAtIndexPath</strong>里直接配置就行了：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_TableViewCell-config.png" alt=""><br>但这样做了之后出现一个问题：新闻配图是从网络获取的，长宽比和大小并不固定。在这种做法中，图像是以高度而不是宽度统一对齐的，也就是经过缩放后变成统一的高度适配当前Cell，再显示出来。这样一来，每个Cell里的图像宽度就参差不齐，很难看。我尝试了很久也没能解决这个问题，看起来无论怎么对Cell.image进行配置，也是无效的。折中的办法是事先修改图像的长宽比，但这不是我想要的效果。于是，只好尝试TableViewCell的自定义了。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/21/newsreader-8/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/21/newsreader-8/'>从打造新闻app学到的(8)：自定义TableViewCell</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+<br>不光是TableViewCell，所有控件的自定义都是如出一辙的套路：先继承一个控件的类，再在StoryBoard里面把对应的Custom Class修改成自己继承的那个类，就可以随意修改了。在这里，先把Style设回custom，把Title, image这些在自己的初始化函数里生成：</p>
+<pre><code>class ListTableViewCell: UITableViewCell {
+
+    var img:UIImageView!
+    var title:UILabel!
+    var info:UILabel!
+
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)  
+        let temp = self.layout()//我自己写的函数，忽略
+        title = UILabel(frame: temp.1)
+        info = UILabel(frame: temp.2)
+        img = UIImageView(frame: temp.0)
+        self.addSubview(title)
+        self.addSubview(info)
+        self.addSubview(img)
+    }
+
+    required init(coder aDecoder: NSCoder){
+        super.init(coder: aDecoder)!
+    }
+}
+</code></pre><p>同时，在cellForRowAtIndexPath中添加初始化：</p>
+<pre><code>func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; ListTableViewCell {
+        var cell = tableView.dequeueReusableCellWithIdentifier(&quot;newsList&quot;, forIndexPath: indexPath) as? ListTableViewCell
+        if cell==nil {
+            cell = ListTableViewCell(style: .Default, reuseIdentifier: &quot;newsList&quot;)
+        }
+//TODO: something config            
+        return cell!
+    }
+</code></pre><p>接下来问题来了：初始化的时候，根本跑不到我自己定义的初始化函数里去！在cell==nil的判断里，cell每次都已经存在，而不是初始生成一些，之后再重用的模式。我查了很多资料，怎么看也没什么问题，别人都是这么写的。上stackoverflow找，有类似问题的人也很少，有个回答说如果这样写，是不应该会有问题的，除非是别的什么地方出错了。我抓狂了很久，突然想到了一个地方—之前在StoryBoard里面配置的ID(上图我已经标出来了)！果然，把这里去掉之后，终于可以Call到自定义的初始化函数了。所以，<strong>如果在StoryBoard里设置了Cell id，则系统会自动处理TableViewCell的初始化和重用，不会调用自定义部分</strong>。<br>这个问题解决后，又出现了两个小问题，一是Cell触发的转场不起作用了，二是在StoryBoard里面Config的Cell高度也失效了。综合上面的问题，应该是在StoryBoard里面取消定义Cell ID之后，系统找不到对应的Cell了，也就无法把config和Cell联系起来。高度定义只要自己在代码中重新写一下就好，转场嘛，在didSelectRowAtIndexPath中手动调用也是一样的：</p>
+<pre><code>func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) -&gt; NSIndexPath?    {
+    self.performSegueWithIdentifier(&quot;ShowPost&quot;, sender: self)
+    return indexPath
+}
+</code></pre><p>这两周基本上在荒废，这篇文章离写代码的时间也是拖了有半个月，有些细节都快忘了，每天没做什么正事，有点浑浑噩噩的感觉……拖延症加重了？要振作一点！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>新闻App通常是有个新闻的列表，这个列表一般都用TableView来做，每个Cell显示一条新闻，如下图：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_TableViewCell-list.png" alt=""><br>在我做的时候，开始Cell是直接从控件库拖到StoryBoard里面，配置了一点东西就OK了：当Cell的Style设成subtilte时，标题、副标题、以及图像都是可用的，在<strong>cellForRowAtIndexPath</strong>里直接配置就行了：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_TableViewCell-config.png" alt=""><br>但这样做了之后出现一个问题：新闻配图是从网络获取的，长宽比和大小并不固定。在这种做法中，图像是以高度而不是宽度统一对齐的，也就是经过缩放后变成统一的高度适配当前Cell，再显示出来。这样一来，每个Cell里的图像宽度就参差不齐，很难看。我尝试了很久也没能解决这个问题，看起来无论怎么对Cell.image进行配置，也是无效的。折中的办法是事先修改图像的长宽比，但这不是我想要的效果。于是，只好尝试TableViewCell的自定义了。]]>
+    
+    </summary>
+    
+      <category term="StoryBoard" scheme="http://conanwhf.gitcafe.io/tags/StoryBoard/"/>
+    
+      <category term="TableView" scheme="http://conanwhf.gitcafe.io/tags/TableView/"/>
+    
+      <category term="Cocoa" scheme="http://conanwhf.gitcafe.io/categories/Cocoa/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[使用.transform旋转带来的坑]]></title>
@@ -1304,375 +1398,6 @@ guard data = NSData(contentsOfURL: url)  else{
     </summary>
     
       <category term="JSON" scheme="http://conanwhf.gitcafe.io/tags/JSON/"/>
-    
-      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[使用Swift原生库解析XML数据]]></title>
-    <link href="http://conanwhf.gitcafe.io/2015/12/15/Swift_xml/"/>
-    <id>http://conanwhf.gitcafe.io/2015/12/15/Swift_xml/</id>
-    <published>2015-12-15T10:14:35.000Z</published>
-    <updated>2016-01-18T16:18:05.000Z</updated>
-    <content type="html"><![CDATA[<p>（挖坑自己跳系列三）<br>在实现文件操作的时候我意识到了一个事实：由于NSURL是可支持的路径，很多文件的操作实际上可以扩充到网络上去，比如从网上下载一个文件、拿取一些数据……想到这里，埋藏在心中很久的愿望又开始蠢蠢欲动：写一个新闻客户端！<br>我有一个常看的新闻网站（不要问我是哪个，要FQ），官方客户端很难用，第三方广告满天飞，严重影响心情。所以当初开始学iOS的时候就把重做一个客户端的目标放在了首位。最开始的时候想得太简单，兴冲冲地开了个project，搞了两下TableView，然后发现……对于我这种从来只写底层代码，swift/OC语法都不会的人，做这个简直是异想天开好嘛！<br>折腾的过程中，为了拿到数据，还跑去下了Android的官方客户端反编译，find + grep出来了人家的数据接口地址（论一个爱折腾的程序员是怎么给自己挖坑的），返回的是XML数据，连蒙带猜试了试，可以用！不过后来做UI受挫（其实不止做UI，挫败感太大），就把那份东西闲置起来了。这两天突然想起来，现在我貌似感觉有点良好，何不捡起来继续写我的客户端？<br>因为UI我还一窍不通，不懂怎么调试，也不懂怎么把数据显示出来，为了避免到处打印的麻烦，我选择playground。这样也就是需要用原生库，这个很简单，搜一下就有了：NSXMLParserDelegate，还有好些源码，虽然大多是OC的。<br>问题是有源码，我依！然！看！不！懂！怎么用！每个教程都是扔了源码上来，可没人解释清楚到底怎么运行。我研究了好一阵，终于明白了大概的机制：</p>
-<blockquote>
-<p><strong>自己写一个类继承NSXMLParserDelegate，就叫它XmlReader吧；并且实现一些必须的callback函数，在XmlReader的Init中调用.parse()方法，最后在new XmlReader的时候就会自动完成整个parse了</strong></p>
-</blockquote>
-<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/15/Swift_xml/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/15/Swift_xml/'>使用Swift原生库解析XML数据</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-
-<p>当然你也可以不把parse()放在init()中调用，而是在new了XmlReader之后强制调用，重要的是那些callback函数的实现。XmlReader中还可以声明一些变量，来保存解析过程中的状态，而具体的获得到的数据填充，也是需要你自己做的（数据结构自行定义）。<br><strong>鉴于XML是一个有层级的带递归意味的数据结构，程序会层层解析下去直到结束，中间遇到的各种类似section开始、结束、拿到字符串等情况都会call一个固定的函数，将解析出来的数据作为参数传进去，而你要做的，就是实现这些callback以完成自己想要做的事。</strong><br>下面是具体的代码示范。首先是定义一个新的类：</p>
-<pre><code>class XmlReader: NSObject, NSXMLParserDelegate {
-var currentName :String? = nil
-var level :Int = 0
-
- init(add :String ) {
-
-    super.init()
-    let url = NSURL(string:add)!
-    guard let parserXML = NSXMLParser(contentsOfURL: url) else {
-        return
-    }
-
-    parserXML.delegate = self
-    parserXML.parse()
-    }
-
-func parserDidStartDocument(parser: NSXMLParser) {}
-
-func parserDidEndDocument(parser: NSXMLParser){}
-
-func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {}
-
-func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {}
-
-func parser(parser: NSXMLParser, var foundCharacters string: String) {}
-
-func parser(parser: NSXMLParser, parseErrorOccurred parseError: NSError) {}
-}
-</code></pre><p>这是一个基础部分，里面定义了一些callback但没有实现它。我把xml的地址作为参数传给了init()，并且声明了两个变量currentName和level分别用来保存当前的标签名字和递归深度。然后我们基于下面这个简单的XML文件继续完成callback部分：</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
-&lt;language cat=&quot;it&quot;&gt;
-    &lt;lan id=&quot;1&quot;&gt;
-        &lt;name&gt;C#&lt;/name&gt;
-        &lt;IDE&gt;vs&lt;/IDE&gt;
-    &lt;/lan&gt;
-    &lt;lan id=&quot;2&quot; /&gt;
-&lt;/language&gt;
-</code></pre><p> 首先是文档开始和结束时：</p>
-<pre><code>//文档开始解析时触发，只触发一次
-func parserDidStartDocument(parser: NSXMLParser) {
-    print(&quot;    start&quot;)
-}
-
-//文档结束时触发，只触发一次，通常需要在这里给出一个信号告诉上层或其他人解析已经结束
-func parserDidEndDocument(parser: NSXMLParser){
-    print(&quot;    end&quot;)
-}
-</code></pre><p>然后是标签的开始和结束事件：</p>
-<pre><code>//遇到一个开始标签触发，elementName为当前标签，如果当前标签有属性，则字典sttributeDict不为空
-func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]()) {
-    self.currentName = elementName
-    self.level++
-    print(&quot;\(level) start, \(elementName), \(attributeDict)&quot;)
-    if currentName == &quot;language&quot; { // 获取language属性的内容
-        //print(&quot;language: \(attributeDict)&quot;)
-    }
-}
-
-//遇到结束标签触发，该方法主要是做一些清理工作，在这里我修改了当前的深度
-func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-    print(&quot;\(level) end, \(elementName)&quot;)
-    self.currentName = nil
-    self.level--
-}
-</code></pre><p>接下来是字符串值的handler</p>
-<pre><code>// 遇到字符串时触发
-func parser(parser: NSXMLParser, var foundCharacters string: String) {
-    //删除首尾的回车符和空格
-    string = string.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-    if string.isEmpty {
-        return
-    }
-    print(&quot;---- \(string)&quot;)
-}
-</code></pre><p>最后是Error Handler</p>
-<pre><code>// 文档出错时触发
-func parser(parser: NSXMLParser, parseErrorOccurred parseError: NSError) {
-    print(parseError)
-}
-</code></pre><p>以上的callback函数实现都只放了些打印信息，在实际操作中需要把这些获取的信息一一填充进自己的数据结构中。说实话是挺麻烦的，难怪都说XML快要被JSON全面取代（其实对于曾被libxml折磨过的码农来说，这已经挺好了）。全部的代码传送门：<a href="https://github.com/conanwhf/swiftplayground/tree/master/Play.playground/Pages/GetXML.xcplaygroundpage" target="_blank" rel="external">这里</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>（挖坑自己跳系列三）<br>在实现文件操作的时候我意识到了一个事实：由于NSURL是可支持的路径，很多文件的操作实际上可以扩充到网络上去，比如从网上下载一个文件、拿取一些数据……想到这里，埋藏在心中很久的愿望又开始蠢蠢欲动：写一个新闻客户端！<br>我有一个常看的新闻网站（不要问我是哪个，要FQ），官方客户端很难用，第三方广告满天飞，严重影响心情。所以当初开始学iOS的时候就把重做一个客户端的目标放在了首位。最开始的时候想得太简单，兴冲冲地开了个project，搞了两下TableView，然后发现……对于我这种从来只写底层代码，swift/OC语法都不会的人，做这个简直是异想天开好嘛！<br>折腾的过程中，为了拿到数据，还跑去下了Android的官方客户端反编译，find + grep出来了人家的数据接口地址（论一个爱折腾的程序员是怎么给自己挖坑的），返回的是XML数据，连蒙带猜试了试，可以用！不过后来做UI受挫（其实不止做UI，挫败感太大），就把那份东西闲置起来了。这两天突然想起来，现在我貌似感觉有点良好，何不捡起来继续写我的客户端？<br>因为UI我还一窍不通，不懂怎么调试，也不懂怎么把数据显示出来，为了避免到处打印的麻烦，我选择playground。这样也就是需要用原生库，这个很简单，搜一下就有了：NSXMLParserDelegate，还有好些源码，虽然大多是OC的。<br>问题是有源码，我依！然！看！不！懂！怎么用！每个教程都是扔了源码上来，可没人解释清楚到底怎么运行。我研究了好一阵，终于明白了大概的机制：</p>
-<blockquote>
-<p><strong>自己写一个类继承NSXMLParserDelegate，就叫它XmlReader吧；并且实现一些必须的callback函数，在XmlReader的Init中调用.parse()方法，最后在new XmlReader的时候就会自动完成整个parse了</strong></p>
-</blockquote>]]>
-    
-    </summary>
-    
-      <category term="XML" scheme="http://conanwhf.gitcafe.io/tags/XML/"/>
-    
-      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[文件操作]]></title>
-    <link href="http://conanwhf.gitcafe.io/2015/12/15/fileop/"/>
-    <id>http://conanwhf.gitcafe.io/2015/12/15/fileop/</id>
-    <published>2015-12-15T08:14:35.000Z</published>
-    <updated>2016-01-17T18:07:32.000Z</updated>
-    <content type="html"><![CDATA[<p>（挖坑自己跳系列二）<br>上回说到文件操作，那就把文件操作来一遍吧，先放源码：<a href="https://github.com/conanwhf/swiftplayground/tree/master/Play.playground/Pages/File.xcplaygroundpage" target="_blank" rel="external">GitHub某个地方</a></p>
-<h2 id="u521D_u59CB_u5316__26amp_3B__u6587_u4EF6_u8DEF_u5F84"><a href="#u521D_u59CB_u5316__26amp_3B__u6587_u4EF6_u8DEF_u5F84" class="headerlink" title="初始化 &amp; 文件路径"></a>初始化 &amp; 文件路径</h2><p>所有的文件操作都要先声明一个根控制器以获得文件的句柄：</p>
-<pre><code>let manager = NSFileManager.defaultManager()
-</code></pre><p>而文件路径的表示有两种方式：String和NSURL。在NSURL的视角中，本地文件作为一种特殊的网络文件而存在，以“file://”开头。多数的操作对于两种路径方式都有两个相对应的接口，要注意对于NSURL，表示本地文件时必须以“file://”开头，否则很多API会失败。为了测试方便，我给String加了个转换的扩展：</p>
-<pre><code>extension String {
-    var toFilePathURL : NSURL {
-    let url =  NSURL( fileURLWithPath: self)
-    return url
-    }
-}
-</code></pre><p>这里使用参数<strong>fileURLWithPath:</strong>而不是<strong>string:</strong>就是为了上述原因。<br>对于路径的修改，String表示方法很简单，直接相加即可；NSURL需要用以下代码：<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/15/fileop/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/15/fileop/'>文件操作</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-</p>
-<pre><code>let newUrl = url.URLByAppendingPathComponent(&quot;/urlNewDir/&quot;, isDirectory: true)   
-//当然false也是可以的，但要注意匹配，别把参数给错了
-</code></pre><h2 id="u83B7_u53D6_u7528_u6237_u76EE_u5F55"><a href="#u83B7_u53D6_u7528_u6237_u76EE_u5F55" class="headerlink" title="获取用户目录"></a>获取用户目录</h2><p>由于Apple的沙盒机制，平时在iOS上能操作的文件也只存在于App当前用户目录、临时文件之类的地方而已，获得这个地址的方法是：</p>
-<pre><code>NSHomeDirectory()
-NSHomeDirectoryForUser(&quot;Conan&quot;)
-</code></pre><p>另外还有一些别的”NSXXXDirectory()”，大家自己可以去探索下。对于NSURL的方法如下：</p>
-<pre><code>let urlForDocument = manager.URLsForDirectory( NSSearchPathDirectory.DocumentDirectory, inDomains:NSSearchPathDomainMask.UserDomainMask)    //获得用户Document目录
-let url = urlForDocument[0] as NSURL
-</code></pre><p>返回的是Document目录。第一句其实是获得一个搜索集，目标由<strong>NSSearchPathDirectory.XXX</strong>参数指定，在我们知道只有一个搜索结果的情况下，可以直接指定数组中的[0]<br>在第一种方法中，我还没找到怎么拿到Document文件夹，谁知道麻烦留言告诉我，谢谢！🤗<br>在Playground中跑的时候，用户环境其实是在模拟器中，各种权限问题和奇怪的找不到文件之类，调试也不太方便，我就在此吃了点亏。建议有想不通错哪里的时候去终端跑一下，说不准就OK了（怎么跑见前一篇）。</p>
-<blockquote>
-<p>从这里开始进入罗列模式，因为文件操作的很多API实在雷同。我默认文件路径方面已经没有问题了，且你也申明了文件的根控制器manager，那么基本上就是使用：<strong>manager.TODOWHAT(URL/PATH)</strong>，如果有针对String和URL的不同API我会分别列出，写两次。</p>
-</blockquote>
-<h2 id="u5224_u65AD_u6587_u4EF6_u6216_u8005_u6587_u4EF6_u5939_u662F_u5426_u5B58_u5728"><a href="#u5224_u65AD_u6587_u4EF6_u6216_u8005_u6587_u4EF6_u5939_u662F_u5426_u5B58_u5728" class="headerlink" title="判断文件或者文件夹是否存在"></a>判断文件或者文件夹是否存在</h2><p>首先是判断文件是否存在：</p>
-<pre><code>manager.fileExistsAtPath(workdir)       //文件夹
-manager.fileExistsAtPath(workdir + &quot;aaa.txt”) //文件
-</code></pre><h2 id="u65B0_u5EFA_u6587_u4EF6"><a href="#u65B0_u5EFA_u6587_u4EF6" class="headerlink" title="新建文件"></a>新建文件</h2><h3 id="u521B_u5EFA_u6587_u4EF6_u5939"><a href="#u521B_u5EFA_u6587_u4EF6_u5939" class="headerlink" title="创建文件夹"></a>创建文件夹</h3><pre><code>do {
-try manager.createDirectoryAtPath(fn, withIntermediateDirectories: true, attributes: nil)
-} catch {
-print(&quot;Error by createDirectoryAtPath: \(error)\n&quot;)
-}
-
-do {
-try manager.createDirectoryAtURL(fnUrl,     withIntermediateDirectories: true, attributes: nil)
-} catch {
-print(&quot;Error by createDirectoryAtURL: \(error)\n&quot;)
-}
-</code></pre><p>其中参数_withIntermediateDirectories_为true则表示路径中间如果有不存在的文件夹都会一并创建</p>
-<h3 id="u521B_u5EFA_u666E_u901A_u6587_u4EF6"><a href="#u521B_u5EFA_u666E_u901A_u6587_u4EF6" class="headerlink" title="创建普通文件"></a>创建普通文件</h3><pre><code>fn          = workdir + &quot;try.txt&quot;
-manager.createFileAtPath(fn, contents: nil , attributes: nil)
-</code></pre><h3 id="u521B_u5EFA_u7B26_u53F7_u94FE_u63A5"><a href="#u521B_u5EFA_u7B26_u53F7_u94FE_u63A5" class="headerlink" title="创建符号链接"></a>创建符号链接</h3><pre><code>do {
-try manager.createSymbolicLinkAtPath(workdir + &quot;tryLink.txt&quot;, withDestinationPath: fn)
-} catch {
-    print(&quot;Error by createSymbolicLinkAtPath: \(error)\n&quot;)
-}
-
-do {
-let linkurl = url.URLByAppendingPathComponent(&quot;link-url&quot;, isDirectory: false)
-try manager.createSymbolicLinkAtURL(linkurl, withDestinationURL: fnUrl)
-} catch {
-print(&quot;Error by createSymbolicLinkAtURL: \(error)\n&quot;)
-}
-</code></pre><p>以上的文件创建，在默认的情况下如果已有目标文件存在则会失败；除了<strong>createFileAtPath</strong>会直接覆盖掉。</p>
-<h2 id="u8BFB_u53D6_u6587_u4EF6"><a href="#u8BFB_u53D6_u6587_u4EF6" class="headerlink" title="读取文件"></a>读取文件</h2><p>读取文件的数据结果为NSData，如果需要变成可读的文字，转换成String即可：</p>
-<pre><code>let st      = String(data: data!, encoding: NSUTF8StringEncoding)
-</code></pre><p>而读取文件有两种方式，一种直接获取全部数据:</p>
-<pre><code>data        = manager.contentsAtPath(fn)
-</code></pre><p>另一种是使用文件句柄：</p>
-<pre><code>let handler = NSFileHandle(forReadingAtPath: fn)
-data        = handler?.readDataToEndOfFile()
-
-do {
-    let handler = try NSFileHandle(forReadingFromURL: fnUrl)
-    data        = handler.readDataToEndOfFile()
-} catch {
-    print(&quot;Error by NSFileHandle: \(error)\n&quot;)
-}
-</code></pre><p>第二种方式比较灵活，还有别的参数可用，通常结合写数据用来修改文件</p>
-<h2 id="u5C06_u6570_u636E_u5199_u5165_u6587_u4EF6"><a href="#u5C06_u6570_u636E_u5199_u5165_u6587_u4EF6" class="headerlink" title="将数据写入文件"></a>将数据写入文件</h2><h3 id="u6574_u4F53_u6570_u636E_u5199_u5165"><a href="#u6574_u4F53_u6570_u636E_u5199_u5165" class="headerlink" title="整体数据写入"></a>整体数据写入</h3><p>可以通过writeToFile方法，创建并将数据整体写入文件。支持的数据对象包括String，NSString，UIImage，NSArray，NSDictionary等。</p>
-<h4 id="u5B57_u7B26_u4E32"><a href="#u5B57_u7B26_u4E32" class="headerlink" title="字符串"></a>字符串</h4><pre><code>let info        = &quot;测试数据1234&quot;
-do {
-try info.writeToFile(fn + &quot;_string.txt&quot;, atomically: true, encoding: NSUTF8StringEncoding)
-} catch {
-print(&quot;Error by writeToFile: \(error)\n&quot;)
-}
-</code></pre><h4 id="u56FE_u7247"><a href="#u56FE_u7247" class="headerlink" title="图片"></a>图片</h4><pre><code>let image       = UIImage(named: workdir + &quot;/test/207006981.jpg”)//这里只是先load一下
-let data:NSData = UIImagePNGRepresentation(image!)!
-data.writeToFile(fn + &quot;_img.jpg&quot;, atomically: true)
-</code></pre><h4 id="u6570_u7EC4"><a href="#u6570_u7EC4" class="headerlink" title="数组"></a>数组</h4><pre><code>let array       = NSArray(objects: &quot;aaa&quot;,&quot;bbb&quot;,&quot;ccc&quot;)
-array.writeToFile(fn + &quot;_arr.txt&quot;, atomically: true)
-</code></pre><h4 id="u5B57_u5178"><a href="#u5B57_u5178" class="headerlink" title="字典"></a>字典</h4><pre><code>let dictionary  = NSDictionary(objects: [&quot;111&quot;,&quot;222&quot;], forKeys: [&quot;aaa&quot;,&quot;bbb&quot;]
-dictionary.writeToFile(fn + &quot;_dic.txt&quot;, atomically: true)
-</code></pre><h3 id="u672B_u5C3E_u6DFB_u52A0_u3001_u4FEE_u6539_u6587_u4EF6"><a href="#u672B_u5C3E_u6DFB_u52A0_u3001_u4FEE_u6539_u6587_u4EF6" class="headerlink" title="末尾添加、修改文件"></a>末尾添加、修改文件</h3><p>修改文件跟C的用法很像，使用文件句柄，结合seek到的某个位置，写入数据。需要注意的是没有专门的插入数据方法，所以如果你想插入数据，就需要把后面的数据都出来（或者另存下来），添加数据，再续上之前的后半截。所以如果数据量大，下面的暴力方法不合适，需要用callback结合缓存去做读写。</p>
-<h4 id="u672B_u5C3E_u6DFB_u52A0_u6570_u636E"><a href="#u672B_u5C3E_u6DFB_u52A0_u6570_u636E" class="headerlink" title="末尾添加数据"></a>末尾添加数据</h4><pre><code>let handler = NSFileHandle(forUpdatingAtPath: fn)
-guard handler != nil else {
-    print(&quot;No such file&quot;)
-    return
-}
-string      = &quot;\n用forUpdatingAtPath在文件末尾添加XXX&quot;
-data        = string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!
-handler!.seekToEndOfFile()
-handler!.writeData(data)
-</code></pre><h4 id="u63D2_u5165_u6570_u636E"><a href="#u63D2_u5165_u6570_u636E" class="headerlink" title="插入数据"></a>插入数据</h4><pre><code>var string  = &quot;\n用forUpdatingAtURL在文件第10个字节插入XXX\n&quot;
-var data    = string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!
-do {
-    let handler = try NSFileHandle(forUpdatingURL: fnUrl)
-    handler.seekToFileOffset(10)
-    let data2   = handler.readDataToEndOfFile()
-    handler.seekToFileOffset(10)
-    handler.writeData(data)
-    handler.writeData(data2)
-} catch {
-    print(&quot;Error by NSFileHandle: \(error)\n&quot;)
-}
-</code></pre><p>这里两种方式用了不同的句柄获得方式，实际上可以随意互换。</p>
-<h2 id="u590D_u5236_u6587_u4EF6_uFF08_u5939_uFF09"><a href="#u590D_u5236_u6587_u4EF6_uFF08_u5939_uFF09" class="headerlink" title="复制文件（夹）"></a>复制文件（夹）</h2><pre><code>do {
-    try manager.copyItemAtPath(src, toPath: dest)
-} catch let error as NSError {
-    print(&quot;Error by Path: \(error)\n&quot;)
-}
-
-do {
-    try manager.copyItemAtURL( srcUrl, toURL: destUrl)
-} catch let error as NSError {
-    print(&quot;Error by URL: \(error)\n&quot;)
-}
-</code></pre><h2 id="u79FB_u52A8_u6587_u4EF6_uFF08_u5939_uFF09"><a href="#u79FB_u52A8_u6587_u4EF6_uFF08_u5939_uFF09" class="headerlink" title="移动文件（夹）"></a>移动文件（夹）</h2><pre><code>do {
-    try manager.moveItemAtPath(src, toPath: dest)
-} catch {
-print(&quot;Error by Path: \(error)\n&quot;)
-}
-
-do {
-    try manager.moveItemAtURL( srcUrl, toURL: destUrl)
-} catch  {
-    print(&quot;Error by URL: \(error)\n&quot;)
-}
-</code></pre><h2 id="u5220_u9664_u6587_u4EF6_uFF08_u5939_uFF09"><a href="#u5220_u9664_u6587_u4EF6_uFF08_u5939_uFF09" class="headerlink" title="删除文件（夹）"></a>删除文件（夹）</h2><pre><code>do {
-    try manager.removeItemAtPath(fn)
-} catch {
-    print(&quot;Error by Path: \(error)\n&quot;)
-}
-
-do {
-    try manager.removeItemAtURL( fn.toFilePathURL)
-} catch  {
-    print(&quot;Error by URL: \(error)\n&quot;)
-}   
-</code></pre><h2 id="u904D_u5386_u6587_u4EF6_u5939"><a href="#u904D_u5386_u6587_u4EF6_u5939" class="headerlink" title="遍历文件夹"></a>遍历文件夹</h2><p>遍历文件夹有两种方式：遍历当前文件夹，和递归遍历子文件夹。下面是范例。注意：<strong>使用Path为参数的时候返回的是相对路径和文件名，而使用URL方式时返回的是绝对路径！</strong></p>
-<h3 id="u4E0D_u904D_u5386_u5B50_u6587_u4EF6_u5939"><a href="#u4E0D_u904D_u5386_u5B50_u6587_u4EF6_u5939" class="headerlink" title="不遍历子文件夹"></a>不遍历子文件夹</h3><pre><code>do {
-let contentsOfPath   = try manager.contentsOfDirectoryAtPath(dir)
-    contentsOfPath.forEach{ print($0) }
-} catch {
-    print(&quot;Error by 1-1: \(error)\n&quot;)
-}
-
-do {
-let contentsOfURL    = try manager.contentsOfDirectoryAtURL(url, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
-    contentsOfURL.forEach{ print($0) }
-} catch {
-    print(&quot;Error by 1-2: \(error)\n&quot;)
-}
-</code></pre><h3 id="u9012_u5F52_u904D_u5386_u5B50_u6587_u4EF6_u5939_uFF0C_u4F46_u4E0D_u9012_u5F52_u7B26_u53F7_u94FE_u63A5"><a href="#u9012_u5F52_u904D_u5386_u5B50_u6587_u4EF6_u5939_uFF0C_u4F46_u4E0D_u9012_u5F52_u7B26_u53F7_u94FE_u63A5" class="headerlink" title="递归遍历子文件夹，但不递归符号链接"></a>递归遍历子文件夹，但不递归符号链接</h3><pre><code>let enumeratorAtPath = manager.enumeratorAtPath(dir)
-if enumeratorAtPath == nil  {
-    print(&quot;Error by 2-1: no such folder: \(dir)&quot;)
-    //return
-}
-else {
-    enumeratorAtPath!.forEach{ print($0) }
-}
-
-let enumeratorAtURL  = manager.enumeratorAtURL(url,includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles, errorHandler:nil)
-if enumeratorAtURL == nil  {
-    print(&quot;Error by 2-2: no such folder: \(url)&quot;)
-    //return
-}
-else {
-    enumeratorAtURL!.forEach{ print($0) }
-}
-</code></pre><h3 id="u9012_u5F52_u904D_u5386_u5B50_u6587_u4EF6_u5939_uFF0C_u5305_u62EC_u7B26_u53F7_u94FE_u63A5"><a href="#u9012_u5F52_u904D_u5386_u5B50_u6587_u4EF6_u5939_uFF0C_u5305_u62EC_u7B26_u53F7_u94FE_u63A5" class="headerlink" title="递归遍历子文件夹，包括符号链接"></a>递归遍历子文件夹，包括符号链接</h3><pre><code>let subpathsAtPath   = manager.subpathsAtPath(dir)
-if subpathsAtPath == nil  {
-    print(&quot;-Error by 3: no such folder: \(dir)&quot;)
-    //return
-}
-else {
-    subpathsAtPath!.forEach{ print($0) }
-}
-</code></pre><p>这个函数有点危险，可能一不小心就死循环了，建议慎用。</p>
-<h2 id="u83B7_u53D6_u6587_u4EF6_u5C5E_u6027_u548C_u6743_u9650"><a href="#u83B7_u53D6_u6587_u4EF6_u5C5E_u6027_u548C_u6743_u9650" class="headerlink" title="获取文件属性和权限"></a>获取文件属性和权限</h2><h3 id="u6743_u9650_u5224_u65AD"><a href="#u6743_u9650_u5224_u65AD" class="headerlink" title="权限判断"></a>权限判断</h3><pre><code>let readable   = manager.isReadableFileAtPath(fn)
-let writeable  = manager.isWritableFileAtPath(fn)
-let executable = manager.isExecutableFileAtPath(fn)
-let deleteable = manager.isDeletableFileAtPath(fn)
-print(&quot;文件\(fn) \(readable ? &quot;&quot; : &quot;不&quot;)可读， \(writeable ? &quot;&quot; : &quot;不&quot;)可写，\(executable ? &quot;&quot; : &quot;不&quot;)可执行，\(deleteable ? &quot;&quot; : &quot;不&quot;)可删除&quot;)
-</code></pre><h3 id="u83B7_u53D6_u6587_u4EF6_u5C5E_u6027"><a href="#u83B7_u53D6_u6587_u4EF6_u5C5E_u6027" class="headerlink" title="获取文件属性"></a>获取文件属性</h3><pre><code>do {
-let attributes = try manager.attributesOfItemAtPath(fn)
-        print(&quot;attributes: \(attributes)&quot;)
-} catch {
-    print(&quot;Error by attributesOfItemAtPath: \(error)\n&quot;)
-}
-</code></pre><h2 id="u6BD4_u8F83_u6587_u4EF6_uFF08_u5939_uFF09"><a href="#u6BD4_u8F83_u6587_u4EF6_uFF08_u5939_uFF09" class="headerlink" title="比较文件（夹）"></a>比较文件（夹）</h2><pre><code>manager.contentsEqualAtPath(workdir + &quot;read.md&quot;, andPath: workdir + &quot;copied.txt&quot;)   //文件
-manager.contentsEqualAtPath(workdir, andPath: workdir + &quot;/tesst/&quot;)  //文件夹
-</code></pre><p>这个函数不是diff，只能判断是否相同，不能做内容对比</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>（挖坑自己跳系列二）<br>上回说到文件操作，那就把文件操作来一遍吧，先放源码：<a href="https://github.com/conanwhf/swiftplayground/tree/master/Play.playground/Pages/File.xcplaygroundpage">GitHub某个地方</a></p>
-<h2 id="u521D_u59CB_u5316__26amp_3B__u6587_u4EF6_u8DEF_u5F84"><a href="#u521D_u59CB_u5316__26amp_3B__u6587_u4EF6_u8DEF_u5F84" class="headerlink" title="初始化 &amp; 文件路径"></a>初始化 &amp; 文件路径</h2><p>所有的文件操作都要先声明一个根控制器以获得文件的句柄：</p>
-<pre><code>let manager = NSFileManager.defaultManager()
-</code></pre><p>而文件路径的表示有两种方式：String和NSURL。在NSURL的视角中，本地文件作为一种特殊的网络文件而存在，以“file://”开头。多数的操作对于两种路径方式都有两个相对应的接口，要注意对于NSURL，表示本地文件时必须以“file://”开头，否则很多API会失败。为了测试方便，我给String加了个转换的扩展：</p>
-<pre><code>extension String {
-    var toFilePathURL : NSURL {
-    let url =  NSURL( fileURLWithPath: self)
-    return url
-    }
-}
-</code></pre><p>这里使用参数<strong>fileURLWithPath:</strong>而不是<strong>string:</strong>就是为了上述原因。<br>对于路径的修改，String表示方法很简单，直接相加即可；NSURL需要用以下代码：]]>
-    
-    </summary>
-    
-      <category term="File" scheme="http://conanwhf.gitcafe.io/tags/File/"/>
     
       <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
     

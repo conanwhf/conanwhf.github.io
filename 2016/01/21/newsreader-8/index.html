@@ -34,7 +34,7 @@
 
 
 
-  <meta name="keywords" content="Git,Hexo," />
+  <meta name="keywords" content="StoryBoard,TableView," />
 
 
 
@@ -45,22 +45,18 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="GitHub提供域名解析和300MB免费空间，利用静态网站生成工具生成网页，提交后即可看到。网页生成工具有Jekyll, Octopress, Hexo等。这里选择Hexo，速度快，对中文支持较好官网：https://hexo.io/zh-cn/docs/
-GitHub Pages Setup
-New一个repository即可，域名为username.github.iohttps://pages">
+<meta name="description" content="新闻App通常是有个新闻的列表，这个列表一般都用TableView来做，每个Cell显示一条新闻，如下图：在我做的时候，开始Cell是直接从控件库拖到StoryBoard里面，配置了一点东西就OK了：当Cell的Style设成subtilte时，标题、副标题、以及图像都是可用的，在cellForRowAtIndexPath里直接配置就行了：但这样做了之后出现一个问题：新闻配图是从网络获取的，长宽比">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git+Hexo+Markdown搭建Blog">
-<meta property="og:url" content="http://conanwhf.gitcafe.io/2015/10/02/Git+Hexo+Markdown.Blog/index.html">
+<meta property="og:title" content="从打造新闻app学到的(8)：自定义TableViewCell">
+<meta property="og:url" content="http://conanwhf.gitcafe.io/2016/01/21/newsreader-8/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
-<meta property="og:description" content="GitHub提供域名解析和300MB免费空间，利用静态网站生成工具生成网页，提交后即可看到。网页生成工具有Jekyll, Octopress, Hexo等。这里选择Hexo，速度快，对中文支持较好官网：https://hexo.io/zh-cn/docs/
-GitHub Pages Setup
-New一个repository即可，域名为username.github.iohttps://pages">
-<meta property="og:updated_time" content="2016-01-18T16:20:40.000Z">
+<meta property="og:description" content="新闻App通常是有个新闻的列表，这个列表一般都用TableView来做，每个Cell显示一条新闻，如下图：在我做的时候，开始Cell是直接从控件库拖到StoryBoard里面，配置了一点东西就OK了：当Cell的Style设成subtilte时，标题、副标题、以及图像都是可用的，在cellForRowAtIndexPath里直接配置就行了：但这样做了之后出现一个问题：新闻配图是从网络获取的，长宽比">
+<meta property="og:image" content="http://7xkzuv.com1.z0.glb.clouddn.com/img_TableViewCell-list.png">
+<meta property="og:image" content="http://7xkzuv.com1.z0.glb.clouddn.com/img_TableViewCell-config.png">
+<meta property="og:updated_time" content="2016-01-22T09:40:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git+Hexo+Markdown搭建Blog">
-<meta name="twitter:description" content="GitHub提供域名解析和300MB免费空间，利用静态网站生成工具生成网页，提交后即可看到。网页生成工具有Jekyll, Octopress, Hexo等。这里选择Hexo，速度快，对中文支持较好官网：https://hexo.io/zh-cn/docs/
-GitHub Pages Setup
-New一个repository即可，域名为username.github.iohttps://pages">
+<meta name="twitter:title" content="从打造新闻app学到的(8)：自定义TableViewCell">
+<meta name="twitter:description" content="新闻App通常是有个新闻的列表，这个列表一般都用TableView来做，每个Cell显示一条新闻，如下图：在我做的时候，开始Cell是直接从控件库拖到StoryBoard里面，配置了一点东西就OK了：当Cell的Style设成subtilte时，标题、副标题、以及图像都是可用的，在cellForRowAtIndexPath里直接配置就行了：但这样做了之后出现一个问题：新闻配图是从网络获取的，长宽比">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -70,7 +66,7 @@ New一个repository即可，域名为username.github.iohttps://pages">
   };
 </script>
 
-  <title> Git+Hexo+Markdown搭建Blog | iOS开发和七七八八 </title>
+  <title> 从打造新闻app学到的(8)：自定义TableViewCell | iOS开发和七七八八 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -228,7 +224,7 @@ New一个repository即可，域名为username.github.iohttps://pages">
           
           
             
-              Git+Hexo+Markdown搭建Blog
+              从打造新闻app学到的(8)：自定义TableViewCell
             
           
         </h1>
@@ -237,8 +233,8 @@ New一个repository即可，域名为username.github.iohttps://pages">
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-10-02T17:35:25+08:00" content="2015-10-02">
-            2015-10-02
+          <time itemprop="dateCreated" datetime="2016-01-21T17:32:45+08:00" content="2016-01-21">
+            2016-01-21
           </time>
         </span>
 
@@ -247,8 +243,8 @@ New一个repository即可，域名为username.github.iohttps://pages">
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
+                <a href="/categories/Cocoa/" itemprop="url" rel="index">
+                  <span itemprop="name">Cocoa</span>
                 </a>
               </span>
 
@@ -263,8 +259,8 @@ New一个repository即可，域名为username.github.iohttps://pages">
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/10/02/Git+Hexo+Markdown.Blog/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/02/Git+Hexo+Markdown.Blog/" itemprop="commentsCount"></span>
+              <a href="/2016/01/21/newsreader-8/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/21/newsreader-8/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -278,19 +274,7 @@ New一个repository即可，域名为username.github.iohttps://pages">
       
 
       
-        <span itemprop="articleBody"><p>GitHub提供域名解析和300MB免费空间，利用静态网站生成工具生成网页，提交后即可看到。网页生成工具有Jekyll, Octopress, Hexo等。这里选择Hexo，速度快，对中文支持较好<br>官网：<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="external">https://hexo.io/zh-cn/docs/</a></p>
-<h2 id="GitHub_Pages_Setup"><a href="#GitHub_Pages_Setup" class="headerlink" title="GitHub Pages Setup"></a>GitHub Pages Setup</h2><ul>
-<li>New一个repository即可，域名为username.github.io<br><a href="https://pages.github.com" target="_blank" rel="external">https://pages.github.com</a><br>先不用clone到本地，也不用生成任何类似于index.html的文件</li>
-<li>GitHub客户端：<br><a href="https://central.github.com/mac/latest" title="Download GitHub for Mac" target="_blank" rel="external">Download GitHub for Mac</a></li>
-</ul>
-<h2 id="Hexo_Setup"><a href="#Hexo_Setup" class="headerlink" title="Hexo Setup"></a>Hexo Setup</h2><ol>
-<li>install node.js<ul>
-<li>命令行：<br>  curl <a href="https://raw.github.com/creationix/nvm/master/install.sh" target="_blank" rel="external">https://raw.github.com/creationix/nvm/master/install.sh</a> | sh<br>  nvm install 0.10</li>
-</ul>
-</li>
-<li>或者客户端：<a href="https://nodejs.org/dist/v4.1.1/node-v4.1.1.pkg" title="Download for OS X (x64)" target="_blank" rel="external">Download for OS X (x64)</a>　</li>
-<li>Install Hexo<pre><code>sudo npm install -g hexo-cli
-</code></pre><a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/10/02/Git+Hexo+Markdown.Blog/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/10/02/Git+Hexo+Markdown.Blog/'>Git+Hexo+Markdown搭建Blog</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+        <span itemprop="articleBody"><p>新闻App通常是有个新闻的列表，这个列表一般都用TableView来做，每个Cell显示一条新闻，如下图：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_TableViewCell-list.png" alt=""><br>在我做的时候，开始Cell是直接从控件库拖到StoryBoard里面，配置了一点东西就OK了：当Cell的Style设成subtilte时，标题、副标题、以及图像都是可用的，在<strong>cellForRowAtIndexPath</strong>里直接配置就行了：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_TableViewCell-config.png" alt=""><br>但这样做了之后出现一个问题：新闻配图是从网络获取的，长宽比和大小并不固定。在这种做法中，图像是以高度而不是宽度统一对齐的，也就是经过缩放后变成统一的高度适配当前Cell，再显示出来。这样一来，每个Cell里的图像宽度就参差不齐，很难看。我尝试了很久也没能解决这个问题，看起来无论怎么对Cell.image进行配置，也是无效的。折中的办法是事先修改图像的长宽比，但这不是我想要的效果。于是，只好尝试TableViewCell的自定义了。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/21/newsreader-8/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/21/newsreader-8/'>从打造新闻app学到的(8)：自定义TableViewCell</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -311,39 +295,43 @@ New一个repository即可，域名为username.github.iohttps://pages">
   }
 })()
 </script>
+<br>不光是TableViewCell，所有控件的自定义都是如出一辙的套路：先继承一个控件的类，再在StoryBoard里面把对应的Custom Class修改成自己继承的那个类，就可以随意修改了。在这里，先把Style设回custom，把Title, image这些在自己的初始化函数里生成：</p>
+<pre><code>class ListTableViewCell: UITableViewCell {
 
-</li>
-</ol>
-<h2 id="New_Blog"><a href="#New_Blog" class="headerlink" title="New Blog"></a>New Blog</h2><ol>
-<li>Init Blog<pre><code>mkdir ~/blog; cd ~/blog/
-hexo init
-npm install
-hexo generate
-</code></pre></li>
-<li>把GitHub Pages项目clone到<code>~/blog/public</code> from GitHub，先在某处clone然后拷贝.git文件夹也行，总之把public文件夹作为GitHub的source</li>
-<li>commit, 打开username.github.io看效果</li>
-</ol>
-<h2 id="Add/Remove_blogs"><a href="#Add/Remove_blogs" class="headerlink" title="Add/Remove blogs"></a>Add/Remove blogs</h2><p>Hexo的命令行new本质上是生成一个固定格式的文件，还要二次修改内容才能发布，所以我选择手动添加删除文章，只要采用markdown格式即可</p>
-<ol>
-<li>所有md文件放在source/_posts/下，文件名无要求，手动管理</li>
-<li>文件头部固定格式：<pre><code>title: $Title
-date:  2015-09-25 19:13:06
-categories: $CATEGRIES
-tags:  
-- $Tag1 
-- $Tag2
---- 
-</code></pre>　所有的东西都可省略，但title若省略则发布后为notitle，date省略则自动把生成静态网页的时间拿来填充。这些头部信息可用_textpexpender_生成</li>
-<li>发布时“hexo generate”，再commit to git即可。注：每次都是整站发布，source里面需要保留所有待发布及已发布的文章</li>
-</ol>
-<h2 id="Hexo_u7B80_u5355Config"><a href="#Hexo_u7B80_u5355Config" class="headerlink" title="Hexo简单Config"></a>Hexo简单Config</h2><ol>
-<li>所有配置都在blog目录下进行</li>
-<li>配置文件为_<code>config.yml</code>，基础配置修改即可。基本上只要改_title_，_subtitle_，_description_，_author_这几项就可以了</li>
-<li>需要调试的话先<strong>hexo g</strong>再<strong>hexo s</strong>，就可以在本地<a href="http://0.0.0.0:4000/" target="_blank" rel="external">http://0.0.0.0:4000/</a>看demo，一般的配置修改后直接刷新看效果<ol>
-<li>yml文件语法很严格，如果<strong>hexo g</strong>出错基本上都是配置问题，仔细看看空格全角半角这些</li>
-</ol>
-</li>
-</ol>
+    var img:UIImageView!
+    var title:UILabel!
+    var info:UILabel!
+
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)  
+        let temp = self.layout()//我自己写的函数，忽略
+        title = UILabel(frame: temp.1)
+        info = UILabel(frame: temp.2)
+        img = UIImageView(frame: temp.0)
+        self.addSubview(title)
+        self.addSubview(info)
+        self.addSubview(img)
+    }
+
+    required init(coder aDecoder: NSCoder){
+        super.init(coder: aDecoder)!
+    }
+}
+</code></pre><p>同时，在cellForRowAtIndexPath中添加初始化：</p>
+<pre><code>func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; ListTableViewCell {
+        var cell = tableView.dequeueReusableCellWithIdentifier(&quot;newsList&quot;, forIndexPath: indexPath) as? ListTableViewCell
+        if cell==nil {
+            cell = ListTableViewCell(style: .Default, reuseIdentifier: &quot;newsList&quot;)
+        }
+//TODO: something config            
+        return cell!
+    }
+</code></pre><p>接下来问题来了：初始化的时候，根本跑不到我自己定义的初始化函数里去！在cell==nil的判断里，cell每次都已经存在，而不是初始生成一些，之后再重用的模式。我查了很多资料，怎么看也没什么问题，别人都是这么写的。上stackoverflow找，有类似问题的人也很少，有个回答说如果这样写，是不应该会有问题的，除非是别的什么地方出错了。我抓狂了很久，突然想到了一个地方—之前在StoryBoard里面配置的ID(上图我已经标出来了)！果然，把这里去掉之后，终于可以Call到自定义的初始化函数了。所以，<strong>如果在StoryBoard里设置了Cell id，则系统会自动处理TableViewCell的初始化和重用，不会调用自定义部分</strong>。<br>这个问题解决后，又出现了两个小问题，一是Cell触发的转场不起作用了，二是在StoryBoard里面Config的Cell高度也失效了。综合上面的问题，应该是在StoryBoard里面取消定义Cell ID之后，系统找不到对应的Cell了，也就无法把config和Cell联系起来。高度定义只要自己在代码中重新写一下就好，转场嘛，在didSelectRowAtIndexPath中手动调用也是一样的：</p>
+<pre><code>func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) -&gt; NSIndexPath?    {
+    self.performSegueWithIdentifier(&quot;ShowPost&quot;, sender: self)
+    return indexPath
+}
+</code></pre><p>这两周基本上在荒废，这篇文章离写代码的时间也是拖了有半个月，有些细节都快忘了，每天没做什么正事，有点浑浑噩噩的感觉……拖延症加重了？要振作一点！</p>
 </span>
       
     </div>
@@ -352,9 +340,9 @@ tags:
       
         <div class="post-tags">
           
-            <a href="/tags/Git/" rel="tag">#Git</a>
+            <a href="/tags/StoryBoard/" rel="tag">#StoryBoard</a>
           
-            <a href="/tags/Hexo/" rel="tag">#Hexo</a>
+            <a href="/tags/TableView/" rel="tag">#TableView</a>
           
         </div>
       
@@ -363,13 +351,13 @@ tags:
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/10/02/HexoStep2/" rel="prev">Hexo进阶配置</a>
+              <a href="/2016/01/22/macrowave/" rel="prev">微波炉的悲剧</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/10/01/ReadingList2015-09/" rel="next">读书清单 2015-09</a>
+              <a href="/2016/01/16/Transform/" rel="next">使用.transform旋转带来的坑</a>
             
           </div>
         </div>
@@ -384,10 +372,10 @@ tags:
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/10/02/Git+Hexo+Markdown.Blog/"
-     data-title="Git+Hexo+Markdown搭建Blog"
+        <div class="ds-share flat" data-thread-key="2016/01/21/newsreader-8/"
+     data-title="从打造新闻app学到的(8)：自定义TableViewCell"
      data-content=""
-     data-url="http://conanwhf.gitcafe.io/2015/10/02/Git+Hexo+Markdown.Blog/">
+     data-url="http://conanwhf.gitcafe.io/2016/01/21/newsreader-8/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -417,8 +405,8 @@ tags:
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/10/02/Git+Hexo+Markdown.Blog/"
-                   data-title="Git+Hexo+Markdown搭建Blog" data-url="http://conanwhf.gitcafe.io/2015/10/02/Git+Hexo+Markdown.Blog/">
+              <div class="ds-thread" data-thread-key="2016/01/21/newsreader-8/"
+                   data-title="从打造新闻app学到的(8)：自定义TableViewCell" data-url="http://conanwhf.gitcafe.io/2016/01/21/newsreader-8/">
               </div>
             
           </div>
@@ -556,7 +544,7 @@ tags:
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GitHub_Pages_Setup"><span class="nav-number">1.</span> <span class="nav-text">GitHub Pages Setup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo_Setup"><span class="nav-number">2.</span> <span class="nav-text">Hexo Setup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#New_Blog"><span class="nav-number">3.</span> <span class="nav-text">New Blog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Add/Remove_blogs"><span class="nav-number">4.</span> <span class="nav-text">Add/Remove blogs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo_u7B80_u5355Config"><span class="nav-number">5.</span> <span class="nav-text">Hexo简单Config</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
