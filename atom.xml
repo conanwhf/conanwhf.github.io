@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.gitcafe.io/"/>
-  <updated>2016-01-22T09:47:56.000Z</updated>
+  <updated>2016-01-22T09:53:10.000Z</updated>
   <id>http://conanwhf.gitcafe.io/</id>
   
   <author>
@@ -19,8 +19,8 @@
     <link href="http://conanwhf.gitcafe.io/2016/01/22/macrowave/"/>
     <id>http://conanwhf.gitcafe.io/2016/01/22/macrowave/</id>
     <published>2016-01-22T09:35:25.000Z</published>
-    <updated>2016-01-22T09:47:56.000Z</updated>
-    <content type="html"><![CDATA[<p>早上起床，从冰箱里拿了蛋糕出来，放微波炉转10秒，然后洗漱去了……等我一切停当出来一看，妈呀……我设的不是10秒是10分钟！！！😱 😱 😱 😱 😱一开微波炉，蛋糕烧成碳就不说了，那个呛！别提了！！！<br>开抽油烟机、开风扇、上网搜解救方法（各种橘子皮茶叶醋什么的）、总算感觉好点了。但是、这只是适应环境了的幻觉！午休后从房间出来，一屋子的烟味呛得我……😂 😂 😂 😂 😂无语，现在全屋开着空调净化器抽风机打字中……</p>
+    <updated>2016-01-22T09:53:10.000Z</updated>
+    <content type="html"><![CDATA[<p>早上起床，从冰箱里拿了蛋糕出来，放微波炉转10秒，然后洗漱去了……等我一切停当出来一看，妈呀……我设的不是10秒是10分钟！！！😱 😱 😱 😱 😱一开微波炉，蛋糕烧成碳就不说了，那个呛！别提了！！！<br>开抽油烟机、开风扇、上网搜解救方法（各种橘子皮茶叶醋什么的）、总算感觉好点了。但是、这只是适应环境了的幻觉！午休后从房间出来，一屋子的烟味呛得我……😂 😂 😂 😂 😂无语，外面还下着雨，不能开窗通风，现在全屋开着空调净化器抽风机打字中……🤑 🤑 🤑 🤑 🤑 🤑</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>早上起床，从冰箱里拿了蛋糕出来，放微波炉转10秒，然后洗漱去了……等我一切停当出来一看，妈呀……我设的不是10秒是10分钟！！！😱 😱 😱 😱 😱一开微波炉，蛋糕烧成碳就不说了，那个呛！别提了！！！<br>开抽油烟机、开风扇、上网搜解救方法（各种橘子皮茶叶醋什么的]]>
@@ -711,7 +711,7 @@ func updateLatesList(){
     <link href="http://conanwhf.gitcafe.io/2015/12/31/newsreader-6/"/>
     <id>http://conanwhf.gitcafe.io/2015/12/31/newsreader-6/</id>
     <published>2015-12-31T09:32:45.000Z</published>
-    <updated>2016-01-18T07:20:08.000Z</updated>
+    <updated>2016-01-21T14:18:02.000Z</updated>
     <content type="html"><![CDATA[<p>虽然我的新闻客户端app进展告一段落，暂停两个礼拜，但之前积攒下来的东西还没有写完，继续总结码字。<br>我从API拿到的数据，具体的新闻信息，使用的是HTML格式，包括图片地址什么的。我不想用WebView，一方面是网络方面的东西我还没怎么接触，怕麻烦、不会，另一方面因为还有标题、评论什么的，最好是能直接解析显示出来，放在一个TextView里面。我的目的是学习，那些第三方库什么的能不用也都不用了，于是找了找，TextView确实能解决这个问题，一般都是OC版的，用Swift写是这样：</p>
 <pre><code>let opt = [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType]
 let html =  &quot;&lt;div style=\&quot;background-color:#F1F1F1; font-size:14px; color:#304182; \n  text-align:center; margin-left:10px; padding-right:10px\&quot;&gt; \n&lt;p&gt;Test &lt;span style=\&quot;font-size:18px; color:#E88834;\&quot;&gt;测试结束&lt;/span&gt; Tips&lt;/p&gt;\n&lt;/div&gt;&quot;
