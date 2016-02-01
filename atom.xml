@@ -132,7 +132,7 @@
     <link href="http://conanwhf.gitcafe.io/2016/01/30/rpi-protocol/"/>
     <id>http://conanwhf.gitcafe.io/2016/01/30/rpi-protocol/</id>
     <published>2016-01-30T09:31:26.000Z</published>
-    <updated>2016-02-01T10:46:39.000Z</updated>
+    <updated>2016-02-01T11:30:47.000Z</updated>
     <content type="html"><![CDATA[<p>对自己的拖延症也真是恨铁不成钢，这又是一篇拖延得快要放弃的文章。快过年了，怎么也不能拖到年后，打起精神，清空列表！</p>
 <p>想要自己打造一个小小家庭环境监控系统，各种Sensor不可或缺。看了下大部分人在树莓派上都用Python, 我也来凑个热闹。Python果然是一种很容易入门的语言，我只是稍微查了下资料，半天时间，就搞定了好几个Sensor，当然只是最简单的拿数据什么的，但相比之下，虽然自己对于用C写这些协议很熟，碰到问题我也宁可去看看Python的语法也不愿意换C……Python的优势倒不全是语法简洁，最重要的是有巨量的开发库可以用。像这些简单的协议，全是把库装好，直接拿来用就可以了，看看代码量，简直让人不忍再直视C的代码。对于不用追求速度的玩票项目，相当适合。<br>这一篇先介绍几种最常用的基本协议的实现，老规矩，先上源码<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a><br><a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/30/rpi-protocol/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/30/rpi-protocol/'>在树莓派上几种简单协议的实现</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
@@ -217,10 +217,10 @@ showdata(data)
 ser.close()
 </code></pre><p> 上面的code中，函数showdata()是我自己加的用来打印读取到的16进制数据的。因为我接的设备是一个sensor而不是字符设备，所以需要转换一下。同样的，被注释掉的inWaiting()和flushInput()函数，是给字符输入输出设备用的，我也没测过，在我的机子上，因为sensor会不停地报数据，简单的read就行了。<br>另外硬件连接方面很重要的一点：</p>
 <blockquote>
-<p><strong>树莓派的TX要连接从设备的RX，树莓派的RX要连接树莓派的TX!!!</strong></p>
+<p><strong>树莓派的TX要连接从设备的RX，树莓派的RX要连接从设备的TX!!!</strong></p>
 </blockquote>
 <p>不要搞反了，不然是出不来数据的！</p>
-<h2 id="SPI-_u6682_u65F6_u6CA1_u6709"><a href="#SPI-_u6682_u65F6_u6CA1_u6709" class="headerlink" title="SPI-暂时没有"></a>SPI-暂时没有</h2><p>本来是买了个SPI的屏幕，谁知快递出问题没送到，好不容易收到了找卖家要资料也总是忘掉，所以只好欠奉了。快过年了，估计得过些日子再说吧！<br>话说，家里的NAS系统升级以后，居然admin也不是root权限了，好多隐藏的文件夹都打不开。我的BitSync出了点问题，想去看看配置文件，也是束手无策。看来Qnap是不打算给人玩了，认认真真做商业机。幸好有树莓派，以后玩点乱七八糟的东西，就只能靠它了。</p>
+<h2 id="SPI-_u6682_u65F6_u6CA1_u6709"><a href="#SPI-_u6682_u65F6_u6CA1_u6709" class="headerlink" title="SPI-暂时没有"></a>SPI-暂时没有</h2><p>本来是买了个SPI的屏幕，谁知快递出问题没送到，好不容易收到了找卖家要资料也总是忘掉，所以只好欠奉了。快过年了，估计得过些日子再说吧！<br>话说，家里的NAS系统升级以后，居然admin也不是root权限了，好多隐藏的文件夹都打不开。我的BitSync出了点问题，想去看看配置文件，也是束手无策。看来Qnap是不打算给人玩了，认认真真做商业机。幸好有树莓派，以后玩点乱七八糟的东西，就只能靠它了。<br>另：我Github上的源码中，有几个传感器的demo，包括bmp180,dht11,pcf8591等，需要的话随意取用。</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>对自己的拖延症也真是恨铁不成钢，这又是一篇拖延得快要放弃的文章。快过年了，怎么也不能拖到年后，打起精神，清空列表！</p>
