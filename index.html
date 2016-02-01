@@ -223,6 +223,188 @@
           
           
             
+              <a class="post-title-link" href="/2016/01/31/Tips201601/" itemprop="url">
+                开发Tips收集-2016年01月
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-01-31T17:25:39+08:00" content="2016-01-31">
+            2016-01-31
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/DevTips/" itemprop="url" rel="index">
+                  <span itemprop="name">DevTips</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/01/31/Tips201601/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/31/Tips201601/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>你可以在 Gemfile 中指定 cocoapods gem 的使用版本。<br>  <code>source &#39;https://rubygems.org&#39;</code><br>  <code>gem &#39;cocoapods&#39;, &#39;0.39.0&#39;</code><br>  当你更新了 Gemfile 文件并且自动安装了正确版本的 gem 后，确保团队的每个成员都运行一次 <code>bundle install</code> 这条命令。此后，只需要运行 <code>bundle exec pod install</code> 这条命令来安装新的 CocoaPods——这将会确保通过你在的 Gemfile 中指定 cocoapods gem 的版本后，pods 仍可以被正确的安装。</li>
+<li>instrument调试后，发现没被释放的全是imageIO，差不多就知道了，把读图的方式，从UIImage imageNamed:@”“,改成imageWithContentsOfFile，就可以了。问题原因：imageNamed读取图片的方法，会缓存在内存中，所以较大的图片，还是用
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/31/Tips201601/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2016/01/30/rpi-protocol/" itemprop="url">
+                在树莓派上几种简单协议的实现
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-01-30T17:31:26+08:00" content="2016-01-30">
+            2016-01-30
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/RaspberryPi/" itemprop="url" rel="index">
+                  <span itemprop="name">RaspberryPi</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/01/30/rpi-protocol/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/30/rpi-protocol/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>对自己的拖延症也真是恨铁不成钢，这又是一篇拖延得快要放弃的文章。快过年了，怎么也不能拖到年后，打起精神，清空列表！</p>
+<p>想要自己打造一个小小家庭环境监控系统，各种Sensor不可或缺。看了下大部分人在树莓派上都用Python, 我也来凑个热闹。Python果然是一种很容易入门的语言，我只是稍微查了下资料，半天时间，就搞定了好几个Sensor，当然只是最简单的拿数据什么的，但相比之下，虽然自己对于用C写这些协议很熟，碰到问题我也宁可去看看Python的语法也不愿意换C……Python的优势倒不全是语法简洁，最重要的是有巨量的开发库可以用。像这些简单的协议，全是把库装好，直接拿来用就可以了，看看代码量，简直让人不忍再直视C的代码。对于不用追求速度的玩票项目，相当适合。<br>这一篇先介绍几种最常用的基本协议的实现，老规矩，先上源码<a href="https://github.com/conanwhf/RaspberryPi-script">传送门</a><br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/30/rpi-protocol/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2016/01/22/microwave/" itemprop="url">
                 微波炉的悲剧
               </a>
@@ -744,182 +926,6 @@ back.transform = CGAffineTransformMakeRotation( CGFloat(Double(conf[7] * M_PI  /
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2016/01/12/rpi-get/" itemprop="url">
-                树莓派入手
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-01-12T13:31:26+08:00" content="2016-01-12">
-            2016-01-12
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/RaspberryPi/" itemprop="url" rel="index">
-                  <span itemprop="name">RaspberryPi</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2016/01/12/rpi-get/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/12/rpi-get/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>  不知是哪根天线收到了什么隐藏信息，突发奇想想去买个树莓派玩玩。其实家里还有一块前公司齐活的开发板，但性能差了点，板子又大，总之就是腻味了以后哪儿哪儿都是缺点，新的诱惑无限大。于是去买了块树莓派2B，打算配个服务器学点Python玩玩，从下午一直折腾到半夜，终于配置得算是差不多成型了。<br>  以前没怎么研究过，认真四处看看，大致上情况是摸清了：硬件上总共出了算是三代n个型号（第三代Zero刚出），第一代硬件资料全齐，第二代就有点遮遮掩掩。我买的第二代B型，外设方面4口USB2.0，TF插槽、网口、HDMI、耳机插口、DSI摄像头接口、DSI屏幕接口各一。首先，我感觉USB2.0有点落伍，至少给一个3.0吧；其次，没有Nand flash，略不方便；再次，GPIO接口有点少，就那么40Pin还共用了串口+i2c+spi*2，也没数模转换，有点不够用；最后，那个LCDC接口是给谁用的啊？要自己单独做块转接板那么麻烦……除此之外，硬件凑合，但拿来做开发板太浪费，除非你的东西计算量很大；用来当个小小服务器、小小Linux机还不错。<br>  软件方面，官方操作系统是Debian的。那套GUI对我来说真的有点鸡肋，居然还有Office和Mathematical，然而这种配置跑图形界面，
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/12/rpi-get/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2016/01/03/UISlider/" itemprop="url">
-                UIController中Slider监听回调具体实现的分离
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-01-03T17:32:45+08:00" content="2016-01-03">
-            2016-01-03
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Cocoa/" itemprop="url" rel="index">
-                  <span itemprop="name">Cocoa</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2016/01/03/UISlider/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/03/UISlider/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>作为初学者，基础的几个UI控件必须要熟练，现在的我还处于打开Xcode在控件表里面瞎找，看着谁好像是我想要的就往StoryBoard里面拖的阶段……正式写了点东西以后，越来越感觉到，该认真把控件过一遍了。上周写了这么个UIView的Demo，本意是看看各种效果，结果各种状况，花了不少时间。最终效果如下：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_UIViewtest.gif" alt=""><br>因为准备做不止一个控件的Demo测试，又不愿意每个控件开一个ViewController，想所有的Demo都重用同一个页面，于是妖蛾子就出来了。（背景：这个Demo的具体实现部分和ViewController是分开的两个File）
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/03/UISlider/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -958,7 +964,7 @@ back.transform = CGAffineTransformMakeRotation( CGFloat(Double(conf[7] * M_PI  /
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">58</span>
+              <span class="site-state-item-count">60</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -972,7 +978,7 @@ back.transform = CGAffineTransformMakeRotation( CGFloat(Double(conf[7] * M_PI  /
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-count">31</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

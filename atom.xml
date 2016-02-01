@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.gitcafe.io/"/>
-  <updated>2016-01-22T09:56:03.000Z</updated>
+  <updated>2016-01-31T09:35:32.000Z</updated>
   <id>http://conanwhf.gitcafe.io/</id>
   
   <author>
@@ -13,6 +13,226 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[开发Tips收集-2016年01月]]></title>
+    <link href="http://conanwhf.gitcafe.io/2016/01/31/Tips201601/"/>
+    <id>http://conanwhf.gitcafe.io/2016/01/31/Tips201601/</id>
+    <published>2016-01-31T09:25:39.000Z</published>
+    <updated>2016-01-31T09:35:32.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>你可以在 Gemfile 中指定 cocoapods gem 的使用版本。<br>  <code>source &#39;https://rubygems.org&#39;</code><br>  <code>gem &#39;cocoapods&#39;, &#39;0.39.0&#39;</code><br>  当你更新了 Gemfile 文件并且自动安装了正确版本的 gem 后，确保团队的每个成员都运行一次 <code>bundle install</code> 这条命令。此后，只需要运行 <code>bundle exec pod install</code> 这条命令来安装新的 CocoaPods——这将会确保通过你在的 Gemfile 中指定 cocoapods gem 的版本后，pods 仍可以被正确的安装。</li>
+<li>instrument调试后，发现没被释放的全是imageIO，差不多就知道了，把读图的方式，从UIImage imageNamed:@”“,改成imageWithContentsOfFile，就可以了。问题原因：imageNamed读取图片的方法，会缓存在内存中，所以较大的图片，还是用<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/31/Tips201601/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/31/Tips201601/'>开发Tips收集-2016年01月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+ imageWithContentsOfFile。<br>  Tip1：.xcassets里的图片无法用imageWithContentsOfFile读取；<br>  Tip2：imageWithContentsOfFile读取图片需要加文件后缀名如png，jpg等； </li>
+<li>不要将旋转视作设备的移动。相反将其视为视图控制器尺寸的改变，因为从用户的角度来看，这才是真实发生的操作。<ul>
+<li>资源文件瘦身：<ol>
+<li>减少图片和音频文件的大小</li>
+<li>对于PNG图片，由于它内部保存了额外的分层和透明通道信息，统称为EXIF，所以它会比JPG图片大一些。App开发推荐使用PNG图片是因为XCode会在打包时压缩PNG图片的大小。</li>
+<li>单色图片使用使用字体文件。关于字体文件的技术，也就是IconFont，网上有很多例子，同时适用于Andorid和iOS</li>
+<li>使用.9图。之所周知.9图是Android的技术，能极大减小图片的体积，殊不知，iOS也有类似的实现方式。</li>
+<li>动态下载表情包。把聊天时用到的表情图片，做成从服务器下载zip包的方式，而不是打包在App中。</li>
+<li>清除不再使用的图片。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>.a文件瘦身<ol>
+<li>冗余的类和方法。</li>
+<li>相似度极高的代码片段</li>
+<li>使用代码生成UI，而不是使用Xib或Storyboard。经过测试，对于同一个页面，使用代码而导致的.a文件增加的体积，大于Xib的体积。</li>
+<li>使用Hybird方案来代替iOS原生代码。</li>
+<li>编译选项的优化。比如说Strip Link Product设为Yes啊，Make Strings Read-Only设为Yes啊，去掉异常支持啊，都能减少包的大小。此外，经常检查LinkMap文件，也是控制瘦身的一个办法。</li>
+</ol>
+</li>
+<li>flatMap()与map()其实非常相似，map()的规则是T->U，而flatMap()的规则是T->U?，而且如果转换的结果是nil的话，flatMap()是不会将其添加到输出的array中的。 因此可以说flapMap()就好像你去使用map()，然后扁平化(faltten)地从结果中去除了那些nil的内容。</li>
+<li>事件（比如，触摸事件（touch event））都使用响应链来传递。响应链由响应者对象（Responder Objects，苹果官方术语）构成。UIView 和 UIViewController 都是响应者对象。这就意味着， UIView 和 UIViewController 都继承自 UIResponder </li>
+<li><strong>(void)prepareLayout</strong>; 第一次加载layout、刷新layout、以及- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds;这个方法返回yes时，会调用。实现该方法后应该调用［super prepareLayout］保证初始化正确。该方法用来准备一些布局所需要的信息。该方法和init方法相似，但该方法可能会被调用多次，所以一些不固定的计算（比如该计算和collectionView的尺寸相关），最好放在这里，以保证collectionView发生变化时，自定义CollectionView能做出正确的反应</li>
+<li>KVC 机制是由一个协议 NSKeyValueCoding 定义的。NSObject 帮我们实现了这个协议，所以 KVC 核心的逻辑都在 NSObject 中，我们继承 NSObject 才能让我们的类获得 KVC 的能力。另外，因为 Swift 中的 Optional 机制，所以 valueForKey 方法返回的是一个 Optional 值，我们还需要对返回值做一次解包处理，才能得到实际的属性值。</li>
+<li>UINavigationController介绍<ol>
+<li>UINavigationController是导航控制器，它通过栈的方式控制当前显示在屏幕上的是哪个控制器。</li>
+<li>它可以通过压入(push)和弹出(pop)来改变控制器的层次。</li>
+<li>自动提供返回(Back)按钮，以回到上一个压入的控制器，不需要额外编程</li>
+<li>UINavigationController会提供控制器切换的动画效果</li>
+<li>UINavgationController通过栈的形式管理多个UIViewController（即多个界面）</li>
+<li>可以管理当前在导航条(navigationBar)上的导航按钮</li>
+<li>UINavgationController为每个接受它管理的UIViewController自动添加UINavigationBar</li>
+</ol>
+</li>
+<li>类似于画板这样画线条的需求直接用专有图层CAShapeLayer。CAShapeLayer是一个通过矢量图形而不是bitmap来绘制的图层子类。用CGPath来定义想要绘制的图形，CAShapeLayer会自动渲染。它可以完美替代我们的直接使用Core Graphics绘制layer，对比之下使用CAShapeLayer有以下优点：<ol>
+<li>渲染快速。CAShapeLayer使用了硬件加速，绘制同一图形会比用Core Graphics快很多。</li>
+<li>高效使用内存。一个CAShapeLayer不需要像普通CALayer一样创建一个寄宿图形，所以无论有多大，都不会占用太多的内存。</li>
+<li>不会被图层边界剪裁掉。</li>
+<li>不会出现像素化。</li>
+</ol>
+</li>
+<li>使用串行队列的优点：<ol>
+<li>能确保对一个共享资源进行串行化的访问，避免了竞态条件；</li>
+<li>任务的执行顺序是可预知的；你向一个串行队列提交任务时，它们被执行的顺序与它们被提交的顺序相同；</li>
+<li>你可以创建任意数量的串行队列；</li>
+</ol>
+</li>
+<li>父视图通过tag取得子视图(viewWithTag)的顺序是深度优先，也就是先查看自己的第一个子视图，然后查看第一个子视图的所有子视图的tag值，直到第一个子视图下的所有子视图搜索完，再搜索自己第二个子视图，直到找到为止。找不到就返回nil</li>
+<li>继承定义了这个对象是什么，而特性则定义了这个对象能做什么<br>更棒的消息是：一个类可以部署很多特性，也就是可以同时做很多事情，这是只从单一父类继承而来的子类所不可企及的，因为他们一次只能做一件事情。</li>
+<li>动画属性UIViewAnimationOptions说明<ol>
+<li>常规动画属性设置（可以同时选择多个进行设置）<br>UIViewAnimationOptionLayoutSubviews：动画过程中保证子视图跟随运动。<br>UIViewAnimationOptionAllowUserInteraction：动画过程中允许用户交互。<br>UIViewAnimationOptionBeginFromCurrentState：所有视图从当前状态开始运行。<br>UIViewAnimationOptionRepeat：重复运行动画。<br>UIViewAnimationOptionAutoreverse ：动画运行到结束点后仍然以动画方式回到初始点。<br>UIViewAnimationOptionOverrideInheritedDuration：忽略嵌套动画时间设置。<br>UIViewAnimationOptionOverrideInheritedCurve：忽略嵌套动画速度设置。<br>UIViewAnimationOptionAllowAnimatedContent：动画过程中重绘视图（注意仅仅适用于转场动画）。<br>UIViewAnimationOptionShowHideTransitionViews：视图切换时直接隐藏旧视图、显示新视图，而不是将旧视图从父视图移除（仅仅适用于转场动画）<br>UIViewAnimationOptionOverrideInheritedOptions ：不继承父动画设置或动画类型。</li>
+<li>动画速度控制（可从其中选择一个设置）<br>UIViewAnimationOptionCurveEaseInOut：动画先缓慢，然后逐渐加速。<br>UIViewAnimationOptionCurveEaseIn ：动画逐渐变慢。<br>UIViewAnimationOptionCurveEaseOut：动画逐渐加速。<br>UIViewAnimationOptionCurveLinear ：动画匀速执行，默认值。</li>
+<li>转场类型（仅适用于转场动画设置，可以从中选择一个进行设置，基本动画、关键帧动画不需要设置）<br>UIViewAnimationOptionTransitionNone：没有转场动画效果。<br>UIViewAnimationOptionTransitionFlipFromLeft ：从左侧翻转效果。<br>UIViewAnimationOptionTransitionFlipFromRight：从右侧翻转效果。<br>UIViewAnimationOptionTransitionCurlUp：向后翻页的动画过渡效果。<br>UIViewAnimationOptionTransitionCurlDown ：向前翻页的动画过渡效果。<br>UIViewAnimationOptionTransitionCrossDissolve：旧视图溶解消失显示下一个新视图的效果。<br>UIViewAnimationOptionTransitionFlipFromTop ：从上方翻转效果。<br>UIViewAnimationOptionTransitionFlipFromBottom：从底部翻转效果。</li>
+</ol>
+</li>
+<li>每当在UICollectionView显示它的subview之前调用scrollToItemAtIndexPath:atScrollPosition:Animated方法，UIKit就会报错。所以要解决它，就应该在viewController中，在你能确认CollectionView完全计算出其subview布局的地方去调用这个方法。比如在viewDidLayoutSubviews里调用就没有问题。</li>
+<li>设置缓存只需要：<strong>如果你已经使用 了 GET 请求，iOS 系统 SDK 已经帮你做好了缓存</strong>。你需要的仅仅是设置下内存缓存大小、磁盘缓存大小、以及缓存路径。甚至这两行代码不设置也是可以的，会有一个默认值。代码如下：<br>NSURLCache <em>urlCache = [[NSURLCache alloc] initWithMemoryCapacity:4 </em> 1024 <em> 1024 diskCapacity:20 </em> 1024 * 1024 diskPath:nil];<br>[NSURLCache setSharedURLCache:urlCache];</li>
+<li>在 LLDB 中输入 <code>fr v -R foo</code>，可以查看 foo 这个变量的内存构成。</li>
+<li>倘若一个标记为 lazy 的属性同时被多个线程修改时，且该属性还未进行初始化操作，那么将无法保证该属性仅被初始化一次。</li>
+<li>页面跳转必须在viewDidLoad和viewDidAppear之后才能进行</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>你可以在 Gemfile 中指定 cocoapods gem 的使用版本。<br>  <code>source &#39;https://rubygems.org&#39;</code><br>  <code>gem &#39;cocoapods&#39;, &#39;0.39.0&#39;</code><br>  当你更新了 Gemfile 文件并且自动安装了正确版本的 gem 后，确保团队的每个成员都运行一次 <code>bundle install</code> 这条命令。此后，只需要运行 <code>bundle exec pod install</code> 这条命令来安装新的 CocoaPods——这将会确保通过你在的 Gemfile 中指定 cocoapods gem 的版本后，pods 仍可以被正确的安装。</li>
+<li>instrument调试后，发现没被释放的全是imageIO，差不多就知道了，把读图的方式，从UIImage imageNamed:@”“,改成imageWithContentsOfFile，就可以了。问题原因：imageNamed读取图片的方法，会缓存在内存中，所以较大的图片，还是用]]>
+    
+    </summary>
+    
+      <category term="Xcode" scheme="http://conanwhf.gitcafe.io/tags/Xcode/"/>
+    
+      <category term="iOS - Swift" scheme="http://conanwhf.gitcafe.io/tags/iOS-Swift/"/>
+    
+      <category term="DevTips" scheme="http://conanwhf.gitcafe.io/categories/DevTips/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[在树莓派上几种简单协议的实现]]></title>
+    <link href="http://conanwhf.gitcafe.io/2016/01/30/rpi-protocol/"/>
+    <id>http://conanwhf.gitcafe.io/2016/01/30/rpi-protocol/</id>
+    <published>2016-01-30T09:31:26.000Z</published>
+    <updated>2016-02-01T10:46:39.000Z</updated>
+    <content type="html"><![CDATA[<p>对自己的拖延症也真是恨铁不成钢，这又是一篇拖延得快要放弃的文章。快过年了，怎么也不能拖到年后，打起精神，清空列表！</p>
+<p>想要自己打造一个小小家庭环境监控系统，各种Sensor不可或缺。看了下大部分人在树莓派上都用Python, 我也来凑个热闹。Python果然是一种很容易入门的语言，我只是稍微查了下资料，半天时间，就搞定了好几个Sensor，当然只是最简单的拿数据什么的，但相比之下，虽然自己对于用C写这些协议很熟，碰到问题我也宁可去看看Python的语法也不愿意换C……Python的优势倒不全是语法简洁，最重要的是有巨量的开发库可以用。像这些简单的协议，全是把库装好，直接拿来用就可以了，看看代码量，简直让人不忍再直视C的代码。对于不用追求速度的玩票项目，相当适合。<br>这一篇先介绍几种最常用的基本协议的实现，老规矩，先上源码<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a><br><a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/30/rpi-protocol/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/30/rpi-protocol/'>在树莓派上几种简单协议的实现</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+</p>
+<h2 id="GPIO"><a href="#GPIO" class="headerlink" title="GPIO"></a>GPIO</h2><p>GPIO口很简单，要不输入，要不输出。先装一下开发库：<br><code>sudo apt-get install python-rpi.gpio</code><br>然后在代码里面引用：</p>
+<pre><code>import time
+import RPi.GPIO as GPIO
+# 定义引脚
+gpio_pin=17
+print(&quot;start gpio test for pin=bcm%d&quot; %pin)
+GPIO.setmode(GPIO.BCM)
+# 设为Input，读取GPIO
+GPIO.setup(pin, GPIO.IN)
+value = GPIO.input(pin)
+print(&quot;before set, pin=%d&quot; %value)
+# 改变GPIO输出
+GPIO.setup(pin, GPIO.OUT)
+GPIO.output(pin, value)
+print(&quot;now pin=%d&quot; %GPIO.input(pin))
+GPIO.cleanup()
+</code></pre><p>这里只是一个Demo，实际应用中不大有能让你随便拉高拉低还能保持住你设置的情况。一般像灯啊之类的，就是你拉高它就亮拉低它就黑；要不就是一些输入设备类似按键，或者更复杂的有Timing的输入。这里要注意两点：</p>
+<ol>
+<li>setmode用的是BCM模式，所用的Pin也要跟引脚图上相对应的BCM号码相同。你也可以设成物理管脚号，用<code>setmode(GPIO.BOARD)</code>。</li>
+<li>input/output模式是相对于host也就是树莓派来说的接收数据/状态的时候是input，输出状态的时候是output</li>
+</ol>
+<h2 id="I2C"><a href="#I2C" class="headerlink" title="I2C"></a>I2C</h2><p>I2C是可以一条总线接n个设备的，只要设备的I2C地址不冲突，你尽可以用面包板扩展一下，接上好几个。首先依然是添加开发库，注意这个库貌似只在python2里用，如果我换python3就会报错找不到，可能我不太熟吧……<br><code>sudo apt-get -y install python-smbus</code><br>然后接好硬件，如果你需要确认一下硬件，可以用i2c的工具看看：</p>
+<pre><code>sudo apt-get -y install i2c-tools
+sudo i2cdetect -y 1
+</code></pre><p>参数1是指设备i2c-1，在rpi2上默认就是1，i2c0预留给E2PROM用了，没去折腾打开它。如果你看到一个类似下面的结果，说明硬件已经OK了。<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rpi-i2c-list.png" alt=""><br>上面的图表示有两个I2C设备接在总线上，它们的地址分别是0x48和0x77。如果你没看见有设备，检查硬件连接，还有记得在系统的config里面打开i2c。<br>然后依然是sample code：</p>
+<pre><code>import time
+import smbus
+
+addr=0x48
+cmd=0xAB
+# 打开 /dviev/i2c-1  
+bus = smbus.SMBus(1)
+# 读写数据，case 1
+data = bus.read_byte(addr)
+bus.write_byte(addr, data+1)
+# 读写数据，case 2
+data = bus.read_byte_data(addr, cmd)
+bus.write_byte_data(addr, cmd, data+1)
+</code></pre><p> 大部分I2C设备的读写，除了需要i2c device地址以外，还要有一些固定cmd，所以读写接口是有两种，具体要看设备spec里面的要求，大同小异。</p>
+<h2 id="UART"><a href="#UART" class="headerlink" title="UART"></a>UART</h2><p>串口UART通信主要有两种，一种是用来调试的命令行，一种是sensor的数据接口。总觉得串口调试是很久远的事情了，特别是在树莓派上，基本上都是网络ssh吧。看了些其他的例程，都是做串口调试，其实如果只是拿个数据没那么复杂。<br>首先当然还是装酷(库)：<br><code>sudo apt-get -y install python-serial</code><br>然后多做一步：树莓派默认的console是UART输出的，改掉（记得用sudo改）。<br>  打开<strong>/boot/cmdline.txt</strong>，里面的内容”dwc_otg.lpm_enable=0 <strong>console=ttyAMA0,115200</strong> console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline<br>fsck.repair=yes rootwait”，粗体字部分删掉，因为ttyAMA0就是我们要使用的设备。<br>在部分别的文章中见过还需要改一个地方，可能是上一代rpi用的，如果你的系统是最新的，不需要做。<br>测试代码部分：</p>
+<pre><code>import serial
+import time
+
+def showdata(arg):
+    result = &apos;&apos;
+    for i in arg:
+        st = &apos;%02X&apos;%ord(i)
+        result += st+&apos; &apos;
+    print(result)
+
+ser = serial.Serial(&apos;/dev/ttyAMA0&apos;, 9600, timeout=1)
+# 获得接收缓冲区字符
+#count = ser.inWaiting()
+# 读取内容
+data = ser.read(5)
+showdata(data)
+# 清空接收缓冲区
+#ser.flushInput()
+ser.close()
+</code></pre><p> 上面的code中，函数showdata()是我自己加的用来打印读取到的16进制数据的。因为我接的设备是一个sensor而不是字符设备，所以需要转换一下。同样的，被注释掉的inWaiting()和flushInput()函数，是给字符输入输出设备用的，我也没测过，在我的机子上，因为sensor会不停地报数据，简单的read就行了。<br>另外硬件连接方面很重要的一点：</p>
+<blockquote>
+<p><strong>树莓派的TX要连接从设备的RX，树莓派的RX要连接树莓派的TX!!!</strong></p>
+</blockquote>
+<p>不要搞反了，不然是出不来数据的！</p>
+<h2 id="SPI-_u6682_u65F6_u6CA1_u6709"><a href="#SPI-_u6682_u65F6_u6CA1_u6709" class="headerlink" title="SPI-暂时没有"></a>SPI-暂时没有</h2><p>本来是买了个SPI的屏幕，谁知快递出问题没送到，好不容易收到了找卖家要资料也总是忘掉，所以只好欠奉了。快过年了，估计得过些日子再说吧！<br>话说，家里的NAS系统升级以后，居然admin也不是root权限了，好多隐藏的文件夹都打不开。我的BitSync出了点问题，想去看看配置文件，也是束手无策。看来Qnap是不打算给人玩了，认认真真做商业机。幸好有树莓派，以后玩点乱七八糟的东西，就只能靠它了。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>对自己的拖延症也真是恨铁不成钢，这又是一篇拖延得快要放弃的文章。快过年了，怎么也不能拖到年后，打起精神，清空列表！</p>
+<p>想要自己打造一个小小家庭环境监控系统，各种Sensor不可或缺。看了下大部分人在树莓派上都用Python, 我也来凑个热闹。Python果然是一种很容易入门的语言，我只是稍微查了下资料，半天时间，就搞定了好几个Sensor，当然只是最简单的拿数据什么的，但相比之下，虽然自己对于用C写这些协议很熟，碰到问题我也宁可去看看Python的语法也不愿意换C……Python的优势倒不全是语法简洁，最重要的是有巨量的开发库可以用。像这些简单的协议，全是把库装好，直接拿来用就可以了，看看代码量，简直让人不忍再直视C的代码。对于不用追求速度的玩票项目，相当适合。<br>这一篇先介绍几种最常用的基本协议的实现，老规矩，先上源码<a href="https://github.com/conanwhf/RaspberryPi-script">传送门</a><br>]]>
+    
+    </summary>
+    
+      <category term="Python" scheme="http://conanwhf.gitcafe.io/tags/Python/"/>
+    
+      <category term="RaspberryPi" scheme="http://conanwhf.gitcafe.io/categories/RaspberryPi/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[微波炉的悲剧]]></title>
@@ -1304,102 +1524,6 @@ var ch : typeA {
       <category term="NewsAPP" scheme="http://conanwhf.gitcafe.io/tags/NewsAPP/"/>
     
       <category term="iOS开发杂项" scheme="http://conanwhf.gitcafe.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[新配置了多说]]></title>
-    <link href="http://conanwhf.gitcafe.io/2015/12/16/creatDuoshuo/"/>
-    <id>http://conanwhf.gitcafe.io/2015/12/16/creatDuoshuo/</id>
-    <published>2015-12-16T05:35:25.000Z</published>
-    <updated>2016-01-17T17:48:23.000Z</updated>
-    <content type="html"><![CDATA[<p>测试一下！配置好像相当简单嘛！:) 而且好像不是用域名而是ID单匹配的，自己本地的测试服务也能用，所以像我这种两个域名的配置起来完全无障碍，注册、改config一站式完成，赞！</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>测试一下！配置好像相当简单嘛！:) 而且好像不是用域名而是ID单匹配的，自己本地的测试服务也能用，所以像我这种两个域名的配置起来完全无障碍，注册、改config一站式完成，赞！</p>
-]]>
-    </summary>
-    
-      <category term="Life &amp; Other" scheme="http://conanwhf.gitcafe.io/categories/Life-Other/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[使用原生库解析JSON]]></title>
-    <link href="http://conanwhf.gitcafe.io/2015/12/15/swift_json/"/>
-    <id>http://conanwhf.gitcafe.io/2015/12/15/swift_json/</id>
-    <published>2015-12-15T12:14:35.000Z</published>
-    <updated>2016-01-17T18:06:44.000Z</updated>
-    <content type="html"><![CDATA[<p>（挖坑自己跳系列四）<br>以为实现了xml的解析，我就能拿到所有想要的数据，可是经过几次尝试，发现有的API失效了！😱无论我怎么尝试，有的数据就是拿不到，苦恼了好久，灵光一闪：前阵子买的surge可以派上用场了！不知道surge是啥的我给解释一下，是个iOS App，利用iOS9的特性能给设备做个全局代理，前阵子大家纷纷用来流畅FQ，已下架。对我来说，用来过滤下广告正好，偶尔还能看看http log。<br>看了下自己手机上的第三方客户端，request居然直接是网页，看来是直接解析网页了，这个太高深、放弃；只好去下载官方客户端来看，在网页看同样的请求，返回居然换成JSON了……😥<br>还能说啥呢，去找找JSON怎么解析呗！这次看了看，似乎比XML简单多了……先拿数据：</p>
-<pre><code>let url = NSURL(string:TESTURL)!
-guard data = NSData(contentsOfURL: url)  else{
-    print(&quot;Can&apos;t get any data&quot;)
-    exit(0)
-}
-</code></pre><p>然后解析出来：<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/15/swift_json/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/15/swift_json/'>使用原生库解析JSON</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-</p>
-<pre><code>do {
-    let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)
-    // TODO：
-} catch {
-    print(&quot;JSONObjectWithData: \(error)&quot;)
-}
-</code></pre><p>问题是，明明看起来正常的数据，每次解析都报错！开始以为是unicode编码的问题（我的数据里有中文），一头扎进编码里……后来花了好长时间Debug，才发现关键在于我拿到的数据在头尾多了个“CALLBACK({正常的JSON数据})”！手动处理去掉了这个壳，数据才终于正常了……关于这个数据形式，我原本揣测是服务器和官方客户端之间的约定，心里暗骂了他们好多遍（原谅我的无知吧），直到偶然看到了这一段：</p>
-<blockquote>
-<p>为了便于客户端使用数据，逐渐形成了一种非正式传输协议，人们把它称作JSONP，该协议的一个要点就是允许用户传递一个callback参数给服务端，然后服务端返回数据时会将这个callback参数作为函数名来包裹住JSON数据，这样客户端就可以随意定制自己的函数来自动处理返回数据了。</p>
-</blockquote>
-<p>这样就解释了为什么自带的库不能处理这种情况（_非正式协议_），以及为何我用的在线JSON转换器可以处理（_都是喜欢偷偷商量个后门程序员干的哇！_），之前我连啥是JSON都没见过，没注意到只怪自己读书少……😭<br>言归正传。当JSON数据解析完成后，就可以直接拿来用了。API已经返回一个层层嵌套的完整数据字典，供你享用，这一点可比XML方便多了。我们要做的就是强制转换，然后拿数据（当然你也许需要转化为自己的数据结构，称为_模型化_，此处不表）。以简单的数据为例：</p>
-<pre><code>{
-        &quot;person&quot;: {
-            &quot;employees&quot;: 
-            [
-                {&quot;id&quot;: 1, &quot;firstName&quot;: &quot;Bill&quot;, &quot;lastName&quot;: &quot;Gates&quot;},
-                {&quot;id&quot;: 2, &quot;firstName&quot;: &quot;George&quot;, &quot;lastName&quot;: &quot;Bush&quot;}
-            ],
-        &quot;boss&quot;: [
-                {&quot;id&quot;: 1, &quot;firstName&quot;: &quot;Bill&quot;, &quot;lastName&quot;: &quot;Gates&quot;}
-        ]
-}}
-</code></pre><p>强制转换成字典：　</p>
-<pre><code>let dic : NSDictionary? = json[&quot;person&quot;]() as? NSDictionary
-</code></pre><p>这时的dic就是个包括了employees和boss的字典：[“employess”:[…], “boss”:[…]]，将employess的数据再次强制转换成数组：</p>
-<pre><code>let arr : NSArray? = dic?[&quot;employees&quot;]() as? NSArray
-</code></pre><p>你会得到一个包含两个元素的数组，每个元素都是一部雇员信息的字典。够简单吧？如果你需要，源码传送门：<a href="https://github.com/conanwhf/swiftplayground/tree/master/Play.playground/Pages/JSON.xcplaygroundpage" target="_blank" rel="external">这里</a><br><strong>后记</strong><br>JSON确实是个很好用的数据表达方式，也难怪会如此流行。就我个人的感受来说，如果你只是需要从服务器端拿一些少量（我指的是种类）数据，那么用原生的库就行了，简单方便；如果你需要的是整个数据结构，那么手动慢慢填充转换也还是挺累的，建议引入第三方库建模。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>（挖坑自己跳系列四）<br>以为实现了xml的解析，我就能拿到所有想要的数据，可是经过几次尝试，发现有的API失效了！😱无论我怎么尝试，有的数据就是拿不到，苦恼了好久，灵光一闪：前阵子买的surge可以派上用场了！不知道surge是啥的我给解释一下，是个iOS App，利用iOS9的特性能给设备做个全局代理，前阵子大家纷纷用来流畅FQ，已下架。对我来说，用来过滤下广告正好，偶尔还能看看http log。<br>看了下自己手机上的第三方客户端，request居然直接是网页，看来是直接解析网页了，这个太高深、放弃；只好去下载官方客户端来看，在网页看同样的请求，返回居然换成JSON了……😥<br>还能说啥呢，去找找JSON怎么解析呗！这次看了看，似乎比XML简单多了……先拿数据：</p>
-<pre><code>let url = NSURL(string:TESTURL)!
-guard data = NSData(contentsOfURL: url)  else{
-    print(&quot;Can&apos;t get any data&quot;)
-    exit(0)
-}
-</code></pre><p>然后解析出来：]]>
-    
-    </summary>
-    
-      <category term="JSON" scheme="http://conanwhf.gitcafe.io/tags/JSON/"/>
-    
-      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
     
   </entry>
   

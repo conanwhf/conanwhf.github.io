@@ -34,7 +34,7 @@
 
 
 
-  <meta name="keywords" content="String," />
+  <meta name="keywords" content="Python," />
 
 
 
@@ -45,37 +45,20 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="Swift中的字符串，第二篇，基本操作。其他的几篇传送门：
-
-Swift2.0 中的String（一）：常用属性
-Swift2.0 中的String（二）：基本操作
-Swift2.0 中的String（三）：类型转换
-Swift2.0 中的String（四）：编码转换
-Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 
-Swift2.0 中的String（六）：正">
+<meta name="description" content="对自己的拖延症也真是恨铁不成钢，这又是一篇拖延得快要放弃的文章。快过年了，怎么也不能拖到年后，打起精神，清空列表！
+想要自己打造一个小小家庭环境监控系统，各种Sensor不可或缺。看了下大部分人在树莓派上都用Python, 我也来凑个热闹。Python果然是一种很容易入门的语言，我只是稍微查了下资料，半天时间，就搞定了好几个Sensor，当然只是最简单的拿数据什么的，但相比之下，虽然自己对于用C写">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift2.0 中的String（二）：基本操作">
-<meta property="og:url" content="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/index.html">
+<meta property="og:title" content="在树莓派上几种简单协议的实现">
+<meta property="og:url" content="http://conanwhf.gitcafe.io/2016/01/30/rpi-protocol/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
-<meta property="og:description" content="Swift中的字符串，第二篇，基本操作。其他的几篇传送门：
-
-Swift2.0 中的String（一）：常用属性
-Swift2.0 中的String（二）：基本操作
-Swift2.0 中的String（三）：类型转换
-Swift2.0 中的String（四）：编码转换
-Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 
-Swift2.0 中的String（六）：正">
-<meta property="og:updated_time" content="2016-01-17T18:07:47.000Z">
+<meta property="og:description" content="对自己的拖延症也真是恨铁不成钢，这又是一篇拖延得快要放弃的文章。快过年了，怎么也不能拖到年后，打起精神，清空列表！
+想要自己打造一个小小家庭环境监控系统，各种Sensor不可或缺。看了下大部分人在树莓派上都用Python, 我也来凑个热闹。Python果然是一种很容易入门的语言，我只是稍微查了下资料，半天时间，就搞定了好几个Sensor，当然只是最简单的拿数据什么的，但相比之下，虽然自己对于用C写">
+<meta property="og:image" content="http://7xkzuv.com1.z0.glb.clouddn.com/img_rpi-i2c-list.png">
+<meta property="og:updated_time" content="2016-02-01T10:46:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift2.0 中的String（二）：基本操作">
-<meta name="twitter:description" content="Swift中的字符串，第二篇，基本操作。其他的几篇传送门：
-
-Swift2.0 中的String（一）：常用属性
-Swift2.0 中的String（二）：基本操作
-Swift2.0 中的String（三）：类型转换
-Swift2.0 中的String（四）：编码转换
-Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 
-Swift2.0 中的String（六）：正">
+<meta name="twitter:title" content="在树莓派上几种简单协议的实现">
+<meta name="twitter:description" content="对自己的拖延症也真是恨铁不成钢，这又是一篇拖延得快要放弃的文章。快过年了，怎么也不能拖到年后，打起精神，清空列表！
+想要自己打造一个小小家庭环境监控系统，各种Sensor不可或缺。看了下大部分人在树莓派上都用Python, 我也来凑个热闹。Python果然是一种很容易入门的语言，我只是稍微查了下资料，半天时间，就搞定了好几个Sensor，当然只是最简单的拿数据什么的，但相比之下，虽然自己对于用C写">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -85,7 +68,7 @@ Swift2.0 中的String（六）：正">
   };
 </script>
 
-  <title> Swift2.0 中的String（二）：基本操作 | iOS开发和七七八八 </title>
+  <title> 在树莓派上几种简单协议的实现 | iOS开发和七七八八 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -243,7 +226,7 @@ Swift2.0 中的String（六）：正">
           
           
             
-              Swift2.0 中的String（二）：基本操作
+              在树莓派上几种简单协议的实现
             
           
         </h1>
@@ -252,8 +235,8 @@ Swift2.0 中的String（六）：正">
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-12-03T15:20:16+08:00" content="2015-12-03">
-            2015-12-03
+          <time itemprop="dateCreated" datetime="2016-01-30T17:31:26+08:00" content="2016-01-30">
+            2016-01-30
           </time>
         </span>
 
@@ -262,8 +245,8 @@ Swift2.0 中的String（六）：正">
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Swift/" itemprop="url" rel="index">
-                  <span itemprop="name">Swift</span>
+                <a href="/categories/RaspberryPi/" itemprop="url" rel="index">
+                  <span itemprop="name">RaspberryPi</span>
                 </a>
               </span>
 
@@ -278,8 +261,8 @@ Swift2.0 中的String（六）：正">
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/12/03/Swift_String_2/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/03/Swift_String_2/" itemprop="commentsCount"></span>
+              <a href="/2016/01/30/rpi-protocol/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/30/rpi-protocol/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -293,23 +276,8 @@ Swift2.0 中的String（六）：正">
       
 
       
-        <span itemprop="articleBody"><p>Swift中的字符串，第二篇，基本操作。其他的几篇传送门：</p>
-<ul>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.gitcafe.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
-</ul>
-<p>首先，我们要记得使用字符串最常用的两个参数：下标(Index)和范围(Range)，几乎所有API都要用到它们</p>
-<pre><code>let offset = str.startIndex.advancedBy(2)// offset: 3rd char
-let range  = Range(start: str.startIndex.advancedBy(3), end: str.endIndex.advancedBy(-2))// range: 3..&lt;6, &quot;345&quot;
-</code></pre><p><strong>强制类型转换</strong></p>
-<pre><code>let n      = Int(str)!
-String(&quot;the number is \(n)&quot;)
-String(format:&quot;%.2f,  %i&quot;, 9.1, 304)
-</code></pre><p><strong>内容反转</strong><a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/'>Swift2.0 中的String（二）：基本操作</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+        <span itemprop="articleBody"><p>对自己的拖延症也真是恨铁不成钢，这又是一篇拖延得快要放弃的文章。快过年了，怎么也不能拖到年后，打起精神，清空列表！</p>
+<p>想要自己打造一个小小家庭环境监控系统，各种Sensor不可或缺。看了下大部分人在树莓派上都用Python, 我也来凑个热闹。Python果然是一种很容易入门的语言，我只是稍微查了下资料，半天时间，就搞定了好几个Sensor，当然只是最简单的拿数据什么的，但相比之下，虽然自己对于用C写这些协议很熟，碰到问题我也宁可去看看Python的语法也不愿意换C……Python的优势倒不全是语法简洁，最重要的是有巨量的开发库可以用。像这些简单的协议，全是把库装好，直接拿来用就可以了，看看代码量，简直让人不忍再直视C的代码。对于不用追求速度的玩票项目，相当适合。<br>这一篇先介绍几种最常用的基本协议的实现，老规矩，先上源码<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a><br><a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/01/30/rpi-protocol/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/01/30/rpi-protocol/'>在树莓派上几种简单协议的实现</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -331,67 +299,72 @@ String(format:&quot;%.2f,  %i&quot;, 9.1, 304)
 })()
 </script>
 </p>
-<pre><code>String(str.characters.reverse())
-</code></pre><p><strong>删除和部分删除</strong></p>
-<pre><code>str.removeRange(range)
-str.removeAtIndex(offset)
-String(str.characters.dropFirst())
-String(str.characters.dropFirst(3))
-String(str.characters.dropLast())
-String(str.characters.dropLast(3))
-//以上对character的操作不改变原来的值！
-// 删除头尾空白字符
-&quot;     I love you &quot;.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-// 删除头尾字符集
-&quot; I love you, too!&quot;.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: &quot;,. !&quot;))
-//清空
-str.removeAll()
-</code></pre><p><strong>获取固定位置的子串</strong></p>
-<pre><code>str.substringToIndex(offset)
-str.substringFromIndex(offset)
-str.substringWithRange(range)
-str[range]
-</code></pre><p> <strong>分割</strong></p>
-<pre><code>st         = &quot;&lt;123, test2,???&gt;   &lt;测试: 数据  .&gt;&quot;
-// 用固定字符分割
-str.componentsSeparatedByString(&quot; &quot;)
-// 用固定字符集分割
-str.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: &quot;, .&quot;))
-</code></pre><p><strong>过滤/查找替换</strong><br>使用替换字符串的API，让替换的目标字符串为空即为过滤</p>
-<pre><code>// 替换固定位置子串
-str.stringByReplacingCharactersInRange(range, withString: &quot;!!!&quot;)
-// 查找所有匹配并替换/过滤
-str.stringByReplacingOccurrencesOfString(&quot;???&quot;, withString: &quot;~&quot;)
-str.stringByReplacingOccurrencesOfString(&quot; &quot;, withString: &quot;&quot;, options: NSStringCompareOptions.LiteralSearch, range: nil)
-// 过滤字符集合(分割后合并)
-let arr    = str.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString:&quot;-&lt;&gt;&quot;))
-arr.joinWithSeparator(&quot;&quot;)
-</code></pre><p><strong>合并/拼接</strong></p>
-<pre><code>s1 + s2 + s3
-str.appendContentsOf(&quot;123&quot;)
-str.stringByAppendingString(&quot;000&quot;)         //不改变原值！
-str.stringByAppendingFormat(&quot;- num %d &quot;, 100)      //不改变原值！
-// 以固定字符串为分隔符拼接
-[str, str, str].joinWithSeparator(&quot;\n&quot;)
-</code></pre><p><strong>插入</strong></p>
-<pre><code>str.insert(&quot; &quot;, atIndex: offset)
-str.insertContentsOf(&quot; hello&quot;.characters, at: offset)
-str.replaceRange(Range( start:offset, end: offset ), with: &quot;???OK!!!&quot;)
-</code></pre><p><strong>判断前缀或后缀</strong></p>
-<pre><code>str.hasPrefix(&quot;01&quot;)
-str.hasSuffix(&quot;567&quot;)
-</code></pre><p><strong>比较字符串</strong></p>
-<pre><code>s1.characters.elementsEqual(s2.characters)
-str.characters.elementsEqual(&quot;01234567&quot;.characters)
-s1 == s2
-&quot;111&quot; &lt; &quot;222&quot;
-</code></pre><p><strong>匹配字符串</strong></p>
-<pre><code>str.rangeOfString(&quot;efg&quot;)
-str.rangeOfString(&quot;efg&quot;, options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
-</code></pre><p><strong>固定位置的部分替换</strong></p>
-<pre><code>str.replaceRange(range, with: &quot;test_for_replace&quot;)
-str.stringByReplacingCharactersInRange(range, withString: &quot;哈哈😄Tes\nt&quot;)
-</code></pre></span>
+<h2 id="GPIO"><a href="#GPIO" class="headerlink" title="GPIO"></a>GPIO</h2><p>GPIO口很简单，要不输入，要不输出。先装一下开发库：<br><code>sudo apt-get install python-rpi.gpio</code><br>然后在代码里面引用：</p>
+<pre><code>import time
+import RPi.GPIO as GPIO
+# 定义引脚
+gpio_pin=17
+print(&quot;start gpio test for pin=bcm%d&quot; %pin)
+GPIO.setmode(GPIO.BCM)
+# 设为Input，读取GPIO
+GPIO.setup(pin, GPIO.IN)
+value = GPIO.input(pin)
+print(&quot;before set, pin=%d&quot; %value)
+# 改变GPIO输出
+GPIO.setup(pin, GPIO.OUT)
+GPIO.output(pin, value)
+print(&quot;now pin=%d&quot; %GPIO.input(pin))
+GPIO.cleanup()
+</code></pre><p>这里只是一个Demo，实际应用中不大有能让你随便拉高拉低还能保持住你设置的情况。一般像灯啊之类的，就是你拉高它就亮拉低它就黑；要不就是一些输入设备类似按键，或者更复杂的有Timing的输入。这里要注意两点：</p>
+<ol>
+<li>setmode用的是BCM模式，所用的Pin也要跟引脚图上相对应的BCM号码相同。你也可以设成物理管脚号，用<code>setmode(GPIO.BOARD)</code>。</li>
+<li>input/output模式是相对于host也就是树莓派来说的接收数据/状态的时候是input，输出状态的时候是output</li>
+</ol>
+<h2 id="I2C"><a href="#I2C" class="headerlink" title="I2C"></a>I2C</h2><p>I2C是可以一条总线接n个设备的，只要设备的I2C地址不冲突，你尽可以用面包板扩展一下，接上好几个。首先依然是添加开发库，注意这个库貌似只在python2里用，如果我换python3就会报错找不到，可能我不太熟吧……<br><code>sudo apt-get -y install python-smbus</code><br>然后接好硬件，如果你需要确认一下硬件，可以用i2c的工具看看：</p>
+<pre><code>sudo apt-get -y install i2c-tools
+sudo i2cdetect -y 1
+</code></pre><p>参数1是指设备i2c-1，在rpi2上默认就是1，i2c0预留给E2PROM用了，没去折腾打开它。如果你看到一个类似下面的结果，说明硬件已经OK了。<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rpi-i2c-list.png" alt=""><br>上面的图表示有两个I2C设备接在总线上，它们的地址分别是0x48和0x77。如果你没看见有设备，检查硬件连接，还有记得在系统的config里面打开i2c。<br>然后依然是sample code：</p>
+<pre><code>import time
+import smbus
+
+addr=0x48
+cmd=0xAB
+# 打开 /dviev/i2c-1  
+bus = smbus.SMBus(1)
+# 读写数据，case 1
+data = bus.read_byte(addr)
+bus.write_byte(addr, data+1)
+# 读写数据，case 2
+data = bus.read_byte_data(addr, cmd)
+bus.write_byte_data(addr, cmd, data+1)
+</code></pre><p> 大部分I2C设备的读写，除了需要i2c device地址以外，还要有一些固定cmd，所以读写接口是有两种，具体要看设备spec里面的要求，大同小异。</p>
+<h2 id="UART"><a href="#UART" class="headerlink" title="UART"></a>UART</h2><p>串口UART通信主要有两种，一种是用来调试的命令行，一种是sensor的数据接口。总觉得串口调试是很久远的事情了，特别是在树莓派上，基本上都是网络ssh吧。看了些其他的例程，都是做串口调试，其实如果只是拿个数据没那么复杂。<br>首先当然还是装酷(库)：<br><code>sudo apt-get -y install python-serial</code><br>然后多做一步：树莓派默认的console是UART输出的，改掉（记得用sudo改）。<br>  打开<strong>/boot/cmdline.txt</strong>，里面的内容”dwc_otg.lpm_enable=0 <strong>console=ttyAMA0,115200</strong> console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline<br>fsck.repair=yes rootwait”，粗体字部分删掉，因为ttyAMA0就是我们要使用的设备。<br>在部分别的文章中见过还需要改一个地方，可能是上一代rpi用的，如果你的系统是最新的，不需要做。<br>测试代码部分：</p>
+<pre><code>import serial
+import time
+
+def showdata(arg):
+    result = &apos;&apos;
+    for i in arg:
+        st = &apos;%02X&apos;%ord(i)
+        result += st+&apos; &apos;
+    print(result)
+
+ser = serial.Serial(&apos;/dev/ttyAMA0&apos;, 9600, timeout=1)
+# 获得接收缓冲区字符
+#count = ser.inWaiting()
+# 读取内容
+data = ser.read(5)
+showdata(data)
+# 清空接收缓冲区
+#ser.flushInput()
+ser.close()
+</code></pre><p> 上面的code中，函数showdata()是我自己加的用来打印读取到的16进制数据的。因为我接的设备是一个sensor而不是字符设备，所以需要转换一下。同样的，被注释掉的inWaiting()和flushInput()函数，是给字符输入输出设备用的，我也没测过，在我的机子上，因为sensor会不停地报数据，简单的read就行了。<br>另外硬件连接方面很重要的一点：</p>
+<blockquote>
+<p><strong>树莓派的TX要连接从设备的RX，树莓派的RX要连接树莓派的TX!!!</strong></p>
+</blockquote>
+<p>不要搞反了，不然是出不来数据的！</p>
+<h2 id="SPI-_u6682_u65F6_u6CA1_u6709"><a href="#SPI-_u6682_u65F6_u6CA1_u6709" class="headerlink" title="SPI-暂时没有"></a>SPI-暂时没有</h2><p>本来是买了个SPI的屏幕，谁知快递出问题没送到，好不容易收到了找卖家要资料也总是忘掉，所以只好欠奉了。快过年了，估计得过些日子再说吧！<br>话说，家里的NAS系统升级以后，居然admin也不是root权限了，好多隐藏的文件夹都打不开。我的BitSync出了点问题，想去看看配置文件，也是束手无策。看来Qnap是不打算给人玩了，认认真真做商业机。幸好有树莓派，以后玩点乱七八糟的东西，就只能靠它了。</p>
+</span>
       
     </div>
 
@@ -399,7 +372,7 @@ str.stringByReplacingCharactersInRange(range, withString: &quot;哈哈😄Tes\nt
       
         <div class="post-tags">
           
-            <a href="/tags/String/" rel="tag">#String</a>
+            <a href="/tags/Python/" rel="tag">#Python</a>
           
         </div>
       
@@ -408,13 +381,13 @@ str.stringByReplacingCharactersInRange(range, withString: &quot;哈哈😄Tes\nt
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/03/Swift_String_3/" rel="prev">Swift2.0 中的String（三）：类型转换</a>
+              <a href="/2016/01/31/Tips201601/" rel="prev">开发Tips收集-2016年01月</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/03/Swift_String_1/" rel="next">Swift2.0 中的String（一）：常用属性</a>
+              <a href="/2016/01/22/microwave/" rel="next">微波炉的悲剧</a>
             
           </div>
         </div>
@@ -429,10 +402,10 @@ str.stringByReplacingCharactersInRange(range, withString: &quot;哈哈😄Tes\nt
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/12/03/Swift_String_2/"
-     data-title="Swift2.0 中的String（二）：基本操作"
+        <div class="ds-share flat" data-thread-key="2016/01/30/rpi-protocol/"
+     data-title="在树莓派上几种简单协议的实现"
      data-content=""
-     data-url="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/">
+     data-url="http://conanwhf.gitcafe.io/2016/01/30/rpi-protocol/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -462,8 +435,8 @@ str.stringByReplacingCharactersInRange(range, withString: &quot;哈哈😄Tes\nt
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/12/03/Swift_String_2/"
-                   data-title="Swift2.0 中的String（二）：基本操作" data-url="http://conanwhf.gitcafe.io/2015/12/03/Swift_String_2/">
+              <div class="ds-thread" data-thread-key="2016/01/30/rpi-protocol/"
+                   data-title="在树莓派上几种简单协议的实现" data-url="http://conanwhf.gitcafe.io/2016/01/30/rpi-protocol/">
               </div>
             
           </div>
@@ -601,7 +574,7 @@ str.stringByReplacingCharactersInRange(range, withString: &quot;哈哈😄Tes\nt
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GPIO"><span class="nav-number">1.</span> <span class="nav-text">GPIO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#I2C"><span class="nav-number">2.</span> <span class="nav-text">I2C</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UART"><span class="nav-number">3.</span> <span class="nav-text">UART</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SPI-_u6682_u65F6_u6CA1_u6709"><span class="nav-number">4.</span> <span class="nav-text">SPI-暂时没有</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
