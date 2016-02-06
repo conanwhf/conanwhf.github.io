@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.gitcafe.io/"/>
-  <updated>2016-01-31T09:35:32.000Z</updated>
+  <updated>2016-02-06T16:11:47.000Z</updated>
   <id>http://conanwhf.gitcafe.io/</id>
   
   <author>
@@ -13,6 +13,25 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[过年好！]]></title>
+    <link href="http://conanwhf.gitcafe.io/2016/02/06/ChineseNewYear2016/"/>
+    <id>http://conanwhf.gitcafe.io/2016/02/06/ChineseNewYear2016/</id>
+    <published>2016-02-06T13:35:25.000Z</published>
+    <updated>2016-02-06T16:11:47.000Z</updated>
+    <content type="html"><![CDATA[<p>明天就除夕了，祝大家新年好！阖家团圆、幸福安康！<br>不过我对于过年还是没什么感觉，似乎就是一个普通周末。公婆也都来了，每天菜场、超市的，我却没进入状态，总想着我还有一堆bug和学习计划没完成呢！<br>前段时间不怎么顺，首先是去Apple申请了个独立开发者帐号，因为我新加坡和中国的各种信息混在一起，还有税单和银行的问题，跟Apple客服一直来往邮件，墨迹了好久。<br>然后是费劲周折提交了个新闻阅读器，审查了半个月说是版权问题，幸好一开始就只是抱着熟悉流程的期望值。话说对于新手来说，提交的坑实在是太多了……我对照着两个教程，硬生生上传了4个版本、cancel一次、才最终成功提交审核，个中曲折，原本打算上架后好好写一遍教程，现在只好写个“上架不成功踩雷指南”了。😂<br>最后，自己身体也似乎有点报警，现在每天起床后去健身房跑步30分钟（其实最多只能连续跑5分钟，几次间断加起来也不超过15分钟），坚持了两周，似乎有所改善。不由得感叹生命真的在于运动，对我这种万年宅来说必须要逼一逼自己，开始运动不能拖！<br>最后，之前提到的那个新闻阅读器，既然无法上架，那就开源吧。虽然我想对于我这样的新手而且是野路子自学的来说，写的code估计烂得不忍直视……纯手打代码，没用任何第三方库，因为是自用，所以会不定时更新，希望至少能帮到一点点比我更新手的新新手？不过APP所阅读的新闻源，是需要翻墙的……不啰嗦，地址：<a href="https://github.com/conanwhf/NewsReader" target="_blank" rel="external">https://github.com/conanwhf/NewsReader</a><br>另外顺便开源一下我的家庭环境检测系统，用于树莓派，前几天把各个sensor的code做成库整合了一下，过几天准备加屏幕驱动，教程有空再写吧。初学python，也是在瞎玩玩，给新手linux玩家多一个参考：<a href="https://github.com/conanwhf/Rpi-envMonitor" target="_blank" rel="external">https://github.com/conanwhf/Rpi-envMonitor</a></p>
+<p>新年祝好！愿所有人平安健康，幸福安宁！愿台湾地震的灾民尽快获得安顿、不要在流离失所中过年！🙏</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>明天就除夕了，祝大家新年好！阖家团圆、幸福安康！<br>不过我对于过年还是没什么感觉，似乎就是一个普通周末。公婆也都来了，每天菜场、超市的，我却没进入状态，总想着我还有一堆bug和学习计划没完成呢！<br>前段时间不怎么顺，首先是去Apple申请了个独立开发者帐号，因为我新]]>
+    </summary>
+    
+      <category term="NewYear" scheme="http://conanwhf.gitcafe.io/tags/NewYear/"/>
+    
+      <category term="Life &amp; Other" scheme="http://conanwhf.gitcafe.io/categories/Life-Other/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[开发Tips收集-2016年01月]]></title>
@@ -1502,28 +1521,6 @@ var ch : typeA {
       <category term="NewsAPP" scheme="http://conanwhf.gitcafe.io/tags/NewsAPP/"/>
     
       <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[从打造新闻app学到的(1)：抽象概念，定义好的数据结构]]></title>
-    <link href="http://conanwhf.gitcafe.io/2015/12/20/newsreader-1/"/>
-    <id>http://conanwhf.gitcafe.io/2015/12/20/newsreader-1/</id>
-    <published>2015-12-20T09:14:35.000Z</published>
-    <updated>2016-01-17T17:48:23.000Z</updated>
-    <content type="html"><![CDATA[<blockquote>
-<p>怎么从JSON拿数据学会了，那么接下来就是正式打造一个自己的新闻客户端了。虽然我Swift语法还没认真学完，但实在是心痒痒，就跳过一点基础，先来个实战吧！经过这个礼拜，我的APP也基本成型了。网上关于怎么做一个新闻客户端的例子很多，我就不赘述了，只是把过程中碰到的一些小问题和心得、我自己无法很容易搜到完美答案的写一写。过程中的弯路肯定没少走，但经验的收获也是不少的。</p>
-</blockquote>
-<p>关于这个APP使用的数据结构，其实我是重构过的。新闻一般都是有两种数据源：新闻列表(List)，和单条新闻(Post)详细信息。开始我在playground写了对应的List&amp;Post数据结构，以及处理数据的函数。打印测试成功后，往project里面放的时候……不忍直视！作为一个初学者，我往viewDidLoad()里面塞了几乎所有的流程调用，以至于第一次运行成功在模拟器中看到数据的时候，我最大的感觉不是兴奋，而是我怎么把code写得这么丑陋！😖<br><strong>功能不行可以再学习怎么做，但代码太丑是真真正正不能忍！</strong>我曾经的经验如是告诉我。我试着模块化各种数据和过程，一番思考和尝试后，变成了现在的结构：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_wxc_data.png" alt="" title="新闻APP拿取数据框图"><br>DataManager是整个业务的最顶层类，它提供了很少的几个接口供ViewController使用：请求最新列表、请求更多列表数据、请求某个新闻、少量设置，并且设置也都是有default值的。考虑到将来有可能支持更多的新闻网站，GetURL和数据解析部分也是独立可更换的模块。在数据结构部分，我定义了一个Item类型，包括几个通用的属性，以及几个通用函数的实现，然后让ListItem，PostItem，CommentItem分别继承。这样既逻辑清晰，减少重复代码，也便于调试。所有上层不需要知道的参数都封装在内部，只有一个Manger和它的API，以及几个配置属性暴露在外。<br>也许这样的抽象定义过程，对于老手来说是不值一提的基础，就像吃饭要先煮饭一样简单。但我想对于刚刚接触APP开发的新人来说，如何更好的定义数据结构和API，恰当地抽象各种概念，还是值得多多思考的功课。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<blockquote>
-<p>怎么从JSON拿数据学会了，那么接下来就是正式打造一个自己的新闻客户端了。虽然我Swift语法还没认真学完，但实在是心痒痒，就跳过一点基础，先来个实战吧！经过这个礼拜，我的APP也基本成型了。网上关于怎么做一个新闻客户端的例子很多，我就不赘述了，只]]>
-    </summary>
-    
-      <category term="NewsAPP" scheme="http://conanwhf.gitcafe.io/tags/NewsAPP/"/>
-    
-      <category term="iOS开发杂项" scheme="http://conanwhf.gitcafe.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
     
   </entry>
   
