@@ -16,7 +16,7 @@
 
 
 
-  <meta name="baidu-site-verification" content="HnBZtBD6xL" />
+  <meta name="baidu-site-verification" content="g1ag6ZODOB" />
 
 
 
@@ -51,13 +51,13 @@
 UIView 的translatesAutoresizingMaskIntoConstraints属性为true时，设置 frame 会自动转化为约束，修改 frame 时也会自动调整约束。这时候就不要再手动添加约束了，你再添加约束">
 <meta property="og:type" content="article">
 <meta property="og:title" content="开发Tips收集-2016年02月">
-<meta property="og:url" content="http://conanwhf.gitcafe.io/2016/03/01/Tips201602/index.html">
+<meta property="og:url" content="http://conanwhf.github.io/2016/03/01/Tips201602/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。如有侵权不得转载等情况，请联系我告知，谢谢！
 
 
 UIView 的translatesAutoresizingMaskIntoConstraints属性为true时，设置 frame 会自动转化为约束，修改 frame 时也会自动调整约束。这时候就不要再手动添加约束了，你再添加约束">
-<meta property="og:updated_time" content="2016-03-02T04:29:56.000Z">
+<meta property="og:updated_time" content="2016-03-02T09:12:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="开发Tips收集-2016年02月">
 <meta name="twitter:description" content="这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。如有侵权不得转载等情况，请联系我告知，谢谢！
@@ -102,7 +102,7 @@ UIView 的translatesAutoresizingMaskIntoConstraints属性为true时，设置 fra
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?99ff66396b2736a42a7744075ec7fa1c";
+      hm.src = "//hm.baidu.com/hm.js?8da63524978598168c3843bc8001d968";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -300,7 +300,7 @@ UIView 的translatesAutoresizingMaskIntoConstraints属性为true时，设置 fra
 <li>没有设置原始值的，就使用默认值</li>
 </ol>
 </li>
-<li>开发中经常会遇到控件不接收用户交互了，可以从以下几个方面检查：<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/03/01/Tips201602/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/03/01/Tips201602/'>开发Tips收集-2016年02月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<li>开发中经常会遇到控件不接收用户交互了，可以从以下几个方面检查：<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2016/03/01/Tips201602/</p><p>访问原文「<a href='http://conanwhf.github.io/2016/03/01/Tips201602/'>开发Tips收集-2016年02月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -314,7 +314,7 @@ UIView 的translatesAutoresizingMaskIntoConstraints属性为true时，设置 fra
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -345,8 +345,8 @@ UIView 的translatesAutoresizingMaskIntoConstraints属性为true时，设置 fra
 <li>为了保持用户界面的响应，iOS系统包括一个看门狗机制。如果您的应用程序未能响应某些用户界面事件（启动、暂停、恢复、终止）的时间，该看门狗将杀死您的应用程序，并产生一个看门狗超时崩溃报告</li>
 <li>setNeedsUpdateConstraints 确保在未来的某个阶段updateConstraintsIfNeeded这个方法会调用 updateConstraints.<br>  setNeedsLayout 确保在未来的某个阶段 layoutIfNeeded 这个方法会调用 layoutSubviews.<br>  直接调用setNeedsUpdateConstraints去更新约束是很奇怪的，因为只有在某些情况下你的某个约束失效了，你需要移除它，这时候才需要直接调用这个方法。</li>
 <li>在制作动画前，需要弄清楚anchorPoint与position之间的关系，对最终将动画渲染在屏幕上的位置至关重要。<pre><code>1. position:CAReplicatorLayer的position决定了其在父视图中位置坐标。
-2. anchorPoint：CAReplicatorLayer的anchorPoint决定了其position的位置。
-</code></pre>  anchorPoint的默认值为(0.5, 0.5),此时CAReplicatorLayer在父视图中坐标位置对应其中心点的坐标。</li>
+2. anchorPoint：CAReplicatorLayer的anchorPoint决定了其position的位置。anchorPoint的默认值为(0.5, 0.5),此时CAReplicatorLayer在父视图中坐标位置对应其中心点的坐标。
+</code></pre></li>
 </ul>
 </span>
       
@@ -366,6 +366,8 @@ UIView 的translatesAutoresizingMaskIntoConstraints属性为true时，设置 fra
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/02/addressUpdate/" rel="prev">域名更新</a>
             
           </div>
 
@@ -389,7 +391,7 @@ UIView 的translatesAutoresizingMaskIntoConstraints属性为true时，设置 fra
         <div class="ds-share flat" data-thread-key="2016/03/01/Tips201602/"
      data-title="开发Tips收集-2016年02月"
      data-content=""
-     data-url="http://conanwhf.gitcafe.io/2016/03/01/Tips201602/">
+     data-url="http://conanwhf.github.io/2016/03/01/Tips201602/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -420,7 +422,7 @@ UIView 的translatesAutoresizingMaskIntoConstraints属性为true时，设置 fra
           <div class="comments" id="comments">
             
               <div class="ds-thread" data-thread-key="2016/03/01/Tips201602/"
-                   data-title="开发Tips收集-2016年02月" data-url="http://conanwhf.gitcafe.io/2016/03/01/Tips201602/">
+                   data-title="开发Tips收集-2016年02月" data-url="http://conanwhf.github.io/2016/03/01/Tips201602/">
               </div>
             
           </div>
@@ -460,7 +462,7 @@ UIView 的translatesAutoresizingMaskIntoConstraints属性为true时，设置 fra
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-count">63</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -520,7 +522,7 @@ UIView 的translatesAutoresizingMaskIntoConstraints属性为true时，设置 fra
             <p class="site-author-name">Links</p>
             
               <span class="links-of-author-item">
-              <a href="http://conanwhf.gitcafe.io" target="_blank">本站墙内链接</a>
+              <a href="http://conanwhf.coding.me" target="_blank">本站墙内链接</a>
               </span>
             
               <span class="links-of-author-item">

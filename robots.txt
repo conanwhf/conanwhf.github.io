@@ -12,5 +12,5 @@ Disallow: /fancybox/
 
 Sitemap: http://conanwhf.github.io/sitemap.xml
 Sitemap: http://conanwhf.github.io/baidusitemap.xml
-Sitemap: http://conanwhf.gitcafe.io/sitemap.xml
-Sitemap: http://conanwhf.gitcafe.io/baidusitemap.xml
+Sitemap: http://conanwhf.coding.me/sitemap.xml
+Sitemap: http://conanwhf.coding.me/baidusitemap.xml

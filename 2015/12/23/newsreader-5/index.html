@@ -16,7 +16,7 @@
 
 
 
-  <meta name="baidu-site-verification" content="HnBZtBD6xL" />
+  <meta name="baidu-site-verification" content="g1ag6ZODOB" />
 
 
 
@@ -50,7 +50,7 @@
 prepareForSegue() -&amp;gt; ne">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从打造新闻app学到的(5)：解决TableCell调用segue的时序问题">
-<meta property="og:url" content="http://conanwhf.gitcafe.io/2015/12/23/newsreader-5/index.html">
+<meta property="og:url" content="http://conanwhf.github.io/2015/12/23/newsreader-5/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="在从TableCell跳转到具体新闻页面的时候，我遇到了一个问题：整个流程的时序跟我想的不太一样。因为我需要在点击Cell的时候知道这是哪个Cell，再将它作为参数传递给下一个View，所以我实现了函数 didSelectRowAtIndexPath，然后设好一个private的变量，供prepareForSegue调用。可是事实上的流程却变成了：
 
@@ -99,7 +99,7 @@ prepareForSegue() -&amp;gt; ne">
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?99ff66396b2736a42a7744075ec7fa1c";
+      hm.src = "//hm.baidu.com/hm.js?8da63524978598168c3843bc8001d968";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -285,7 +285,7 @@ prepareForSegue() -&amp;gt; ne">
 <p>也就是说当Cell的点击发生，会先调用StroyBaord中设置的Segue，新的View初始化完成后再回调didSelectRowAtIndexPath，导致我在viewDidLoad()中拿不到想要的数据。<br>在网上搜了一下，有人也遇到了同样的问题，他的解决方法是：<br>1) 将 ->NextView的Segue改为 ->NextViewController(NextView的代理)<br>2) 在StoryBoard中配置此Segue的ID为<strong>“ABC”</strong><br>3) 在didSelectRowAtIndexPath()准备好数据之后手动调用转场：</p>
 <pre><code>//跳转到下一个页面，识别“ABC”
 self.performSegueWithIdentifier(“ABC”, sender: self)
-</code></pre><p>实测这个方法是有效的，不过我总感觉不够漂亮……于是打开Dash把所有tableView()的相关Callback都过了一遍，挑出几个加打印实测，<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2015/12/23/newsreader-5/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2015/12/23/newsreader-5/'>从打造新闻app学到的(5)：解决TableCell调用segue的时序问题</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+</code></pre><p>实测这个方法是有效的，不过我总感觉不够漂亮……于是打开Dash把所有tableView()的相关Callback都过了一遍，挑出几个加打印实测，<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2015/12/23/newsreader-5/</p><p>访问原文「<a href='http://conanwhf.github.io/2015/12/23/newsreader-5/'>从打造新闻app学到的(5)：解决TableCell调用segue的时序问题</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -299,7 +299,7 @@ self.performSegueWithIdentifier(“ABC”, sender: self)
     }
   }
   var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
   if (white_list.indexOf(domain) >= 0) {
     var elements = document.getElementsByClassName('source');
     elements.remove();
@@ -365,7 +365,7 @@ return nil
         <div class="ds-share flat" data-thread-key="2015/12/23/newsreader-5/"
      data-title="从打造新闻app学到的(5)：解决TableCell调用segue的时序问题"
      data-content=""
-     data-url="http://conanwhf.gitcafe.io/2015/12/23/newsreader-5/">
+     data-url="http://conanwhf.github.io/2015/12/23/newsreader-5/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -396,7 +396,7 @@ return nil
           <div class="comments" id="comments">
             
               <div class="ds-thread" data-thread-key="2015/12/23/newsreader-5/"
-                   data-title="从打造新闻app学到的(5)：解决TableCell调用segue的时序问题" data-url="http://conanwhf.gitcafe.io/2015/12/23/newsreader-5/">
+                   data-title="从打造新闻app学到的(5)：解决TableCell调用segue的时序问题" data-url="http://conanwhf.github.io/2015/12/23/newsreader-5/">
               </div>
             
           </div>
@@ -436,7 +436,7 @@ return nil
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-count">63</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -496,7 +496,7 @@ return nil
             <p class="site-author-name">Links</p>
             
               <span class="links-of-author-item">
-              <a href="http://conanwhf.gitcafe.io" target="_blank">本站墙内链接</a>
+              <a href="http://conanwhf.coding.me" target="_blank">本站墙内链接</a>
               </span>
             
               <span class="links-of-author-item">

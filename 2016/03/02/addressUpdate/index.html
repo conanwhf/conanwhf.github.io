@@ -45,16 +45,22 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，传送门">
+<meta name="description" content="首先，conanwhf.github.io 还是可用主力哈！主要是怕哪天GFW发威上不了了，所以在国内服务商放个镜像而已。
+墙内新域名：http://conanwhf.coding.me/旧的gitcafe那个，就不用了
+周末爬山下海的，肌肉酸痛还没解除，就看到GitCafe要关闭，整个迁移到Coding去了，晕！连封邮件也没发给我，突然就说什么要全部迁移删除，然后一看时间，最后期限5月份，但是从">
 <meta property="og:type" content="article">
-<meta property="og:title" content="树莓派初始配置指南（2代B型）">
-<meta property="og:url" content="http://conanwhf.github.io/2016/01/12/rpi-start/index.html">
+<meta property="og:title" content="域名更新">
+<meta property="og:url" content="http://conanwhf.github.io/2016/03/02/addressUpdate/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
-<meta property="og:description" content="关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，传送门">
-<meta property="og:updated_time" content="2016-01-17T18:02:55.000Z">
+<meta property="og:description" content="首先，conanwhf.github.io 还是可用主力哈！主要是怕哪天GFW发威上不了了，所以在国内服务商放个镜像而已。
+墙内新域名：http://conanwhf.coding.me/旧的gitcafe那个，就不用了
+周末爬山下海的，肌肉酸痛还没解除，就看到GitCafe要关闭，整个迁移到Coding去了，晕！连封邮件也没发给我，突然就说什么要全部迁移删除，然后一看时间，最后期限5月份，但是从">
+<meta property="og:updated_time" content="2016-03-02T10:21:53.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="树莓派初始配置指南（2代B型）">
-<meta name="twitter:description" content="关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，传送门">
+<meta name="twitter:title" content="域名更新">
+<meta name="twitter:description" content="首先，conanwhf.github.io 还是可用主力哈！主要是怕哪天GFW发威上不了了，所以在国内服务商放个镜像而已。
+墙内新域名：http://conanwhf.coding.me/旧的gitcafe那个，就不用了
+周末爬山下海的，肌肉酸痛还没解除，就看到GitCafe要关闭，整个迁移到Coding去了，晕！连封邮件也没发给我，突然就说什么要全部迁移删除，然后一看时间，最后期限5月份，但是从">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -64,7 +70,7 @@
   };
 </script>
 
-  <title> 树莓派初始配置指南（2代B型） | iOS开发和七七八八 </title>
+  <title> 域名更新 | iOS开发和七七八八 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -222,7 +228,7 @@
           
           
             
-              树莓派初始配置指南（2代B型）
+              域名更新
             
           
         </h1>
@@ -231,8 +237,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2016-01-12T14:31:26+08:00" content="2016-01-12">
-            2016-01-12
+          <time itemprop="dateCreated" datetime="2016-03-02T17:35:25+08:00" content="2016-03-02">
+            2016-03-02
           </time>
         </span>
 
@@ -241,8 +247,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/RaspberryPi/" itemprop="url" rel="index">
-                  <span itemprop="name">RaspberryPi</span>
+                <a href="/categories/Life-Other/" itemprop="url" rel="index">
+                  <span itemprop="name">Life & Other</span>
                 </a>
               </span>
 
@@ -257,8 +263,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2016/01/12/rpi-start/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/12/rpi-start/" itemprop="commentsCount"></span>
+              <a href="/2016/03/02/addressUpdate/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/02/addressUpdate/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -272,8 +278,10 @@
       
 
       
-        <span itemprop="articleBody"><p>关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a></p>
-<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2016/01/12/rpi-start/</p><p>访问原文「<a href='http://conanwhf.github.io/2016/01/12/rpi-start/'>树莓派初始配置指南（2代B型）</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+        <span itemprop="articleBody"><h2 id="u9996_u5148_uFF0Cconanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01"><a href="#u9996_u5148_uFF0Cconanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01" class="headerlink" title="首先，conanwhf.github.io 还是可用主力哈！"></a>首先，<a href="/conanwhf.github.io">conanwhf.github.io</a> 还是可用主力哈！</h2><p>主要是怕哪天GFW发威上不了了，所以在国内服务商放个镜像而已。</p>
+<h2 id="u5899_u5185_u65B0_u57DF_u540D_uFF1Ahttp_3A//conanwhf-coding-me/"><a href="#u5899_u5185_u65B0_u57DF_u540D_uFF1Ahttp_3A//conanwhf-coding-me/" class="headerlink" title="墙内新域名：http://conanwhf.coding.me/"></a>墙内新域名：<a href="http://conanwhf.coding.me/" target="_blank" rel="external">http://conanwhf.coding.me/</a></h2><p>旧的gitcafe那个，就不用了</p>
+<p>周末爬山下海的，肌肉酸痛还没解除，就看到GitCafe要关闭，整个迁移到Coding去了，晕！连封邮件也没发给我，突然就说什么要全部迁移删除，然后一看时间，最后期限5月份，但是从今天开始就全部只读了……😡我真是服了国内的这些服务商，不靠谱到了一个境界。还能怎么办呢？迁移呗！本来因为是中文博客，我的各种相关配置和网络服务都注册的是GitCafe的域名，这次也都要检查一遍、修改更换，麻烦死了。以后还是准备回归GitHub为主吧！<br>另外，因为gitcafe已经全面只读了，我连提交个域名更新说明的机会都没，真是@##$$%^%^()$%#$%$$&amp;$%^%$#$%😤<br>长长的年过完了，紧接着又巴厘岛玩了几天，以至于留下了太多功课没有做完。家里两位老人天天拉着我聊天修电脑，再加上新接了个项目，搞OpenCV和C++搞得连轴转，更没时间管iOS的东西了。想想每天也没做什么，过个年，跑跑步，吃三顿饭，刷刷新闻社交，帮公婆处理点杂事，研究旅游的各种事情，最后出去玩一趟，怎么哗哗哗一个月就过去了？！搞得我好焦虑，害怕项目进度赶不完。怎么办！！！</p>
+<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2016/03/02/addressUpdate/</p><p>访问原文「<a href='http://conanwhf.github.io/2016/03/02/addressUpdate/'>域名更新</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -295,68 +303,7 @@
 })()
 </script>
 
-<h2 id="u5236_u4F5C_u542F_u52A8img"><a href="#u5236_u4F5C_u542F_u52A8img" class="headerlink" title="制作启动img"></a>制作启动img</h2><ol>
-<li>从官网下载最新的image，解包，TF卡插入电脑</li>
-<li>用mount查看，将TF卡umount</li>
-<li><p>randisk<strong>X</strong>是要自己根据情况修改的</p>
-<pre><code>sudo dd bs=1m if=2015-11-21-raspbian-jessie.img of=/dev/rdisk2
-diskutil umount /Volumes/boot
-</code></pre></li>
-<li>拔卡，插入树莓派，上电，这时候系统应该跑起来了。最新的系统是默认打开SSH的，所以如果你插了网线、知道IP的话，已经可以直接SSH上去。初始用户pi,密码raspberry</li>
-<li><strong>下面的命令都是在树莓派上跑的，请不要随便在自己主电脑上sudo!!!</strong></li>
-</ol>
-<h2 id="u66F4_u65B0_u5230_u6700_u65B0_u7248_u672C"><a href="#u66F4_u65B0_u5230_u6700_u65B0_u7248_u672C" class="headerlink" title="更新到最新版本"></a>更新到最新版本</h2><p>要花点时间，放到后面做也可以。<strong>另外我看到有人说国内连官方源太慢，我不在国内测不到，如果需要请自己搜索添加合适的源</strong></p>
-<pre><code>sudo apt-get -y update
-sudo apt-get -y upgrade
-sudo apt-get -y dist-upgrade
-sudo rpi-update
-</code></pre><h2 id="u4FEE_u6539vi"><a href="#u4FEE_u6539vi" class="headerlink" title="修改vi"></a>修改vi</h2><p>Debian的默认vi太难用！改之。我的Github里还放了我的vi配置文件，随意取用</p>
-<pre><code>sudo apt-get -y remove vim-common
-sudo apt-get -y install vim
-</code></pre><h2 id="u4E2D_u6587_u652F_u6301"><a href="#u4E2D_u6587_u652F_u6301" class="headerlink" title="中文支持"></a>中文支持</h2><p>字库和输入法，平时都用SSH的人其实用不到</p>
-<pre><code>sudo apt-get -y install ttf-wqy-zenhei ttf-wqy-microhei
-sudo apt-get -y install fcitx fcitx-googlepinyin fcitx-module-cloudpinyin fcitx-sunpinyin
-</code></pre><h2 id="u5B98_u65B9_u81EA_u5E26_u7684menuconfig"><a href="#u5B98_u65B9_u81EA_u5E26_u7684menuconfig" class="headerlink" title="官方自带的menuconfig"></a>官方自带的menuconfig</h2><p>跑(sudo raspi-config)，这个命令行跑起来的界面和GUI上打开的不一样，不过内容差不多，建议修改以下几个</p>
-<ul>
-<li>用户pi密码，hostname</li>
-<li>开启ssh,spi,i2c</li>
-<li>修改时区</li>
-<li>扩展卡上分区<br>然后就可以reboot了</li>
-</ul>
-<h2 id="VNC_u652F_u6301"><a href="#VNC_u652F_u6301" class="headerlink" title="VNC支持"></a>VNC支持</h2><h3 id="u5B89_u88C5_u670D_u52A1_u5668_u7AEFtightVNC"><a href="#u5B89_u88C5_u670D_u52A1_u5668_u7AEFtightVNC" class="headerlink" title="安装服务器端tightVNC"></a>安装服务器端tightVNC</h3><pre><code>sudo apt-get -y install tightvncserver
-sudo apt-get -y install xfonts-base
-</code></pre><h3 id="u914D_u7F6E"><a href="#u914D_u7F6E" class="headerlink" title="配置"></a>配置</h3><ol>
-<li>配置连接密码：<code>vncpasswd</code></li>
-<li><p>添加开机启动：</p>
-<ul>
-<li>创建/etc/init.d/tightvncserver，内容见<a href="https://github.com/conanwhf/RaspberryPi-script/blob/master/setup/tightvncserver" target="_blank" rel="external">这里</a></li>
-<li><p>更新改变：</p>
-<pre><code>sudo chmod +x /etc/init.d/tightvncserver
-sudo update-rc.d tightvncserver defaults
-</code></pre></li>
-</ul>
-</li>
-</ol>
-<h2 id="u5BA2_u6237_u7AEF_u8FDE_u63A5"><a href="#u5BA2_u6237_u7AEF_u8FDE_u63A5" class="headerlink" title="客户端连接"></a>客户端连接</h2><p>在我的Mac上，Finder里面⌘+k，填<code>vnc://&lt;rpi IP&gt;:5901</code>即可。人家都说可以用<code>vnc://IP:1</code>这样的方式，但我不行，不知道为啥</p>
-<h2 id="u914D_u7F6E_u56FA_u5B9AIP_u5730_u5740"><a href="#u914D_u7F6E_u56FA_u5B9AIP_u5730_u5740" class="headerlink" title="配置固定IP地址"></a>配置固定IP地址</h2><ol>
-<li>修改<strong>/etc/network/interfaces</strong>，当然下面的IP要换成你自己的</li>
-</ol>
-<p><em>iface eth0 inet manual</em> –>  </p>
-<blockquote>
-<p>iface eth0 inet static<br>address 192.168.0.120<br>netmask 255.255.255.0<br>gateway 192.168.0.1</p>
-</blockquote>
-<ol>
-<li><p>重启服务</p>
-<pre><code>sudo systemctl daemon-reload
-sudo service networking restart
-</code></pre></li>
-</ol>
-<h2 id="SSH_u7279_u6B8A_u914D_u7F6E"><a href="#SSH_u7279_u6B8A_u914D_u7F6E" class="headerlink" title="SSH特殊配置"></a>SSH特殊配置</h2><p>主要是给SSH的中文支持用的</p>
-<pre><code>echo LC_ALL=en_US.UTF-8 | sudo tee -a /etc/environment
-echo LANG=en_US.UTF-8 | sudo tee -a /etc/environment
-</code></pre><h2 id="u52A0_u5927USB_u4F9B_u7535"><a href="#u52A0_u5927USB_u4F9B_u7535" class="headerlink" title="加大USB供电"></a>加大USB供电</h2><p>修改后可以使能USB的1.2A供电，不然插USB硬盘是不能用的</p>
-<pre><code>echo “max_usb_current=1” | sudo tee -a /boot/config.txt
-</code></pre></span>
+</span>
       
     </div>
 
@@ -367,13 +314,11 @@ echo LANG=en_US.UTF-8 | sudo tee -a /etc/environment
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/01/12/rpi-kernel/" rel="prev">树莓派内核编译</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/12/rpi-get/" rel="next">树莓派入手</a>
+              <a href="/2016/03/01/Tips201602/" rel="next">开发Tips收集-2016年02月</a>
             
           </div>
         </div>
@@ -388,10 +333,10 @@ echo LANG=en_US.UTF-8 | sudo tee -a /etc/environment
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/01/12/rpi-start/"
-     data-title="树莓派初始配置指南（2代B型）"
+        <div class="ds-share flat" data-thread-key="2016/03/02/addressUpdate/"
+     data-title="域名更新"
      data-content=""
-     data-url="http://conanwhf.github.io/2016/01/12/rpi-start/">
+     data-url="http://conanwhf.github.io/2016/03/02/addressUpdate/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -421,8 +366,8 @@ echo LANG=en_US.UTF-8 | sudo tee -a /etc/environment
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2016/01/12/rpi-start/"
-                   data-title="树莓派初始配置指南（2代B型）" data-url="http://conanwhf.github.io/2016/01/12/rpi-start/">
+              <div class="ds-thread" data-thread-key="2016/03/02/addressUpdate/"
+                   data-title="域名更新" data-url="http://conanwhf.github.io/2016/03/02/addressUpdate/">
               </div>
             
           </div>
@@ -560,7 +505,7 @@ echo LANG=en_US.UTF-8 | sudo tee -a /etc/environment
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u5236_u4F5C_u542F_u52A8img"><span class="nav-number">1.</span> <span class="nav-text">制作启动img</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u66F4_u65B0_u5230_u6700_u65B0_u7248_u672C"><span class="nav-number">2.</span> <span class="nav-text">更新到最新版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4FEE_u6539vi"><span class="nav-number">3.</span> <span class="nav-text">修改vi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4E2D_u6587_u652F_u6301"><span class="nav-number">4.</span> <span class="nav-text">中文支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5B98_u65B9_u81EA_u5E26_u7684menuconfig"><span class="nav-number">5.</span> <span class="nav-text">官方自带的menuconfig</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VNC_u652F_u6301"><span class="nav-number">6.</span> <span class="nav-text">VNC支持</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u5B89_u88C5_u670D_u52A1_u5668_u7AEFtightVNC"><span class="nav-number">6.1.</span> <span class="nav-text">安装服务器端tightVNC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u914D_u7F6E"><span class="nav-number">6.2.</span> <span class="nav-text">配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5BA2_u6237_u7AEF_u8FDE_u63A5"><span class="nav-number">7.</span> <span class="nav-text">客户端连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u914D_u7F6E_u56FA_u5B9AIP_u5730_u5740"><span class="nav-number">8.</span> <span class="nav-text">配置固定IP地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH_u7279_u6B8A_u914D_u7F6E"><span class="nav-number">9.</span> <span class="nav-text">SSH特殊配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u52A0_u5927USB_u4F9B_u7535"><span class="nav-number">10.</span> <span class="nav-text">加大USB供电</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u9996_u5148_uFF0Cconanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01"><span class="nav-number">1.</span> <span class="nav-text">首先，conanwhf.github.io 还是可用主力哈！</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5899_u5185_u65B0_u57DF_u540D_uFF1Ahttp_3A//conanwhf-coding-me/"><span class="nav-number">2.</span> <span class="nav-text">墙内新域名：http://conanwhf.coding.me/</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
