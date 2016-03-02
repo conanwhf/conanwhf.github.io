@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.gitcafe.io/"/>
-  <updated>2016-02-06T16:11:47.000Z</updated>
+  <updated>2016-03-02T04:29:56.000Z</updated>
   <id>http://conanwhf.gitcafe.io/</id>
   
   <author>
@@ -13,6 +13,112 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[开发Tips收集-2016年02月]]></title>
+    <link href="http://conanwhf.gitcafe.io/2016/03/01/Tips201602/"/>
+    <id>http://conanwhf.gitcafe.io/2016/03/01/Tips201602/</id>
+    <published>2016-03-01T09:25:39.000Z</published>
+    <updated>2016-03-02T04:29:56.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>UIView 的translatesAutoresizingMaskIntoConstraints属性为true时，设置 frame 会自动转化为约束，修改 frame 时也会自动调整约束。这时候就不要再手动添加约束了，你再添加约束往往会造成冲突</li>
+<li>使用XCODE交付应用，常见的返回错误：<ol>
+<li>ERROR：–90096 ：原因是：启动图的问题；解决 ：添加一张名字是 Default-568h@2x.png 的启动图；</li>
+<li>ERROR：–90535 ：原因是：导入的第三方的问题；解决 ：删除第三方包中的info.plist里的Executable file 这一行</li>
+</ol>
+</li>
+<li>ios下每个app可用的内存是被限制的，如果一个app使用的内存超过了这个阀值，则系统会向该app发送Memory Warning消息。收到消息后，app必须尽可能多的释放一些不必要的内存，否则OS会关闭app。</li>
+<li>数组的contains方法需要用到==操作符，所以当数组的内容为自定义类型，且需要使用contains方法是，需要自定义的类实现Equatable协议即可</li>
+<li>Swift 的枚举类型，如果指定了原始值的类型（Int， String等），就会有默认值的存在。如果不指定原始值类型，编译器就不会分配默认值。<ol>
+<li>当枚举类型的原始值类型指定为 Int 时，这个时候，就和其他语言的枚举的默认值分配一样，从0开始</li>
+<li>如果指定了一个枚举值的原始值，后面接下来的枚举值的原始值会自动 +1</li>
+<li>原始值类型为字符串的时候，默认的值就是和枚举值的字符串一样</li>
+<li>没有设置原始值的，就使用默认值</li>
+</ol>
+</li>
+<li>开发中经常会遇到控件不接收用户交互了，可以从以下几个方面检查：<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.gitcafe.io/2016/03/01/Tips201602/</p><p>访问原文「<a href='http://conanwhf.gitcafe.io/2016/03/01/Tips201602/'>开发Tips收集-2016年02月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.gitcafe.io', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+<ol>
+<li>enable = NO 就不可以被点击 ->也会让按钮显示禁用状态</li>
+<li>设置了控件的 userInterActionEnabel = NO</li>
+<li>hidden属性为YES</li>
+<li>控件的alpha \&lt; = 0.01</li>
+<li>如果一个父控件与用户的交互设置为NO ,那么它子控件将获取不到交互事件</li>
+<li>如果子视图超出父视图范围,超出范围的部分也不能接收用户交互</li>
+</ol>
+</li>
+<li>UIApplication 中 statusBarOrientation 属性在ios 9 中已经不能用了 项目中需要横屏的页面直接隐藏了状态栏</li>
+<li>自定义一个cell继承自UITableViewCell，然后重载它的以下两个方法:<ul>
+<li>(void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated;</li>
+<li>(void)setSelected:(BOOL)selected animated:(BOOL)animated;<br>发现当我们点击cell的时候，其实是先设置cell的高亮状态为YES，然后松手的时候再将cell的高亮状态设置为NO，接着才是设置cell的选中状态为YES，最后才会去调用didSelectRowAtIndexPath:方法。<br>由此可见：cell的高亮状态是不能持久的，即tap的时候会变成高亮，松手的时候就会自动设置为非高亮状态。而cell的选中状态则是可以持久的，我们不去触发它改变状态，则选中状态就不会</li>
+</ul>
+</li>
+<li>awakeFromNib和viewDidLoad的区别：<br>  <strong>awakeFromNib</strong>:当.nib文件被加载的时候，会发送一个awakeFromNib的消息到.nib文件中的每个对象，每个对象都可以定义自己的 awakeFromNib函数来响应这个消息，执行一些必要的操作。也就是说通过nib文件创建view对象是执行awakeFromNib 。<br>  <strong>viewDidLoad</strong>:当view对象被加载到内存是就会执行viewDidLoad，所以不管通过nib文件还是代码的方式创建对象都会执行viewDidLoad。</li>
+<li>UIWebView要实现横向滑动，跟UIWebview的增高没有关系，你需要设定UIWebView的属性scrollView的contentsize.width大于UIWebView的frame.size.width.</li>
+<li>到 Xcode 5.1， iOS SDK 7.1 后，TableView Cell clipsToBounds 属性默认都是NO，导致以前用的把cell的height设为0来隐藏某个cell的方法没用了。cell内容会叠起来。 解决方法就是手动把clipsToBounds改YES，或者Storyboard里Clip Subview打勾。</li>
+<li>CADisplayLink在正常情况下会在每次刷新结束都被调用，精确度相当的高。但如果调用的方法比较耗时，超过了屏幕刷新周期，就会导致跳过若干次回调调用机会。</li>
+<li>在IOS7以后 ViewController 开始使用全屏布局的，而且是默认的行为通常涉及到布局，就离不开这个属性 edgesForExtendedLayout，它是一个类型为UIExtendedEdge的属性，指定边缘要延伸的方向，它的默认值很自然地是UIRectEdgeAll，四周边缘均延伸，就是说，如果即使视图中上有navigationBar，下有tabBar，那么视图仍会延伸覆盖到四周的区域。一般为了不让tableView 不延伸到 navigationBar 下面，属性设置为 UIRectEdgeNone</li>
+<li>当一个iOS应用被送到后台，它的主线程会被暂停。你用NSThread的detachNewThreadSelector:toTar get:withObject:类方法创建的线程也被挂起了。如果你想在后台完成一个长期任务，就必须调用UIApplication的beginBackgroundTaskWithExpirationHandler:实例方法，来向iOS借点时间。UIApplication的backgroundTimeRemaining属性包含了程序完成他的任务可以使用的秒数。如果在这个期限内，长期任务没有被完成，iOS将终止程序。每个对beginBackgroundTaskWithExpirationHandler:方法的调用，必须要相应的调用endBackgroundTask:方法（UIApplication的另一个实例方法）。</li>
+<li>为了保持用户界面的响应，iOS系统包括一个看门狗机制。如果您的应用程序未能响应某些用户界面事件（启动、暂停、恢复、终止）的时间，该看门狗将杀死您的应用程序，并产生一个看门狗超时崩溃报告</li>
+<li>setNeedsUpdateConstraints 确保在未来的某个阶段updateConstraintsIfNeeded这个方法会调用 updateConstraints.<br>  setNeedsLayout 确保在未来的某个阶段 layoutIfNeeded 这个方法会调用 layoutSubviews.<br>  直接调用setNeedsUpdateConstraints去更新约束是很奇怪的，因为只有在某些情况下你的某个约束失效了，你需要移除它，这时候才需要直接调用这个方法。</li>
+<li>在制作动画前，需要弄清楚anchorPoint与position之间的关系，对最终将动画渲染在屏幕上的位置至关重要。<pre><code>1. position:CAReplicatorLayer的position决定了其在父视图中位置坐标。
+2. anchorPoint：CAReplicatorLayer的anchorPoint决定了其position的位置。
+</code></pre>  anchorPoint的默认值为(0.5, 0.5),此时CAReplicatorLayer在父视图中坐标位置对应其中心点的坐标。</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>UIView 的translatesAutoresizingMaskIntoConstraints属性为true时，设置 frame 会自动转化为约束，修改 frame 时也会自动调整约束。这时候就不要再手动添加约束了，你再添加约束往往会造成冲突</li>
+<li>使用XCODE交付应用，常见的返回错误：<ol>
+<li>ERROR：–90096 ：原因是：启动图的问题；解决 ：添加一张名字是 Default-568h@2x.png 的启动图；</li>
+<li>ERROR：–90535 ：原因是：导入的第三方的问题；解决 ：删除第三方包中的info.plist里的Executable file 这一行</li>
+</ol>
+</li>
+<li>ios下每个app可用的内存是被限制的，如果一个app使用的内存超过了这个阀值，则系统会向该app发送Memory Warning消息。收到消息后，app必须尽可能多的释放一些不必要的内存，否则OS会关闭app。</li>
+<li>数组的contains方法需要用到==操作符，所以当数组的内容为自定义类型，且需要使用contains方法是，需要自定义的类实现Equatable协议即可</li>
+<li>Swift 的枚举类型，如果指定了原始值的类型（Int， String等），就会有默认值的存在。如果不指定原始值类型，编译器就不会分配默认值。<ol>
+<li>当枚举类型的原始值类型指定为 Int 时，这个时候，就和其他语言的枚举的默认值分配一样，从0开始</li>
+<li>如果指定了一个枚举值的原始值，后面接下来的枚举值的原始值会自动 +1</li>
+<li>原始值类型为字符串的时候，默认的值就是和枚举值的字符串一样</li>
+<li>没有设置原始值的，就使用默认值</li>
+</ol>
+</li>
+<li>开发中经常会遇到控件不接收用户交互了，可以从以下几个方面检查：]]>
+    
+    </summary>
+    
+      <category term="Xcode" scheme="http://conanwhf.gitcafe.io/tags/Xcode/"/>
+    
+      <category term="iOS - Swift" scheme="http://conanwhf.gitcafe.io/tags/iOS-Swift/"/>
+    
+      <category term="DevTips" scheme="http://conanwhf.gitcafe.io/categories/DevTips/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[过年好！]]></title>
@@ -352,8 +458,8 @@ ser.close()
     <link href="http://conanwhf.gitcafe.io/2016/01/16/Transform/"/>
     <id>http://conanwhf.gitcafe.io/2016/01/16/Transform/</id>
     <published>2016-01-16T09:32:45.000Z</published>
-    <updated>2016-01-18T15:51:44.000Z</updated>
-    <content type="html"><![CDATA[<p>这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。<br>关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周Blog<a href="http://conanwhf.gitcafe.io/2016/01/03/UISlider/" title="UIController中Slider监听回调具体实现的分离">UIController中Slider监听回调具体实现的分离</a>），我也添加了旋转的功能，开始是在handler中这么写的(back是一个UIView)：</p>
+    <updated>2016-03-02T08:50:19.000Z</updated>
+    <content type="html"><![CDATA[<p>这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。<br>关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周Blog<a href="http://conanwhf.github.io/2016/01/03/UISlider/" title="UIController中Slider监听回调具体实现的分离" target="_blank" rel="external">UIController中Slider监听回调具体实现的分离</a>），我也添加了旋转的功能，开始是在handler中这么写的(back是一个UIView)：</p>
 <pre><code>let x = (Float(ctl.show.frame.width) - conf[0] )/2
 let y = (Float(ctl.show.frame.height) - conf[1] )/2
 back.frame.size = CGSize(width: CGFloat(conf[0], height: CGFloat(conf[1])
@@ -421,7 +527,7 @@ demo.frame.size     //600*67
 </ol>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。<br>关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周Blog<a href="http://conanwhf.gitcafe.io/2016/01/03/UISlider/" title="UIController中Slider监听回调具体实现的分离">UIController中Slider监听回调具体实现的分离</a>），我也添加了旋转的功能，开始是在handler中这么写的(back是一个UIView)：</p>
+    <![CDATA[<p>这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。<br>关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周Blog<a href="http://conanwhf.github.io/2016/01/03/UISlider/" title="UIController中Slider监听回调具体实现的分离">UIController中Slider监听回调具体实现的分离</a>），我也添加了旋转的功能，开始是在handler中这么写的(back是一个UIView)：</p>
 <pre><code>let x = (Float(ctl.show.frame.width) - conf[0] )/2
 let y = (Float(ctl.show.frame.height) - conf[1] )/2
 back.frame.size = CGSize(width: CGFloat(conf[0], height: CGFloat(conf[1])
@@ -1475,45 +1581,6 @@ a[1] &gt; a[0]
 </code></pre>]]></content>
     <summary type="html">
     <![CDATA[<p>假如你有一个自定义类的列表，想要对它排序，怎么办？在新闻APP中，我的新闻列表就是一个自定义class的数组，用户一会儿要最新、一会儿要更多旧数据的可能性，使得它需要按时间有序。我是懒人，自己一个个拿key比较写起来觉得好麻烦，Swift这么高级的语言，应该有别的更好的办法]]>
-    </summary>
-    
-      <category term="Class" scheme="http://conanwhf.gitcafe.io/tags/Class/"/>
-    
-      <category term="NewsAPP" scheme="http://conanwhf.gitcafe.io/tags/NewsAPP/"/>
-    
-      <category term="Swift" scheme="http://conanwhf.gitcafe.io/categories/Swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[从打造新闻app学到的(2)：定义类中的只读属性]]></title>
-    <link href="http://conanwhf.gitcafe.io/2015/12/21/newsreader-2/"/>
-    <id>http://conanwhf.gitcafe.io/2015/12/21/newsreader-2/</id>
-    <published>2015-12-21T09:14:35.000Z</published>
-    <updated>2016-01-17T17:48:23.000Z</updated>
-    <content type="html"><![CDATA[<p>在定义各种接口的过程中，我碰到了这样一个问题：我希望定义一个只读的属性，却找不到合适的前缀（原谅我是Class白痴）。翻了一遍Class的相关文档，找到了个曲线救国的办法：计算属性。<br>所谓的计算属性，就是自己定义一个属性的名字和get/set方法，外人看不见get/set的实现，只能看作是一个普通属性来使用。而如果只实现了get部分，这个属性对外而言就是只读的了。<br>我的数据结构大致这样：</p>
-<pre><code>class myclass {
-    private var data =  ( api : typeX, list:  typeY,  post: typeZ,  channel: typeA) (xxx, list: yyy, post: zzz, .news)
-}
-</code></pre><p>我想要把这一组相关数据打包成元组使用，又只想把其中某些暴露出来，并且部分是只读，那么就将其设成private并且在类中实现：</p>
-<pre><code>var list : typeY {//只有get，实现只读封装
-    get {
-        return data.list
-    }
-}
-
-var ch : typeA {
-    get {
-        return data.channel
-    }
-    set (channel) {//这次可读写了
-        data.channel = channel
-    }
-}
-</code></pre><p>现在，外部可以用myclass.list来获取list，或者用myclass.ch来改变channel了</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>在定义各种接口的过程中，我碰到了这样一个问题：我希望定义一个只读的属性，却找不到合适的前缀（原谅我是Class白痴）。翻了一遍Class的相关文档，找到了个曲线救国的办法：计算属性。<br>所谓的计算属性，就是自己定义一个属性的名字和get/set方法，外人看不见get/s]]>
     </summary>
     
       <category term="Class" scheme="http://conanwhf.gitcafe.io/tags/Class/"/>

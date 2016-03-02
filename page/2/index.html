@@ -223,6 +223,96 @@
           
           
             
+              <a class="post-title-link" href="/2016/01/12/rpi-kernel/" itemprop="url">
+                树莓派内核编译
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-01-12T15:31:26+08:00" content="2016-01-12">
+            2016-01-12
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/RaspberryPi/" itemprop="url" rel="index">
+                  <span itemprop="name">RaspberryPi</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/01/12/rpi-kernel/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/12/rpi-kernel/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>作为一个（曾经的）内核开发者，弄到块板子怎么能不重新编译内核？系统配好跑起来后的第二件事，就是编译内核了。在树莓派上编译内核很简单，基本上就是按照官方文档跑脚本，先放GitHub上的Script<a href="https://github.com/conanwhf/RaspberryPi-script">传送门</a>，<strong>build/kernel.sh</strong></p>
+<h2 id="u7CFB_u7EDF_u7B80_u4ECB"><a href="#u7CFB_u7EDF_u7B80_u4ECB" class="headerlink" title="系统简介"></a>系统简介</h2><h3 id="u6587_u4EF6_u7CFB_u7EDF"><a href="#u6587_u4EF6_u7CFB_u7EDF" class="headerlink" title="文件系统"></a>文件系统</h3><p>树莓派的文件系统设计还是不错的，能比较方便地更新内核和各种固件。整个文件系统分为两个部分：Fat32分区和Ext4分区。Fat32分区是mount到/boot上的，里面放了内核和启动的核心固件；Ext4就是一般的根文件系统了，放其他的所有东西，包括firmware和各种ko等。这种设计免去了用户烧录的麻烦，只是他们的bootloader没有开放源码，对于极客来说是很不爽的事情。<br>所谓的系统更新，就是每次编译kernel之后，直接把生成的文件放到特定的地方，重启就行。这也是为什么系统自带的工具<strong>rpi-update</strong>可以自动更新内核、firmware等等一切东西。</p>
+<h3 id="u786C_u4EF6_u7684_u9009_u62E9_u548C_u542F_u52A8"><a href="#u786C_u4EF6_u7684_u9009_u62E9_u548C_u542F_u52A8" class="headerlink" title="硬件的选择和启动"></a>硬件的选择和启动</h3><p>树莓派一代和二代用的两个不同的ARM芯片，这个差别在操作系统中并没有体现出来，我是指：官方提供的系统镜像是同一个。开始我很奇怪，后来看到了它的文件系统，才明白，它是靠不同的kernel文件名来区分的。这两种板子的platform分别叫”bcm2708”和”bcm2709”，启动的时候bootloader会根据硬件情况自动区分，读取不同的kernel image，进而load不同的firmware和driver。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/12/rpi-kernel/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2016/01/12/rpi-start/" itemprop="url">
                 树莓派初始配置指南（2代B型）
               </a>
@@ -867,117 +957,6 @@ post.attributedText = attributedString
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/30/precision/" itemprop="url">
-                Swift中数据类型精度的一点探索
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-30T17:14:35+08:00" content="2015-12-30">
-            2015-12-30
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Swift/" itemprop="url" rel="index">
-                  <span itemprop="name">Swift</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/12/30/precision/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/30/precision/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>昨天整理code，顺手写了个UIColor和16进制RGB表示的颜色转换。由于UIColor中的RGBA范围是0..1，所以里面用到了一些乘除法，和强制类型转换：</p>
-<pre><code>CGFloat(Float(r)/255.0)
-Int(r*255)
-</code></pre><p>写完以后测试了一下貌似没什么问题，就睡觉去了。后来突然想到，1/255并不是一个有理数，而且<strong>Int()做的是取地板而不是四舍五入</strong>，会不会在这种转换的过程中因为精度的问题造成数据错误呢？于是写了一小段测试代码：</p>
-<pre><code>//精度测试，确认转换不会丢失信息
-let a  = Array.init(0...255)
-let b = a.map{ CGFloat(Float($0)/255.0) }
-let c = b.map{ Int($0*255) }
-a.elementsEqual(c)
-</code></pre><p>还好结果是True，这个转换过程并没有出错的机会。但我怎么可能就此罢休？通过修改a的初始化条件发现，乘除255的时候，在算257的时候就出错了。按理说1/255并不是一个很小的数字，如果准确的话，16位的存储结构是可以保留足够信息的，所以我尝试这打印了一下各个数据类型的精度：</p>
-<pre><code>sizeof(Int)*8//64
-sizeof(UInt)*8//64
-sizeof(UInt16)*8//16
-sizeof(Int32)*8//32
-
-sizeof(Float)*8//32
-sizeof(Double)*8//64
-sizeof(CGFloat)*8//64
-
-sizeof(Character)*8//72
-sizeof(String)*8//192
-sizeof(CGRect)*8//256
-sizeof(UIColor)*8//64
-</code></pre><p>第一组相当的make sense，Int默认就是64位；第二组是实数部分，令我惊讶的是原来<strong>CGFloat</strong>也是64位的，而Float反而比它差只有32位。第三组的结果比较值得玩味：Swift里面的String搞得比较复杂，是什么都不奇怪，但我以为Character至少会是8，结果却是72；<strong>UIColor</strong>本身是由4个CGFloat构成，其size却不是4倍的CGFloat；倒是<strong>CGRect</strong>比较可以解释，因为它是CGSize和CGPoint组合而成，实质上也是4个CGFloat。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/30/precision/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1016,7 +995,7 @@ sizeof(UIColor)*8//64
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">61</span>
+              <span class="site-state-item-count">62</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
