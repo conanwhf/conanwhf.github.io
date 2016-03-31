@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.github.io/"/>
-  <updated>2016-03-02T10:21:53.000Z</updated>
+  <updated>2016-03-31T10:12:58.000Z</updated>
   <id>http://conanwhf.github.io/</id>
   
   <author>
@@ -15,14 +15,93 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[开发Tips收集-2016年03月]]></title>
+    <link href="http://conanwhf.github.io/2016/03/31/Tips201603/"/>
+    <id>http://conanwhf.github.io/2016/03/31/Tips201603/</id>
+    <published>2016-03-31T09:25:39.000Z</published>
+    <updated>2016-03-31T10:12:58.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>UIProgressView 的 subviews 是两个 UIImageView，第一个是 TrackTintColor 层（轨道），第二个是 Progress Tint Color 层（进度）</li>
+<li>如果你对文本显示没有特殊要求，可以参考下 UILabel 内部的实现方式：用 <a href="/">NSAttributedString boundingRectWithSize:options:context:</a> 来计算文本宽高，用 -<a href="/">NSAttributedString drawWithRect:options:context:</a> 来绘制文本。尽管这两个方法性能不错，但仍旧需要放到后台线程进行以避免阻塞主线程</li>
+<li>为了帮助你发现你的代码的问题，你可以使用Xcode来分析你的代码，帮助你找到出现问题的地方。注意，Xcode分析项目，它会指出每一个潜在的可能出现的问题的地方。从Xcode的 Product菜单选择 Analyze或按 Shift-Command-B.Xcode的将需要片刻的时间，但是当它完成的时候你会在左边的 Issue Navigator看到问题列表。由Analyze发现的问题用蓝色高亮显示</li>
+<li>多视图控制器跳转方法<ol>
+<li>Modal：<br> 打开：presentViewController<br> 关闭：dismissViewController</li>
+<li>Push:需搭配NavigationController使用，采用压栈和出栈的方式<br> 打开：pushViewController<br> 关闭：popViewController</li>
+<li>Segue：以上两种方式都可以，如果在打开目标控制器前需要额外处理，可使用perfromSegueWithIdentifier方法。Identifier在storyboard里设置。</li>
+</ol>
+</li>
+<li>设置UIImage的渲染模式：你可以设置一个UIImage在渲染时是否使用当前视图的Tint Color。UIImage新增了一个只读属性：renderingMode，对应的还有一个新增方法：imageWithRenderingMode:，它使用UIImageRenderingMode枚举值来设置图片的renderingMode属性。该枚举中包含下列值：<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2016/03/31/Tips201603/</p><p>访问原文「<a href='http://conanwhf.github.io/2016/03/31/Tips201603/'>开发Tips收集-2016年03月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+<ol>
+<li>UIImageRenderingModeAutomatic  // 根据图片的使用环境和所处的绘图上下文自动调整渲染模式。  </li>
+<li>UIImageRenderingModeAlwaysOriginal   // 始终绘制图片原始状态，不使用Tint Color。  </li>
+<li>UIImageRenderingModeAlwaysTemplate   // 始终根据Tint Color绘制图片，忽略图片的颜色信息。  </li>
+</ol>
+</li>
+<li>引入了Foundation以后，数组会映射为<a href="/">AnyObject</a>,而值类型会映射了对应的Foundation类型（比如NSString，NSNumber等），也就是AnyObject了</li>
+<li>在lldb中一键打开模拟器sandbox路径：<br>  打开/.lldbinit，在里面加入一行：<br>  <code>command alias sb script from subprocess import call; call([&quot;open&quot;, &#39;{0:s}&#39;.format(lldb.frame.EvaluateExpression(&quot;NSHomeDirectory()&quot;)).split(&quot;\&quot;&quot;)[1]]);</code><br>  然后中断时，在lldb里打sb回车，就能打开模拟器当前运行的app的沙箱路径了</li>
+<li>UINavigationController导航控制器，是多个界面间跳转的重要元素，可以理解为它存储着多个viewController，它的存储结构是栈，栈的特点是先进后出。</li>
+<li>UINavigationController有几个常用的方法：<br>  1：<a href="/">UINavigationController initWithRootViewController：viewController </a> 是指将哪一个视图控制器设置为导航控制器的根视图控制器，即运行是第一次看到的界面。<br>  2：<a href="/">UINavigationController  pushViewController：viewController animated：BOOL</a> 是指将视图控制器送入堆栈，跳转到下一个视图控制器，即下一个界面。<br>  3：<a href="/">UINavigationController popViewControlleranimated：BOOL </a>是指将栈顶的试图控制器移出，即返回上一个界面。<br>  4：<a href="/">UINavigationController popToRootViewControlleranimated：BOOL </a>是指直接返回到根视图控制器，即返回第一个界面。<br>  5：<a href="/">UINavigationController popViewController：viewController  animated：BOOL </a> 跳转到对应的视图控制器，即相应界面。<br>  UINavigationController有一个属性，viewcontrollers，它是一个数组，所有视图控制器都被包含在其中，试图控制器在其中的位置跟UINavigationController的顺序一样。可以通过<a href="/">array objectAtIdenx:index</a>得到相应的视图控制器。</li>
+<li>在使用单例模式时一般使用allocWithZone，因为alloc最终还是会调用allocWithZone进行分配空间</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>UIProgressView 的 subviews 是两个 UIImageView，第一个是 TrackTintColor 层（轨道），第二个是 Progress Tint Color 层（进度）</li>
+<li>如果你对文本显示没有特殊要求，可以参考下 UILabel 内部的实现方式：用 <a href="/">NSAttributedString boundingRectWithSize:options:context:</a> 来计算文本宽高，用 -<a href="/">NSAttributedString drawWithRect:options:context:</a> 来绘制文本。尽管这两个方法性能不错，但仍旧需要放到后台线程进行以避免阻塞主线程</li>
+<li>为了帮助你发现你的代码的问题，你可以使用Xcode来分析你的代码，帮助你找到出现问题的地方。注意，Xcode分析项目，它会指出每一个潜在的可能出现的问题的地方。从Xcode的 Product菜单选择 Analyze或按 Shift-Command-B.Xcode的将需要片刻的时间，但是当它完成的时候你会在左边的 Issue Navigator看到问题列表。由Analyze发现的问题用蓝色高亮显示</li>
+<li>多视图控制器跳转方法<ol>
+<li>Modal：<br> 打开：presentViewController<br> 关闭：dismissViewController</li>
+<li>Push:需搭配NavigationController使用，采用压栈和出栈的方式<br> 打开：pushViewController<br> 关闭：popViewController</li>
+<li>Segue：以上两种方式都可以，如果在打开目标控制器前需要额外处理，可使用perfromSegueWithIdentifier方法。Identifier在storyboard里设置。</li>
+</ol>
+</li>
+<li>设置UIImage的渲染模式：你可以设置一个UIImage在渲染时是否使用当前视图的Tint Color。UIImage新增了一个只读属性：renderingMode，对应的还有一个新增方法：imageWithRenderingMode:，它使用UIImageRenderingMode枚举值来设置图片的renderingMode属性。该枚举中包含下列值：]]>
+    
+    </summary>
+    
+      <category term="Xcode" scheme="http://conanwhf.github.io/tags/Xcode/"/>
+    
+      <category term="iOS - Swift" scheme="http://conanwhf.github.io/tags/iOS-Swift/"/>
+    
+      <category term="DevTips" scheme="http://conanwhf.github.io/categories/DevTips/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[域名更新]]></title>
     <link href="http://conanwhf.github.io/2016/03/02/addressUpdate/"/>
     <id>http://conanwhf.github.io/2016/03/02/addressUpdate/</id>
     <published>2016-03-02T09:35:25.000Z</published>
-    <updated>2016-03-02T10:21:53.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="u9996_u5148_uFF0Cconanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01"><a href="#u9996_u5148_uFF0Cconanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01" class="headerlink" title="首先，conanwhf.github.io 还是可用主力哈！"></a>首先，<a href="/conanwhf.github.io">conanwhf.github.io</a> 还是可用主力哈！</h2><p>主要是怕哪天GFW发威上不了了，所以在国内服务商放个镜像而已。</p>
+    <updated>2016-03-02T10:24:37.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="u9996_u5148_uFF0C_http_3A//conanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01"><a href="#u9996_u5148_uFF0C_http_3A//conanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01" class="headerlink" title="首先， http://conanwhf.github.io 还是可用主力哈！"></a>首先，<a href="http://conanwhf.github.io"> http://conanwhf.github.io</a> 还是可用主力哈！</h2><p>主要是怕哪天GFW发威上不了了，所以在国内服务商放个镜像而已。</p>
 <h2 id="u5899_u5185_u65B0_u57DF_u540D_uFF1Ahttp_3A//conanwhf-coding-me/"><a href="#u5899_u5185_u65B0_u57DF_u540D_uFF1Ahttp_3A//conanwhf-coding-me/" class="headerlink" title="墙内新域名：http://conanwhf.coding.me/"></a>墙内新域名：<a href="http://conanwhf.coding.me/" target="_blank" rel="external">http://conanwhf.coding.me/</a></h2><p>旧的gitcafe那个，就不用了</p>
-<p>周末爬山下海的，肌肉酸痛还没解除，就看到GitCafe要关闭，整个迁移到Coding去了，晕！连封邮件也没发给我，突然就说什么要全部迁移删除，然后一看时间，最后期限5月份，但是从今天开始就全部只读了……😡我真是服了国内的这些服务商，不靠谱到了一个境界。还能怎么办呢？迁移呗！本来因为是中文博客，我的各种相关配置和网络服务都注册的是GitCafe的域名，这次也都要检查一遍、修改更换，麻烦死了。以后还是准备回归GitHub为主吧！<br>另外，因为gitcafe已经全面只读了，我连提交个域名更新说明的机会都没，真是@##$$%^%^()$%#$%$$&amp;$%^%$#$%😤<br>长长的年过完了，紧接着又巴厘岛玩了几天，以至于留下了太多功课没有做完。家里两位老人天天拉着我聊天修电脑，再加上新接了个项目，搞OpenCV和C++搞得连轴转，更没时间管iOS的东西了。想想每天也没做什么，过个年，跑跑步，吃三顿饭，刷刷新闻社交，帮公婆处理点杂事，研究旅游的各种事情，最后出去玩一趟，怎么哗哗哗一个月就过去了？！搞得我好焦虑，害怕项目进度赶不完。怎么办！！！</p>
+<p>周末爬山下海的，肌肉酸痛还没解除，就看到GitCafe要关闭，整个迁移到Coding去了，晕！连封邮件也没发给我，突然就说什么要全部迁移删除，然后一看时间，最后期限5月份，但是从今天开始就全部只读了……😡我真是服了国内的这些服务商，不靠谱到了一个境界。还能怎么办呢？迁移呗！本来因为是中文博客，我的各种相关配置和网络服务都注册的是GitCafe的域名，这次也都要检查一遍、修改更换，麻烦死了。以后还是准备回归GitHub为主吧！<br>另外，因为gitcafe已经全面只读了，我连提交个域名更新说明的机会都没，真是@#$$(%#^%^)$$%^%$#$%😤😱<br>长长的年过完了，紧接着又巴厘岛玩了几天，以至于留下了太多功课没有做完。家里两位老人天天拉着我聊天修电脑，再加上新接了个项目，搞OpenCV和C++搞得连轴转，更没时间管iOS的东西了。想想每天也没做什么，过个年，跑跑步，吃三顿饭，刷刷新闻社交，帮公婆处理点杂事，研究旅游的各种事情，最后出去玩一趟，怎么哗哗哗一个月就过去了？！搞得我好焦虑，害怕项目进度赶不完。怎么办！！！</p>
 <a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2016/03/02/addressUpdate/</p><p>访问原文「<a href='http://conanwhf.github.io/2016/03/02/addressUpdate/'>域名更新</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
@@ -47,9 +126,9 @@
 
 ]]></content>
     <summary type="html">
-    <![CDATA[<h2 id="u9996_u5148_uFF0Cconanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01"><a href="#u9996_u5148_uFF0Cconanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01" class="headerlink" title="首先，conanwhf.github.io 还是可用主力哈！"></a>首先，<a href="/conanwhf.github.io">conanwhf.github.io</a> 还是可用主力哈！</h2><p>主要是怕哪天GFW发威上不了了，所以在国内服务商放个镜像而已。</p>
+    <![CDATA[<h2 id="u9996_u5148_uFF0C_http_3A//conanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01"><a href="#u9996_u5148_uFF0C_http_3A//conanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01" class="headerlink" title="首先， http://conanwhf.github.io 还是可用主力哈！"></a>首先，<a href="http://conanwhf.github.io"> http://conanwhf.github.io</a> 还是可用主力哈！</h2><p>主要是怕哪天GFW发威上不了了，所以在国内服务商放个镜像而已。</p>
 <h2 id="u5899_u5185_u65B0_u57DF_u540D_uFF1Ahttp_3A//conanwhf-coding-me/"><a href="#u5899_u5185_u65B0_u57DF_u540D_uFF1Ahttp_3A//conanwhf-coding-me/" class="headerlink" title="墙内新域名：http://conanwhf.coding.me/"></a>墙内新域名：<a href="http://conanwhf.coding.me/">http://conanwhf.coding.me/</a></h2><p>旧的gitcafe那个，就不用了</p>
-<p>周末爬山下海的，肌肉酸痛还没解除，就看到GitCafe要关闭，整个迁移到Coding去了，晕！连封邮件也没发给我，突然就说什么要全部迁移删除，然后一看时间，最后期限5月份，但是从今天开始就全部只读了……😡我真是服了国内的这些服务商，不靠谱到了一个境界。还能怎么办呢？迁移呗！本来因为是中文博客，我的各种相关配置和网络服务都注册的是GitCafe的域名，这次也都要检查一遍、修改更换，麻烦死了。以后还是准备回归GitHub为主吧！<br>另外，因为gitcafe已经全面只读了，我连提交个域名更新说明的机会都没，真是@##$$%^%^()$%#$%$$&amp;$%^%$#$%😤<br>长长的年过完了，紧接着又巴厘岛玩了几天，以至于留下了太多功课没有做完。家里两位老人天天拉着我聊天修电脑，再加上新接了个项目，搞OpenCV和C++搞得连轴转，更没时间管iOS的东西了。想想每天也没做什么，过个年，跑跑步，吃三顿饭，刷刷新闻社交，帮公婆处理点杂事，研究旅游的各种事情，最后出去玩一趟，怎么哗哗哗一个月就过去了？！搞得我好焦虑，害怕项目进度赶不完。怎么办！！！</p>]]>
+<p>周末爬山下海的，肌肉酸痛还没解除，就看到GitCafe要关闭，整个迁移到Coding去了，晕！连封邮件也没发给我，突然就说什么要全部迁移删除，然后一看时间，最后期限5月份，但是从今天开始就全部只读了……😡我真是服了国内的这些服务商，不靠谱到了一个境界。还能怎么办呢？迁移呗！本来因为是中文博客，我的各种相关配置和网络服务都注册的是GitCafe的域名，这次也都要检查一遍、修改更换，麻烦死了。以后还是准备回归GitHub为主吧！<br>另外，因为gitcafe已经全面只读了，我连提交个域名更新说明的机会都没，真是@#$$(%#^%^)$$%^%$#$%😤😱<br>长长的年过完了，紧接着又巴厘岛玩了几天，以至于留下了太多功课没有做完。家里两位老人天天拉着我聊天修电脑，再加上新接了个项目，搞OpenCV和C++搞得连轴转，更没时间管iOS的东西了。想想每天也没做什么，过个年，跑跑步，吃三顿饭，刷刷新闻社交，帮公婆处理点杂事，研究旅游的各种事情，最后出去玩一趟，怎么哗哗哗一个月就过去了？！搞得我好焦虑，害怕项目进度赶不完。怎么办！！！</p>]]>
     
     </summary>
     
@@ -1563,35 +1642,6 @@ self.performSegueWithIdentifier(“ABC”, sender: self)
       <category term="NewsAPP" scheme="http://conanwhf.github.io/tags/NewsAPP/"/>
     
       <category term="Segue" scheme="http://conanwhf.github.io/tags/Segue/"/>
-    
-      <category term="iOS" scheme="http://conanwhf.github.io/tags/iOS/"/>
-    
-      <category term="Cocoa" scheme="http://conanwhf.github.io/categories/Cocoa/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[从打造新闻app学到的(4)：使用Segue在ViewController之间传递数据]]></title>
-    <link href="http://conanwhf.github.io/2015/12/22/newsreader-4/"/>
-    <id>http://conanwhf.github.io/2015/12/22/newsreader-4/</id>
-    <published>2015-12-22T13:14:35.000Z</published>
-    <updated>2016-01-17T17:48:23.000Z</updated>
-    <content type="html"><![CDATA[<p>要实现不同界面的跳转，简单的办法是在StroyBoard中直接拖动控件。<strong>按住^</strong>将触发跳转的控件拖到待触发的View中，松开鼠标在弹出的菜单中选择对应的选项（跳转为View），一个segue(大致译为“转场、过渡”)就完成了：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_create_segue.gif" alt=""><br>而要实现在两个ViewController之间传数据，在这种建立segue的情况下也很简单。假设我们需要在从ViewA（ControllerA代理）跳转去ViewB（ControllerB代理）时传递一个Int变量id，那么先要在ControllerB中定义.id属性，然后在ControllerA中实现：</p>
-<pre><code>override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//print(“this is segue \(segue.identifier), \(sender.debugDescription)&quot;)
-ControllerB.id = passValue
-}
-</code></pre><p>这样的方式适合参数比较少或者已经打包的情况，缺点是必须将待传递的参数在ControllerB中暴露出来。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>要实现不同界面的跳转，简单的办法是在StroyBoard中直接拖动控件。<strong>按住^</strong>将触发跳转的控件拖到待触发的View中，松开鼠标在弹出的菜单中选择对应的选项（跳转为View），一个segue(大致译为“转场、过渡”)就完成了：<br><img]]>
-    </summary>
-    
-      <category term="NewsAPP" scheme="http://conanwhf.github.io/tags/NewsAPP/"/>
-    
-      <category term="Segue" scheme="http://conanwhf.github.io/tags/Segue/"/>
-    
-      <category term="StroyBoard" scheme="http://conanwhf.github.io/tags/StroyBoard/"/>
     
       <category term="iOS" scheme="http://conanwhf.github.io/tags/iOS/"/>
     

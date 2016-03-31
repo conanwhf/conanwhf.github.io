@@ -4,8 +4,50 @@
 
     
   <url>
+    <loc>http://conanwhf.github.io/2016/03/31/Tips201603/</loc>
+    <lastmod>2016-03-31T10:12:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>开发Tips收集-2016年03月</title>
+        <pubTime>2016-03-31T09:25:39.000Z</pubTime>
+        
+        <tag>Xcode</tag>
+         
+        <tag>iOS - Swift</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevTips" url="http://conanwhf.github.io/categories/DevTips/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.github.io/2015/09/02/MustGet/</loc>
+    <lastmod>2016-03-31T10:05:52.000Z</lastmod>
+    <data>
+        <display>
+        <title>iOS开发必知必会（自己总结的）</title>
+        <pubTime>2015-09-02T09:11:28.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.github.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.github.io/2016/03/02/addressUpdate/</loc>
-    <lastmod>2016-03-02T10:21:53.000Z</lastmod>
+    <lastmod>2016-03-02T10:24:37.000Z</lastmod>
     <data>
         <display>
         <title>域名更新</title>
@@ -1046,17 +1088,19 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/16/creatDuoshuo/</loc>
+    <loc>http://conanwhf.github.io/2015/12/20/newsreader-1/</loc>
     <lastmod>2016-01-17T17:48:23.000Z</lastmod>
     <data>
         <display>
-        <title>新配置了多说</title>
-        <pubTime>2015-12-16T05:35:25.000Z</pubTime>
+        <title>从打造新闻app学到的(1)：抽象概念，定义好的数据结构</title>
+        <pubTime>2015-12-20T09:14:35.000Z</pubTime>
         
+        <tag>NewsAPP</tag>
+         
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.github.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
           
         </display>
     </data>
@@ -1099,26 +1143,6 @@
            
              
               <breadCrumb title="Cocoa" url="http://conanwhf.github.io/categories/Cocoa/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.github.io/2015/12/20/newsreader-1/</loc>
-    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
-    <data>
-        <display>
-        <title>从打造新闻app学到的(1)：抽象概念，定义好的数据结构</title>
-        <pubTime>2015-12-20T09:14:35.000Z</pubTime>
-        
-        <tag>NewsAPP</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.github.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
           
         </display>
     </data>
@@ -1170,24 +1194,6 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/09/05/DocumentsRule/</loc>
-    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
-    <data>
-        <display>
-        <title>自己的文档整理原则</title>
-        <pubTime>2015-09-05T09:23:39.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://conanwhf.github.io/2015/12/22/newsreader-4/</loc>
     <lastmod>2016-01-17T17:48:23.000Z</lastmod>
     <data>
@@ -1207,6 +1213,24 @@
            
              
               <breadCrumb title="Cocoa" url="http://conanwhf.github.io/categories/Cocoa/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.github.io/2015/09/05/DocumentsRule/</loc>
+    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
+    <data>
+        <display>
+        <title>自己的文档整理原则</title>
+        <pubTime>2015-09-05T09:23:39.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
           
         </display>
     </data>
@@ -1252,6 +1276,24 @@
 
     
   <url>
+    <loc>http://conanwhf.github.io/2015/12/16/creatDuoshuo/</loc>
+    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
+    <data>
+        <display>
+        <title>新配置了多说</title>
+        <pubTime>2015-12-16T05:35:25.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.github.io/2015/11/05/Alcatraz/</loc>
     <lastmod>2016-01-17T17:48:23.000Z</lastmod>
     <data>
@@ -1260,26 +1302,6 @@
         <pubTime>2015-11-05T09:25:39.000Z</pubTime>
         
         <tag>Xcode</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.github.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.github.io/2015/09/02/MustGet/</loc>
-    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
-    <data>
-        <display>
-        <title>iOS开发必知必会（自己总结的）</title>
-        <pubTime>2015-09-02T09:11:28.000Z</pubTime>
-        
-        <tag>iOS</tag>
          
          
            

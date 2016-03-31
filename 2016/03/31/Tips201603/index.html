@@ -34,7 +34,7 @@
 
 
 
-  <meta name="keywords" content="String," />
+  <meta name="keywords" content="Xcode,iOS - Swift," />
 
 
 
@@ -45,28 +45,28 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="字符串算是平常用的比较多、花样也比较多的一个类型，昨天有空把相关的一些常用操作都写了一遍，总结出来。其实iOS里面的字符串更复杂，还有NSString系列等等，那些API太多将来需要用的时候再慢慢学。这个系列目前写了三篇，这篇是第一部分，String的一些常用属性。其他的几篇传送门：
+<meta name="description" content="这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。如有侵权不得转载等情况，请联系我告知，谢谢！
 
-Swift2.0 中的String（一）：常用属性
-Swift2.0 中的String（二）：基本操作
-Swif">
+
+UIProgressView 的 subviews 是两个 UIImageView，第一个是 TrackTintColor 层（轨道），第二个是 Progress Tint Color 层（进度）
+如果你对文本显示没有特殊要求，可以">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift2.0 中的String（一）：常用属性">
-<meta property="og:url" content="http://conanwhf.github.io/2015/12/03/Swift_String_1/index.html">
+<meta property="og:title" content="开发Tips收集-2016年03月">
+<meta property="og:url" content="http://conanwhf.github.io/2016/03/31/Tips201603/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
-<meta property="og:description" content="字符串算是平常用的比较多、花样也比较多的一个类型，昨天有空把相关的一些常用操作都写了一遍，总结出来。其实iOS里面的字符串更复杂，还有NSString系列等等，那些API太多将来需要用的时候再慢慢学。这个系列目前写了三篇，这篇是第一部分，String的一些常用属性。其他的几篇传送门：
+<meta property="og:description" content="这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。如有侵权不得转载等情况，请联系我告知，谢谢！
 
-Swift2.0 中的String（一）：常用属性
-Swift2.0 中的String（二）：基本操作
-Swif">
-<meta property="og:updated_time" content="2016-03-02T09:11:14.000Z">
+
+UIProgressView 的 subviews 是两个 UIImageView，第一个是 TrackTintColor 层（轨道），第二个是 Progress Tint Color 层（进度）
+如果你对文本显示没有特殊要求，可以">
+<meta property="og:updated_time" content="2016-03-31T10:12:58.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift2.0 中的String（一）：常用属性">
-<meta name="twitter:description" content="字符串算是平常用的比较多、花样也比较多的一个类型，昨天有空把相关的一些常用操作都写了一遍，总结出来。其实iOS里面的字符串更复杂，还有NSString系列等等，那些API太多将来需要用的时候再慢慢学。这个系列目前写了三篇，这篇是第一部分，String的一些常用属性。其他的几篇传送门：
+<meta name="twitter:title" content="开发Tips收集-2016年03月">
+<meta name="twitter:description" content="这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。如有侵权不得转载等情况，请联系我告知，谢谢！
 
-Swift2.0 中的String（一）：常用属性
-Swift2.0 中的String（二）：基本操作
-Swif">
+
+UIProgressView 的 subviews 是两个 UIImageView，第一个是 TrackTintColor 层（轨道），第二个是 Progress Tint Color 层（进度）
+如果你对文本显示没有特殊要求，可以">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -76,7 +76,7 @@ Swif">
   };
 </script>
 
-  <title> Swift2.0 中的String（一）：常用属性 | iOS开发和七七八八 </title>
+  <title> 开发Tips收集-2016年03月 | iOS开发和七七八八 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -234,7 +234,7 @@ Swif">
           
           
             
-              Swift2.0 中的String（一）：常用属性
+              开发Tips收集-2016年03月
             
           
         </h1>
@@ -243,8 +243,8 @@ Swif">
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-12-03T15:20:06+08:00" content="2015-12-03">
-            2015-12-03
+          <time itemprop="dateCreated" datetime="2016-03-31T17:25:39+08:00" content="2016-03-31">
+            2016-03-31
           </time>
         </span>
 
@@ -253,8 +253,8 @@ Swif">
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Swift/" itemprop="url" rel="index">
-                  <span itemprop="name">Swift</span>
+                <a href="/categories/DevTips/" itemprop="url" rel="index">
+                  <span itemprop="name">DevTips</span>
                 </a>
               </span>
 
@@ -269,8 +269,8 @@ Swif">
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/12/03/Swift_String_1/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/03/Swift_String_1/" itemprop="commentsCount"></span>
+              <a href="/2016/03/31/Tips201603/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/31/Tips201603/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -284,18 +284,20 @@ Swif">
       
 
       
-        <span itemprop="articleBody"><p>字符串算是平常用的比较多、花样也比较多的一个类型，昨天有空把相关的一些常用操作都写了一遍，总结出来。其实iOS里面的字符串更复杂，还有NSString系列等等，那些API太多将来需要用的时候再慢慢学。<br>这个系列目前写了三篇，这篇是第一部分，String的一些常用属性。其他的几篇传送门：</p>
+        <span itemprop="articleBody"><blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
 <ul>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.github.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
-</ul>
-<p><strong>判断是否为空</strong></p>
-<pre><code>str.isEmpty
-</code></pre><p><strong>获取字符数组</strong><br>Swfit里面的String很有意思，它并不是由很多个Character组成的，<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2015/12/03/Swift_String_1/</p><p>访问原文「<a href='http://conanwhf.github.io/2015/12/03/Swift_String_1/'>Swift2.0 中的String（一）：常用属性</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<li>UIProgressView 的 subviews 是两个 UIImageView，第一个是 TrackTintColor 层（轨道），第二个是 Progress Tint Color 层（进度）</li>
+<li>如果你对文本显示没有特殊要求，可以参考下 UILabel 内部的实现方式：用 <a href="/">NSAttributedString boundingRectWithSize:options:context:</a> 来计算文本宽高，用 -<a href="/">NSAttributedString drawWithRect:options:context:</a> 来绘制文本。尽管这两个方法性能不错，但仍旧需要放到后台线程进行以避免阻塞主线程</li>
+<li>为了帮助你发现你的代码的问题，你可以使用Xcode来分析你的代码，帮助你找到出现问题的地方。注意，Xcode分析项目，它会指出每一个潜在的可能出现的问题的地方。从Xcode的 Product菜单选择 Analyze或按 Shift-Command-B.Xcode的将需要片刻的时间，但是当它完成的时候你会在左边的 Issue Navigator看到问题列表。由Analyze发现的问题用蓝色高亮显示</li>
+<li>多视图控制器跳转方法<ol>
+<li>Modal：<br> 打开：presentViewController<br> 关闭：dismissViewController</li>
+<li>Push:需搭配NavigationController使用，采用压栈和出栈的方式<br> 打开：pushViewController<br> 关闭：popViewController</li>
+<li>Segue：以上两种方式都可以，如果在打开目标控制器前需要额外处理，可使用perfromSegueWithIdentifier方法。Identifier在storyboard里设置。</li>
+</ol>
+</li>
+<li>设置UIImage的渲染模式：你可以设置一个UIImage在渲染时是否使用当前视图的Tint Color。UIImage新增了一个只读属性：renderingMode，对应的还有一个新增方法：imageWithRenderingMode:，它使用UIImageRenderingMode枚举值来设置图片的renderingMode属性。该枚举中包含下列值：<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2016/03/31/Tips201603/</p><p>访问原文「<a href='http://conanwhf.github.io/2016/03/31/Tips201603/'>开发Tips收集-2016年03月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -316,29 +318,19 @@ Swif">
   }
 })()
 </script>
-而是在其上面又封装了一些东西。另外因为要兼容不同的编码，每个组成字符所占的内存也不一样（例如中文和英文的区别），所以它的下标并不是一个Int型，也不能通过下标来直接定位、获取字符。</p>
-<pre><code>Array(str.characters)
-</code></pre><p><strong>获取长度</strong></p>
-<pre><code>str.characters.count
-</code></pre><p><strong>下标（Index）操作</strong></p>
-<pre><code>str.startIndex  //起始下标
-str.endIndex        //结束下标
-var i      = str.startIndex.successor() //下标的前后移动
-str.endIndex.predecessor()
-str[i]  //通过Index能直接拿到字符
-str.characters[i]   //第二种方法
-i          = i.advancedBy(2)        //起始位之后3个字符，即第四个字符
-i.distanceTo(str.endIndex)
-</code></pre><p><strong>大小写</strong></p>
-<pre><code>str.uppercaseString
-str.lowercaseString
-str.capitalizedString
-</code></pre><p><strong>不同的编码输出</strong><br>这里为了Playground可视结果方便，转化成了数组</p>
-<pre><code>Array(str.utf8.enumerate())
-Array(str.utf16.enumerate())
-Array(str.unicodeScalars.enumerate())
-Array(str.nulTerminatedUTF8)
-</code></pre></span>
+<ol>
+<li>UIImageRenderingModeAutomatic  // 根据图片的使用环境和所处的绘图上下文自动调整渲染模式。  </li>
+<li>UIImageRenderingModeAlwaysOriginal   // 始终绘制图片原始状态，不使用Tint Color。  </li>
+<li>UIImageRenderingModeAlwaysTemplate   // 始终根据Tint Color绘制图片，忽略图片的颜色信息。  </li>
+</ol>
+</li>
+<li>引入了Foundation以后，数组会映射为<a href="/">AnyObject</a>,而值类型会映射了对应的Foundation类型（比如NSString，NSNumber等），也就是AnyObject了</li>
+<li>在lldb中一键打开模拟器sandbox路径：<br>  打开/.lldbinit，在里面加入一行：<br>  <code>command alias sb script from subprocess import call; call([&quot;open&quot;, &#39;{0:s}&#39;.format(lldb.frame.EvaluateExpression(&quot;NSHomeDirectory()&quot;)).split(&quot;\&quot;&quot;)[1]]);</code><br>  然后中断时，在lldb里打sb回车，就能打开模拟器当前运行的app的沙箱路径了</li>
+<li>UINavigationController导航控制器，是多个界面间跳转的重要元素，可以理解为它存储着多个viewController，它的存储结构是栈，栈的特点是先进后出。</li>
+<li>UINavigationController有几个常用的方法：<br>  1：<a href="/">UINavigationController initWithRootViewController：viewController </a> 是指将哪一个视图控制器设置为导航控制器的根视图控制器，即运行是第一次看到的界面。<br>  2：<a href="/">UINavigationController  pushViewController：viewController animated：BOOL</a> 是指将视图控制器送入堆栈，跳转到下一个视图控制器，即下一个界面。<br>  3：<a href="/">UINavigationController popViewControlleranimated：BOOL </a>是指将栈顶的试图控制器移出，即返回上一个界面。<br>  4：<a href="/">UINavigationController popToRootViewControlleranimated：BOOL </a>是指直接返回到根视图控制器，即返回第一个界面。<br>  5：<a href="/">UINavigationController popViewController：viewController  animated：BOOL </a> 跳转到对应的视图控制器，即相应界面。<br>  UINavigationController有一个属性，viewcontrollers，它是一个数组，所有视图控制器都被包含在其中，试图控制器在其中的位置跟UINavigationController的顺序一样。可以通过<a href="/">array objectAtIdenx:index</a>得到相应的视图控制器。</li>
+<li>在使用单例模式时一般使用allocWithZone，因为alloc最终还是会调用allocWithZone进行分配空间</li>
+</ul>
+</span>
       
     </div>
 
@@ -346,7 +338,9 @@ Array(str.nulTerminatedUTF8)
       
         <div class="post-tags">
           
-            <a href="/tags/String/" rel="tag">#String</a>
+            <a href="/tags/Xcode/" rel="tag">#Xcode</a>
+          
+            <a href="/tags/iOS-Swift/" rel="tag">#iOS - Swift</a>
           
         </div>
       
@@ -355,13 +349,11 @@ Array(str.nulTerminatedUTF8)
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/03/Swift_String_2/" rel="prev">Swift2.0 中的String（二）：基本操作</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/02/Swift_Syntax/" rel="next">Swift2.0语法笔记</a>
+              <a href="/2016/03/02/addressUpdate/" rel="next">域名更新</a>
             
           </div>
         </div>
@@ -376,10 +368,10 @@ Array(str.nulTerminatedUTF8)
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/12/03/Swift_String_1/"
-     data-title="Swift2.0 中的String（一）：常用属性"
+        <div class="ds-share flat" data-thread-key="2016/03/31/Tips201603/"
+     data-title="开发Tips收集-2016年03月"
      data-content=""
-     data-url="http://conanwhf.github.io/2015/12/03/Swift_String_1/">
+     data-url="http://conanwhf.github.io/2016/03/31/Tips201603/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -409,8 +401,8 @@ Array(str.nulTerminatedUTF8)
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/12/03/Swift_String_1/"
-                   data-title="Swift2.0 中的String（一）：常用属性" data-url="http://conanwhf.github.io/2015/12/03/Swift_String_1/">
+              <div class="ds-thread" data-thread-key="2016/03/31/Tips201603/"
+                   data-title="开发Tips收集-2016年03月" data-url="http://conanwhf.github.io/2016/03/31/Tips201603/">
               </div>
             
           </div>
