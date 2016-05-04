@@ -48,7 +48,7 @@
 <meta name="description" content="入门iOS开发，相关不相关乱七八糟的一切">
 <meta property="og:type" content="website">
 <meta property="og:title" content="iOS开发和七七八八">
-<meta property="og:url" content="http://conanwhf.github.io/index.html">
+<meta property="og:url" content="http://conanwhf.coding.me/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="入门iOS开发，相关不相关乱七八糟的一切">
 <meta name="twitter:card" content="summary">
@@ -211,6 +211,109 @@
       <div class="main-inner">
         <div id="content" class="content"> 
   <section id="posts" class="posts-expand">
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2016/04/30/Tips201604/" itemprop="url">
+                开发Tips收集-2016年04月
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-04-30T17:25:39+08:00" content="2016-04-30">
+            2016-04-30
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/DevTips/" itemprop="url" rel="index">
+                  <span itemprop="name">DevTips</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/04/30/Tips201604/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/30/Tips201604/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>当手势和touchmoved同时加在uiview上面的时候将会优先的识别手势。滑动手势的识别是需要时间的，当手势在被识别出来以前，touchbegan 依旧会被调用。如果你希望在你的手势被识别的过程中touchbegan不被调用，那么你需要调用delaysTouchesBegan。</li>
+<li>修改状态栏字体颜色:只能设置两种颜色，黑色和白色，系统默认黑色。设置为白色方法：<ol>
+<li>在plist里面添加Status bar style，值为UIStatusBarStyleLightContent（白色）或UIStatusBarStyleDefault（黑 色）</li>
+<li>在Info.plist中设置UIViewControllerBasedStatusBarAppearance 为NO</li>
+</ol>
+</li>
+<li>改善APP的流畅度：<ol>
+<li>尽量不要实现drawRect（每次调用该方法时，都要为backing store分配内存，非常消耗CPU）</li>
+<li>避免在drawRect：中进行耗费大量CPU资源的工作</li>
+<li>尽量少调用setNeedsDisplay:（视图内容变化时才调用）</li>
+<li>考虑使用setNeedDisplayInRect: , 传入drawRect:的rect越小，stoke，fill的时间越少, 即使drawRect:是根据视图边界绘制的）</li>
+<li>充分利用GPU的资源，直接设置layer的border，shadow，corner，gradient等属性, GPU将会处理这些属性（相反如果GPU紧张，CPU空闲，应由CPU处理，可在drawRect：中实现）
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/04/30/Tips201604/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -861,99 +964,11 @@
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2016/01/21/newsreader-8/" itemprop="url">
-                从打造新闻app学到的(8)：自定义TableViewCell
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-01-21T17:32:45+08:00" content="2016-01-21">
-            2016-01-21
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Cocoa/" itemprop="url" rel="index">
-                  <span itemprop="name">Cocoa</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2016/01/21/newsreader-8/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/21/newsreader-8/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>新闻App通常是有个新闻的列表，这个列表一般都用TableView来做，每个Cell显示一条新闻，如下图：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_TableViewCell-list.png" alt=""><br>在我做的时候，开始Cell是直接从控件库拖到StoryBoard里面，配置了一点东西就OK了：当Cell的Style设成subtilte时，标题、副标题、以及图像都是可用的，在<strong>cellForRowAtIndexPath</strong>里直接配置就行了：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_TableViewCell-config.png" alt=""><br>但这样做了之后出现一个问题：新闻配图是从网络获取的，长宽比和大小并不固定。在这种做法中，图像是以高度而不是宽度统一对齐的，也就是经过缩放后变成统一的高度适配当前Cell，再显示出来。这样一来，每个Cell里的图像宽度就参差不齐，很难看。我尝试了很久也没能解决这个问题，看起来无论怎么对Cell.image进行配置，也是无效的。折中的办法是事先修改图像的长宽比，但这不是我想要的效果。于是，只好尝试TableViewCell的自定义了。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/21/newsreader-8/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
   </nav>
 
  </div>
@@ -987,7 +1002,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">64</span>
+              <span class="site-state-item-count">65</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

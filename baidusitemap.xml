@@ -4,7 +4,29 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2016/03/31/Tips201603/</loc>
+    <loc>http://conanwhf.coding.me/2016/04/30/Tips201604/</loc>
+    <lastmod>2016-05-03T15:05:29.000Z</lastmod>
+    <data>
+        <display>
+        <title>开发Tips收集-2016年04月</title>
+        <pubTime>2016-04-30T09:25:39.000Z</pubTime>
+        
+        <tag>Xcode</tag>
+         
+        <tag>iOS - Swift</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevTips" url="http://conanwhf.coding.me/categories/DevTips/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/03/31/Tips201603/</loc>
     <lastmod>2016-03-31T10:12:58.000Z</lastmod>
     <data>
         <display>
@@ -18,7 +40,7 @@
          
            
              
-              <breadCrumb title="DevTips" url="http://conanwhf.github.io/categories/DevTips/"/>
+              <breadCrumb title="DevTips" url="http://conanwhf.coding.me/categories/DevTips/"/>
           
         </display>
     </data>
@@ -26,7 +48,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/09/02/MustGet/</loc>
+    <loc>http://conanwhf.coding.me/2015/09/02/MustGet/</loc>
     <lastmod>2016-03-31T10:05:52.000Z</lastmod>
     <data>
         <display>
@@ -38,7 +60,7 @@
          
            
              
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.github.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
           
         </display>
     </data>
@@ -46,7 +68,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2016/03/02/addressUpdate/</loc>
+    <loc>http://conanwhf.coding.me/2016/03/02/addressUpdate/</loc>
     <lastmod>2016-03-02T10:24:37.000Z</lastmod>
     <data>
         <display>
@@ -56,7 +78,7 @@
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
           
         </display>
     </data>
@@ -64,7 +86,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2016/03/01/Tips201602/</loc>
+    <loc>http://conanwhf.coding.me/2016/03/01/Tips201602/</loc>
     <lastmod>2016-03-02T09:12:49.000Z</lastmod>
     <data>
         <display>
@@ -78,7 +100,7 @@
          
            
              
-              <breadCrumb title="DevTips" url="http://conanwhf.github.io/categories/DevTips/"/>
+              <breadCrumb title="DevTips" url="http://conanwhf.coding.me/categories/DevTips/"/>
           
         </display>
     </data>
@@ -86,7 +108,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/03/Swift_String_2/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/03/Swift_String_2/</loc>
     <lastmod>2016-03-02T09:11:35.000Z</lastmod>
     <data>
         <display>
@@ -98,7 +120,7 @@
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
@@ -106,7 +128,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/08/Swift_String_4/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/08/Swift_String_4/</loc>
     <lastmod>2016-03-02T09:11:25.000Z</lastmod>
     <data>
         <display>
@@ -118,7 +140,7 @@
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
@@ -126,7 +148,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/09/Swift_String_6/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/09/Swift_String_6/</loc>
     <lastmod>2016-03-02T09:11:20.000Z</lastmod>
     <data>
         <display>
@@ -138,7 +160,7 @@
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
@@ -146,7 +168,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/03/Swift_String_1/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/03/Swift_String_1/</loc>
     <lastmod>2016-03-02T09:11:14.000Z</lastmod>
     <data>
         <display>
@@ -158,7 +180,7 @@
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
@@ -166,7 +188,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/03/Swift_String_3/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/03/Swift_String_3/</loc>
     <lastmod>2016-03-02T09:11:05.000Z</lastmod>
     <data>
         <display>
@@ -178,7 +200,7 @@
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
@@ -186,7 +208,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/08/Swift_String_5/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/08/Swift_String_5/</loc>
     <lastmod>2016-03-02T09:10:36.000Z</lastmod>
     <data>
         <display>
@@ -198,7 +220,7 @@
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
@@ -206,7 +228,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2016/01/16/Transform/</loc>
+    <loc>http://conanwhf.coding.me/2016/01/16/Transform/</loc>
     <lastmod>2016-03-02T08:50:19.000Z</lastmod>
     <data>
         <display>
@@ -220,7 +242,7 @@
          
            
              
-              <breadCrumb title="Cocoa" url="http://conanwhf.github.io/categories/Cocoa/"/>
+              <breadCrumb title="Cocoa" url="http://conanwhf.coding.me/categories/Cocoa/"/>
           
         </display>
     </data>
@@ -228,7 +250,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2016/02/06/ChineseNewYear2016/</loc>
+    <loc>http://conanwhf.coding.me/2016/02/06/ChineseNewYear2016/</loc>
     <lastmod>2016-02-06T16:11:47.000Z</lastmod>
     <data>
         <display>
@@ -240,7 +262,7 @@
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
           
         </display>
     </data>
@@ -248,7 +270,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2016/01/30/rpi-protocol/</loc>
+    <loc>http://conanwhf.coding.me/2016/01/30/rpi-protocol/</loc>
     <lastmod>2016-02-01T11:30:47.000Z</lastmod>
     <data>
         <display>
@@ -260,7 +282,7 @@
          
            
              
-              <breadCrumb title="RaspberryPi" url="http://conanwhf.github.io/categories/RaspberryPi/"/>
+              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
           
         </display>
     </data>
@@ -268,7 +290,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2016/01/31/Tips201601/</loc>
+    <loc>http://conanwhf.coding.me/2016/01/31/Tips201601/</loc>
     <lastmod>2016-01-31T09:35:32.000Z</lastmod>
     <data>
         <display>
@@ -282,7 +304,7 @@
          
            
              
-              <breadCrumb title="DevTips" url="http://conanwhf.github.io/categories/DevTips/"/>
+              <breadCrumb title="DevTips" url="http://conanwhf.coding.me/categories/DevTips/"/>
           
         </display>
     </data>
@@ -290,7 +312,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2016/01/22/microwave/</loc>
+    <loc>http://conanwhf.coding.me/2016/01/22/microwave/</loc>
     <lastmod>2016-01-22T09:56:03.000Z</lastmod>
     <data>
         <display>
@@ -300,7 +322,7 @@
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
           
         </display>
     </data>
@@ -308,7 +330,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2016/01/21/newsreader-8/</loc>
+    <loc>http://conanwhf.coding.me/2016/01/21/newsreader-8/</loc>
     <lastmod>2016-01-22T09:40:06.000Z</lastmod>
     <data>
         <display>
@@ -322,7 +344,7 @@
          
            
              
-              <breadCrumb title="Cocoa" url="http://conanwhf.github.io/categories/Cocoa/"/>
+              <breadCrumb title="Cocoa" url="http://conanwhf.coding.me/categories/Cocoa/"/>
           
         </display>
     </data>
@@ -330,7 +352,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/31/newsreader-6/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/31/newsreader-6/</loc>
     <lastmod>2016-01-21T14:18:02.000Z</lastmod>
     <data>
         <display>
@@ -346,7 +368,7 @@
          
            
              
-              <breadCrumb title="Cocoa" url="http://conanwhf.github.io/categories/Cocoa/"/>
+              <breadCrumb title="Cocoa" url="http://conanwhf.coding.me/categories/Cocoa/"/>
           
         </display>
     </data>
@@ -354,7 +376,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/09/03/CommFunctions/</loc>
+    <loc>http://conanwhf.coding.me/2015/09/03/CommFunctions/</loc>
     <lastmod>2016-01-18T16:35:34.000Z</lastmod>
     <data>
         <display>
@@ -366,7 +388,7 @@
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
@@ -374,7 +396,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2016/01/14/rpi-toolchain/</loc>
+    <loc>http://conanwhf.coding.me/2016/01/14/rpi-toolchain/</loc>
     <lastmod>2016-01-18T16:23:06.000Z</lastmod>
     <data>
         <display>
@@ -388,7 +410,7 @@
          
            
              
-              <breadCrumb title="RaspberryPi" url="http://conanwhf.github.io/categories/RaspberryPi/"/>
+              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
           
         </display>
     </data>
@@ -396,7 +418,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/10/02/Git+Hexo+Markdown.Blog/</loc>
+    <loc>http://conanwhf.coding.me/2015/10/02/Git+Hexo+Markdown.Blog/</loc>
     <lastmod>2016-01-18T16:20:40.000Z</lastmod>
     <data>
         <display>
@@ -410,7 +432,7 @@
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
           
         </display>
     </data>
@@ -418,7 +440,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/31/ReadingList2015-12/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/31/ReadingList2015-12/</loc>
     <lastmod>2016-01-18T16:20:17.000Z</lastmod>
     <data>
         <display>
@@ -430,7 +452,7 @@
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
           
         </display>
     </data>
@@ -438,7 +460,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/31/Tips201512/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/31/Tips201512/</loc>
     <lastmod>2016-01-18T16:19:12.000Z</lastmod>
     <data>
         <display>
@@ -452,7 +474,7 @@
          
            
              
-              <breadCrumb title="DevTips" url="http://conanwhf.github.io/categories/DevTips/"/>
+              <breadCrumb title="DevTips" url="http://conanwhf.coding.me/categories/DevTips/"/>
           
         </display>
     </data>
@@ -460,7 +482,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/09/20/CocoaPod/</loc>
+    <loc>http://conanwhf.coding.me/2015/09/20/CocoaPod/</loc>
     <lastmod>2016-01-18T16:18:21.000Z</lastmod>
     <data>
         <display>
@@ -472,7 +494,7 @@
          
            
              
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.github.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
           
         </display>
     </data>
@@ -480,7 +502,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/11/12/Tips201510/</loc>
+    <loc>http://conanwhf.coding.me/2015/11/12/Tips201510/</loc>
     <lastmod>2016-01-18T16:18:14.000Z</lastmod>
     <data>
         <display>
@@ -494,7 +516,7 @@
          
            
              
-              <breadCrumb title="DevTips" url="http://conanwhf.github.io/categories/DevTips/"/>
+              <breadCrumb title="DevTips" url="http://conanwhf.coding.me/categories/DevTips/"/>
           
         </display>
     </data>
@@ -502,7 +524,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/15/Swift_xml/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/15/Swift_xml/</loc>
     <lastmod>2016-01-18T16:18:05.000Z</lastmod>
     <data>
         <display>
@@ -514,7 +536,7 @@
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
@@ -522,7 +544,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2016/01/12/rpi-kernel/</loc>
+    <loc>http://conanwhf.coding.me/2016/01/12/rpi-kernel/</loc>
     <lastmod>2016-01-18T16:17:46.000Z</lastmod>
     <data>
         <display>
@@ -534,7 +556,7 @@
          
            
              
-              <breadCrumb title="RaspberryPi" url="http://conanwhf.github.io/categories/RaspberryPi/"/>
+              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
           
         </display>
     </data>
@@ -542,7 +564,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2016/01/12/rpi-get/</loc>
+    <loc>http://conanwhf.coding.me/2016/01/12/rpi-get/</loc>
     <lastmod>2016-01-17T18:11:40.000Z</lastmod>
     <data>
         <display>
@@ -552,7 +574,7 @@
          
            
              
-              <breadCrumb title="RaspberryPi" url="http://conanwhf.github.io/categories/RaspberryPi/"/>
+              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
           
         </display>
     </data>
@@ -560,7 +582,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/06/02/QnapNAS/</loc>
+    <loc>http://conanwhf.coding.me/2015/06/02/QnapNAS/</loc>
     <lastmod>2016-01-17T18:07:51.000Z</lastmod>
     <data>
         <display>
@@ -572,7 +594,7 @@
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
           
         </display>
     </data>
@@ -580,7 +602,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/15/fileop/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/15/fileop/</loc>
     <lastmod>2016-01-17T18:07:32.000Z</lastmod>
     <data>
         <display>
@@ -592,7 +614,7 @@
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
@@ -600,7 +622,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/11/01/ReadingList2015-10/</loc>
+    <loc>http://conanwhf.coding.me/2015/11/01/ReadingList2015-10/</loc>
     <lastmod>2016-01-17T18:07:27.000Z</lastmod>
     <data>
         <display>
@@ -612,7 +634,7 @@
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
           
         </display>
     </data>
@@ -620,7 +642,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2016/01/01/newsreader-7/</loc>
+    <loc>http://conanwhf.coding.me/2016/01/01/newsreader-7/</loc>
     <lastmod>2016-01-17T18:07:19.000Z</lastmod>
     <data>
         <display>
@@ -636,7 +658,7 @@
          
            
              
-              <breadCrumb title="Cocoa" url="http://conanwhf.github.io/categories/Cocoa/"/>
+              <breadCrumb title="Cocoa" url="http://conanwhf.coding.me/categories/Cocoa/"/>
           
         </display>
     </data>
@@ -644,7 +666,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/09/13/StoryBoardBase/</loc>
+    <loc>http://conanwhf.coding.me/2015/09/13/StoryBoardBase/</loc>
     <lastmod>2016-01-17T18:07:11.000Z</lastmod>
     <data>
         <display>
@@ -658,7 +680,7 @@
          
            
              
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.github.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
           
         </display>
     </data>
@@ -666,7 +688,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/01/ReadingList2015-11/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/01/ReadingList2015-11/</loc>
     <lastmod>2016-01-17T18:07:08.000Z</lastmod>
     <data>
         <display>
@@ -678,7 +700,7 @@
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
           
         </display>
     </data>
@@ -686,7 +708,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/11/30/Tips201511/</loc>
+    <loc>http://conanwhf.coding.me/2015/11/30/Tips201511/</loc>
     <lastmod>2016-01-17T18:07:05.000Z</lastmod>
     <data>
         <display>
@@ -700,7 +722,7 @@
          
            
              
-              <breadCrumb title="DevTips" url="http://conanwhf.github.io/categories/DevTips/"/>
+              <breadCrumb title="DevTips" url="http://conanwhf.coding.me/categories/DevTips/"/>
           
         </display>
     </data>
@@ -708,7 +730,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/23/newsreader-5/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/23/newsreader-5/</loc>
     <lastmod>2016-01-17T18:07:00.000Z</lastmod>
     <data>
         <display>
@@ -724,7 +746,7 @@
          
            
              
-              <breadCrumb title="Cocoa" url="http://conanwhf.github.io/categories/Cocoa/"/>
+              <breadCrumb title="Cocoa" url="http://conanwhf.coding.me/categories/Cocoa/"/>
           
         </display>
     </data>
@@ -732,7 +754,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/10/01/ReadingList2015-09/</loc>
+    <loc>http://conanwhf.coding.me/2015/10/01/ReadingList2015-09/</loc>
     <lastmod>2016-01-17T18:06:55.000Z</lastmod>
     <data>
         <display>
@@ -744,7 +766,7 @@
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
           
         </display>
     </data>
@@ -752,7 +774,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/02/Swift_Syntax/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/02/Swift_Syntax/</loc>
     <lastmod>2016-01-17T18:06:53.000Z</lastmod>
     <data>
         <display>
@@ -762,7 +784,7 @@
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
@@ -770,7 +792,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/15/swift_json/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/15/swift_json/</loc>
     <lastmod>2016-01-17T18:06:44.000Z</lastmod>
     <data>
         <display>
@@ -782,7 +804,7 @@
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
@@ -790,7 +812,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/09/04/LinkWidgetsFromStoryBoard/</loc>
+    <loc>http://conanwhf.coding.me/2015/09/04/LinkWidgetsFromStoryBoard/</loc>
     <lastmod>2016-01-17T18:06:42.000Z</lastmod>
     <data>
         <display>
@@ -802,7 +824,7 @@
          
            
              
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.github.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
           
         </display>
     </data>
@@ -810,7 +832,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/10/15/HexoSearch/</loc>
+    <loc>http://conanwhf.coding.me/2015/10/15/HexoSearch/</loc>
     <lastmod>2016-01-17T18:06:15.000Z</lastmod>
     <data>
         <display>
@@ -824,7 +846,7 @@
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
           
         </display>
     </data>
@@ -832,7 +854,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/10/02/HexoStep2/</loc>
+    <loc>http://conanwhf.coding.me/2015/10/02/HexoStep2/</loc>
     <lastmod>2016-01-17T18:06:13.000Z</lastmod>
     <data>
         <display>
@@ -846,7 +868,7 @@
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
           
         </display>
     </data>
@@ -854,7 +876,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/09/12/AddTableViewInUIViewController/</loc>
+    <loc>http://conanwhf.coding.me/2015/09/12/AddTableViewInUIViewController/</loc>
     <lastmod>2016-01-17T18:06:09.000Z</lastmod>
     <data>
         <display>
@@ -866,7 +888,7 @@
          
            
              
-              <breadCrumb title="Cocoa" url="http://conanwhf.github.io/categories/Cocoa/"/>
+              <breadCrumb title="Cocoa" url="http://conanwhf.coding.me/categories/Cocoa/"/>
           
         </display>
     </data>
@@ -874,7 +896,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/15/runInTerm/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/15/runInTerm/</loc>
     <lastmod>2016-01-17T18:06:04.000Z</lastmod>
     <data>
         <display>
@@ -884,7 +906,7 @@
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
@@ -892,7 +914,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/09/07/Kindle/</loc>
+    <loc>http://conanwhf.coding.me/2015/09/07/Kindle/</loc>
     <lastmod>2016-01-17T18:05:59.000Z</lastmod>
     <data>
         <display>
@@ -904,7 +926,7 @@
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
           
         </display>
     </data>
@@ -912,7 +934,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/30/precision/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/30/precision/</loc>
     <lastmod>2016-01-17T18:05:55.000Z</lastmod>
     <data>
         <display>
@@ -922,7 +944,7 @@
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
@@ -930,7 +952,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/10/03/SmazeInSNP/</loc>
+    <loc>http://conanwhf.coding.me/2015/10/03/SmazeInSNP/</loc>
     <lastmod>2016-01-17T18:04:19.000Z</lastmod>
     <data>
         <display>
@@ -940,7 +962,7 @@
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
           
         </display>
     </data>
@@ -948,7 +970,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/11/02/Swift2.xFunction/</loc>
+    <loc>http://conanwhf.coding.me/2015/11/02/Swift2.xFunction/</loc>
     <lastmod>2016-01-17T18:04:12.000Z</lastmod>
     <data>
         <display>
@@ -958,7 +980,7 @@
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
@@ -966,7 +988,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/09/14/TableViewBase/</loc>
+    <loc>http://conanwhf.coding.me/2015/09/14/TableViewBase/</loc>
     <lastmod>2016-01-17T18:03:56.000Z</lastmod>
     <data>
         <display>
@@ -980,7 +1002,7 @@
          
            
              
-              <breadCrumb title="Cocoa" url="http://conanwhf.github.io/categories/Cocoa/"/>
+              <breadCrumb title="Cocoa" url="http://conanwhf.coding.me/categories/Cocoa/"/>
           
         </display>
     </data>
@@ -988,7 +1010,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/09/04/LifeCycle/</loc>
+    <loc>http://conanwhf.coding.me/2015/09/04/LifeCycle/</loc>
     <lastmod>2016-01-17T18:03:53.000Z</lastmod>
     <data>
         <display>
@@ -1000,7 +1022,7 @@
          
            
              
-              <breadCrumb title="Cocoa" url="http://conanwhf.github.io/categories/Cocoa/"/>
+              <breadCrumb title="Cocoa" url="http://conanwhf.coding.me/categories/Cocoa/"/>
           
         </display>
     </data>
@@ -1008,7 +1030,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/09/04/WidgetsList/</loc>
+    <loc>http://conanwhf.coding.me/2015/09/04/WidgetsList/</loc>
     <lastmod>2016-01-17T18:03:44.000Z</lastmod>
     <data>
         <display>
@@ -1020,7 +1042,7 @@
          
            
              
-              <breadCrumb title="Cocoa" url="http://conanwhf.github.io/categories/Cocoa/"/>
+              <breadCrumb title="Cocoa" url="http://conanwhf.coding.me/categories/Cocoa/"/>
           
         </display>
     </data>
@@ -1028,7 +1050,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/09/06/RoadMap/</loc>
+    <loc>http://conanwhf.coding.me/2015/09/06/RoadMap/</loc>
     <lastmod>2016-01-17T18:03:41.000Z</lastmod>
     <data>
         <display>
@@ -1040,7 +1062,7 @@
          
            
              
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.github.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
           
         </display>
     </data>
@@ -1048,7 +1070,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2016/01/03/UISlider/</loc>
+    <loc>http://conanwhf.coding.me/2016/01/03/UISlider/</loc>
     <lastmod>2016-01-17T18:03:31.000Z</lastmod>
     <data>
         <display>
@@ -1062,7 +1084,7 @@
          
            
              
-              <breadCrumb title="Cocoa" url="http://conanwhf.github.io/categories/Cocoa/"/>
+              <breadCrumb title="Cocoa" url="http://conanwhf.coding.me/categories/Cocoa/"/>
           
         </display>
     </data>
@@ -1070,7 +1092,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2016/01/12/rpi-start/</loc>
+    <loc>http://conanwhf.coding.me/2016/01/12/rpi-start/</loc>
     <lastmod>2016-01-17T18:02:55.000Z</lastmod>
     <data>
         <display>
@@ -1080,7 +1102,7 @@
          
            
              
-              <breadCrumb title="RaspberryPi" url="http://conanwhf.github.io/categories/RaspberryPi/"/>
+              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
           
         </display>
     </data>
@@ -1088,7 +1110,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/20/newsreader-1/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/20/newsreader-1/</loc>
     <lastmod>2016-01-17T17:48:23.000Z</lastmod>
     <data>
         <display>
@@ -1100,7 +1122,7 @@
          
            
              
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.github.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
           
         </display>
     </data>
@@ -1108,7 +1130,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/11/05/ResourceInGit/</loc>
+    <loc>http://conanwhf.coding.me/2015/11/05/ResourceInGit/</loc>
     <lastmod>2016-01-17T17:48:23.000Z</lastmod>
     <data>
         <display>
@@ -1122,7 +1144,7 @@
          
            
              
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.github.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
           
         </display>
     </data>
@@ -1130,7 +1152,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/09/03/StructPic/</loc>
+    <loc>http://conanwhf.coding.me/2015/09/03/StructPic/</loc>
     <lastmod>2016-01-17T17:48:23.000Z</lastmod>
     <data>
         <display>
@@ -1142,7 +1164,7 @@
          
            
              
-              <breadCrumb title="Cocoa" url="http://conanwhf.github.io/categories/Cocoa/"/>
+              <breadCrumb title="Cocoa" url="http://conanwhf.coding.me/categories/Cocoa/"/>
           
         </display>
     </data>
@@ -1150,7 +1172,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/21/newsreader-2/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-2/</loc>
     <lastmod>2016-01-17T17:48:23.000Z</lastmod>
     <data>
         <display>
@@ -1164,7 +1186,7 @@
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
@@ -1172,7 +1194,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/21/newsreader-3/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-3/</loc>
     <lastmod>2016-01-17T17:48:23.000Z</lastmod>
     <data>
         <display>
@@ -1186,7 +1208,7 @@
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
@@ -1194,7 +1216,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/22/newsreader-4/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/22/newsreader-4/</loc>
     <lastmod>2016-01-17T17:48:23.000Z</lastmod>
     <data>
         <display>
@@ -1212,7 +1234,7 @@
          
            
              
-              <breadCrumb title="Cocoa" url="http://conanwhf.github.io/categories/Cocoa/"/>
+              <breadCrumb title="Cocoa" url="http://conanwhf.coding.me/categories/Cocoa/"/>
           
         </display>
     </data>
@@ -1220,7 +1242,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/09/05/DocumentsRule/</loc>
+    <loc>http://conanwhf.coding.me/2015/09/05/DocumentsRule/</loc>
     <lastmod>2016-01-17T17:48:23.000Z</lastmod>
     <data>
         <display>
@@ -1230,7 +1252,7 @@
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
           
         </display>
     </data>
@@ -1238,7 +1260,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/04/Swift_open/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/04/Swift_open/</loc>
     <lastmod>2016-01-17T17:48:23.000Z</lastmod>
     <data>
         <display>
@@ -1248,7 +1270,7 @@
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
@@ -1256,7 +1278,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/09/03/NewProjectByCode/</loc>
+    <loc>http://conanwhf.coding.me/2015/09/03/NewProjectByCode/</loc>
     <lastmod>2016-01-17T17:48:23.000Z</lastmod>
     <data>
         <display>
@@ -1268,7 +1290,7 @@
          
            
              
-              <breadCrumb title="Cocoa" url="http://conanwhf.github.io/categories/Cocoa/"/>
+              <breadCrumb title="Cocoa" url="http://conanwhf.coding.me/categories/Cocoa/"/>
           
         </display>
     </data>
@@ -1276,7 +1298,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/16/creatDuoshuo/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/16/creatDuoshuo/</loc>
     <lastmod>2016-01-17T17:48:23.000Z</lastmod>
     <data>
         <display>
@@ -1286,7 +1308,7 @@
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
           
         </display>
     </data>
@@ -1294,7 +1316,7 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/11/05/Alcatraz/</loc>
+    <loc>http://conanwhf.coding.me/2015/11/05/Alcatraz/</loc>
     <lastmod>2016-01-17T17:48:23.000Z</lastmod>
     <data>
         <display>
@@ -1306,7 +1328,7 @@
          
            
              
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.github.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
           
         </display>
     </data>

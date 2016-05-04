@@ -55,7 +55,7 @@ Swift2.0 中的String（五）：String和NS-XXX系列的互相转换
 Swift2.0 中的String（六）：正">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Swift2.0 中的String（二）：基本操作">
-<meta property="og:url" content="http://conanwhf.github.io/2015/12/03/Swift_String_2/index.html">
+<meta property="og:url" content="http://conanwhf.coding.me/2015/12/03/Swift_String_2/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="Swift中的字符串，第二篇，基本操作。其他的几篇传送门：
 
@@ -295,12 +295,12 @@ Swift2.0 中的String（六）：正">
       
         <span itemprop="articleBody"><p>Swift中的字符串，第二篇，基本操作。其他的几篇传送门：</p>
 <ul>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.github.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
+<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性" target="_blank" rel="external">Swift2.0 中的String（一）：常用属性</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作" target="_blank" rel="external">Swift2.0 中的String（二）：基本操作</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换" target="_blank" rel="external">Swift2.0 中的String（三）：类型转换</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换" target="_blank" rel="external">Swift2.0 中的String（四）：编码转换</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换" target="_blank" rel="external">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
+<li><a href="http://conanwhf.github.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配" target="_blank" rel="external">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
 </ul>
 <p>首先，我们要记得使用字符串最常用的两个参数：下标(Index)和范围(Range)，几乎所有API都要用到它们</p>
 <pre><code>let offset = str.startIndex.advancedBy(2)// offset: 3rd char
@@ -309,7 +309,7 @@ let range  = Range(start: str.startIndex.advancedBy(3), end: str.endIndex.advanc
 <pre><code>let n      = Int(str)!
 String(&quot;the number is \(n)&quot;)
 String(format:&quot;%.2f,  %i&quot;, 9.1, 304)
-</code></pre><p><strong>内容反转</strong><a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2015/12/03/Swift_String_2/</p><p>访问原文「<a href='http://conanwhf.github.io/2015/12/03/Swift_String_2/'>Swift2.0 中的String（二）：基本操作</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+</code></pre><p><strong>内容反转</strong><a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2015/12/03/Swift_String_2/</p><p>访问原文「<a href='http://conanwhf.coding.me/2015/12/03/Swift_String_2/'>Swift2.0 中的String（二）：基本操作</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -432,7 +432,7 @@ str.stringByReplacingCharactersInRange(range, withString: &quot;哈哈😄Tes\nt
         <div class="ds-share flat" data-thread-key="2015/12/03/Swift_String_2/"
      data-title="Swift2.0 中的String（二）：基本操作"
      data-content=""
-     data-url="http://conanwhf.github.io/2015/12/03/Swift_String_2/">
+     data-url="http://conanwhf.coding.me/2015/12/03/Swift_String_2/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -463,7 +463,7 @@ str.stringByReplacingCharactersInRange(range, withString: &quot;哈哈😄Tes\nt
           <div class="comments" id="comments">
             
               <div class="ds-thread" data-thread-key="2015/12/03/Swift_String_2/"
-                   data-title="Swift2.0 中的String（二）：基本操作" data-url="http://conanwhf.github.io/2015/12/03/Swift_String_2/">
+                   data-title="Swift2.0 中的String（二）：基本操作" data-url="http://conanwhf.coding.me/2015/12/03/Swift_String_2/">
               </div>
             
           </div>
@@ -503,7 +503,7 @@ str.stringByReplacingCharactersInRange(range, withString: &quot;哈哈😄Tes\nt
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">64</span>
+              <span class="site-state-item-count">65</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

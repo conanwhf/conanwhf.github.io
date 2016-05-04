@@ -48,7 +48,7 @@
 <meta name="description" content="入门iOS开发，相关不相关乱七八糟的一切">
 <meta property="og:type" content="website">
 <meta property="og:title" content="iOS开发和七七八八">
-<meta property="og:url" content="http://conanwhf.github.io/page/2/index.html">
+<meta property="og:url" content="http://conanwhf.coding.me/page/2/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="入门iOS开发，相关不相关乱七八糟的一切">
 <meta name="twitter:card" content="summary">
@@ -211,6 +211,94 @@
       <div class="main-inner">
         <div id="content" class="content"> 
   <section id="posts" class="posts-expand">
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2016/01/21/newsreader-8/" itemprop="url">
+                从打造新闻app学到的(8)：自定义TableViewCell
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-01-21T17:32:45+08:00" content="2016-01-21">
+            2016-01-21
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Cocoa/" itemprop="url" rel="index">
+                  <span itemprop="name">Cocoa</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/01/21/newsreader-8/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/21/newsreader-8/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>新闻App通常是有个新闻的列表，这个列表一般都用TableView来做，每个Cell显示一条新闻，如下图：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_TableViewCell-list.png" alt=""><br>在我做的时候，开始Cell是直接从控件库拖到StoryBoard里面，配置了一点东西就OK了：当Cell的Style设成subtilte时，标题、副标题、以及图像都是可用的，在<strong>cellForRowAtIndexPath</strong>里直接配置就行了：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_TableViewCell-config.png" alt=""><br>但这样做了之后出现一个问题：新闻配图是从网络获取的，长宽比和大小并不固定。在这种做法中，图像是以高度而不是宽度统一对齐的，也就是经过缩放后变成统一的高度适配当前Cell，再显示出来。这样一来，每个Cell里的图像宽度就参差不齐，很难看。我尝试了很久也没能解决这个问题，看起来无论怎么对Cell.image进行配置，也是无效的。折中的办法是事先修改图像的长宽比，但这不是我想要的效果。于是，只好尝试TableViewCell的自定义了。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/21/newsreader-8/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -849,107 +937,11 @@ func updateLatesList(){
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/31/newsreader-6/" itemprop="url">
-                从打造新闻app学到的(6)：显示html格式文件/数据
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-31T17:32:45+08:00" content="2015-12-31">
-            2015-12-31
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Cocoa/" itemprop="url" rel="index">
-                  <span itemprop="name">Cocoa</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/12/31/newsreader-6/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/31/newsreader-6/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>虽然我的新闻客户端app进展告一段落，暂停两个礼拜，但之前积攒下来的东西还没有写完，继续总结码字。<br>我从API拿到的数据，具体的新闻信息，使用的是HTML格式，包括图片地址什么的。我不想用WebView，一方面是网络方面的东西我还没怎么接触，怕麻烦、不会，另一方面因为还有标题、评论什么的，最好是能直接解析显示出来，放在一个TextView里面。我的目的是学习，那些第三方库什么的能不用也都不用了，于是找了找，TextView确实能解决这个问题，一般都是OC版的，用Swift写是这样：</p>
-<pre><code>let opt = [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType]
-let html =  &quot;&lt;div style=\&quot;background-color:#F1F1F1; font-size:14px; color:#304182; \n  text-align:center; margin-left:10px; padding-right:10px\&quot;&gt; \n&lt;p&gt;Test &lt;span style=\&quot;font-size:18px; color:#E88834;\&quot;&gt;测试结束&lt;/span&gt; Tips&lt;/p&gt;\n&lt;/div&gt;&quot;
-
-do{
-let attributedString = try NSMutableAttributedString(data: html.dataUsingEncoding(NSUnicodeStringEncoding)!, options:opt, documentAttributes: nil)
-post.attributedText = attributedString
-}catch {print(error)}
-</code></pre><p>不但能解析字体、颜色等等html标识，有图片的话也是没问题的。不过，事情没这么容易解决……
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/31/newsreader-6/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/">&laquo;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/">&raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/">&raquo;</a>
   </nav>
 
  </div>
@@ -983,7 +975,7 @@ post.attributedText = attributedString
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">64</span>
+              <span class="site-state-item-count">65</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
