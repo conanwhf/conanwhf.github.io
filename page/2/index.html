@@ -223,6 +223,90 @@
           
           
             
+              <a class="post-title-link" href="/2016/01/22/microwave/" itemprop="url">
+                微波炉的悲剧
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-01-22T17:35:25+08:00" content="2016-01-22">
+            2016-01-22
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Life-Other/" itemprop="url" rel="index">
+                  <span itemprop="name">Life & Other</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/01/22/microwave/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/22/microwave/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>早上起床，从冰箱里拿了蛋糕出来，放微波炉转10秒，然后洗漱去了……等我一切停当出来一看，妈呀……我设的不是10秒是10分钟！！！😱 😱 😱 😱 😱一开微波炉，蛋糕烧成碳就不说了，那个呛！别提了！！！<br>开抽油烟机、开风扇、上网搜解救方法（各种橘子皮茶叶醋什么的）、总算感觉好点了。但是、这只是适应环境了的幻觉！午休后从房间出来，一屋子的烟味呛得我……😂 😂 😂 😂 😂无语，外面还下着雨，不能开窗通风，现在全屋开着空调净化器抽风机打字中……🤑 🤑 🤑 🤑 🤑 🤑</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2016/01/21/newsreader-8/" itemprop="url">
                 从打造新闻app学到的(8)：自定义TableViewCell
               </a>
@@ -836,107 +920,6 @@ back.transform = CGAffineTransformMakeRotation( CGFloat(Double(conf[7] * M_PI  /
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2016/01/01/newsreader-7/" itemprop="url">
-                从打造新闻app学到的(7)：下拉刷新和上拉更多
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-01-01T14:56:35+08:00" content="2016-01-01">
-            2016-01-01
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Cocoa/" itemprop="url" rel="index">
-                  <span itemprop="name">Cocoa</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2016/01/01/newsreader-7/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/01/newsreader-7/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>新闻的实时性，必然导致其列表清单对“下拉刷新”和“上拉更多”的实现要求。一开始我以为这两个可以很容易地通过手势的处理来实现，找了找先是发现了个控件<strong>UIRefreshControl</strong>，很简单地实现了下拉刷新，想着上拉不是一样嘛，先用用再研究上拉怎么搞，于是放进了Code里面：</p>
-<pre><code>@IBOutlet weak var loading: UIActivityIndicatorView!
-override func viewDidLoad() {
-    //添加下拉刷新
-    sliding.addTarget(self, action: &quot;updateLatesList&quot;, forControlEvents: UIControlEvents.ValueChanged)
-    sliding.attributedTitle = NSAttributedString(string: &quot;下拉松手刷新...&quot;)
-    self.ListTableView.addSubview(sliding)
-}
-
-func updateLatesList(){
-    //TODO：刷新数据
-    self.sliding.endRefreshing()
-}
-</code></pre><p>这个一看便知，注册一下回调，修改一下显示的字符串；然后在控件的监听回调里面刷新好数据，关掉动画，搞定！简直顺利得不敢相信。然后开始研究怎么通过这个改上拉更多……恕我驽钝，搞不定。上网查了一圈，貌似大家的上拉都不是用这个控件，这个控件的可定制性据说也比较差……😰没办法，乖乖自己写了。<br>去找了个第三方的“上拉更多”库，看源码（Sorry，已经不知道是哪个库了，GitHub上一大堆，我直接在浏览器里面看完就关了），发现里面的关键就是监听滑动事件，然后通过计算坐标来判断是否是上拉：
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/01/newsreader-7/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -975,7 +958,7 @@ func updateLatesList(){
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">65</span>
+              <span class="site-state-item-count">66</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

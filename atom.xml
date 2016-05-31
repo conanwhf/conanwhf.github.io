@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.coding.me/"/>
-  <updated>2016-05-03T15:05:29.000Z</updated>
+  <updated>2016-05-31T14:06:13.000Z</updated>
   <id>http://conanwhf.coding.me/</id>
   
   <author>
@@ -13,6 +13,102 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[开发Tips收集-2016年05月]]></title>
+    <link href="http://conanwhf.coding.me/2016/05/31/Tips201605/"/>
+    <id>http://conanwhf.coding.me/2016/05/31/Tips201605/</id>
+    <published>2016-05-31T09:25:39.000Z</published>
+    <updated>2016-05-31T14:06:13.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>UIImage两种初始化方式的区别：<br>　　使用<strong>imageNamed</strong>：第一次读取的时候，先把这个图片放到缓存里，下次再使用到这个同名图片的时候直接从缓存中读取；优点：方便快捷，只有第一次使用的时候稍慢，接下来再使用就会稍微快点；缺点：如果在当前工程中只使用一次会浪费内存。（这个内存在程序关闭的时候才释放）<br>　　使用<strong>initWithContentsOfFile</strong>：每次都会根据路径去读取，不会占用内存，如果图片在当前工程中只使用一次，应该选择这个方法</li>
+<li>UIView和CALayer的区别与联系）<ol>
+<li>每个 UIView 内部都有一个 CALayer 在背后提供内容的绘制和显示，并且 UIView 的尺寸样式都由内部的 Layer 所提供。两者都有树状层级结构，layer 内部有 SubLayers，View 内部有 SubViews.但是 Layer 比 View 多了个AnchorPoint</li>
+<li>在 View显示的时候，UIView 做为 Layer 的 CALayerDelegate,View 的显示内容由内部的 CALayer 的 display</li>
+<li>CALayer 是默认修改属性支持隐式动画的，在给 UIView 的 Layer 做动画的时候，View 作为 Layer 的代理，Layer 通过 actionForLayer:forKey:向 View请求相应的 action(动画行为)</li>
+<li>layer 内部维护着三分 layer tree,分别是 presentLayer Tree(动画树),modeLayer Tree(模型树), Render Tree (渲染树),在做 iOS动画的时候，我们修改动画的属性，在动画的其实是 Layer 的 presentLayer的属性值,而最终展示在界面上的其实是提供 View的modelLayer</li>
+<li>两者最明显的区别是 View可以接受并处理事件，而 Layer 不可以</li>
+</ol>
+</li>
+<li>在使用 ImagesQA.xcassets 时需要注意：将图片直接拖入image到ImagesQA.xcassets中时，图片的名字会保留。这个时候如果图片的名字过长，那么这个名字会存入到ImagesQA.xcassets中，名字过长会引起SourceTree判断异常。</li>
+<li>UIScrollView添加了一个很好用的属性keyboardDismissMode，这样可以让键盘在滚动时自动收起。这个属性使用了新的UIScrollViewKeyboardDismissMode enum枚举类型。这个enum枚举类型可能的值如下：<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/05/31/Tips201605/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/05/31/Tips201605/'>开发Tips收集-2016年05月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+<ol>
+<li>UIScrollViewKeyboardDismissModeNone,</li>
+<li>UIScrollViewKeyboardDismissModeOnDrag,      // dismisses the keyboard when a drag begins</li>
+<li>UIScrollViewKeyboardDismissModeInteractive, // the keyboard follows the dragging touch off screen, and may be pulled upward again to cancel the dismiss</li>
+</ol>
+</li>
+<li>iOS加载启动图的时候隐藏statusbar只需要在info.plist中加入<strong>Status bar is initially hidden</strong>，设置为YES就好</li>
+<li>NSDate 在保存数据，传输数据中，一般最好使用UTC时间。在显示到界面给用户看的时候，需要转换为本地时间。</li>
+<li>UITableViewCell中，对cell设置<strong>indentationLevel</strong>的值，可以将cell 分级别。还有 CGFloat <strong>indentationWidth</strong>属性，设置缩进的宽度。总缩进的宽度 = indentationLevel * indentationWidth</li>
+<li>static的使用：<ol>
+<li>修饰局部变量,修改的是生命周期，在整个程序运行过程中,只初始化一次,而且只有一份内存,并没有改变作用域</li>
+<li>修饰全局变量,修改的是作用域。没有被static修饰的全局变量,项目中的任何文件,可以访问；static修饰的全局变量,只在当前文件中访问</li>
+</ol>
+</li>
+<li>isMemberOfClass 和 isKindOfClass：两者都能检测一个对象是不是某个类的成员；isKindOfClass不仅能确定一个对象是不是某个类的成员,也能确定一个对象是否是派生自该类的类的成员,而isMemberOfClass只能做到前者.</li>
+<li>TCP 和UDP 的区别与联系：TCP 为传输控制层协议,为面向连接,可靠的,点到点的通信；UDP 为用户数据报协议,非连接的不可靠的点到多点的通信；TCP 侧重可靠传输,UDP 侧重快速传输</li>
+<li>读写小文件是 iPhone 的一大弱点。16MB 的文件测试与 Mac 的测试结果差不多，但是 16 字节的文件测试 iPhone 花了 Mac 10 倍的时间。相比 Mac，iPhone 的存储设备吞吐量很高，但是有一些额外的延迟。</li>
+<li>iOS的应用都是通过bundle进行封装的，对应的bundle类型是Application类型，平时我们通过XCode编译出来的Target（即我们开发的应用），其实就是一个Application类型bundle，即一个文件夹！但是Finder会把这个bundle当做一个文件显示给我们，其实是因为这个bundle自身也是一个package，而Mac系统会把所有的package当做一个文件来对待，显示给用户，从而防止用户误操作导致程序文件损坏或丢失。</li>
+<li>NSURLConnettion是 Core Foundation/CFNetwork框架 API 之上的一个抽象. NSURLConnettion是用来指代 Foundation 框架中的一系列组件: NSURLRequest,NSURLResponse,NSURLProtocol,NSURLCache,NSHTTPCookieStorage,NSURLCredentialStorage 以及同名类 NSURLConnection.</li>
+<li>NSURLSession 不仅仅包括同名的 NSURLSession, 还包括NSURLRequest 和 NSURLCache. 同时将NSURLConnection 对应为NSURLSession,NSURLSessionFiguration 以及NSURLSession 的三个子类,即NSURLSessionTask,NSURLSessionUpLoadTask 和 NSULSessionDownLoadTask.</li>
+<li>和 NSURLConnection 相比, NSURLSession 最大的改变可以配置每一个缓存的session 缓存, cookie 值,协议以及证书策略甚至夸程序共享这些信息.这保证了程序和网络框架之间的相互独立.每一个 NSURLSession 有一个 NSURLSessionConfiguration 来进行初始化, NSURLSessionConfiguration指定了策略,以及在移动设备上增强性能的选项.NSURLSession 的另一个特点就是 session Task, 用来处理的上传和下载.和 NSURLConnection 最大的不同之处在于,所有的 task 共享其创造者 NSURLSession.</li>
+<li>NSURLSession即有 session 的代理方法又有 Task 的代理方法.session 的代理方法用来处理连接层的问题(服务器的信任,客户端证书的评估等),Task 的代理方法用来处理鉴权查询和以网络请求有关的问题.</li>
+<li>AVAudioPlayer包含在 AVFoundation框架中，所以开发的时候首先导入音频的框架AVFoundation.framework。注意：引入头文件 #import \<avfoundation avfoundation.h\="">。<pre><code>AVAudioPlayer的初始化的时候需要给一个播放文件：AVAudioPlayer  *avAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:文件路径 error:nil];
+</code></pre></avfoundation></li>
+<li>要修改app名字的时候最好不要修改product，可以在info.plist中修改Bundle display name.</li>
+<li>当UIWebView播放视频时，可以看到view hierarchy里有FigPluginView的身影。这个类来自于QuickTime Plugin，plugin的路径为：/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/System/Library/Internet Plug-Ins/QuickTime Plugin.webplugin，这是个文件夹，里面还有链接库以及文件和图片资源。</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>UIImage两种初始化方式的区别：<br>　　使用<strong>imageNamed</strong>：第一次读取的时候，先把这个图片放到缓存里，下次再使用到这个同名图片的时候直接从缓存中读取；优点：方便快捷，只有第一次使用的时候稍慢，接下来再使用就会稍微快点；缺点：如果在当前工程中只使用一次会浪费内存。（这个内存在程序关闭的时候才释放）<br>　　使用<strong>initWithContentsOfFile</strong>：每次都会根据路径去读取，不会占用内存，如果图片在当前工程中只使用一次，应该选择这个方法</li>
+<li>UIView和CALayer的区别与联系）<ol>
+<li>每个 UIView 内部都有一个 CALayer 在背后提供内容的绘制和显示，并且 UIView 的尺寸样式都由内部的 Layer 所提供。两者都有树状层级结构，layer 内部有 SubLayers，View 内部有 SubViews.但是 Layer 比 View 多了个AnchorPoint</li>
+<li>在 View显示的时候，UIView 做为 Layer 的 CALayerDelegate,View 的显示内容由内部的 CALayer 的 display</li>
+<li>CALayer 是默认修改属性支持隐式动画的，在给 UIView 的 Layer 做动画的时候，View 作为 Layer 的代理，Layer 通过 actionForLayer:forKey:向 View请求相应的 action(动画行为)</li>
+<li>layer 内部维护着三分 layer tree,分别是 presentLayer Tree(动画树),modeLayer Tree(模型树), Render Tree (渲染树),在做 iOS动画的时候，我们修改动画的属性，在动画的其实是 Layer 的 presentLayer的属性值,而最终展示在界面上的其实是提供 View的modelLayer</li>
+<li>两者最明显的区别是 View可以接受并处理事件，而 Layer 不可以</li>
+</ol>
+</li>
+<li>在使用 ImagesQA.xcassets 时需要注意：将图片直接拖入image到ImagesQA.xcassets中时，图片的名字会保留。这个时候如果图片的名字过长，那么这个名字会存入到ImagesQA.xcassets中，名字过长会引起SourceTree判断异常。</li>
+<li>UIScrollView添加了一个很好用的属性keyboardDismissMode，这样可以让键盘在滚动时自动收起。这个属性使用了新的UIScrollViewKeyboardDismissMode enum枚举类型。这个enum枚举类型可能的值如下：]]>
+    
+    </summary>
+    
+      <category term="Xcode" scheme="http://conanwhf.coding.me/tags/Xcode/"/>
+    
+      <category term="iOS - Swift" scheme="http://conanwhf.coding.me/tags/iOS-Swift/"/>
+    
+      <category term="DevTips" scheme="http://conanwhf.coding.me/categories/DevTips/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[开发Tips收集-2016年04月]]></title>
@@ -1552,121 +1648,6 @@ post.attributedText = attributedString
       <category term="BookList" scheme="http://conanwhf.coding.me/tags/BookList/"/>
     
       <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Swift中数据类型精度的一点探索]]></title>
-    <link href="http://conanwhf.coding.me/2015/12/30/precision/"/>
-    <id>http://conanwhf.coding.me/2015/12/30/precision/</id>
-    <published>2015-12-30T09:14:35.000Z</published>
-    <updated>2016-01-17T18:05:55.000Z</updated>
-    <content type="html"><![CDATA[<p>昨天整理code，顺手写了个UIColor和16进制RGB表示的颜色转换。由于UIColor中的RGBA范围是0..1，所以里面用到了一些乘除法，和强制类型转换：</p>
-<pre><code>CGFloat(Float(r)/255.0)
-Int(r*255)
-</code></pre><p>写完以后测试了一下貌似没什么问题，就睡觉去了。后来突然想到，1/255并不是一个有理数，而且<strong>Int()做的是取地板而不是四舍五入</strong>，会不会在这种转换的过程中因为精度的问题造成数据错误呢？于是写了一小段测试代码：</p>
-<pre><code>//精度测试，确认转换不会丢失信息
-let a  = Array.init(0...255)
-let b = a.map{ CGFloat(Float($0)/255.0) }
-let c = b.map{ Int($0*255) }
-a.elementsEqual(c)
-</code></pre><p>还好结果是True，这个转换过程并没有出错的机会。但我怎么可能就此罢休？通过修改a的初始化条件发现，乘除255的时候，在算257的时候就出错了。按理说1/255并不是一个很小的数字，如果准确的话，16位的存储结构是可以保留足够信息的，所以我尝试这打印了一下各个数据类型的精度：</p>
-<pre><code>sizeof(Int)*8//64
-sizeof(UInt)*8//64
-sizeof(UInt16)*8//16
-sizeof(Int32)*8//32
-
-sizeof(Float)*8//32
-sizeof(Double)*8//64
-sizeof(CGFloat)*8//64
-
-sizeof(Character)*8//72
-sizeof(String)*8//192
-sizeof(CGRect)*8//256
-sizeof(UIColor)*8//64
-</code></pre><p>第一组相当的make sense，Int默认就是64位；第二组是实数部分，令我惊讶的是原来<strong>CGFloat</strong>也是64位的，而Float反而比它差只有32位。第三组的结果比较值得玩味：Swift里面的String搞得比较复杂，是什么都不奇怪，但我以为Character至少会是8，结果却是72；<strong>UIColor</strong>本身是由4个CGFloat构成，其size却不是4倍的CGFloat；倒是<strong>CGRect</strong>比较可以解释，因为它是CGSize和CGPoint组合而成，实质上也是4个CGFloat。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2015/12/30/precision/</p><p>访问原文「<a href='http://conanwhf.coding.me/2015/12/30/precision/'>Swift中数据类型精度的一点探索</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-<br>也就是说，sizeof()这个函数，在对某些类型如String等操作的时候，结果是这个结构体所占用的内存空间大小；而对某些类型如Int等，即使它们也是一个结构体（我们已经知道在Swift中所有的类型其实都是结构体），给出的结果却是这个类型所表示的值的内存占用。令人感兴趣的是，在一堆UIXXX的结构体中，为什么独独CGFloat会作为数值类型来看待呢？于是我去翻了翻CGFloat的头文件，发现这家伙真面目是这样的：</p>
-<pre><code>public struct CGFloat {
-/// The native type used to store the CGFloat, which is Float on
-/// 32-bit architectures and Double on 64-bit architectures.
-public typealias NativeType = Double
-public init()
-public init(_ value: Float)
-public init(_ value: Double)
-/// The native value.
-public var native: NativeType
-}
-</code></pre><p>真相大白，所以CGFloat在内部实现就是个Double，头文件后面还有很长的各种协议……也就是说，其实CGFloat是可以直接做运算的？试了试，果然没错。那么<code>CGFloat(Float(r)/255.0)</code>这种计算就不妥了，人家一个好好的64位，给生生转成32位了，改成<code>CGFloat(r)/255.0</code>即可。<br>回到最开始的问题—精度。为了便于测试，我写了个函数：</p>
-<pre><code>func precisionTest (div: CGFloat) {
-var a : Int = 0
-var b : CGFloat
-var c : Int
-repeat {
-a = a + 1
-//b = CGFloat(Float(a) / Float(div)) // for Float
-b = CGFloat(a) / div    // for CGFloat
-c = Int(b * div)
-}while c == a
-print(&quot;div=\(div), a=\(a), b=\(b) @\(b*div), c=\(c) @ \(Double(c)/Double(div))&quot;)
-}
-</code></pre><p>这个函数会从1开始找，计算在div(除数)固定的情况下，第一个将常数先除再乘后丢失精度的case。之前我们已经知道了在div=255且中间变量使用Float的时候，<code>257/255*255 != 257</code>，但中间变量换成CGFloat之后，程序跑到10000+还没找到错误，被我手动停了👻。另外随机试了几个数字，都是使用CGFloat比Float出错概率要小，<strong>这也印证了这两个类型的精度大小区别</strong>，只是这种错误的结果随机性比较高，有的用1就已经出错，有的跑了很久也没事，跟div的数值变化没有什么关联性，也就是说这种错误并不全是保存精度大小和Int()截取而造成的。<br>那么大概是因为除法吧？接下来我固定使用Float（更容易出错便于观察结果），调整不同的div数值来测试，发现：</p>
-<ol>
-<li>1，2，4，8，16，…，512，1024…这些div永远不会出错</li>
-<li>除了2^n作为div，其他数字都会出错（只测试了10000以内的）</li>
-<li>出错的数字都是奇数，但没什么特别明显的规律，跟div的相关性也不大</li>
-<li>有个别出错特别晚的div（超过div本身的数值），他们都可被分解成2^n1+2^n2+2^n3…+2^nm-1</li>
-</ol>
-<p>综上所述，在我所测试的这个问题上，结果的误差主要影响还是因为除法。<strong>除法实现到最底层（硬件层），终究还是靠电子元器件，也就归结到了二进制计算。所以那些2^n作为除数，只靠移位操作就能解决，没有精度损失；而其他数字则是有一套算法，这也和我们所知的计算机原理相吻合。</strong>至于具体怎么算的……如果我搞清楚了也许就能解释3和4了吧……😌（其实我对着打印信息研究了好半天，但数学不行实在研究不出来个结果😭）<br>以上就是我对Swift中数据类型精度的一些相关探索，如果你想看测试代码，在<a href="https://github.com/conanwhf/swiftplayground/blob/master/Play.playground/Pages/Precision.xcplaygroundpage/Contents.swift" target="_blank" rel="external">这里</a>（然而其实真没啥好看）</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>昨天整理code，顺手写了个UIColor和16进制RGB表示的颜色转换。由于UIColor中的RGBA范围是0..1，所以里面用到了一些乘除法，和强制类型转换：</p>
-<pre><code>CGFloat(Float(r)/255.0)
-Int(r*255)
-</code></pre><p>写完以后测试了一下貌似没什么问题，就睡觉去了。后来突然想到，1/255并不是一个有理数，而且<strong>Int()做的是取地板而不是四舍五入</strong>，会不会在这种转换的过程中因为精度的问题造成数据错误呢？于是写了一小段测试代码：</p>
-<pre><code>//精度测试，确认转换不会丢失信息
-let a  = Array.init(0...255)
-let b = a.map{ CGFloat(Float($0)/255.0) }
-let c = b.map{ Int($0*255) }
-a.elementsEqual(c)
-</code></pre><p>还好结果是True，这个转换过程并没有出错的机会。但我怎么可能就此罢休？通过修改a的初始化条件发现，乘除255的时候，在算257的时候就出错了。按理说1/255并不是一个很小的数字，如果准确的话，16位的存储结构是可以保留足够信息的，所以我尝试这打印了一下各个数据类型的精度：</p>
-<pre><code>sizeof(Int)*8//64
-sizeof(UInt)*8//64
-sizeof(UInt16)*8//16
-sizeof(Int32)*8//32
-
-sizeof(Float)*8//32
-sizeof(Double)*8//64
-sizeof(CGFloat)*8//64
-
-sizeof(Character)*8//72
-sizeof(String)*8//192
-sizeof(CGRect)*8//256
-sizeof(UIColor)*8//64
-</code></pre><p>第一组相当的make sense，Int默认就是64位；第二组是实数部分，令我惊讶的是原来<strong>CGFloat</strong>也是64位的，而Float反而比它差只有32位。第三组的结果比较值得玩味：Swift里面的String搞得比较复杂，是什么都不奇怪，但我以为Character至少会是8，结果却是72；<strong>UIColor</strong>本身是由4个CGFloat构成，其size却不是4倍的CGFloat；倒是<strong>CGRect</strong>比较可以解释，因为它是CGSize和CGPoint组合而成，实质上也是4个CGFloat。]]>
-    
-    </summary>
-    
-      <category term="Swift" scheme="http://conanwhf.coding.me/categories/Swift/"/>
     
   </entry>
   

@@ -34,7 +34,7 @@
 
 
 
-  <meta name="keywords" content="Conan" />
+  <meta name="keywords" content="Xcode,iOS - Swift," />
 
 
 
@@ -45,16 +45,25 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，传送门">
+<meta name="description" content="这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。如有侵权不得转载等情况，请联系我告知，谢谢！
+
+
+UIImage两种初始化方式的区别：　　使用imageNamed：第一次读取的时候，先把这个图片放到缓存里，下次再使用到这个同名图片的时候直接从缓存中读取；优点：方便快捷，只有第一次使用的时候稍慢，接下来再使用就会稍微快点；缺点：如">
 <meta property="og:type" content="article">
-<meta property="og:title" content="树莓派初始配置指南（2代B型）">
-<meta property="og:url" content="http://conanwhf.coding.me/2016/01/12/rpi-start/index.html">
+<meta property="og:title" content="开发Tips收集-2016年05月">
+<meta property="og:url" content="http://conanwhf.coding.me/2016/05/31/Tips201605/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
-<meta property="og:description" content="关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，传送门">
-<meta property="og:updated_time" content="2016-01-17T18:02:55.000Z">
+<meta property="og:description" content="这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。如有侵权不得转载等情况，请联系我告知，谢谢！
+
+
+UIImage两种初始化方式的区别：　　使用imageNamed：第一次读取的时候，先把这个图片放到缓存里，下次再使用到这个同名图片的时候直接从缓存中读取；优点：方便快捷，只有第一次使用的时候稍慢，接下来再使用就会稍微快点；缺点：如">
+<meta property="og:updated_time" content="2016-05-31T14:06:13.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="树莓派初始配置指南（2代B型）">
-<meta name="twitter:description" content="关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，传送门">
+<meta name="twitter:title" content="开发Tips收集-2016年05月">
+<meta name="twitter:description" content="这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。如有侵权不得转载等情况，请联系我告知，谢谢！
+
+
+UIImage两种初始化方式的区别：　　使用imageNamed：第一次读取的时候，先把这个图片放到缓存里，下次再使用到这个同名图片的时候直接从缓存中读取；优点：方便快捷，只有第一次使用的时候稍慢，接下来再使用就会稍微快点；缺点：如">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -64,7 +73,7 @@
   };
 </script>
 
-  <title> 树莓派初始配置指南（2代B型） | iOS开发和七七八八 </title>
+  <title> 开发Tips收集-2016年05月 | iOS开发和七七八八 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -222,7 +231,7 @@
           
           
             
-              树莓派初始配置指南（2代B型）
+              开发Tips收集-2016年05月
             
           
         </h1>
@@ -231,8 +240,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2016-01-12T14:31:26+08:00" content="2016-01-12">
-            2016-01-12
+          <time itemprop="dateCreated" datetime="2016-05-31T17:25:39+08:00" content="2016-05-31">
+            2016-05-31
           </time>
         </span>
 
@@ -241,8 +250,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/RaspberryPi/" itemprop="url" rel="index">
-                  <span itemprop="name">RaspberryPi</span>
+                <a href="/categories/DevTips/" itemprop="url" rel="index">
+                  <span itemprop="name">DevTips</span>
                 </a>
               </span>
 
@@ -257,8 +266,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2016/01/12/rpi-start/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/12/rpi-start/" itemprop="commentsCount"></span>
+              <a href="/2016/05/31/Tips201605/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/31/Tips201605/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -272,8 +281,21 @@
       
 
       
-        <span itemprop="articleBody"><p>关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a></p>
-<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/12/rpi-start/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/12/rpi-start/'>树莓派初始配置指南（2代B型）</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+        <span itemprop="articleBody"><blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>UIImage两种初始化方式的区别：<br>　　使用<strong>imageNamed</strong>：第一次读取的时候，先把这个图片放到缓存里，下次再使用到这个同名图片的时候直接从缓存中读取；优点：方便快捷，只有第一次使用的时候稍慢，接下来再使用就会稍微快点；缺点：如果在当前工程中只使用一次会浪费内存。（这个内存在程序关闭的时候才释放）<br>　　使用<strong>initWithContentsOfFile</strong>：每次都会根据路径去读取，不会占用内存，如果图片在当前工程中只使用一次，应该选择这个方法</li>
+<li>UIView和CALayer的区别与联系）<ol>
+<li>每个 UIView 内部都有一个 CALayer 在背后提供内容的绘制和显示，并且 UIView 的尺寸样式都由内部的 Layer 所提供。两者都有树状层级结构，layer 内部有 SubLayers，View 内部有 SubViews.但是 Layer 比 View 多了个AnchorPoint</li>
+<li>在 View显示的时候，UIView 做为 Layer 的 CALayerDelegate,View 的显示内容由内部的 CALayer 的 display</li>
+<li>CALayer 是默认修改属性支持隐式动画的，在给 UIView 的 Layer 做动画的时候，View 作为 Layer 的代理，Layer 通过 actionForLayer:forKey:向 View请求相应的 action(动画行为)</li>
+<li>layer 内部维护着三分 layer tree,分别是 presentLayer Tree(动画树),modeLayer Tree(模型树), Render Tree (渲染树),在做 iOS动画的时候，我们修改动画的属性，在动画的其实是 Layer 的 presentLayer的属性值,而最终展示在界面上的其实是提供 View的modelLayer</li>
+<li>两者最明显的区别是 View可以接受并处理事件，而 Layer 不可以</li>
+</ol>
+</li>
+<li>在使用 ImagesQA.xcassets 时需要注意：将图片直接拖入image到ImagesQA.xcassets中时，图片的名字会保留。这个时候如果图片的名字过长，那么这个名字会存入到ImagesQA.xcassets中，名字过长会引起SourceTree判断异常。</li>
+<li>UIScrollView添加了一个很好用的属性keyboardDismissMode，这样可以让键盘在滚动时自动收起。这个属性使用了新的UIScrollViewKeyboardDismissMode enum枚举类型。这个enum枚举类型可能的值如下：<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/05/31/Tips201605/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/05/31/Tips201605/'>开发Tips收集-2016年05月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -294,86 +316,57 @@
   }
 })()
 </script>
-
-<h2 id="u5236_u4F5C_u542F_u52A8img"><a href="#u5236_u4F5C_u542F_u52A8img" class="headerlink" title="制作启动img"></a>制作启动img</h2><ol>
-<li>从官网下载最新的image，解包，TF卡插入电脑</li>
-<li>用mount查看，将TF卡umount</li>
-<li><p>randisk<strong>X</strong>是要自己根据情况修改的</p>
-<pre><code>sudo dd bs=1m if=2015-11-21-raspbian-jessie.img of=/dev/rdisk2
-diskutil umount /Volumes/boot
-</code></pre></li>
-<li>拔卡，插入树莓派，上电，这时候系统应该跑起来了。最新的系统是默认打开SSH的，所以如果你插了网线、知道IP的话，已经可以直接SSH上去。初始用户pi,密码raspberry</li>
-<li><strong>下面的命令都是在树莓派上跑的，请不要随便在自己主电脑上sudo!!!</strong></li>
-</ol>
-<h2 id="u66F4_u65B0_u5230_u6700_u65B0_u7248_u672C"><a href="#u66F4_u65B0_u5230_u6700_u65B0_u7248_u672C" class="headerlink" title="更新到最新版本"></a>更新到最新版本</h2><p>要花点时间，放到后面做也可以。<strong>另外我看到有人说国内连官方源太慢，我不在国内测不到，如果需要请自己搜索添加合适的源</strong></p>
-<pre><code>sudo apt-get -y update
-sudo apt-get -y upgrade
-sudo apt-get -y dist-upgrade
-sudo rpi-update
-</code></pre><h2 id="u4FEE_u6539vi"><a href="#u4FEE_u6539vi" class="headerlink" title="修改vi"></a>修改vi</h2><p>Debian的默认vi太难用！改之。我的Github里还放了我的vi配置文件，随意取用</p>
-<pre><code>sudo apt-get -y remove vim-common
-sudo apt-get -y install vim
-</code></pre><h2 id="u4E2D_u6587_u652F_u6301"><a href="#u4E2D_u6587_u652F_u6301" class="headerlink" title="中文支持"></a>中文支持</h2><p>字库和输入法，平时都用SSH的人其实用不到</p>
-<pre><code>sudo apt-get -y install ttf-wqy-zenhei ttf-wqy-microhei
-sudo apt-get -y install fcitx fcitx-googlepinyin fcitx-module-cloudpinyin fcitx-sunpinyin
-</code></pre><h2 id="u5B98_u65B9_u81EA_u5E26_u7684menuconfig"><a href="#u5B98_u65B9_u81EA_u5E26_u7684menuconfig" class="headerlink" title="官方自带的menuconfig"></a>官方自带的menuconfig</h2><p>跑(sudo raspi-config)，这个命令行跑起来的界面和GUI上打开的不一样，不过内容差不多，建议修改以下几个</p>
-<ul>
-<li>用户pi密码，hostname</li>
-<li>开启ssh,spi,i2c</li>
-<li>修改时区</li>
-<li>扩展卡上分区<br>然后就可以reboot了</li>
-</ul>
-<h2 id="VNC_u652F_u6301"><a href="#VNC_u652F_u6301" class="headerlink" title="VNC支持"></a>VNC支持</h2><h3 id="u5B89_u88C5_u670D_u52A1_u5668_u7AEFtightVNC"><a href="#u5B89_u88C5_u670D_u52A1_u5668_u7AEFtightVNC" class="headerlink" title="安装服务器端tightVNC"></a>安装服务器端tightVNC</h3><pre><code>sudo apt-get -y install tightvncserver
-sudo apt-get -y install xfonts-base
-</code></pre><h3 id="u914D_u7F6E"><a href="#u914D_u7F6E" class="headerlink" title="配置"></a>配置</h3><ol>
-<li>配置连接密码：<code>vncpasswd</code></li>
-<li><p>添加开机启动：</p>
-<ul>
-<li>创建/etc/init.d/tightvncserver，内容见<a href="https://github.com/conanwhf/RaspberryPi-script/blob/master/setup/tightvncserver" target="_blank" rel="external">这里</a></li>
-<li><p>更新改变：</p>
-<pre><code>sudo chmod +x /etc/init.d/tightvncserver
-sudo update-rc.d tightvncserver defaults
-</code></pre></li>
-</ul>
-</li>
-</ol>
-<h2 id="u5BA2_u6237_u7AEF_u8FDE_u63A5"><a href="#u5BA2_u6237_u7AEF_u8FDE_u63A5" class="headerlink" title="客户端连接"></a>客户端连接</h2><p>在我的Mac上，Finder里面⌘+k，填<code>vnc://&lt;rpi IP&gt;:5901</code>即可。人家都说可以用<code>vnc://IP:1</code>这样的方式，但我不行，不知道为啥</p>
-<h2 id="u914D_u7F6E_u56FA_u5B9AIP_u5730_u5740"><a href="#u914D_u7F6E_u56FA_u5B9AIP_u5730_u5740" class="headerlink" title="配置固定IP地址"></a>配置固定IP地址</h2><ol>
-<li>修改<strong>/etc/network/interfaces</strong>，当然下面的IP要换成你自己的</li>
-</ol>
-<p><em>iface eth0 inet manual</em> –>  </p>
-<blockquote>
-<p>iface eth0 inet static<br>address 192.168.0.120<br>netmask 255.255.255.0<br>gateway 192.168.0.1</p>
-</blockquote>
 <ol>
-<li><p>重启服务</p>
-<pre><code>sudo systemctl daemon-reload
-sudo service networking restart
-</code></pre></li>
+<li>UIScrollViewKeyboardDismissModeNone,</li>
+<li>UIScrollViewKeyboardDismissModeOnDrag,      // dismisses the keyboard when a drag begins</li>
+<li>UIScrollViewKeyboardDismissModeInteractive, // the keyboard follows the dragging touch off screen, and may be pulled upward again to cancel the dismiss</li>
 </ol>
-<h2 id="SSH_u7279_u6B8A_u914D_u7F6E"><a href="#SSH_u7279_u6B8A_u914D_u7F6E" class="headerlink" title="SSH特殊配置"></a>SSH特殊配置</h2><p>主要是给SSH的中文支持用的</p>
-<pre><code>echo LC_ALL=en_US.UTF-8 | sudo tee -a /etc/environment
-echo LANG=en_US.UTF-8 | sudo tee -a /etc/environment
-</code></pre><h2 id="u52A0_u5927USB_u4F9B_u7535"><a href="#u52A0_u5927USB_u4F9B_u7535" class="headerlink" title="加大USB供电"></a>加大USB供电</h2><p>修改后可以使能USB的1.2A供电，不然插USB硬盘是不能用的</p>
-<pre><code>echo “max_usb_current=1” | sudo tee -a /boot/config.txt
-</code></pre></span>
+</li>
+<li>iOS加载启动图的时候隐藏statusbar只需要在info.plist中加入<strong>Status bar is initially hidden</strong>，设置为YES就好</li>
+<li>NSDate 在保存数据，传输数据中，一般最好使用UTC时间。在显示到界面给用户看的时候，需要转换为本地时间。</li>
+<li>UITableViewCell中，对cell设置<strong>indentationLevel</strong>的值，可以将cell 分级别。还有 CGFloat <strong>indentationWidth</strong>属性，设置缩进的宽度。总缩进的宽度 = indentationLevel * indentationWidth</li>
+<li>static的使用：<ol>
+<li>修饰局部变量,修改的是生命周期，在整个程序运行过程中,只初始化一次,而且只有一份内存,并没有改变作用域</li>
+<li>修饰全局变量,修改的是作用域。没有被static修饰的全局变量,项目中的任何文件,可以访问；static修饰的全局变量,只在当前文件中访问</li>
+</ol>
+</li>
+<li>isMemberOfClass 和 isKindOfClass：两者都能检测一个对象是不是某个类的成员；isKindOfClass不仅能确定一个对象是不是某个类的成员,也能确定一个对象是否是派生自该类的类的成员,而isMemberOfClass只能做到前者.</li>
+<li>TCP 和UDP 的区别与联系：TCP 为传输控制层协议,为面向连接,可靠的,点到点的通信；UDP 为用户数据报协议,非连接的不可靠的点到多点的通信；TCP 侧重可靠传输,UDP 侧重快速传输</li>
+<li>读写小文件是 iPhone 的一大弱点。16MB 的文件测试与 Mac 的测试结果差不多，但是 16 字节的文件测试 iPhone 花了 Mac 10 倍的时间。相比 Mac，iPhone 的存储设备吞吐量很高，但是有一些额外的延迟。</li>
+<li>iOS的应用都是通过bundle进行封装的，对应的bundle类型是Application类型，平时我们通过XCode编译出来的Target（即我们开发的应用），其实就是一个Application类型bundle，即一个文件夹！但是Finder会把这个bundle当做一个文件显示给我们，其实是因为这个bundle自身也是一个package，而Mac系统会把所有的package当做一个文件来对待，显示给用户，从而防止用户误操作导致程序文件损坏或丢失。</li>
+<li>NSURLConnettion是 Core Foundation/CFNetwork框架 API 之上的一个抽象. NSURLConnettion是用来指代 Foundation 框架中的一系列组件: NSURLRequest,NSURLResponse,NSURLProtocol,NSURLCache,NSHTTPCookieStorage,NSURLCredentialStorage 以及同名类 NSURLConnection.</li>
+<li>NSURLSession 不仅仅包括同名的 NSURLSession, 还包括NSURLRequest 和 NSURLCache. 同时将NSURLConnection 对应为NSURLSession,NSURLSessionFiguration 以及NSURLSession 的三个子类,即NSURLSessionTask,NSURLSessionUpLoadTask 和 NSULSessionDownLoadTask.</li>
+<li>和 NSURLConnection 相比, NSURLSession 最大的改变可以配置每一个缓存的session 缓存, cookie 值,协议以及证书策略甚至夸程序共享这些信息.这保证了程序和网络框架之间的相互独立.每一个 NSURLSession 有一个 NSURLSessionConfiguration 来进行初始化, NSURLSessionConfiguration指定了策略,以及在移动设备上增强性能的选项.NSURLSession 的另一个特点就是 session Task, 用来处理的上传和下载.和 NSURLConnection 最大的不同之处在于,所有的 task 共享其创造者 NSURLSession.</li>
+<li>NSURLSession即有 session 的代理方法又有 Task 的代理方法.session 的代理方法用来处理连接层的问题(服务器的信任,客户端证书的评估等),Task 的代理方法用来处理鉴权查询和以网络请求有关的问题.</li>
+<li>AVAudioPlayer包含在 AVFoundation框架中，所以开发的时候首先导入音频的框架AVFoundation.framework。注意：引入头文件 #import \<avfoundation avfoundation.h\="">。<pre><code>AVAudioPlayer的初始化的时候需要给一个播放文件：AVAudioPlayer  *avAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:文件路径 error:nil];
+</code></pre></avfoundation></li>
+<li>要修改app名字的时候最好不要修改product，可以在info.plist中修改Bundle display name.</li>
+<li>当UIWebView播放视频时，可以看到view hierarchy里有FigPluginView的身影。这个类来自于QuickTime Plugin，plugin的路径为：/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/System/Library/Internet Plug-Ins/QuickTime Plugin.webplugin，这是个文件夹，里面还有链接库以及文件和图片资源。</li>
+</ul>
+</span>
       
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Xcode/" rel="tag">#Xcode</a>
+          
+            <a href="/tags/iOS-Swift/" rel="tag">#iOS - Swift</a>
+          
+        </div>
       
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/01/12/rpi-kernel/" rel="prev">树莓派内核编译</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/12/rpi-get/" rel="next">树莓派入手</a>
+              <a href="/2016/04/30/Tips201604/" rel="next">开发Tips收集-2016年04月</a>
             
           </div>
         </div>
@@ -388,10 +381,10 @@ echo LANG=en_US.UTF-8 | sudo tee -a /etc/environment
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/01/12/rpi-start/"
-     data-title="树莓派初始配置指南（2代B型）"
+        <div class="ds-share flat" data-thread-key="2016/05/31/Tips201605/"
+     data-title="开发Tips收集-2016年05月"
      data-content=""
-     data-url="http://conanwhf.coding.me/2016/01/12/rpi-start/">
+     data-url="http://conanwhf.coding.me/2016/05/31/Tips201605/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -421,8 +414,8 @@ echo LANG=en_US.UTF-8 | sudo tee -a /etc/environment
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2016/01/12/rpi-start/"
-                   data-title="树莓派初始配置指南（2代B型）" data-url="http://conanwhf.coding.me/2016/01/12/rpi-start/">
+              <div class="ds-thread" data-thread-key="2016/05/31/Tips201605/"
+                   data-title="开发Tips收集-2016年05月" data-url="http://conanwhf.coding.me/2016/05/31/Tips201605/">
               </div>
             
           </div>
@@ -560,7 +553,7 @@ echo LANG=en_US.UTF-8 | sudo tee -a /etc/environment
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u5236_u4F5C_u542F_u52A8img"><span class="nav-number">1.</span> <span class="nav-text">制作启动img</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u66F4_u65B0_u5230_u6700_u65B0_u7248_u672C"><span class="nav-number">2.</span> <span class="nav-text">更新到最新版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4FEE_u6539vi"><span class="nav-number">3.</span> <span class="nav-text">修改vi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4E2D_u6587_u652F_u6301"><span class="nav-number">4.</span> <span class="nav-text">中文支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5B98_u65B9_u81EA_u5E26_u7684menuconfig"><span class="nav-number">5.</span> <span class="nav-text">官方自带的menuconfig</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VNC_u652F_u6301"><span class="nav-number">6.</span> <span class="nav-text">VNC支持</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u5B89_u88C5_u670D_u52A1_u5668_u7AEFtightVNC"><span class="nav-number">6.1.</span> <span class="nav-text">安装服务器端tightVNC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u914D_u7F6E"><span class="nav-number">6.2.</span> <span class="nav-text">配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5BA2_u6237_u7AEF_u8FDE_u63A5"><span class="nav-number">7.</span> <span class="nav-text">客户端连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u914D_u7F6E_u56FA_u5B9AIP_u5730_u5740"><span class="nav-number">8.</span> <span class="nav-text">配置固定IP地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH_u7279_u6B8A_u914D_u7F6E"><span class="nav-number">9.</span> <span class="nav-text">SSH特殊配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u52A0_u5927USB_u4F9B_u7535"><span class="nav-number">10.</span> <span class="nav-text">加大USB供电</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
