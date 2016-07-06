@@ -223,6 +223,107 @@
           
           
             
+              <a class="post-title-link" href="/2015/12/09/Swift_String_6/" itemprop="url">
+                Swift2.0 中的String（六）：正则匹配
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-09T16:20:16+08:00" content="2015-12-09">
+            2015-12-09
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Swift/" itemprop="url" rel="index">
+                  <span itemprop="name">Swift</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/12/09/Swift_String_6/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/09/Swift_String_6/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>Swift中的字符串，第六篇，正则匹配。其他的几篇传送门：</p>
+<ul>
+<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
+<li><a href="http://conanwhf.github.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages">这里</a>看到</li>
+</ul>
+<p>对于字符串的操作来说，正则匹配算是很重要的一项应用了。虽然其实我不太用，但偶尔需要的时候还是感到这东西真挺有用的。在网上找了找，对于iOS中使用正则，基本上都是说有三种方法，可惜给的Swift源码比较少，版本问题也不能直接跑，于是自己动手做一遍。总结了下其实所谓的三种方法其中两种还是很有局限性的。</p>
+<p>首先我们定义好待匹配的字符串和pattern：</p>
+<pre><code>let str = &quot;18800002222---13144445555&quot;
+let pattern = &quot;1[3|5|7|8][0-9]\\d{8}&quot;
+</code></pre><p>简单示范，就不搞太复杂了。这个pattern是手机号码的正则，因为准备demo匹配多个结果，没有加开头和结尾的限制。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/12/09/Swift_String_6/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/12/08/Swift_String_5/" itemprop="url">
                 Swift2.0 中的String（五）：String和NS-XXX系列的互相转换
               </a>
@@ -898,97 +999,6 @@ String(format:&quot;%.2f,  %i&quot;, 9.1, 304)
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/01/ReadingList2015-11/" itemprop="url">
-                读书清单 2015-11
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-01T20:02:38+08:00" content="2015-12-01">
-            2015-12-01
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/12/01/ReadingList2015-11/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/01/ReadingList2015-11/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li><strong>金粉世家</strong><br>大部头，看了好久才看完，看得有点累。可能受电视剧影响太深，我一边看一边不停地脑补陈坤、董洁、天线。小说写得是不错，那种世家的感觉，各种支线带来的社会整体描绘，感情线的冲突……虽然不至于欲罢不能但每次放下也有点恋恋不舍。我蛮喜欢小说里面的金燕西的，反倒对冷清秋有点反感，感觉多少有点想攀龙附凤又扔不掉自己的清高吧，特别是早期，很多经济上的便宜占得没骨气。</li>
-<li><strong>The Swift Programming Language</strong><br>开发文档，算是看完了吧，不过还有很多东西待查</li>
-<li><strong>AppStore经营之道</strong><br>台湾人写的东西，怎么看都是嗲嗲的，哪怕是在讲纯技术的东西。而且台版的书籍通常都是内容不多，图多、啰嗦，所以这本书虽然开了个很大的标题，其实里面的干货一般般，很快就读完了。对利用Appstore来挣钱（开发APP，不是刷榜）
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/01/ReadingList2015-11/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1027,7 +1037,7 @@ String(format:&quot;%.2f,  %i&quot;, 9.1, 304)
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">66</span>
+              <span class="site-state-item-count">67</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

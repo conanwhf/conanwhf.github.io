@@ -223,6 +223,105 @@
           
           
             
+              <a class="post-title-link" href="/2015/12/21/newsreader-3/" itemprop="url">
+                从打造新闻app学到的(3)：让自定义的类可排序
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-21T19:14:35+08:00" content="2015-12-21">
+            2015-12-21
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Swift/" itemprop="url" rel="index">
+                  <span itemprop="name">Swift</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/12/21/newsreader-3/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/21/newsreader-3/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>假如你有一个自定义类的列表，想要对它排序，怎么办？在新闻APP中，我的新闻列表就是一个自定义class的数组，用户一会儿要最新、一会儿要更多旧数据的可能性，使得它需要按时间有序。我是懒人，自己一个个拿key比较写起来觉得好麻烦，Swift这么高级的语言，应该有别的更好的办法才对！又祭出官方文档找灵感，然后看到了：<strong>Comparable</strong>。<br>Comparable是一个协议，遵守这个协议的所有类型，都可以直接比大小。而对于自定义的类型，遵守它就行了：</p>
+<pre><code>class MyClass : Comparable {
+    var key : Int = 0
+}
+//在Class定义之外实现
+func &lt; (left: MyClass, right: MyClass) -&gt; Bool {
+    return left.key &lt; right.key
+}
+func == (left: MyClass, right: MyClass) -&gt; Bool{
+    return left.key == right.key
+}   
+</code></pre><p>我们只要实现<strong>\&lt;</strong>和<strong>== </strong>两个函数，编译器会自动帮我们判断>和!=的情况。于是，现在这样的排序或者比较都是合法的了：超easy!😄</p>
+<pre><code>var a : MyClass = []
+//TODO：a填了一些数据之后……
+a.sort()
+a[1] &gt; a[0]
+</code></pre></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/12/21/newsreader-2/" itemprop="url">
                 从打造新闻app学到的(2)：定义类中的只读属性
               </a>
@@ -862,107 +961,6 @@ guard data = NSData(contentsOfURL: url)  else{
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/09/Swift_String_6/" itemprop="url">
-                Swift2.0 中的String（六）：正则匹配
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-09T16:20:16+08:00" content="2015-12-09">
-            2015-12-09
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Swift/" itemprop="url" rel="index">
-                  <span itemprop="name">Swift</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/12/09/Swift_String_6/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/09/Swift_String_6/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>Swift中的字符串，第六篇，正则匹配。其他的几篇传送门：</p>
-<ul>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.github.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages">这里</a>看到</li>
-</ul>
-<p>对于字符串的操作来说，正则匹配算是很重要的一项应用了。虽然其实我不太用，但偶尔需要的时候还是感到这东西真挺有用的。在网上找了找，对于iOS中使用正则，基本上都是说有三种方法，可惜给的Swift源码比较少，版本问题也不能直接跑，于是自己动手做一遍。总结了下其实所谓的三种方法其中两种还是很有局限性的。</p>
-<p>首先我们定义好待匹配的字符串和pattern：</p>
-<pre><code>let str = &quot;18800002222---13144445555&quot;
-let pattern = &quot;1[3|5|7|8][0-9]\\d{8}&quot;
-</code></pre><p>简单示范，就不搞太复杂了。这个pattern是手机号码的正则，因为准备demo匹配多个结果，没有加开头和结尾的限制。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/09/Swift_String_6/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1001,7 +999,7 @@ let pattern = &quot;1[3|5|7|8][0-9]\\d{8}&quot;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">66</span>
+              <span class="site-state-item-count">67</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

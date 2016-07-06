@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.coding.me/"/>
-  <updated>2016-05-31T14:06:13.000Z</updated>
+  <updated>2016-07-06T14:49:41.000Z</updated>
   <id>http://conanwhf.coding.me/</id>
   
   <author>
@@ -13,6 +13,84 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[开发Tips收集-2016年06月]]></title>
+    <link href="http://conanwhf.coding.me/2016/07/01/Tips201606/"/>
+    <id>http://conanwhf.coding.me/2016/07/01/Tips201606/</id>
+    <published>2016-07-01T09:25:39.000Z</published>
+    <updated>2016-07-06T14:49:41.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>iOS获取通知需要注意以：iOS 设备收到一条推送（APNs），用户点击推送通知打开应用时，应用程序根据状态不同进行处理需在 AppDelegate 中的以下两个方法中添加代码以获取apn内容<ol>
+<li>如果 App 状态为未运行，此函数将被调用，如果launchOptions包含UIApplicationLaunchOptionsRemoteNotificationKey表示用户点击apn 通知导致app被启动运行；如果不含有对应键值则表示 App 不是因点击apn而被启动，可能为直接点击icon被启动或其他。<br>(BOOL)application:(UIApplication <em>)application didFinishLaunchingWithOptions:(NSDictionary </em>)launchOptions;<br>// apn 内容获取：<br>NSDictionary *remoteNotification = [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey]</li>
+</ol>
+</li>
+</ul>
+<ol>
+<li>基于iOS 6 及以下的系统版本，如果 App状态为正在前台或者点击通知栏的通知消息，那么此函数将被调用，并且可通过AppDelegate的applicationState是否为UIApplicationStateActive判断程序是否在前台运行。此种情况在此函数中处理：<br> (void)application:(UIApplication <em>)application didReceiveRemoteNotification:(NSDictionary </em>)userInfo; // apn内容为userInfo</li>
+<li>基于iOS 7 及以上的系统版本，如果是使用 iOS 7 的 Remote Notification 特性那么处理函数需要使用<br> (void)application:(UIApplication <em>)application didReceiveRemoteNotification:(NSDictionary </em>)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler; // apn内容为userInfo</li>
+</ol>
+<ul>
+<li>触摸事件withEvent:的方法处理流程:首先会在当前视图view上调用pointInside:withEvent:方法来判断触摸事件是否存在当前view中，如果返回NO，则说明触摸事件不在该view范围中，hitText:withEvent:方法返回nil；如果返回YES，则说明触摸在该view中，则向该view的subViews发送htiText:withEvent:消息，所有subviews的数组遍历顺序是从后往前，直至遍历到pointInside:withEvent:返回值为非空或者遍历完所有subview结束。如果遍历有非空对象,则hitTextField:withEvent:返回该对象结束；如果遍历完没有非空对象，则返回自己（self）。</li>
+<li>响应者原理：首先会在触摸view上调用inital view方法，看能否处理此事件，如果不能则会将事件传递给其上级视图（inital view的superView）；如果上级视图仍然无法处理则会继续往上传递；一直传递到视图控制器view controller，首先判断视图控制器的根视图view是否能处理此事件；如果不能则接着判断该视图控制器能否处理此事件，如果还是不能则继续向上传递；（对于第二个图视图控制器本身还在另一个视图控制器中，则继续交给父视图控制器的根视图，如果根视图不能处理则交给父视图控制器处理）；一直到window，如果window还是不能处理此事件则继续交给application（UIApplication单例对象）处理，如果最后application还是不能处理此事件则将其丢弃。</li>
+<li>UITabBarController的subview 共有两个，一个叫 UITabBar，就是底下的那个 Bar；另一个叫UITranstionview，就是 Bar 上面的视图。把UITabBar的 y 向下移49个单位，把UITranstionview 的 hight 加长 49 个单位，也能实现隐藏UITabBar的效果。</li>
+<li>UITextView开始编辑时，文字没有左上角对齐解决办法：其一，没有给textview对齐方式；其二，没有将BOOL类型的“automaticallyAdjustsScrollViewInsets”属性置为yes</li>
+</ul>
+<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/07/01/Tips201606/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/07/01/Tips201606/'>开发Tips收集-2016年06月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>iOS获取通知需要注意以：iOS 设备收到一条推送（APNs），用户点击推送通知打开应用时，应用程序根据状态不同进行处理需在 AppDelegate 中的以下两个方法中添加代码以获取apn内容<ol>
+<li>如果 App 状态为未运行，此函数将被调用，如果launchOptions包含UIApplicationLaunchOptionsRemoteNotificationKey表示用户点击apn 通知导致app被启动运行；如果不含有对应键值则表示 App 不是因点击apn而被启动，可能为直接点击icon被启动或其他。<br>(BOOL)application:(UIApplication <em>)application didFinishLaunchingWithOptions:(NSDictionary </em>)launchOptions;<br>// apn 内容获取：<br>NSDictionary *remoteNotification = [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey]</li>
+</ol>
+</li>
+</ul>
+<ol>
+<li>基于iOS 6 及以下的系统版本，如果 App状态为正在前台或者点击通知栏的通知消息，那么此函数将被调用，并且可通过AppDelegate的applicationState是否为UIApplicationStateActive判断程序是否在前台运行。此种情况在此函数中处理：<br> (void)application:(UIApplication <em>)application didReceiveRemoteNotification:(NSDictionary </em>)userInfo; // apn内容为userInfo</li>
+<li>基于iOS 7 及以上的系统版本，如果是使用 iOS 7 的 Remote Notification 特性那么处理函数需要使用<br> (void)application:(UIApplication <em>)application didReceiveRemoteNotification:(NSDictionary </em>)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler; // apn内容为userInfo</li>
+</ol>
+<ul>
+<li>触摸事件withEvent:的方法处理流程:首先会在当前视图view上调用pointInside:withEvent:方法来判断触摸事件是否存在当前view中，如果返回NO，则说明触摸事件不在该view范围中，hitText:withEvent:方法返回nil；如果返回YES，则说明触摸在该view中，则向该view的subViews发送htiText:withEvent:消息，所有subviews的数组遍历顺序是从后往前，直至遍历到pointInside:withEvent:返回值为非空或者遍历完所有subview结束。如果遍历有非空对象,则hitTextField:withEvent:返回该对象结束；如果遍历完没有非空对象，则返回自己（self）。</li>
+<li>响应者原理：首先会在触摸view上调用inital view方法，看能否处理此事件，如果不能则会将事件传递给其上级视图（inital view的superView）；如果上级视图仍然无法处理则会继续往上传递；一直传递到视图控制器view controller，首先判断视图控制器的根视图view是否能处理此事件；如果不能则接着判断该视图控制器能否处理此事件，如果还是不能则继续向上传递；（对于第二个图视图控制器本身还在另一个视图控制器中，则继续交给父视图控制器的根视图，如果根视图不能处理则交给父视图控制器处理）；一直到window，如果window还是不能处理此事件则继续交给application（UIApplication单例对象）处理，如果最后application还是不能处理此事件则将其丢弃。</li>
+<li>UITabBarController的subview 共有两个，一个叫 UITabBar，就是底下的那个 Bar；另一个叫UITranstionview，就是 Bar 上面的视图。把UITabBar的 y 向下移49个单位，把UITranstionview 的 hight 加长 49 个单位，也能实现隐藏UITabBar的效果。</li>
+<li>UITextView开始编辑时，文字没有左上角对齐解决办法：其一，没有给textview对齐方式；其二，没有将BOOL类型的“automaticallyAdjustsScrollViewInsets”属性置为yes</li>
+</ul>]]>
+    
+    </summary>
+    
+      <category term="Xcode" scheme="http://conanwhf.coding.me/tags/Xcode/"/>
+    
+      <category term="iOS - Swift" scheme="http://conanwhf.coding.me/tags/iOS-Swift/"/>
+    
+      <category term="DevTips" scheme="http://conanwhf.coding.me/categories/DevTips/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[开发Tips收集-2016年05月]]></title>
@@ -1578,76 +1656,6 @@ post.attributedText = attributedString
       <category term="iOS - Swift" scheme="http://conanwhf.coding.me/tags/iOS-Swift/"/>
     
       <category term="DevTips" scheme="http://conanwhf.coding.me/categories/DevTips/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[读书清单 2015-12]]></title>
-    <link href="http://conanwhf.coding.me/2015/12/31/ReadingList2015-12/"/>
-    <id>http://conanwhf.coding.me/2015/12/31/ReadingList2015-12/</id>
-    <published>2015-12-31T02:02:38.000Z</published>
-    <updated>2016-01-18T16:20:17.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li>老码说编程之玩转Swift江湖<br>这本书从打开到终于看完也断断续续看了好久，算是中文原作开发教程中相当不错的一本。虽然作者写的例子都很中二，有点自以为幽默其实看着很烦，骗稿费之嫌，但讲正事还是蛮能讲到点子上的，看得出来是有实际经验的开发者。作为语法入门，这本书很好，也很适合曾经会一点别的语言的开发者。该知道的基本知识都有，看中实际操作，甚至是从装黑苹果开始手把手教，有自己的东西，不像很多东拼西凑的教材，新手看了摸不着头脑，半天还是连编译器都不会用。</li>
-</ol>
-<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2015/12/31/ReadingList2015-12/</p><p>访问原文「<a href='http://conanwhf.coding.me/2015/12/31/ReadingList2015-12/'>读书清单 2015-12</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-
-<h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2><p>没空读</p>
-<h2 id="u5176_u4ED6_u9605_u8BFB"><a href="#u5176_u4ED6_u9605_u8BFB" class="headerlink" title="其他阅读"></a>其他阅读</h2><ol>
-<li>中文传媒精选</li>
-<li>每日开发者订阅源&amp;新闻</li>
-<li>杂七杂八开发相关网页推送</li>
-</ol>
-<h2 id="u6B63_u5728_u8BFB_u7684_u4E66"><a href="#u6B63_u5728_u8BFB_u7684_u4E66" class="headerlink" title="正在读的书"></a>正在读的书</h2><ol>
-<li>Swift iOS应用开发实战</li>
-<li>Swift与Cocoa框架开发</li>
-<li>Swift语言实战精讲</li>
-<li>移动应用UI设计</li>
-<li>iOS组件与框架　　　</li>
-</ol>
-<h2 id="u4E2D_u4E9A_u4E70_u7684_u4E66__uFF08102-45_uFF09"><a href="#u4E2D_u4E9A_u4E70_u7684_u4E66__uFF08102-45_uFF09" class="headerlink" title="中亚买的书 （102.45）"></a>中亚买的书 （<strong>102.45</strong>）</h2><ol>
-<li>移动应用UI设计模式（第2版） (图灵交互设计丛书)   <strong>17.5</strong></li>
-<li>O’Reilly精品图书系列共21册     <strong>49.99</strong><br>打折，其实有些不会去读。内容包括：<strong>《机器学习：实用案例解析》</strong>、<strong>《利用Python进行数据分析》、《社交网站的数据挖掘与分析（原书第2版）》、《社会网络分析：方法与实践》、《以用户为中心的软件设计：打造用户友好型应用的有效方法和准则》、《编写可读代码的艺术》、《算法精解：C语言描述》、《算法技术手册》、</strong>《JavaScript权威指南（原书第6版）》、<strong>《Python学习手册（原书第4版）》</strong>、《MySQL核心技术手册》、《HTML5应用开发实践指南》、《嵌入式系统设计与实践》、《PaaS程序设计》、<strong>《程序员度量：改善软件团队的分析学》</strong>、《Android应用开发攻略》、《Android程序设计：第2版》、《GAE编程指南》、《精通Hibernate》、《SQL与关系数据库理论：如何编写健壮的SQL代码（第2版）》、《SEO的艺术（原书第2版）》</li>
-<li>（图灵社区）HTTP权威指南    <strong>6.0</strong></li>
-<li>（图灵社区）机器学习实战     <strong>4.0</strong></li>
-<li>（图灵社区）Web性能权威指南    <strong>3.0</strong></li>
-<li>加拿大语文读本(英汉双语版)    <strong>3.99</strong></li>
-<li>澳大利亚语文（套装共六册)    <strong>4.99</strong></li>
-<li>美国语文：美国中学课文经典读本(英汉双语版)    <strong>2.99</strong></li>
-<li>诺贝尔经济学奖经典收藏版（自由选择、生活中的经济学、增长的极限）    <strong>9.99</strong></li>
-</ol>
-<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>这个月可以说没有读书。双十二打折的时候倒是剁了些电子版，只是现在亚马逊的电子书特别是套装打折很有诚意，质量却让人无语。比如这次买的O’Reilly套装，连二级目录都没有，不只是整本书的目录没有做好，而是哪怕你去到了某本书，也没有任何目录！这就有点不靠谱了，只能在电脑上看看，用鼠标勉强翻个页，而且完全不知道这本书的结构，只能从头看到尾。😡另一方面，现在我买的书确实看不完，自己对亚马逊来来回回打折的那些书也有点厌倦了，接下来恐怕会买得比较少。<br>别说看别的书了，最近就算是kindle的每日推送我都是匆匆看完，家里中文传媒精选的读书会也好久没开了，整天埋头对着Xcode（其实玩的时候也不少啦，只是没读书），书桌上堆着的也都是开发书籍。iOS开发要学的东西太多，我又有整理癖，每次写写就要停下来整理总结一下，加上日常生活的各种杂事，感觉学完自己的那一亩三分地遥遥无期啊！年底了，今年过得太懒散玩了十个月学了两个月，实在不好意思写年终总结，明年努力吧！</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li>老码说编程之玩转Swift江湖<br>这本书从打开到终于看完也断断续续看了好久，算是中文原作开发教程中相当不错的一本。虽然作者写的例子都很中二，有点自以为幽默其实看着很烦，骗稿费之嫌，但讲正事还是蛮能讲到点子上的，看得出来是有实际经验的开发者。作为语法入门，这本书很好，也很适合曾经会一点别的语言的开发者。该知道的基本知识都有，看中实际操作，甚至是从装黑苹果开始手把手教，有自己的东西，不像很多东拼西凑的教材，新手看了摸不着头脑，半天还是连编译器都不会用。</li>
-</ol>]]>
-    
-    </summary>
-    
-      <category term="BookList" scheme="http://conanwhf.coding.me/tags/BookList/"/>
-    
-      <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
     
   </entry>
   
