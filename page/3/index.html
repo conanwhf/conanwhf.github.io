@@ -223,6 +223,182 @@
           
           
             
+              <a class="post-title-link" href="/2016/01/12/rpi-start/" itemprop="url">
+                树莓派初始配置指南（2代B型）
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-01-12T14:31:26+08:00" content="2016-01-12">
+            2016-01-12
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/RaspberryPi/" itemprop="url" rel="index">
+                  <span itemprop="name">RaspberryPi</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/01/12/rpi-start/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/12/rpi-start/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，<a href="https://github.com/conanwhf/RaspberryPi-script">传送门</a></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/12/rpi-start/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2016/01/12/rpi-get/" itemprop="url">
+                树莓派入手
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-01-12T13:31:26+08:00" content="2016-01-12">
+            2016-01-12
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/RaspberryPi/" itemprop="url" rel="index">
+                  <span itemprop="name">RaspberryPi</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/01/12/rpi-get/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/12/rpi-get/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>  不知是哪根天线收到了什么隐藏信息，突发奇想想去买个树莓派玩玩。其实家里还有一块前公司齐活的开发板，但性能差了点，板子又大，总之就是腻味了以后哪儿哪儿都是缺点，新的诱惑无限大。于是去买了块树莓派2B，打算配个服务器学点Python玩玩，从下午一直折腾到半夜，终于配置得算是差不多成型了。<br>  以前没怎么研究过，认真四处看看，大致上情况是摸清了：硬件上总共出了算是三代n个型号（第三代Zero刚出），第一代硬件资料全齐，第二代就有点遮遮掩掩。我买的第二代B型，外设方面4口USB2.0，TF插槽、网口、HDMI、耳机插口、DSI摄像头接口、DSI屏幕接口各一。首先，我感觉USB2.0有点落伍，至少给一个3.0吧；其次，没有Nand flash，略不方便；再次，GPIO接口有点少，就那么40Pin还共用了串口+i2c+spi*2，也没数模转换，有点不够用；最后，那个LCDC接口是给谁用的啊？要自己单独做块转接板那么麻烦……除此之外，硬件凑合，但拿来做开发板太浪费，除非你的东西计算量很大；用来当个小小服务器、小小Linux机还不错。<br>  软件方面，官方操作系统是Debian的。那套GUI对我来说真的有点鸡肋，居然还有Office和Mathematical，然而这种配置跑图形界面，
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/12/rpi-get/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2016/01/03/UISlider/" itemprop="url">
                 UIController中Slider监听回调具体实现的分离
               </a>
@@ -802,190 +978,6 @@ sizeof(UIColor)*8//64
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/23/newsreader-5/" itemprop="url">
-                从打造新闻app学到的(5)：解决TableCell调用segue的时序问题
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-23T10:56:35+08:00" content="2015-12-23">
-            2015-12-23
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Cocoa/" itemprop="url" rel="index">
-                  <span itemprop="name">Cocoa</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/12/23/newsreader-5/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/23/newsreader-5/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>在从TableCell跳转到具体新闻页面的时候，我遇到了一个问题：整个流程的时序跟我想的不太一样。因为我需要在点击Cell的时候知道这是哪个Cell，再将它作为参数传递给下一个View，所以我实现了函数<strong> didSelectRowAtIndexPath</strong>，然后设好一个private的变量，供prepareForSegue调用。可是事实上的流程却变成了：</p>
-<blockquote>
-<p>prepareForSegue() -> next.viewDidLoad() -> didSelectRowAtIndexPath()</p>
-</blockquote>
-<p>也就是说当Cell的点击发生，会先调用StroyBaord中设置的Segue，新的View初始化完成后再回调didSelectRowAtIndexPath，导致我在viewDidLoad()中拿不到想要的数据。<br>在网上搜了一下，有人也遇到了同样的问题，他的解决方法是：<br>1) 将 ->NextView的Segue改为 ->NextViewController(NextView的代理)<br>2) 在StoryBoard中配置此Segue的ID为<strong>“ABC”</strong><br>3) 在didSelectRowAtIndexPath()准备好数据之后手动调用转场：</p>
-<pre><code>//跳转到下一个页面，识别“ABC”
-self.performSegueWithIdentifier(“ABC”, sender: self)
-</code></pre><p>实测这个方法是有效的，不过我总感觉不够漂亮……于是打开Dash把所有tableView()的相关Callback都过了一遍，挑出几个加打印实测，
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/23/newsreader-5/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/22/newsreader-4/" itemprop="url">
-                从打造新闻app学到的(4)：使用Segue在ViewController之间传递数据
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-22T21:14:35+08:00" content="2015-12-22">
-            2015-12-22
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Cocoa/" itemprop="url" rel="index">
-                  <span itemprop="name">Cocoa</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/12/22/newsreader-4/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/22/newsreader-4/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>要实现不同界面的跳转，简单的办法是在StroyBoard中直接拖动控件。<strong>按住^</strong>将触发跳转的控件拖到待触发的View中，松开鼠标在弹出的菜单中选择对应的选项（跳转为View），一个segue(大致译为“转场、过渡”)就完成了：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_create_segue.gif" alt=""><br>而要实现在两个ViewController之间传数据，在这种建立segue的情况下也很简单。假设我们需要在从ViewA（ControllerA代理）跳转去ViewB（ControllerB代理）时传递一个Int变量id，那么先要在ControllerB中定义.id属性，然后在ControllerA中实现：</p>
-<pre><code>override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//print(“this is segue \(segue.identifier), \(sender.debugDescription)&quot;)
-ControllerB.id = passValue
-}
-</code></pre><p>这样的方式适合参数比较少或者已经打包的情况，缺点是必须将待传递的参数在ControllerB中暴露出来。</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1024,7 +1016,7 @@ ControllerB.id = passValue
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">67</span>
+              <span class="site-state-item-count">69</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
