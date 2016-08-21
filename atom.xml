@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.coding.me/"/>
-  <updated>2016-08-20T14:33:41.000Z</updated>
+  <updated>2016-08-21T17:49:12.000Z</updated>
   <id>http://conanwhf.coding.me/</id>
   
   <author>
@@ -19,43 +19,8 @@
     <link href="http://conanwhf.coding.me/2016/08/20/DroplrTest/"/>
     <id>http://conanwhf.coding.me/2016/08/20/DroplrTest/</id>
     <published>2016-08-20T09:35:25.000Z</published>
-    <updated>2016-08-20T14:33:41.000Z</updated>
-    <content type="html"><![CDATA[<p>买了Droplr的永久会员，测试一下外链图片，如果OK就把七牛换了……国内的免费服务太让人没安全感！<br><img src="http://conanwang.d.pr/18C89+" alt=""></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>买了Droplr的永久会员，测试一下外链图片，如果OK就把七牛换了……国内的免费服务太让人没安全感！<br><img src="http://conanwang.d.pr/18C89+" alt=""></p>
-]]>
-    </summary>
-    
-      <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[读书清单 2016-08]]></title>
-    <link href="http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/"/>
-    <id>http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/</id>
-    <published>2016-08-15T09:36:54.000Z</published>
-    <updated>2016-08-15T06:12:22.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li>催眠师手记</li>
-</ol>
-<h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2><ol>
-<li>中文传媒精选</li>
-<li>知乎周刊2015年度300问-心理</li>
-</ol>
-<h2 id="u6B63_u5728_u8BFB_u7684_u4E66"><a href="#u6B63_u5728_u8BFB_u7684_u4E66" class="headerlink" title="正在读的书"></a>正在读的书</h2><ol>
-<li>南海暗战</li>
-</ol>
-<h2 id="u4E2D_u4E9A_u4E70_u7684_u4E66_uFF0807-08_u6708_uFF09_37-73"><a href="#u4E2D_u4E9A_u4E70_u7684_u4E66_uFF0807-08_u6708_uFF09_37-73" class="headerlink" title="中亚买的书（07-08月）             37.73"></a>中亚买的书（07-08月）             <strong>37.73</strong></h2><ol>
-<li>斯坦福极简经济学              <strong>1.00</strong></li>
-<li>巴金文集（套装共19本）         <strong>9.99</strong></li>
-<li>专业主义                     <strong>3.36</strong></li>
-<li>高盛帝国(套装上下册):全球唯一一部全面讲述高盛百年屹立的企业传记    <strong>3.40</strong></li>
-<li>精准拉伸 疼痛消除和损伤预防的针对性练习   <strong>9.99</strong></li>
-<li>Linux内核设计的艺术：图解Linux操作系统架构设计与实现原理（第2版）  <strong>9.99</strong></li>
-</ol>
-<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>这几个月都没写这个了，今天算是几个月的总结吧。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/'>读书清单 2016-08</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+    <updated>2016-08-21T17:49:12.000Z</updated>
+    <content type="html"><![CDATA[<p>买了Droplr的永久会员，测试一下外链图片，如果OK就把七牛换了……国内的免费服务太让人没安全感！<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/20/DroplrTest/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/20/DroplrTest/'>Droplr的测试</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -76,17 +41,51 @@
   }
 })()
 </script>
-其实也是几个月没读书了……说是读书总结，不如说是买书总结，因为最近都在忙项目，书买得不少却一直没怎么看，连运动都好几周没做，整个人快懒坏。但七月份有一天是结结实实捡了大漏，兴奋了我好几天，不记一下不甘心。:-)<br>那天刷微博，看到大锤转发说亚马逊发福利，一批书1元购，但不是所有人都有。马上去查了下自己的优惠券，啥也没有，挺失落的。到了晚上，又刷出来一条说有的话会收到短信，我再去看千年不用专收验证码的手机，果然有！开心打开链接，书的质量真是不错，有好几本都是我放在心愿单上等降价的。试着下了一本，0元？好奇怪……收到的短信说是1元啊……再试，还是0元。这……考虑到亚马逊历来的良心表现，即使这是个bug，也不会不认账的。我放心地把心仪的几本都买下来，全部0元。跑去看李大锤微博的评论，有说0元的，有说1元的，有说收到优惠券的……我有点蒙，但隐隐约约一种“要占大便宜”的感觉充斥了大脑，使我兴奋得不行。我再次打开优惠链接，确认之前真的没扣款，按价格从高到低排序，放心大胆地一条条点开购买起来！当然里面的书也有很一般的，我只点开有兴趣的看看评论，决定要不要，一开几十个tab，慢慢临幸过来，那感觉真是爽！整个过程虽然有点机械和无聊，但被强烈兴奋感所驱使的我，毫无懈怠感，不停地点击了一个多钟头，一直到过12点才全部完成。等喘口气才发现，不加判断点击购买的最后几本书，已经不是0元了，但是个很奇怪的数字，大约是2-3折的样子。<br>第二天我打开邮箱，亚马逊的购买记录180条……去看微博评论，原来真正的活动是部分用户发了张100元的优惠券，可以在书单中以1元的价格买书，也就是上限100本；而我却是0元买了180本……这时候再去看那些书单，价格也不是1元了，而是另外一个打了折的价格。也就是说，在12点之前，大概是有bug导致我可以0元无限购书，之后就恢复正常了……不犯懒是个多好的品质啊！幸亏我速度快清单都点完了，也幸亏我跳过了部分不喜欢的书，不然也点不完，哈哈哈！本来以为这个漏洞很多人都抓到了，后来看看微博评论、各大论坛的反馈，并没有什么大面积占到便宜的反馈，我心里更是开心了好几天啊！某人说现在知道我是真爱书了，买到了书能高兴这么久。而且这些书的质量确实都很高，评分绝大多数在4+，特别是很多历史书正和某人口味，这段时间一直在看，感觉一时半会是看不完了。:D</p>
+<br><img src="http://whf.d.pr/18C89+" alt=""></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
+    <![CDATA[<p>买了Droplr的永久会员，测试一下外链图片，如果OK就把七牛换了……国内的免费服务太让人没安全感！]]>
+    
+    </summary>
+    
+      <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[读书清单 2016-08]]></title>
+    <link href="http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/"/>
+    <id>http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/</id>
+    <published>2016-08-15T09:36:54.000Z</published>
+    <updated>2016-08-20T14:45:30.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
 <li>催眠师手记</li>
 </ol>
 <h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2><ol>
 <li>中文传媒精选</li>
-<li>知乎周刊2015年度300问-心理</li>
-</ol>
-<h2 id="u6B63_u5728_u8BFB_u7684_u4E66"><a href="#u6B63_u5728_u8BFB_u7684_u4E66" class="headerlink" title="正在读的书"></a>正在读的书</h2><ol>
+<li>知乎周刊2015年度300问-心理<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/'>读书清单 2016-08</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+
+<h2 id="u6B63_u5728_u8BFB_u7684_u4E66"><a href="#u6B63_u5728_u8BFB_u7684_u4E66" class="headerlink" title="正在读的书"></a>正在读的书</h2></li>
 <li>南海暗战</li>
 </ol>
 <h2 id="u4E2D_u4E9A_u4E70_u7684_u4E66_uFF0807-08_u6708_uFF09_37-73"><a href="#u4E2D_u4E9A_u4E70_u7684_u4E66_uFF0807-08_u6708_uFF09_37-73" class="headerlink" title="中亚买的书（07-08月）             37.73"></a>中亚买的书（07-08月）             <strong>37.73</strong></h2><ol>
@@ -97,7 +96,15 @@
 <li>精准拉伸 疼痛消除和损伤预防的针对性练习   <strong>9.99</strong></li>
 <li>Linux内核设计的艺术：图解Linux操作系统架构设计与实现原理（第2版）  <strong>9.99</strong></li>
 </ol>
-<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>这几个月都没写这个了，今天算是几个月的总结吧。]]>
+<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>这几个月都没写这个了，今天算是几个月的总结吧。其实也是几个月没读书了……说是读书总结，不如说是买书总结，因为最近都在忙项目，书买得不少却一直没怎么看，连运动都好几周没做，整个人快懒坏。但七月份有一天是结结实实捡了大漏，兴奋了我好几天，不记一下不甘心。:-)<br>那天刷微博，看到大锤转发说亚马逊发福利，一批书1元购，但不是所有人都有。马上去查了下自己的优惠券，啥也没有，挺失落的。到了晚上，又刷出来一条说有的话会收到短信，我再去看千年不用专收验证码的手机，果然有！开心打开链接，书的质量真是不错，有好几本都是我放在心愿单上等降价的。试着下了一本，0元？好奇怪……收到的短信说是1元啊……再试，还是0元。这……考虑到亚马逊历来的良心表现，即使这是个bug，也不会不认账的。我放心地把心仪的几本都买下来，全部0元。跑去看李大锤微博的评论，有说0元的，有说1元的，有说收到优惠券的……我有点蒙，但隐隐约约一种“要占大便宜”的感觉充斥了大脑，使我兴奋得不行。我再次打开优惠链接，确认之前真的没扣款，按价格从高到低排序，放心大胆地一条条点开购买起来！当然里面的书也有很一般的，我只点开有兴趣的看看评论，决定要不要，一开几十个tab，慢慢临幸过来，那感觉真是爽！整个过程虽然有点机械和无聊，但被强烈兴奋感所驱使的我，毫无懈怠感，不停地点击了一个多钟头，一直到过12点才全部完成。等喘口气才发现，不加判断点击购买的最后几本书，已经不是0元了，但是个很奇怪的数字，大约是2-3折的样子。<br>第二天我打开邮箱，亚马逊的购买记录180条……去看微博评论，原来真正的活动是部分用户发了张100元的优惠券，可以在书单中以1元的价格买书，也就是上限100本；而我却是0元买了180本……这时候再去看那些书单，价格也不是1元了，而是另外一个打了折的价格。也就是说，在12点之前，大概是有bug导致我可以0元无限购书，之后就恢复正常了……不犯懒是个多好的品质啊！幸亏我速度快清单都点完了，也幸亏我跳过了部分不喜欢的书，不然也点不完，哈哈哈！本来以为这个漏洞很多人都抓到了，后来看看微博评论、各大论坛的反馈，并没有什么大面积占到便宜的反馈，我心里更是开心了好几天啊！某人说现在知道我是真爱书了，买到了书能高兴这么久。而且这些书的质量确实都很高，评分绝大多数在4+，特别是很多历史书正和某人口味，这段时间一直在看，感觉一时半会是看不完了。:D</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
+<li>催眠师手记</li>
+</ol>
+<h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2><ol>
+<li>中文传媒精选</li>
+<li>知乎周刊2015年度300问-心理]]>
     
     </summary>
     
@@ -738,7 +745,7 @@
     <link href="http://conanwhf.coding.me/2016/01/30/rpi-protocol/"/>
     <id>http://conanwhf.coding.me/2016/01/30/rpi-protocol/</id>
     <published>2016-01-30T09:31:26.000Z</published>
-    <updated>2016-02-01T11:30:47.000Z</updated>
+    <updated>2016-08-21T17:49:29.000Z</updated>
     <content type="html"><![CDATA[<p>对自己的拖延症也真是恨铁不成钢，这又是一篇拖延得快要放弃的文章。快过年了，怎么也不能拖到年后，打起精神，清空列表！</p>
 <p>想要自己打造一个小小家庭环境监控系统，各种Sensor不可或缺。看了下大部分人在树莓派上都用Python, 我也来凑个热闹。Python果然是一种很容易入门的语言，我只是稍微查了下资料，半天时间，就搞定了好几个Sensor，当然只是最简单的拿数据什么的，但相比之下，虽然自己对于用C写这些协议很熟，碰到问题我也宁可去看看Python的语法也不愿意换C……Python的优势倒不全是语法简洁，最重要的是有巨量的开发库可以用。像这些简单的协议，全是把库装好，直接拿来用就可以了，看看代码量，简直让人不忍再直视C的代码。对于不用追求速度的玩票项目，相当适合。<br>这一篇先介绍几种最常用的基本协议的实现，老规矩，先上源码<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a><br><a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/30/rpi-protocol/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/30/rpi-protocol/'>在树莓派上几种简单协议的实现</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
@@ -786,7 +793,7 @@ GPIO.cleanup()
 <h2 id="I2C"><a href="#I2C" class="headerlink" title="I2C"></a>I2C</h2><p>I2C是可以一条总线接n个设备的，只要设备的I2C地址不冲突，你尽可以用面包板扩展一下，接上好几个。首先依然是添加开发库，注意这个库貌似只在python2里用，如果我换python3就会报错找不到，可能我不太熟吧……<br><code>sudo apt-get -y install python-smbus</code><br>然后接好硬件，如果你需要确认一下硬件，可以用i2c的工具看看：</p>
 <pre><code>sudo apt-get -y install i2c-tools
 sudo i2cdetect -y 1
-</code></pre><p>参数1是指设备i2c-1，在rpi2上默认就是1，i2c0预留给E2PROM用了，没去折腾打开它。如果你看到一个类似下面的结果，说明硬件已经OK了。<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rpi-i2c-list.png" alt=""><br>上面的图表示有两个I2C设备接在总线上，它们的地址分别是0x48和0x77。如果你没看见有设备，检查硬件连接，还有记得在系统的config里面打开i2c。<br>然后依然是sample code：</p>
+</code></pre><p>参数1是指设备i2c-1，在rpi2上默认就是1，i2c0预留给E2PROM用了，没去折腾打开它。如果你看到一个类似下面的结果，说明硬件已经OK了。<br><img src="http://whf.d.pr/dVNW+" alt=""><br>上面的图表示有两个I2C设备接在总线上，它们的地址分别是0x48和0x77。如果你没看见有设备，检查硬件连接，还有记得在系统的config里面打开i2c。<br>然后依然是sample code：</p>
 <pre><code>import time
 import smbus
 
@@ -861,8 +868,8 @@ ser.close()
     <link href="http://conanwhf.coding.me/2016/01/21/newsreader-8/"/>
     <id>http://conanwhf.coding.me/2016/01/21/newsreader-8/</id>
     <published>2016-01-21T09:32:45.000Z</published>
-    <updated>2016-01-22T09:40:06.000Z</updated>
-    <content type="html"><![CDATA[<p>新闻App通常是有个新闻的列表，这个列表一般都用TableView来做，每个Cell显示一条新闻，如下图：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_TableViewCell-list.png" alt=""><br>在我做的时候，开始Cell是直接从控件库拖到StoryBoard里面，配置了一点东西就OK了：当Cell的Style设成subtilte时，标题、副标题、以及图像都是可用的，在<strong>cellForRowAtIndexPath</strong>里直接配置就行了：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_TableViewCell-config.png" alt=""><br>但这样做了之后出现一个问题：新闻配图是从网络获取的，长宽比和大小并不固定。在这种做法中，图像是以高度而不是宽度统一对齐的，也就是经过缩放后变成统一的高度适配当前Cell，再显示出来。这样一来，每个Cell里的图像宽度就参差不齐，很难看。我尝试了很久也没能解决这个问题，看起来无论怎么对Cell.image进行配置，也是无效的。折中的办法是事先修改图像的长宽比，但这不是我想要的效果。于是，只好尝试TableViewCell的自定义了。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/21/newsreader-8/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/21/newsreader-8/'>从打造新闻app学到的(8)：自定义TableViewCell</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+    <updated>2016-08-21T17:57:28.000Z</updated>
+    <content type="html"><![CDATA[<p>新闻App通常是有个新闻的列表，这个列表一般都用TableView来做，每个Cell显示一条新闻，如下图：<br><img src="http://whf.d.pr/146XT+" alt=""><br>在我做的时候，开始Cell是直接从控件库拖到StoryBoard里面，配置了一点东西就OK了：当Cell的Style设成subtilte时，标题、副标题、以及图像都是可用的，在<strong>cellForRowAtIndexPath</strong>里直接配置就行了：<br><img src="http://whf.d.pr/K486+" alt=""><br>但这样做了之后出现一个问题：新闻配图是从网络获取的，长宽比和大小并不固定。在这种做法中，图像是以高度而不是宽度统一对齐的，也就是经过缩放后变成统一的高度适配当前Cell，再显示出来。这样一来，每个Cell里的图像宽度就参差不齐，很难看。我尝试了很久也没能解决这个问题，看起来无论怎么对Cell.image进行配置，也是无效的。折中的办法是事先修改图像的长宽比，但这不是我想要的效果。于是，只好尝试TableViewCell的自定义了。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/21/newsreader-8/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/21/newsreader-8/'>从打造新闻app学到的(8)：自定义TableViewCell</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -922,7 +929,7 @@ ser.close()
 </code></pre><p>这两周基本上在荒废，这篇文章离写代码的时间也是拖了有半个月，有些细节都快忘了，每天没做什么正事，有点浑浑噩噩的感觉……拖延症加重了？要振作一点！</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>新闻App通常是有个新闻的列表，这个列表一般都用TableView来做，每个Cell显示一条新闻，如下图：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_TableViewCell-list.png" alt=""><br>在我做的时候，开始Cell是直接从控件库拖到StoryBoard里面，配置了一点东西就OK了：当Cell的Style设成subtilte时，标题、副标题、以及图像都是可用的，在<strong>cellForRowAtIndexPath</strong>里直接配置就行了：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_TableViewCell-config.png" alt=""><br>但这样做了之后出现一个问题：新闻配图是从网络获取的，长宽比和大小并不固定。在这种做法中，图像是以高度而不是宽度统一对齐的，也就是经过缩放后变成统一的高度适配当前Cell，再显示出来。这样一来，每个Cell里的图像宽度就参差不齐，很难看。我尝试了很久也没能解决这个问题，看起来无论怎么对Cell.image进行配置，也是无效的。折中的办法是事先修改图像的长宽比，但这不是我想要的效果。于是，只好尝试TableViewCell的自定义了。]]>
+    <![CDATA[<p>新闻App通常是有个新闻的列表，这个列表一般都用TableView来做，每个Cell显示一条新闻，如下图：<br><img src="http://whf.d.pr/146XT+" alt=""><br>在我做的时候，开始Cell是直接从控件库拖到StoryBoard里面，配置了一点东西就OK了：当Cell的Style设成subtilte时，标题、副标题、以及图像都是可用的，在<strong>cellForRowAtIndexPath</strong>里直接配置就行了：<br><img src="http://whf.d.pr/K486+" alt=""><br>但这样做了之后出现一个问题：新闻配图是从网络获取的，长宽比和大小并不固定。在这种做法中，图像是以高度而不是宽度统一对齐的，也就是经过缩放后变成统一的高度适配当前Cell，再显示出来。这样一来，每个Cell里的图像宽度就参差不齐，很难看。我尝试了很久也没能解决这个问题，看起来无论怎么对Cell.image进行配置，也是无效的。折中的办法是事先修改图像的长宽比，但这不是我想要的效果。于是，只好尝试TableViewCell的自定义了。]]>
     
     </summary>
     
@@ -930,7 +937,7 @@ ser.close()
     
       <category term="TableView" scheme="http://conanwhf.coding.me/tags/TableView/"/>
     
-      <category term="Cocoa" scheme="http://conanwhf.coding.me/categories/Cocoa/"/>
+      <category term="CocoaTouch" scheme="http://conanwhf.coding.me/categories/CocoaTouch/"/>
     
   </entry>
   
@@ -939,14 +946,14 @@ ser.close()
     <link href="http://conanwhf.coding.me/2016/01/16/Transform/"/>
     <id>http://conanwhf.coding.me/2016/01/16/Transform/</id>
     <published>2016-01-16T09:32:45.000Z</published>
-    <updated>2016-03-02T08:50:19.000Z</updated>
+    <updated>2016-08-21T17:57:54.000Z</updated>
     <content type="html"><![CDATA[<p>这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。<br>关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周Blog<a href="http://conanwhf.github.io/2016/01/03/UISlider/" title="UIController中Slider监听回调具体实现的分离" target="_blank" rel="external">UIController中Slider监听回调具体实现的分离</a>），我也添加了旋转的功能，开始是在handler中这么写的(back是一个UIView)：</p>
 <pre><code>let x = (Float(ctl.show.frame.width) - conf[0] )/2
 let y = (Float(ctl.show.frame.height) - conf[1] )/2
 back.frame.size = CGSize(width: CGFloat(conf[0], height: CGFloat(conf[1])
 back.frame.origin = CGPoint(x: Int(x), y: Int(y))
 back.transform = CGAffineTransformMakeRotation( CGFloat(Double(conf[7] * M_PI  / 180.0))
-</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样有时候会自己拉扁的：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_error.gif" alt=""></p>
+</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样有时候会自己拉扁的：<br><img src="http://whf.d.pr/CNsl+" alt=""></p>
 <a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/16/Transform/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/16/Transform/'>使用.transform旋转带来的坑</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
@@ -993,7 +1000,7 @@ demo.frame.size     //200*200
 //case 4, rotate+scale
 demo.transform = CGAffineTransformConcat(transf_rotate, transf_scale)
 demo.frame.size     //600*67
-</code></pre><p>有兴趣的可以把这一段code放到playground里面自己跑跑，看看会是什么结果。case2 &amp; case3，结果如我们所想象的那样，是个200*200的正方形；而case1 &amp; case4，却变成了600*66.7的长条矩形。看起来正如下图的几种情况：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_order.png" alt=""><br>图中，暗红色部分是先做缩放再做旋转，有了正确的结果，对应scale(rotate, x) &amp; scale+rotate；银色部分则是先旋转再缩放，成了错误的样子，对应rotate+scale &amp; rotate(scale, x)。原来这是有顺序要求的。那么问题又来了：CGAffineTransformXXX(t, args)系列的函数，感觉上应该是对t用新的参数做叠加，为什么结果却是反的呢？于是我去查了它们的头文件，看到是这么定义的：</p>
+</code></pre><p>有兴趣的可以把这一段code放到playground里面自己跑跑，看看会是什么结果。case2 &amp; case3，结果如我们所想象的那样，是个200*200的正方形；而case1 &amp; case4，却变成了600*66.7的长条矩形。看起来正如下图的几种情况：<br><img src="http://whf.d.pr/1dzlq+" alt=""><br>图中，暗红色部分是先做缩放再做旋转，有了正确的结果，对应scale(rotate, x) &amp; scale+rotate；银色部分则是先旋转再缩放，成了错误的样子，对应rotate+scale &amp; rotate(scale, x)。原来这是有顺序要求的。那么问题又来了：CGAffineTransformXXX(t, args)系列的函数，感觉上应该是对t用新的参数做叠加，为什么结果却是反的呢？于是我去查了它们的头文件，看到是这么定义的：</p>
 <blockquote>
 <p>  /* Scale t’ by (sx, sy)’ and return the result:<br>  t’ = [ sx 0 0 sy 0 0 ] * t */<br>  @available(iOS 2.0, *)<br>  public func CGAffineTransformScale(t: CGAffineTransform, _ sx: CGFloat, _ sy: CGFloat) -> CGAffineTransform</p>
 <p>  /* Rotate t’ by angle’ radians and return the result:<br>  t’ =  [ cos(angle) sin(angle) -sin(angle) cos(angle) 0 0 ] * t */<br>  @available(iOS 2.0, *)<br>  public func CGAffineTransformRotate(t: CGAffineTransform, _ angle: CGFloat) -> CGAffineTransform</p>
@@ -1014,7 +1021,7 @@ let y = (Float(ctl.show.frame.height) - conf[1] )/2
 back.frame.size = CGSize(width: CGFloat(conf[0], height: CGFloat(conf[1])
 back.frame.origin = CGPoint(x: Int(x), y: Int(y))
 back.transform = CGAffineTransformMakeRotation( CGFloat(Double(conf[7] * M_PI  / 180.0))
-</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样有时候会自己拉扁的：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_error.gif" alt=""></p>]]>
+</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样有时候会自己拉扁的：<br><img src="http://whf.d.pr/CNsl+" alt=""></p>]]>
     
     </summary>
     
@@ -1022,7 +1029,7 @@ back.transform = CGAffineTransformMakeRotation( CGFloat(Double(conf[7] * M_PI  /
     
       <category term="transform　" scheme="http://conanwhf.coding.me/tags/transform/"/>
     
-      <category term="Cocoa" scheme="http://conanwhf.coding.me/categories/Cocoa/"/>
+      <category term="CocoaTouch" scheme="http://conanwhf.coding.me/categories/CocoaTouch/"/>
     
   </entry>
   
@@ -1326,8 +1333,8 @@ echo LANG=en_US.UTF-8 | sudo tee -a /etc/environment
     <link href="http://conanwhf.coding.me/2016/01/03/UISlider/"/>
     <id>http://conanwhf.coding.me/2016/01/03/UISlider/</id>
     <published>2016-01-03T09:32:45.000Z</published>
-    <updated>2016-01-17T18:03:31.000Z</updated>
-    <content type="html"><![CDATA[<p>作为初学者，基础的几个UI控件必须要熟练，现在的我还处于打开Xcode在控件表里面瞎找，看着谁好像是我想要的就往StoryBoard里面拖的阶段……正式写了点东西以后，越来越感觉到，该认真把控件过一遍了。上周写了这么个UIView的Demo，本意是看看各种效果，结果各种状况，花了不少时间。最终效果如下：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_UIViewtest.gif" alt=""><br>因为准备做不止一个控件的Demo测试，又不愿意每个控件开一个ViewController，想所有的Demo都重用同一个页面，于是妖蛾子就出来了。（背景：这个Demo的具体实现部分和ViewController是分开的两个File）<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/03/UISlider/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/03/UISlider/'>UIController中Slider监听回调具体实现的分离</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+    <updated>2016-08-21T17:57:36.000Z</updated>
+    <content type="html"><![CDATA[<p>作为初学者，基础的几个UI控件必须要熟练，现在的我还处于打开Xcode在控件表里面瞎找，看着谁好像是我想要的就往StoryBoard里面拖的阶段……正式写了点东西以后，越来越感觉到，该认真把控件过一遍了。上周写了这么个UIView的Demo，本意是看看各种效果，结果各种状况，花了不少时间。最终效果如下：<br><img src="http://whf.d.pr/19ywa+" alt=""><br>因为准备做不止一个控件的Demo测试，又不愿意每个控件开一个ViewController，想所有的Demo都重用同一个页面，于是妖蛾子就出来了。（背景：这个Demo的具体实现部分和ViewController是分开的两个File）<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/03/UISlider/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/03/UISlider/'>UIController中Slider监听回调具体实现的分离</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1413,7 +1420,7 @@ func refreshUIViewTest(ctl: ShowController) {
 </code></pre><p>这样，每次当外界需要获取其变化后数值的时候，就自动刷新Label，而这个获取数值的操作（至少）必然是在监听handler中要用到的（不然难道做个slider摆看吗？😄）至此，这个歪门邪道解决的方案全部完成。<br>整个项目的代码在<a href="https://github.com/conanwhf/Demos/tree/master/UIDemoTest" target="_blank" rel="external">这里</a>，具体这个Demo的实现文件是<em><strong>ShowTestsController.swift</strong></em></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>作为初学者，基础的几个UI控件必须要熟练，现在的我还处于打开Xcode在控件表里面瞎找，看着谁好像是我想要的就往StoryBoard里面拖的阶段……正式写了点东西以后，越来越感觉到，该认真把控件过一遍了。上周写了这么个UIView的Demo，本意是看看各种效果，结果各种状况，花了不少时间。最终效果如下：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_UIViewtest.gif" alt=""><br>因为准备做不止一个控件的Demo测试，又不愿意每个控件开一个ViewController，想所有的Demo都重用同一个页面，于是妖蛾子就出来了。（背景：这个Demo的具体实现部分和ViewController是分开的两个File）]]>
+    <![CDATA[<p>作为初学者，基础的几个UI控件必须要熟练，现在的我还处于打开Xcode在控件表里面瞎找，看着谁好像是我想要的就往StoryBoard里面拖的阶段……正式写了点东西以后，越来越感觉到，该认真把控件过一遍了。上周写了这么个UIView的Demo，本意是看看各种效果，结果各种状况，花了不少时间。最终效果如下：<br><img src="http://whf.d.pr/19ywa+" alt=""><br>因为准备做不止一个控件的Demo测试，又不愿意每个控件开一个ViewController，想所有的Demo都重用同一个页面，于是妖蛾子就出来了。（背景：这个Demo的具体实现部分和ViewController是分开的两个File）]]>
     
     </summary>
     
@@ -1421,7 +1428,7 @@ func refreshUIViewTest(ctl: ShowController) {
     
       <category term="iOS" scheme="http://conanwhf.coding.me/tags/iOS/"/>
     
-      <category term="Cocoa" scheme="http://conanwhf.coding.me/categories/Cocoa/"/>
+      <category term="CocoaTouch" scheme="http://conanwhf.coding.me/categories/CocoaTouch/"/>
     
   </entry>
   
@@ -1430,7 +1437,7 @@ func refreshUIViewTest(ctl: ShowController) {
     <link href="http://conanwhf.coding.me/2016/01/01/newsreader-7/"/>
     <id>http://conanwhf.coding.me/2016/01/01/newsreader-7/</id>
     <published>2016-01-01T06:56:35.000Z</published>
-    <updated>2016-01-17T18:07:19.000Z</updated>
+    <updated>2016-08-21T17:58:05.000Z</updated>
     <content type="html"><![CDATA[<p>新闻的实时性，必然导致其列表清单对“下拉刷新”和“上拉更多”的实现要求。一开始我以为这两个可以很容易地通过手势的处理来实现，找了找先是发现了个控件<strong>UIRefreshControl</strong>，很简单地实现了下拉刷新，想着上拉不是一样嘛，先用用再研究上拉怎么搞，于是放进了Code里面：</p>
 <pre><code>@IBOutlet weak var loading: UIActivityIndicatorView!
 override func viewDidLoad() {
@@ -1474,7 +1481,7 @@ if (scrollView.contentOffset.y &gt; (scrollView.contentSize.height - scrollView.
 <ul>
 <li><strong>scrollView.contentOffset.y</strong>，这是指松开的时候显示的顶部处于ScrollView(在我的例子中是TableView)的什么位置</li>
 <li><strong>scrollView.contentSize.height</strong>，这是整个ScrollView的高度，你可以想象一下，整个View很长，通过滑动来显示某一部分，而这个contentSize就是整个的Size</li>
-<li><p><strong>scrollView.frame.size.height</strong>，这是ScrollView显示出来的部分的高度<br>所以这个判断条件就很好理解了。如下图所示：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_ScrollView.jpg" alt="" title="ScrollView"><br>当滑动条拉到最下的时候，<code>contentOffset.y = contentSize.height-frame.size.height</code>，而继续上拉，就会有一段空白，定义这个空白的高度（我设的70），就是上拉刷新的阈值了。同样的，用这个办法也可以判断下拉刷新，而且更加简单：<code>contentOffset.y &lt; -70</code>。<br>判断问题解决了，剩下的就是UI的事儿了。我选择了最基本的<strong>UIActivityIndicatorView</strong>，转菊花，简单到只要在对应的时间start&amp;Stop Animating就行了。于是现在把上拉更多和下拉刷新结合一下，用同一套方法对付：</p>
+<li><p><strong>scrollView.frame.size.height</strong>，这是ScrollView显示出来的部分的高度<br>所以这个判断条件就很好理解了。如下图所示：<br><img src="http://whf.d.pr/yKPW+" alt="" title="ScrollView"><br>当滑动条拉到最下的时候，<code>contentOffset.y = contentSize.height-frame.size.height</code>，而继续上拉，就会有一段空白，定义这个空白的高度（我设的70），就是上拉刷新的阈值了。同样的，用这个办法也可以判断下拉刷新，而且更加简单：<code>contentOffset.y &lt; -70</code>。<br>判断问题解决了，剩下的就是UI的事儿了。我选择了最基本的<strong>UIActivityIndicatorView</strong>，转菊花，简单到只要在对应的时间start&amp;Stop Animating就行了。于是现在把上拉更多和下拉刷新结合一下，用同一套方法对付：</p>
 <pre><code>private let loading = UIActivityIndicatorView()
 override func viewDidLoad() {
     self.ListTableView.addSubview(loading)
@@ -1528,7 +1535,7 @@ func updateLatesList(){
     
       <category term="iOS" scheme="http://conanwhf.coding.me/tags/iOS/"/>
     
-      <category term="Cocoa" scheme="http://conanwhf.coding.me/categories/Cocoa/"/>
+      <category term="CocoaTouch" scheme="http://conanwhf.coding.me/categories/CocoaTouch/"/>
     
   </entry>
   

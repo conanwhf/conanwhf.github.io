@@ -244,8 +244,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Cocoa/" itemprop="url" rel="index">
-                  <span itemprop="name">Cocoa</span>
+                <a href="/categories/CocoaTouch/" itemprop="url" rel="index">
+                  <span itemprop="name">CocoaTouch</span>
                 </a>
               </span>
 
@@ -339,8 +339,8 @@ self.performSegueWithIdentifier(“ABC”, sender: self)
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Cocoa/" itemprop="url" rel="index">
-                  <span itemprop="name">Cocoa</span>
+                <a href="/categories/CocoaTouch/" itemprop="url" rel="index">
+                  <span itemprop="name">CocoaTouch</span>
                 </a>
               </span>
 
@@ -371,7 +371,7 @@ self.performSegueWithIdentifier(“ABC”, sender: self)
 
       
         
-          <span itemprop="articleBody"><p>要实现不同界面的跳转，简单的办法是在StroyBoard中直接拖动控件。<strong>按住^</strong>将触发跳转的控件拖到待触发的View中，松开鼠标在弹出的菜单中选择对应的选项（跳转为View），一个segue(大致译为“转场、过渡”)就完成了：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_create_segue.gif" alt=""><br>而要实现在两个ViewController之间传数据，在这种建立segue的情况下也很简单。假设我们需要在从ViewA（ControllerA代理）跳转去ViewB（ControllerB代理）时传递一个Int变量id，那么先要在ControllerB中定义.id属性，然后在ControllerA中实现：</p>
+          <span itemprop="articleBody"><p>要实现不同界面的跳转，简单的办法是在StroyBoard中直接拖动控件。<strong>按住^</strong>将触发跳转的控件拖到待触发的View中，松开鼠标在弹出的菜单中选择对应的选项（跳转为View），一个segue(大致译为“转场、过渡”)就完成了：<br><img src="http://whf.d.pr/13y1z+" alt=""><br>而要实现在两个ViewController之间传数据，在这种建立segue的情况下也很简单。假设我们需要在从ViewA（ControllerA代理）跳转去ViewB（ControllerB代理）时传递一个Int变量id，那么先要在ControllerB中定义.id属性，然后在ControllerA中实现：</p>
 <pre><code>override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 //print(“this is segue \(segue.identifier), \(sender.debugDescription)&quot;)
 ControllerB.id = passValue
@@ -665,7 +665,7 @@ var ch : typeA {
           <span itemprop="articleBody"><blockquote>
 <p>怎么从JSON拿数据学会了，那么接下来就是正式打造一个自己的新闻客户端了。虽然我Swift语法还没认真学完，但实在是心痒痒，就跳过一点基础，先来个实战吧！经过这个礼拜，我的APP也基本成型了。网上关于怎么做一个新闻客户端的例子很多，我就不赘述了，只是把过程中碰到的一些小问题和心得、我自己无法很容易搜到完美答案的写一写。过程中的弯路肯定没少走，但经验的收获也是不少的。</p>
 </blockquote>
-<p>关于这个APP使用的数据结构，其实我是重构过的。新闻一般都是有两种数据源：新闻列表(List)，和单条新闻(Post)详细信息。开始我在playground写了对应的List&amp;Post数据结构，以及处理数据的函数。打印测试成功后，往project里面放的时候……不忍直视！作为一个初学者，我往viewDidLoad()里面塞了几乎所有的流程调用，以至于第一次运行成功在模拟器中看到数据的时候，我最大的感觉不是兴奋，而是我怎么把code写得这么丑陋！😖<br><strong>功能不行可以再学习怎么做，但代码太丑是真真正正不能忍！</strong>我曾经的经验如是告诉我。我试着模块化各种数据和过程，一番思考和尝试后，变成了现在的结构：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_wxc_data.png" alt="" title="新闻APP拿取数据框图"><br>DataManager是整个业务的最顶层类，它提供了很少的几个接口供ViewController使用：请求最新列表、请求更多列表数据、请求某个新闻、少量设置，并且设置也都是有default值的。考虑到将来有可能支持更多的新闻网站，GetURL和数据解析部分也是独立可更换的模块。在数据结构部分，我定义了一个Item类型，包括几个通用的属性，以及几个通用函数的实现，然后让ListItem，PostItem，CommentItem分别继承。这样既逻辑清晰，减少重复代码，也便于调试。所有上层不需要知道的参数都封装在内部，只有一个Manger和它的API，以及几个配置属性暴露在外。<br>也许这样的抽象定义过程，对于老手来说是不值一提的基础，就像吃饭要先煮饭一样简单。但我想对于刚刚接触APP开发的新人来说，如何更好的定义数据结构和API，恰当地抽象各种概念，还是值得多多思考的功课。</p>
+<p>关于这个APP使用的数据结构，其实我是重构过的。新闻一般都是有两种数据源：新闻列表(List)，和单条新闻(Post)详细信息。开始我在playground写了对应的List&amp;Post数据结构，以及处理数据的函数。打印测试成功后，往project里面放的时候……不忍直视！作为一个初学者，我往viewDidLoad()里面塞了几乎所有的流程调用，以至于第一次运行成功在模拟器中看到数据的时候，我最大的感觉不是兴奋，而是我怎么把code写得这么丑陋！😖<br><strong>功能不行可以再学习怎么做，但代码太丑是真真正正不能忍！</strong>我曾经的经验如是告诉我。我试着模块化各种数据和过程，一番思考和尝试后，变成了现在的结构：<br><img src="http://whf.d.pr/dHuS+" alt="" title="新闻APP拿取数据框图"><br>DataManager是整个业务的最顶层类，它提供了很少的几个接口供ViewController使用：请求最新列表、请求更多列表数据、请求某个新闻、少量设置，并且设置也都是有default值的。考虑到将来有可能支持更多的新闻网站，GetURL和数据解析部分也是独立可更换的模块。在数据结构部分，我定义了一个Item类型，包括几个通用的属性，以及几个通用函数的实现，然后让ListItem，PostItem，CommentItem分别继承。这样既逻辑清晰，减少重复代码，也便于调试。所有上层不需要知道的参数都封装在内部，只有一个Manger和它的API，以及几个配置属性暴露在外。<br>也许这样的抽象定义过程，对于老手来说是不值一提的基础，就像吃饭要先煮饭一样简单。但我想对于刚刚接触APP开发的新人来说，如何更好的定义数据结构和API，恰当地抽象各种概念，还是值得多多思考的功课。</p>
 </span>
         
       
@@ -999,7 +999,7 @@ guard data = NSData(contentsOfURL: url)  else{
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">7</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>

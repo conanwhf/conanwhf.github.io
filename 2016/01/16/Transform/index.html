@@ -51,9 +51,9 @@
 <meta property="og:url" content="http://conanwhf.coding.me/2016/01/16/Transform/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周BlogUIController中Slider监听回调">
-<meta property="og:image" content="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_error.gif">
-<meta property="og:image" content="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_order.png">
-<meta property="og:updated_time" content="2016-03-02T08:50:19.000Z">
+<meta property="og:image" content="http://whf.d.pr/CNsl+">
+<meta property="og:image" content="http://whf.d.pr/1dzlq+">
+<meta property="og:updated_time" content="2016-08-21T17:57:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用.transform旋转带来的坑">
 <meta name="twitter:description" content="这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周BlogUIController中Slider监听回调">
@@ -243,8 +243,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Cocoa/" itemprop="url" rel="index">
-                  <span itemprop="name">Cocoa</span>
+                <a href="/categories/CocoaTouch/" itemprop="url" rel="index">
+                  <span itemprop="name">CocoaTouch</span>
                 </a>
               </span>
 
@@ -280,7 +280,7 @@ let y = (Float(ctl.show.frame.height) - conf[1] )/2
 back.frame.size = CGSize(width: CGFloat(conf[0], height: CGFloat(conf[1])
 back.frame.origin = CGPoint(x: Int(x), y: Int(y))
 back.transform = CGAffineTransformMakeRotation( CGFloat(Double(conf[7] * M_PI  / 180.0))
-</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样有时候会自己拉扁的：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_error.gif" alt=""></p>
+</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样有时候会自己拉扁的：<br><img src="http://whf.d.pr/CNsl+" alt=""></p>
 <a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/16/Transform/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/16/Transform/'>使用.transform旋转带来的坑</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
@@ -327,7 +327,7 @@ demo.frame.size     //200*200
 //case 4, rotate+scale
 demo.transform = CGAffineTransformConcat(transf_rotate, transf_scale)
 demo.frame.size     //600*67
-</code></pre><p>有兴趣的可以把这一段code放到playground里面自己跑跑，看看会是什么结果。case2 &amp; case3，结果如我们所想象的那样，是个200*200的正方形；而case1 &amp; case4，却变成了600*66.7的长条矩形。看起来正如下图的几种情况：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rotate_order.png" alt=""><br>图中，暗红色部分是先做缩放再做旋转，有了正确的结果，对应scale(rotate, x) &amp; scale+rotate；银色部分则是先旋转再缩放，成了错误的样子，对应rotate+scale &amp; rotate(scale, x)。原来这是有顺序要求的。那么问题又来了：CGAffineTransformXXX(t, args)系列的函数，感觉上应该是对t用新的参数做叠加，为什么结果却是反的呢？于是我去查了它们的头文件，看到是这么定义的：</p>
+</code></pre><p>有兴趣的可以把这一段code放到playground里面自己跑跑，看看会是什么结果。case2 &amp; case3，结果如我们所想象的那样，是个200*200的正方形；而case1 &amp; case4，却变成了600*66.7的长条矩形。看起来正如下图的几种情况：<br><img src="http://whf.d.pr/1dzlq+" alt=""><br>图中，暗红色部分是先做缩放再做旋转，有了正确的结果，对应scale(rotate, x) &amp; scale+rotate；银色部分则是先旋转再缩放，成了错误的样子，对应rotate+scale &amp; rotate(scale, x)。原来这是有顺序要求的。那么问题又来了：CGAffineTransformXXX(t, args)系列的函数，感觉上应该是对t用新的参数做叠加，为什么结果却是反的呢？于是我去查了它们的头文件，看到是这么定义的：</p>
 <blockquote>
 <p>  /* Scale t’ by (sx, sy)’ and return the result:<br>  t’ = [ sx 0 0 sy 0 0 ] * t */<br>  @available(iOS 2.0, *)<br>  public func CGAffineTransformScale(t: CGAffineTransform, _ sx: CGFloat, _ sy: CGFloat) -> CGAffineTransform</p>
 <p>  /* Rotate t’ by angle’ radians and return the result:<br>  t’ =  [ cos(angle) sin(angle) -sin(angle) cos(angle) 0 0 ] * t */<br>  @available(iOS 2.0, *)<br>  public func CGAffineTransformRotate(t: CGAffineTransform, _ angle: CGFloat) -> CGAffineTransform</p>
@@ -461,7 +461,7 @@ demo.frame.size     //600*67
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">7</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>

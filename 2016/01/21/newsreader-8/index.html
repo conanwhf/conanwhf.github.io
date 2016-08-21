@@ -51,9 +51,9 @@
 <meta property="og:url" content="http://conanwhf.coding.me/2016/01/21/newsreader-8/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="新闻App通常是有个新闻的列表，这个列表一般都用TableView来做，每个Cell显示一条新闻，如下图：在我做的时候，开始Cell是直接从控件库拖到StoryBoard里面，配置了一点东西就OK了：当Cell的Style设成subtilte时，标题、副标题、以及图像都是可用的，在cellForRowAtIndexPath里直接配置就行了：但这样做了之后出现一个问题：新闻配图是从网络获取的，长宽比">
-<meta property="og:image" content="http://7xkzuv.com1.z0.glb.clouddn.com/img_TableViewCell-list.png">
-<meta property="og:image" content="http://7xkzuv.com1.z0.glb.clouddn.com/img_TableViewCell-config.png">
-<meta property="og:updated_time" content="2016-01-22T09:40:06.000Z">
+<meta property="og:image" content="http://whf.d.pr/146XT+">
+<meta property="og:image" content="http://whf.d.pr/K486+">
+<meta property="og:updated_time" content="2016-08-21T17:57:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从打造新闻app学到的(8)：自定义TableViewCell">
 <meta name="twitter:description" content="新闻App通常是有个新闻的列表，这个列表一般都用TableView来做，每个Cell显示一条新闻，如下图：在我做的时候，开始Cell是直接从控件库拖到StoryBoard里面，配置了一点东西就OK了：当Cell的Style设成subtilte时，标题、副标题、以及图像都是可用的，在cellForRowAtIndexPath里直接配置就行了：但这样做了之后出现一个问题：新闻配图是从网络获取的，长宽比">
@@ -243,8 +243,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Cocoa/" itemprop="url" rel="index">
-                  <span itemprop="name">Cocoa</span>
+                <a href="/categories/CocoaTouch/" itemprop="url" rel="index">
+                  <span itemprop="name">CocoaTouch</span>
                 </a>
               </span>
 
@@ -274,7 +274,7 @@
       
 
       
-        <span itemprop="articleBody"><p>新闻App通常是有个新闻的列表，这个列表一般都用TableView来做，每个Cell显示一条新闻，如下图：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_TableViewCell-list.png" alt=""><br>在我做的时候，开始Cell是直接从控件库拖到StoryBoard里面，配置了一点东西就OK了：当Cell的Style设成subtilte时，标题、副标题、以及图像都是可用的，在<strong>cellForRowAtIndexPath</strong>里直接配置就行了：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_TableViewCell-config.png" alt=""><br>但这样做了之后出现一个问题：新闻配图是从网络获取的，长宽比和大小并不固定。在这种做法中，图像是以高度而不是宽度统一对齐的，也就是经过缩放后变成统一的高度适配当前Cell，再显示出来。这样一来，每个Cell里的图像宽度就参差不齐，很难看。我尝试了很久也没能解决这个问题，看起来无论怎么对Cell.image进行配置，也是无效的。折中的办法是事先修改图像的长宽比，但这不是我想要的效果。于是，只好尝试TableViewCell的自定义了。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/21/newsreader-8/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/21/newsreader-8/'>从打造新闻app学到的(8)：自定义TableViewCell</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+        <span itemprop="articleBody"><p>新闻App通常是有个新闻的列表，这个列表一般都用TableView来做，每个Cell显示一条新闻，如下图：<br><img src="http://whf.d.pr/146XT+" alt=""><br>在我做的时候，开始Cell是直接从控件库拖到StoryBoard里面，配置了一点东西就OK了：当Cell的Style设成subtilte时，标题、副标题、以及图像都是可用的，在<strong>cellForRowAtIndexPath</strong>里直接配置就行了：<br><img src="http://whf.d.pr/K486+" alt=""><br>但这样做了之后出现一个问题：新闻配图是从网络获取的，长宽比和大小并不固定。在这种做法中，图像是以高度而不是宽度统一对齐的，也就是经过缩放后变成统一的高度适配当前Cell，再显示出来。这样一来，每个Cell里的图像宽度就参差不齐，很难看。我尝试了很久也没能解决这个问题，看起来无论怎么对Cell.image进行配置，也是无效的。折中的办法是事先修改图像的长宽比，但这不是我想要的效果。于是，只好尝试TableViewCell的自定义了。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/21/newsreader-8/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/21/newsreader-8/'>从打造新闻app学到的(8)：自定义TableViewCell</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -453,7 +453,7 @@
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">7</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>

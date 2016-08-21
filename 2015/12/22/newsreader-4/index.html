@@ -51,8 +51,8 @@
 <meta property="og:url" content="http://conanwhf.coding.me/2015/12/22/newsreader-4/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="要实现不同界面的跳转，简单的办法是在StroyBoard中直接拖动控件。按住^将触发跳转的控件拖到待触发的View中，松开鼠标在弹出的菜单中选择对应的选项（跳转为View），一个segue(大致译为“转场、过渡”)就完成了：而要实现在两个ViewController之间传数据，在这种建立segue的情况下也很简单。假设我们需要在从ViewA（ControllerA代理）跳转去ViewB（Contr">
-<meta property="og:image" content="http://7xkzuv.com1.z0.glb.clouddn.com/img_create_segue.gif">
-<meta property="og:updated_time" content="2016-01-17T17:48:23.000Z">
+<meta property="og:image" content="http://whf.d.pr/13y1z+">
+<meta property="og:updated_time" content="2016-08-21T17:57:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从打造新闻app学到的(4)：使用Segue在ViewController之间传递数据">
 <meta name="twitter:description" content="要实现不同界面的跳转，简单的办法是在StroyBoard中直接拖动控件。按住^将触发跳转的控件拖到待触发的View中，松开鼠标在弹出的菜单中选择对应的选项（跳转为View），一个segue(大致译为“转场、过渡”)就完成了：而要实现在两个ViewController之间传数据，在这种建立segue的情况下也很简单。假设我们需要在从ViewA（ControllerA代理）跳转去ViewB（Contr">
@@ -242,8 +242,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Cocoa/" itemprop="url" rel="index">
-                  <span itemprop="name">Cocoa</span>
+                <a href="/categories/CocoaTouch/" itemprop="url" rel="index">
+                  <span itemprop="name">CocoaTouch</span>
                 </a>
               </span>
 
@@ -273,7 +273,7 @@
       
 
       
-        <span itemprop="articleBody"><p>要实现不同界面的跳转，简单的办法是在StroyBoard中直接拖动控件。<strong>按住^</strong>将触发跳转的控件拖到待触发的View中，松开鼠标在弹出的菜单中选择对应的选项（跳转为View），一个segue(大致译为“转场、过渡”)就完成了：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_create_segue.gif" alt=""><br>而要实现在两个ViewController之间传数据，在这种建立segue的情况下也很简单。假设我们需要在从ViewA（ControllerA代理）跳转去ViewB（ControllerB代理）时传递一个Int变量id，那么先要在ControllerB中定义.id属性，然后在ControllerA中实现：</p>
+        <span itemprop="articleBody"><p>要实现不同界面的跳转，简单的办法是在StroyBoard中直接拖动控件。<strong>按住^</strong>将触发跳转的控件拖到待触发的View中，松开鼠标在弹出的菜单中选择对应的选项（跳转为View），一个segue(大致译为“转场、过渡”)就完成了：<br><img src="http://whf.d.pr/13y1z+" alt=""><br>而要实现在两个ViewController之间传数据，在这种建立segue的情况下也很简单。假设我们需要在从ViewA（ControllerA代理）跳转去ViewB（ControllerB代理）时传递一个Int变量id，那么先要在ControllerB中定义.id属性，然后在ControllerA中实现：</p>
 <pre><code>override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 //print(“this is segue \(segue.identifier), \(sender.debugDescription)&quot;)
 ControllerB.id = passValue
@@ -404,7 +404,7 @@ ControllerB.id = passValue
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">7</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>

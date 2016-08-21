@@ -55,8 +55,8 @@ override f">
 <meta property="og:description" content="新闻的实时性，必然导致其列表清单对“下拉刷新”和“上拉更多”的实现要求。一开始我以为这两个可以很容易地通过手势的处理来实现，找了找先是发现了个控件UIRefreshControl，很简单地实现了下拉刷新，想着上拉不是一样嘛，先用用再研究上拉怎么搞，于是放进了Code里面：
 @IBOutlet weak var loading: UIActivityIndicatorView!
 override f">
-<meta property="og:image" content="http://7xkzuv.com1.z0.glb.clouddn.com/img_ScrollView.jpg">
-<meta property="og:updated_time" content="2016-01-17T18:07:19.000Z">
+<meta property="og:image" content="http://whf.d.pr/yKPW+">
+<meta property="og:updated_time" content="2016-08-21T17:58:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从打造新闻app学到的(7)：下拉刷新和上拉更多">
 <meta name="twitter:description" content="新闻的实时性，必然导致其列表清单对“下拉刷新”和“上拉更多”的实现要求。一开始我以为这两个可以很容易地通过手势的处理来实现，找了找先是发现了个控件UIRefreshControl，很简单地实现了下拉刷新，想着上拉不是一样嘛，先用用再研究上拉怎么搞，于是放进了Code里面：
@@ -248,8 +248,8 @@ override f">
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Cocoa/" itemprop="url" rel="index">
-                  <span itemprop="name">Cocoa</span>
+                <a href="/categories/CocoaTouch/" itemprop="url" rel="index">
+                  <span itemprop="name">CocoaTouch</span>
                 </a>
               </span>
 
@@ -322,7 +322,7 @@ if (scrollView.contentOffset.y &gt; (scrollView.contentSize.height - scrollView.
 <ul>
 <li><strong>scrollView.contentOffset.y</strong>，这是指松开的时候显示的顶部处于ScrollView(在我的例子中是TableView)的什么位置</li>
 <li><strong>scrollView.contentSize.height</strong>，这是整个ScrollView的高度，你可以想象一下，整个View很长，通过滑动来显示某一部分，而这个contentSize就是整个的Size</li>
-<li><p><strong>scrollView.frame.size.height</strong>，这是ScrollView显示出来的部分的高度<br>所以这个判断条件就很好理解了。如下图所示：<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_ScrollView.jpg" alt="" title="ScrollView"><br>当滑动条拉到最下的时候，<code>contentOffset.y = contentSize.height-frame.size.height</code>，而继续上拉，就会有一段空白，定义这个空白的高度（我设的70），就是上拉刷新的阈值了。同样的，用这个办法也可以判断下拉刷新，而且更加简单：<code>contentOffset.y &lt; -70</code>。<br>判断问题解决了，剩下的就是UI的事儿了。我选择了最基本的<strong>UIActivityIndicatorView</strong>，转菊花，简单到只要在对应的时间start&amp;Stop Animating就行了。于是现在把上拉更多和下拉刷新结合一下，用同一套方法对付：</p>
+<li><p><strong>scrollView.frame.size.height</strong>，这是ScrollView显示出来的部分的高度<br>所以这个判断条件就很好理解了。如下图所示：<br><img src="http://whf.d.pr/yKPW+" alt="" title="ScrollView"><br>当滑动条拉到最下的时候，<code>contentOffset.y = contentSize.height-frame.size.height</code>，而继续上拉，就会有一段空白，定义这个空白的高度（我设的70），就是上拉刷新的阈值了。同样的，用这个办法也可以判断下拉刷新，而且更加简单：<code>contentOffset.y &lt; -70</code>。<br>判断问题解决了，剩下的就是UI的事儿了。我选择了最基本的<strong>UIActivityIndicatorView</strong>，转菊花，简单到只要在对应的时间start&amp;Stop Animating就行了。于是现在把上拉更多和下拉刷新结合一下，用同一套方法对付：</p>
 <pre><code>private let loading = UIActivityIndicatorView()
 override func viewDidLoad() {
     self.ListTableView.addSubview(loading)
@@ -474,7 +474,7 @@ if (scrollView.contentOffset.y &lt; -70  &amp;&amp; manager.wxcList.count &gt; 0
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">7</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>

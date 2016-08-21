@@ -53,8 +53,8 @@
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="对自己的拖延症也真是恨铁不成钢，这又是一篇拖延得快要放弃的文章。快过年了，怎么也不能拖到年后，打起精神，清空列表！
 想要自己打造一个小小家庭环境监控系统，各种Sensor不可或缺。看了下大部分人在树莓派上都用Python, 我也来凑个热闹。Python果然是一种很容易入门的语言，我只是稍微查了下资料，半天时间，就搞定了好几个Sensor，当然只是最简单的拿数据什么的，但相比之下，虽然自己对于用C写">
-<meta property="og:image" content="http://7xkzuv.com1.z0.glb.clouddn.com/img_rpi-i2c-list.png">
-<meta property="og:updated_time" content="2016-02-01T11:30:47.000Z">
+<meta property="og:image" content="http://whf.d.pr/dVNW+">
+<meta property="og:updated_time" content="2016-08-21T17:49:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在树莓派上几种简单协议的实现">
 <meta name="twitter:description" content="对自己的拖延症也真是恨铁不成钢，这又是一篇拖延得快要放弃的文章。快过年了，怎么也不能拖到年后，打起精神，清空列表！
@@ -323,7 +323,7 @@ GPIO.cleanup()
 <h2 id="I2C"><a href="#I2C" class="headerlink" title="I2C"></a>I2C</h2><p>I2C是可以一条总线接n个设备的，只要设备的I2C地址不冲突，你尽可以用面包板扩展一下，接上好几个。首先依然是添加开发库，注意这个库貌似只在python2里用，如果我换python3就会报错找不到，可能我不太熟吧……<br><code>sudo apt-get -y install python-smbus</code><br>然后接好硬件，如果你需要确认一下硬件，可以用i2c的工具看看：</p>
 <pre><code>sudo apt-get -y install i2c-tools
 sudo i2cdetect -y 1
-</code></pre><p>参数1是指设备i2c-1，在rpi2上默认就是1，i2c0预留给E2PROM用了，没去折腾打开它。如果你看到一个类似下面的结果，说明硬件已经OK了。<br><img src="http://7xkzuv.com1.z0.glb.clouddn.com/img_rpi-i2c-list.png" alt=""><br>上面的图表示有两个I2C设备接在总线上，它们的地址分别是0x48和0x77。如果你没看见有设备，检查硬件连接，还有记得在系统的config里面打开i2c。<br>然后依然是sample code：</p>
+</code></pre><p>参数1是指设备i2c-1，在rpi2上默认就是1，i2c0预留给E2PROM用了，没去折腾打开它。如果你看到一个类似下面的结果，说明硬件已经OK了。<br><img src="http://whf.d.pr/dVNW+" alt=""><br>上面的图表示有两个I2C设备接在总线上，它们的地址分别是0x48和0x77。如果你没看见有设备，检查硬件连接，还有记得在系统的config里面打开i2c。<br>然后依然是sample code：</p>
 <pre><code>import time
 import smbus
 
@@ -483,7 +483,7 @@ ser.close()
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">7</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
