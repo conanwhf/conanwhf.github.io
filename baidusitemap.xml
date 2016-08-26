@@ -4,6 +4,166 @@
 
     
   <url>
+    <loc>http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/</loc>
+    <lastmod>2016-08-26T05:13:54.000Z</lastmod>
+    <data>
+        <display>
+        <title>树莓派RaspberryPi系统备份Image的制作</title>
+        <pubTime>2016-08-25T02:02:26.000Z</pubTime>
+        
+        <tag>Script</tag>
+         
+         
+           
+             
+              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/01/30/rpi-protocol/</loc>
+    <lastmod>2016-08-26T05:05:24.000Z</lastmod>
+    <data>
+        <display>
+        <title>在树莓派RaspberryPi上几种简单协议的实现</title>
+        <pubTime>2016-01-30T09:31:26.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>Script</tag>
+         
+         
+           
+             
+              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/01/12/rpi-kernel/</loc>
+    <lastmod>2016-08-26T05:04:11.000Z</lastmod>
+    <data>
+        <display>
+        <title>树莓派RaspberryPi内核编译</title>
+        <pubTime>2016-01-12T07:31:26.000Z</pubTime>
+        
+        <tag>Kernel</tag>
+         
+         
+           
+             
+              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/01/16/Transform/</loc>
+    <lastmod>2016-08-26T05:03:49.000Z</lastmod>
+    <data>
+        <display>
+        <title>使用.transform旋转带来的坑</title>
+        <pubTime>2016-01-16T09:32:45.000Z</pubTime>
+        
+        <tag>Transform　</tag>
+         
+        <tag>iOS</tag>
+         
+         
+           
+             
+              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/01/14/rpi-toolchain/</loc>
+    <lastmod>2016-08-25T10:32:07.000Z</lastmod>
+    <data>
+        <display>
+        <title>自己编译给树莓派RaspberryPi的交叉编译工具</title>
+        <pubTime>2016-01-14T03:31:26.000Z</pubTime>
+        
+        <tag>crosstool-ng</tag>
+         
+        <tag>toolchain</tag>
+         
+         
+           
+             
+              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/08/12/rpi-3b/</loc>
+    <lastmod>2016-08-25T10:31:53.000Z</lastmod>
+    <data>
+        <display>
+        <title>树莓派RaspberryPi 3B的一些改变</title>
+        <pubTime>2016-08-12T11:31:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/01/12/rpi-start/</loc>
+    <lastmod>2016-08-25T10:31:48.000Z</lastmod>
+    <data>
+        <display>
+        <title>树莓派RaspberryPi初始配置指南（2代B型）</title>
+        <pubTime>2016-01-12T06:31:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/01/12/rpi-get/</loc>
+    <lastmod>2016-08-25T10:31:42.000Z</lastmod>
+    <data>
+        <display>
+        <title>树莓派RaspberryPi入手</title>
+        <pubTime>2016-01-12T05:31:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.coding.me/2015/09/03/NewProjectByCode/</loc>
     <lastmod>2016-08-21T17:58:08.000Z</lastmod>
     <data>
@@ -80,28 +240,6 @@
         <pubTime>2015-09-12T09:32:45.000Z</pubTime>
         
         <tag>TableView</tag>
-         
-         
-           
-             
-              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2016/01/16/Transform/</loc>
-    <lastmod>2016-08-21T17:57:54.000Z</lastmod>
-    <data>
-        <display>
-        <title>使用.transform旋转带来的坑</title>
-        <pubTime>2016-01-16T09:32:45.000Z</pubTime>
-        
-        <tag>iOS</tag>
-         
-        <tag>transform　</tag>
          
          
            
@@ -303,26 +441,6 @@
            
              
               <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2016/01/30/rpi-protocol/</loc>
-    <lastmod>2016-08-21T17:49:29.000Z</lastmod>
-    <data>
-        <display>
-        <title>在树莓派上几种简单协议的实现</title>
-        <pubTime>2016-01-30T09:31:26.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-         
-           
-             
-              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
           
         </display>
     </data>
@@ -754,28 +872,6 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2016/01/14/rpi-toolchain/</loc>
-    <lastmod>2016-01-18T16:23:06.000Z</lastmod>
-    <data>
-        <display>
-        <title>自己编译给树莓派的交叉编译工具</title>
-        <pubTime>2016-01-14T03:31:26.000Z</pubTime>
-        
-        <tag>crosstool-ng</tag>
-         
-        <tag>toolchain</tag>
-         
-         
-           
-             
-              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://conanwhf.coding.me/2015/10/02/Git+Hexo+Markdown.Blog/</loc>
     <lastmod>2016-01-18T16:20:40.000Z</lastmod>
     <data>
@@ -895,44 +991,6 @@
            
              
               <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2016/01/12/rpi-kernel/</loc>
-    <lastmod>2016-01-18T16:17:46.000Z</lastmod>
-    <data>
-        <display>
-        <title>树莓派内核编译</title>
-        <pubTime>2016-01-12T07:31:26.000Z</pubTime>
-        
-        <tag>kernel</tag>
-         
-         
-           
-             
-              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2016/01/12/rpi-get/</loc>
-    <lastmod>2016-01-17T18:11:40.000Z</lastmod>
-    <data>
-        <display>
-        <title>树莓派入手</title>
-        <pubTime>2016-01-12T05:31:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
           
         </display>
     </data>
@@ -1260,74 +1318,12 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2016/01/12/rpi-start/</loc>
-    <lastmod>2016-01-17T18:02:55.000Z</lastmod>
-    <data>
-        <display>
-        <title>树莓派初始配置指南（2代B型）</title>
-        <pubTime>2016-01-12T06:31:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-2/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/16/creatDuoshuo/</loc>
     <lastmod>2016-01-17T17:48:23.000Z</lastmod>
     <data>
         <display>
-        <title>从打造新闻app学到的(2)：定义类中的只读属性</title>
-        <pubTime>2015-12-21T09:14:35.000Z</pubTime>
-        
-        <tag>Class</tag>
-         
-        <tag>NewsAPP</tag>
-         
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-3/</loc>
-    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
-    <data>
-        <display>
-        <title>从打造新闻app学到的(3)：让自定义的类可排序</title>
-        <pubTime>2015-12-21T11:14:35.000Z</pubTime>
-        
-        <tag>Class</tag>
-         
-        <tag>NewsAPP</tag>
-         
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/09/05/DocumentsRule/</loc>
-    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
-    <data>
-        <display>
-        <title>自己的文档整理原则</title>
-        <pubTime>2015-09-05T09:23:39.000Z</pubTime>
+        <title>新配置了多说</title>
+        <pubTime>2015-12-16T05:35:25.000Z</pubTime>
         
          
            
@@ -1362,12 +1358,12 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/16/creatDuoshuo/</loc>
+    <loc>http://conanwhf.coding.me/2015/09/05/DocumentsRule/</loc>
     <lastmod>2016-01-17T17:48:23.000Z</lastmod>
     <data>
         <display>
-        <title>新配置了多说</title>
-        <pubTime>2015-12-16T05:35:25.000Z</pubTime>
+        <title>自己的文档整理原则</title>
+        <pubTime>2015-09-05T09:23:39.000Z</pubTime>
         
          
            
@@ -1387,6 +1383,50 @@
         <title>Swift开源了！！！</title>
         <pubTime>2015-12-04T10:29:26.000Z</pubTime>
         
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-3/</loc>
+    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
+    <data>
+        <display>
+        <title>从打造新闻app学到的(3)：让自定义的类可排序</title>
+        <pubTime>2015-12-21T11:14:35.000Z</pubTime>
+        
+        <tag>Class</tag>
+         
+        <tag>NewsAPP</tag>
+         
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-2/</loc>
+    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
+    <data>
+        <display>
+        <title>从打造新闻app学到的(2)：定义类中的只读属性</title>
+        <pubTime>2015-12-21T09:14:35.000Z</pubTime>
+        
+        <tag>Class</tag>
+         
+        <tag>NewsAPP</tag>
+         
          
            
              

@@ -47,13 +47,13 @@
 
 <meta name="description" content="说到交叉编译工具，真是血泪史。搞了快两天，才终于迂回搞定。老规矩，先放Script传送门，build/build-toolchain.sh  一开始我以为这东西用的人多，交叉编译工具应该不是事儿，去官网下一个就行了，可是我去GitHub一看，这toolchain最近的更新也是三年前，这……能用？先下载吧，同时各种搜，感觉我没有走错地方，大家就是用的这一款！  可是我忘了我是OSX。不出所料，在我的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自己编译给树莓派的交叉编译工具">
+<meta property="og:title" content="自己编译给树莓派RaspberryPi的交叉编译工具">
 <meta property="og:url" content="http://conanwhf.coding.me/2016/01/14/rpi-toolchain/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="说到交叉编译工具，真是血泪史。搞了快两天，才终于迂回搞定。老规矩，先放Script传送门，build/build-toolchain.sh  一开始我以为这东西用的人多，交叉编译工具应该不是事儿，去官网下一个就行了，可是我去GitHub一看，这toolchain最近的更新也是三年前，这……能用？先下载吧，同时各种搜，感觉我没有走错地方，大家就是用的这一款！  可是我忘了我是OSX。不出所料，在我的">
-<meta property="og:updated_time" content="2016-01-18T16:23:06.000Z">
+<meta property="og:updated_time" content="2016-08-25T10:32:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="自己编译给树莓派的交叉编译工具">
+<meta name="twitter:title" content="自己编译给树莓派RaspberryPi的交叉编译工具">
 <meta name="twitter:description" content="说到交叉编译工具，真是血泪史。搞了快两天，才终于迂回搞定。老规矩，先放Script传送门，build/build-toolchain.sh  一开始我以为这东西用的人多，交叉编译工具应该不是事儿，去官网下一个就行了，可是我去GitHub一看，这toolchain最近的更新也是三年前，这……能用？先下载吧，同时各种搜，感觉我没有走错地方，大家就是用的这一款！  可是我忘了我是OSX。不出所料，在我的">
 
 
@@ -64,7 +64,7 @@
   };
 </script>
 
-  <title> 自己编译给树莓派的交叉编译工具 | iOS开发和七七八八 </title>
+  <title> 自己编译给树莓派RaspberryPi的交叉编译工具 | iOS开发和七七八八 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -222,7 +222,7 @@
           
           
             
-              自己编译给树莓派的交叉编译工具
+              自己编译给树莓派RaspberryPi的交叉编译工具
             
           
         </h1>
@@ -272,7 +272,7 @@
       
 
       
-        <span itemprop="articleBody"><p>  说到交叉编译工具，真是血泪史。搞了快两天，才终于迂回搞定。老规矩，先放Script<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a>，<strong>build/build-toolchain.sh</strong><br>  一开始我以为这东西用的人多，交叉编译工具应该不是事儿，去官网下一个就行了，可是我去GitHub一看，这toolchain最近的更新也是<strong>三年</strong>前，这……能用？先下载吧，同时各种搜，感觉我没有走错地方，大家就是用的这一款！<br>  可是我忘了我是OSX。不出所料，在我的电脑上跑不了。而且看了下这个toolchain还是给ARMv6编的好吗，现在明明就是ARMv7了！这么跑性能不受影响吗？更让我无语的是板子上的gcc也是ARMv6的……😰编译个内核什么的那么慢，官方的toolchain又不能用，自己编译势在必行。<br>又是一通各种搜，搜到了个别人2014年编译的mac用toolchain，试了试，普通的程序没问题，编kernel编不过。搜到了个比较详细的在Mac上编译的blog，可惜也是几年前的，跟现在的环境不一样，各种出状况又goole解决，最后还是编译crosstool不成功。可能这一两年，不论是crosstool，OSX，还是GCC，都已经又改了不少吧。<br>  最后，我放弃了，毕竟还是要做iOS开发的，不敢随便乱sudo，还是上虚拟机吧。竭尽全力把所有能删的都删了，看看剩余的18G空间（128G MBP你懂的），哭着做了个Debian的虚拟机……为了节约，GUI都不要，命令行的最小系统。后来还是吃亏在这上面了，编译到一半空间不够，临时扩展磁盘，fdisk,format,mount,ln -s😞所以，根据我经验，不管在哪里，请<strong>至少至少至少准备10G有效空间！！！</strong>（12G是我调整后整个虚拟机大小，最后还剩了2G；如果系统已经有了，那free space至少8G）<br>废话说完，正经操作其实不多，主要就是装一个神器<strong>crosstool-ng</strong>，配置好，然后交给它编译交叉编译工具就行了！具体如下： <a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/14/rpi-toolchain/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/14/rpi-toolchain/'>自己编译给树莓派的交叉编译工具</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+        <span itemprop="articleBody"><p>  说到交叉编译工具，真是血泪史。搞了快两天，才终于迂回搞定。老规矩，先放Script<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a>，<strong>build/build-toolchain.sh</strong><br>  一开始我以为这东西用的人多，交叉编译工具应该不是事儿，去官网下一个就行了，可是我去GitHub一看，这toolchain最近的更新也是<strong>三年</strong>前，这……能用？先下载吧，同时各种搜，感觉我没有走错地方，大家就是用的这一款！<br>  可是我忘了我是OSX。不出所料，在我的电脑上跑不了。而且看了下这个toolchain还是给ARMv6编的好吗，现在明明就是ARMv7了！这么跑性能不受影响吗？更让我无语的是板子上的gcc也是ARMv6的……😰编译个内核什么的那么慢，官方的toolchain又不能用，自己编译势在必行。<br>又是一通各种搜，搜到了个别人2014年编译的mac用toolchain，试了试，普通的程序没问题，编kernel编不过。搜到了个比较详细的在Mac上编译的blog，可惜也是几年前的，跟现在的环境不一样，各种出状况又goole解决，最后还是编译crosstool不成功。可能这一两年，不论是crosstool，OSX，还是GCC，都已经又改了不少吧。<br>  最后，我放弃了，毕竟还是要做iOS开发的，不敢随便乱sudo，还是上虚拟机吧。竭尽全力把所有能删的都删了，看看剩余的18G空间（128G MBP你懂的），哭着做了个Debian的虚拟机……为了节约，GUI都不要，命令行的最小系统。后来还是吃亏在这上面了，编译到一半空间不够，临时扩展磁盘，fdisk,format,mount,ln -s😞所以，根据我经验，不管在哪里，请<strong>至少至少至少准备10G有效空间！！！</strong>（12G是我调整后整个虚拟机大小，最后还剩了2G；如果系统已经有了，那free space至少8G）<br>废话说完，正经操作其实不多，主要就是装一个神器<strong>crosstool-ng</strong>，配置好，然后交给它编译交叉编译工具就行了！具体如下： <a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/14/rpi-toolchain/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/14/rpi-toolchain/'>自己编译给树莓派RaspberryPi的交叉编译工具</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -313,11 +313,11 @@ cd crosstool-ng
 make
 make install
 </code></pre><p>然后加环境变量<code>export PATH=$PATH:/opt/crosstool-ng/bin</code></p>
-<h2 id="u7F16_u8BD1_u4EA4_u53C9_u7F16_u8BD1_u5DE5_u5177_28_u4E0D_u80FD_u662Froot_u7528_u6237_29"><a href="#u7F16_u8BD1_u4EA4_u53C9_u7F16_u8BD1_u5DE5_u5177_28_u4E0D_u80FD_u662Froot_u7528_u6237_29" class="headerlink" title="编译交叉编译工具(不能是root用户)"></a>编译交叉编译工具(不能是root用户)</h2><h3 id="u68C0_u67E5tools_u7248_u672C"><a href="#u68C0_u67E5tools_u7248_u672C" class="headerlink" title="检查tools版本"></a>检查tools版本</h3><p>编译过程中要用到很多库，有几个比较关键的库的版本需要提前看好，否则可能导致编译失败。</p>
+<h2 id="u7F16_u8BD1_u4EA4_u53C9_u7F16_u8BD1_u5DE5_u5177_28_u4E0D_u80FD_u662Froot_u7528_u6237_29"><a href="#u7F16_u8BD1_u4EA4_u53C9_u7F16_u8BD1_u5DE5_u5177_28_u4E0D_u80FD_u662Froot_u7528_u6237_29" class="headerlink" title="编译交叉编译工具(不能是root用户)"></a>编译交叉编译工具(不能是root用户)</h2><h3 id="u68C0_u67E5tools_u7248_u672C"><a href="#u68C0_u67E5tools_u7248_u672C" class="headerlink" title="检查tools版本"></a>检查tools版本</h3><p>编译过程中要用到很多库，有几个比较关键的库的版本需要提前看好，否则可能导致编译失败。这个是要在树莓派的终端看的，不是指编译环境。</p>
 <ol>
 <li>Glibc版本：<code>lld —v</code></li>
 <li>GCC版本：<code>gcc —v</code></li>
-<li>目标板Kernel版本：<code>uname -r</code>。这个是要在树莓派的终端看的，不是指编译环境的kernel版本！目前我用的最新版本是Linux-4.1.15</li>
+<li>目标板Kernel版本：<code>uname -r</code>。目前我用的最新版本是Linux-4.1.15</li>
 </ol>
 <h3 id="u914D_u7F6E_u7F16_u8BD1_u9009_u9879"><a href="#u914D_u7F6E_u7F16_u8BD1_u9009_u9879" class="headerlink" title="配置编译选项"></a>配置编译选项</h3><ul>
 <li>首先去一个随便什么地方（要有读写权限）建立一个文件夹作为当前目录，用来存放临时的配置文件<pre><code>mkdir toolchain
@@ -372,7 +372,7 @@ cd toolchain
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/12/rpi-kernel/" rel="next">树莓派内核编译</a>
+              <a href="/2016/01/12/rpi-kernel/" rel="next">树莓派RaspberryPi内核编译</a>
             
           </div>
         </div>
@@ -388,7 +388,7 @@ cd toolchain
     <div class="post-spread">
       
         <div class="ds-share flat" data-thread-key="2016/01/14/rpi-toolchain/"
-     data-title="自己编译给树莓派的交叉编译工具"
+     data-title="自己编译给树莓派RaspberryPi的交叉编译工具"
      data-content=""
      data-url="http://conanwhf.coding.me/2016/01/14/rpi-toolchain/">
   <div class="ds-share-inline">
@@ -421,7 +421,7 @@ cd toolchain
           <div class="comments" id="comments">
             
               <div class="ds-thread" data-thread-key="2016/01/14/rpi-toolchain/"
-                   data-title="自己编译给树莓派的交叉编译工具" data-url="http://conanwhf.coding.me/2016/01/14/rpi-toolchain/">
+                   data-title="自己编译给树莓派RaspberryPi的交叉编译工具" data-url="http://conanwhf.coding.me/2016/01/14/rpi-toolchain/">
               </div>
             
           </div>
@@ -461,21 +461,21 @@ cd toolchain
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">69</span>
+              <span class="site-state-item-count">71</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">6</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

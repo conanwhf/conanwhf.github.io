@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.coding.me/"/>
-  <updated>2016-08-21T17:49:12.000Z</updated>
+  <updated>2016-08-26T05:13:54.000Z</updated>
   <id>http://conanwhf.coding.me/</id>
   
   <author>
@@ -13,6 +13,180 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[树莓派RaspberryPi系统备份Image的制作]]></title>
+    <link href="http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/"/>
+    <id>http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/</id>
+    <published>2016-08-25T02:02:26.000Z</published>
+    <updated>2016-08-26T05:13:54.000Z</updated>
+    <content type="html"><![CDATA[<p>在树莓派上做开发，难免会弄出各种版本的系统，加上有时候还需要拿给客户自己烧录或者demo，总是要clone一下TF卡，做系统做到烦躁。于是想想有没有什么办法能做跟官方release一样的烧录img出来，基本要求就是全系统克隆，但做出的img跟卡的容量无关，只跟系统占用的存储大小有关。</p>
+<h2 id="u7B80_u5355_u5168_u5361_u5907_u4EFD"><a href="#u7B80_u5355_u5168_u5361_u5907_u4EFD" class="headerlink" title="简单全卡备份"></a>简单全卡备份</h2><p>其实如果只是简单备份，可以直接将TF卡插入Linux电脑，用dd命令来备份和恢复(设备号不固定这里只是例子，还是用fdisk -l先查看一下比较保险)：</p>
+<pre><code># Backup the system to img file in Linux
+dd if=/dev/mmcblk0 of=raspberrypi-bak.img bs=1M
+# A little difference if Mac
+dd if=/dev/rdisk2 of=raspberrypi-bak.img bs=1M
+#
+# Restore system from img
+dd if=raspberrypi-bak.img bs=1M of=/dev/mmcblk0
+# Or in Mac
+dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
+</code></pre><p>不过这样做，16G的卡哪怕你只用了1G，整个备份文件也有16G，占用空间耗时间是小事，想想拿这么大文件给客户不方便，也显得太不专业了。<br>在网上搜了一下，已经有朋友先行做过类似的事情：<a href="http://www.fendou.info/raspberry-pi-sd-card-backup-and-recovery/" title="树莓派 Raspberry Pi SD卡系统备份与还原" target="_blank" rel="external">树莓派 Raspberry Pi SD卡系统备份与还原</a>，看了一下按照他的步骤实践了一遍，但出现了一些问题，折腾了很久最终才解决。</p>
+<h2 id="RaspberryPi_u7684_u6587_u4EF6_u7CFB_u7EDF"><a href="#RaspberryPi_u7684_u6587_u4EF6_u7CFB_u7EDF" class="headerlink" title="RaspberryPi的文件系统"></a>RaspberryPi的文件系统</h2><p>首先介绍一下RaspberryPi的文件系统。树莓派的官方系统是基于Debian的，主要是两个分区：<strong>启动分区boot和根分区</strong>。boot分区为fat32格式，挂载在/boot，存放一些系统启动需要的基本文件，包括内核、驱动、firmware、启动脚本等；根分区文件系统是ext4格式，挂载于/，存放一些安装的软件和库文件、系统配置、用户数据等等；另外当系统启动时会自动生成和挂载一些必要的其他文件夹，包括temfs、sysfs、proc、debugfs、configfs等（使用mount可以看到他们），这些都是虚拟文件系统，由操作系统自动管理，备份时不需要关注。日常使用时，修改的文件包括安装的软件都是在根分区中，而如果自行编译内核，需要更新的文件都在/boot中。<br>所以备份一个系统，实际上是要备份这两个分区，官方发布的烧录镜像，也是包含了这样的两个分区，并保证通过dd的操作，能将其完整写入目标TF卡。首次烧录完毕后，不论你的TF卡容量为多少，启动后的boot和/分区大小都是固定的，然后可以使用<code>raspi-config</code>来扩展根分区的大小，boot分区不变，来达到使用所有卡内容量的目的。<br>相对应的备份步骤，大致为：创建img，把img当作一个磁盘分区和格式化，mount各个分区，将文件备份至对应的分区中，umount分区结束备份。</p>
+<h2 id="u76EE_u6807_u5907_u4EFD_u6587_u4EF6_u7684_u521B_u5EFA_u548C_u5206_u533A"><a href="#u76EE_u6807_u5907_u4EFD_u6587_u4EF6_u7684_u521B_u5EFA_u548C_u5206_u533A" class="headerlink" title="目标备份文件的创建和分区"></a>目标备份文件的创建和分区</h2><p>既然是备份到文件，那么首先需要创建一个备份文件，并且把这个文件看作一个虚拟设备，对其进行分区。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/'>树莓派RaspberryPi系统备份Image的制作</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+需要用到的工具有<em>parted, kpartx, dosfstools, rsync</em>，使用apt-get安装：</p>
+<pre><code>sudo apt-get -y install rsync dosfstools parted kpartx
+</code></pre><h3 id="u521B_u5EFA_u65B0_u7684_u6587_u4EF6"><a href="#u521B_u5EFA_u65B0_u7684_u6587_u4EF6" class="headerlink" title="创建新的文件"></a>创建新的文件</h3><p>我们用<code>dd</code>命令来创建一个新的img，img的大小和当前RaspberryPi已使用的存储空间有关。使用<code>df -P</code>来查看磁盘空间状态（以1K为单位），会看到如下的信息：<br><img src="http://whf.d.pr/1awb8+" alt=""><br>其中红框的部分就是我们需要关注的，将它们对应的Used数目取出，计算得到需要创建的img大小：<br>    img=rpibackup.img</p>
+<pre><code>#sudo rm $img
+bootsz=df -P | grep /boot | awk &apos;{print $2}&apos;
+rootsz=df -P | grep /dev/root | awk &apos;{print $3}&apos;
+totalsz=echo $bootsz $rootsz | awk &apos;{print int(($1+$2)*1.3)}&apos;
+sudo dd if=/dev/zero of=$img bs=1K count=$totalsz
+</code></pre><p>这里的totalsz是基于两个分区使用总和的1.3倍，一方面是分区表、格式化等操作造成的空间损失，另一方面是系统对剩余空间的要求。我曾经尝试过使用1.1，然而系统启动后在终端大部分命令都报错，说空间不足。</p>
+<h3 id="u5C06_u6587_u4EF6_u5206_u533A"><a href="#u5C06_u6587_u4EF6_u5206_u533A" class="headerlink" title="将文件分区"></a>将文件分区</h3><p>工具parted可以用来把一个img文件当作一个磁盘来分区。使用<code>fdisk -l</code>能够看到系统中各个磁盘分区的情况，在我的树莓派上系统TF卡的分区情况如下：<br><img src="http://whf.d.pr/1dR76+" alt=""><br>我们把boot分区设计为跟原分区大小一样，root分区则是扩展到img文件的末尾。对应的脚本：</p>
+<pre><code>bootstart=sudo fdisk -l /dev/mmcblk0 | grep mmcblk0p1 | awk &apos;{print $2}&apos;
+bootend=sudo fdisk -l /dev/mmcblk0 | grep mmcblk0p1 | awk &apos;{print $3}&apos;
+rootstart=sudo fdisk -l /dev/mmcblk0 | grep mmcblk0p2 | awk &apos;{print $2}&apos;
+echo &quot;boot: $bootstart &gt;&gt;&gt; $bootend, root: $rootstart &gt;&gt;&gt; end&quot;
+rootend=sudo fdisk -l /dev/mmcblk0 | grep mmcblk0p2 | awk &apos;{print $3}&apos;
+sudo parted $img --script -- mklabel msdos
+sudo parted $img --script -- mkpart primary fat32 ${bootstart}s ${bootend}s
+sudo parted $img --script -- mkpart primary ext4 ${rootstart}s -1
+</code></pre><h3 id="u5206_u522B_u683C_u5F0F_u5316fat32_u548Cext4_u5206_u533A"><a href="#u5206_u522B_u683C_u5F0F_u5316fat32_u548Cext4_u5206_u533A" class="headerlink" title="分别格式化fat32和ext4分区"></a>分别格式化fat32和ext4分区</h3><p>然后对分区分别进行格式化，我们可以通过loop来建立虚拟的磁盘挂载点，进行后续的操作：</p>
+<pre><code>loopdevice=sudo losetup -f --show $img
+device=/dev/mapper/sudo kpartx -va $loopdevice | sed -E &apos;s/.*(loop[0-9])p.*/\1/g&apos; | head -1
+sleep 5
+sudo mkfs.vfat ${device}p1 -n boot
+sudo mkfs.ext4 ${device}p2
+</code></pre><p>在中间的这个sleep是我在实践中发现，创建loop的设备节点需要一些时间，如果手动在终端贴命令则没有问题，而若是用脚本执行，则在format时节点还没有创建好，从而造成格式化失败。</p>
+<h2 id="u5907_u4EFDBoot_u5206_u533A"><a href="#u5907_u4EFDBoot_u5206_u533A" class="headerlink" title="备份Boot分区"></a>备份Boot分区</h2><p>Boot分区是Fat32格式且数据不多，直接mount然后copy数据即可，注意权限问题。</p>
+<pre><code>mountb=$usbmount/backup_boot/
+mkdir -p $mountb
+sudo mount -t vfat ${device}p1 $mountb
+sudo cp -rfp /boot/* $mountb
+sync 
+sudo umount $mountb
+</code></pre><h2 id="u5907_u4EFD_u6839_uFF08root_uFF09_u5206_u533A"><a href="#u5907_u4EFD_u6839_uFF08root_uFF09_u5206_u533A" class="headerlink" title="备份根（root）分区"></a>备份根（root）分区</h2><p>根分区的备份是我折腾了很久的部分。因为它文件众多，不止一个文件夹，而且在系统运行时有一些文件、文件夹是临时生成或者mount的，不能全部直接copy。这就需要有一种方法能区分真正写在磁盘上的文件并将其备份。</p>
+<h3 id="u5931_u8D25_u7684_u7ECF_u9A8C_uFF1Adump_26amp_3Brestore"><a href="#u5931_u8D25_u7684_u7ECF_u9A8C_uFF1Adump_26amp_3Brestore" class="headerlink" title="失败的经验：dump&amp;restore"></a>失败的经验：dump&amp;restore</h3><p>在开头提到的道友那篇文章里，是采用了针对ext4备份和恢复的工具dump和restore。</p>
+<blockquote>
+<p>sudo mount -t ext4 $partRoot /media/<br>cd /media<br>sudo dump -0uaf - / |  sudo restore -rf -<br>cd; sudo umount /media</p>
+</blockquote>
+<p>但在关键的步骤出现了<strong> Broken pipe</strong>错误，经过重复测试多次，虽然每次报错的文件和inode不一样，但每次都无法顺利完成。这个问题在原博的评论中也有人遇到了：</p>
+<blockquote>
+<p>restore: ./lost+found: File exists<br>./tmp/rstdir1445584846: (inode 159534) not found on tape<br>./tmp/rstmode1445584846: (inode 161527) not found on tape<br>DUMP: Broken pipe<br>DUMP: The ENTIRE dump is aborted.<br>………………<br>针对这个问题我做了一些测试。首先是把<code>sudo dump -0uaf - / | sudo restore -rf -</code>分开，取消管道，先dump到一个文件再restore。发现dump总是成功的，而问题出在restore上，所以就broken pipe了。开始怀疑是restore的时候权限有问题，后来把dump出来的文件拿到PC上做restore，也同样是失败。这样就很有可能是dump的文件有问题，仔细看看每次出错的文件都是隐藏或者临时文件，怀疑跟这个有关，但找了一大圈dump相关的参数尝试，依然是没有解决。</p>
+</blockquote>
+<h3 id="u4F7F_u7528rsync_u5907_u4EFD"><a href="#u4F7F_u7528rsync_u5907_u4EFD" class="headerlink" title="使用rsync备份"></a>使用rsync备份</h3><p>由于每次测试dump和restore花的时间很长，项目又比较急，我实在是不能再耽搁下去了，于是决定放弃这种方式。想了一下，曾经用过<a href="https://github.com/billw2/rpi-clone" title="rpi-clone" target="_blank" rel="external">rpi-clone</a>来做卡与卡之间的备份，那么备份成文件也应该是一样的。我于是去看了下它的源码，把根文件系统备份相关的部分提出来就能直接用起来了。这里用的是备份工具rsync，其本质上是基于文件系统之上的的直接拷贝，因为没有用到增量备份，所以跟cp其实是一回事。只是rsync能很好的保留各种权限、时间戳、软链接和文件信息，避免了一些用cp的问题。保险起见，我依然沿用了它。<br>首先还是mount一下：</p>
+<pre><code>mountr=$usbmount/backup_root/
+mkdir -p $mountr
+sudo mount -t ext4 ${device}p2 $mountr
+</code></pre><p>然后要对存在swap分区的情况进行特殊处理：</p>
+<pre><code>if [ -f /etc/dphys-swapfile ]; then
+        SWAPFILE=`cat /etc/dphys-swapfile | grep ^CONF_SWAPFILE | cut -f 2 -d=`
+    if [ &quot;$SWAPFILE&quot; = &quot;&quot; ]; then
+        SWAPFILE=/var/swap
+    fi
+    EXCLUDE_SWAPFILE=&quot;--exclude $SWAPFILE&quot;
+fi
+</code></pre><p>接着就是所有文件的备份，跳过某些临时、系统自动生成的文件和文件夹：</p>
+<pre><code>sudo rsync --force -rltWDEgopt --delete --stats --progress\
+    $EXCLUDE_SWAPFILE \
+    --exclude &apos;.gvfs&apos; \
+    --exclude &apos;/dev&apos; \
+        --exclude &apos;/media&apos; \
+    --exclude &apos;/mnt&apos; \
+    --exclude &apos;/proc&apos; \
+        --exclude &apos;/run&apos; \
+    --exclude &apos;/sys&apos; \
+    --exclude &apos;/tmp&apos; \
+        --exclude &apos;lost\+found&apos; \
+    --exclude &apos;$usbmount&apos; \
+    // $mountr
+</code></pre><p>完成后新建一些特殊文件夹，用来做系统启动时某些文件的自动挂载点，例如proc和mnt等等：</p>
+<pre><code>for i in dev media mnt proc run sys boot; do
+    if [ ! -d $mountr/$i ]; then
+        sudo mkdir $mountr/$i
+    fi
+done
+if [ ! -d $mountr/tmp ]; then
+    sudo mkdir $mountr/tmp
+    sudo chmod a+w $mountr/tmp
+fi
+</code></pre><p>到这里基本上就完成了，有一点小小的修改就是把网络配置文件删掉，以免换了新的网络环境启动系统无法自动配置：</p>
+<pre><code>sudo rm -f $mountr/etc/udev/rules.d/70-persistent-net.rules
+sync
+</code></pre><p>最后umount，清理loop设备，结束备份：</p>
+<pre><code>sudo umount $mountr
+# umount loop device
+sudo kpartx -d $loopdevice
+sudo losetup -d $loopdevice
+sudo umount $usbmount
+rm -rf $mountb $mountr
+</code></pre><h3 id="Mount_USB_device"><a href="#Mount_USB_device" class="headerlink" title="Mount USB device"></a>Mount USB device</h3><p>使用dump/restore的时候，有一个跳过特定文件的参数，在前文提到的教程中，作者是将img放到用户目录，并且跳过这个文件的。虽然使用rsync备份的时候，依然可以这么做，但考虑到通用性和调试的方便，我把文件直接备份在了外接的U盘上，以避免考虑各种“自己备份自己”可能带来的问题。顺便把相关的USB mount脚本和判断也贴一下供参考：</p>
+<pre><code>usbmount=/mnt
+mkdir -p $usbmount
+if [ -z $1 ]; then
+    echo &quot;no argument, assume the mount device is /dev/sda1 ? Y/N&quot;
+    read key
+    if [ &quot;$key&quot; = &quot;y&quot; -o &quot;$key&quot; = &quot;Y&quot; ]; then
+        sudo mount -t vfat -o uid=1000 /dev/sda1 $usbmount
+    else
+        echo &quot;$0 [backup dest device name], e.g. $0 /dev/sda1&quot;
+        exit 0
+    fi
+else
+    sudo mount -t vfat -o uid=1000 $1 $usbmount
+fi
+if [ -z &quot;`grep $usbmount /etc/mtab`&quot; ]; then
+    echo &quot;mount fail, exit now&quot;
+    exit 0
+fi 
+</code></pre><p> 当然，如果你有兴趣，大可以自己改一改尝试直接备份在用户目录，只是我感觉依然是需要copy出来，意义不大。😏</p>
+<h2 id="u6062_u590D_u5907_u4EFD"><a href="#u6062_u590D_u5907_u4EFD" class="headerlink" title="恢复备份"></a>恢复备份</h2><p>备份img做好了，恢复备份就无需多谈了。既然是用树莓派的小伙伴，自然有一百种方法将镜像烧录到卡上。实在不知道的，放官方链接：<a href="https://www.raspberrypi.org/documentation/installation/installing-images/README.md" title="Installing images" target="_blank" rel="external">Installing images</a>，或者看这篇：<a href="http://conanwhf.github.io/2016/01/12/rpi-start/" title="树莓派初始配置指南（2代B型）" target="_blank" rel="external">树莓派初始配置指南（2代B型）</a>。</p>
+<h2 id="u5C0F_u7ED3"><a href="#u5C0F_u7ED3" class="headerlink" title="小结"></a>小结</h2><p>整理后完整的script我已经更新到GitHub:<a href="https://github.com/conanwhf/RaspberryPi-script/blob/master/rpi-backup.sh" target="_blank" rel="external">https://github.com/conanwhf/RaspberryPi-script/blob/master/rpi-backup.sh</a>，如果对你有所帮助，<strong>欢迎Star</strong>！😊有什么疑问和质疑，也欢迎砸过来！🤗<br>顺便提一下，写这篇文章的时候，我发现官方已经release了一个备份工具，<a href="https://github.com/raspberrypi/piclone" title="piclone" target="_blank" rel="external">piclone</a>，看上去是在两个TF卡之间备份，跟rpi-clone功能一样。我还没有测过，有兴趣的小伙伴可以试一下，看看源码，也许/的备份能有新的思路和方法。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在树莓派上做开发，难免会弄出各种版本的系统，加上有时候还需要拿给客户自己烧录或者demo，总是要clone一下TF卡，做系统做到烦躁。于是想想有没有什么办法能做跟官方release一样的烧录img出来，基本要求就是全系统克隆，但做出的img跟卡的容量无关，只跟系统占用的存储大小有关。</p>
+<h2 id="u7B80_u5355_u5168_u5361_u5907_u4EFD"><a href="#u7B80_u5355_u5168_u5361_u5907_u4EFD" class="headerlink" title="简单全卡备份"></a>简单全卡备份</h2><p>其实如果只是简单备份，可以直接将TF卡插入Linux电脑，用dd命令来备份和恢复(设备号不固定这里只是例子，还是用fdisk -l先查看一下比较保险)：</p>
+<pre><code># Backup the system to img file in Linux
+dd if=/dev/mmcblk0 of=raspberrypi-bak.img bs=1M
+# A little difference if Mac
+dd if=/dev/rdisk2 of=raspberrypi-bak.img bs=1M
+#
+# Restore system from img
+dd if=raspberrypi-bak.img bs=1M of=/dev/mmcblk0
+# Or in Mac
+dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
+</code></pre><p>不过这样做，16G的卡哪怕你只用了1G，整个备份文件也有16G，占用空间耗时间是小事，想想拿这么大文件给客户不方便，也显得太不专业了。<br>在网上搜了一下，已经有朋友先行做过类似的事情：<a href="http://www.fendou.info/raspberry-pi-sd-card-backup-and-recovery/" title="树莓派 Raspberry Pi SD卡系统备份与还原">树莓派 Raspberry Pi SD卡系统备份与还原</a>，看了一下按照他的步骤实践了一遍，但出现了一些问题，折腾了很久最终才解决。</p>
+<h2 id="RaspberryPi_u7684_u6587_u4EF6_u7CFB_u7EDF"><a href="#RaspberryPi_u7684_u6587_u4EF6_u7CFB_u7EDF" class="headerlink" title="RaspberryPi的文件系统"></a>RaspberryPi的文件系统</h2><p>首先介绍一下RaspberryPi的文件系统。树莓派的官方系统是基于Debian的，主要是两个分区：<strong>启动分区boot和根分区</strong>。boot分区为fat32格式，挂载在/boot，存放一些系统启动需要的基本文件，包括内核、驱动、firmware、启动脚本等；根分区文件系统是ext4格式，挂载于/，存放一些安装的软件和库文件、系统配置、用户数据等等；另外当系统启动时会自动生成和挂载一些必要的其他文件夹，包括temfs、sysfs、proc、debugfs、configfs等（使用mount可以看到他们），这些都是虚拟文件系统，由操作系统自动管理，备份时不需要关注。日常使用时，修改的文件包括安装的软件都是在根分区中，而如果自行编译内核，需要更新的文件都在/boot中。<br>所以备份一个系统，实际上是要备份这两个分区，官方发布的烧录镜像，也是包含了这样的两个分区，并保证通过dd的操作，能将其完整写入目标TF卡。首次烧录完毕后，不论你的TF卡容量为多少，启动后的boot和/分区大小都是固定的，然后可以使用<code>raspi-config</code>来扩展根分区的大小，boot分区不变，来达到使用所有卡内容量的目的。<br>相对应的备份步骤，大致为：创建img，把img当作一个磁盘分区和格式化，mount各个分区，将文件备份至对应的分区中，umount分区结束备份。</p>
+<h2 id="u76EE_u6807_u5907_u4EFD_u6587_u4EF6_u7684_u521B_u5EFA_u548C_u5206_u533A"><a href="#u76EE_u6807_u5907_u4EFD_u6587_u4EF6_u7684_u521B_u5EFA_u548C_u5206_u533A" class="headerlink" title="目标备份文件的创建和分区"></a>目标备份文件的创建和分区</h2><p>既然是备份到文件，那么首先需要创建一个备份文件，并且把这个文件看作一个虚拟设备，对其进行分区。]]>
+    
+    </summary>
+    
+      <category term="Script" scheme="http://conanwhf.coding.me/tags/Script/"/>
+    
+      <category term="RaspberryPi" scheme="http://conanwhf.coding.me/categories/RaspberryPi/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Droplr的测试]]></title>
@@ -111,6 +285,29 @@
       <category term="BookList" scheme="http://conanwhf.coding.me/tags/BookList/"/>
     
       <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[树莓派RaspberryPi 3B的一些改变]]></title>
+    <link href="http://conanwhf.coding.me/2016/08/12/rpi-3b/"/>
+    <id>http://conanwhf.coding.me/2016/08/12/rpi-3b/</id>
+    <published>2016-08-12T11:31:26.000Z</published>
+    <updated>2016-08-25T10:31:53.000Z</updated>
+    <content type="html"><![CDATA[<p>工作原因换上了最新的树莓派3B，使用了几天，虽然变化不大，但跟2B还是有一些区别的。在这里写下来供爱好者们参考。</p>
+<ol>
+<li>硬件上，基本上是可以通用的，接口跟2B保持一致，GPIO的排列也没有变过。值得注意的是3B自带了WIFI模块，所以你会看到开机就能有Wlan0的设备。</li>
+<li>系统上，有一些改变可能是操作系统升级导致的，比如cmdline跟以前不同，但总的来说变化不大。官网的烧录img和github提供的kernel源码现在都已经提供了3B的支持，只是烧录系统就不讨论了，如果是自己编译kernel的话要注意<code>/boot/bcm2710-rpi-3-b.dtb</code>这个文件，这是系统支持3B的关键。内核的img名字还是<strong>kernel7.img</strong>没变，新的系统能同时支持3B和2B。是否把<strong>bcm2701-rpi-3-b.dtb</strong>拷贝到旧的系统中就能使其支持3B，我没有测试过，但我想应该不能成功，因为恐怕还需要更新一些index。</li>
+<li>实际使用中，关于UART发现了一个很好玩的变化。以前串口的设备是<code>/dev/ttyAMA0</code>，但在3B上变成了<code>/dev/ttyS0</code>。确切地说，是3B的设备多出来一个<strong>ttyS0</strong>，并且使用ttyAMA0无法传输数据，必须使用ttyS0。前面说了新的系统可以同时兼容两种板子，我用同样的软件在2B和3B上都试了一下，2B依然只有ttyAMA0，所以可以肯定这不是软件升级的区别，具体原因就不知到了。<br>目前只看到这些不同，用起来也没什么区别的样子，可能好的地方就是可以省出一个USB口吧。😀</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>工作原因换上了最新的树莓派3B，使用了几天，虽然变化不大，但跟2B还是有一些区别的。在这里写下来供爱好者们参考。</p>
+<ol>
+<li>硬件上，基本上是可以通用的，接口跟2B保持一致，GPIO的排列也没有变过。值得注意的是3B自带了WIFI模块，所以你会看到开机就能有W]]>
+    </summary>
+    
+      <category term="RaspberryPi" scheme="http://conanwhf.coding.me/categories/RaspberryPi/"/>
     
   </entry>
   
@@ -741,13 +938,13 @@
   </entry>
   
   <entry>
-    <title><![CDATA[在树莓派上几种简单协议的实现]]></title>
+    <title><![CDATA[在树莓派RaspberryPi上几种简单协议的实现]]></title>
     <link href="http://conanwhf.coding.me/2016/01/30/rpi-protocol/"/>
     <id>http://conanwhf.coding.me/2016/01/30/rpi-protocol/</id>
     <published>2016-01-30T09:31:26.000Z</published>
-    <updated>2016-08-21T17:49:29.000Z</updated>
+    <updated>2016-08-26T05:05:24.000Z</updated>
     <content type="html"><![CDATA[<p>对自己的拖延症也真是恨铁不成钢，这又是一篇拖延得快要放弃的文章。快过年了，怎么也不能拖到年后，打起精神，清空列表！</p>
-<p>想要自己打造一个小小家庭环境监控系统，各种Sensor不可或缺。看了下大部分人在树莓派上都用Python, 我也来凑个热闹。Python果然是一种很容易入门的语言，我只是稍微查了下资料，半天时间，就搞定了好几个Sensor，当然只是最简单的拿数据什么的，但相比之下，虽然自己对于用C写这些协议很熟，碰到问题我也宁可去看看Python的语法也不愿意换C……Python的优势倒不全是语法简洁，最重要的是有巨量的开发库可以用。像这些简单的协议，全是把库装好，直接拿来用就可以了，看看代码量，简直让人不忍再直视C的代码。对于不用追求速度的玩票项目，相当适合。<br>这一篇先介绍几种最常用的基本协议的实现，老规矩，先上源码<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a><br><a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/30/rpi-protocol/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/30/rpi-protocol/'>在树莓派上几种简单协议的实现</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<p>想要自己打造一个小小家庭环境监控系统，各种Sensor不可或缺。看了下大部分人在树莓派上都用Python, 我也来凑个热闹。Python果然是一种很容易入门的语言，我只是稍微查了下资料，半天时间，就搞定了好几个Sensor，当然只是最简单的拿数据什么的，但相比之下，虽然自己对于用C写这些协议很熟，碰到问题我也宁可去看看Python的语法也不愿意换C……Python的优势倒不全是语法简洁，最重要的是有巨量的开发库可以用。像这些简单的协议，全是把库装好，直接拿来用就可以了，看看代码量，简直让人不忍再直视C的代码。对于不用追求速度的玩票项目，相当适合。<br>这一篇先介绍几种最常用的基本协议的实现，老规矩，先上源码<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a><br><a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/30/rpi-protocol/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/30/rpi-protocol/'>在树莓派RaspberryPi上几种简单协议的实现</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -842,6 +1039,8 @@ ser.close()
     </summary>
     
       <category term="Python" scheme="http://conanwhf.coding.me/tags/Python/"/>
+    
+      <category term="Script" scheme="http://conanwhf.coding.me/tags/Script/"/>
     
       <category term="RaspberryPi" scheme="http://conanwhf.coding.me/categories/RaspberryPi/"/>
     
@@ -946,7 +1145,7 @@ ser.close()
     <link href="http://conanwhf.coding.me/2016/01/16/Transform/"/>
     <id>http://conanwhf.coding.me/2016/01/16/Transform/</id>
     <published>2016-01-16T09:32:45.000Z</published>
-    <updated>2016-08-21T17:57:54.000Z</updated>
+    <updated>2016-08-26T05:03:49.000Z</updated>
     <content type="html"><![CDATA[<p>这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。<br>关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周Blog<a href="http://conanwhf.github.io/2016/01/03/UISlider/" title="UIController中Slider监听回调具体实现的分离" target="_blank" rel="external">UIController中Slider监听回调具体实现的分离</a>），我也添加了旋转的功能，开始是在handler中这么写的(back是一个UIView)：</p>
 <pre><code>let x = (Float(ctl.show.frame.width) - conf[0] )/2
 let y = (Float(ctl.show.frame.height) - conf[1] )/2
@@ -1025,21 +1224,21 @@ back.transform = CGAffineTransformMakeRotation( CGFloat(Double(conf[7] * M_PI  /
     
     </summary>
     
-      <category term="iOS" scheme="http://conanwhf.coding.me/tags/iOS/"/>
+      <category term="Transform　" scheme="http://conanwhf.coding.me/tags/Transform/"/>
     
-      <category term="transform　" scheme="http://conanwhf.coding.me/tags/transform/"/>
+      <category term="iOS" scheme="http://conanwhf.coding.me/tags/iOS/"/>
     
       <category term="CocoaTouch" scheme="http://conanwhf.coding.me/categories/CocoaTouch/"/>
     
   </entry>
   
   <entry>
-    <title><![CDATA[自己编译给树莓派的交叉编译工具]]></title>
+    <title><![CDATA[自己编译给树莓派RaspberryPi的交叉编译工具]]></title>
     <link href="http://conanwhf.coding.me/2016/01/14/rpi-toolchain/"/>
     <id>http://conanwhf.coding.me/2016/01/14/rpi-toolchain/</id>
     <published>2016-01-14T03:31:26.000Z</published>
-    <updated>2016-01-18T16:23:06.000Z</updated>
-    <content type="html"><![CDATA[<p>  说到交叉编译工具，真是血泪史。搞了快两天，才终于迂回搞定。老规矩，先放Script<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a>，<strong>build/build-toolchain.sh</strong><br>  一开始我以为这东西用的人多，交叉编译工具应该不是事儿，去官网下一个就行了，可是我去GitHub一看，这toolchain最近的更新也是<strong>三年</strong>前，这……能用？先下载吧，同时各种搜，感觉我没有走错地方，大家就是用的这一款！<br>  可是我忘了我是OSX。不出所料，在我的电脑上跑不了。而且看了下这个toolchain还是给ARMv6编的好吗，现在明明就是ARMv7了！这么跑性能不受影响吗？更让我无语的是板子上的gcc也是ARMv6的……😰编译个内核什么的那么慢，官方的toolchain又不能用，自己编译势在必行。<br>又是一通各种搜，搜到了个别人2014年编译的mac用toolchain，试了试，普通的程序没问题，编kernel编不过。搜到了个比较详细的在Mac上编译的blog，可惜也是几年前的，跟现在的环境不一样，各种出状况又goole解决，最后还是编译crosstool不成功。可能这一两年，不论是crosstool，OSX，还是GCC，都已经又改了不少吧。<br>  最后，我放弃了，毕竟还是要做iOS开发的，不敢随便乱sudo，还是上虚拟机吧。竭尽全力把所有能删的都删了，看看剩余的18G空间（128G MBP你懂的），哭着做了个Debian的虚拟机……为了节约，GUI都不要，命令行的最小系统。后来还是吃亏在这上面了，编译到一半空间不够，临时扩展磁盘，fdisk,format,mount,ln -s😞所以，根据我经验，不管在哪里，请<strong>至少至少至少准备10G有效空间！！！</strong>（12G是我调整后整个虚拟机大小，最后还剩了2G；如果系统已经有了，那free space至少8G）<br>废话说完，正经操作其实不多，主要就是装一个神器<strong>crosstool-ng</strong>，配置好，然后交给它编译交叉编译工具就行了！具体如下： <a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/14/rpi-toolchain/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/14/rpi-toolchain/'>自己编译给树莓派的交叉编译工具</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+    <updated>2016-08-25T10:32:07.000Z</updated>
+    <content type="html"><![CDATA[<p>  说到交叉编译工具，真是血泪史。搞了快两天，才终于迂回搞定。老规矩，先放Script<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a>，<strong>build/build-toolchain.sh</strong><br>  一开始我以为这东西用的人多，交叉编译工具应该不是事儿，去官网下一个就行了，可是我去GitHub一看，这toolchain最近的更新也是<strong>三年</strong>前，这……能用？先下载吧，同时各种搜，感觉我没有走错地方，大家就是用的这一款！<br>  可是我忘了我是OSX。不出所料，在我的电脑上跑不了。而且看了下这个toolchain还是给ARMv6编的好吗，现在明明就是ARMv7了！这么跑性能不受影响吗？更让我无语的是板子上的gcc也是ARMv6的……😰编译个内核什么的那么慢，官方的toolchain又不能用，自己编译势在必行。<br>又是一通各种搜，搜到了个别人2014年编译的mac用toolchain，试了试，普通的程序没问题，编kernel编不过。搜到了个比较详细的在Mac上编译的blog，可惜也是几年前的，跟现在的环境不一样，各种出状况又goole解决，最后还是编译crosstool不成功。可能这一两年，不论是crosstool，OSX，还是GCC，都已经又改了不少吧。<br>  最后，我放弃了，毕竟还是要做iOS开发的，不敢随便乱sudo，还是上虚拟机吧。竭尽全力把所有能删的都删了，看看剩余的18G空间（128G MBP你懂的），哭着做了个Debian的虚拟机……为了节约，GUI都不要，命令行的最小系统。后来还是吃亏在这上面了，编译到一半空间不够，临时扩展磁盘，fdisk,format,mount,ln -s😞所以，根据我经验，不管在哪里，请<strong>至少至少至少准备10G有效空间！！！</strong>（12G是我调整后整个虚拟机大小，最后还剩了2G；如果系统已经有了，那free space至少8G）<br>废话说完，正经操作其实不多，主要就是装一个神器<strong>crosstool-ng</strong>，配置好，然后交给它编译交叉编译工具就行了！具体如下： <a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/14/rpi-toolchain/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/14/rpi-toolchain/'>自己编译给树莓派RaspberryPi的交叉编译工具</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1080,11 +1279,11 @@ cd crosstool-ng
 make
 make install
 </code></pre><p>然后加环境变量<code>export PATH=$PATH:/opt/crosstool-ng/bin</code></p>
-<h2 id="u7F16_u8BD1_u4EA4_u53C9_u7F16_u8BD1_u5DE5_u5177_28_u4E0D_u80FD_u662Froot_u7528_u6237_29"><a href="#u7F16_u8BD1_u4EA4_u53C9_u7F16_u8BD1_u5DE5_u5177_28_u4E0D_u80FD_u662Froot_u7528_u6237_29" class="headerlink" title="编译交叉编译工具(不能是root用户)"></a>编译交叉编译工具(不能是root用户)</h2><h3 id="u68C0_u67E5tools_u7248_u672C"><a href="#u68C0_u67E5tools_u7248_u672C" class="headerlink" title="检查tools版本"></a>检查tools版本</h3><p>编译过程中要用到很多库，有几个比较关键的库的版本需要提前看好，否则可能导致编译失败。</p>
+<h2 id="u7F16_u8BD1_u4EA4_u53C9_u7F16_u8BD1_u5DE5_u5177_28_u4E0D_u80FD_u662Froot_u7528_u6237_29"><a href="#u7F16_u8BD1_u4EA4_u53C9_u7F16_u8BD1_u5DE5_u5177_28_u4E0D_u80FD_u662Froot_u7528_u6237_29" class="headerlink" title="编译交叉编译工具(不能是root用户)"></a>编译交叉编译工具(不能是root用户)</h2><h3 id="u68C0_u67E5tools_u7248_u672C"><a href="#u68C0_u67E5tools_u7248_u672C" class="headerlink" title="检查tools版本"></a>检查tools版本</h3><p>编译过程中要用到很多库，有几个比较关键的库的版本需要提前看好，否则可能导致编译失败。这个是要在树莓派的终端看的，不是指编译环境。</p>
 <ol>
 <li>Glibc版本：<code>lld —v</code></li>
 <li>GCC版本：<code>gcc —v</code></li>
-<li>目标板Kernel版本：<code>uname -r</code>。这个是要在树莓派的终端看的，不是指编译环境的kernel版本！目前我用的最新版本是Linux-4.1.15</li>
+<li>目标板Kernel版本：<code>uname -r</code>。目前我用的最新版本是Linux-4.1.15</li>
 </ol>
 <h3 id="u914D_u7F6E_u7F16_u8BD1_u9009_u9879"><a href="#u914D_u7F6E_u7F16_u8BD1_u9009_u9879" class="headerlink" title="配置编译选项"></a>配置编译选项</h3><ul>
 <li>首先去一个随便什么地方（要有读写权限）建立一个文件夹作为当前目录，用来存放临时的配置文件<pre><code>mkdir toolchain
@@ -1129,15 +1328,15 @@ cd toolchain
   </entry>
   
   <entry>
-    <title><![CDATA[树莓派内核编译]]></title>
+    <title><![CDATA[树莓派RaspberryPi内核编译]]></title>
     <link href="http://conanwhf.coding.me/2016/01/12/rpi-kernel/"/>
     <id>http://conanwhf.coding.me/2016/01/12/rpi-kernel/</id>
     <published>2016-01-12T07:31:26.000Z</published>
-    <updated>2016-01-18T16:17:46.000Z</updated>
+    <updated>2016-08-26T05:04:11.000Z</updated>
     <content type="html"><![CDATA[<p>作为一个（曾经的）内核开发者，弄到块板子怎么能不重新编译内核？系统配好跑起来后的第二件事，就是编译内核了。在树莓派上编译内核很简单，基本上就是按照官方文档跑脚本，先放GitHub上的Script<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a>，<strong>build/kernel.sh</strong></p>
 <h2 id="u7CFB_u7EDF_u7B80_u4ECB"><a href="#u7CFB_u7EDF_u7B80_u4ECB" class="headerlink" title="系统简介"></a>系统简介</h2><h3 id="u6587_u4EF6_u7CFB_u7EDF"><a href="#u6587_u4EF6_u7CFB_u7EDF" class="headerlink" title="文件系统"></a>文件系统</h3><p>树莓派的文件系统设计还是不错的，能比较方便地更新内核和各种固件。整个文件系统分为两个部分：Fat32分区和Ext4分区。Fat32分区是mount到/boot上的，里面放了内核和启动的核心固件；Ext4就是一般的根文件系统了，放其他的所有东西，包括firmware和各种ko等。这种设计免去了用户烧录的麻烦，只是他们的bootloader没有开放源码，对于极客来说是很不爽的事情。<br>所谓的系统更新，就是每次编译kernel之后，直接把生成的文件放到特定的地方，重启就行。这也是为什么系统自带的工具<strong>rpi-update</strong>可以自动更新内核、firmware等等一切东西。</p>
 <h3 id="u786C_u4EF6_u7684_u9009_u62E9_u548C_u542F_u52A8"><a href="#u786C_u4EF6_u7684_u9009_u62E9_u548C_u542F_u52A8" class="headerlink" title="硬件的选择和启动"></a>硬件的选择和启动</h3><p>树莓派一代和二代用的两个不同的ARM芯片，这个差别在操作系统中并没有体现出来，我是指：官方提供的系统镜像是同一个。开始我很奇怪，后来看到了它的文件系统，才明白，它是靠不同的kernel文件名来区分的。这两种板子的platform分别叫”bcm2708”和”bcm2709”，启动的时候bootloader会根据硬件情况自动区分，读取不同的kernel image，进而load不同的firmware和driver。</p>
-<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/12/rpi-kernel/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/12/rpi-kernel/'>树莓派内核编译</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/12/rpi-kernel/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/12/rpi-kernel/'>树莓派RaspberryPi内核编译</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1184,20 +1383,20 @@ sudo scripts/mkknlimg arch/arm/boot/zImage /boot/$KERNEL.img
     
     </summary>
     
-      <category term="kernel" scheme="http://conanwhf.coding.me/tags/kernel/"/>
+      <category term="Kernel" scheme="http://conanwhf.coding.me/tags/Kernel/"/>
     
       <category term="RaspberryPi" scheme="http://conanwhf.coding.me/categories/RaspberryPi/"/>
     
   </entry>
   
   <entry>
-    <title><![CDATA[树莓派初始配置指南（2代B型）]]></title>
+    <title><![CDATA[树莓派RaspberryPi初始配置指南（2代B型）]]></title>
     <link href="http://conanwhf.coding.me/2016/01/12/rpi-start/"/>
     <id>http://conanwhf.coding.me/2016/01/12/rpi-start/</id>
     <published>2016-01-12T06:31:26.000Z</published>
-    <updated>2016-01-17T18:02:55.000Z</updated>
+    <updated>2016-08-25T10:31:48.000Z</updated>
     <content type="html"><![CDATA[<p>关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a></p>
-<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/12/rpi-start/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/12/rpi-start/'>树莓派初始配置指南（2代B型）</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/12/rpi-start/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/12/rpi-start/'>树莓派RaspberryPi初始配置指南（2代B型）</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1251,11 +1450,9 @@ sudo apt-get -y install fcitx fcitx-googlepinyin fcitx-module-cloudpinyin fcitx-
 sudo apt-get -y install xfonts-base
 </code></pre><h3 id="u914D_u7F6E"><a href="#u914D_u7F6E" class="headerlink" title="配置"></a>配置</h3><ol>
 <li>配置连接密码：<code>vncpasswd</code></li>
-<li><p>添加开机启动：</p>
-<ul>
+<li>添加开机启动：<ul>
 <li>创建/etc/init.d/tightvncserver，内容见<a href="https://github.com/conanwhf/RaspberryPi-script/blob/master/setup/tightvncserver" target="_blank" rel="external">这里</a></li>
-<li><p>更新改变：</p>
-<pre><code>sudo chmod +x /etc/init.d/tightvncserver
+<li>更新改变：<pre><code>sudo chmod +x /etc/init.d/tightvncserver
 sudo update-rc.d tightvncserver defaults
 </code></pre></li>
 </ul>
@@ -1291,12 +1488,12 @@ echo LANG=en_US.UTF-8 | sudo tee -a /etc/environment
   </entry>
   
   <entry>
-    <title><![CDATA[树莓派入手]]></title>
+    <title><![CDATA[树莓派RaspberryPi入手]]></title>
     <link href="http://conanwhf.coding.me/2016/01/12/rpi-get/"/>
     <id>http://conanwhf.coding.me/2016/01/12/rpi-get/</id>
     <published>2016-01-12T05:31:26.000Z</published>
-    <updated>2016-01-17T18:11:40.000Z</updated>
-    <content type="html"><![CDATA[<p>  不知是哪根天线收到了什么隐藏信息，突发奇想想去买个树莓派玩玩。其实家里还有一块前公司齐活的开发板，但性能差了点，板子又大，总之就是腻味了以后哪儿哪儿都是缺点，新的诱惑无限大。于是去买了块树莓派2B，打算配个服务器学点Python玩玩，从下午一直折腾到半夜，终于配置得算是差不多成型了。<br>  以前没怎么研究过，认真四处看看，大致上情况是摸清了：硬件上总共出了算是三代n个型号（第三代Zero刚出），第一代硬件资料全齐，第二代就有点遮遮掩掩。我买的第二代B型，外设方面4口USB2.0，TF插槽、网口、HDMI、耳机插口、DSI摄像头接口、DSI屏幕接口各一。首先，我感觉USB2.0有点落伍，至少给一个3.0吧；其次，没有Nand flash，略不方便；再次，GPIO接口有点少，就那么40Pin还共用了串口+i2c+spi*2，也没数模转换，有点不够用；最后，那个LCDC接口是给谁用的啊？要自己单独做块转接板那么麻烦……除此之外，硬件凑合，但拿来做开发板太浪费，除非你的东西计算量很大；用来当个小小服务器、小小Linux机还不错。<br>  软件方面，官方操作系统是Debian的。那套GUI对我来说真的有点鸡肋，居然还有Office和Mathematical，然而这种配置跑图形界面，<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/12/rpi-get/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/12/rpi-get/'>树莓派入手</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+    <updated>2016-08-25T10:31:42.000Z</updated>
+    <content type="html"><![CDATA[<p>  不知是哪根天线收到了什么隐藏信息，突发奇想想去买个树莓派玩玩。其实家里还有一块前公司齐活的开发板，但性能差了点，板子又大，总之就是腻味了以后哪儿哪儿都是缺点，新的诱惑无限大。于是去买了块树莓派2B，打算配个服务器学点Python玩玩，从下午一直折腾到半夜，终于配置得算是差不多成型了。<br>  以前没怎么研究过，认真四处看看，大致上情况是摸清了：硬件上总共出了算是三代n个型号（第三代Zero刚出），第一代硬件资料全齐，第二代就有点遮遮掩掩。我买的第二代B型，外设方面4口USB2.0，TF插槽、网口、HDMI、耳机插口、DSI摄像头接口、DSI屏幕接口各一。首先，我感觉USB2.0有点落伍，至少给一个3.0吧；其次，没有Nand flash，略不方便；再次，GPIO接口有点少，就那么40Pin还共用了串口+i2c+spi*2，也没数模转换，有点不够用；最后，那个LCDC接口是给谁用的啊？要自己单独做块转接板那么麻烦……除此之外，硬件凑合，但拿来做开发板太浪费，除非你的东西计算量很大；用来当个小小服务器、小小Linux机还不错。<br>  软件方面，官方操作系统是Debian的。那套GUI对我来说真的有点鸡肋，居然还有Office和Mathematical，然而这种配置跑图形界面，<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/12/rpi-get/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/12/rpi-get/'>树莓派RaspberryPi入手</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1325,217 +1522,6 @@ echo LANG=en_US.UTF-8 | sudo tee -a /etc/environment
     </summary>
     
       <category term="RaspberryPi" scheme="http://conanwhf.coding.me/categories/RaspberryPi/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[UIController中Slider监听回调具体实现的分离]]></title>
-    <link href="http://conanwhf.coding.me/2016/01/03/UISlider/"/>
-    <id>http://conanwhf.coding.me/2016/01/03/UISlider/</id>
-    <published>2016-01-03T09:32:45.000Z</published>
-    <updated>2016-08-21T17:57:36.000Z</updated>
-    <content type="html"><![CDATA[<p>作为初学者，基础的几个UI控件必须要熟练，现在的我还处于打开Xcode在控件表里面瞎找，看着谁好像是我想要的就往StoryBoard里面拖的阶段……正式写了点东西以后，越来越感觉到，该认真把控件过一遍了。上周写了这么个UIView的Demo，本意是看看各种效果，结果各种状况，花了不少时间。最终效果如下：<br><img src="http://whf.d.pr/19ywa+" alt=""><br>因为准备做不止一个控件的Demo测试，又不愿意每个控件开一个ViewController，想所有的Demo都重用同一个页面，于是妖蛾子就出来了。（背景：这个Demo的具体实现部分和ViewController是分开的两个File）<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/03/UISlider/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/03/UISlider/'>UIController中Slider监听回调具体实现的分离</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-<br>最主要的问题出在UISlider的监听上。网上UISlider的基本用法大把而且很简单，我照葫芦画瓢写了个包含一个Slider和Label的结构体，并且申明一个数组作config用：</p>
-<pre><code>class ConfigSlider {
-let label : UILabel
-let slider : UISlider
-let name : String
-
-init( n: Int, size : CGSize, max: Float, name: String, defaultValue: Float = 0) {
-    // 各种计算初始化位置，略
-    var newFrame = CGRect(x: x, y: y, width: defaultLabelWidth, height: defaultSliderHeight)
-    label = UILabel(frame: newFrame)
-    label.text = name
-    newFrame = CGRect(x: x+defaultLabelWidth, y: y, width: w - defaultLabelWidth, height: defaultSliderHeight)
-    slider = UISlider(frame: newFrame)
-    slider.minimumValue = 0
-    slider.maximumValue = Float(max)
-    slider.setValue(defaultValue, animated: true)
-    }
-}
-
-var sliderConfigs : Array &lt;ConfigSlider&gt; = []
-</code></pre><p>我的设想是通过初始化一组这样的结构体，能够自动添加n项配置选项到View，包括配置的标题和当前的值，并且当滑动条变动的时候当前值的显示也会跟着变化。要做到这一点，就要监听Slider的变化。之前写过button的handler，很简单用addTarget就行，看看定义：</p>
-<pre><code>slider.addTarget(&lt;#T##target: AnyObject?##AnyObject?#&gt;, action: &lt;#T##Selector#&gt;, forControlEvents: &lt;#T##UIControlEvents#&gt;)
-</code></pre><p>于是我就直接把监听的函数写到ConfigSlider的定义里面了：</p>
-<pre><code>func configChanged(sender: AnyObject?) {
-    label.text = name + &quot;:\(Int(slider.value))&quot;
-}
-</code></pre><p>而在addTarget的时候，犯了难：参数target指的是什么呢？所有的范例都是用的ViewController，这里也拿不到啊，看看这是个可选型，那么用nil试试看？编译完一跑，拖动Slider没有任何反应……好吧也许是需要一个sender，那么拿ViewController的试试？这次有反应了-直接挂掉，显示“<strong>unrecognized selector sent to instance 0x7feecbe10260</strong>“那么我把handler放到结构体外面试试、添加打印信息试试、用不同的参数试试……各种”试试“，各种”<strong>unrecognized selector sent to instance XXX</strong>“……调试过程就不多提了，直接说结论吧：</p>
-<blockquote>
-<ol>
-<li>错误信息”<strong>unrecognized selector sent to instance 0x7feecbe10260</strong>“中的那个内存地址就是参数”target“的指针，系统会根据你传的那个参数，在相应的类里找你注册的action，通常这是一个Controller，这也是”代理“的意义所在</li>
-<li>所以监听的回调函数要写在Controller的实现里，或者是另一个代理的实现里，第二种方式有点复杂，按下不表</li>
-<li>注册action的时候，<strong>如果回调函数是有参数的，要加”:”</strong>！！！</li>
-</ol>
-</blockquote>
-<p>这些测试，让我对”代理“的概念有了更深刻的理解，自学的新手就是这样啊，好多概念要慢慢摸索才会懂。但我的问题还没解决。之前说了，我的Controller是打算重用的，和几个Demo的具体实现分离，那么这个slider的回调，如果一定要写在Contoller中，那也太丑陋了……🤔并且有几个Demo就得塞几个不同的回调，怎么能忍？！想了想，利用Swift中Function的特性（我并不知道OC中是不是也一样）：<br><em>StepA: 在在ViewContoller中实现</em></p>
-<pre><code>//定义updateDemo()，具体写哪儿看着办
-var updateDemo : (ShowController)-&gt;() = {_ in }
-
-if (某个判断条件A，判断出DemoA的情况) {
-    //重定向到函数refreshUIViewTest
-    updateDemo = refreshUIViewTest
-}
-
-//实现回调函数
-func configChanged(sender: AnyObject?) {
-    //将callback转成具体的实现，此时无需判断
-    updateDemo(self)
-}
-</code></pre><p><em>StepB：在具体实现的File中</em></p>
-<pre><code>//注册监听函数
-slider.addTarget(ctl, action: Selector(&quot;configChanged:&quot;), forControlEvents: UIControlEvents.ValueChanged)
-
-func refreshUIViewTest(ctl: ShowController) {
-    //TODO，任何具体的回调实现
-}
-</code></pre><p>这样一来，既实现了想要的功能，又做到了具体实现和ViewContoller分离。不过还有个小小问题：ConfigSlider作为一个小小的自定义控件，Label上的数值显示如果每次变化都要放在外面去修改刷新，那也太……不处女座了。想了想给它添加了这样的方法：</p>
-<pre><code>var value : Float{
-    get {
-        label.text = name + &quot;:\(Int(slider.value))&quot;
-        return slider.value
-    }
-}
-</code></pre><p>这样，每次当外界需要获取其变化后数值的时候，就自动刷新Label，而这个获取数值的操作（至少）必然是在监听handler中要用到的（不然难道做个slider摆看吗？😄）至此，这个歪门邪道解决的方案全部完成。<br>整个项目的代码在<a href="https://github.com/conanwhf/Demos/tree/master/UIDemoTest" target="_blank" rel="external">这里</a>，具体这个Demo的实现文件是<em><strong>ShowTestsController.swift</strong></em></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>作为初学者，基础的几个UI控件必须要熟练，现在的我还处于打开Xcode在控件表里面瞎找，看着谁好像是我想要的就往StoryBoard里面拖的阶段……正式写了点东西以后，越来越感觉到，该认真把控件过一遍了。上周写了这么个UIView的Demo，本意是看看各种效果，结果各种状况，花了不少时间。最终效果如下：<br><img src="http://whf.d.pr/19ywa+" alt=""><br>因为准备做不止一个控件的Demo测试，又不愿意每个控件开一个ViewController，想所有的Demo都重用同一个页面，于是妖蛾子就出来了。（背景：这个Demo的具体实现部分和ViewController是分开的两个File）]]>
-    
-    </summary>
-    
-      <category term="Slider" scheme="http://conanwhf.coding.me/tags/Slider/"/>
-    
-      <category term="iOS" scheme="http://conanwhf.coding.me/tags/iOS/"/>
-    
-      <category term="CocoaTouch" scheme="http://conanwhf.coding.me/categories/CocoaTouch/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[从打造新闻app学到的(7)：下拉刷新和上拉更多]]></title>
-    <link href="http://conanwhf.coding.me/2016/01/01/newsreader-7/"/>
-    <id>http://conanwhf.coding.me/2016/01/01/newsreader-7/</id>
-    <published>2016-01-01T06:56:35.000Z</published>
-    <updated>2016-08-21T17:58:05.000Z</updated>
-    <content type="html"><![CDATA[<p>新闻的实时性，必然导致其列表清单对“下拉刷新”和“上拉更多”的实现要求。一开始我以为这两个可以很容易地通过手势的处理来实现，找了找先是发现了个控件<strong>UIRefreshControl</strong>，很简单地实现了下拉刷新，想着上拉不是一样嘛，先用用再研究上拉怎么搞，于是放进了Code里面：</p>
-<pre><code>@IBOutlet weak var loading: UIActivityIndicatorView!
-override func viewDidLoad() {
-    //添加下拉刷新
-    sliding.addTarget(self, action: &quot;updateLatesList&quot;, forControlEvents: UIControlEvents.ValueChanged)
-    sliding.attributedTitle = NSAttributedString(string: &quot;下拉松手刷新...&quot;)
-    self.ListTableView.addSubview(sliding)
-}
-
-func updateLatesList(){
-    //TODO：刷新数据
-    self.sliding.endRefreshing()
-}
-</code></pre><p>这个一看便知，注册一下回调，修改一下显示的字符串；然后在控件的监听回调里面刷新好数据，关掉动画，搞定！简直顺利得不敢相信。然后开始研究怎么通过这个改上拉更多……恕我驽钝，搞不定。上网查了一圈，貌似大家的上拉都不是用这个控件，这个控件的可定制性据说也比较差……😰没办法，乖乖自己写了。<br>去找了个第三方的“上拉更多”库，看源码（Sorry，已经不知道是哪个库了，GitHub上一大堆，我直接在浏览器里面看完就关了），发现里面的关键就是监听滑动事件，然后通过计算坐标来判断是否是上拉：<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/01/newsreader-7/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/01/newsreader-7/'>从打造新闻app学到的(7)：下拉刷新和上拉更多</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-</p>
-<pre><code>func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool){  
-if (scrollView.contentOffset.y &gt; (scrollView.contentSize.height - scrollView.frame.size.height) + 70)  {//触发上拉刷新，70是阀值
-// TODO anything
-}
-</code></pre><p>这里面有几个参数：</p>
-<ul>
-<li><strong>scrollView.contentOffset.y</strong>，这是指松开的时候显示的顶部处于ScrollView(在我的例子中是TableView)的什么位置</li>
-<li><strong>scrollView.contentSize.height</strong>，这是整个ScrollView的高度，你可以想象一下，整个View很长，通过滑动来显示某一部分，而这个contentSize就是整个的Size</li>
-<li><p><strong>scrollView.frame.size.height</strong>，这是ScrollView显示出来的部分的高度<br>所以这个判断条件就很好理解了。如下图所示：<br><img src="http://whf.d.pr/yKPW+" alt="" title="ScrollView"><br>当滑动条拉到最下的时候，<code>contentOffset.y = contentSize.height-frame.size.height</code>，而继续上拉，就会有一段空白，定义这个空白的高度（我设的70），就是上拉刷新的阈值了。同样的，用这个办法也可以判断下拉刷新，而且更加简单：<code>contentOffset.y &lt; -70</code>。<br>判断问题解决了，剩下的就是UI的事儿了。我选择了最基本的<strong>UIActivityIndicatorView</strong>，转菊花，简单到只要在对应的时间start&amp;Stop Animating就行了。于是现在把上拉更多和下拉刷新结合一下，用同一套方法对付：</p>
-<pre><code>private let loading = UIActivityIndicatorView()
-override func viewDidLoad() {
-    self.ListTableView.addSubview(loading)
-    loading.hidesWhenStopped = true
-}
-
-func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-
-if (scrollView.contentOffset.y &gt; (scrollView.contentSize.height - scrollView.frame.size.height) + 70) &amp;&amp; (tableViewData.count &gt; 0) {//触发上拉刷新
-    loading.startAnimating()
-    //TODO: 要求更多数据并显示
-    loading.stopAnimating()
-}
-if (scrollView.contentOffset.y &lt; -70  &amp;&amp; manager.wxcList.count &gt; 0) {//触发下拉刷新
-    loading.startAnimating()
-    //TODO: 要求新数据并显示
-    loading.stopAnimating()
-}
-}
-</code></pre><p>是不是核心代码少得让人觉得自己没写code?😄在上拉和下拉的判断中我加了一个条件就是TableView的数据源不为空，不然进行到数据刷新的时候会出错，这个也算是相对比较有普适性，所以放上来提一下。另外有几细节需要注意一下：</p>
-</li>
-</ul>
-<ol>
-<li>UIActivityIndicatorView作为TableView的子View的时候，默认是加到Cell最后的，所以如果什么都不配置，下拉刷新是看不到转圈圈的。具体怎么配置、能不能配置其实我还没去看；</li>
-<li>如果要把菊花加到主视图上，也是需要配置才能看得见，包括大小、位置、层级等等</li>
-<li><strong>所有跟UI相关的刷新操作必须放在主进程中，否则可能无效。</strong>多线程是另外一块东西了，等过些天我整理好再写</li>
-</ol>
-<p>目前我还是用“UIRefreshControl做下拉+ UIActivityIndicatorView做上拉”的组合，毕竟原生下拉控件安全方便又好看😊。但这个、_scrollViewDidEndDragging_的监听是个很好的例子，通过它我想我们还能做更多包括侧滑、翻页等等等等，当然真做起来还是需要结合别的Event。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>新闻的实时性，必然导致其列表清单对“下拉刷新”和“上拉更多”的实现要求。一开始我以为这两个可以很容易地通过手势的处理来实现，找了找先是发现了个控件<strong>UIRefreshControl</strong>，很简单地实现了下拉刷新，想着上拉不是一样嘛，先用用再研究上拉怎么搞，于是放进了Code里面：</p>
-<pre><code>@IBOutlet weak var loading: UIActivityIndicatorView!
-override func viewDidLoad() {
-    //添加下拉刷新
-    sliding.addTarget(self, action: &quot;updateLatesList&quot;, forControlEvents: UIControlEvents.ValueChanged)
-    sliding.attributedTitle = NSAttributedString(string: &quot;下拉松手刷新...&quot;)
-    self.ListTableView.addSubview(sliding)
-}
-
-func updateLatesList(){
-    //TODO：刷新数据
-    self.sliding.endRefreshing()
-}
-</code></pre><p>这个一看便知，注册一下回调，修改一下显示的字符串；然后在控件的监听回调里面刷新好数据，关掉动画，搞定！简直顺利得不敢相信。然后开始研究怎么通过这个改上拉更多……恕我驽钝，搞不定。上网查了一圈，貌似大家的上拉都不是用这个控件，这个控件的可定制性据说也比较差……😰没办法，乖乖自己写了。<br>去找了个第三方的“上拉更多”库，看源码（Sorry，已经不知道是哪个库了，GitHub上一大堆，我直接在浏览器里面看完就关了），发现里面的关键就是监听滑动事件，然后通过计算坐标来判断是否是上拉：]]>
-    
-    </summary>
-    
-      <category term="NewsAPP" scheme="http://conanwhf.coding.me/tags/NewsAPP/"/>
-    
-      <category term="Thread" scheme="http://conanwhf.coding.me/tags/Thread/"/>
-    
-      <category term="iOS" scheme="http://conanwhf.coding.me/tags/iOS/"/>
-    
-      <category term="CocoaTouch" scheme="http://conanwhf.coding.me/categories/CocoaTouch/"/>
     
   </entry>
   

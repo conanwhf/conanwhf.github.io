@@ -34,7 +34,7 @@
 
 
 
-  <meta name="keywords" content="Python," />
+  <meta name="keywords" content="Python,Script," />
 
 
 
@@ -48,15 +48,15 @@
 <meta name="description" content="对自己的拖延症也真是恨铁不成钢，这又是一篇拖延得快要放弃的文章。快过年了，怎么也不能拖到年后，打起精神，清空列表！
 想要自己打造一个小小家庭环境监控系统，各种Sensor不可或缺。看了下大部分人在树莓派上都用Python, 我也来凑个热闹。Python果然是一种很容易入门的语言，我只是稍微查了下资料，半天时间，就搞定了好几个Sensor，当然只是最简单的拿数据什么的，但相比之下，虽然自己对于用C写">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在树莓派上几种简单协议的实现">
+<meta property="og:title" content="在树莓派RaspberryPi上几种简单协议的实现">
 <meta property="og:url" content="http://conanwhf.coding.me/2016/01/30/rpi-protocol/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="对自己的拖延症也真是恨铁不成钢，这又是一篇拖延得快要放弃的文章。快过年了，怎么也不能拖到年后，打起精神，清空列表！
 想要自己打造一个小小家庭环境监控系统，各种Sensor不可或缺。看了下大部分人在树莓派上都用Python, 我也来凑个热闹。Python果然是一种很容易入门的语言，我只是稍微查了下资料，半天时间，就搞定了好几个Sensor，当然只是最简单的拿数据什么的，但相比之下，虽然自己对于用C写">
 <meta property="og:image" content="http://whf.d.pr/dVNW+">
-<meta property="og:updated_time" content="2016-08-21T17:49:29.000Z">
+<meta property="og:updated_time" content="2016-08-26T05:05:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在树莓派上几种简单协议的实现">
+<meta name="twitter:title" content="在树莓派RaspberryPi上几种简单协议的实现">
 <meta name="twitter:description" content="对自己的拖延症也真是恨铁不成钢，这又是一篇拖延得快要放弃的文章。快过年了，怎么也不能拖到年后，打起精神，清空列表！
 想要自己打造一个小小家庭环境监控系统，各种Sensor不可或缺。看了下大部分人在树莓派上都用Python, 我也来凑个热闹。Python果然是一种很容易入门的语言，我只是稍微查了下资料，半天时间，就搞定了好几个Sensor，当然只是最简单的拿数据什么的，但相比之下，虽然自己对于用C写">
 
@@ -68,7 +68,7 @@
   };
 </script>
 
-  <title> 在树莓派上几种简单协议的实现 | iOS开发和七七八八 </title>
+  <title> 在树莓派RaspberryPi上几种简单协议的实现 | iOS开发和七七八八 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -226,7 +226,7 @@
           
           
             
-              在树莓派上几种简单协议的实现
+              在树莓派RaspberryPi上几种简单协议的实现
             
           
         </h1>
@@ -277,7 +277,7 @@
 
       
         <span itemprop="articleBody"><p>对自己的拖延症也真是恨铁不成钢，这又是一篇拖延得快要放弃的文章。快过年了，怎么也不能拖到年后，打起精神，清空列表！</p>
-<p>想要自己打造一个小小家庭环境监控系统，各种Sensor不可或缺。看了下大部分人在树莓派上都用Python, 我也来凑个热闹。Python果然是一种很容易入门的语言，我只是稍微查了下资料，半天时间，就搞定了好几个Sensor，当然只是最简单的拿数据什么的，但相比之下，虽然自己对于用C写这些协议很熟，碰到问题我也宁可去看看Python的语法也不愿意换C……Python的优势倒不全是语法简洁，最重要的是有巨量的开发库可以用。像这些简单的协议，全是把库装好，直接拿来用就可以了，看看代码量，简直让人不忍再直视C的代码。对于不用追求速度的玩票项目，相当适合。<br>这一篇先介绍几种最常用的基本协议的实现，老规矩，先上源码<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a><br><a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/30/rpi-protocol/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/30/rpi-protocol/'>在树莓派上几种简单协议的实现</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<p>想要自己打造一个小小家庭环境监控系统，各种Sensor不可或缺。看了下大部分人在树莓派上都用Python, 我也来凑个热闹。Python果然是一种很容易入门的语言，我只是稍微查了下资料，半天时间，就搞定了好几个Sensor，当然只是最简单的拿数据什么的，但相比之下，虽然自己对于用C写这些协议很熟，碰到问题我也宁可去看看Python的语法也不愿意换C……Python的优势倒不全是语法简洁，最重要的是有巨量的开发库可以用。像这些简单的协议，全是把库装好，直接拿来用就可以了，看看代码量，简直让人不忍再直视C的代码。对于不用追求速度的玩票项目，相当适合。<br>这一篇先介绍几种最常用的基本协议的实现，老规矩，先上源码<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a><br><a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/30/rpi-protocol/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/30/rpi-protocol/'>在树莓派RaspberryPi上几种简单协议的实现</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -374,6 +374,8 @@ ser.close()
           
             <a href="/tags/Python/" rel="tag">#Python</a>
           
+            <a href="/tags/Script/" rel="tag">#Script</a>
+          
         </div>
       
 
@@ -403,7 +405,7 @@ ser.close()
     <div class="post-spread">
       
         <div class="ds-share flat" data-thread-key="2016/01/30/rpi-protocol/"
-     data-title="在树莓派上几种简单协议的实现"
+     data-title="在树莓派RaspberryPi上几种简单协议的实现"
      data-content=""
      data-url="http://conanwhf.coding.me/2016/01/30/rpi-protocol/">
   <div class="ds-share-inline">
@@ -436,7 +438,7 @@ ser.close()
           <div class="comments" id="comments">
             
               <div class="ds-thread" data-thread-key="2016/01/30/rpi-protocol/"
-                   data-title="在树莓派上几种简单协议的实现" data-url="http://conanwhf.coding.me/2016/01/30/rpi-protocol/">
+                   data-title="在树莓派RaspberryPi上几种简单协议的实现" data-url="http://conanwhf.coding.me/2016/01/30/rpi-protocol/">
               </div>
             
           </div>
@@ -476,21 +478,21 @@ ser.close()
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">69</span>
+              <span class="site-state-item-count">71</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">6</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

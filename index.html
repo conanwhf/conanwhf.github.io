@@ -223,6 +223,107 @@
           
           
             
+              <a class="post-title-link" href="/2016/08/25/rpi-cloneimg/" itemprop="url">
+                树莓派RaspberryPi系统备份Image的制作
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-08-25T10:02:26+08:00" content="2016-08-25">
+            2016-08-25
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/RaspberryPi/" itemprop="url" rel="index">
+                  <span itemprop="name">RaspberryPi</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/08/25/rpi-cloneimg/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/25/rpi-cloneimg/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>在树莓派上做开发，难免会弄出各种版本的系统，加上有时候还需要拿给客户自己烧录或者demo，总是要clone一下TF卡，做系统做到烦躁。于是想想有没有什么办法能做跟官方release一样的烧录img出来，基本要求就是全系统克隆，但做出的img跟卡的容量无关，只跟系统占用的存储大小有关。</p>
+<h2 id="u7B80_u5355_u5168_u5361_u5907_u4EFD"><a href="#u7B80_u5355_u5168_u5361_u5907_u4EFD" class="headerlink" title="简单全卡备份"></a>简单全卡备份</h2><p>其实如果只是简单备份，可以直接将TF卡插入Linux电脑，用dd命令来备份和恢复(设备号不固定这里只是例子，还是用fdisk -l先查看一下比较保险)：</p>
+<pre><code># Backup the system to img file in Linux
+dd if=/dev/mmcblk0 of=raspberrypi-bak.img bs=1M
+# A little difference if Mac
+dd if=/dev/rdisk2 of=raspberrypi-bak.img bs=1M
+#
+# Restore system from img
+dd if=raspberrypi-bak.img bs=1M of=/dev/mmcblk0
+# Or in Mac
+dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
+</code></pre><p>不过这样做，16G的卡哪怕你只用了1G，整个备份文件也有16G，占用空间耗时间是小事，想想拿这么大文件给客户不方便，也显得太不专业了。<br>在网上搜了一下，已经有朋友先行做过类似的事情：<a href="http://www.fendou.info/raspberry-pi-sd-card-backup-and-recovery/" title="树莓派 Raspberry Pi SD卡系统备份与还原">树莓派 Raspberry Pi SD卡系统备份与还原</a>，看了一下按照他的步骤实践了一遍，但出现了一些问题，折腾了很久最终才解决。</p>
+<h2 id="RaspberryPi_u7684_u6587_u4EF6_u7CFB_u7EDF"><a href="#RaspberryPi_u7684_u6587_u4EF6_u7CFB_u7EDF" class="headerlink" title="RaspberryPi的文件系统"></a>RaspberryPi的文件系统</h2><p>首先介绍一下RaspberryPi的文件系统。树莓派的官方系统是基于Debian的，主要是两个分区：<strong>启动分区boot和根分区</strong>。boot分区为fat32格式，挂载在/boot，存放一些系统启动需要的基本文件，包括内核、驱动、firmware、启动脚本等；根分区文件系统是ext4格式，挂载于/，存放一些安装的软件和库文件、系统配置、用户数据等等；另外当系统启动时会自动生成和挂载一些必要的其他文件夹，包括temfs、sysfs、proc、debugfs、configfs等（使用mount可以看到他们），这些都是虚拟文件系统，由操作系统自动管理，备份时不需要关注。日常使用时，修改的文件包括安装的软件都是在根分区中，而如果自行编译内核，需要更新的文件都在/boot中。<br>所以备份一个系统，实际上是要备份这两个分区，官方发布的烧录镜像，也是包含了这样的两个分区，并保证通过dd的操作，能将其完整写入目标TF卡。首次烧录完毕后，不论你的TF卡容量为多少，启动后的boot和/分区大小都是固定的，然后可以使用<code>raspi-config</code>来扩展根分区的大小，boot分区不变，来达到使用所有卡内容量的目的。<br>相对应的备份步骤，大致为：创建img，把img当作一个磁盘分区和格式化，mount各个分区，将文件备份至对应的分区中，umount分区结束备份。</p>
+<h2 id="u76EE_u6807_u5907_u4EFD_u6587_u4EF6_u7684_u521B_u5EFA_u548C_u5206_u533A"><a href="#u76EE_u6807_u5907_u4EFD_u6587_u4EF6_u7684_u521B_u5EFA_u548C_u5206_u533A" class="headerlink" title="目标备份文件的创建和分区"></a>目标备份文件的创建和分区</h2><p>既然是备份到文件，那么首先需要创建一个备份文件，并且把这个文件看作一个虚拟设备，对其进行分区。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/25/rpi-cloneimg/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2016/08/20/DroplrTest/" itemprop="url">
                 Droplr的测试
               </a>
@@ -375,6 +476,95 @@
               阅读全文 &raquo;
             </a>
           </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2016/08/12/rpi-3b/" itemprop="url">
+                树莓派RaspberryPi 3B的一些改变
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-08-12T19:31:26+08:00" content="2016-08-12">
+            2016-08-12
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/RaspberryPi/" itemprop="url" rel="index">
+                  <span itemprop="name">RaspberryPi</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/08/12/rpi-3b/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/12/rpi-3b/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>工作原因换上了最新的树莓派3B，使用了几天，虽然变化不大，但跟2B还是有一些区别的。在这里写下来供爱好者们参考。</p>
+<ol>
+<li>硬件上，基本上是可以通用的，接口跟2B保持一致，GPIO的排列也没有变过。值得注意的是3B自带了WIFI模块，所以你会看到开机就能有Wlan0的设备。</li>
+<li>系统上，有一些改变可能是操作系统升级导致的，比如cmdline跟以前不同，但总的来说变化不大。官网的烧录img和github提供的kernel源码现在都已经提供了3B的支持，只是烧录系统就不讨论了，如果是自己编译kernel的话要注意<code>/boot/bcm2710-rpi-3-b.dtb</code>这个文件，这是系统支持3B的关键。内核的img名字还是<strong>kernel7.img</strong>没变，新的系统能同时支持3B和2B。是否把<strong>bcm2701-rpi-3-b.dtb</strong>拷贝到旧的系统中就能使其支持3B，我没有测试过，但我想应该不能成功，因为恐怕还需要更新一些index。</li>
+<li>实际使用中，关于UART发现了一个很好玩的变化。以前串口的设备是<code>/dev/ttyAMA0</code>，但在3B上变成了<code>/dev/ttyS0</code>。确切地说，是3B的设备多出来一个<strong>ttyS0</strong>，并且使用ttyAMA0无法传输数据，必须使用ttyS0。前面说了新的系统可以同时兼容两种板子，我用同样的软件在2B和3B上都试了一下，2B依然只有ttyAMA0，所以可以肯定这不是软件升级的区别，具体原因就不知到了。<br>目前只看到这些不同，用起来也没什么区别的样子，可能好的地方就是可以省出一个USB口吧。😀</li>
+</ol>
+</span>
         
       
     </div>
@@ -805,203 +995,6 @@
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2016/03/02/addressUpdate/" itemprop="url">
-                域名更新
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-03-02T17:35:25+08:00" content="2016-03-02">
-            2016-03-02
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2016/03/02/addressUpdate/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/02/addressUpdate/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="u9996_u5148_uFF0C_http_3A//conanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01"><a href="#u9996_u5148_uFF0C_http_3A//conanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01" class="headerlink" title="首先， http://conanwhf.github.io 还是可用主力哈！"></a>首先，<a href="http://conanwhf.github.io"> http://conanwhf.github.io</a> 还是可用主力哈！</h2><p>主要是怕哪天GFW发威上不了了，所以在国内服务商放个镜像而已。</p>
-<h2 id="u5899_u5185_u65B0_u57DF_u540D_uFF1Ahttp_3A//conanwhf-coding-me/"><a href="#u5899_u5185_u65B0_u57DF_u540D_uFF1Ahttp_3A//conanwhf-coding-me/" class="headerlink" title="墙内新域名：http://conanwhf.coding.me/"></a>墙内新域名：<a href="http://conanwhf.coding.me/">http://conanwhf.coding.me/</a></h2><p>旧的gitcafe那个，就不用了</p>
-<p>周末爬山下海的，肌肉酸痛还没解除，就看到GitCafe要关闭，整个迁移到Coding去了，晕！连封邮件也没发给我，突然就说什么要全部迁移删除，然后一看时间，最后期限5月份，但是从今天开始就全部只读了……😡我真是服了国内的这些服务商，不靠谱到了一个境界。还能怎么办呢？迁移呗！本来因为是中文博客，我的各种相关配置和网络服务都注册的是GitCafe的域名，这次也都要检查一遍、修改更换，麻烦死了。以后还是准备回归GitHub为主吧！<br>另外，因为gitcafe已经全面只读了，我连提交个域名更新说明的机会都没，真是@#$$(%#^%^)$$%^%$#$%😤😱<br>长长的年过完了，紧接着又巴厘岛玩了几天，以至于留下了太多功课没有做完。家里两位老人天天拉着我聊天修电脑，再加上新接了个项目，搞OpenCV和C++搞得连轴转，更没时间管iOS的东西了。想想每天也没做什么，过个年，跑跑步，吃三顿饭，刷刷新闻社交，帮公婆处理点杂事，研究旅游的各种事情，最后出去玩一趟，怎么哗哗哗一个月就过去了？！搞得我好焦虑，害怕项目进度赶不完。怎么办！！！</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/03/02/addressUpdate/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2016/03/01/Tips201602/" itemprop="url">
-                开发Tips收集-2016年02月
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-03-01T17:25:39+08:00" content="2016-03-01">
-            2016-03-01
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/DevTips/" itemprop="url" rel="index">
-                  <span itemprop="name">DevTips</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2016/03/01/Tips201602/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/01/Tips201602/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>UIView 的translatesAutoresizingMaskIntoConstraints属性为true时，设置 frame 会自动转化为约束，修改 frame 时也会自动调整约束。这时候就不要再手动添加约束了，你再添加约束往往会造成冲突</li>
-<li>使用XCODE交付应用，常见的返回错误：<ol>
-<li>ERROR：–90096 ：原因是：启动图的问题；解决 ：添加一张名字是 Default-568h@2x.png 的启动图；</li>
-<li>ERROR：–90535 ：原因是：导入的第三方的问题；解决 ：删除第三方包中的info.plist里的Executable file 这一行</li>
-</ol>
-</li>
-<li>ios下每个app可用的内存是被限制的，如果一个app使用的内存超过了这个阀值，则系统会向该app发送Memory Warning消息。收到消息后，app必须尽可能多的释放一些不必要的内存，否则OS会关闭app。</li>
-<li>数组的contains方法需要用到==操作符，所以当数组的内容为自定义类型，且需要使用contains方法是，需要自定义的类实现Equatable协议即可</li>
-<li>Swift 的枚举类型，如果指定了原始值的类型（Int， String等），就会有默认值的存在。如果不指定原始值类型，编译器就不会分配默认值。<ol>
-<li>当枚举类型的原始值类型指定为 Int 时，这个时候，就和其他语言的枚举的默认值分配一样，从0开始</li>
-<li>如果指定了一个枚举值的原始值，后面接下来的枚举值的原始值会自动 +1</li>
-<li>原始值类型为字符串的时候，默认的值就是和枚举值的字符串一样</li>
-<li>没有设置原始值的，就使用默认值</li>
-</ol>
-</li>
-<li>开发中经常会遇到控件不接收用户交互了，可以从以下几个方面检查：
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/03/01/Tips201602/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1040,21 +1033,21 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">69</span>
+              <span class="site-state-item-count">71</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">6</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

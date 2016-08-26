@@ -34,7 +34,7 @@
 
 
 
-  <meta name="keywords" content="kernel," />
+  <meta name="keywords" content="Kernel," />
 
 
 
@@ -48,14 +48,14 @@
 <meta name="description" content="作为一个（曾经的）内核开发者，弄到块板子怎么能不重新编译内核？系统配好跑起来后的第二件事，就是编译内核了。在树莓派上编译内核很简单，基本上就是按照官方文档跑脚本，先放GitHub上的Script传送门，build/kernel.sh
 系统简介文件系统树莓派的文件系统设计还是不错的，能比较方便地更新内核和各种固件。整个文件系统分为两个部分：Fat32分区和Ext4分区。Fat32分区是mount到/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="树莓派内核编译">
+<meta property="og:title" content="树莓派RaspberryPi内核编译">
 <meta property="og:url" content="http://conanwhf.coding.me/2016/01/12/rpi-kernel/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="作为一个（曾经的）内核开发者，弄到块板子怎么能不重新编译内核？系统配好跑起来后的第二件事，就是编译内核了。在树莓派上编译内核很简单，基本上就是按照官方文档跑脚本，先放GitHub上的Script传送门，build/kernel.sh
 系统简介文件系统树莓派的文件系统设计还是不错的，能比较方便地更新内核和各种固件。整个文件系统分为两个部分：Fat32分区和Ext4分区。Fat32分区是mount到/">
-<meta property="og:updated_time" content="2016-01-18T16:17:46.000Z">
+<meta property="og:updated_time" content="2016-08-26T05:04:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="树莓派内核编译">
+<meta name="twitter:title" content="树莓派RaspberryPi内核编译">
 <meta name="twitter:description" content="作为一个（曾经的）内核开发者，弄到块板子怎么能不重新编译内核？系统配好跑起来后的第二件事，就是编译内核了。在树莓派上编译内核很简单，基本上就是按照官方文档跑脚本，先放GitHub上的Script传送门，build/kernel.sh
 系统简介文件系统树莓派的文件系统设计还是不错的，能比较方便地更新内核和各种固件。整个文件系统分为两个部分：Fat32分区和Ext4分区。Fat32分区是mount到/">
 
@@ -67,7 +67,7 @@
   };
 </script>
 
-  <title> 树莓派内核编译 | iOS开发和七七八八 </title>
+  <title> 树莓派RaspberryPi内核编译 | iOS开发和七七八八 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -225,7 +225,7 @@
           
           
             
-              树莓派内核编译
+              树莓派RaspberryPi内核编译
             
           
         </h1>
@@ -278,7 +278,7 @@
         <span itemprop="articleBody"><p>作为一个（曾经的）内核开发者，弄到块板子怎么能不重新编译内核？系统配好跑起来后的第二件事，就是编译内核了。在树莓派上编译内核很简单，基本上就是按照官方文档跑脚本，先放GitHub上的Script<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a>，<strong>build/kernel.sh</strong></p>
 <h2 id="u7CFB_u7EDF_u7B80_u4ECB"><a href="#u7CFB_u7EDF_u7B80_u4ECB" class="headerlink" title="系统简介"></a>系统简介</h2><h3 id="u6587_u4EF6_u7CFB_u7EDF"><a href="#u6587_u4EF6_u7CFB_u7EDF" class="headerlink" title="文件系统"></a>文件系统</h3><p>树莓派的文件系统设计还是不错的，能比较方便地更新内核和各种固件。整个文件系统分为两个部分：Fat32分区和Ext4分区。Fat32分区是mount到/boot上的，里面放了内核和启动的核心固件；Ext4就是一般的根文件系统了，放其他的所有东西，包括firmware和各种ko等。这种设计免去了用户烧录的麻烦，只是他们的bootloader没有开放源码，对于极客来说是很不爽的事情。<br>所谓的系统更新，就是每次编译kernel之后，直接把生成的文件放到特定的地方，重启就行。这也是为什么系统自带的工具<strong>rpi-update</strong>可以自动更新内核、firmware等等一切东西。</p>
 <h3 id="u786C_u4EF6_u7684_u9009_u62E9_u548C_u542F_u52A8"><a href="#u786C_u4EF6_u7684_u9009_u62E9_u548C_u542F_u52A8" class="headerlink" title="硬件的选择和启动"></a>硬件的选择和启动</h3><p>树莓派一代和二代用的两个不同的ARM芯片，这个差别在操作系统中并没有体现出来，我是指：官方提供的系统镜像是同一个。开始我很奇怪，后来看到了它的文件系统，才明白，它是靠不同的kernel文件名来区分的。这两种板子的platform分别叫”bcm2708”和”bcm2709”，启动的时候bootloader会根据硬件情况自动区分，读取不同的kernel image，进而load不同的firmware和driver。</p>
-<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/12/rpi-kernel/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/12/rpi-kernel/'>树莓派内核编译</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/12/rpi-kernel/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/12/rpi-kernel/'>树莓派RaspberryPi内核编译</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -325,7 +325,7 @@ sudo scripts/mkknlimg arch/arm/boot/zImage /boot/$KERNEL.img
       
         <div class="post-tags">
           
-            <a href="/tags/kernel/" rel="tag">#kernel</a>
+            <a href="/tags/Kernel/" rel="tag">#Kernel</a>
           
         </div>
       
@@ -334,13 +334,13 @@ sudo scripts/mkknlimg arch/arm/boot/zImage /boot/$KERNEL.img
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/01/14/rpi-toolchain/" rel="prev">自己编译给树莓派的交叉编译工具</a>
+              <a href="/2016/01/14/rpi-toolchain/" rel="prev">自己编译给树莓派RaspberryPi的交叉编译工具</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/12/rpi-start/" rel="next">树莓派初始配置指南（2代B型）</a>
+              <a href="/2016/01/12/rpi-start/" rel="next">树莓派RaspberryPi初始配置指南（2代B型）</a>
             
           </div>
         </div>
@@ -356,7 +356,7 @@ sudo scripts/mkknlimg arch/arm/boot/zImage /boot/$KERNEL.img
     <div class="post-spread">
       
         <div class="ds-share flat" data-thread-key="2016/01/12/rpi-kernel/"
-     data-title="树莓派内核编译"
+     data-title="树莓派RaspberryPi内核编译"
      data-content=""
      data-url="http://conanwhf.coding.me/2016/01/12/rpi-kernel/">
   <div class="ds-share-inline">
@@ -389,7 +389,7 @@ sudo scripts/mkknlimg arch/arm/boot/zImage /boot/$KERNEL.img
           <div class="comments" id="comments">
             
               <div class="ds-thread" data-thread-key="2016/01/12/rpi-kernel/"
-                   data-title="树莓派内核编译" data-url="http://conanwhf.coding.me/2016/01/12/rpi-kernel/">
+                   data-title="树莓派RaspberryPi内核编译" data-url="http://conanwhf.coding.me/2016/01/12/rpi-kernel/">
               </div>
             
           </div>
@@ -429,21 +429,21 @@ sudo scripts/mkknlimg arch/arm/boot/zImage /boot/$KERNEL.img
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">69</span>
+              <span class="site-state-item-count">71</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">6</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
