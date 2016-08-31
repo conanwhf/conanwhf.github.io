@@ -55,7 +55,7 @@
 简单全卡备份其实如果只是简单备份，可以直接将TF卡插入Linux电脑，用dd命令来备份和恢复(设备号不固定这里只是">
 <meta property="og:image" content="http://whf.d.pr/1awb8+">
 <meta property="og:image" content="http://whf.d.pr/1dR76+">
-<meta property="og:updated_time" content="2016-08-26T05:13:54.000Z">
+<meta property="og:updated_time" content="2016-08-30T17:06:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="树莓派RaspberryPi系统备份Image的制作">
 <meta name="twitter:description" content="在树莓派上做开发，难免会弄出各种版本的系统，加上有时候还需要拿给客户自己烧录或者demo，总是要clone一下TF卡，做系统做到烦躁。于是想想有没有什么办法能做跟官方release一样的烧录img出来，基本要求就是全系统克隆，但做出的img跟卡的容量无关，只跟系统占用的存储大小有关。
@@ -311,7 +311,7 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
   }
 })()
 </script>
-需要用到的工具有<em>parted, kpartx, dosfstools, rsync</em>，使用apt-get安装：</p>
+需要用到的工具有_parted, kpartx, dosfstools, rsync_，使用apt-get安装：</p>
 <pre><code>sudo apt-get -y install rsync dosfstools parted kpartx
 </code></pre><h3 id="u521B_u5EFA_u65B0_u7684_u6587_u4EF6"><a href="#u521B_u5EFA_u65B0_u7684_u6587_u4EF6" class="headerlink" title="创建新的文件"></a>创建新的文件</h3><p>我们用<code>dd</code>命令来创建一个新的img，img的大小和当前RaspberryPi已使用的存储空间有关。使用<code>df -P</code>来查看磁盘空间状态（以1K为单位），会看到如下的信息：<br><img src="http://whf.d.pr/1awb8+" alt=""><br>其中红框的部分就是我们需要关注的，将它们对应的Used数目取出，计算得到需要创建的img大小：<br>    img=rpibackup.img</p>
 <pre><code>#sudo rm $img
@@ -350,8 +350,9 @@ sudo umount $mountb
 </blockquote>
 <p>但在关键的步骤出现了<strong> Broken pipe</strong>错误，经过重复测试多次，虽然每次报错的文件和inode不一样，但每次都无法顺利完成。这个问题在原博的评论中也有人遇到了：</p>
 <blockquote>
-<p>restore: ./lost+found: File exists<br>./tmp/rstdir1445584846: (inode 159534) not found on tape<br>./tmp/rstmode1445584846: (inode 161527) not found on tape<br>DUMP: Broken pipe<br>DUMP: The ENTIRE dump is aborted.<br>………………<br>针对这个问题我做了一些测试。首先是把<code>sudo dump -0uaf - / | sudo restore -rf -</code>分开，取消管道，先dump到一个文件再restore。发现dump总是成功的，而问题出在restore上，所以就broken pipe了。开始怀疑是restore的时候权限有问题，后来把dump出来的文件拿到PC上做restore，也同样是失败。这样就很有可能是dump的文件有问题，仔细看看每次出错的文件都是隐藏或者临时文件，怀疑跟这个有关，但找了一大圈dump相关的参数尝试，依然是没有解决。</p>
+<p>restore: ./lost+found: File exists<br>./tmp/rstdir1445584846: (inode 159534) not found on tape<br>./tmp/rstmode1445584846: (inode 161527) not found on tape<br>DUMP: Broken pipe<br>DUMP: The ENTIRE dump is aborted.<br>………………</p>
 </blockquote>
+<p>针对这个问题我做了一些测试。首先是把<code>sudo dump -0uaf - / | sudo restore -rf -</code>分开，取消管道，先dump到一个文件再restore。发现dump总是成功的，而问题出在restore上，所以就broken pipe了。开始怀疑是restore的时候权限有问题，后来把dump出来的文件拿到PC上做restore，也同样是失败。这样就很有可能是dump的文件有问题，仔细看看每次出错的文件都是隐藏或者临时文件，怀疑跟这个有关，但找了一大圈dump相关的参数尝试，依然是没有解决。</p>
 <h3 id="u4F7F_u7528rsync_u5907_u4EFD"><a href="#u4F7F_u7528rsync_u5907_u4EFD" class="headerlink" title="使用rsync备份"></a>使用rsync备份</h3><p>由于每次测试dump和restore花的时间很长，项目又比较急，我实在是不能再耽搁下去了，于是决定放弃这种方式。想了一下，曾经用过<a href="https://github.com/billw2/rpi-clone" title="rpi-clone" target="_blank" rel="external">rpi-clone</a>来做卡与卡之间的备份，那么备份成文件也应该是一样的。我于是去看了下它的源码，把根文件系统备份相关的部分提出来就能直接用起来了。这里用的是备份工具rsync，其本质上是基于文件系统之上的的直接拷贝，因为没有用到增量备份，所以跟cp其实是一回事。只是rsync能很好的保留各种权限、时间戳、软链接和文件信息，避免了一些用cp的问题。保险起见，我依然沿用了它。<br>首先还是mount一下：</p>
 <pre><code>mountr=$usbmount/backup_root/
 mkdir -p $mountr
@@ -436,6 +437,8 @@ fi
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/26/GPTandMBR/" rel="prev">详细梳理分区表系统启动相关的各种概念</a>
             
           </div>
 
@@ -530,7 +533,7 @@ fi
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">71</span>
+              <span class="site-state-item-count">72</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

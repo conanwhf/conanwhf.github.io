@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.coding.me/"/>
-  <updated>2016-08-26T05:13:54.000Z</updated>
+  <updated>2016-08-31T04:20:57.000Z</updated>
   <id>http://conanwhf.coding.me/</id>
   
   <author>
@@ -15,11 +15,89 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[详细梳理分区表系统启动相关的各种概念]]></title>
+    <link href="http://conanwhf.coding.me/2016/08/26/GPTandMBR/"/>
+    <id>http://conanwhf.coding.me/2016/08/26/GPTandMBR/</id>
+    <published>2016-08-26T09:30:25.000Z</published>
+    <updated>2016-08-31T04:20:57.000Z</updated>
+    <content type="html"><![CDATA[<p>MacBookPro的硬盘太小，前几天买了个128G的U盘想装好系统在虚拟机里引导，以节省日益膨胀的虚拟机文件占用的空间。我同时需要Mac、Win、Linux，买不起大容量MBP，天天寻思着删东西，实在是伤不起啊！😭预设的目标是要把Win和Ubuntu都装U盘上，而且支持在我的旧笔记本、Mac、虚拟机里都能正确引导，同时还要有一个数据分区，能在所有的系统中正常识别为U盘。为此，我狠狠研究了一通分区表，被各种缩写和规则搞得头昏脑胀。看看网上的东西也是常有错误，趁着还没忘光，自己梳理一遍吧！<br>声明：本文为作者（<a href="https://github.com/conanwhf" target="_blank" rel="external">Conan</a>）原创，转载请标明<a href="/conanwhf.github.io">出处</a>！</p>
+<h2 id="GPT_u548CMBR"><a href="#GPT_u548CMBR" class="headerlink" title="GPT和MBR"></a>GPT和MBR</h2><p>首先当然是这俩，一切都源于此。最重要的信息是：他们都是<strong>分区表</strong>，一种用来表示硬盘分区信息的格式，不太严格地说是一个<strong>软件概念</strong>。啰嗦一句分区表是干什么的：在操作系统启动之前、硬件初始化之后，确定从硬盘启动的话，需要获得硬盘分区的基本信息，那就需要分区表了。分区表不只包含硬盘的分区信息，也包括一个很小的最基本的引导程序，用到引导第二阶段引导程序，如NTLDR、BOOTMGR和GRUB等，这些第二阶段的引导程序，是需要针对每个分区进一步读取数据才能获得的。</p>
+<h3 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h3><p>全称<strong>主引导记录（Master Boot Record）</strong>，又叫做主引导扇区，位于硬盘的第一个扇区主要分为两个部分：引导程序和分区结构表。有时候也将其开头的446字节引导程序特指为MBR，其后是64字节的“磁盘分区表”（DPT），以及2字节的结束标志（55AA）。因此，在使用“主引导记<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/26/GPTandMBR/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/26/GPTandMBR/'>详细梳理分区表系统启动相关的各种概念</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+录”（MBR）这个术语的时候，需要根据具体情况判断其到底是指整个主引导扇区，还是主引导扇区的前446字节。通常地相对于GPT来讨论MBR，则就是指这种分区模式的整套标准。<br>在这种模式下，描述分区的部分占64个字节，分别是对四个分区的信息进行描述，其中每个分区的信息占据16个字节（当然小于4个分区也可以），这也就是说MBR分区表最多只能有4个主分区或者3个主分区+1个扩展分区的由来。<br>具体分区信息的标准就不多说了，在每个分区信息的16字节中，分别有4个字节是表示分区的扇区起始号和扇区数目，它们的最大值是2^32-1。而通常来说一个扇区的大小为512byte，所以MBR能支持的最大硬盘（取决于扇区起始offset）大小是2^41byte，也就是2TB(按1024算)，或者说是2.2TB(按硬盘厂商的1000算)😶，亦即”MBR不支持3T大硬盘”（因为人家可以支持2T嘛）！<br>当年这个硬件限制出现的时候，有的厂商为了解决这个问题，另辟蹊径，通过提高每个扇区的大小来支持更大容量的硬盘。例如将扇区从512byte升级到2K，那么MBR就可以支持8T的硬盘了。但这种方法在扇区普遍为512B的市场上，反而出现了很多麻烦……后来，GPT出现了。</p>
+<h3 id="GPT"><a href="#GPT" class="headerlink" title="GPT"></a>GPT</h3><p>GPT的全称是：<strong>全局唯一标识分区表（GUID Partition Table)</strong>，是用来取代MBR的新一代分区表格式。它的具体结构定义比较复杂，我就不多赘述了。相对MBR来说，GPT的信息量更大，表本身所占用的size也大得多。不同于MBR的使用偏移量来标识不同分区，GPT中每个分区都有一个唯一标识GUID作为关键字。<br>GPT表分为表头和n个表项两个部分，顾名思义，表头存储了一些总体上的信息，例如版本、校验、表项数目等；而每个表项就是每个分区的具体描述。在Windows里，使用GPT的硬盘最多可以有128个分区，但这<strong>不是GPT标准规定</strong>，只是因为Windows给分区表预留的大小只够放128个分区罢了（将来会改也说不定哦）。在GPT的表头中，表项的数目占4个字节，所以理论上来说是可以有2^32个分区的。<br>在每个表项中，用来记录分区起始和结束位置的信息扩展成了8字节，也就是最大能表示2^64的地址。不幸的是，这次它不是表示扇区号了，而是LBA(Logical Block Address,逻辑区块地址)；幸运的是，通常LBA的大小也是512Byte，不影响对这个问题的理解。LBA和扇区的区别，跟现代存储设备的发展有关，又是一个大长篇，不展开说了。总之，GPT分区表比MBR支持更多的分区、更大的分区、更大的物理硬盘。</p>
+<h4 id="GUID__26amp_3B_UUID"><a href="#GUID__26amp_3B_UUID" class="headerlink" title="GUID &amp; UUID"></a>GUID &amp; UUID</h4><p>说到GPT，就不得不解释一下GUID是什么了。GUID的中文是全局唯一标识符(Global Unique Identifier)， 是一种由算法生成的唯一标识，总共有32个16进制数，即一个128位长的二进制整数。唯一标识，也就是说每个不同的分区都有自己的独一无二的GUID。从理论的角度看，GUID的生成并不是肯定没有重复的，只是概率非常非常小，小到在实际中可以忽略不计。例如在一个大的服务器集群里，都不会有重复的GUID。<br>另外还有个UUID(Universally Unique Identifier，唯一识别码)，这是微软搞出来的，跟GUID是一个意思，经常混用。<br>在很多描述系统启动、引导的文章或者是日常表述中，GPT和GUID是等价的（使用GUID来代替GPT）。阅读的时候概念清楚就行，别太较真。😄</p>
+<h2 id="28U_29EFI__u548C__28Legacy_29_BIOS"><a href="#28U_29EFI__u548C__28Legacy_29_BIOS" class="headerlink" title="(U)EFI 和 (Legacy) BIOS"></a>(U)EFI 和 (Legacy) BIOS</h2><p>讲了半天，终于轮到EFI了。虽然EFI和GPT并不是一回事，但在很多的地方，都用EFI和GPT/GUID表达同一个意思，即EFI+GPT的启动方式。EFI实际上是一套包括软硬件的标准接口，但我们通常说的”主板支持EFI“是指的它的硬件部分，即主板符合EFI的标准。在这个维度意义上，和EFI相对的，则是从前广泛使用的Legacy BIOS标准（多数教程、文章将其直接写为BIOS，下同）。虽然他们都只是一种接口的定义，但再次不严格地说，我们大致可以将网络上多数文章、教程中的EFI和BIOS理解为一个<strong>硬件概念</strong>，即支持或不支持EFI的主板。可以说，EFI和传统BIOS的关系就如同GPT和MBR的关系，一代新人胜旧人。</p>
+<h3 id="28U_29EFI"><a href="#28U_29EFI" class="headerlink" title="(U)EFI"></a>(U)EFI</h3><p>UEFI中文<strong>统一可扩展固件接口（Unified Extensible Firmware Interface）</strong>，它的前身是Intel在1998年开始开发的Intel Boot Initiative，后来被重命名为<strong>EFI（Extensible Firmware Interface, 可扩展固件接口）</strong>。Intel在2005年将其交由统一可扩展固件接口论坛（Unified EFI Forum）来推广与发展，为了凸显这一点，EFI也更名为UEFI。也就是说，UEFI和EFI是同一个东西，在本文全部写为EFI。<br>前面说了，EFI和GPT不是一回事，但他们其实是有从属关系的：GPT是EFI的一个组成部分。EFI的其他部分还包括初始化模块、驱动程序、执行环境、支持模块和应用等，可以说，EFI实际上是一个简单的小型操作系统。如果你了解过Linux中的Uboot，它和EFI在概念和流程上非常像。在一个EFI启动的系统中，上电后先执行初始化模块，然后加载各种基本的驱动，如果需要则读取一个特定的EFI系统分区，通过放在里面的引导文件启动系统。同时，EFI也包含一个是能够向下兼容BIOS的模块，用来引导传统的BIOS服务。<br>由于EFI是一整套接口定义，所以实际上完成一个完整的EFI启动需要硬件（通常指包含基本初始化模块的主板）、GPT分区表、EFI系统分区和操作系统几个部份的支持。虽然不大好理解，但本质上EFI规范与BIOS的区别是包含了主要的三个变化：</p>
+<ol>
+<li>能够读取GPT分区表。</li>
+<li>能够执行特殊格式的代码。这种代码使用了C语言风格的参数堆栈传递方式，动态链接的形式构建，运行于32位或者64位模式，而不是BIOS中使用的16位基于中断的驱动程序。</li>
+<li>支持从特定文件系统（EFI系统分区）中读取程序并加载运行。</li>
+</ol>
+<h4 id="EFI_u7CFB_u7EDF_u5206_u533A"><a href="#EFI_u7CFB_u7EDF_u5206_u533A" class="headerlink" title="EFI系统分区"></a>EFI系统分区</h4><p>说到EFI系统分区，又是一个新名词。其实<strong>EFI系统分区(也称为ESP或者EFISYS)是一个 FAT32 格式的物理分区</strong> (在硬盘主分区表上，而不是 LVM 或软件 RAID 等等)，它可以直接被EFI系统读取，但在一般情况下是一个隐藏分区，用来保存启动信息。想想Uboot，如果移植了Fat文件系统在Uboot里，它就可以读取SD卡中的kernel Image，是不是很像？同样的，在支持EFI的主板固件中也包含了FAT32的文件系统驱动，从而能够做到这一点。<br>在MacOS中，EFISYS（方便起见，后文均使用EFISYS表示）的大小固定为200MB，不可调整；在Windows中默认为100MB, 可以在装系统的时候修改。下图是我的Mac上的分区情况（空间真的少得可怜😭）：<br><img src="http://whf.d.pr/Zjzc+" alt=""><br>可以看到其中那个标记为”EFI“的分区就是了，平时你在磁盘管理中是看不到它的。但Linux与众不同，现在大多数的发行版都是把EFISYS直接挂载成boot分区，也就是可见的，Ubuntu, Debian, ArchLinux都是如此。<br>除了操作系统的引导文件，EFISYS也常常用来做多系统引导。因为EFI系统实际上是读一个程序并运行，那么其实可以做很多其他的事情，绝大多数多系统引导工具也都是基于这一点。例如比较出名的有变色龙、四叶草等，在各种黑苹果的安装教程中应用广泛，此处先按下不表。</p>
+<h3 id="28Legacy_29_BIOS"><a href="#28Legacy_29_BIOS" class="headerlink" title="(Legacy) BIOS"></a>(Legacy) BIOS</h3><p>按顺序本来应该先说BIOS，但说了GPT不多讲讲EFI很多问题就解释不清了。BIOS其实大家都很熟悉，中文<strong> 基本输入输出系统（Basic Input/Output System）</strong>，在IBM兼容系统上，也是一种标准的固件接口。BIOS也没什么可多说的，从2012年起在PC市场逐渐被淘汰的老人家，但依然还是有很多老旧的发挥着余热的电脑在使用着它。<br>顺便说一下，曾经看到传说的一种分辨主板是否支持EFI的方法，就是看进入BIOS（此BIOS指按F2或什么别的进入的那个配置界面）以后鼠标能否使用、界面是否为带图片有UI的那种复杂界面而不是蓝白。这种判断方式当然不准确，但一定程度上说明了传统BIOS和EFI的区别：传统BIOS只能从ROM里load很小的一个程序，界面也都是用ASCII码组成的；而EFI可以支持FAT文件系统，也就有了更多的可能性和扩展性。</p>
+<h2 id="u542F_u52A8_u5F15_u5BFC"><a href="#u542F_u52A8_u5F15_u5BFC" class="headerlink" title="启动引导"></a>启动引导</h2><p>理清楚概念，可以来聊聊启动引导的各种情况了。首先需要明确一个概念：BIOS的类型和分区表的格式是两个不同的概念，所以<strong>EFI和GPT并没有必然联系！</strong>事实上，EFI和MBR都有向下兼容的设计，而老版本的BIOS也并非不可能引导GPT（需要一些技巧）。下面来分别看看几种组合的情况。</p>
+<h3 id="BIOS+MBR__26amp_3B_EFI+GPT"><a href="#BIOS+MBR__26amp_3B_EFI+GPT" class="headerlink" title="BIOS+MBR &amp; EFI+GPT"></a>BIOS+MBR &amp; EFI+GPT</h3><p>BIOS和MBR的组合历史悠久，是过去长期使用的方式，没什么好说的。而EFI+GPT的组合，则是两个新鲜事物，他们无疑也是匹配的。前面介绍的典型EFI启动过程，就是这种情况，目前市场的新电脑，也都是使用这种组合。</p>
+<h3 id="EFI+MBR"><a href="#EFI+MBR" class="headerlink" title="EFI+MBR"></a>EFI+MBR</h3><p>EFI+MBR的启动靠的是EFI标准中<strong>CSM（Compatibility Support Module，兼容性支持模块）</strong>的作用，说白了就是把EFI假装成一个BIOS使用，也就是很多主板设置里面的兼容模式。这时候准确地说启动流程是跑在BIOS+MBR的模式，所以在这里所说的EFI+MBR指的是“支持EFI的主板在兼容模式下引导MBR”。</p>
+<h3 id="BIOS+GPT"><a href="#BIOS+GPT" class="headerlink" title="BIOS+GPT"></a>BIOS+GPT</h3><p>这一部分才是真正复杂的地方。前面为了理解清晰并没有提到，GPT其实是完全向下兼容的，它兼容的方式是在表的最开头仍然存储了一份传统的MBR，给那些只支持MBR的设备/工具读取，这个MBR也叫做保护MBR。在一般情况下，为了防止不支持GPT的硬盘管理工具错误识别并破坏硬盘中的数据，在这个MBR中，只有一个标识为0xEE的分区，以此来表示这块硬盘使用GPT分区表。不能识别GPT硬盘的操作系统通常会识别出一个未知类型的分区，并且拒绝对硬盘进行操作，除非用户特别要求删除这个分区。这就避免了意外删除分区的危险。另外，能够识别GPT分区表的操作系统会检查保护MBR中的分区表，如果分区类型不是0xEE或者MBR分区表中有多个项，也会拒绝对硬盘进行操作。我在自己的Mac上验证了一下，能看到fdisk所看到的分区如下：<br><img src="http://whf.d.pr/17j1L+" alt=""><br>这种情况下，BIOS自然无法引导系统，因为它看到的是一个整无法识别的分区。而要想让BIOS能够引导GPT分区的硬盘，方法自然也就跟EFI+MBR类似：让GPT装作自己是MBR。为了做到这一点，GPT支持一种叫“Hybrid MBR”的混合分区表模式。</p>
+<h4 id="u6DF7_u5408_u5206_u533A_u8868Hybrid_MBR"><a href="#u6DF7_u5408_u5206_u533A_u8868Hybrid_MBR" class="headerlink" title="混合分区表Hybrid MBR"></a>混合分区表Hybrid MBR</h4><p>所谓的混合分区表，关键就在于GPT在表头存储的那份传统MBR。这个MBR存储了GPT分区表的一部分分区（通常是前四个分区），可以使不支持从GPT启动的操作系统从这个MBR启动，启动后只能操作MBR分区表中的分区。在传统BIOS看来，它是一个普通的MBR硬盘；而在EFI或者支持GPT的工具看来，它又是一个使用了GPT的硬盘。它的主体仍然是GPT分区表，只不过是将一般标记全硬盘为未知分区的MBR，改为正常的MBR信息，用以欺骗BIOS和操作系统。我将普通GPT在不同情况下的识别情况画了个图：<br><img src="http://whf.d.pr/15Nup+" alt=""><br>可以看到，一个包含n个分区的GPT硬盘（指使用GPT来存储分区情况的硬盘），如果不使用混合分区表的特殊处理，则会被只支持MBR的工具/设备认为是无法使用的。而对于混合分区表，它们则能够认出来一部分分区，和一个未知的分区。在启动时，如果混合分区表中被认出来的分区有可启动的系统，则也能顺利的引导，这就是传说中的BIOS+GPT模式，Apple那个“神奇”的Bootcamp也是基于这个原理。</p>
+<h4 id="u624B_u52A8_u5236_u4F5C_u6DF7_u5408_u5206_u533A_u8868"><a href="#u624B_u52A8_u5236_u4F5C_u6DF7_u5408_u5206_u533A_u8868" class="headerlink" title="手动制作混合分区表"></a>手动制作混合分区表</h4><p>混合分区表的应用虽然广泛，但除了Bootcamp还真没有好的制作工具，一般是手动使用gdisk（跟fdisk类似的linux tool）制作。gdisk的基本操作跟fdisk基本一样，p是打印各个分区，d是删除，n是新建。为了测试需要，我在一个普通U盘使用gdisk分了几个不同类型的分区，下图是我用gdisk查看的情况：<br><img src="http://whf.d.pr/1eF2X+" alt=""><br>这是一种默认的情况，即GPT表中的MBR部分写为保护分区。然后输入r进入高级回复（Recovery/transformation）模式，按?可以看到命令菜单。我们输入h来制作混合分区表（make hybrid MBR）。程序会问你选择哪些分区加入MBR分区表？在这里输入分区的序列号即可，用空格分开，最多输入4个。如果不足4个，会问你是否要把未分区部分标记成成0XEE也就是未知分区。然后就是依次设置每个分区，包括启动分区和分区类型的设置。<br><img src="http://whf.d.pr/179WR+" alt=""><br>完成以后，输入o来查看混合分区的情况，输入w将修改写入分区表。<br><img src="http://whf.d.pr/VVcL+" alt=""><br>设置中我输入的是2 3 6三个分区，并且同意将第一个分区做成未知分区。可以看到，对比GPT表的分区，没有被加入的分区就跳过了，不会在MBR表中被显示出来。这时候再次使用gdisk读取磁盘，能看到MBR的状态从<strong>protective</strong>变成了<strong>hybrid</strong>：</p>
+<blockquote>
+<p>Partition table scan:<br>  <strong>MBR: hybrid</strong><br>  BSD: not present<br>  APM: not present<br>  GPT: present</p>
+</blockquote>
+<p>为了验证成果，把U盘拿到Windows的磁盘管理中查看：<br><img src="http://whf.d.pr/16mbX+" alt=""><br>可以看到4可用分区，以及一部分的未分配空间，即被我跳过的4，5分区。如果这几个分区中有安装Windows系统且标记为活动的分区，则可以启动Windows。</p>
+<h2 id="u591A_u64CD_u4F5C_u7CFB_u7EDF_u5F15_u5BFC"><a href="#u591A_u64CD_u4F5C_u7CFB_u7EDF_u5F15_u5BFC" class="headerlink" title="多操作系统引导"></a>多操作系统引导</h2><p>一般情况下，一台电脑只需要装一个系统，根据自己的主板，该MBR的MBR，该GPT的GPT，没有什么问题；如果有多操作系统的需求，普通的安装盘例如Windows、Ubuntu也都支持。所以正常来说，多操作系统和MBR、GPT这些没啥关系，可架不住有的人、有的公司爱折腾啊！需要了解这些机制的情况，一种是牵涉到Apple的MacOS，什么黑苹果、Mac上装Windows；另一种是制作可携带的U盘上的操作系统并要求能兼容各种硬件（就是我了）。废话不多说，下面简单聊一下多操作系统的引导，才疏学浅时间有限，并没有全部实践过一遍，以原理为主，力求不纸上谈兵误导观众。</p>
+<h3 id="u542F_u52A8_u5668"><a href="#u542F_u52A8_u5668" class="headerlink" title="启动器"></a>启动器</h3><p>多操作系统绕不开启动器。顾名思义，启动器是系统启动用的工具，在BIOS/EFI读取磁盘信息后，往往不是直接进入操作系统，而是运行一个启动器，再由启动器引导真正的操作系统。即使在单操作系统中，你也一定见识过启动器的存在，比如Linux用户开机后的图形or命令行的选择，或者Windows用户强制关机后出现的修复菜单，至于Mac？按住option开机试试看。😄Linux系列常用的启动器是GRUB，而盗版启动光盘、修电脑小哥常用启动器则有cover四叶草和变色龙。启动器本身是一个比较宽泛的概念，有的只有引导作用，有的甚至集成了一些常用的驱动程序和工具。具体不同的启动器就不展开说了，大工程，总之，启动器是操作系统和BIOS/EFI之间的桥梁。</p>
+<h3 id="u64CD_u4F5C_u7CFB_u7EDF_u5BF9EFI_u7684_u652F_u6301_u60C5_u51B5"><a href="#u64CD_u4F5C_u7CFB_u7EDF_u5BF9EFI_u7684_u652F_u6301_u60C5_u51B5" class="headerlink" title="操作系统对EFI的支持情况"></a>操作系统对EFI的支持情况</h3><p>回到EFI死磕。前面说了，EFI是一套标准，那么其实跟操作系统也有关。贴一下Wiki上的操作系统支持列表：<br><img src="http://whf.d.pr/SthO+" alt=""><br><img src="http://whf.d.pr/njSJ+" alt=""><br><img src="http://whf.d.pr/G6dc+" alt=""><br>那些“自EFI/GPT启动”启动的，才是我们平常说的“支持EFI”或者“支持GPT”的系统。很明显，Linux是最开放的，MacOS因为几乎没有重装系统的问题自成一派，而Windows……呵呵哒🙄这种混乱造就了一大波折腾爱好者们在各种论坛上的各种安装教程，把我看得也是脑子跟着混乱了。</p>
+<h3 id="BootCamp"><a href="#BootCamp" class="headerlink" title="BootCamp"></a>BootCamp</h3><p>BootCamp是Apple出品的在Mac上安装Window的工具，看到这里，聪明的小伙伴应该已经猜到BootCamp所使用的原理了，对，就是混合分区表。事实上，BootCamp不只是分区工具、引导器，它还是一整套软硬件的支持系统，例如还有输入输出设备的支持等等（Mac键盘布局跟Win不一样）。<br>关于BootCamp的启动模式，威锋上有一篇帖子写得很详细，有兴趣可以研究一下，感觉他写得比我好多了，这部份我也就不献丑了。<a href="http://bbs.feng.com/read-htm-tid-6890655.html" title="【Mac技术组】Mac 系统引导过程概述 &amp; BootCamp 的秘密 ..." target="_blank" rel="external">Mac 系统引导过程概述 &amp; BootCamp 的秘密</a>这篇帖子中关于GPT的细节也有讲到，正好可以作为此文的补充。😊</p>
+<h3 id="u6211_u7684_u542F_u52A8U_u76D8"><a href="#u6211_u7684_u542F_u52A8U_u76D8" class="headerlink" title="我的启动U盘"></a>我的启动U盘</h3><p>读到这里，我想面对各种奇葩的操作系统安装需求，心中会有数很多了吧。至于文章开头提到的需求，老实说，我放弃了。😥我的旧电脑是leagcy BOIS的，也就是不支持GPT。MBR只支持4个分区，Ubuntu又不想完全不分区，那就只有使用混合分区了，这就需要一个好的启动器，让BIOS先把启动器跑起来，再用启动器引导不同的系统。但更关键的问题是我没有找到一个把Windows装到U盘某一个分区的办法（只找到安装到整个U盘的工具<a href="http://www.easyuefi.com/wintousb/index-cn.html" target="_blank" rel="external">WinToUSB</a>）。于是最后我做了两个系统U盘，一个Ubuntu，一个Windows。真是个悲伤的结局……</p>
+<h2 id="u5C0F_u7ED3"><a href="#u5C0F_u7ED3" class="headerlink" title="小结"></a>小结</h2><p>本文尽量详细的梳理了一遍跟GPT相关的各种概念，力求清晰原理，让各位能看完以后不再跟我一样面对各种混杂的缩写和理论发蒙。不求讲得有多精彩多么深入浅出（我自己了解的都很浅），只求能解释清楚原理，指导实践。</p>
+<h2 id="u9644_u5F55-_u53C2_u8003Wiki"><a href="#u9644_u5F55-_u53C2_u8003Wiki" class="headerlink" title="附录-参考Wiki"></a>附录-参考Wiki</h2><p>列一下参考的Wiki中文条目：</p>
+<ul>
+<li><a href="https://zh.wikipedia.org/wiki/%E4%B8%BB%E5%BC%95%E5%AF%BC%E8%AE%B0%E5%BD%95" title="主引导记录" target="_blank" rel="external">主引导记录</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/GUID" title="GUID" target="_blank" rel="external">GUID</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/BIOS" title="BIOS" target="_blank" rel="external">BIOS</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/GUID%E7%A3%81%E7%A2%9F%E5%88%86%E5%89%B2%E8%A1%A8" target="_blank" rel="external">全局唯一标识分区表</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E7%B5%B1%E4%B8%80%E5%8F%AF%E5%BB%B6%E4%BC%B8%E9%9F%8C%E9%AB%94%E4%BB%8B%E9%9D%A2" title="EFI" target="_blank" rel="external">EFI</a></li>
+<li><a href="https://wiki.archlinux.org/index.php/EFI_System_Partition_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)" target="_blank" rel="external">EFI System Partition</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>MacBookPro的硬盘太小，前几天买了个128G的U盘想装好系统在虚拟机里引导，以节省日益膨胀的虚拟机文件占用的空间。我同时需要Mac、Win、Linux，买不起大容量MBP，天天寻思着删东西，实在是伤不起啊！😭预设的目标是要把Win和Ubuntu都装U盘上，而且支持在我的旧笔记本、Mac、虚拟机里都能正确引导，同时还要有一个数据分区，能在所有的系统中正常识别为U盘。为此，我狠狠研究了一通分区表，被各种缩写和规则搞得头昏脑胀。看看网上的东西也是常有错误，趁着还没忘光，自己梳理一遍吧！<br>声明：本文为作者（<a href="https://github.com/conanwhf">Conan</a>）原创，转载请标明<a href="/conanwhf.github.io">出处</a>！</p>
+<h2 id="GPT_u548CMBR"><a href="#GPT_u548CMBR" class="headerlink" title="GPT和MBR"></a>GPT和MBR</h2><p>首先当然是这俩，一切都源于此。最重要的信息是：他们都是<strong>分区表</strong>，一种用来表示硬盘分区信息的格式，不太严格地说是一个<strong>软件概念</strong>。啰嗦一句分区表是干什么的：在操作系统启动之前、硬件初始化之后，确定从硬盘启动的话，需要获得硬盘分区的基本信息，那就需要分区表了。分区表不只包含硬盘的分区信息，也包括一个很小的最基本的引导程序，用到引导第二阶段引导程序，如NTLDR、BOOTMGR和GRUB等，这些第二阶段的引导程序，是需要针对每个分区进一步读取数据才能获得的。</p>
+<h3 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h3><p>全称<strong>主引导记录（Master Boot Record）</strong>，又叫做主引导扇区，位于硬盘的第一个扇区主要分为两个部分：引导程序和分区结构表。有时候也将其开头的446字节引导程序特指为MBR，其后是64字节的“磁盘分区表”（DPT），以及2字节的结束标志（55AA）。因此，在使用“主引导记]]>
+    
+    </summary>
+    
+      <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[树莓派RaspberryPi系统备份Image的制作]]></title>
     <link href="http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/"/>
     <id>http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/</id>
     <published>2016-08-25T02:02:26.000Z</published>
-    <updated>2016-08-26T05:13:54.000Z</updated>
+    <updated>2016-08-30T17:06:38.000Z</updated>
     <content type="html"><![CDATA[<p>在树莓派上做开发，难免会弄出各种版本的系统，加上有时候还需要拿给客户自己烧录或者demo，总是要clone一下TF卡，做系统做到烦躁。于是想想有没有什么办法能做跟官方release一样的烧录img出来，基本要求就是全系统克隆，但做出的img跟卡的容量无关，只跟系统占用的存储大小有关。</p>
 <h2 id="u7B80_u5355_u5168_u5361_u5907_u4EFD"><a href="#u7B80_u5355_u5168_u5361_u5907_u4EFD" class="headerlink" title="简单全卡备份"></a>简单全卡备份</h2><p>其实如果只是简单备份，可以直接将TF卡插入Linux电脑，用dd命令来备份和恢复(设备号不固定这里只是例子，还是用fdisk -l先查看一下比较保险)：</p>
 <pre><code># Backup the system to img file in Linux
@@ -54,7 +132,7 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
   }
 })()
 </script>
-需要用到的工具有<em>parted, kpartx, dosfstools, rsync</em>，使用apt-get安装：</p>
+需要用到的工具有_parted, kpartx, dosfstools, rsync_，使用apt-get安装：</p>
 <pre><code>sudo apt-get -y install rsync dosfstools parted kpartx
 </code></pre><h3 id="u521B_u5EFA_u65B0_u7684_u6587_u4EF6"><a href="#u521B_u5EFA_u65B0_u7684_u6587_u4EF6" class="headerlink" title="创建新的文件"></a>创建新的文件</h3><p>我们用<code>dd</code>命令来创建一个新的img，img的大小和当前RaspberryPi已使用的存储空间有关。使用<code>df -P</code>来查看磁盘空间状态（以1K为单位），会看到如下的信息：<br><img src="http://whf.d.pr/1awb8+" alt=""><br>其中红框的部分就是我们需要关注的，将它们对应的Used数目取出，计算得到需要创建的img大小：<br>    img=rpibackup.img</p>
 <pre><code>#sudo rm $img
@@ -93,8 +171,9 @@ sudo umount $mountb
 </blockquote>
 <p>但在关键的步骤出现了<strong> Broken pipe</strong>错误，经过重复测试多次，虽然每次报错的文件和inode不一样，但每次都无法顺利完成。这个问题在原博的评论中也有人遇到了：</p>
 <blockquote>
-<p>restore: ./lost+found: File exists<br>./tmp/rstdir1445584846: (inode 159534) not found on tape<br>./tmp/rstmode1445584846: (inode 161527) not found on tape<br>DUMP: Broken pipe<br>DUMP: The ENTIRE dump is aborted.<br>………………<br>针对这个问题我做了一些测试。首先是把<code>sudo dump -0uaf - / | sudo restore -rf -</code>分开，取消管道，先dump到一个文件再restore。发现dump总是成功的，而问题出在restore上，所以就broken pipe了。开始怀疑是restore的时候权限有问题，后来把dump出来的文件拿到PC上做restore，也同样是失败。这样就很有可能是dump的文件有问题，仔细看看每次出错的文件都是隐藏或者临时文件，怀疑跟这个有关，但找了一大圈dump相关的参数尝试，依然是没有解决。</p>
+<p>restore: ./lost+found: File exists<br>./tmp/rstdir1445584846: (inode 159534) not found on tape<br>./tmp/rstmode1445584846: (inode 161527) not found on tape<br>DUMP: Broken pipe<br>DUMP: The ENTIRE dump is aborted.<br>………………</p>
 </blockquote>
+<p>针对这个问题我做了一些测试。首先是把<code>sudo dump -0uaf - / | sudo restore -rf -</code>分开，取消管道，先dump到一个文件再restore。发现dump总是成功的，而问题出在restore上，所以就broken pipe了。开始怀疑是restore的时候权限有问题，后来把dump出来的文件拿到PC上做restore，也同样是失败。这样就很有可能是dump的文件有问题，仔细看看每次出错的文件都是隐藏或者临时文件，怀疑跟这个有关，但找了一大圈dump相关的参数尝试，依然是没有解决。</p>
 <h3 id="u4F7F_u7528rsync_u5907_u4EFD"><a href="#u4F7F_u7528rsync_u5907_u4EFD" class="headerlink" title="使用rsync备份"></a>使用rsync备份</h3><p>由于每次测试dump和restore花的时间很长，项目又比较急，我实在是不能再耽搁下去了，于是决定放弃这种方式。想了一下，曾经用过<a href="https://github.com/billw2/rpi-clone" title="rpi-clone" target="_blank" rel="external">rpi-clone</a>来做卡与卡之间的备份，那么备份成文件也应该是一样的。我于是去看了下它的源码，把根文件系统备份相关的部分提出来就能直接用起来了。这里用的是备份工具rsync，其本质上是基于文件系统之上的的直接拷贝，因为没有用到增量备份，所以跟cp其实是一回事。只是rsync能很好的保留各种权限、时间戳、软链接和文件信息，避免了一些用cp的问题。保险起见，我依然沿用了它。<br>首先还是mount一下：</p>
 <pre><code>mountr=$usbmount/backup_root/
 mkdir -p $mountr
@@ -1480,44 +1559,6 @@ echo LANG=en_US.UTF-8 | sudo tee -a /etc/environment
 </code></pre>]]></content>
     <summary type="html">
     <![CDATA[<p>关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，<a href="https://github.com/conanwhf/RaspberryPi-script">传送门</a></p>]]>
-    
-    </summary>
-    
-      <category term="RaspberryPi" scheme="http://conanwhf.coding.me/categories/RaspberryPi/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[树莓派RaspberryPi入手]]></title>
-    <link href="http://conanwhf.coding.me/2016/01/12/rpi-get/"/>
-    <id>http://conanwhf.coding.me/2016/01/12/rpi-get/</id>
-    <published>2016-01-12T05:31:26.000Z</published>
-    <updated>2016-08-25T10:31:42.000Z</updated>
-    <content type="html"><![CDATA[<p>  不知是哪根天线收到了什么隐藏信息，突发奇想想去买个树莓派玩玩。其实家里还有一块前公司齐活的开发板，但性能差了点，板子又大，总之就是腻味了以后哪儿哪儿都是缺点，新的诱惑无限大。于是去买了块树莓派2B，打算配个服务器学点Python玩玩，从下午一直折腾到半夜，终于配置得算是差不多成型了。<br>  以前没怎么研究过，认真四处看看，大致上情况是摸清了：硬件上总共出了算是三代n个型号（第三代Zero刚出），第一代硬件资料全齐，第二代就有点遮遮掩掩。我买的第二代B型，外设方面4口USB2.0，TF插槽、网口、HDMI、耳机插口、DSI摄像头接口、DSI屏幕接口各一。首先，我感觉USB2.0有点落伍，至少给一个3.0吧；其次，没有Nand flash，略不方便；再次，GPIO接口有点少，就那么40Pin还共用了串口+i2c+spi*2，也没数模转换，有点不够用；最后，那个LCDC接口是给谁用的啊？要自己单独做块转接板那么麻烦……除此之外，硬件凑合，但拿来做开发板太浪费，除非你的东西计算量很大；用来当个小小服务器、小小Linux机还不错。<br>  软件方面，官方操作系统是Debian的。那套GUI对我来说真的有点鸡肋，居然还有Office和Mathematical，然而这种配置跑图形界面，<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/12/rpi-get/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/12/rpi-get/'>树莓派RaspberryPi入手</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-我还不如去用iPad（当然价格也是不能比啦）。整个社区，国外的相对比较活跃，国内的就不行了。上各种贴吧论坛里看看，小白居多，而且论坛商业化严重，随便一点资料就是需要会员，或者引导你去他们的淘宝店买配件。我英文不行，所以常常还是用的中文搜索，学习iOS的时候中文资料多基本可以满足我需求；但对于各种树莓派的相关问题，我却需要用英文才能找到答案。从这一点上来说，贴吧人气和质量不行也是正常的。<br>  另外就是官方的Support。我去看了官网、官方论坛、官方Github等好几个地方，感觉官方在二次开发上面的支持并不是很热情，而是更倾向于提供一个小型电脑的使用环境而已。很多事情，官方文档只会告诉你应该怎么做，而不是其所以然。比如重新编译Kernel，他会有一个文档给出如何编译，如何更新Image，但没有关于文件系统、启动流程的解释，以及需要更新的文件都是用来干嘛的……对于有经验的工程师来说看看脚本也就大致明白了，但对于新手来说肯定是一头雾水，因为官方对树莓派的启动流程用的是一套自己的方式。再看看Github上，不少项目，可是每个项目具体是啥、怎么用、什么情况下用，并没有什么交代。刚开始我完全没搞明白，因为这是一个自定义的系统，有很多自定义的细节和方式，而我要去哪里搞明白这些事情？只有碰碰钉子了。<br>  啰嗦了一大堆，只是随便扯扯。折腾了两天，现在我终于把整个环境差不多搭好，n个传感器躺在淘宝购物车里，已经好几天没看iOS了，等把树莓派的东西总结总结，赶紧回归正事！</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>  不知是哪根天线收到了什么隐藏信息，突发奇想想去买个树莓派玩玩。其实家里还有一块前公司齐活的开发板，但性能差了点，板子又大，总之就是腻味了以后哪儿哪儿都是缺点，新的诱惑无限大。于是去买了块树莓派2B，打算配个服务器学点Python玩玩，从下午一直折腾到半夜，终于配置得算是差不多成型了。<br>  以前没怎么研究过，认真四处看看，大致上情况是摸清了：硬件上总共出了算是三代n个型号（第三代Zero刚出），第一代硬件资料全齐，第二代就有点遮遮掩掩。我买的第二代B型，外设方面4口USB2.0，TF插槽、网口、HDMI、耳机插口、DSI摄像头接口、DSI屏幕接口各一。首先，我感觉USB2.0有点落伍，至少给一个3.0吧；其次，没有Nand flash，略不方便；再次，GPIO接口有点少，就那么40Pin还共用了串口+i2c+spi*2，也没数模转换，有点不够用；最后，那个LCDC接口是给谁用的啊？要自己单独做块转接板那么麻烦……除此之外，硬件凑合，但拿来做开发板太浪费，除非你的东西计算量很大；用来当个小小服务器、小小Linux机还不错。<br>  软件方面，官方操作系统是Debian的。那套GUI对我来说真的有点鸡肋，居然还有Office和Mathematical，然而这种配置跑图形界面，]]>
     
     </summary>
     
