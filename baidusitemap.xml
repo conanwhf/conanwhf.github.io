@@ -4,17 +4,21 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2016/08/26/GPTandMBR/</loc>
-    <lastmod>2016-08-31T04:20:57.000Z</lastmod>
+    <loc>http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/</loc>
+    <lastmod>2016-08-31T04:47:05.000Z</lastmod>
     <data>
         <display>
-        <title>详细梳理分区表系统启动相关的各种概念</title>
-        <pubTime>2016-08-26T09:30:25.000Z</pubTime>
+        <title>树莓派RaspberryPi系统备份Image的制作</title>
+        <pubTime>2016-08-25T02:02:26.000Z</pubTime>
         
+        <tag>Boot</tag>
+         
+        <tag>Script</tag>
+         
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
           
         </display>
     </data>
@@ -22,19 +26,23 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/</loc>
-    <lastmod>2016-08-30T17:06:38.000Z</lastmod>
+    <loc>http://conanwhf.coding.me/2016/08/26/GPTandMBR/</loc>
+    <lastmod>2016-08-31T04:46:47.000Z</lastmod>
     <data>
         <display>
-        <title>树莓派RaspberryPi系统备份Image的制作</title>
-        <pubTime>2016-08-25T02:02:26.000Z</pubTime>
+        <title>详细梳理分区表和系统启动相关的各种概念</title>
+        <pubTime>2016-08-26T09:30:25.000Z</pubTime>
         
-        <tag>Script</tag>
+        <tag>Boot</tag>
+         
+        <tag>GPT</tag>
+         
+        <tag>MBR</tag>
          
          
            
              
-              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
           
         </display>
     </data>

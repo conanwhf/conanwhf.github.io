@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.coding.me/"/>
-  <updated>2016-08-31T04:20:57.000Z</updated>
+  <updated>2016-08-31T04:46:47.000Z</updated>
   <id>http://conanwhf.coding.me/</id>
   
   <author>
@@ -15,14 +15,14 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[详细梳理分区表系统启动相关的各种概念]]></title>
+    <title><![CDATA[详细梳理分区表和系统启动相关的各种概念]]></title>
     <link href="http://conanwhf.coding.me/2016/08/26/GPTandMBR/"/>
     <id>http://conanwhf.coding.me/2016/08/26/GPTandMBR/</id>
     <published>2016-08-26T09:30:25.000Z</published>
-    <updated>2016-08-31T04:20:57.000Z</updated>
+    <updated>2016-08-31T04:46:47.000Z</updated>
     <content type="html"><![CDATA[<p>MacBookPro的硬盘太小，前几天买了个128G的U盘想装好系统在虚拟机里引导，以节省日益膨胀的虚拟机文件占用的空间。我同时需要Mac、Win、Linux，买不起大容量MBP，天天寻思着删东西，实在是伤不起啊！😭预设的目标是要把Win和Ubuntu都装U盘上，而且支持在我的旧笔记本、Mac、虚拟机里都能正确引导，同时还要有一个数据分区，能在所有的系统中正常识别为U盘。为此，我狠狠研究了一通分区表，被各种缩写和规则搞得头昏脑胀。看看网上的东西也是常有错误，趁着还没忘光，自己梳理一遍吧！<br>声明：本文为作者（<a href="https://github.com/conanwhf" target="_blank" rel="external">Conan</a>）原创，转载请标明<a href="/conanwhf.github.io">出处</a>！</p>
 <h2 id="GPT_u548CMBR"><a href="#GPT_u548CMBR" class="headerlink" title="GPT和MBR"></a>GPT和MBR</h2><p>首先当然是这俩，一切都源于此。最重要的信息是：他们都是<strong>分区表</strong>，一种用来表示硬盘分区信息的格式，不太严格地说是一个<strong>软件概念</strong>。啰嗦一句分区表是干什么的：在操作系统启动之前、硬件初始化之后，确定从硬盘启动的话，需要获得硬盘分区的基本信息，那就需要分区表了。分区表不只包含硬盘的分区信息，也包括一个很小的最基本的引导程序，用到引导第二阶段引导程序，如NTLDR、BOOTMGR和GRUB等，这些第二阶段的引导程序，是需要针对每个分区进一步读取数据才能获得的。</p>
-<h3 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h3><p>全称<strong>主引导记录（Master Boot Record）</strong>，又叫做主引导扇区，位于硬盘的第一个扇区主要分为两个部分：引导程序和分区结构表。有时候也将其开头的446字节引导程序特指为MBR，其后是64字节的“磁盘分区表”（DPT），以及2字节的结束标志（55AA）。因此，在使用“主引导记<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/26/GPTandMBR/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/26/GPTandMBR/'>详细梳理分区表系统启动相关的各种概念</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<h3 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h3><p>全称<strong>主引导记录（Master Boot Record）</strong>，又叫做主引导扇区，位于硬盘的第一个扇区主要分为两个部分：引导程序和分区结构表。有时候也将其开头的446字节引导程序特指为MBR，其后是64字节的“磁盘分区表”（DPT），以及2字节的结束标志（55AA）。因此，在使用“主引导记<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/26/GPTandMBR/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/26/GPTandMBR/'>详细梳理分区表和系统启动相关的各种概念</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -68,8 +68,8 @@
 <h2 id="u591A_u64CD_u4F5C_u7CFB_u7EDF_u5F15_u5BFC"><a href="#u591A_u64CD_u4F5C_u7CFB_u7EDF_u5F15_u5BFC" class="headerlink" title="多操作系统引导"></a>多操作系统引导</h2><p>一般情况下，一台电脑只需要装一个系统，根据自己的主板，该MBR的MBR，该GPT的GPT，没有什么问题；如果有多操作系统的需求，普通的安装盘例如Windows、Ubuntu也都支持。所以正常来说，多操作系统和MBR、GPT这些没啥关系，可架不住有的人、有的公司爱折腾啊！需要了解这些机制的情况，一种是牵涉到Apple的MacOS，什么黑苹果、Mac上装Windows；另一种是制作可携带的U盘上的操作系统并要求能兼容各种硬件（就是我了）。废话不多说，下面简单聊一下多操作系统的引导，才疏学浅时间有限，并没有全部实践过一遍，以原理为主，力求不纸上谈兵误导观众。</p>
 <h3 id="u542F_u52A8_u5668"><a href="#u542F_u52A8_u5668" class="headerlink" title="启动器"></a>启动器</h3><p>多操作系统绕不开启动器。顾名思义，启动器是系统启动用的工具，在BIOS/EFI读取磁盘信息后，往往不是直接进入操作系统，而是运行一个启动器，再由启动器引导真正的操作系统。即使在单操作系统中，你也一定见识过启动器的存在，比如Linux用户开机后的图形or命令行的选择，或者Windows用户强制关机后出现的修复菜单，至于Mac？按住option开机试试看。😄Linux系列常用的启动器是GRUB，而盗版启动光盘、修电脑小哥常用启动器则有cover四叶草和变色龙。启动器本身是一个比较宽泛的概念，有的只有引导作用，有的甚至集成了一些常用的驱动程序和工具。具体不同的启动器就不展开说了，大工程，总之，启动器是操作系统和BIOS/EFI之间的桥梁。</p>
 <h3 id="u64CD_u4F5C_u7CFB_u7EDF_u5BF9EFI_u7684_u652F_u6301_u60C5_u51B5"><a href="#u64CD_u4F5C_u7CFB_u7EDF_u5BF9EFI_u7684_u652F_u6301_u60C5_u51B5" class="headerlink" title="操作系统对EFI的支持情况"></a>操作系统对EFI的支持情况</h3><p>回到EFI死磕。前面说了，EFI是一套标准，那么其实跟操作系统也有关。贴一下Wiki上的操作系统支持列表：<br><img src="http://whf.d.pr/SthO+" alt=""><br><img src="http://whf.d.pr/njSJ+" alt=""><br><img src="http://whf.d.pr/G6dc+" alt=""><br>那些“自EFI/GPT启动”启动的，才是我们平常说的“支持EFI”或者“支持GPT”的系统。很明显，Linux是最开放的，MacOS因为几乎没有重装系统的问题自成一派，而Windows……呵呵哒🙄这种混乱造就了一大波折腾爱好者们在各种论坛上的各种安装教程，把我看得也是脑子跟着混乱了。</p>
-<h3 id="BootCamp"><a href="#BootCamp" class="headerlink" title="BootCamp"></a>BootCamp</h3><p>BootCamp是Apple出品的在Mac上安装Window的工具，看到这里，聪明的小伙伴应该已经猜到BootCamp所使用的原理了，对，就是混合分区表。事实上，BootCamp不只是分区工具、引导器，它还是一整套软硬件的支持系统，例如还有输入输出设备的支持等等（Mac键盘布局跟Win不一样）。<br>关于BootCamp的启动模式，威锋上有一篇帖子写得很详细，有兴趣可以研究一下，感觉他写得比我好多了，这部份我也就不献丑了。<a href="http://bbs.feng.com/read-htm-tid-6890655.html" title="【Mac技术组】Mac 系统引导过程概述 &amp; BootCamp 的秘密 ..." target="_blank" rel="external">Mac 系统引导过程概述 &amp; BootCamp 的秘密</a>这篇帖子中关于GPT的细节也有讲到，正好可以作为此文的补充。😊</p>
-<h3 id="u6211_u7684_u542F_u52A8U_u76D8"><a href="#u6211_u7684_u542F_u52A8U_u76D8" class="headerlink" title="我的启动U盘"></a>我的启动U盘</h3><p>读到这里，我想面对各种奇葩的操作系统安装需求，心中会有数很多了吧。至于文章开头提到的需求，老实说，我放弃了。😥我的旧电脑是leagcy BOIS的，也就是不支持GPT。MBR只支持4个分区，Ubuntu又不想完全不分区，那就只有使用混合分区了，这就需要一个好的启动器，让BIOS先把启动器跑起来，再用启动器引导不同的系统。但更关键的问题是我没有找到一个把Windows装到U盘某一个分区的办法（只找到安装到整个U盘的工具<a href="http://www.easyuefi.com/wintousb/index-cn.html" target="_blank" rel="external">WinToUSB</a>）。于是最后我做了两个系统U盘，一个Ubuntu，一个Windows。真是个悲伤的结局……</p>
+<h3 id="BootCamp"><a href="#BootCamp" class="headerlink" title="BootCamp"></a>BootCamp</h3><p>BootCamp是Apple出品的在Mac上安装Window的工具，看到这里，聪明的小伙伴应该已经猜到BootCamp所使用的原理了，对，就是混合分区表。事实上，BootCamp不只是分区工具、引导器，它还是一整套软硬件的支持系统，例如还有输入输出设备的支持等等（Mac键盘布局跟Win不一样）。<br>关于BootCamp的启动模式，威锋上有一篇帖子写得很详细，有兴趣可以研究一下，感觉他写得比我好多了，这部份我也就不献丑了。<a href="http://bbs.feng.com/read-htm-tid-6890655.html" title="【Mac技术组】Mac 系统引导过程概述 &amp; BootCamp 的秘密 ..." target="_blank" rel="external">Mac 系统引导过程概述 &amp; BootCamp 的秘密</a>这篇帖子中关于GPT的细节也有讲到，正好可以作为此文的补充。😊但有一点要特别指出：Apple的主板是支持EFI的，并且没有什么地方可以设置成兼容模式。所以BootCamp并不是简单使用了前文所述EFI+MBR模式，更不是BOIS+GPT的模式，而是利用EFI的系统来启动引导器，使用引导器软件读取MBR再启动。至于你问我为什么这么麻烦，为什么不直接全部用GPT？看看上面的操作系统EFI支持列表……微软💊的锅推不掉……</p>
+<h3 id="u6211_u7684_u542F_u52A8U_u76D8"><a href="#u6211_u7684_u542F_u52A8U_u76D8" class="headerlink" title="我的启动U盘"></a>我的启动U盘</h3><p>读到这里，我想面对各种奇葩的操作系统安装需求，心中会有数很多了吧。至于文章开头提到的需求，老实说，我放弃了。😥我的旧电脑是leagcy BIOS的，也就是不支持GPT。MBR只支持4个分区，Ubuntu又不想完全不分区，那就只有使用混合分区了，这就需要一个好的启动器，让BIOS先把启动器跑起来，再用启动器引导不同的系统。但更关键的问题是我没有找到一个把Windows装到U盘某一个分区的办法（只找到安装到整个U盘的工具<a href="http://www.easyuefi.com/wintousb/index-cn.html" target="_blank" rel="external">WinToUSB</a>）。于是最后我做了两个系统U盘，一个Ubuntu，一个Windows。真是个悲伤的结局……</p>
 <h2 id="u5C0F_u7ED3"><a href="#u5C0F_u7ED3" class="headerlink" title="小结"></a>小结</h2><p>本文尽量详细的梳理了一遍跟GPT相关的各种概念，力求清晰原理，让各位能看完以后不再跟我一样面对各种混杂的缩写和理论发蒙。不求讲得有多精彩多么深入浅出（我自己了解的都很浅），只求能解释清楚原理，指导实践。</p>
 <h2 id="u9644_u5F55-_u53C2_u8003Wiki"><a href="#u9644_u5F55-_u53C2_u8003Wiki" class="headerlink" title="附录-参考Wiki"></a>附录-参考Wiki</h2><p>列一下参考的Wiki中文条目：</p>
 <ul>
@@ -88,6 +88,12 @@
     
     </summary>
     
+      <category term="Boot" scheme="http://conanwhf.coding.me/tags/Boot/"/>
+    
+      <category term="GPT" scheme="http://conanwhf.coding.me/tags/GPT/"/>
+    
+      <category term="MBR" scheme="http://conanwhf.coding.me/tags/MBR/"/>
+    
       <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
     
   </entry>
@@ -97,7 +103,7 @@
     <link href="http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/"/>
     <id>http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/</id>
     <published>2016-08-25T02:02:26.000Z</published>
-    <updated>2016-08-30T17:06:38.000Z</updated>
+    <updated>2016-08-31T04:47:05.000Z</updated>
     <content type="html"><![CDATA[<p>在树莓派上做开发，难免会弄出各种版本的系统，加上有时候还需要拿给客户自己烧录或者demo，总是要clone一下TF卡，做系统做到烦躁。于是想想有没有什么办法能做跟官方release一样的烧录img出来，基本要求就是全系统克隆，但做出的img跟卡的容量无关，只跟系统占用的存储大小有关。</p>
 <h2 id="u7B80_u5355_u5168_u5361_u5907_u4EFD"><a href="#u7B80_u5355_u5168_u5361_u5907_u4EFD" class="headerlink" title="简单全卡备份"></a>简单全卡备份</h2><p>其实如果只是简单备份，可以直接将TF卡插入Linux电脑，用dd命令来备份和恢复(设备号不固定这里只是例子，还是用fdisk -l先查看一下比较保险)：</p>
 <pre><code># Backup the system to img file in Linux
@@ -260,6 +266,8 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
 <h2 id="u76EE_u6807_u5907_u4EFD_u6587_u4EF6_u7684_u521B_u5EFA_u548C_u5206_u533A"><a href="#u76EE_u6807_u5907_u4EFD_u6587_u4EF6_u7684_u521B_u5EFA_u548C_u5206_u533A" class="headerlink" title="目标备份文件的创建和分区"></a>目标备份文件的创建和分区</h2><p>既然是备份到文件，那么首先需要创建一个备份文件，并且把这个文件看作一个虚拟设备，对其进行分区。]]>
     
     </summary>
+    
+      <category term="Boot" scheme="http://conanwhf.coding.me/tags/Boot/"/>
     
       <category term="Script" scheme="http://conanwhf.coding.me/tags/Script/"/>
     
