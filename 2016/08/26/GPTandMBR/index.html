@@ -61,7 +61,7 @@
 <meta property="og:image" content="http://whf.d.pr/SthO+">
 <meta property="og:image" content="http://whf.d.pr/njSJ+">
 <meta property="og:image" content="http://whf.d.pr/G6dc+">
-<meta property="og:updated_time" content="2016-08-31T04:46:47.000Z">
+<meta property="og:updated_time" content="2016-08-31T15:08:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="详细梳理分区表和系统启动相关的各种概念">
 <meta name="twitter:description" content="MacBookPro的硬盘太小，前几天买了个128G的U盘想装好系统在虚拟机里引导，以节省日益膨胀的虚拟机文件占用的空间。我同时需要Mac、Win、Linux，买不起大容量MBP，天天寻思着删东西，实在是伤不起啊！😭预设的目标是要把Win和Ubuntu都装U盘上，而且支持在我的旧笔记本、Mac、虚拟机里都能正确引导，同时还要有一个数据分区，能在所有的系统中正常识别为U盘。为此，我狠狠研究了一通分">
@@ -307,7 +307,7 @@
 </script>
 录”（MBR）这个术语的时候，需要根据具体情况判断其到底是指整个主引导扇区，还是主引导扇区的前446字节。通常地相对于GPT来讨论MBR，则就是指这种分区模式的整套标准。<br>在这种模式下，描述分区的部分占64个字节，分别是对四个分区的信息进行描述，其中每个分区的信息占据16个字节（当然小于4个分区也可以），这也就是说MBR分区表最多只能有4个主分区或者3个主分区+1个扩展分区的由来。<br>具体分区信息的标准就不多说了，在每个分区信息的16字节中，分别有4个字节是表示分区的扇区起始号和扇区数目，它们的最大值是2^32-1。而通常来说一个扇区的大小为512byte，所以MBR能支持的最大硬盘（取决于扇区起始offset）大小是2^41byte，也就是2TB(按1024算)，或者说是2.2TB(按硬盘厂商的1000算)😶，亦即”MBR不支持3T大硬盘”（因为人家可以支持2T嘛）！<br>当年这个硬件限制出现的时候，有的厂商为了解决这个问题，另辟蹊径，通过提高每个扇区的大小来支持更大容量的硬盘。例如将扇区从512byte升级到2K，那么MBR就可以支持8T的硬盘了。但这种方法在扇区普遍为512B的市场上，反而出现了很多麻烦……后来，GPT出现了。</p>
 <h3 id="GPT"><a href="#GPT" class="headerlink" title="GPT"></a>GPT</h3><p>GPT的全称是：<strong>全局唯一标识分区表（GUID Partition Table)</strong>，是用来取代MBR的新一代分区表格式。它的具体结构定义比较复杂，我就不多赘述了。相对MBR来说，GPT的信息量更大，表本身所占用的size也大得多。不同于MBR的使用偏移量来标识不同分区，GPT中每个分区都有一个唯一标识GUID作为关键字。<br>GPT表分为表头和n个表项两个部分，顾名思义，表头存储了一些总体上的信息，例如版本、校验、表项数目等；而每个表项就是每个分区的具体描述。在Windows里，使用GPT的硬盘最多可以有128个分区，但这<strong>不是GPT标准规定</strong>，只是因为Windows给分区表预留的大小只够放128个分区罢了（将来会改也说不定哦）。在GPT的表头中，表项的数目占4个字节，所以理论上来说是可以有2^32个分区的。<br>在每个表项中，用来记录分区起始和结束位置的信息扩展成了8字节，也就是最大能表示2^64的地址。不幸的是，这次它不是表示扇区号了，而是LBA(Logical Block Address,逻辑区块地址)；幸运的是，通常LBA的大小也是512Byte，不影响对这个问题的理解。LBA和扇区的区别，跟现代存储设备的发展有关，又是一个大长篇，不展开说了。总之，GPT分区表比MBR支持更多的分区、更大的分区、更大的物理硬盘。</p>
-<h4 id="GUID__26amp_3B_UUID"><a href="#GUID__26amp_3B_UUID" class="headerlink" title="GUID &amp; UUID"></a>GUID &amp; UUID</h4><p>说到GPT，就不得不解释一下GUID是什么了。GUID的中文是全局唯一标识符(Global Unique Identifier)， 是一种由算法生成的唯一标识，总共有32个16进制数，即一个128位长的二进制整数。唯一标识，也就是说每个不同的分区都有自己的独一无二的GUID。从理论的角度看，GUID的生成并不是肯定没有重复的，只是概率非常非常小，小到在实际中可以忽略不计。例如在一个大的服务器集群里，都不会有重复的GUID。<br>另外还有个UUID(Universally Unique Identifier，唯一识别码)，这是微软搞出来的，跟GUID是一个意思，经常混用。<br>在很多描述系统启动、引导的文章或者是日常表述中，GPT和GUID是等价的（使用GUID来代替GPT）。阅读的时候概念清楚就行，别太较真。😄</p>
+<h4 id="GUID__26amp_3B_UUID"><a href="#GUID__26amp_3B_UUID" class="headerlink" title="GUID &amp; UUID"></a>GUID &amp; UUID</h4><p>说到GPT，就不得不解释一下GUID是什么了。GUID的中文是<strong>全局唯一标识符(Global Unique Identifier)</strong>， 是一种由算法生成的唯一标识，总共有32个16进制数，即一个128位长的二进制整数。唯一标识，也就是说每个不同的分区都有自己的独一无二的GUID。从理论的角度看，GUID的生成并不是肯定没有重复的，只是概率非常非常小，小到在实际中可以忽略不计。例如在一个大的服务器集群里，都不会有重复的GUID。另外还有个UUID(Universally Unique Identifier，唯一识别码)，这是微软搞出来的，主要是对文档进行标识，跟GUID是一个意思，经常混用。<br>在很多描述系统启动、引导的文章或者是日常表述中，GPT和GUID是等价的（使用GUID来代替GPT）。阅读的时候概念清楚就行，别太较真。😄</p>
 <h2 id="28U_29EFI__u548C__28Legacy_29_BIOS"><a href="#28U_29EFI__u548C__28Legacy_29_BIOS" class="headerlink" title="(U)EFI 和 (Legacy) BIOS"></a>(U)EFI 和 (Legacy) BIOS</h2><p>讲了半天，终于轮到EFI了。虽然EFI和GPT并不是一回事，但在很多的地方，都用EFI和GPT/GUID表达同一个意思，即EFI+GPT的启动方式。EFI实际上是一套包括软硬件的标准接口，但我们通常说的”主板支持EFI“是指的它的硬件部分，即主板符合EFI的标准。在这个维度意义上，和EFI相对的，则是从前广泛使用的Legacy BIOS标准（多数教程、文章将其直接写为BIOS，下同）。虽然他们都只是一种接口的定义，但再次不严格地说，我们大致可以将网络上多数文章、教程中的EFI和BIOS理解为一个<strong>硬件概念</strong>，即支持或不支持EFI的主板。可以说，EFI和传统BIOS的关系就如同GPT和MBR的关系，一代新人胜旧人。</p>
 <h3 id="28U_29EFI"><a href="#28U_29EFI" class="headerlink" title="(U)EFI"></a>(U)EFI</h3><p>UEFI中文<strong>统一可扩展固件接口（Unified Extensible Firmware Interface）</strong>，它的前身是Intel在1998年开始开发的Intel Boot Initiative，后来被重命名为<strong>EFI（Extensible Firmware Interface, 可扩展固件接口）</strong>。Intel在2005年将其交由统一可扩展固件接口论坛（Unified EFI Forum）来推广与发展，为了凸显这一点，EFI也更名为UEFI。也就是说，UEFI和EFI是同一个东西，在本文全部写为EFI。<br>前面说了，EFI和GPT不是一回事，但他们其实是有从属关系的：GPT是EFI的一个组成部分。EFI的其他部分还包括初始化模块、驱动程序、执行环境、支持模块和应用等，可以说，EFI实际上是一个简单的小型操作系统。如果你了解过Linux中的Uboot，它和EFI在概念和流程上非常像。在一个EFI启动的系统中，上电后先执行初始化模块，然后加载各种基本的驱动，如果需要则读取一个特定的EFI系统分区，通过放在里面的引导文件启动系统。同时，EFI也包含一个是能够向下兼容BIOS的模块，用来引导传统的BIOS服务。<br>由于EFI是一整套接口定义，所以实际上完成一个完整的EFI启动需要硬件（通常指包含基本初始化模块的主板）、GPT分区表、EFI系统分区和操作系统几个部份的支持。虽然不大好理解，但本质上EFI规范与BIOS的区别是包含了主要的三个变化：</p>
 <ol>
@@ -362,6 +362,8 @@
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/31/Tips201608/" rel="prev">开发Tips收集-2016年00月</a>
             
           </div>
 
@@ -456,7 +458,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">72</span>
+              <span class="site-state-item-count">73</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

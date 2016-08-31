@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.coding.me/"/>
-  <updated>2016-08-31T04:46:47.000Z</updated>
+  <updated>2016-08-31T15:06:57.000Z</updated>
   <id>http://conanwhf.coding.me/</id>
   
   <author>
@@ -15,11 +15,94 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[开发Tips收集-2016年00月]]></title>
+    <link href="http://conanwhf.coding.me/2016/08/31/Tips201608/"/>
+    <id>http://conanwhf.coding.me/2016/08/31/Tips201608/</id>
+    <published>2016-08-31T09:25:39.000Z</published>
+    <updated>2016-08-31T15:06:57.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>不管你在哪个线程注册了 observer，notification 在哪个线程 post，那么它就将在哪个线程接收</li>
+<li>数据缓存方式选择:<ol>
+<li>fmdata数据库(增删改查)   –数据需要:增删改查</li>
+<li>coreData                –数据需要:增删改查</li>
+<li>序列化(NSUserDefault)    –状态、偏好设置、默认选项</li>
+<li>单独.plist               –列表数据,城市信息等</li>
+<li>单独.json文件           –页面列表数据</li>
+<li>realm框架(增删改查)       –数据需要:增删改查</li>
+</ol>
+</li>
+<li>清除签名文件 删除签名文件 清理Profile文件：Xcode - Preferences - Account - View Details,这个时候左下角有个刷新图标，点击一下就可以了</li>
+<li>TableView头视图不随视图移动，头视图出现错位的错误原因：tableView的 UITableViewStyle 没有明确的声明。解决方法：在tableView声明的时候明确为 UITableViewStyleGrouped</li>
+<li>ViewController生命周期：<br>  alloc -> initWithNibName -> loadView -> viewDidLoad -> viewWillAppear -> viewDidAppear -> viewWillDisappear -> viewDidDisappear -> dealloc<br>  注意1. 不要在loadView中调用父类方法<a href="/">super loadView</a>，因为这会影响CPU性能。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/31/Tips201608/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/31/Tips201608/'>开发Tips收集-2016年00月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+<br>  注意2. 切换前后台不会调用viewWillAppear</li>
+<li>关于数据存储需要注意的点，总结在下面：<ol>
+<li>关键数据<br>内容：用户创建的数据文件，无法在删除后自动重新创建<br>路径：主目录/Documents<br>管理：iOS系统即时遇到存储空间不足的情况下，也不会清除，同时会备份到iTunes或iCloud中</li>
+<li>缓存数据<br>内容：可用于离线环境，可被重复下载重复生成，即使在离线时缺失，应用本身也可以正常运行<br>路径：主目录/Library/Caches<br>管理：在存储空间不足的情况下，会清空， 并且不会被自动备份到iTunes和iCloud中</li>
+<li>临时数据<br>内容：应用运行时，为完成某个内部操作临时生成的文件<br>路径：主目录/tmp<br>管理：随时可能被iOS系统清除，且不会自动备份到iTunes和iCloud，尽量在文件不再使用时，应用自己清空，避免对用户设备空间的浪费</li>
+<li>离线数据<br>内容：与缓存数据类似，可以被重新下载和重建，但是用户往往希望这些数据即使在存储紧张时也不会被系统自动删除<br>目录：主目录/Documents  或 主目录/Library/自定义的文件夹<br>管理：与关键数据类似，即使在存储空间不足的情况下也不会被清除，应用自己应该清除已经不再使用的文件，以免浪费用户设备空间 。需要设置”不备份到iCoud” ，否则会审核不过。</li>
+</ol>
+</li>
+<li>App 的沙盒文件目录可以以 NSURL 的形式返回：<br>  <code>let documentURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first</code></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>不管你在哪个线程注册了 observer，notification 在哪个线程 post，那么它就将在哪个线程接收</li>
+<li>数据缓存方式选择:<ol>
+<li>fmdata数据库(增删改查)   –数据需要:增删改查</li>
+<li>coreData                –数据需要:增删改查</li>
+<li>序列化(NSUserDefault)    –状态、偏好设置、默认选项</li>
+<li>单独.plist               –列表数据,城市信息等</li>
+<li>单独.json文件           –页面列表数据</li>
+<li>realm框架(增删改查)       –数据需要:增删改查</li>
+</ol>
+</li>
+<li>清除签名文件 删除签名文件 清理Profile文件：Xcode - Preferences - Account - View Details,这个时候左下角有个刷新图标，点击一下就可以了</li>
+<li>TableView头视图不随视图移动，头视图出现错位的错误原因：tableView的 UITableViewStyle 没有明确的声明。解决方法：在tableView声明的时候明确为 UITableViewStyleGrouped</li>
+<li>ViewController生命周期：<br>  alloc -> initWithNibName -> loadView -> viewDidLoad -> viewWillAppear -> viewDidAppear -> viewWillDisappear -> viewDidDisappear -> dealloc<br>  注意1. 不要在loadView中调用父类方法<a href="/">super loadView</a>，因为这会影响CPU性能。]]>
+    
+    </summary>
+    
+      <category term="Xcode" scheme="http://conanwhf.coding.me/tags/Xcode/"/>
+    
+      <category term="iOS - Swift" scheme="http://conanwhf.coding.me/tags/iOS-Swift/"/>
+    
+      <category term="DevTips" scheme="http://conanwhf.coding.me/categories/DevTips/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[详细梳理分区表和系统启动相关的各种概念]]></title>
     <link href="http://conanwhf.coding.me/2016/08/26/GPTandMBR/"/>
     <id>http://conanwhf.coding.me/2016/08/26/GPTandMBR/</id>
     <published>2016-08-26T09:30:25.000Z</published>
-    <updated>2016-08-31T04:46:47.000Z</updated>
+    <updated>2016-08-31T15:08:30.000Z</updated>
     <content type="html"><![CDATA[<p>MacBookPro的硬盘太小，前几天买了个128G的U盘想装好系统在虚拟机里引导，以节省日益膨胀的虚拟机文件占用的空间。我同时需要Mac、Win、Linux，买不起大容量MBP，天天寻思着删东西，实在是伤不起啊！😭预设的目标是要把Win和Ubuntu都装U盘上，而且支持在我的旧笔记本、Mac、虚拟机里都能正确引导，同时还要有一个数据分区，能在所有的系统中正常识别为U盘。为此，我狠狠研究了一通分区表，被各种缩写和规则搞得头昏脑胀。看看网上的东西也是常有错误，趁着还没忘光，自己梳理一遍吧！<br>声明：本文为作者（<a href="https://github.com/conanwhf" target="_blank" rel="external">Conan</a>）原创，转载请标明<a href="/conanwhf.github.io">出处</a>！</p>
 <h2 id="GPT_u548CMBR"><a href="#GPT_u548CMBR" class="headerlink" title="GPT和MBR"></a>GPT和MBR</h2><p>首先当然是这俩，一切都源于此。最重要的信息是：他们都是<strong>分区表</strong>，一种用来表示硬盘分区信息的格式，不太严格地说是一个<strong>软件概念</strong>。啰嗦一句分区表是干什么的：在操作系统启动之前、硬件初始化之后，确定从硬盘启动的话，需要获得硬盘分区的基本信息，那就需要分区表了。分区表不只包含硬盘的分区信息，也包括一个很小的最基本的引导程序，用到引导第二阶段引导程序，如NTLDR、BOOTMGR和GRUB等，这些第二阶段的引导程序，是需要针对每个分区进一步读取数据才能获得的。</p>
 <h3 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h3><p>全称<strong>主引导记录（Master Boot Record）</strong>，又叫做主引导扇区，位于硬盘的第一个扇区主要分为两个部分：引导程序和分区结构表。有时候也将其开头的446字节引导程序特指为MBR，其后是64字节的“磁盘分区表”（DPT），以及2字节的结束标志（55AA）。因此，在使用“主引导记<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/26/GPTandMBR/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/26/GPTandMBR/'>详细梳理分区表和系统启动相关的各种概念</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
@@ -45,7 +128,7 @@
 </script>
 录”（MBR）这个术语的时候，需要根据具体情况判断其到底是指整个主引导扇区，还是主引导扇区的前446字节。通常地相对于GPT来讨论MBR，则就是指这种分区模式的整套标准。<br>在这种模式下，描述分区的部分占64个字节，分别是对四个分区的信息进行描述，其中每个分区的信息占据16个字节（当然小于4个分区也可以），这也就是说MBR分区表最多只能有4个主分区或者3个主分区+1个扩展分区的由来。<br>具体分区信息的标准就不多说了，在每个分区信息的16字节中，分别有4个字节是表示分区的扇区起始号和扇区数目，它们的最大值是2^32-1。而通常来说一个扇区的大小为512byte，所以MBR能支持的最大硬盘（取决于扇区起始offset）大小是2^41byte，也就是2TB(按1024算)，或者说是2.2TB(按硬盘厂商的1000算)😶，亦即”MBR不支持3T大硬盘”（因为人家可以支持2T嘛）！<br>当年这个硬件限制出现的时候，有的厂商为了解决这个问题，另辟蹊径，通过提高每个扇区的大小来支持更大容量的硬盘。例如将扇区从512byte升级到2K，那么MBR就可以支持8T的硬盘了。但这种方法在扇区普遍为512B的市场上，反而出现了很多麻烦……后来，GPT出现了。</p>
 <h3 id="GPT"><a href="#GPT" class="headerlink" title="GPT"></a>GPT</h3><p>GPT的全称是：<strong>全局唯一标识分区表（GUID Partition Table)</strong>，是用来取代MBR的新一代分区表格式。它的具体结构定义比较复杂，我就不多赘述了。相对MBR来说，GPT的信息量更大，表本身所占用的size也大得多。不同于MBR的使用偏移量来标识不同分区，GPT中每个分区都有一个唯一标识GUID作为关键字。<br>GPT表分为表头和n个表项两个部分，顾名思义，表头存储了一些总体上的信息，例如版本、校验、表项数目等；而每个表项就是每个分区的具体描述。在Windows里，使用GPT的硬盘最多可以有128个分区，但这<strong>不是GPT标准规定</strong>，只是因为Windows给分区表预留的大小只够放128个分区罢了（将来会改也说不定哦）。在GPT的表头中，表项的数目占4个字节，所以理论上来说是可以有2^32个分区的。<br>在每个表项中，用来记录分区起始和结束位置的信息扩展成了8字节，也就是最大能表示2^64的地址。不幸的是，这次它不是表示扇区号了，而是LBA(Logical Block Address,逻辑区块地址)；幸运的是，通常LBA的大小也是512Byte，不影响对这个问题的理解。LBA和扇区的区别，跟现代存储设备的发展有关，又是一个大长篇，不展开说了。总之，GPT分区表比MBR支持更多的分区、更大的分区、更大的物理硬盘。</p>
-<h4 id="GUID__26amp_3B_UUID"><a href="#GUID__26amp_3B_UUID" class="headerlink" title="GUID &amp; UUID"></a>GUID &amp; UUID</h4><p>说到GPT，就不得不解释一下GUID是什么了。GUID的中文是全局唯一标识符(Global Unique Identifier)， 是一种由算法生成的唯一标识，总共有32个16进制数，即一个128位长的二进制整数。唯一标识，也就是说每个不同的分区都有自己的独一无二的GUID。从理论的角度看，GUID的生成并不是肯定没有重复的，只是概率非常非常小，小到在实际中可以忽略不计。例如在一个大的服务器集群里，都不会有重复的GUID。<br>另外还有个UUID(Universally Unique Identifier，唯一识别码)，这是微软搞出来的，跟GUID是一个意思，经常混用。<br>在很多描述系统启动、引导的文章或者是日常表述中，GPT和GUID是等价的（使用GUID来代替GPT）。阅读的时候概念清楚就行，别太较真。😄</p>
+<h4 id="GUID__26amp_3B_UUID"><a href="#GUID__26amp_3B_UUID" class="headerlink" title="GUID &amp; UUID"></a>GUID &amp; UUID</h4><p>说到GPT，就不得不解释一下GUID是什么了。GUID的中文是<strong>全局唯一标识符(Global Unique Identifier)</strong>， 是一种由算法生成的唯一标识，总共有32个16进制数，即一个128位长的二进制整数。唯一标识，也就是说每个不同的分区都有自己的独一无二的GUID。从理论的角度看，GUID的生成并不是肯定没有重复的，只是概率非常非常小，小到在实际中可以忽略不计。例如在一个大的服务器集群里，都不会有重复的GUID。另外还有个UUID(Universally Unique Identifier，唯一识别码)，这是微软搞出来的，主要是对文档进行标识，跟GUID是一个意思，经常混用。<br>在很多描述系统启动、引导的文章或者是日常表述中，GPT和GUID是等价的（使用GUID来代替GPT）。阅读的时候概念清楚就行，别太较真。😄</p>
 <h2 id="28U_29EFI__u548C__28Legacy_29_BIOS"><a href="#28U_29EFI__u548C__28Legacy_29_BIOS" class="headerlink" title="(U)EFI 和 (Legacy) BIOS"></a>(U)EFI 和 (Legacy) BIOS</h2><p>讲了半天，终于轮到EFI了。虽然EFI和GPT并不是一回事，但在很多的地方，都用EFI和GPT/GUID表达同一个意思，即EFI+GPT的启动方式。EFI实际上是一套包括软硬件的标准接口，但我们通常说的”主板支持EFI“是指的它的硬件部分，即主板符合EFI的标准。在这个维度意义上，和EFI相对的，则是从前广泛使用的Legacy BIOS标准（多数教程、文章将其直接写为BIOS，下同）。虽然他们都只是一种接口的定义，但再次不严格地说，我们大致可以将网络上多数文章、教程中的EFI和BIOS理解为一个<strong>硬件概念</strong>，即支持或不支持EFI的主板。可以说，EFI和传统BIOS的关系就如同GPT和MBR的关系，一代新人胜旧人。</p>
 <h3 id="28U_29EFI"><a href="#28U_29EFI" class="headerlink" title="(U)EFI"></a>(U)EFI</h3><p>UEFI中文<strong>统一可扩展固件接口（Unified Extensible Firmware Interface）</strong>，它的前身是Intel在1998年开始开发的Intel Boot Initiative，后来被重命名为<strong>EFI（Extensible Firmware Interface, 可扩展固件接口）</strong>。Intel在2005年将其交由统一可扩展固件接口论坛（Unified EFI Forum）来推广与发展，为了凸显这一点，EFI也更名为UEFI。也就是说，UEFI和EFI是同一个东西，在本文全部写为EFI。<br>前面说了，EFI和GPT不是一回事，但他们其实是有从属关系的：GPT是EFI的一个组成部分。EFI的其他部分还包括初始化模块、驱动程序、执行环境、支持模块和应用等，可以说，EFI实际上是一个简单的小型操作系统。如果你了解过Linux中的Uboot，它和EFI在概念和流程上非常像。在一个EFI启动的系统中，上电后先执行初始化模块，然后加载各种基本的驱动，如果需要则读取一个特定的EFI系统分区，通过放在里面的引导文件启动系统。同时，EFI也包含一个是能够向下兼容BIOS的模块，用来引导传统的BIOS服务。<br>由于EFI是一整套接口定义，所以实际上完成一个完整的EFI启动需要硬件（通常指包含基本初始化模块的主板）、GPT分区表、EFI系统分区和操作系统几个部份的支持。虽然不大好理解，但本质上EFI规范与BIOS的区别是包含了主要的三个变化：</p>
 <ol>
@@ -1471,104 +1554,6 @@ sudo scripts/mkknlimg arch/arm/boot/zImage /boot/$KERNEL.img
     </summary>
     
       <category term="Kernel" scheme="http://conanwhf.coding.me/tags/Kernel/"/>
-    
-      <category term="RaspberryPi" scheme="http://conanwhf.coding.me/categories/RaspberryPi/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[树莓派RaspberryPi初始配置指南（2代B型）]]></title>
-    <link href="http://conanwhf.coding.me/2016/01/12/rpi-start/"/>
-    <id>http://conanwhf.coding.me/2016/01/12/rpi-start/</id>
-    <published>2016-01-12T06:31:26.000Z</published>
-    <updated>2016-08-25T10:31:48.000Z</updated>
-    <content type="html"><![CDATA[<p>关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a></p>
-<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/12/rpi-start/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/12/rpi-start/'>树莓派RaspberryPi初始配置指南（2代B型）</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-
-<h2 id="u5236_u4F5C_u542F_u52A8img"><a href="#u5236_u4F5C_u542F_u52A8img" class="headerlink" title="制作启动img"></a>制作启动img</h2><ol>
-<li>从官网下载最新的image，解包，TF卡插入电脑</li>
-<li>用mount查看，将TF卡umount</li>
-<li><p>randisk<strong>X</strong>是要自己根据情况修改的</p>
-<pre><code>sudo dd bs=1m if=2015-11-21-raspbian-jessie.img of=/dev/rdisk2
-diskutil umount /Volumes/boot
-</code></pre></li>
-<li>拔卡，插入树莓派，上电，这时候系统应该跑起来了。最新的系统是默认打开SSH的，所以如果你插了网线、知道IP的话，已经可以直接SSH上去。初始用户pi,密码raspberry</li>
-<li><strong>下面的命令都是在树莓派上跑的，请不要随便在自己主电脑上sudo!!!</strong></li>
-</ol>
-<h2 id="u66F4_u65B0_u5230_u6700_u65B0_u7248_u672C"><a href="#u66F4_u65B0_u5230_u6700_u65B0_u7248_u672C" class="headerlink" title="更新到最新版本"></a>更新到最新版本</h2><p>要花点时间，放到后面做也可以。<strong>另外我看到有人说国内连官方源太慢，我不在国内测不到，如果需要请自己搜索添加合适的源</strong></p>
-<pre><code>sudo apt-get -y update
-sudo apt-get -y upgrade
-sudo apt-get -y dist-upgrade
-sudo rpi-update
-</code></pre><h2 id="u4FEE_u6539vi"><a href="#u4FEE_u6539vi" class="headerlink" title="修改vi"></a>修改vi</h2><p>Debian的默认vi太难用！改之。我的Github里还放了我的vi配置文件，随意取用</p>
-<pre><code>sudo apt-get -y remove vim-common
-sudo apt-get -y install vim
-</code></pre><h2 id="u4E2D_u6587_u652F_u6301"><a href="#u4E2D_u6587_u652F_u6301" class="headerlink" title="中文支持"></a>中文支持</h2><p>字库和输入法，平时都用SSH的人其实用不到</p>
-<pre><code>sudo apt-get -y install ttf-wqy-zenhei ttf-wqy-microhei
-sudo apt-get -y install fcitx fcitx-googlepinyin fcitx-module-cloudpinyin fcitx-sunpinyin
-</code></pre><h2 id="u5B98_u65B9_u81EA_u5E26_u7684menuconfig"><a href="#u5B98_u65B9_u81EA_u5E26_u7684menuconfig" class="headerlink" title="官方自带的menuconfig"></a>官方自带的menuconfig</h2><p>跑(sudo raspi-config)，这个命令行跑起来的界面和GUI上打开的不一样，不过内容差不多，建议修改以下几个</p>
-<ul>
-<li>用户pi密码，hostname</li>
-<li>开启ssh,spi,i2c</li>
-<li>修改时区</li>
-<li>扩展卡上分区<br>然后就可以reboot了</li>
-</ul>
-<h2 id="VNC_u652F_u6301"><a href="#VNC_u652F_u6301" class="headerlink" title="VNC支持"></a>VNC支持</h2><h3 id="u5B89_u88C5_u670D_u52A1_u5668_u7AEFtightVNC"><a href="#u5B89_u88C5_u670D_u52A1_u5668_u7AEFtightVNC" class="headerlink" title="安装服务器端tightVNC"></a>安装服务器端tightVNC</h3><pre><code>sudo apt-get -y install tightvncserver
-sudo apt-get -y install xfonts-base
-</code></pre><h3 id="u914D_u7F6E"><a href="#u914D_u7F6E" class="headerlink" title="配置"></a>配置</h3><ol>
-<li>配置连接密码：<code>vncpasswd</code></li>
-<li>添加开机启动：<ul>
-<li>创建/etc/init.d/tightvncserver，内容见<a href="https://github.com/conanwhf/RaspberryPi-script/blob/master/setup/tightvncserver" target="_blank" rel="external">这里</a></li>
-<li>更新改变：<pre><code>sudo chmod +x /etc/init.d/tightvncserver
-sudo update-rc.d tightvncserver defaults
-</code></pre></li>
-</ul>
-</li>
-</ol>
-<h2 id="u5BA2_u6237_u7AEF_u8FDE_u63A5"><a href="#u5BA2_u6237_u7AEF_u8FDE_u63A5" class="headerlink" title="客户端连接"></a>客户端连接</h2><p>在我的Mac上，Finder里面⌘+k，填<code>vnc://&lt;rpi IP&gt;:5901</code>即可。人家都说可以用<code>vnc://IP:1</code>这样的方式，但我不行，不知道为啥</p>
-<h2 id="u914D_u7F6E_u56FA_u5B9AIP_u5730_u5740"><a href="#u914D_u7F6E_u56FA_u5B9AIP_u5730_u5740" class="headerlink" title="配置固定IP地址"></a>配置固定IP地址</h2><ol>
-<li>修改<strong>/etc/network/interfaces</strong>，当然下面的IP要换成你自己的</li>
-</ol>
-<p><em>iface eth0 inet manual</em> –>  </p>
-<blockquote>
-<p>iface eth0 inet static<br>address 192.168.0.120<br>netmask 255.255.255.0<br>gateway 192.168.0.1</p>
-</blockquote>
-<ol>
-<li><p>重启服务</p>
-<pre><code>sudo systemctl daemon-reload
-sudo service networking restart
-</code></pre></li>
-</ol>
-<h2 id="SSH_u7279_u6B8A_u914D_u7F6E"><a href="#SSH_u7279_u6B8A_u914D_u7F6E" class="headerlink" title="SSH特殊配置"></a>SSH特殊配置</h2><p>主要是给SSH的中文支持用的</p>
-<pre><code>echo LC_ALL=en_US.UTF-8 | sudo tee -a /etc/environment
-echo LANG=en_US.UTF-8 | sudo tee -a /etc/environment
-</code></pre><h2 id="u52A0_u5927USB_u4F9B_u7535"><a href="#u52A0_u5927USB_u4F9B_u7535" class="headerlink" title="加大USB供电"></a>加大USB供电</h2><p>修改后可以使能USB的1.2A供电，不然插USB硬盘是不能用的</p>
-<pre><code>echo “max_usb_current=1” | sudo tee -a /boot/config.txt
-</code></pre>]]></content>
-    <summary type="html">
-    <![CDATA[<p>关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，<a href="https://github.com/conanwhf/RaspberryPi-script">传送门</a></p>]]>
-    
-    </summary>
     
       <category term="RaspberryPi" scheme="http://conanwhf.coding.me/categories/RaspberryPi/"/>
     

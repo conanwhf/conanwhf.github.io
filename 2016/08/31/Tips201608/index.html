@@ -34,7 +34,7 @@
 
 
 
-  <meta name="keywords" content="String," />
+  <meta name="keywords" content="Xcode,iOS - Swift," />
 
 
 
@@ -45,37 +45,34 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="Swift中的字符串，第二篇，基本操作。其他的几篇传送门：
+<meta name="description" content="这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。如有侵权不得转载等情况，请联系我告知，谢谢！
 
-Swift2.0 中的String（一）：常用属性
-Swift2.0 中的String（二）：基本操作
-Swift2.0 中的String（三）：类型转换
-Swift2.0 中的String（四）：编码转换
-Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 
-Swift2.0 中的String（六）：正">
+
+不管你在哪个线程注册了 observer，notification 在哪个线程 post，那么它就将在哪个线程接收
+数据缓存方式选择:
+fmdata数据库(增删改查)   –数据需要:增删改查
+coreData">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift2.0 中的String（二）：基本操作">
-<meta property="og:url" content="http://conanwhf.coding.me/2015/12/03/Swift_String_2/index.html">
+<meta property="og:title" content="开发Tips收集-2016年00月">
+<meta property="og:url" content="http://conanwhf.coding.me/2016/08/31/Tips201608/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
-<meta property="og:description" content="Swift中的字符串，第二篇，基本操作。其他的几篇传送门：
+<meta property="og:description" content="这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。如有侵权不得转载等情况，请联系我告知，谢谢！
 
-Swift2.0 中的String（一）：常用属性
-Swift2.0 中的String（二）：基本操作
-Swift2.0 中的String（三）：类型转换
-Swift2.0 中的String（四）：编码转换
-Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 
-Swift2.0 中的String（六）：正">
-<meta property="og:updated_time" content="2016-03-02T09:11:35.000Z">
+
+不管你在哪个线程注册了 observer，notification 在哪个线程 post，那么它就将在哪个线程接收
+数据缓存方式选择:
+fmdata数据库(增删改查)   –数据需要:增删改查
+coreData">
+<meta property="og:updated_time" content="2016-08-31T15:06:57.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift2.0 中的String（二）：基本操作">
-<meta name="twitter:description" content="Swift中的字符串，第二篇，基本操作。其他的几篇传送门：
+<meta name="twitter:title" content="开发Tips收集-2016年00月">
+<meta name="twitter:description" content="这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。如有侵权不得转载等情况，请联系我告知，谢谢！
 
-Swift2.0 中的String（一）：常用属性
-Swift2.0 中的String（二）：基本操作
-Swift2.0 中的String（三）：类型转换
-Swift2.0 中的String（四）：编码转换
-Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 
-Swift2.0 中的String（六）：正">
+
+不管你在哪个线程注册了 observer，notification 在哪个线程 post，那么它就将在哪个线程接收
+数据缓存方式选择:
+fmdata数据库(增删改查)   –数据需要:增删改查
+coreData">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -85,7 +82,7 @@ Swift2.0 中的String（六）：正">
   };
 </script>
 
-  <title> Swift2.0 中的String（二）：基本操作 | iOS开发和七七八八 </title>
+  <title> 开发Tips收集-2016年00月 | iOS开发和七七八八 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -243,7 +240,7 @@ Swift2.0 中的String（六）：正">
           
           
             
-              Swift2.0 中的String（二）：基本操作
+              开发Tips收集-2016年00月
             
           
         </h1>
@@ -252,8 +249,8 @@ Swift2.0 中的String（六）：正">
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-12-03T15:20:16+08:00" content="2015-12-03">
-            2015-12-03
+          <time itemprop="dateCreated" datetime="2016-08-31T17:25:39+08:00" content="2016-08-31">
+            2016-08-31
           </time>
         </span>
 
@@ -262,8 +259,8 @@ Swift2.0 中的String（六）：正">
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Swift/" itemprop="url" rel="index">
-                  <span itemprop="name">Swift</span>
+                <a href="/categories/DevTips/" itemprop="url" rel="index">
+                  <span itemprop="name">DevTips</span>
                 </a>
               </span>
 
@@ -278,8 +275,8 @@ Swift2.0 中的String（六）：正">
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/12/03/Swift_String_2/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/03/Swift_String_2/" itemprop="commentsCount"></span>
+              <a href="/2016/08/31/Tips201608/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/31/Tips201608/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -293,23 +290,23 @@ Swift2.0 中的String（六）：正">
       
 
       
-        <span itemprop="articleBody"><p>Swift中的字符串，第二篇，基本操作。其他的几篇传送门：</p>
+        <span itemprop="articleBody"><blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
 <ul>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性" target="_blank" rel="external">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作" target="_blank" rel="external">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换" target="_blank" rel="external">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换" target="_blank" rel="external">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换" target="_blank" rel="external">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.github.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配" target="_blank" rel="external">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
-</ul>
-<p>首先，我们要记得使用字符串最常用的两个参数：下标(Index)和范围(Range)，几乎所有API都要用到它们</p>
-<pre><code>let offset = str.startIndex.advancedBy(2)// offset: 3rd char
-let range  = Range(start: str.startIndex.advancedBy(3), end: str.endIndex.advancedBy(-2))// range: 3..&lt;6, &quot;345&quot;
-</code></pre><p><strong>强制类型转换</strong></p>
-<pre><code>let n      = Int(str)!
-String(&quot;the number is \(n)&quot;)
-String(format:&quot;%.2f,  %i&quot;, 9.1, 304)
-</code></pre><p><strong>内容反转</strong><a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2015/12/03/Swift_String_2/</p><p>访问原文「<a href='http://conanwhf.coding.me/2015/12/03/Swift_String_2/'>Swift2.0 中的String（二）：基本操作</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<li>不管你在哪个线程注册了 observer，notification 在哪个线程 post，那么它就将在哪个线程接收</li>
+<li>数据缓存方式选择:<ol>
+<li>fmdata数据库(增删改查)   –数据需要:增删改查</li>
+<li>coreData                –数据需要:增删改查</li>
+<li>序列化(NSUserDefault)    –状态、偏好设置、默认选项</li>
+<li>单独.plist               –列表数据,城市信息等</li>
+<li>单独.json文件           –页面列表数据</li>
+<li>realm框架(增删改查)       –数据需要:增删改查</li>
+</ol>
+</li>
+<li>清除签名文件 删除签名文件 清理Profile文件：Xcode - Preferences - Account - View Details,这个时候左下角有个刷新图标，点击一下就可以了</li>
+<li>TableView头视图不随视图移动，头视图出现错位的错误原因：tableView的 UITableViewStyle 没有明确的声明。解决方法：在tableView声明的时候明确为 UITableViewStyleGrouped</li>
+<li>ViewController生命周期：<br>  alloc -> initWithNibName -> loadView -> viewDidLoad -> viewWillAppear -> viewDidAppear -> viewWillDisappear -> viewDidDisappear -> dealloc<br>  注意1. 不要在loadView中调用父类方法<a href="/">super loadView</a>，因为这会影响CPU性能。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/31/Tips201608/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/31/Tips201608/'>开发Tips收集-2016年00月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -330,68 +327,17 @@ String(format:&quot;%.2f,  %i&quot;, 9.1, 304)
   }
 })()
 </script>
-</p>
-<pre><code>String(str.characters.reverse())
-</code></pre><p><strong>删除和部分删除</strong></p>
-<pre><code>str.removeRange(range)
-str.removeAtIndex(offset)
-String(str.characters.dropFirst())
-String(str.characters.dropFirst(3))
-String(str.characters.dropLast())
-String(str.characters.dropLast(3))
-//以上对character的操作不改变原来的值！
-// 删除头尾空白字符
-&quot;     I love you &quot;.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-// 删除头尾字符集
-&quot; I love you, too!&quot;.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: &quot;,. !&quot;))
-//清空
-str.removeAll()
-</code></pre><p><strong>获取固定位置的子串</strong></p>
-<pre><code>str.substringToIndex(offset)
-str.substringFromIndex(offset)
-str.substringWithRange(range)
-str[range]
-</code></pre><p> <strong>分割</strong></p>
-<pre><code>st         = &quot;&lt;123, test2,???&gt;   &lt;测试: 数据  .&gt;&quot;
-// 用固定字符分割
-str.componentsSeparatedByString(&quot; &quot;)
-// 用固定字符集分割
-str.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: &quot;, .&quot;))
-</code></pre><p><strong>过滤/查找替换</strong><br>使用替换字符串的API，让替换的目标字符串为空即为过滤</p>
-<pre><code>// 替换固定位置子串
-str.stringByReplacingCharactersInRange(range, withString: &quot;!!!&quot;)
-// 查找所有匹配并替换/过滤
-str.stringByReplacingOccurrencesOfString(&quot;???&quot;, withString: &quot;~&quot;)
-str.stringByReplacingOccurrencesOfString(&quot; &quot;, withString: &quot;&quot;, options: NSStringCompareOptions.LiteralSearch, range: nil)
-// 过滤字符集合(分割后合并)
-let arr    = str.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString:&quot;-&lt;&gt;&quot;))
-arr.joinWithSeparator(&quot;&quot;)
-</code></pre><p><strong>合并/拼接</strong></p>
-<pre><code>s1 + s2 + s3
-str.appendContentsOf(&quot;123&quot;)
-str.stringByAppendingString(&quot;000&quot;)         //不改变原值！
-str.stringByAppendingFormat(&quot;- num %d &quot;, 100)      //不改变原值！
-// 以固定字符串为分隔符拼接
-[str, str, str].joinWithSeparator(&quot;\n&quot;)
-</code></pre><p><strong>插入</strong></p>
-<pre><code>str.insert(&quot; &quot;, atIndex: offset)
-str.insertContentsOf(&quot; hello&quot;.characters, at: offset)
-str.replaceRange(Range( start:offset, end: offset ), with: &quot;???OK!!!&quot;)
-</code></pre><p><strong>判断前缀或后缀</strong></p>
-<pre><code>str.hasPrefix(&quot;01&quot;)
-str.hasSuffix(&quot;567&quot;)
-</code></pre><p><strong>比较字符串</strong></p>
-<pre><code>s1.characters.elementsEqual(s2.characters)
-str.characters.elementsEqual(&quot;01234567&quot;.characters)
-s1 == s2
-&quot;111&quot; &lt; &quot;222&quot;
-</code></pre><p><strong>匹配字符串</strong></p>
-<pre><code>str.rangeOfString(&quot;efg&quot;)
-str.rangeOfString(&quot;efg&quot;, options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
-</code></pre><p><strong>固定位置的部分替换</strong></p>
-<pre><code>str.replaceRange(range, with: &quot;test_for_replace&quot;)
-str.stringByReplacingCharactersInRange(range, withString: &quot;哈哈😄Tes\nt&quot;)
-</code></pre></span>
+<br>  注意2. 切换前后台不会调用viewWillAppear</li>
+<li>关于数据存储需要注意的点，总结在下面：<ol>
+<li>关键数据<br>内容：用户创建的数据文件，无法在删除后自动重新创建<br>路径：主目录/Documents<br>管理：iOS系统即时遇到存储空间不足的情况下，也不会清除，同时会备份到iTunes或iCloud中</li>
+<li>缓存数据<br>内容：可用于离线环境，可被重复下载重复生成，即使在离线时缺失，应用本身也可以正常运行<br>路径：主目录/Library/Caches<br>管理：在存储空间不足的情况下，会清空， 并且不会被自动备份到iTunes和iCloud中</li>
+<li>临时数据<br>内容：应用运行时，为完成某个内部操作临时生成的文件<br>路径：主目录/tmp<br>管理：随时可能被iOS系统清除，且不会自动备份到iTunes和iCloud，尽量在文件不再使用时，应用自己清空，避免对用户设备空间的浪费</li>
+<li>离线数据<br>内容：与缓存数据类似，可以被重新下载和重建，但是用户往往希望这些数据即使在存储紧张时也不会被系统自动删除<br>目录：主目录/Documents  或 主目录/Library/自定义的文件夹<br>管理：与关键数据类似，即使在存储空间不足的情况下也不会被清除，应用自己应该清除已经不再使用的文件，以免浪费用户设备空间 。需要设置”不备份到iCoud” ，否则会审核不过。</li>
+</ol>
+</li>
+<li>App 的沙盒文件目录可以以 NSURL 的形式返回：<br>  <code>let documentURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first</code></li>
+</ul>
+</span>
       
     </div>
 
@@ -399,7 +345,9 @@ str.stringByReplacingCharactersInRange(range, withString: &quot;哈哈😄Tes\nt
       
         <div class="post-tags">
           
-            <a href="/tags/String/" rel="tag">#String</a>
+            <a href="/tags/Xcode/" rel="tag">#Xcode</a>
+          
+            <a href="/tags/iOS-Swift/" rel="tag">#iOS - Swift</a>
           
         </div>
       
@@ -408,13 +356,11 @@ str.stringByReplacingCharactersInRange(range, withString: &quot;哈哈😄Tes\nt
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/03/Swift_String_3/" rel="prev">Swift2.0 中的String（三）：类型转换</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/03/Swift_String_1/" rel="next">Swift2.0 中的String（一）：常用属性</a>
+              <a href="/2016/08/26/GPTandMBR/" rel="next">详细梳理分区表和系统启动相关的各种概念</a>
             
           </div>
         </div>
@@ -429,10 +375,10 @@ str.stringByReplacingCharactersInRange(range, withString: &quot;哈哈😄Tes\nt
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/12/03/Swift_String_2/"
-     data-title="Swift2.0 中的String（二）：基本操作"
+        <div class="ds-share flat" data-thread-key="2016/08/31/Tips201608/"
+     data-title="开发Tips收集-2016年00月"
      data-content=""
-     data-url="http://conanwhf.coding.me/2015/12/03/Swift_String_2/">
+     data-url="http://conanwhf.coding.me/2016/08/31/Tips201608/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -462,8 +408,8 @@ str.stringByReplacingCharactersInRange(range, withString: &quot;哈哈😄Tes\nt
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/12/03/Swift_String_2/"
-                   data-title="Swift2.0 中的String（二）：基本操作" data-url="http://conanwhf.coding.me/2015/12/03/Swift_String_2/">
+              <div class="ds-thread" data-thread-key="2016/08/31/Tips201608/"
+                   data-title="开发Tips收集-2016年00月" data-url="http://conanwhf.coding.me/2016/08/31/Tips201608/">
               </div>
             
           </div>
