@@ -223,6 +223,108 @@
           
           
             
+              <a class="post-title-link" href="/2016/05/31/Tips201605/" itemprop="url">
+                开发Tips收集-2016年05月
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-05-31T17:25:39+08:00" content="2016-05-31">
+            2016-05-31
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/DevTips/" itemprop="url" rel="index">
+                  <span itemprop="name">DevTips</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/05/31/Tips201605/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/31/Tips201605/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>UIImage两种初始化方式的区别：<br>　　使用<strong>imageNamed</strong>：第一次读取的时候，先把这个图片放到缓存里，下次再使用到这个同名图片的时候直接从缓存中读取；优点：方便快捷，只有第一次使用的时候稍慢，接下来再使用就会稍微快点；缺点：如果在当前工程中只使用一次会浪费内存。（这个内存在程序关闭的时候才释放）<br>　　使用<strong>initWithContentsOfFile</strong>：每次都会根据路径去读取，不会占用内存，如果图片在当前工程中只使用一次，应该选择这个方法</li>
+<li>UIView和CALayer的区别与联系）<ol>
+<li>每个 UIView 内部都有一个 CALayer 在背后提供内容的绘制和显示，并且 UIView 的尺寸样式都由内部的 Layer 所提供。两者都有树状层级结构，layer 内部有 SubLayers，View 内部有 SubViews.但是 Layer 比 View 多了个AnchorPoint</li>
+<li>在 View显示的时候，UIView 做为 Layer 的 CALayerDelegate,View 的显示内容由内部的 CALayer 的 display</li>
+<li>CALayer 是默认修改属性支持隐式动画的，在给 UIView 的 Layer 做动画的时候，View 作为 Layer 的代理，Layer 通过 actionForLayer:forKey:向 View请求相应的 action(动画行为)</li>
+<li>layer 内部维护着三分 layer tree,分别是 presentLayer Tree(动画树),modeLayer Tree(模型树), Render Tree (渲染树),在做 iOS动画的时候，我们修改动画的属性，在动画的其实是 Layer 的 presentLayer的属性值,而最终展示在界面上的其实是提供 View的modelLayer</li>
+<li>两者最明显的区别是 View可以接受并处理事件，而 Layer 不可以</li>
+</ol>
+</li>
+<li>在使用 ImagesQA.xcassets 时需要注意：将图片直接拖入image到ImagesQA.xcassets中时，图片的名字会保留。这个时候如果图片的名字过长，那么这个名字会存入到ImagesQA.xcassets中，名字过长会引起SourceTree判断异常。</li>
+<li>UIScrollView添加了一个很好用的属性keyboardDismissMode，这样可以让键盘在滚动时自动收起。这个属性使用了新的UIScrollViewKeyboardDismissMode enum枚举类型。这个enum枚举类型可能的值如下：
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/05/31/Tips201605/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2016/04/30/Tips201604/" itemprop="url">
                 开发Tips收集-2016年04月
               </a>
@@ -880,90 +982,6 @@
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2016/01/22/microwave/" itemprop="url">
-                微波炉的悲剧
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-01-22T17:35:25+08:00" content="2016-01-22">
-            2016-01-22
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2016/01/22/microwave/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/22/microwave/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>早上起床，从冰箱里拿了蛋糕出来，放微波炉转10秒，然后洗漱去了……等我一切停当出来一看，妈呀……我设的不是10秒是10分钟！！！😱 😱 😱 😱 😱一开微波炉，蛋糕烧成碳就不说了，那个呛！别提了！！！<br>开抽油烟机、开风扇、上网搜解救方法（各种橘子皮茶叶醋什么的）、总算感觉好点了。但是、这只是适应环境了的幻觉！午休后从房间出来，一屋子的烟味呛得我……😂 😂 😂 😂 😂无语，外面还下着雨，不能开窗通风，现在全屋开着空调净化器抽风机打字中……🤑 🤑 🤑 🤑 🤑 🤑</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1002,7 +1020,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">73</span>
+              <span class="site-state-item-count">74</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

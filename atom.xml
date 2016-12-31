@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.coding.me/"/>
-  <updated>2016-08-31T15:06:57.000Z</updated>
+  <updated>2016-12-31T07:37:19.000Z</updated>
   <id>http://conanwhf.coding.me/</id>
   
   <author>
@@ -15,11 +15,102 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[开发Tips收集-2016年00月]]></title>
+    <title><![CDATA[读书清单 2016-12]]></title>
+    <link href="http://conanwhf.coding.me/2016/12/31/ReadingList2016-12/"/>
+    <id>http://conanwhf.coding.me/2016/12/31/ReadingList2016-12/</id>
+    <published>2016-12-31T07:26:54.000Z</published>
+    <updated>2016-12-31T07:37:19.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="u8BFB_u4E66_u6E05_u53552016-12"><a href="#u8BFB_u4E66_u6E05_u53552016-12" class="headerlink" title="读书清单2016-12"></a>读书清单2016-12</h1><h2 id="u8BFB_u5B8C_u7684_u4E66_uFF086_uFF09"><a href="#u8BFB_u5B8C_u7684_u4E66_uFF086_uFF09" class="headerlink" title="读完的书（6）"></a>读完的书（6）</h2><ol>
+<li><p><strong>极简投资</strong><br>小白入门书，不过里面讲的投资理念我觉得很好，确实适合懒人以及没投资天分的人，比如说我。后半部对万能险的推崇有做广告的嫌疑，毕竟是出自某商业刊物吧，目前来说万能险肯定是不适合了，P2P也很危险。不过无伤大雅，核心是理解极简投资是怎么一回事，而不是具体该投哪些项目。总结一下，极简投资的核心就是分散、中短期的投资方式。分散指的是将资金分散在几个尽量不相关的方向上（如股市龙头股、债市等），注意是方向，不是单一股票而是指数，这是为了均摊风险，东边不亮西边亮；中短期投资一般就是一年，为了减小市场和投资者心理波动所造成的损失，用长期收益抵消短期浮亏。从数学上来说，极简投资并不是最优投资方案，却是相对来说较安全且兼顾收益的稳健投资方案。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/12/31/ReadingList2016-12/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/12/31/ReadingList2016-12/'>读书清单 2016-12</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+</p>
+</li>
+<li><p><strong>跑步时该如何呼吸</strong><br>这本书整体看下来还是很有收获的，虽然讲得比较啰嗦，包括各种案例和人们的正面反馈，可以删掉。对我来说，只看关键点就是：<br>A). 跑步的强度可以用呼吸的频率来衡量，应该把对配速的关注转移到对呼吸上来；<br>B). 跑步时身体受到冲击最大的时候是落地且开始呼气的时候，跑者受伤多因为每次呼气都重复在同一侧落地时；<br>C). 韵律呼吸解决的就是上面的两个问题：用有规律且相对步数为单数的周期，平均分散左右两边的冲击，一个周期中呼气时间小于吸气时间，并保持可控的强度；<br>D). 具体到实践上，采取腹式呼吸，n步一吸/(n+1)步一呼的模式（n一般为2-4之间，n越小表示当前的跑步强度越大）<br>问题是理论清楚不代表能做到。实际上我是属于吸气短呼气长的人，操作起来特别别扭，因为往往一步的时间就把气吸到头了，呼气时又来不及把气吐完。正常情况下，就算是跑得最喘的时候，我呼气也要花3-4步的时间，而吸气一步之内就完成了。自己尝试了几次书中的方法，反而更容易岔气，也许要更长时间更多的练习才能熟练掌握吧。</p>
+</li>
+<li><p><strong>无价（洞悉大众心理玩转价格游戏经典版）</strong><br>这本书挺有意思，讲了很多价格心理学的实验，用来解释在经济生活中的各种现象，以及商家在定价时利用这种心理学现象玩的/可以玩的把戏。贯穿全书、至关重要的一个概念是“锚点”，也就是心理上对于事物价值判断的一个参照点。整本书围绕这个“锚点”，讲了很多心理如何被锚点影响的方式和特点，包括提价再打折、建立新的参照物、心理暗示、语言表述等等方式，来利用这个“锚点”最大限度地获取利益。简单地总结一下就是：<br>A). 锚点可以影响人们对价值的判断<br>B). 不论锚点如何离谱，人们总是会无意地将自己的价值判断靠向锚点<br>C). 锚点可以是直接或间接的参照物，也可以是暗示或者背景提示<br>D). 人们都有厌恶风险、厌恶损失的心理倾向，即使明知数学上两者价值相当<br>E). 人们的经济选择不完全依靠利益计算，有时也有道德判断的影响<br>F). 一些世俗偏好例如性别、肤色等同样影响人们在交互活动中的经济选择<br>G). 道德、世俗等的量化判断同样能够被锚点影响<br>H). 人们并不知道任何事物的真正价值，所有的判断依据都是来自于不同参照系中参照物的比较结果，这给我们利用锚点操纵价格甚至人心带来了基础<br>以上这些结论都来自于许多不同的经济学小实验，揭示出人是多么容易受到欺骗和操纵！在读这本书的过程中，我一边做出和实验中人们类似的选择并对结果表示认同，一边也在深深地汗颜心理学、行为学真的深刻地展示了包括我在内的全人类是多么的愚蠢……经济学上所谓的理性自然人现实中根本不可能存在，所以这个世界的经济才会这么难以预测吧！</p>
+</li>
+<li><p><strong>中产富裕阶层金融投资研究报告/中产富裕阶层收入信心研究报告 </strong><br>金融时报的两个个报告，很短，大致总结了一下中产阶级的投资状况。让我不解的是，这个“中产阶级富裕阶层”的标准也太低了，家庭年收入10W即可，就算放在二线，夫妻双方加起来月薪8K也绝对称不上富裕，刚够生活而已。我觉得，除去房贷车贷租房吃饭交通等固定支出，可支配收入在10W的，才能勉强称为“中产富裕阶层”……好在报告说年收入平均在36W，说明高收入家庭还是占了不小比例的，这才看下去。<br>就算如此，这点内容实在也谈不上“研究报告”，说是“抽样统计结果”比较合适。结合30元的售价，更是匪夷所思，如果不是Unlimited借阅，我肯定要退货。统计结果大概包括收入分布、风险偏好、投资项目偏好、实际投资收益分布、2015股灾对收益的影响等；收入信心报告则是对下年收入增长预期不同的人群描像，类似预计收入增长10%以内的人年龄分布之类，比较简单，价值不大。</p>
+</li>
+<li><p><strong>中国休闲旅行需求研究报告</strong><br>跟上面一样，简短的报告，对旅游需求人群的抽样调查，年龄层次、受教育程度、目的地偏好、消费数额等做了个统计，没什么干货。</p>
+</li>
+<li><p><strong>富爸爸房地产投资指南</strong><br>富爸爸这一个系列实在是太多了，看着就像来圈钱的。不过实际看下来，这本书并不差，作者是真的有心得。当然美国的房地产市场跟中国的完全不同，要想从书中学到什么炒房的实战技能，首先你得是一个对国内市场相当了解的人。 整个书的核心思想就是寻找被低估的物业->使其增值->获得收益，作者更关注的是出租所带来的现金流而不是房产升值的差价，这和国内通常的炒房客在理念上就有所不同。不过书里面关于如何选择和评估物业的部分还是有很多可以借鉴的地方，花点时间看看并不亏。有意思的是，这本书最后挺长的篇幅是来自于刚当选的美国总统特朗普和他的两个儿子，写这书的时候应该是以地产大亨的身份吧。</p>
+</li>
+</ol>
+<h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2><ol>
+<li>中文传媒精选</li>
+<li>知乎周刊2015年度300问-经济</li>
+<li>知乎周刊-减脂吃什么</li>
+<li>知乎周刊-XXOO那些事</li>
+</ol>
+<h2 id="u6B63_u5728_u8BFB_u7684_u4E66"><a href="#u6B63_u5728_u8BFB_u7684_u4E66" class="headerlink" title="正在读的书"></a>正在读的书</h2><ol>
+<li>黑客</li>
+</ol>
+<h2 id="u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_uFF0808-12_u6708_uFF09__uFF08390-03_uFF09"><a href="#u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_uFF0808-12_u6708_uFF09__uFF08390-03_uFF09" class="headerlink" title="买的正版非免费书（08-12月）             （390.03）"></a>买的正版非免费书（08-12月）             （<strong>390.03</strong>）</h2><h3 id="u4E2D_u4E9A__uFF08270-05_uFF09"><a href="#u4E2D_u4E9A__uFF08270-05_uFF09" class="headerlink" title="中亚        （270.05）"></a>中亚        （<strong>270.05</strong>）</h3><ol>
+<li>知识青年进阶：从有趣到有料再到变厉害（全15册） (果壳·十五言系列)    <strong>7.99</strong></li>
+<li>牛津通识读本精选集（中文版 套装58册）          <strong>49.99</strong></li>
+<li>哈佛百年经典(01-38卷)(套装共38册)            <strong>19.99</strong></li>
+<li>OpenCV图像处理 (华章程序员书库)              <strong>9.99</strong></li>
+<li>自己动手构造编译系统：编译、汇编与链接 (自己动手系列)  <strong>6.99</strong></li>
+<li>白话大数据与机器学习                         <strong>9.99</strong></li>
+<li>Swift编程实战：iOS应用开发实例及完整解决方案    <strong>12.99</strong></li>
+<li>传记文学书系：从晚清到民国+我们的朋友胡适之+民国三大校长+再见大师(套装共4册) <strong>9.99</strong></li>
+<li>诺贝尔经济学奖获得者丛书·经典必读（套装共5册）    <strong>14.99</strong></li>
+<li>我所理解的Cocos2d-x                         <strong>23.99</strong></li>
+<li>大脑认知系列共9册（《贪婪的大脑》）、《重塑大脑》、《意识与脑》、《上脑与下脑》等） <strong>19.99</strong></li>
+<li>文学回忆录                                  <strong>0.10</strong></li>
+<li>虫：2.5次世界大战（科幻文学“银河奖”获奖作品系列） <strong>0.10</strong></li>
+<li>Xcode江湖录 (iOS/苹果技术丛书)               <strong>12.99</strong></li>
+<li>Kali Linux高级渗透测试 (信息安全技术丛书)      <strong>9.99</strong></li>
+<li>编程珠玑（第2版·修订版）                      <strong>12.99</strong></li>
+<li>编程珠玑（续）（修订版）                      <strong>11.99</strong></li>
+<li>健身达人一本通                              <strong>19.99</strong></li>
+<li>全球证券投资经典译丛(共16卷)                  <strong>12.99</strong></li>
+<li>爆品战略：39个超级爆品案例的故事、逻辑与方法     <strong>1.00</strong></li>
+<li>丝绸之路：一部全新的世界史                    <strong>1.00</strong><h3 id="u56FE_u7075__uFF08119-98_uFF09"><a href="#u56FE_u7075__uFF08119-98_uFF09" class="headerlink" title="图灵      （119.98）"></a>图灵      （<strong>119.98</strong>）</h3></li>
+<li>代码本色：用编程模拟自然系统 <strong>25.00</strong></li>
+<li>黑客攻防技术宝典：浏览器实战篇 <strong>55.00</strong></li>
+<li>垃圾回收的算法与实现 <strong>24.99</strong></li>
+<li>Python数据挖掘入门与实践  <strong>14.99</strong></li>
+</ol>
+<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>回国一趟几个月，很久没有读书。但双十一、双十二剁了不少。已经买了太多太多的书，这辈子也读不完，加上亚马逊的unlimited包年……以后慎买！算一算整年包括实体书，我花了大概1000+，买到的书嘛……实体书大概15-20本，电子书就实在太多懒得算。其实这么看看电子书真的很便宜，如果我小时候有中亚、有kindle，估计我会瞎吧😆看人家写改革开放前的故事，好多爱书之人都是拿出工资的一半来买书，我曾经也暗暗下决心将来工作了要这样，结果可想而知。并且国内的书真的是很便宜，我看到好多专业书甚至翻译版比原版还便宜！书是越来越便宜了，看书的人却越来越少了。不过在新加坡看书的人还挺多，不管是书店还是图书馆都常常人满为患。书店的书，那价格才是让人望而却步，随便一本专业书能抵我这一年的买书钱。更麻烦的是绝大部分书都是英文的，中文以港台版为主😂我还是好好守着我的中亚吧！😁</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="u8BFB_u4E66_u6E05_u53552016-12"><a href="#u8BFB_u4E66_u6E05_u53552016-12" class="headerlink" title="读书清单2016-12"></a>读书清单2016-12</h1><h2 id="u8BFB_u5B8C_u7684_u4E66_uFF086_uFF09"><a href="#u8BFB_u5B8C_u7684_u4E66_uFF086_uFF09" class="headerlink" title="读完的书（6）"></a>读完的书（6）</h2><ol>
+<li><p><strong>极简投资</strong><br>小白入门书，不过里面讲的投资理念我觉得很好，确实适合懒人以及没投资天分的人，比如说我。后半部对万能险的推崇有做广告的嫌疑，毕竟是出自某商业刊物吧，目前来说万能险肯定是不适合了，P2P也很危险。不过无伤大雅，核心是理解极简投资是怎么一回事，而不是具体该投哪些项目。总结一下，极简投资的核心就是分散、中短期的投资方式。分散指的是将资金分散在几个尽量不相关的方向上（如股市龙头股、债市等），注意是方向，不是单一股票而是指数，这是为了均摊风险，东边不亮西边亮；中短期投资一般就是一年，为了减小市场和投资者心理波动所造成的损失，用长期收益抵消短期浮亏。从数学上来说，极简投资并不是最优投资方案，却是相对来说较安全且兼顾收益的稳健投资方案。]]>
+    
+    </summary>
+    
+      <category term="BookList" scheme="http://conanwhf.coding.me/tags/BookList/"/>
+    
+      <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[开发Tips收集-2016年08月]]></title>
     <link href="http://conanwhf.coding.me/2016/08/31/Tips201608/"/>
     <id>http://conanwhf.coding.me/2016/08/31/Tips201608/</id>
     <published>2016-08-31T09:25:39.000Z</published>
-    <updated>2016-08-31T15:06:57.000Z</updated>
+    <updated>2016-09-01T13:46:33.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
 </blockquote>
@@ -36,7 +127,7 @@
 </li>
 <li>清除签名文件 删除签名文件 清理Profile文件：Xcode - Preferences - Account - View Details,这个时候左下角有个刷新图标，点击一下就可以了</li>
 <li>TableView头视图不随视图移动，头视图出现错位的错误原因：tableView的 UITableViewStyle 没有明确的声明。解决方法：在tableView声明的时候明确为 UITableViewStyleGrouped</li>
-<li>ViewController生命周期：<br>  alloc -> initWithNibName -> loadView -> viewDidLoad -> viewWillAppear -> viewDidAppear -> viewWillDisappear -> viewDidDisappear -> dealloc<br>  注意1. 不要在loadView中调用父类方法<a href="/">super loadView</a>，因为这会影响CPU性能。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/31/Tips201608/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/31/Tips201608/'>开发Tips收集-2016年00月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<li>ViewController生命周期：<br>  alloc -> initWithNibName -> loadView -> viewDidLoad -> viewWillAppear -> viewDidAppear -> viewWillDisappear -> viewDidDisappear -> dealloc<br>  注意1. 不要在loadView中调用父类方法<a href="/">super loadView</a>，因为这会影响CPU性能。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/31/Tips201608/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/31/Tips201608/'>开发Tips收集-2016年08月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -66,6 +157,9 @@
 </ol>
 </li>
 <li>App 的沙盒文件目录可以以 NSURL 的形式返回：<br>  <code>let documentURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first</code></li>
+<li>cell被重用如何提前知道? 重写cell的prepareForReuse 官方头文件中有说明.当前已经被分配的cell如果被重用了(通常是滚动出屏幕外了),会调用cell的prepareForReuse通知cell.注意这里重写方法的时候,注意一定要调用父类方法<a href="/">super prepareForReuse</a> .这个在使用cell作为网络访问的代理容器时尤其要注意,需要在这里通知取消掉前一次网络请求.不要再给这个cell发数据了.</li>
+<li>addObserverForName监听消息处理跟addObserver的差别：addObserver的四个参数分别指定了通知的观察者、处理通知的回调、通知名及通知的发送对象；而addObserverForName同样是监听消息处理，只是它并没有观察者，却多出一个队列跟一个block的处理；addObserverForName参数说明，name和obj为nil时的情形与前面一个方法addObserver是相同的。如果queue为nil，则消息是默认在post线程中同步处理，即通知的post与转发是在同一线程中；但如果我们指定了操作队列，情况就变得有点意思了，我们一会再讲。block块会被通知中心拷贝一份(执行copy操作)，以在堆中维护一个block对象，直到观察者被从通知中心中移除。所以，应该特别注意在block中使用外部对象，避免出现对象的循环引用。如果一个给定的通知触发了多个观察者的block操作，则这些操作会在各自的Operation Queue中被并发执行。所以我们不能去假设操作的执行会按照添加观察者的顺序来执行。该方法会返回一个表示观察者的对象，记得在不用时释放这个对象。</li>
+<li>在iOS7之后，默认情况下，状态栏都是由UIViewController管理的，若想通过UIApplication进行管理，则需要配置plist文件:View controller-based status bar appearance 设置成NO (默认值为YES)</li>
 </ul>
 ]]></content>
     <summary type="html">
@@ -401,9 +495,9 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
     <link href="http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/"/>
     <id>http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/</id>
     <published>2016-08-15T09:36:54.000Z</published>
-    <updated>2016-08-20T14:45:30.000Z</updated>
+    <updated>2016-12-27T11:19:34.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li>催眠师手记</li>
+<li>催眠师手记<br>刚开通借阅，看到首页推荐，于是下下来看了下。故事还可以，看到一多半的时候就开始腻……最后是努力看完的后面两个故事，属于还能看看的故事书吧。本来以为是专业性比较强的东西，结果是打着手记外衣的小说。作者有点模仿福尔摩斯的感觉，只是这次厉害的那个关键人物换成了非第一人称：解密二人组，有一个人上知天文下知地理专业精湛，另一个负责处理杂事以及理解天才的不可理解之处。这样的故事讲好了也还不错，只可惜这本书里的故事，有点装神弄鬼。Any way，比起普遍的酸酸文艺风和无法直视的网文，这本书还算可以一读，拿来休闲正好。</li>
 </ol>
 <h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2><ol>
 <li>中文传媒精选</li>
@@ -444,7 +538,7 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li>催眠师手记</li>
+<li>催眠师手记<br>刚开通借阅，看到首页推荐，于是下下来看了下。故事还可以，看到一多半的时候就开始腻……最后是努力看完的后面两个故事，属于还能看看的故事书吧。本来以为是专业性比较强的东西，结果是打着手记外衣的小说。作者有点模仿福尔摩斯的感觉，只是这次厉害的那个关键人物换成了非第一人称：解密二人组，有一个人上知天文下知地理专业精湛，另一个负责处理杂事以及理解天才的不可理解之处。这样的故事讲好了也还不错，只可惜这本书里的故事，有点装神弄鬼。Any way，比起普遍的酸酸文艺风和无法直视的网文，这本书还算可以一读，拿来休闲正好。</li>
 </ol>
 <h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2><ol>
 <li>中文传媒精选</li>
@@ -1492,68 +1586,6 @@ cd toolchain
       <category term="crosstool-ng" scheme="http://conanwhf.coding.me/tags/crosstool-ng/"/>
     
       <category term="toolchain" scheme="http://conanwhf.coding.me/tags/toolchain/"/>
-    
-      <category term="RaspberryPi" scheme="http://conanwhf.coding.me/categories/RaspberryPi/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[树莓派RaspberryPi内核编译]]></title>
-    <link href="http://conanwhf.coding.me/2016/01/12/rpi-kernel/"/>
-    <id>http://conanwhf.coding.me/2016/01/12/rpi-kernel/</id>
-    <published>2016-01-12T07:31:26.000Z</published>
-    <updated>2016-08-26T05:04:11.000Z</updated>
-    <content type="html"><![CDATA[<p>作为一个（曾经的）内核开发者，弄到块板子怎么能不重新编译内核？系统配好跑起来后的第二件事，就是编译内核了。在树莓派上编译内核很简单，基本上就是按照官方文档跑脚本，先放GitHub上的Script<a href="https://github.com/conanwhf/RaspberryPi-script" target="_blank" rel="external">传送门</a>，<strong>build/kernel.sh</strong></p>
-<h2 id="u7CFB_u7EDF_u7B80_u4ECB"><a href="#u7CFB_u7EDF_u7B80_u4ECB" class="headerlink" title="系统简介"></a>系统简介</h2><h3 id="u6587_u4EF6_u7CFB_u7EDF"><a href="#u6587_u4EF6_u7CFB_u7EDF" class="headerlink" title="文件系统"></a>文件系统</h3><p>树莓派的文件系统设计还是不错的，能比较方便地更新内核和各种固件。整个文件系统分为两个部分：Fat32分区和Ext4分区。Fat32分区是mount到/boot上的，里面放了内核和启动的核心固件；Ext4就是一般的根文件系统了，放其他的所有东西，包括firmware和各种ko等。这种设计免去了用户烧录的麻烦，只是他们的bootloader没有开放源码，对于极客来说是很不爽的事情。<br>所谓的系统更新，就是每次编译kernel之后，直接把生成的文件放到特定的地方，重启就行。这也是为什么系统自带的工具<strong>rpi-update</strong>可以自动更新内核、firmware等等一切东西。</p>
-<h3 id="u786C_u4EF6_u7684_u9009_u62E9_u548C_u542F_u52A8"><a href="#u786C_u4EF6_u7684_u9009_u62E9_u548C_u542F_u52A8" class="headerlink" title="硬件的选择和启动"></a>硬件的选择和启动</h3><p>树莓派一代和二代用的两个不同的ARM芯片，这个差别在操作系统中并没有体现出来，我是指：官方提供的系统镜像是同一个。开始我很奇怪，后来看到了它的文件系统，才明白，它是靠不同的kernel文件名来区分的。这两种板子的platform分别叫”bcm2708”和”bcm2709”，启动的时候bootloader会根据硬件情况自动区分，读取不同的kernel image，进而load不同的firmware和driver。</p>
-<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/12/rpi-kernel/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/12/rpi-kernel/'>树莓派RaspberryPi内核编译</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-
-<h2 id="u6E90_u7801_u4E0B_u8F7D__26amp_3B__u73AF_u5883_u51C6_u5907"><a href="#u6E90_u7801_u4E0B_u8F7D__26amp_3B__u73AF_u5883_u51C6_u5907" class="headerlink" title="源码下载 &amp; 环境准备"></a>源码下载 &amp; 环境准备</h2><p>要说编译内核有什么好准备的，那恐怕就是要准备一个好点的网络环境和大大的耐心了。不算下载source code，我整个系统编了五六个小时吧。好在编译是一直有输出的，有点盼头，不然真是要cancel掉了……<br>先是源码下载：</p>
-<pre><code>git clone --depth=1 git://github.com/raspberrypi/linux.git linux  
-</code></pre><p>然后是工具的准备，最好先<code>apt-get -y update</code>一下</p>
-<pre><code>sudo apt-get -y install gcc make bc screen ncurses-dev
-</code></pre><h2 id="u6B63_u5F0F_u7F16_u8BD1_uFF08_u4E8C_u4EE3B_u4E3A_u4F8B_uFF09"><a href="#u6B63_u5F0F_u7F16_u8BD1_uFF08_u4E8C_u4EE3B_u4E3A_u4F8B_uFF09" class="headerlink" title="正式编译（二代B为例）"></a>正式编译（二代B为例）</h2><p>源码和编译环境准备好了以后，就要开编了。kernel的config文件官方已经给出，什么都不改也是可以跑得很好的，看看有什么要改的然后就让它跑着自己睡觉去吧：</p>
-<pre><code>KERNEL=kernel7
-make bcm2709_defconfig
-make menuconfig
-
-make -j4 zImage modules dtbs
-sudo make modules_install
-sudo cp arch/arm/boot/dts/*.dtb /boot/
-sudo cp arch/arm/boot/dts/overlays/*.dtb* /boot/overlays/
-sudo cp arch/arm/boot/dts/overlays/README /boot/overlays/
-sudo scripts/mkknlimg arch/arm/boot/zImage /boot/$KERNEL.img
-</code></pre><h2 id="u5B8C_u6210"><a href="#u5B8C_u6210" class="headerlink" title="完成"></a>完成</h2><p>一觉醒来，终于跑完了！看看输出有没有什么错误，不要太鲁莽。如果没什么问题，就可以<code>reboot</code>了，enjoy!</p>
-<h2 id="u4E07_u4E00_u2026_u2026"><a href="#u4E07_u4E00_u2026_u2026" class="headerlink" title="万一……"></a>万一……</h2><p>万一，编译出了什么问题，系统跑不起来了……🤔我是不是应该先写这一部分？最简单的办法当然是重烧官方img，不过码农怎么会这么粗暴……你只要备份好/boot, /lib/firmware, /lib/modules这三个文件夹就行了。<br>最坏的情况，你之前没有备份？另外拿张卡，烧进官方系统跑起来，插入之前的卡，mount上去（系统应该会自动做了，在~/media/底下），更新那三个文件夹。<br>最最坏的情况，你没有第二张卡？那只好simulate一个disk出来，把上面的解决办法在主机上做一遍了……😏</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>作为一个（曾经的）内核开发者，弄到块板子怎么能不重新编译内核？系统配好跑起来后的第二件事，就是编译内核了。在树莓派上编译内核很简单，基本上就是按照官方文档跑脚本，先放GitHub上的Script<a href="https://github.com/conanwhf/RaspberryPi-script">传送门</a>，<strong>build/kernel.sh</strong></p>
-<h2 id="u7CFB_u7EDF_u7B80_u4ECB"><a href="#u7CFB_u7EDF_u7B80_u4ECB" class="headerlink" title="系统简介"></a>系统简介</h2><h3 id="u6587_u4EF6_u7CFB_u7EDF"><a href="#u6587_u4EF6_u7CFB_u7EDF" class="headerlink" title="文件系统"></a>文件系统</h3><p>树莓派的文件系统设计还是不错的，能比较方便地更新内核和各种固件。整个文件系统分为两个部分：Fat32分区和Ext4分区。Fat32分区是mount到/boot上的，里面放了内核和启动的核心固件；Ext4就是一般的根文件系统了，放其他的所有东西，包括firmware和各种ko等。这种设计免去了用户烧录的麻烦，只是他们的bootloader没有开放源码，对于极客来说是很不爽的事情。<br>所谓的系统更新，就是每次编译kernel之后，直接把生成的文件放到特定的地方，重启就行。这也是为什么系统自带的工具<strong>rpi-update</strong>可以自动更新内核、firmware等等一切东西。</p>
-<h3 id="u786C_u4EF6_u7684_u9009_u62E9_u548C_u542F_u52A8"><a href="#u786C_u4EF6_u7684_u9009_u62E9_u548C_u542F_u52A8" class="headerlink" title="硬件的选择和启动"></a>硬件的选择和启动</h3><p>树莓派一代和二代用的两个不同的ARM芯片，这个差别在操作系统中并没有体现出来，我是指：官方提供的系统镜像是同一个。开始我很奇怪，后来看到了它的文件系统，才明白，它是靠不同的kernel文件名来区分的。这两种板子的platform分别叫”bcm2708”和”bcm2709”，启动的时候bootloader会根据硬件情况自动区分，读取不同的kernel image，进而load不同的firmware和driver。</p>]]>
-    
-    </summary>
-    
-      <category term="Kernel" scheme="http://conanwhf.coding.me/tags/Kernel/"/>
     
       <category term="RaspberryPi" scheme="http://conanwhf.coding.me/categories/RaspberryPi/"/>
     

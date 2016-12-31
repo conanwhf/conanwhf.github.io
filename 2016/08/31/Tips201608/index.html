@@ -53,7 +53,7 @@
 fmdata数据库(增删改查)   –数据需要:增删改查
 coreData">
 <meta property="og:type" content="article">
-<meta property="og:title" content="开发Tips收集-2016年00月">
+<meta property="og:title" content="开发Tips收集-2016年08月">
 <meta property="og:url" content="http://conanwhf.coding.me/2016/08/31/Tips201608/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。如有侵权不得转载等情况，请联系我告知，谢谢！
@@ -63,9 +63,9 @@ coreData">
 数据缓存方式选择:
 fmdata数据库(增删改查)   –数据需要:增删改查
 coreData">
-<meta property="og:updated_time" content="2016-08-31T15:06:57.000Z">
+<meta property="og:updated_time" content="2016-09-01T13:46:33.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="开发Tips收集-2016年00月">
+<meta name="twitter:title" content="开发Tips收集-2016年08月">
 <meta name="twitter:description" content="这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。如有侵权不得转载等情况，请联系我告知，谢谢！
 
 
@@ -82,7 +82,7 @@ coreData">
   };
 </script>
 
-  <title> 开发Tips收集-2016年00月 | iOS开发和七七八八 </title>
+  <title> 开发Tips收集-2016年08月 | iOS开发和七七八八 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -240,7 +240,7 @@ coreData">
           
           
             
-              开发Tips收集-2016年00月
+              开发Tips收集-2016年08月
             
           
         </h1>
@@ -306,7 +306,7 @@ coreData">
 </li>
 <li>清除签名文件 删除签名文件 清理Profile文件：Xcode - Preferences - Account - View Details,这个时候左下角有个刷新图标，点击一下就可以了</li>
 <li>TableView头视图不随视图移动，头视图出现错位的错误原因：tableView的 UITableViewStyle 没有明确的声明。解决方法：在tableView声明的时候明确为 UITableViewStyleGrouped</li>
-<li>ViewController生命周期：<br>  alloc -> initWithNibName -> loadView -> viewDidLoad -> viewWillAppear -> viewDidAppear -> viewWillDisappear -> viewDidDisappear -> dealloc<br>  注意1. 不要在loadView中调用父类方法<a href="/">super loadView</a>，因为这会影响CPU性能。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/31/Tips201608/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/31/Tips201608/'>开发Tips收集-2016年00月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<li>ViewController生命周期：<br>  alloc -> initWithNibName -> loadView -> viewDidLoad -> viewWillAppear -> viewDidAppear -> viewWillDisappear -> viewDidDisappear -> dealloc<br>  注意1. 不要在loadView中调用父类方法<a href="/">super loadView</a>，因为这会影响CPU性能。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/31/Tips201608/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/31/Tips201608/'>开发Tips收集-2016年08月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -336,6 +336,9 @@ coreData">
 </ol>
 </li>
 <li>App 的沙盒文件目录可以以 NSURL 的形式返回：<br>  <code>let documentURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first</code></li>
+<li>cell被重用如何提前知道? 重写cell的prepareForReuse 官方头文件中有说明.当前已经被分配的cell如果被重用了(通常是滚动出屏幕外了),会调用cell的prepareForReuse通知cell.注意这里重写方法的时候,注意一定要调用父类方法<a href="/">super prepareForReuse</a> .这个在使用cell作为网络访问的代理容器时尤其要注意,需要在这里通知取消掉前一次网络请求.不要再给这个cell发数据了.</li>
+<li>addObserverForName监听消息处理跟addObserver的差别：addObserver的四个参数分别指定了通知的观察者、处理通知的回调、通知名及通知的发送对象；而addObserverForName同样是监听消息处理，只是它并没有观察者，却多出一个队列跟一个block的处理；addObserverForName参数说明，name和obj为nil时的情形与前面一个方法addObserver是相同的。如果queue为nil，则消息是默认在post线程中同步处理，即通知的post与转发是在同一线程中；但如果我们指定了操作队列，情况就变得有点意思了，我们一会再讲。block块会被通知中心拷贝一份(执行copy操作)，以在堆中维护一个block对象，直到观察者被从通知中心中移除。所以，应该特别注意在block中使用外部对象，避免出现对象的循环引用。如果一个给定的通知触发了多个观察者的block操作，则这些操作会在各自的Operation Queue中被并发执行。所以我们不能去假设操作的执行会按照添加观察者的顺序来执行。该方法会返回一个表示观察者的对象，记得在不用时释放这个对象。</li>
+<li>在iOS7之后，默认情况下，状态栏都是由UIViewController管理的，若想通过UIApplication进行管理，则需要配置plist文件:View controller-based status bar appearance 设置成NO (默认值为YES)</li>
 </ul>
 </span>
       
@@ -355,6 +358,8 @@ coreData">
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/31/ReadingList2016-12/" rel="prev">读书清单 2016-12</a>
             
           </div>
 
@@ -376,7 +381,7 @@ coreData">
     <div class="post-spread">
       
         <div class="ds-share flat" data-thread-key="2016/08/31/Tips201608/"
-     data-title="开发Tips收集-2016年00月"
+     data-title="开发Tips收集-2016年08月"
      data-content=""
      data-url="http://conanwhf.coding.me/2016/08/31/Tips201608/">
   <div class="ds-share-inline">
@@ -409,7 +414,7 @@ coreData">
           <div class="comments" id="comments">
             
               <div class="ds-thread" data-thread-key="2016/08/31/Tips201608/"
-                   data-title="开发Tips收集-2016年00月" data-url="http://conanwhf.coding.me/2016/08/31/Tips201608/">
+                   data-title="开发Tips收集-2016年08月" data-url="http://conanwhf.coding.me/2016/08/31/Tips201608/">
               </div>
             
           </div>
@@ -449,7 +454,7 @@ coreData">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">73</span>
+              <span class="site-state-item-count">74</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
