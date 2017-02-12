@@ -4,6 +4,44 @@
 
     
   <url>
+    <loc>http://conanwhf.coding.me/2017/02/01/ReadingList2017-01/</loc>
+    <lastmod>2017-02-12T13:23:47.000Z</lastmod>
+    <data>
+        <display>
+        <title>读书清单 2017-01</title>
+        <pubTime>2017-02-01T09:36:54.000Z</pubTime>
+        
+        <tag>BookList</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2017/02/12/JingJingTest/</loc>
+    <lastmod>2017-02-12T13:17:39.000Z</lastmod>
+    <data>
+        <display>
+        <title>静境电子书评测</title>
+        <pubTime>2017-02-12T09:35:25.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.coding.me/2016/12/31/ReadingList2016-12/</loc>
     <lastmod>2016-12-31T08:16:36.000Z</lastmod>
     <data>
@@ -1406,6 +1444,82 @@
 
     
   <url>
+    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-3/</loc>
+    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
+    <data>
+        <display>
+        <title>从打造新闻app学到的(3)：让自定义的类可排序</title>
+        <pubTime>2015-12-21T11:14:35.000Z</pubTime>
+        
+        <tag>Class</tag>
+         
+        <tag>NewsAPP</tag>
+         
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/12/16/creatDuoshuo/</loc>
+    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
+    <data>
+        <display>
+        <title>新配置了多说</title>
+        <pubTime>2015-12-16T05:35:25.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/09/05/DocumentsRule/</loc>
+    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
+    <data>
+        <display>
+        <title>自己的文档整理原则</title>
+        <pubTime>2015-09-05T09:23:39.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/12/04/Swift_open/</loc>
+    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
+    <data>
+        <display>
+        <title>Swift开源了！！！</title>
+        <pubTime>2015-12-04T10:29:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.coding.me/2015/12/21/newsreader-2/</loc>
     <lastmod>2016-01-17T17:48:23.000Z</lastmod>
     <data>
@@ -1443,82 +1557,6 @@
            
              
               <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/09/05/DocumentsRule/</loc>
-    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
-    <data>
-        <display>
-        <title>自己的文档整理原则</title>
-        <pubTime>2015-09-05T09:23:39.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-3/</loc>
-    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
-    <data>
-        <display>
-        <title>从打造新闻app学到的(3)：让自定义的类可排序</title>
-        <pubTime>2015-12-21T11:14:35.000Z</pubTime>
-        
-        <tag>Class</tag>
-         
-        <tag>NewsAPP</tag>
-         
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/04/Swift_open/</loc>
-    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
-    <data>
-        <display>
-        <title>Swift开源了！！！</title>
-        <pubTime>2015-12-04T10:29:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/16/creatDuoshuo/</loc>
-    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
-    <data>
-        <display>
-        <title>新配置了多说</title>
-        <pubTime>2015-12-16T05:35:25.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
           
         </display>
     </data>

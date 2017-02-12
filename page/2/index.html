@@ -223,6 +223,201 @@
           
           
             
+              <a class="post-title-link" href="/2016/08/12/rpi-3b/" itemprop="url">
+                树莓派RaspberryPi 3B的一些改变
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-08-12T19:31:26+08:00" content="2016-08-12">
+            2016-08-12
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/RaspberryPi/" itemprop="url" rel="index">
+                  <span itemprop="name">RaspberryPi</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/08/12/rpi-3b/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/12/rpi-3b/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>工作原因换上了最新的树莓派3B，使用了几天，虽然变化不大，但跟2B还是有一些区别的。在这里写下来供爱好者们参考。</p>
+<ol>
+<li>硬件上，基本上是可以通用的，接口跟2B保持一致，GPIO的排列也没有变过。值得注意的是3B自带了WIFI模块，所以你会看到开机就能有Wlan0的设备。</li>
+<li>系统上，有一些改变可能是操作系统升级导致的，比如cmdline跟以前不同，但总的来说变化不大。官网的烧录img和github提供的kernel源码现在都已经提供了3B的支持，只是烧录系统就不讨论了，如果是自己编译kernel的话要注意<code>/boot/bcm2710-rpi-3-b.dtb</code>这个文件，这是系统支持3B的关键。内核的img名字还是<strong>kernel7.img</strong>没变，新的系统能同时支持3B和2B。是否把<strong>bcm2701-rpi-3-b.dtb</strong>拷贝到旧的系统中就能使其支持3B，我没有测试过，但我想应该不能成功，因为恐怕还需要更新一些index。</li>
+<li>实际使用中，关于UART发现了一个很好玩的变化。以前串口的设备是<code>/dev/ttyAMA0</code>，但在3B上变成了<code>/dev/ttyS0</code>。确切地说，是3B的设备多出来一个<strong>ttyS0</strong>，并且使用ttyAMA0无法传输数据，必须使用ttyS0。前面说了新的系统可以同时兼容两种板子，我用同样的软件在2B和3B上都试了一下，2B依然只有ttyAMA0，所以可以肯定这不是软件升级的区别，具体原因就不知到了。<br>目前只看到这些不同，用起来也没什么区别的样子，可能好的地方就是可以省出一个USB口吧。😀</li>
+</ol>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2016/07/01/Tips201606/" itemprop="url">
+                开发Tips收集-2016年06月
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-07-01T17:25:39+08:00" content="2016-07-01">
+            2016-07-01
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/DevTips/" itemprop="url" rel="index">
+                  <span itemprop="name">DevTips</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/07/01/Tips201606/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/01/Tips201606/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>iOS获取通知需要注意以：iOS 设备收到一条推送（APNs），用户点击推送通知打开应用时，应用程序根据状态不同进行处理需在 AppDelegate 中的以下两个方法中添加代码以获取apn内容<ol>
+<li>如果 App 状态为未运行，此函数将被调用，如果launchOptions包含UIApplicationLaunchOptionsRemoteNotificationKey表示用户点击apn 通知导致app被启动运行；如果不含有对应键值则表示 App 不是因点击apn而被启动，可能为直接点击icon被启动或其他。<br>(BOOL)application:(UIApplication <em>)application didFinishLaunchingWithOptions:(NSDictionary </em>)launchOptions;<br>// apn 内容获取：<br>NSDictionary *remoteNotification = [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey]</li>
+</ol>
+</li>
+</ul>
+<ol>
+<li>基于iOS 6 及以下的系统版本，如果 App状态为正在前台或者点击通知栏的通知消息，那么此函数将被调用，并且可通过AppDelegate的applicationState是否为UIApplicationStateActive判断程序是否在前台运行。此种情况在此函数中处理：<br> (void)application:(UIApplication <em>)application didReceiveRemoteNotification:(NSDictionary </em>)userInfo; // apn内容为userInfo</li>
+<li>基于iOS 7 及以上的系统版本，如果是使用 iOS 7 的 Remote Notification 特性那么处理函数需要使用<br> (void)application:(UIApplication <em>)application didReceiveRemoteNotification:(NSDictionary </em>)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler; // apn内容为userInfo</li>
+</ol>
+<ul>
+<li>触摸事件withEvent:的方法处理流程:首先会在当前视图view上调用pointInside:withEvent:方法来判断触摸事件是否存在当前view中，如果返回NO，则说明触摸事件不在该view范围中，hitText:withEvent:方法返回nil；如果返回YES，则说明触摸在该view中，则向该view的subViews发送htiText:withEvent:消息，所有subviews的数组遍历顺序是从后往前，直至遍历到pointInside:withEvent:返回值为非空或者遍历完所有subview结束。如果遍历有非空对象,则hitTextField:withEvent:返回该对象结束；如果遍历完没有非空对象，则返回自己（self）。</li>
+<li>响应者原理：首先会在触摸view上调用inital view方法，看能否处理此事件，如果不能则会将事件传递给其上级视图（inital view的superView）；如果上级视图仍然无法处理则会继续往上传递；一直传递到视图控制器view controller，首先判断视图控制器的根视图view是否能处理此事件；如果不能则接着判断该视图控制器能否处理此事件，如果还是不能则继续向上传递；（对于第二个图视图控制器本身还在另一个视图控制器中，则继续交给父视图控制器的根视图，如果根视图不能处理则交给父视图控制器处理）；一直到window，如果window还是不能处理此事件则继续交给application（UIApplication单例对象）处理，如果最后application还是不能处理此事件则将其丢弃。</li>
+<li>UITabBarController的subview 共有两个，一个叫 UITabBar，就是底下的那个 Bar；另一个叫UITranstionview，就是 Bar 上面的视图。把UITabBar的 y 向下移49个单位，把UITranstionview 的 hight 加长 49 个单位，也能实现隐藏UITabBar的效果。</li>
+<li>UITextView开始编辑时，文字没有左上角对齐解决办法：其一，没有给textview对齐方式；其二，没有将BOOL类型的“automaticallyAdjustsScrollViewInsets”属性置为yes</li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/01/Tips201606/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2016/05/31/Tips201605/" itemprop="url">
                 开发Tips收集-2016年05月
               </a>
@@ -804,184 +999,6 @@
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2016/02/06/ChineseNewYear2016/" itemprop="url">
-                过年好！
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-02-06T21:35:25+08:00" content="2016-02-06">
-            2016-02-06
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2016/02/06/ChineseNewYear2016/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/06/ChineseNewYear2016/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>明天就除夕了，祝大家新年好！阖家团圆、幸福安康！<br>不过我对于过年还是没什么感觉，似乎就是一个普通周末。公婆也都来了，每天菜场、超市的，我却没进入状态，总想着我还有一堆bug和学习计划没完成呢！<br>前段时间不怎么顺，首先是去Apple申请了个独立开发者帐号，因为我新加坡和中国的各种信息混在一起，还有税单和银行的问题，跟Apple客服一直来往邮件，墨迹了好久。<br>然后是费劲周折提交了个新闻阅读器，审查了半个月说是版权问题，幸好一开始就只是抱着熟悉流程的期望值。话说对于新手来说，提交的坑实在是太多了……我对照着两个教程，硬生生上传了4个版本、cancel一次、才最终成功提交审核，个中曲折，原本打算上架后好好写一遍教程，现在只好写个“上架不成功踩雷指南”了。😂<br>最后，自己身体也似乎有点报警，现在每天起床后去健身房跑步30分钟（其实最多只能连续跑5分钟，几次间断加起来也不超过15分钟），坚持了两周，似乎有所改善。不由得感叹生命真的在于运动，对我这种万年宅来说必须要逼一逼自己，开始运动不能拖！<br>最后，之前提到的那个新闻阅读器，既然无法上架，那就开源吧。虽然我想对于我这样的新手而且是野路子自学的来说，写的code估计烂得不忍直视……纯手打代码，没用任何第三方库，因为是自用，所以会不定时更新，希望至少能帮到一点点比我更新手的新新手？不过APP所阅读的新闻源，是需要翻墙的……不啰嗦，地址：<a href="https://github.com/conanwhf/NewsReader" target="_blank" rel="external">https://github.com/conanwhf/NewsReader</a><br>另外顺便开源一下我的家庭环境检测系统，用于树莓派，前几天把各个sensor的code做成库整合了一下，过几天准备加屏幕驱动，教程有空再写吧。初学python，也是在瞎玩玩，给新手linux玩家多一个参考：<a href="https://github.com/conanwhf/Rpi-envMonitor" target="_blank" rel="external">https://github.com/conanwhf/Rpi-envMonitor</a></p>
-<p>新年祝好！愿所有人平安健康，幸福安宁！愿台湾地震的灾民尽快获得安顿、不要在流离失所中过年！🙏</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2016/01/31/Tips201601/" itemprop="url">
-                开发Tips收集-2016年01月
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-01-31T17:25:39+08:00" content="2016-01-31">
-            2016-01-31
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/DevTips/" itemprop="url" rel="index">
-                  <span itemprop="name">DevTips</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2016/01/31/Tips201601/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/31/Tips201601/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>你可以在 Gemfile 中指定 cocoapods gem 的使用版本。<br>  <code>source &#39;https://rubygems.org&#39;</code><br>  <code>gem &#39;cocoapods&#39;, &#39;0.39.0&#39;</code><br>  当你更新了 Gemfile 文件并且自动安装了正确版本的 gem 后，确保团队的每个成员都运行一次 <code>bundle install</code> 这条命令。此后，只需要运行 <code>bundle exec pod install</code> 这条命令来安装新的 CocoaPods——这将会确保通过你在的 Gemfile 中指定 cocoapods gem 的版本后，pods 仍可以被正确的安装。</li>
-<li>instrument调试后，发现没被释放的全是imageIO，差不多就知道了，把读图的方式，从UIImage imageNamed:@”“,改成imageWithContentsOfFile，就可以了。问题原因：imageNamed读取图片的方法，会缓存在内存中，所以较大的图片，还是用
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/31/Tips201601/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1020,7 +1037,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">75</span>
+              <span class="site-state-item-count">77</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1124,7 +1141,7 @@
       <div class="footer-inner"> <div class="copyright" >
   
   &copy; &nbsp;  2015 - 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="icon-next-heart"></i>
   </span>
