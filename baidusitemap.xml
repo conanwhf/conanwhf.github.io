@@ -4,6 +4,48 @@
 
     
   <url>
+    <loc>http://conanwhf.coding.me/2017/02/28/ReadingList2017-02/</loc>
+    <lastmod>2017-03-03T04:32:29.000Z</lastmod>
+    <data>
+        <display>
+        <title>读书清单 2017-02</title>
+        <pubTime>2017-02-28T02:36:54.000Z</pubTime>
+        
+        <tag>BookList</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2017/02/28/Tips201702/</loc>
+    <lastmod>2017-03-03T04:01:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>开发Tips收集-2017年02月</title>
+        <pubTime>2017-02-28T09:25:39.000Z</pubTime>
+        
+        <tag>Xcode</tag>
+         
+        <tag>iOS - Swift</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevTips" url="http://conanwhf.coding.me/categories/DevTips/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.coding.me/2017/02/01/ReadingList2017-01/</loc>
     <lastmod>2017-02-12T13:23:47.000Z</lastmod>
     <data>
@@ -1444,6 +1486,24 @@
 
     
   <url>
+    <loc>http://conanwhf.coding.me/2015/12/16/creatDuoshuo/</loc>
+    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
+    <data>
+        <display>
+        <title>新配置了多说</title>
+        <pubTime>2015-12-16T05:35:25.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.coding.me/2015/12/21/newsreader-3/</loc>
     <lastmod>2016-01-17T17:48:23.000Z</lastmod>
     <data>
@@ -1459,24 +1519,6 @@
            
              
               <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/16/creatDuoshuo/</loc>
-    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
-    <data>
-        <display>
-        <title>新配置了多说</title>
-        <pubTime>2015-12-16T05:35:25.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
           
         </display>
     </data>
@@ -1520,28 +1562,6 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-2/</loc>
-    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
-    <data>
-        <display>
-        <title>从打造新闻app学到的(2)：定义类中的只读属性</title>
-        <pubTime>2015-12-21T09:14:35.000Z</pubTime>
-        
-        <tag>Class</tag>
-         
-        <tag>NewsAPP</tag>
-         
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://conanwhf.coding.me/2015/11/05/ResourceInGit/</loc>
     <lastmod>2016-01-17T17:48:23.000Z</lastmod>
     <data>
@@ -1557,6 +1577,28 @@
            
              
               <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-2/</loc>
+    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
+    <data>
+        <display>
+        <title>从打造新闻app学到的(2)：定义类中的只读属性</title>
+        <pubTime>2015-12-21T09:14:35.000Z</pubTime>
+        
+        <tag>Class</tag>
+         
+        <tag>NewsAPP</tag>
+         
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
