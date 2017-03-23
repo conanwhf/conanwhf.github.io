@@ -223,6 +223,93 @@
           
           
             
+              <a class="post-title-link" href="/2016/01/16/Transform/" itemprop="url">
+                使用.transform旋转带来的坑
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-01-16T17:32:45+08:00" content="2016-01-16">
+            2016-01-16
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/CocoaTouch/" itemprop="url" rel="index">
+                  <span itemprop="name">CocoaTouch</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。<br>关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周Blog<a href="http://conanwhf.github.io/2016/01/03/UISlider/" title="UIController中Slider监听回调具体实现的分离">UIController中Slider监听回调具体实现的分离</a>），我也添加了旋转的功能，开始是在handler中这么写的(back是一个UIView)：</p>
+<pre><code>let x = (Float(ctl.show.frame.width) - conf[0] )/2
+let y = (Float(ctl.show.frame.height) - conf[1] )/2
+back.frame.size = CGSize(width: CGFloat(conf[0], height: CGFloat(conf[1])
+back.frame.origin = CGPoint(x: Int(x), y: Int(y))
+back.transform = CGAffineTransformMakeRotation( CGFloat(Double(conf[7] * M_PI  / 180.0))
+</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样有时候会自己拉扁的：<br><img src="http://whf.d.pr/CNsl+" alt=""></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/16/Transform/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2016/01/14/rpi-toolchain/" itemprop="url">
                 自己编译给树莓派RaspberryPi的交叉编译工具
               </a>
@@ -257,13 +344,6 @@
         
 
         
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2016/01/14/rpi-toolchain/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/14/rpi-toolchain/" itemprop="commentsCount"></span>
-              </a>
-            </span>
           
         
       </div>
@@ -345,13 +425,6 @@
         
 
         
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2016/01/12/rpi-kernel/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/12/rpi-kernel/" itemprop="commentsCount"></span>
-              </a>
-            </span>
           
         
       </div>
@@ -436,13 +509,6 @@
 
         
           
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2016/01/12/rpi-start/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/12/rpi-start/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
         
       </div>
     </header>
@@ -523,13 +589,6 @@
         
 
         
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2016/01/12/rpi-get/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/12/rpi-get/" itemprop="commentsCount"></span>
-              </a>
-            </span>
           
         
       </div>
@@ -612,13 +671,6 @@
 
         
           
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2016/01/03/UISlider/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/03/UISlider/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
         
       </div>
     </header>
@@ -699,13 +751,6 @@
         
 
         
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2016/01/01/newsreader-7/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/01/newsreader-7/" itemprop="commentsCount"></span>
-              </a>
-            </span>
           
         
       </div>
@@ -801,13 +846,6 @@ func updateLatesList(){
 
         
           
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/12/31/newsreader-6/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/31/newsreader-6/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
         
       </div>
     </header>
@@ -830,110 +868,6 @@ post.attributedText = attributedString
 </code></pre><p>不但能解析字体、颜色等等html标识，有图片的话也是没问题的。不过，事情没这么容易解决……
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/12/31/newsreader-6/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/31/Tips201512/" itemprop="url">
-                开发Tips收集-2015年12月
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-31T17:25:39+08:00" content="2015-12-31">
-            2015-12-31
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/DevTips/" itemprop="url" rel="index">
-                  <span itemprop="name">DevTips</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/12/31/Tips201512/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/31/Tips201512/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>所谓闭包，就是函数及其词法作用域的合称</li>
-<li>什么不是重构？:<ol>
-<li>添加新功能</li>
-<li>改变某个类型的公共接口</li>
-<li>改变某个类型的行为<br>这些东西都只能叫做重写。有一个很简单的判断方式：<strong>你是否需要改变单元测试</strong>？如果需要的话，那么只就是重写，否则的话才是重构。</li>
-</ol>
-</li>
-<li>设置UIView的背景图片<ol>
-<li>将图片作为UIView的背景色，会在生成color时占用大量的内存。如果图片大小不够，就会平铺多张图片，不会去拉伸图片以适应View的大小</li>
-<li>在UIView上再添加一个UIImageView显示图片作为UIView的背景图片</li>
-</ol>
-</li>
-</ul>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/31/Tips201512/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -993,7 +927,7 @@ post.attributedText = attributedString
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">79</span>
+              <span class="site-state-item-count">80</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1039,7 +973,7 @@ post.attributedText = attributedString
               </span>
             
               <span class="links-of-author-item">
-                <a href="mailto:conanwhf@gmail.com" target="_blank">MailtoMe</a>
+                <a href="mailto:conan.whf@gmail.com" target="_blank">MailtoMe</a>
               </span>
             
           
@@ -1128,26 +1062,11 @@ post.attributedText = attributedString
   
   
     
+    
 
   
-    
-  
 
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"conanwhfgithub"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-    
-     
 
-    
   
   
   <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>

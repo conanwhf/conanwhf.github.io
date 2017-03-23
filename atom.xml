@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.coding.me/"/>
-  <updated>2017-03-03T04:01:20.000Z</updated>
+  <updated>2017-03-23T11:10:27.000Z</updated>
   <id>http://conanwhf.coding.me/</id>
   
   <author>
@@ -13,6 +13,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[多说评论关闭]]></title>
+    <link href="http://conanwhf.coding.me/2017/03/23/DuoShuoClose/"/>
+    <id>http://conanwhf.coding.me/2017/03/23/DuoShuoClose/</id>
+    <published>2017-03-23T09:35:25.000Z</published>
+    <updated>2017-03-23T11:10:27.000Z</updated>
+    <content type="html"><![CDATA[<p>刚刚发现多说不正常，去官网看，才发现多说已经要关了……</p>
+<blockquote>
+<p>重要通知: 多说即将关闭<br>多说网 发表于 3月21日<br>因公司业务调整，非常遗憾的向大家宣布多说项目即将关闭。 我们将于2017年6月1日正式关停服务，在此之前您可以通过后台的数据导出功能导出自己站点的评论数据。 对此给您造成的不便，我们深表歉意，感谢您的一路相伴。</p>
+</blockquote>
+<p>感谢多说在过去日子里提供的服务，一个无法变现的项目难以为继，作为程序员我能理解。合适的新评论系统我还没有找到，国内的服务太多广告太一言难尽，国外的又太慢会被墙，不然我也不会专门在coding放个整站镜像了。所以目前的计划是所有评论暂时关闭，如果有什么想说的，欢迎发email给我交流，或者在github上留言也OK。虽然这么长时间并没有什么人留言，但还是感谢每一个关注的人。谢谢！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>刚刚发现多说不正常，去官网看，才发现多说已经要关了……</p>
+<blockquote>
+<p>重要通知: 多说即将关闭<br>多说网 发表于 3月21日<br>因公司业务调整，非常遗憾的向大家宣布多说项目即将关闭。 我们将于2017年6月1日正式关停服务，在此之前您可以通]]>
+    </summary>
+    
+      <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[开发Tips收集-2017年02月]]></title>
@@ -1418,119 +1440,6 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
       <category term="NewYear" scheme="http://conanwhf.coding.me/tags/NewYear/"/>
     
       <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[开发Tips收集-2016年01月]]></title>
-    <link href="http://conanwhf.coding.me/2016/01/31/Tips201601/"/>
-    <id>http://conanwhf.coding.me/2016/01/31/Tips201601/</id>
-    <published>2016-01-31T09:25:39.000Z</published>
-    <updated>2016-01-31T09:35:32.000Z</updated>
-    <content type="html"><![CDATA[<blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>你可以在 Gemfile 中指定 cocoapods gem 的使用版本。<br>  <code>source &#39;https://rubygems.org&#39;</code><br>  <code>gem &#39;cocoapods&#39;, &#39;0.39.0&#39;</code><br>  当你更新了 Gemfile 文件并且自动安装了正确版本的 gem 后，确保团队的每个成员都运行一次 <code>bundle install</code> 这条命令。此后，只需要运行 <code>bundle exec pod install</code> 这条命令来安装新的 CocoaPods——这将会确保通过你在的 Gemfile 中指定 cocoapods gem 的版本后，pods 仍可以被正确的安装。</li>
-<li>instrument调试后，发现没被释放的全是imageIO，差不多就知道了，把读图的方式，从UIImage imageNamed:@”“,改成imageWithContentsOfFile，就可以了。问题原因：imageNamed读取图片的方法，会缓存在内存中，所以较大的图片，还是用<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/31/Tips201601/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/31/Tips201601/'>开发Tips收集-2016年01月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
- imageWithContentsOfFile。<br>  Tip1：.xcassets里的图片无法用imageWithContentsOfFile读取；<br>  Tip2：imageWithContentsOfFile读取图片需要加文件后缀名如png，jpg等； </li>
-<li>不要将旋转视作设备的移动。相反将其视为视图控制器尺寸的改变，因为从用户的角度来看，这才是真实发生的操作。<ul>
-<li>资源文件瘦身：<ol>
-<li>减少图片和音频文件的大小</li>
-<li>对于PNG图片，由于它内部保存了额外的分层和透明通道信息，统称为EXIF，所以它会比JPG图片大一些。App开发推荐使用PNG图片是因为XCode会在打包时压缩PNG图片的大小。</li>
-<li>单色图片使用使用字体文件。关于字体文件的技术，也就是IconFont，网上有很多例子，同时适用于Andorid和iOS</li>
-<li>使用.9图。之所周知.9图是Android的技术，能极大减小图片的体积，殊不知，iOS也有类似的实现方式。</li>
-<li>动态下载表情包。把聊天时用到的表情图片，做成从服务器下载zip包的方式，而不是打包在App中。</li>
-<li>清除不再使用的图片。</li>
-</ol>
-</li>
-</ul>
-</li>
-<li>.a文件瘦身<ol>
-<li>冗余的类和方法。</li>
-<li>相似度极高的代码片段</li>
-<li>使用代码生成UI，而不是使用Xib或Storyboard。经过测试，对于同一个页面，使用代码而导致的.a文件增加的体积，大于Xib的体积。</li>
-<li>使用Hybird方案来代替iOS原生代码。</li>
-<li>编译选项的优化。比如说Strip Link Product设为Yes啊，Make Strings Read-Only设为Yes啊，去掉异常支持啊，都能减少包的大小。此外，经常检查LinkMap文件，也是控制瘦身的一个办法。</li>
-</ol>
-</li>
-<li>flatMap()与map()其实非常相似，map()的规则是T->U，而flatMap()的规则是T->U?，而且如果转换的结果是nil的话，flatMap()是不会将其添加到输出的array中的。 因此可以说flapMap()就好像你去使用map()，然后扁平化(faltten)地从结果中去除了那些nil的内容。</li>
-<li>事件（比如，触摸事件（touch event））都使用响应链来传递。响应链由响应者对象（Responder Objects，苹果官方术语）构成。UIView 和 UIViewController 都是响应者对象。这就意味着， UIView 和 UIViewController 都继承自 UIResponder </li>
-<li><strong>(void)prepareLayout</strong>; 第一次加载layout、刷新layout、以及- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds;这个方法返回yes时，会调用。实现该方法后应该调用［super prepareLayout］保证初始化正确。该方法用来准备一些布局所需要的信息。该方法和init方法相似，但该方法可能会被调用多次，所以一些不固定的计算（比如该计算和collectionView的尺寸相关），最好放在这里，以保证collectionView发生变化时，自定义CollectionView能做出正确的反应</li>
-<li>KVC 机制是由一个协议 NSKeyValueCoding 定义的。NSObject 帮我们实现了这个协议，所以 KVC 核心的逻辑都在 NSObject 中，我们继承 NSObject 才能让我们的类获得 KVC 的能力。另外，因为 Swift 中的 Optional 机制，所以 valueForKey 方法返回的是一个 Optional 值，我们还需要对返回值做一次解包处理，才能得到实际的属性值。</li>
-<li>UINavigationController介绍<ol>
-<li>UINavigationController是导航控制器，它通过栈的方式控制当前显示在屏幕上的是哪个控制器。</li>
-<li>它可以通过压入(push)和弹出(pop)来改变控制器的层次。</li>
-<li>自动提供返回(Back)按钮，以回到上一个压入的控制器，不需要额外编程</li>
-<li>UINavigationController会提供控制器切换的动画效果</li>
-<li>UINavgationController通过栈的形式管理多个UIViewController（即多个界面）</li>
-<li>可以管理当前在导航条(navigationBar)上的导航按钮</li>
-<li>UINavgationController为每个接受它管理的UIViewController自动添加UINavigationBar</li>
-</ol>
-</li>
-<li>类似于画板这样画线条的需求直接用专有图层CAShapeLayer。CAShapeLayer是一个通过矢量图形而不是bitmap来绘制的图层子类。用CGPath来定义想要绘制的图形，CAShapeLayer会自动渲染。它可以完美替代我们的直接使用Core Graphics绘制layer，对比之下使用CAShapeLayer有以下优点：<ol>
-<li>渲染快速。CAShapeLayer使用了硬件加速，绘制同一图形会比用Core Graphics快很多。</li>
-<li>高效使用内存。一个CAShapeLayer不需要像普通CALayer一样创建一个寄宿图形，所以无论有多大，都不会占用太多的内存。</li>
-<li>不会被图层边界剪裁掉。</li>
-<li>不会出现像素化。</li>
-</ol>
-</li>
-<li>使用串行队列的优点：<ol>
-<li>能确保对一个共享资源进行串行化的访问，避免了竞态条件；</li>
-<li>任务的执行顺序是可预知的；你向一个串行队列提交任务时，它们被执行的顺序与它们被提交的顺序相同；</li>
-<li>你可以创建任意数量的串行队列；</li>
-</ol>
-</li>
-<li>父视图通过tag取得子视图(viewWithTag)的顺序是深度优先，也就是先查看自己的第一个子视图，然后查看第一个子视图的所有子视图的tag值，直到第一个子视图下的所有子视图搜索完，再搜索自己第二个子视图，直到找到为止。找不到就返回nil</li>
-<li>继承定义了这个对象是什么，而特性则定义了这个对象能做什么<br>更棒的消息是：一个类可以部署很多特性，也就是可以同时做很多事情，这是只从单一父类继承而来的子类所不可企及的，因为他们一次只能做一件事情。</li>
-<li>动画属性UIViewAnimationOptions说明<ol>
-<li>常规动画属性设置（可以同时选择多个进行设置）<br>UIViewAnimationOptionLayoutSubviews：动画过程中保证子视图跟随运动。<br>UIViewAnimationOptionAllowUserInteraction：动画过程中允许用户交互。<br>UIViewAnimationOptionBeginFromCurrentState：所有视图从当前状态开始运行。<br>UIViewAnimationOptionRepeat：重复运行动画。<br>UIViewAnimationOptionAutoreverse ：动画运行到结束点后仍然以动画方式回到初始点。<br>UIViewAnimationOptionOverrideInheritedDuration：忽略嵌套动画时间设置。<br>UIViewAnimationOptionOverrideInheritedCurve：忽略嵌套动画速度设置。<br>UIViewAnimationOptionAllowAnimatedContent：动画过程中重绘视图（注意仅仅适用于转场动画）。<br>UIViewAnimationOptionShowHideTransitionViews：视图切换时直接隐藏旧视图、显示新视图，而不是将旧视图从父视图移除（仅仅适用于转场动画）<br>UIViewAnimationOptionOverrideInheritedOptions ：不继承父动画设置或动画类型。</li>
-<li>动画速度控制（可从其中选择一个设置）<br>UIViewAnimationOptionCurveEaseInOut：动画先缓慢，然后逐渐加速。<br>UIViewAnimationOptionCurveEaseIn ：动画逐渐变慢。<br>UIViewAnimationOptionCurveEaseOut：动画逐渐加速。<br>UIViewAnimationOptionCurveLinear ：动画匀速执行，默认值。</li>
-<li>转场类型（仅适用于转场动画设置，可以从中选择一个进行设置，基本动画、关键帧动画不需要设置）<br>UIViewAnimationOptionTransitionNone：没有转场动画效果。<br>UIViewAnimationOptionTransitionFlipFromLeft ：从左侧翻转效果。<br>UIViewAnimationOptionTransitionFlipFromRight：从右侧翻转效果。<br>UIViewAnimationOptionTransitionCurlUp：向后翻页的动画过渡效果。<br>UIViewAnimationOptionTransitionCurlDown ：向前翻页的动画过渡效果。<br>UIViewAnimationOptionTransitionCrossDissolve：旧视图溶解消失显示下一个新视图的效果。<br>UIViewAnimationOptionTransitionFlipFromTop ：从上方翻转效果。<br>UIViewAnimationOptionTransitionFlipFromBottom：从底部翻转效果。</li>
-</ol>
-</li>
-<li>每当在UICollectionView显示它的subview之前调用scrollToItemAtIndexPath:atScrollPosition:Animated方法，UIKit就会报错。所以要解决它，就应该在viewController中，在你能确认CollectionView完全计算出其subview布局的地方去调用这个方法。比如在viewDidLayoutSubviews里调用就没有问题。</li>
-<li>设置缓存只需要：<strong>如果你已经使用 了 GET 请求，iOS 系统 SDK 已经帮你做好了缓存</strong>。你需要的仅仅是设置下内存缓存大小、磁盘缓存大小、以及缓存路径。甚至这两行代码不设置也是可以的，会有一个默认值。代码如下：<br>NSURLCache <em>urlCache = [[NSURLCache alloc] initWithMemoryCapacity:4 </em> 1024 <em> 1024 diskCapacity:20 </em> 1024 * 1024 diskPath:nil];<br>[NSURLCache setSharedURLCache:urlCache];</li>
-<li>在 LLDB 中输入 <code>fr v -R foo</code>，可以查看 foo 这个变量的内存构成。</li>
-<li>倘若一个标记为 lazy 的属性同时被多个线程修改时，且该属性还未进行初始化操作，那么将无法保证该属性仅被初始化一次。</li>
-<li>页面跳转必须在viewDidLoad和viewDidAppear之后才能进行</li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>你可以在 Gemfile 中指定 cocoapods gem 的使用版本。<br>  <code>source &#39;https://rubygems.org&#39;</code><br>  <code>gem &#39;cocoapods&#39;, &#39;0.39.0&#39;</code><br>  当你更新了 Gemfile 文件并且自动安装了正确版本的 gem 后，确保团队的每个成员都运行一次 <code>bundle install</code> 这条命令。此后，只需要运行 <code>bundle exec pod install</code> 这条命令来安装新的 CocoaPods——这将会确保通过你在的 Gemfile 中指定 cocoapods gem 的版本后，pods 仍可以被正确的安装。</li>
-<li>instrument调试后，发现没被释放的全是imageIO，差不多就知道了，把读图的方式，从UIImage imageNamed:@”“,改成imageWithContentsOfFile，就可以了。问题原因：imageNamed读取图片的方法，会缓存在内存中，所以较大的图片，还是用]]>
-    
-    </summary>
-    
-      <category term="Xcode" scheme="http://conanwhf.coding.me/tags/Xcode/"/>
-    
-      <category term="iOS - Swift" scheme="http://conanwhf.coding.me/tags/iOS-Swift/"/>
-    
-      <category term="DevTips" scheme="http://conanwhf.coding.me/categories/DevTips/"/>
     
   </entry>
   

@@ -4,6 +4,24 @@
 
     
   <url>
+    <loc>http://conanwhf.coding.me/2017/03/23/DuoShuoClose/</loc>
+    <lastmod>2017-03-23T11:10:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>多说评论关闭</title>
+        <pubTime>2017-03-23T09:35:25.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.coding.me/2017/02/28/ReadingList2017-02/</loc>
     <lastmod>2017-03-03T04:32:29.000Z</lastmod>
     <data>
@@ -1486,6 +1504,28 @@
 
     
   <url>
+    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-2/</loc>
+    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
+    <data>
+        <display>
+        <title>从打造新闻app学到的(2)：定义类中的只读属性</title>
+        <pubTime>2015-12-21T09:14:35.000Z</pubTime>
+        
+        <tag>Class</tag>
+         
+        <tag>NewsAPP</tag>
+         
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.coding.me/2015/12/16/creatDuoshuo/</loc>
     <lastmod>2016-01-17T17:48:23.000Z</lastmod>
     <data>
@@ -1497,28 +1537,6 @@
            
              
               <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-3/</loc>
-    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
-    <data>
-        <display>
-        <title>从打造新闻app学到的(3)：让自定义的类可排序</title>
-        <pubTime>2015-12-21T11:14:35.000Z</pubTime>
-        
-        <tag>Class</tag>
-         
-        <tag>NewsAPP</tag>
-         
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
@@ -1584,12 +1602,12 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-2/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-3/</loc>
     <lastmod>2016-01-17T17:48:23.000Z</lastmod>
     <data>
         <display>
-        <title>从打造新闻app学到的(2)：定义类中的只读属性</title>
-        <pubTime>2015-12-21T09:14:35.000Z</pubTime>
+        <title>从打造新闻app学到的(3)：让自定义的类可排序</title>
+        <pubTime>2015-12-21T11:14:35.000Z</pubTime>
         
         <tag>Class</tag>
          
