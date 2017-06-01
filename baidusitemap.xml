@@ -4,17 +4,17 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2017/03/23/DuoShuoClose/</loc>
-    <lastmod>2017-03-23T11:10:27.000Z</lastmod>
+    <loc>http://conanwhf.coding.me/2017/05/30/bootup-1-main/</loc>
+    <lastmod>2017-06-01T10:25:06.000Z</lastmod>
     <data>
         <display>
-        <title>多说评论关闭</title>
-        <pubTime>2017-03-23T09:35:25.000Z</pubTime>
+        <title>ARM板移植Linux系统启动（一）启动流程</title>
+        <pubTime>2017-05-30T09:31:26.000Z</pubTime>
         
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+              <breadCrumb title="Linux" url="http://conanwhf.coding.me/categories/Linux/"/>
           
         </display>
     </data>
@@ -22,56 +22,14 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2017/02/28/ReadingList2017-02/</loc>
-    <lastmod>2017-03-03T04:32:29.000Z</lastmod>
+    <loc>http://conanwhf.coding.me/2016/01/12/rpi-get/</loc>
+    <lastmod>2017-06-01T08:47:38.000Z</lastmod>
     <data>
         <display>
-        <title>读书清单 2017-02</title>
-        <pubTime>2017-02-28T02:36:54.000Z</pubTime>
+        <title>树莓派RaspberryPi入手</title>
+        <pubTime>2016-01-12T05:31:26.000Z</pubTime>
         
-        <tag>BookList</tag>
-         
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2017/02/28/Tips201702/</loc>
-    <lastmod>2017-03-03T04:01:20.000Z</lastmod>
-    <data>
-        <display>
-        <title>开发Tips收集-2017年02月</title>
-        <pubTime>2017-02-28T09:25:39.000Z</pubTime>
-        
-        <tag>Xcode</tag>
-         
-        <tag>iOS - Swift</tag>
-         
-         
-           
-             
-              <breadCrumb title="DevTips" url="http://conanwhf.coding.me/categories/DevTips/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2017/02/01/ReadingList2017-01/</loc>
-    <lastmod>2017-02-12T13:23:47.000Z</lastmod>
-    <data>
-        <display>
-        <title>读书清单 2017-01</title>
-        <pubTime>2017-02-01T09:36:54.000Z</pubTime>
-        
-        <tag>BookList</tag>
+        <tag>RaspberryPi</tag>
          
          
            
@@ -84,187 +42,19 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2017/02/12/JingJingTest/</loc>
-    <lastmod>2017-02-12T13:17:39.000Z</lastmod>
+    <loc>http://conanwhf.coding.me/2016/08/12/rpi-3b/</loc>
+    <lastmod>2017-06-01T08:47:12.000Z</lastmod>
     <data>
         <display>
-        <title>静境电子书评测</title>
-        <pubTime>2017-02-12T09:35:25.000Z</pubTime>
+        <title>树莓派RaspberryPi 3B的一些改变</title>
+        <pubTime>2016-08-12T11:31:26.000Z</pubTime>
         
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2016/12/31/ReadingList2016-12/</loc>
-    <lastmod>2016-12-31T08:16:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>读书清单 2016-12</title>
-        <pubTime>2016-12-31T07:26:54.000Z</pubTime>
-        
-        <tag>BookList</tag>
+        <tag>RaspberryPi</tag>
          
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2016/02/26/ReadingList2016-02/</loc>
-    <lastmod>2016-12-31T08:16:06.000Z</lastmod>
-    <data>
-        <display>
-        <title>读书清单 2016-02</title>
-        <pubTime>2016-02-26T07:26:54.000Z</pubTime>
-        
-        <tag>BookList</tag>
-         
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/</loc>
-    <lastmod>2016-12-27T11:19:34.000Z</lastmod>
-    <data>
-        <display>
-        <title>读书清单 2016-08</title>
-        <pubTime>2016-08-15T09:36:54.000Z</pubTime>
-        
-        <tag>BookList</tag>
-         
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2016/08/31/Tips201608/</loc>
-    <lastmod>2016-09-01T13:46:33.000Z</lastmod>
-    <data>
-        <display>
-        <title>开发Tips收集-2016年08月</title>
-        <pubTime>2016-08-31T09:25:39.000Z</pubTime>
-        
-        <tag>Xcode</tag>
-         
-        <tag>iOS - Swift</tag>
-         
-         
-           
-             
-              <breadCrumb title="DevTips" url="http://conanwhf.coding.me/categories/DevTips/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2016/08/26/GPTandMBR/</loc>
-    <lastmod>2016-08-31T15:08:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>详细梳理分区表和系统启动相关的各种概念</title>
-        <pubTime>2016-08-26T09:30:25.000Z</pubTime>
-        
-        <tag>Boot</tag>
-         
-        <tag>GPT</tag>
-         
-        <tag>MBR</tag>
-         
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/</loc>
-    <lastmod>2016-08-31T04:47:05.000Z</lastmod>
-    <data>
-        <display>
-        <title>树莓派RaspberryPi系统备份Image的制作</title>
-        <pubTime>2016-08-25T02:02:26.000Z</pubTime>
-        
-        <tag>Boot</tag>
-         
-        <tag>Script</tag>
-         
-         
-           
-             
-              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/09/02/MustGet/</loc>
-    <lastmod>2016-08-30T14:51:23.000Z</lastmod>
-    <data>
-        <display>
-        <title>iOS开发必知必会（自己总结的）</title>
-        <pubTime>2015-09-02T09:11:28.000Z</pubTime>
-        
-        <tag>iOS</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2016/01/30/rpi-protocol/</loc>
-    <lastmod>2016-08-26T05:05:24.000Z</lastmod>
-    <data>
-        <display>
-        <title>在树莓派RaspberryPi上几种简单协议的实现</title>
-        <pubTime>2016-01-30T09:31:26.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-        <tag>Script</tag>
-         
-         
-           
-             
-              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
+              <breadCrumb title="Linux" url="http://conanwhf.coding.me/categories/Linux/"/>
           
         </display>
     </data>
@@ -273,7 +63,7 @@
     
   <url>
     <loc>http://conanwhf.coding.me/2016/01/12/rpi-kernel/</loc>
-    <lastmod>2016-08-26T05:04:11.000Z</lastmod>
+    <lastmod>2017-06-01T08:47:01.000Z</lastmod>
     <data>
         <display>
         <title>树莓派RaspberryPi内核编译</title>
@@ -281,10 +71,12 @@
         
         <tag>Kernel</tag>
          
+        <tag>RaspberryPi</tag>
+         
          
            
              
-              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
+              <breadCrumb title="Linux" url="http://conanwhf.coding.me/categories/Linux/"/>
           
         </display>
     </data>
@@ -292,16 +84,144 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2016/01/16/Transform/</loc>
-    <lastmod>2016-08-26T05:03:49.000Z</lastmod>
+    <loc>http://conanwhf.coding.me/2016/01/30/rpi-protocol/</loc>
+    <lastmod>2017-06-01T08:46:58.000Z</lastmod>
     <data>
         <display>
-        <title>使用.transform旋转带来的坑</title>
-        <pubTime>2016-01-16T09:32:45.000Z</pubTime>
+        <title>在树莓派RaspberryPi上几种简单协议的实现</title>
+        <pubTime>2016-01-30T09:31:26.000Z</pubTime>
         
-        <tag>Transform　</tag>
+        <tag>Python</tag>
          
-        <tag>iOS</tag>
+        <tag>RaspberryPi</tag>
+         
+        <tag>Script</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="http://conanwhf.coding.me/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/01/12/rpi-start/</loc>
+    <lastmod>2017-06-01T08:46:54.000Z</lastmod>
+    <data>
+        <display>
+        <title>树莓派RaspberryPi初始配置指南（2代B型）</title>
+        <pubTime>2016-01-12T06:31:26.000Z</pubTime>
+        
+        <tag>RaspberryPi</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="http://conanwhf.coding.me/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/01/14/rpi-toolchain/</loc>
+    <lastmod>2017-06-01T08:46:52.000Z</lastmod>
+    <data>
+        <display>
+        <title>自己编译给树莓派RaspberryPi的交叉编译工具</title>
+        <pubTime>2016-01-14T03:31:26.000Z</pubTime>
+        
+        <tag>RaspberryPi</tag>
+         
+        <tag>crosstool-ng</tag>
+         
+        <tag>toolchain</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="http://conanwhf.coding.me/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/</loc>
+    <lastmod>2017-06-01T08:46:45.000Z</lastmod>
+    <data>
+        <display>
+        <title>树莓派RaspberryPi系统备份Image的制作</title>
+        <pubTime>2016-08-25T02:02:26.000Z</pubTime>
+        
+        <tag>Boot</tag>
+         
+        <tag>RaspberryPi</tag>
+         
+        <tag>Script</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="http://conanwhf.coding.me/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/12/09/Swift_String_6/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>Swift2.0 中的String（六）：正则匹配</title>
+        <pubTime>2015-12-09T08:20:16.000Z</pubTime>
+        
+        <tag>String</tag>
+         
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/12/15/runInTerm/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>在终端运行Swift程序</title>
+        <pubTime>2015-12-15T04:14:35.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/09/12/AddTableViewInUIViewController/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>在UIViewController中添加TableView</title>
+        <pubTime>2015-09-12T09:32:45.000Z</pubTime>
+        
+        <tag>TableView</tag>
          
          
            
@@ -314,21 +234,17 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2016/01/14/rpi-toolchain/</loc>
-    <lastmod>2016-08-25T10:32:07.000Z</lastmod>
+    <loc>http://conanwhf.coding.me/2015/12/30/precision/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>自己编译给树莓派RaspberryPi的交叉编译工具</title>
-        <pubTime>2016-01-14T03:31:26.000Z</pubTime>
+        <title>Swift中数据类型精度的一点探索</title>
+        <pubTime>2015-12-30T09:14:35.000Z</pubTime>
         
-        <tag>crosstool-ng</tag>
-         
-        <tag>toolchain</tag>
-         
          
            
              
-              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
@@ -336,68 +252,16 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2016/08/12/rpi-3b/</loc>
-    <lastmod>2016-08-25T10:31:53.000Z</lastmod>
+    <loc>http://conanwhf.coding.me/2016/01/21/newsreader-8/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>树莓派RaspberryPi 3B的一些改变</title>
-        <pubTime>2016-08-12T11:31:26.000Z</pubTime>
+        <title>从打造新闻app学到的(8)：自定义TableViewCell</title>
+        <pubTime>2016-01-21T09:32:45.000Z</pubTime>
         
+        <tag>StoryBoard</tag>
          
-           
-             
-              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2016/01/12/rpi-start/</loc>
-    <lastmod>2016-08-25T10:31:48.000Z</lastmod>
-    <data>
-        <display>
-        <title>树莓派RaspberryPi初始配置指南（2代B型）</title>
-        <pubTime>2016-01-12T06:31:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2016/01/12/rpi-get/</loc>
-    <lastmod>2016-08-25T10:31:42.000Z</lastmod>
-    <data>
-        <display>
-        <title>树莓派RaspberryPi入手</title>
-        <pubTime>2016-01-12T05:31:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="RaspberryPi" url="http://conanwhf.coding.me/categories/RaspberryPi/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/09/03/NewProjectByCode/</loc>
-    <lastmod>2016-08-21T17:58:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>第一个带UI的程序(New Project, Code mode only)</title>
-        <pubTime>2015-09-03T09:18:08.000Z</pubTime>
-        
-        <tag>iOS</tag>
+        <tag>TableView</tag>
          
          
            
@@ -411,7 +275,7 @@
     
   <url>
     <loc>http://conanwhf.coding.me/2016/01/01/newsreader-7/</loc>
-    <lastmod>2016-08-21T17:58:05.000Z</lastmod>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
         <title>从打造新闻app学到的(7)：下拉刷新和上拉更多</title>
@@ -434,178 +298,8 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/23/newsreader-5/</loc>
-    <lastmod>2016-08-21T17:58:01.000Z</lastmod>
-    <data>
-        <display>
-        <title>从打造新闻app学到的(5)：解决TableCell调用segue的时序问题</title>
-        <pubTime>2015-12-23T02:56:35.000Z</pubTime>
-        
-        <tag>NewsAPP</tag>
-         
-        <tag>Segue</tag>
-         
-        <tag>iOS</tag>
-         
-         
-           
-             
-              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/09/12/AddTableViewInUIViewController/</loc>
-    <lastmod>2016-08-21T17:57:58.000Z</lastmod>
-    <data>
-        <display>
-        <title>在UIViewController中添加TableView</title>
-        <pubTime>2015-09-12T09:32:45.000Z</pubTime>
-        
-        <tag>TableView</tag>
-         
-         
-           
-             
-              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/09/14/TableViewBase/</loc>
-    <lastmod>2016-08-21T17:57:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>TableView基础</title>
-        <pubTime>2015-09-14T09:51:28.000Z</pubTime>
-        
-        <tag>TableView</tag>
-         
-        <tag>iOS</tag>
-         
-         
-           
-             
-              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/09/04/LifeCycle/</loc>
-    <lastmod>2016-08-21T17:57:47.000Z</lastmod>
-    <data>
-        <display>
-        <title>Application的生命周期</title>
-        <pubTime>2015-09-04T09:22:21.000Z</pubTime>
-        
-        <tag>iOS</tag>
-         
-         
-           
-             
-              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/09/03/StructPic/</loc>
-    <lastmod>2016-08-21T17:57:45.000Z</lastmod>
-    <data>
-        <display>
-        <title>Cocoa库的架构</title>
-        <pubTime>2015-09-03T09:19:33.000Z</pubTime>
-        
-        <tag>iOS</tag>
-         
-         
-           
-             
-              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/09/04/WidgetsList/</loc>
-    <lastmod>2016-08-21T17:57:42.000Z</lastmod>
-    <data>
-        <display>
-        <title>UI控件概览</title>
-        <pubTime>2015-09-04T09:21:20.000Z</pubTime>
-        
-        <tag>iOS</tag>
-         
-         
-           
-             
-              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2016/01/03/UISlider/</loc>
-    <lastmod>2016-08-21T17:57:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>UIController中Slider监听回调具体实现的分离</title>
-        <pubTime>2016-01-03T09:32:45.000Z</pubTime>
-        
-        <tag>Slider</tag>
-         
-        <tag>iOS</tag>
-         
-         
-           
-             
-              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2016/01/21/newsreader-8/</loc>
-    <lastmod>2016-08-21T17:57:28.000Z</lastmod>
-    <data>
-        <display>
-        <title>从打造新闻app学到的(8)：自定义TableViewCell</title>
-        <pubTime>2016-01-21T09:32:45.000Z</pubTime>
-        
-        <tag>StoryBoard</tag>
-         
-        <tag>TableView</tag>
-         
-         
-           
-             
-              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://conanwhf.coding.me/2015/12/31/newsreader-6/</loc>
-    <lastmod>2016-08-21T17:57:20.000Z</lastmod>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
         <title>从打造新闻app学到的(6)：显示html格式文件/数据</title>
@@ -628,8 +322,32 @@
 
     
   <url>
+    <loc>http://conanwhf.coding.me/2015/12/23/newsreader-5/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>从打造新闻app学到的(5)：解决TableCell调用segue的时序问题</title>
+        <pubTime>2015-12-23T02:56:35.000Z</pubTime>
+        
+        <tag>NewsAPP</tag>
+         
+        <tag>Segue</tag>
+         
+        <tag>iOS</tag>
+         
+         
+           
+             
+              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.coding.me/2015/12/22/newsreader-4/</loc>
-    <lastmod>2016-08-21T17:57:10.000Z</lastmod>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
         <title>从打造新闻app学到的(4)：使用Segue在ViewController之间传递数据</title>
@@ -654,8 +372,52 @@
 
     
   <url>
+    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-3/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>从打造新闻app学到的(3)：让自定义的类可排序</title>
+        <pubTime>2015-12-21T11:14:35.000Z</pubTime>
+        
+        <tag>Class</tag>
+         
+        <tag>NewsAPP</tag>
+         
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-2/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>从打造新闻app学到的(2)：定义类中的只读属性</title>
+        <pubTime>2015-12-21T09:14:35.000Z</pubTime>
+        
+        <tag>Class</tag>
+         
+        <tag>NewsAPP</tag>
+         
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.coding.me/2015/12/20/newsreader-1/</loc>
-    <lastmod>2016-08-21T17:49:47.000Z</lastmod>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
         <title>从打造新闻app学到的(1)：抽象概念，定义好的数据结构</title>
@@ -674,12 +436,12 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/10/03/SmazeInSNP/</loc>
-    <lastmod>2016-08-21T17:49:23.000Z</lastmod>
+    <loc>http://conanwhf.coding.me/2016/01/22/microwave/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>烟霾，求放过！</title>
-        <pubTime>2015-10-02T16:31:23.000Z</pubTime>
+        <title>微波炉的悲剧</title>
+        <pubTime>2016-01-22T09:35:25.000Z</pubTime>
         
          
            
@@ -692,12 +454,32 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2016/08/20/DroplrTest/</loc>
-    <lastmod>2016-08-21T17:49:12.000Z</lastmod>
+    <loc>http://conanwhf.coding.me/2015/12/15/fileop/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>Droplr的测试</title>
-        <pubTime>2016-08-20T09:35:25.000Z</pubTime>
+        <title>文件操作</title>
+        <pubTime>2015-12-15T08:14:35.000Z</pubTime>
+        
+        <tag>File</tag>
+         
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/12/16/creatDuoshuo/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>新配置了多说</title>
+        <pubTime>2015-12-16T05:35:25.000Z</pubTime>
         
          
            
@@ -710,19 +492,145 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/09/06/RoadMap/</loc>
-    <lastmod>2016-08-21T17:49:01.000Z</lastmod>
+    <loc>http://conanwhf.coding.me/2015/12/15/swift_json/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>iOS开发学习路线和规划</title>
-        <pubTime>2015-09-06T09:25:36.000Z</pubTime>
+        <title>使用原生库解析JSON</title>
+        <pubTime>2015-12-15T12:14:35.000Z</pubTime>
+        
+        <tag>JSON</tag>
+         
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/03/02/addressUpdate/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>域名更新</title>
+        <pubTime>2016-03-02T09:35:25.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/09/04/WidgetsList/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>UI控件概览</title>
+        <pubTime>2015-09-04T09:21:20.000Z</pubTime>
         
         <tag>iOS</tag>
          
          
            
              
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
+              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/01/03/UISlider/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>UIController中Slider监听回调具体实现的分离</title>
+        <pubTime>2016-01-03T09:32:45.000Z</pubTime>
+        
+        <tag>Slider</tag>
+         
+        <tag>iOS</tag>
+         
+         
+           
+             
+              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/01/16/Transform/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>使用.transform旋转带来的坑</title>
+        <pubTime>2016-01-16T09:32:45.000Z</pubTime>
+        
+        <tag>Transform　</tag>
+         
+        <tag>iOS</tag>
+         
+         
+           
+             
+              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2017/02/28/Tips201702/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>开发Tips收集-2017年02月</title>
+        <pubTime>2017-02-28T09:25:39.000Z</pubTime>
+        
+        <tag>Xcode</tag>
+         
+        <tag>iOS - Swift</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevTips" url="http://conanwhf.coding.me/categories/DevTips/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/08/31/Tips201608/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>开发Tips收集-2016年08月</title>
+        <pubTime>2016-08-31T09:25:39.000Z</pubTime>
+        
+        <tag>Xcode</tag>
+         
+        <tag>iOS - Swift</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevTips" url="http://conanwhf.coding.me/categories/DevTips/"/>
           
         </display>
     </data>
@@ -731,7 +639,7 @@
     
   <url>
     <loc>http://conanwhf.coding.me/2016/07/01/Tips201606/</loc>
-    <lastmod>2016-07-06T14:49:41.000Z</lastmod>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
         <title>开发Tips收集-2016年06月</title>
@@ -753,7 +661,7 @@
     
   <url>
     <loc>http://conanwhf.coding.me/2016/05/31/Tips201605/</loc>
-    <lastmod>2016-05-31T14:06:13.000Z</lastmod>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
         <title>开发Tips收集-2016年05月</title>
@@ -775,7 +683,7 @@
     
   <url>
     <loc>http://conanwhf.coding.me/2016/04/30/Tips201604/</loc>
-    <lastmod>2016-05-03T15:05:29.000Z</lastmod>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
         <title>开发Tips收集-2016年04月</title>
@@ -797,7 +705,7 @@
     
   <url>
     <loc>http://conanwhf.coding.me/2016/03/31/Tips201603/</loc>
-    <lastmod>2016-03-31T10:12:58.000Z</lastmod>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
         <title>开发Tips收集-2016年03月</title>
@@ -818,26 +726,8 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2016/03/02/addressUpdate/</loc>
-    <lastmod>2016-03-02T10:24:37.000Z</lastmod>
-    <data>
-        <display>
-        <title>域名更新</title>
-        <pubTime>2016-03-02T09:35:25.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://conanwhf.coding.me/2016/03/01/Tips201602/</loc>
-    <lastmod>2016-03-02T09:12:49.000Z</lastmod>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
         <title>开发Tips收集-2016年02月</title>
@@ -858,148 +748,8 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/03/Swift_String_2/</loc>
-    <lastmod>2016-03-02T09:11:35.000Z</lastmod>
-    <data>
-        <display>
-        <title>Swift2.0 中的String（二）：基本操作</title>
-        <pubTime>2015-12-03T07:20:16.000Z</pubTime>
-        
-        <tag>String</tag>
-         
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/08/Swift_String_4/</loc>
-    <lastmod>2016-03-02T09:11:25.000Z</lastmod>
-    <data>
-        <display>
-        <title>Swift2.0 中的String（四）：编码转换</title>
-        <pubTime>2015-12-08T07:20:16.000Z</pubTime>
-        
-        <tag>String</tag>
-         
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/09/Swift_String_6/</loc>
-    <lastmod>2016-03-02T09:11:20.000Z</lastmod>
-    <data>
-        <display>
-        <title>Swift2.0 中的String（六）：正则匹配</title>
-        <pubTime>2015-12-09T08:20:16.000Z</pubTime>
-        
-        <tag>String</tag>
-         
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/03/Swift_String_1/</loc>
-    <lastmod>2016-03-02T09:11:14.000Z</lastmod>
-    <data>
-        <display>
-        <title>Swift2.0 中的String（一）：常用属性</title>
-        <pubTime>2015-12-03T07:20:06.000Z</pubTime>
-        
-        <tag>String</tag>
-         
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/03/Swift_String_3/</loc>
-    <lastmod>2016-03-02T09:11:05.000Z</lastmod>
-    <data>
-        <display>
-        <title>Swift2.0 中的String（三）：类型转换</title>
-        <pubTime>2015-12-03T07:20:26.000Z</pubTime>
-        
-        <tag>String</tag>
-         
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/08/Swift_String_5/</loc>
-    <lastmod>2016-03-02T09:10:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>Swift2.0 中的String（五）：String和NS-XXX系列的互相转换</title>
-        <pubTime>2015-12-08T08:20:16.000Z</pubTime>
-        
-        <tag>String</tag>
-         
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2016/02/06/ChineseNewYear2016/</loc>
-    <lastmod>2016-02-06T16:11:47.000Z</lastmod>
-    <data>
-        <display>
-        <title>过年好！</title>
-        <pubTime>2016-02-06T13:35:25.000Z</pubTime>
-        
-        <tag>NewYear</tag>
-         
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://conanwhf.coding.me/2016/01/31/Tips201601/</loc>
-    <lastmod>2016-01-31T09:35:32.000Z</lastmod>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
         <title>开发Tips收集-2016年01月</title>
@@ -1020,88 +770,8 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2016/01/22/microwave/</loc>
-    <lastmod>2016-01-22T09:56:03.000Z</lastmod>
-    <data>
-        <display>
-        <title>微波炉的悲剧</title>
-        <pubTime>2016-01-22T09:35:25.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/09/03/CommFunctions/</loc>
-    <lastmod>2016-01-18T16:35:34.000Z</lastmod>
-    <data>
-        <display>
-        <title>Swift常用全局通用函数（Swift1.2 Only）</title>
-        <pubTime>2015-09-03T09:14:35.000Z</pubTime>
-        
-        <tag>Swift1.2</tag>
-         
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/10/02/Git+Hexo+Markdown.Blog/</loc>
-    <lastmod>2016-01-18T16:20:40.000Z</lastmod>
-    <data>
-        <display>
-        <title>Git+Hexo+Markdown搭建Blog</title>
-        <pubTime>2015-10-02T09:35:25.000Z</pubTime>
-        
-        <tag>Git</tag>
-         
-        <tag>Hexo</tag>
-         
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/31/ReadingList2015-12/</loc>
-    <lastmod>2016-01-18T16:20:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>读书清单 2015-12</title>
-        <pubTime>2015-12-31T02:02:38.000Z</pubTime>
-        
-        <tag>BookList</tag>
-         
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://conanwhf.coding.me/2015/12/31/Tips201512/</loc>
-    <lastmod>2016-01-18T16:19:12.000Z</lastmod>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
         <title>开发Tips收集-2015年12月</title>
@@ -1122,172 +792,8 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/09/20/CocoaPod/</loc>
-    <lastmod>2016-01-18T16:18:21.000Z</lastmod>
-    <data>
-        <display>
-        <title>CocoaPod</title>
-        <pubTime>2015-09-20T09:34:30.000Z</pubTime>
-        
-        <tag>Xcode　</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/11/12/Tips201510/</loc>
-    <lastmod>2016-01-18T16:18:14.000Z</lastmod>
-    <data>
-        <display>
-        <title>开发Tips收集-2015年11月以前</title>
-        <pubTime>2015-11-12T09:25:39.000Z</pubTime>
-        
-        <tag>Swift</tag>
-         
-        <tag>iOS</tag>
-         
-         
-           
-             
-              <breadCrumb title="DevTips" url="http://conanwhf.coding.me/categories/DevTips/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/15/Swift_xml/</loc>
-    <lastmod>2016-01-18T16:18:05.000Z</lastmod>
-    <data>
-        <display>
-        <title>使用Swift原生库解析XML数据</title>
-        <pubTime>2015-12-15T10:14:35.000Z</pubTime>
-        
-        <tag>XML</tag>
-         
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/06/02/QnapNAS/</loc>
-    <lastmod>2016-01-17T18:07:51.000Z</lastmod>
-    <data>
-        <display>
-        <title>Qnap NAS笔记</title>
-        <pubTime>2015-06-02T09:49:16.000Z</pubTime>
-        
-        <tag>NAS</tag>
-         
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/15/fileop/</loc>
-    <lastmod>2016-01-17T18:07:32.000Z</lastmod>
-    <data>
-        <display>
-        <title>文件操作</title>
-        <pubTime>2015-12-15T08:14:35.000Z</pubTime>
-        
-        <tag>File</tag>
-         
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/11/01/ReadingList2015-10/</loc>
-    <lastmod>2016-01-17T18:07:27.000Z</lastmod>
-    <data>
-        <display>
-        <title>读书清单 2015-10</title>
-        <pubTime>2015-11-01T12:02:38.000Z</pubTime>
-        
-        <tag>BookList</tag>
-         
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/09/13/StoryBoardBase/</loc>
-    <lastmod>2016-01-17T18:07:11.000Z</lastmod>
-    <data>
-        <display>
-        <title>StoryBoard基础</title>
-        <pubTime>2015-09-13T09:50:41.000Z</pubTime>
-        
-        <tag>StroyBoard</tag>
-         
-        <tag>iOS</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/01/ReadingList2015-11/</loc>
-    <lastmod>2016-01-17T18:07:08.000Z</lastmod>
-    <data>
-        <display>
-        <title>读书清单 2015-11</title>
-        <pubTime>2015-12-01T12:02:38.000Z</pubTime>
-        
-        <tag>BookList</tag>
-         
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://conanwhf.coding.me/2015/11/30/Tips201511/</loc>
-    <lastmod>2016-01-17T18:07:05.000Z</lastmod>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
         <title>开发Tips收集-2015年11月</title>
@@ -1308,19 +814,21 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/10/01/ReadingList2015-09/</loc>
-    <lastmod>2016-01-17T18:06:55.000Z</lastmod>
+    <loc>http://conanwhf.coding.me/2015/11/12/Tips201510/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>读书清单 2015-09</title>
-        <pubTime>2015-10-01T12:02:38.000Z</pubTime>
+        <title>开发Tips收集-2015年11月以前</title>
+        <pubTime>2015-11-12T09:25:39.000Z</pubTime>
         
-        <tag>BookList</tag>
+        <tag>Swift</tag>
+         
+        <tag>iOS</tag>
          
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+              <breadCrumb title="DevTips" url="http://conanwhf.coding.me/categories/DevTips/"/>
           
         </display>
     </data>
@@ -1328,233 +836,21 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/02/Swift_Syntax/</loc>
-    <lastmod>2016-01-17T18:06:53.000Z</lastmod>
+    <loc>http://conanwhf.coding.me/2015/09/14/TableViewBase/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>Swift2.0语法笔记</title>
-        <pubTime>2015-12-02T08:29:26.000Z</pubTime>
+        <title>TableView基础</title>
+        <pubTime>2015-09-14T09:51:28.000Z</pubTime>
         
+        <tag>TableView</tag>
          
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/15/swift_json/</loc>
-    <lastmod>2016-01-17T18:06:44.000Z</lastmod>
-    <data>
-        <display>
-        <title>使用原生库解析JSON</title>
-        <pubTime>2015-12-15T12:14:35.000Z</pubTime>
-        
-        <tag>JSON</tag>
+        <tag>iOS</tag>
          
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/09/04/LinkWidgetsFromStoryBoard/</loc>
-    <lastmod>2016-01-17T18:06:42.000Z</lastmod>
-    <data>
-        <display>
-        <title>从StoryBoard中把控件绑定到源码</title>
-        <pubTime>2015-09-04T09:16:06.000Z</pubTime>
-        
-        <tag>StoryBoard</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/10/15/HexoSearch/</loc>
-    <lastmod>2016-01-17T18:06:15.000Z</lastmod>
-    <data>
-        <display>
-        <title>Hexo搜索引擎支持和访问分析（基于Next主题）</title>
-        <pubTime>2015-10-15T11:22:33.000Z</pubTime>
-        
-        <tag>Git</tag>
-         
-        <tag>Hexo</tag>
-         
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/10/02/HexoStep2/</loc>
-    <lastmod>2016-01-17T18:06:13.000Z</lastmod>
-    <data>
-        <display>
-        <title>Hexo进阶配置</title>
-        <pubTime>2015-10-02T10:40:05.000Z</pubTime>
-        
-        <tag>Git</tag>
-         
-        <tag>Hexo</tag>
-         
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/15/runInTerm/</loc>
-    <lastmod>2016-01-17T18:06:04.000Z</lastmod>
-    <data>
-        <display>
-        <title>在终端运行Swift程序</title>
-        <pubTime>2015-12-15T04:14:35.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/09/07/Kindle/</loc>
-    <lastmod>2016-01-17T18:05:59.000Z</lastmod>
-    <data>
-        <display>
-        <title>Kindle配置记录</title>
-        <pubTime>2015-09-07T09:36:54.000Z</pubTime>
-        
-        <tag>Kindle</tag>
-         
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/30/precision/</loc>
-    <lastmod>2016-01-17T18:05:55.000Z</lastmod>
-    <data>
-        <display>
-        <title>Swift中数据类型精度的一点探索</title>
-        <pubTime>2015-12-30T09:14:35.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/11/02/Swift2.xFunction/</loc>
-    <lastmod>2016-01-17T18:04:12.000Z</lastmod>
-    <data>
-        <display>
-        <title>Swift 2.x 函数变化</title>
-        <pubTime>2015-11-02T15:29:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-2/</loc>
-    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
-    <data>
-        <display>
-        <title>从打造新闻app学到的(2)：定义类中的只读属性</title>
-        <pubTime>2015-12-21T09:14:35.000Z</pubTime>
-        
-        <tag>Class</tag>
-         
-        <tag>NewsAPP</tag>
-         
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/16/creatDuoshuo/</loc>
-    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
-    <data>
-        <display>
-        <title>新配置了多说</title>
-        <pubTime>2015-12-16T05:35:25.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/09/05/DocumentsRule/</loc>
-    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
-    <data>
-        <display>
-        <title>自己的文档整理原则</title>
-        <pubTime>2015-09-05T09:23:39.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
           
         </display>
     </data>
@@ -1563,7 +859,7 @@
     
   <url>
     <loc>http://conanwhf.coding.me/2015/12/04/Swift_open/</loc>
-    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
         <title>Swift开源了！！！</title>
@@ -1580,8 +876,244 @@
 
     
   <url>
+    <loc>http://conanwhf.coding.me/2015/12/02/Swift_Syntax/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>Swift2.0语法笔记</title>
+        <pubTime>2015-12-02T08:29:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/12/15/swift_xml/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>使用Swift原生库解析XML数据</title>
+        <pubTime>2015-12-15T10:14:35.000Z</pubTime>
+        
+        <tag>XML</tag>
+         
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/12/08/Swift_String_5/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>Swift2.0 中的String（五）：String和NS-XXX系列的互相转换</title>
+        <pubTime>2015-12-08T08:20:16.000Z</pubTime>
+        
+        <tag>String</tag>
+         
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/12/08/Swift_String_4/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>Swift2.0 中的String（四）：编码转换</title>
+        <pubTime>2015-12-08T07:20:16.000Z</pubTime>
+        
+        <tag>String</tag>
+         
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/12/03/Swift_String_3/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>Swift2.0 中的String（三）：类型转换</title>
+        <pubTime>2015-12-03T07:20:26.000Z</pubTime>
+        
+        <tag>String</tag>
+         
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/12/03/Swift_String_2/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>Swift2.0 中的String（二）：基本操作</title>
+        <pubTime>2015-12-03T07:20:16.000Z</pubTime>
+        
+        <tag>String</tag>
+         
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/12/03/Swift_String_1/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>Swift2.0 中的String（一）：常用属性</title>
+        <pubTime>2015-12-03T07:20:06.000Z</pubTime>
+        
+        <tag>String</tag>
+         
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/11/02/Swift2.xFunction/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>Swift 2.x 函数变化</title>
+        <pubTime>2015-11-02T15:29:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/09/03/StructPic/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>Cocoa库的架构</title>
+        <pubTime>2015-09-03T09:19:33.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+         
+           
+             
+              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/09/13/StoryBoardBase/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>StoryBoard基础</title>
+        <pubTime>2015-09-13T09:50:41.000Z</pubTime>
+        
+        <tag>StroyBoard</tag>
+         
+        <tag>iOS</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/10/03/SmazeInSNP/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>烟霾，求放过！</title>
+        <pubTime>2015-10-02T16:31:23.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/09/06/RoadMap/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>iOS开发学习路线和规划</title>
+        <pubTime>2015-09-06T09:25:36.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.coding.me/2015/11/05/ResourceInGit/</loc>
-    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
         <title>iOS开发资源</title>
@@ -1602,16 +1134,476 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-3/</loc>
-    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
+    <loc>http://conanwhf.coding.me/2017/02/28/ReadingList2017-02/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>从打造新闻app学到的(3)：让自定义的类可排序</title>
-        <pubTime>2015-12-21T11:14:35.000Z</pubTime>
+        <title>读书清单 2017-02</title>
+        <pubTime>2017-02-28T02:36:54.000Z</pubTime>
         
-        <tag>Class</tag>
+        <tag>BookList</tag>
          
-        <tag>NewsAPP</tag>
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2017/02/01/ReadingList2017-01/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>读书清单 2017-01</title>
+        <pubTime>2017-02-01T09:36:54.000Z</pubTime>
+        
+        <tag>BookList</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/12/31/ReadingList2016-12/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>读书清单 2016-12</title>
+        <pubTime>2016-12-31T07:26:54.000Z</pubTime>
+        
+        <tag>BookList</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>读书清单 2016-08</title>
+        <pubTime>2016-08-15T09:36:54.000Z</pubTime>
+        
+        <tag>BookList</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/02/26/ReadingList2016-02/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>读书清单 2016-02</title>
+        <pubTime>2016-02-26T07:26:54.000Z</pubTime>
+        
+        <tag>BookList</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/12/31/ReadingList2015-12/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>读书清单 2015-12</title>
+        <pubTime>2015-12-31T02:02:38.000Z</pubTime>
+        
+        <tag>BookList</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/12/01/ReadingList2015-11/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>读书清单 2015-11</title>
+        <pubTime>2015-12-01T12:02:38.000Z</pubTime>
+        
+        <tag>BookList</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/11/01/ReadingList2015-10/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>读书清单 2015-10</title>
+        <pubTime>2015-11-01T12:02:38.000Z</pubTime>
+        
+        <tag>BookList</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/10/01/ReadingList2015-09/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>读书清单 2015-09</title>
+        <pubTime>2015-10-01T12:02:38.000Z</pubTime>
+        
+        <tag>BookList</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/06/02/QnapNAS/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>Qnap NAS笔记</title>
+        <pubTime>2015-06-02T09:49:16.000Z</pubTime>
+        
+        <tag>NAS</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/09/03/NewProjectByCode/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>第一个带UI的程序(New Project, Code mode only)</title>
+        <pubTime>2015-09-03T09:18:08.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+         
+           
+             
+              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/09/02/MustGet/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>iOS开发必知必会（自己总结的）</title>
+        <pubTime>2015-09-02T09:11:28.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/09/04/LinkWidgetsFromStoryBoard/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>从StoryBoard中把控件绑定到源码</title>
+        <pubTime>2015-09-04T09:16:06.000Z</pubTime>
+        
+        <tag>StoryBoard</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/09/04/LifeCycle/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>Application的生命周期</title>
+        <pubTime>2015-09-04T09:22:21.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+         
+           
+             
+              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/09/07/Kindle/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>Kindle配置记录</title>
+        <pubTime>2015-09-07T09:36:54.000Z</pubTime>
+        
+        <tag>Kindle</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2017/02/12/JingJingTest/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>静境电子书评测</title>
+        <pubTime>2017-02-12T09:35:25.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/10/02/HexoStep2/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>Hexo进阶配置</title>
+        <pubTime>2015-10-02T10:40:05.000Z</pubTime>
+        
+        <tag>Git</tag>
+         
+        <tag>Hexo</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/10/15/HexoSearch/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>Hexo搜索引擎支持和访问分析（基于Next主题）</title>
+        <pubTime>2015-10-15T11:22:33.000Z</pubTime>
+        
+        <tag>Git</tag>
+         
+        <tag>Hexo</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/10/02/Git+Hexo+Markdown.Blog/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>Git+Hexo+Markdown搭建Blog</title>
+        <pubTime>2015-10-02T09:35:25.000Z</pubTime>
+        
+        <tag>Git</tag>
+         
+        <tag>Hexo</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/08/26/GPTandMBR/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>详细梳理分区表和系统启动相关的各种概念</title>
+        <pubTime>2016-08-26T09:30:25.000Z</pubTime>
+        
+        <tag>Boot</tag>
+         
+        <tag>GPT</tag>
+         
+        <tag>MBR</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2017/03/23/DuoShuoClose/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>多说评论关闭</title>
+        <pubTime>2017-03-23T09:35:25.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/08/20/DroplrTest/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>Droplr的测试</title>
+        <pubTime>2016-08-20T09:35:25.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/09/05/DocumentsRule/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>自己的文档整理原则</title>
+        <pubTime>2015-09-05T09:23:39.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/09/03/CommFunctions/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>Swift常用全局通用函数（Swift1.2 Only）</title>
+        <pubTime>2015-09-03T09:14:35.000Z</pubTime>
+        
+        <tag>Swift1.2</tag>
          
          
            
@@ -1624,8 +1616,48 @@
 
     
   <url>
+    <loc>http://conanwhf.coding.me/2015/09/20/CocoaPod/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>CocoaPod</title>
+        <pubTime>2015-09-20T09:34:30.000Z</pubTime>
+        
+        <tag>Xcode　</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/02/06/ChineseNewYear2016/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>过年好！</title>
+        <pubTime>2016-02-06T13:35:25.000Z</pubTime>
+        
+        <tag>NewYear</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.coding.me/2015/11/05/Alcatraz/</loc>
-    <lastmod>2016-01-17T17:48:23.000Z</lastmod>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
         <title>升级Xcode后失效的解决办法</title>

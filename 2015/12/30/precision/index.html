@@ -57,7 +57,7 @@ Int(r*255)
 CGFloat(Float(r)/255.0)
 Int(r*255)
 写完以后测试了一下貌似没什么问题，就睡觉去了。后来突然想到，1/255并不是一个有理数，而且Int()做的是取地板而不是四舍五入，会不会在这种转换的过程中因为精度的问">
-<meta property="og:updated_time" content="2016-01-17T18:05:55.000Z">
+<meta property="og:updated_time" content="2017-05-04T08:55:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift中数据类型精度的一点探索">
 <meta name="twitter:description" content="昨天整理code，顺手写了个UIColor和16进制RGB表示的颜色转换。由于UIColor中的RGBA范围是0..1，所以里面用到了一些乘除法，和强制类型转换：
@@ -429,7 +429,7 @@ print(&quot;div=\(div), a=\(a), b=\(b) @\(b*div), c=\(c) @ \(Double(c)/Double(di
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">80</span>
+              <span class="site-state-item-count">81</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -443,7 +443,7 @@ print(&quot;div=\(div), a=\(a), b=\(b) @\(b*div), c=\(c) @ \(Double(c)/Double(di
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-count">37</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

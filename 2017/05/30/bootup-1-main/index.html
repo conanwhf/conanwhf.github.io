@@ -1,0 +1,762 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+  <meta name="google-site-verification" content="fm7O971xqa-IgxCWIey5wM-1kAOR1sTDp_gZfHxonGc" />
+
+
+
+  <meta name="baidu-site-verification" content="g1ag6ZODOB" />
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="入门iOS开发，相关不相关乱七八糟的一切" />
+
+
+
+  <meta name="keywords" content="Conan" />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="iOS开发和七七八八" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="几年前，我是一个标准的原厂Linux系统开发人员，用公司自己的芯片，移植整套BSP。对于Linux系统启动方面，自认为摸得很熟了，从上电加载的汇编码到Linux内核及文件系统的配置，无一不留下了我修改的代码，细节精确到nand flash的某block某page放了什么代码，内存某个地址加载的是什么，代码某个改动是为了兼容什么project，一清二楚。所以最近接到这个移植系统的工作，信心挺足，估摸">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ARM板移植Linux系统启动（一）启动流程">
+<meta property="og:url" content="http://conanwhf.coding.me/2017/05/30/bootup-1-main/index.html">
+<meta property="og:site_name" content="iOS开发和七七八八">
+<meta property="og:description" content="几年前，我是一个标准的原厂Linux系统开发人员，用公司自己的芯片，移植整套BSP。对于Linux系统启动方面，自认为摸得很熟了，从上电加载的汇编码到Linux内核及文件系统的配置，无一不留下了我修改的代码，细节精确到nand flash的某block某page放了什么代码，内存某个地址加载的是什么，代码某个改动是为了兼容什么project，一清二楚。所以最近接到这个移植系统的工作，信心挺足，估摸">
+<meta property="og:updated_time" content="2017-06-01T10:25:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ARM板移植Linux系统启动（一）启动流程">
+<meta name="twitter:description" content="几年前，我是一个标准的原厂Linux系统开发人员，用公司自己的芯片，移植整套BSP。对于Linux系统启动方面，自认为摸得很熟了，从上电加载的汇编码到Linux内核及文件系统的配置，无一不留下了我修改的代码，细节精确到nand flash的某block某page放了什么代码，内存某个地址加载的是什么，代码某个改动是为了兼容什么project，一清二楚。所以最近接到这个移植系统的工作，信心挺足，估摸">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+  <title> ARM板移植Linux系统启动（一）启动流程 | iOS开发和七七八八 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-68644901-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?8da63524978598168c3843bc8001d968";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">iOS开发和七七八八</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            <i class="menu-item-icon icon-next-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            <i class="menu-item-icon icon-next-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="#" class="st-search-show-outputs">
+            <i class="menu-item-icon icon-next-search"></i> <br />
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '-wAdEzF15RczmAqPJh93','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              ARM板移植Linux系统启动（一）启动流程
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2017-05-30T17:31:26+08:00" content="2017-05-30">
+            2017-05-30
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Linux/" itemprop="url" rel="index">
+                  <span itemprop="name">Linux</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>几年前，我是一个标准的原厂Linux系统开发人员，用公司自己的芯片，移植整套BSP。对于Linux系统启动方面，自认为摸得很熟了，从上电加载的汇编码到Linux内核及文件系统的配置，无一不留下了我修改的代码，细节精确到nand flash的某block某page放了什么代码，内存某个地址加载的是什么，代码某个改动是为了兼容什么project，一清二楚。所以最近接到这个移植系统的工作，信心挺足，估摸硬件没有问题的话几天之内移植就能完成，哪知道被现实结结实实打脸。<br>之前我用的Linux系统是2.6，Uboot版本不详但Fat32的支持还是我们自己移植进去的，可以说相当跟不上时代了。最新的Kernel早就采用了DTS，Uboot也加了很多功能和驱动，我在移植的过程中几乎完成了一次重新学习的过程。虽然我这次用的板是基于TI的，但我希望能不局限于具体的板子型号，而是把规律性的东西写出来，让后来人有个参考。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/05/30/bootup-1-main/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/05/30/bootup-1-main/'>ARM板移植Linux系统启动（一）启动流程</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+</p>
+<h2 id="u786C_u4EF6_u73AF_u5883"><a href="#u786C_u4EF6_u73AF_u5883" class="headerlink" title="硬件环境"></a>硬件环境</h2><p>首先交代背景。我在前公司做的板子硬件是自己设计的，系统烧写在nand flash上，也支持从SD卡加载Uboot和Kernel uImage启动。大致的启动流程是BootROM上电读取nandflash上某个固定page的数据，大小不超过2K（为了兼容不同的nand flash page），这是IPL，然后自加载启动程序，初始化RAM, flash，接着读取Uboot，用Uboot加载flash上的内核和跟文件系统，跑起来。Uboot、Kernel、rootdisk都是用特定的工具写在Flash固定的位置，没有基于文件系统。<br>这次我要做的板子，硬件是基于TI的BeagleBoneBlack，拿掉了一些不需要的硬件，也修改了一些东西。影响比较大的是拿掉了CapeSystem用的EEPROM，网口，TF卡，以及换了一块内存芯片，能用的只剩下USB，和内部的一块emmc。TI的文档对于手动修改、编译、烧写等方面的信息写得语焉不详，源码也有点问题，我的移植过程变得跟想象的不太一样，有点摸索前进的感觉。</p>
+<h2 id="u542F_u52A8_u6D41_u7A0B"><a href="#u542F_u52A8_u6D41_u7A0B" class="headerlink" title="启动流程"></a>启动流程</h2><p>言归正传。对于任何Linux系统启动的流程，其实都是一样的：</p>
+<ol>
+<li>系统上电，BootROM寻找可以用来启动的设备，从设备中读取SPL</li>
+<li>运行SPL读取和跑起来真正的Uboot</li>
+<li>在Uboot中读取Kernel、根文件系统、DTB，加载到各自的内存地址中</li>
+<li>将启动参数通过启动命令传递给Kernel，跳转到Kernel运行</li>
+<li>Kernel初始化基本部分，加载根文件系统，启动完毕</li>
+</ol>
+<p>SPL和Uboot都来自于U-boot的release，有部分共用的代码，编译完毕同时得到。注意在TI的SDK中（其他的我不清楚是否一样）,SPL有两种形式：u-boot-spl.bin和MLO。它们一个是串口启动用，一个是eMMC/Nandflash启动用，不能混用。以上每个阶段不同的东西跑起来的步骤都是一样的：被加载到内存的某个地址，PC指针跳转运行。区别只是在于<strong>被谁加载、从哪里加载、加载到内存的哪里</strong>。</p>
+<h3 id="u542F_u52A8_u6D41_u7A0B_u7684_u53D8_u5F0F"><a href="#u542F_u52A8_u6D41_u7A0B_u7684_u53D8_u5F0F" class="headerlink" title="启动流程的变式"></a>启动流程的变式</h3><h4 id="u88AB_u8C01_u52A0_u8F7D"><a href="#u88AB_u8C01_u52A0_u8F7D" class="headerlink" title="被谁加载"></a><strong>被谁加载</strong></h4><p>对于一个完整的流程而言，每个文件被谁加载基本上都是固定的，除了根文件系统。根文件系统既有可能被uboot加载，也可能被kernel加载。注意被uboot加载时，根文件系统需要做成一个uboot能够接受的image，有固定的头，类似zImage和uImage的区别。而在调试过程中，加载的过程有可能是手动的，或者通过不同的设备传输拷贝，被谁加载其实完全不重要了。</p>
+<h4 id="u4ECE_u54EA_u91CC_u52A0_u8F7D"><a href="#u4ECE_u54EA_u91CC_u52A0_u8F7D" class="headerlink" title="从哪里加载"></a><strong>从哪里加载</strong></h4><p>这个问题的各种变化，就对应了不同的启动模式（一般意义上的，非硬件意义上）。你当然可以所有的东西都读取自内置emmc，也可以插卡让系统从卡上加载；你也可以从Uart传输uboot的image跑起来，进入uboot的命令行，手动从TF卡或者网络读取kernel；你甚至可以在uboot中从nand flash读取Kernel image，从网络获得根文件系统，从usb中加载dtb，从TF卡里拿到启动参数，最后把它们综合到一起，引导整个系统。</p>
+<h4 id="u52A0_u8F7D_u5230_u5185_u5B58_u7684_u54EA_u91CC"><a href="#u52A0_u8F7D_u5230_u5185_u5B58_u7684_u54EA_u91CC" class="headerlink" title="加载到内存的哪里"></a><strong>加载到内存的哪里</strong></h4><p>其实也很简单：加载到哪里都可以，只要不冲突。首先是要计算好文件的大小，不要让后来加载的文件覆盖了之前的；然后是最好将Kernel从较高的地址跑起来，规划好内存分区，以免kernel跑起来后破坏了根文件系统等数据。关于怎么定义内存地址，又是另外一个话题，网上教程很多，我就不多说了。</p>
+<h4 id="u52A0_u8F7D_u6587_u4EF6_u7684_u53D8_u5316"><a href="#u52A0_u8F7D_u6587_u4EF6_u7684_u53D8_u5316" class="headerlink" title="加载文件的变化"></a>加载文件的变化</h4><p>在实际中，Kernel启动的阶段变化很多，Kernel、根文件系统、DTB这三个部分也并非形式僵化的三个文件。比如大部分日常启动时，uboot只加载了kernel和dtb，文件系统往往是kernel后来自己mount上去的，这时候只是传递了一个启动参数，<em>root=XXXXX</em>；而调试阶段常用的自带rootdisk的kernel，也不需要另外加载根文件系统。DTB文件是DTS全面应用之后才出现的，定义了板子的硬件设备信息，经过某些特殊配置有时也是可以省略（理论上，并未亲测过）。</p>
+<p>   在调试中，往往会遇到很多启动的问题，明确启动的这几个基本原则和流程，能让调试的过程更轻松。</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/23/DuoShuoClose/" rel="next">多说评论关闭</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/logo.png" alt="Conan Wang" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Conan Wang</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">入门iOS开发，相关不相关乱七八糟的一切</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">81</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">37</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/conanwhf" target="_blank">Github</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://git.oschina.net/conanwhf/" target="_blank">OSchina</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/1864854042" target="_blank">Weibo</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:conan.whf@gmail.com" target="_blank">MailtoMe</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">Links</p>
+            
+              <span class="links-of-author-item">
+              <a href="http://conanwhf.coding.me" target="_blank">本站墙内链接</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://conanwhf.github.io" target="_blank">本站墙外链接</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">我的资源收集</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://conanwhf.github.io/2015/09/06/RoadMap/" target="_blank">学习进度表</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/conanwhf/ResourceDoc/blob/master/tryList.md" target="_blank">练手小项目清单</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://www.imooc.com/" target="_blank">慕课网</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://toutiao.io" target="_blank">开发者头条</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u786C_u4EF6_u73AF_u5883"><span class="nav-number">1.</span> <span class="nav-text">硬件环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u542F_u52A8_u6D41_u7A0B"><span class="nav-number">2.</span> <span class="nav-text">启动流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u542F_u52A8_u6D41_u7A0B_u7684_u53D8_u5F0F"><span class="nav-number">2.1.</span> <span class="nav-text">启动流程的变式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#u88AB_u8C01_u52A0_u8F7D"><span class="nav-number">2.1.1.</span> <span class="nav-text">被谁加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#u4ECE_u54EA_u91CC_u52A0_u8F7D"><span class="nav-number">2.1.2.</span> <span class="nav-text">从哪里加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#u52A0_u8F7D_u5230_u5185_u5B58_u7684_u54EA_u91CC"><span class="nav-number">2.1.3.</span> <span class="nav-text">加载到内存的哪里</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#u52A0_u8F7D_u6587_u4EF6_u7684_u53D8_u5316"><span class="nav-number">2.1.4.</span> <span class="nav-text">加载文件的变化</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Conan Wang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>
