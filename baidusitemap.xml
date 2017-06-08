@@ -4,6 +4,64 @@
 
     
   <url>
+    <loc>http://conanwhf.coding.me/2017/06/08/bootup-2-spl/</loc>
+    <lastmod>2017-06-08T11:03:13.000Z</lastmod>
+    <data>
+        <display>
+        <title>ARM板移植Linux系统启动（二）SPL</title>
+        <pubTime>2017-06-08T09:31:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Linux" url="http://conanwhf.coding.me/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/12/31/ReadingList2015-12/</loc>
+    <lastmod>2017-06-06T04:10:18.000Z</lastmod>
+    <data>
+        <display>
+        <title>读书清单 2015-12</title>
+        <pubTime>2015-12-31T02:02:38.000Z</pubTime>
+        
+        <tag>BookList</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/</loc>
+    <lastmod>2017-06-06T04:10:04.000Z</lastmod>
+    <data>
+        <display>
+        <title>读书清单 2016-08</title>
+        <pubTime>2016-08-15T09:36:54.000Z</pubTime>
+        
+        <tag>BookList</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.coding.me/2017/05/30/bootup-1-main/</loc>
     <lastmod>2017-06-01T10:25:06.000Z</lastmod>
     <data>
@@ -176,70 +234,12 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/09/Swift_String_6/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/02/Swift_Syntax/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>Swift2.0 中的String（六）：正则匹配</title>
-        <pubTime>2015-12-09T08:20:16.000Z</pubTime>
-        
-        <tag>String</tag>
-         
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/15/runInTerm/</loc>
-    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>在终端运行Swift程序</title>
-        <pubTime>2015-12-15T04:14:35.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/09/12/AddTableViewInUIViewController/</loc>
-    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>在UIViewController中添加TableView</title>
-        <pubTime>2015-09-12T09:32:45.000Z</pubTime>
-        
-        <tag>TableView</tag>
-         
-         
-           
-             
-              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/30/precision/</loc>
-    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>Swift中数据类型精度的一点探索</title>
-        <pubTime>2015-12-30T09:14:35.000Z</pubTime>
+        <title>Swift2.0语法笔记</title>
+        <pubTime>2015-12-02T08:29:26.000Z</pubTime>
         
          
            
@@ -501,6 +501,24 @@
         
         <tag>JSON</tag>
          
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/12/15/runInTerm/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>在终端运行Swift程序</title>
+        <pubTime>2015-12-15T04:14:35.000Z</pubTime>
+        
          
            
              
@@ -876,13 +894,15 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/02/Swift_Syntax/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/15/swift_xml/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>Swift2.0语法笔记</title>
-        <pubTime>2015-12-02T08:29:26.000Z</pubTime>
+        <title>使用Swift原生库解析XML数据</title>
+        <pubTime>2015-12-15T10:14:35.000Z</pubTime>
         
+        <tag>XML</tag>
+         
          
            
              
@@ -894,14 +914,14 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/15/swift_xml/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/09/Swift_String_6/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>使用Swift原生库解析XML数据</title>
-        <pubTime>2015-12-15T10:14:35.000Z</pubTime>
+        <title>Swift2.0 中的String（六）：正则匹配</title>
+        <pubTime>2015-12-09T08:20:16.000Z</pubTime>
         
-        <tag>XML</tag>
+        <tag>String</tag>
          
          
            
@@ -1194,19 +1214,19 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/</loc>
+    <loc>http://conanwhf.coding.me/2015/09/12/AddTableViewInUIViewController/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>读书清单 2016-08</title>
-        <pubTime>2016-08-15T09:36:54.000Z</pubTime>
+        <title>在UIViewController中添加TableView</title>
+        <pubTime>2015-09-12T09:32:45.000Z</pubTime>
         
-        <tag>BookList</tag>
+        <tag>TableView</tag>
          
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
           
         </display>
     </data>
@@ -1234,19 +1254,17 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/31/ReadingList2015-12/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/30/precision/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>读书清单 2015-12</title>
-        <pubTime>2015-12-31T02:02:38.000Z</pubTime>
+        <title>Swift中数据类型精度的一点探索</title>
+        <pubTime>2015-12-30T09:14:35.000Z</pubTime>
         
-        <tag>BookList</tag>
-         
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>

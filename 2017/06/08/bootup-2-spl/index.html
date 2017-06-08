@@ -1,0 +1,850 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+  <meta name="google-site-verification" content="fm7O971xqa-IgxCWIey5wM-1kAOR1sTDp_gZfHxonGc" />
+
+
+
+  <meta name="baidu-site-verification" content="g1ag6ZODOB" />
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="入门iOS开发，相关不相关乱七八糟的一切" />
+
+
+
+  <meta name="keywords" content="Conan" />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="iOS开发和七七八八" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="启动模式面对一块完全的空板子，首先要做的当然是让它启动起来。emmc/nand中完全没有内容，意味着没有uboot，没有命令行，所有的硬件包括内存都没有初始化，除了CPU。在上电的CPU之上，还跑了一个小小的叫做BootROM的程序。通常每块芯片，都在硬件中包含了一个BootROM，是一个小程序，上电后自动运行，无法修改，不同的厂家有不同的设计，但都是给定几种不同的启动模式，然后循环检测。TI这块">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ARM板移植Linux系统启动（二）SPL">
+<meta property="og:url" content="http://conanwhf.coding.me/2017/06/08/bootup-2-spl/index.html">
+<meta property="og:site_name" content="iOS开发和七七八八">
+<meta property="og:description" content="启动模式面对一块完全的空板子，首先要做的当然是让它启动起来。emmc/nand中完全没有内容，意味着没有uboot，没有命令行，所有的硬件包括内存都没有初始化，除了CPU。在上电的CPU之上，还跑了一个小小的叫做BootROM的程序。通常每块芯片，都在硬件中包含了一个BootROM，是一个小程序，上电后自动运行，无法修改，不同的厂家有不同的设计，但都是给定几种不同的启动模式，然后循环检测。TI这块">
+<meta property="og:updated_time" content="2017-06-08T11:03:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ARM板移植Linux系统启动（二）SPL">
+<meta name="twitter:description" content="启动模式面对一块完全的空板子，首先要做的当然是让它启动起来。emmc/nand中完全没有内容，意味着没有uboot，没有命令行，所有的硬件包括内存都没有初始化，除了CPU。在上电的CPU之上，还跑了一个小小的叫做BootROM的程序。通常每块芯片，都在硬件中包含了一个BootROM，是一个小程序，上电后自动运行，无法修改，不同的厂家有不同的设计，但都是给定几种不同的启动模式，然后循环检测。TI这块">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+  <title> ARM板移植Linux系统启动（二）SPL | iOS开发和七七八八 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-68644901-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?8da63524978598168c3843bc8001d968";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">iOS开发和七七八八</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            <i class="menu-item-icon icon-next-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            <i class="menu-item-icon icon-next-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="#" class="st-search-show-outputs">
+            <i class="menu-item-icon icon-next-search"></i> <br />
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '-wAdEzF15RczmAqPJh93','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              ARM板移植Linux系统启动（二）SPL
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2017-06-08T17:31:26+08:00" content="2017-06-08">
+            2017-06-08
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Linux/" itemprop="url" rel="index">
+                  <span itemprop="name">Linux</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h2 id="u542F_u52A8_u6A21_u5F0F"><a href="#u542F_u52A8_u6A21_u5F0F" class="headerlink" title="启动模式"></a>启动模式</h2><p>面对一块完全的空板子，首先要做的当然是让它启动起来。emmc/nand中完全没有内容，意味着没有uboot，没有命令行，所有的硬件包括内存都没有初始化，除了CPU。在上电的CPU之上，还跑了一个小小的叫做BootROM的程序。<br>通常每块芯片，都在硬件中包含了一个BootROM，是一个小程序，上电后自动运行，无法修改，不同的厂家有不同的设计，但都是给定几种不同的启动模式，然后循环检测。TI这块板就支持各种模式，如emmc, nand flash, network, spi, uart等。<br>所谓的不同启动模式，本质上也是类似的，都是从某个设备中读取很少的一点数据放到一定的地方（一般是SRAM或者STACK），然后把PC指针交给它。所以并不是支持什么启动就可以直接在设备上放操作系统了，BootROM能做的只是很基础的硬件初始化工作，更多的事情是需要Uboot来完成。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/08/bootup-2-spl/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/08/bootup-2-spl/'>ARM板移植Linux系统启动（二）SPL</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+<br>言归正传。对于我手头的这块板子，没有nand flash，没有外接emmc(TF卡)，没有网口，板载emmc是空的，那么只能从UART启动了。TI对于Uart启动模式的设计，是将编译出来的<strong>u-boot-spl.bin</strong>（下文称为spl）使用<strong>xmodem</strong>通过串口传输过去，跑起来之后再开启ymodem接收模式，等待串口用<strong>ymodem</strong>传输<strong>u-boot.img</strong>(下文称为u-boot)完毕，将u-boot跑起来。</p>
+<h2 id="SRAM_u548CDRAM"><a href="#SRAM_u548CDRAM" class="headerlink" title="SRAM和DRAM"></a>SRAM和DRAM</h2><p>下载了代码，重新编译之后，却发现连spl都完全没有打印信息。经过跟踪代码添加打印，发现好像spl根本没有跑起来，这让人感到很奇怪。我手头的板子是改过内存芯片的，uboot跑不起来很正常，因为DRAM可能没有正确初始化。但SPL我认为应该是跑在SRAM里的，SRAM只要上电便可以使用，不应该没有任何反应。<br>阅读文档和Debug信息之后，发现竟然还有个配置选项，是先初始化DRAM，再让SPL从DRAM的固定地址启动。它们定义在编译uboot的config中：<br><code>configs/am335x_boneblack_defconfig</code></p>
+<pre><code>CONFIG_SPL_STACK_R_ADDR=0x82000000
+CONFIG_SPL_STACK_R=y
+</code></pre><p>跟踪代码，可以看到在ARM的初始化汇编程序中会调用这样的函数：<br><code>arch/arm/lib/crt0.S</code></p>
+<pre><code># if !defined(CONFIG_SPL_BUILD) || defined(CONFIG_SPL_FRAMEWORK)
+# ifdef CONFIG_SPL_BUILD
+/* Use a DRAM stack for the rest of SPL, if requested */
+bl      spl_relocate_stack_gd
+cmp     r0, #0
+movne   sp, r0
+movne   r9, r0
+# endif
+ldr     r0, =__bss_start        /* this is auto-relocated! */
+</code></pre><p>而函数<code>spl_relocate_stack_gd</code>则在<code>common/spl/spl.c</code>中实现。在config中将<code>CONFIG_SPL_STACK_R=y</code>删除，SPL则顺利地跑起来，有了打印信息。<br>这个部分当时我十分费解，因为SPL原本是不需要配置DRAM然后再跑的，但我看了一下TI和uboot的release，很多板子都用到了这样的配置，不明白为什么。解决这个问题后，我就将SPL放在SRAM里的设置保留了下去。后来继续做移植的时候，因为这个问题我掉了一个坑，才知道这样的设置是有原因的：<br>做到烧写bootloader的时候，发现我烧的bootloader跑不起来，总是出了一半打印信息就死了。经过回想，自己的bootloader除了不会影响的硬件设置改动，跟Beaglebone原生的release差别就在这个SRAM和DRAM的问题了，后来一试果然如此。大概是因为从eMMC启动的SPL需要初始化eMMC，有一些地方还是要用到DRAM，才这么设计的吧。</p>
+<h2 id="u4EE3_u7801_u6D41_u7A0B"><a href="#u4EE3_u7801_u6D41_u7A0B" class="headerlink" title="代码流程"></a>代码流程</h2><p>SPL主要的内容分为三个部分：启动ARM的汇编，和uboot共享的设备初始化，以及SPL本身独有的代码。SPL自身的代码在common/spl/下，而每个板子特有的设备初始化代码在board/ti/am335x/下，通过查看<code>scripts/Makefile.spl</code>可以知道，用来引导启动的MLO文件实际上是基于u-boot-spl.bin做出来的，所以基本可以看作是同样的代码。整个SPL的作用可以说就是“初始化”，是各个层次的XXX_board_init()函数互相调用的过程，下面通过阅读代码把启动流程大致过一遍（代码部分提炼，删减不重要部分）。</p>
+<h3 id="arch/arm/cpu/armv7/start-S"><a href="#arch/arm/cpu/armv7/start-S" class="headerlink" title="arch/arm/cpu/armv7/start.S"></a><code>arch/arm/cpu/armv7/start.S</code></h3><p>这是上电后最开始的代码部分，对部分寄存器的状态进行设置，完成后调用<code>_main</code></p>
+<pre><code>/* Set vector address in CP15 VBAR register */
+ldr     r0, =_start
+mcr     p15, 0, r0, c12, c0, 0  @Set VBAR
+# endif
+
+/* the mask ROM code should have PLL and others stable */
+# ifndef CONFIG_SKIP_LOWLEVEL_INIT
+bl      cpu_init_cp15
+# ifndef CONFIG_SKIP_LOWLEVEL_INIT_ONLY
+bl      cpu_init_crit
+# endif
+# endif
+
+bl      _main
+</code></pre><h3 id="arch/arm/lib/crt0-S"><a href="#arch/arm/lib/crt0-S" class="headerlink" title="arch/arm/lib/crt0.S"></a><code>arch/arm/lib/crt0.S</code></h3><p>这段代码的开头注释写得很清楚，它是ARM启动很重要的一段过程，完成了代码段、基础硬件(RAM)、stack等的初始化和配置，最终将指针交给了<code>board_init_r()</code>。</p>
+<h3 id="common/spl/spl-c"><a href="#common/spl/spl-c" class="headerlink" title="common/spl/spl.c"></a><code>common/spl/spl.c</code></h3><p>uboot中通用的SPL代码，基本的<code>board_init_r()</code>实现，首先初始化SPL需要的内存空间，然后通过<code>spl_board_init()</code>初始化板子的基础部分，接着按照<code>board_boot_order</code>中的设备依次尝试读取uboot数据，并启动uboot。</p>
+<pre><code>void board_init_r(gd_t *dummy1, ulong dummy2)
+{
+u32 spl_boot_list[]() = {
+    BOOT_DEVICE_NONE,
+    BOOT_DEVICE_NONE,
+    BOOT_DEVICE_NONE,
+    BOOT_DEVICE_NONE,
+    BOOT_DEVICE_NONE,
+};
+struct spl_image_info spl_image;
+
+debug(&quot;&gt;&gt;spl:board_init_r()\n&quot;);
+
+if (!(gd-&gt;flags &amp; GD_FLG_SPL_INIT)) {
+    if (spl_init())
+        hang();
+    }
+
+# ifdef CONFIG_SPL_BOARD_INIT
+    spl_board_init();
+# endif
+
+memset(&amp;spl_image, &apos;\0&apos;, sizeof(spl_image));
+board_boot_order(spl_boot_list);
+
+if (boot_from_devices(&amp;spl_image, spl_boot_list,
+  ARRAY_SIZE(spl_boot_list))) {
+    puts(&quot;SPL: failed to boot from all boot devices\n&quot;);
+    hang();
+}
+switch (spl_image.os) {
+    case IH_OS_U_BOOT:
+        debug(&quot;Jumping to U-Boot\n&quot;);
+    break;
+    default:
+        debug(&quot;Unsupported OS image.. Jumping nevertheless..\n&quot;);
+}
+
+debug(&quot;loaded - jumping to U-Boot...&quot;);
+spl_board_prepare_for_boot();
+jump_to_image_no_args(&amp;spl_image);
+}
+</code></pre><h3 id="arch/arm/mach-omap2/boot-common-c"><a href="#arch/arm/mach-omap2/boot-common-c" class="headerlink" title="arch/arm/mach-omap2/boot-common.c"></a><code>arch/arm/mach-omap2/boot-common.c</code></h3><p>这是OMAP芯片的通用代码，实现了<code>spl_board_init()</code>。首先保存中间状态，然后call <code>preloader_consle_init()</code>来初始化Uart和打印显示（位于<code>common/spl/spl.c</code>）。完成之后我们便能通过UART看到在SPL中的打印信息。<br>接下来是硬件相关部分：初始化SPL，I2C，MISC，WatchDog，最后call到am33xx的spl代码<code>am33xx_spl_board_init()</code>。</p>
+<pre><code>void spl_board_init(void)
+{
+/*  * Save the boot parameters passed from romcode.
+     * We cannot delay the saving further than this,
+         * to prevent overwrites.
+         */
+        save_omap_boot_params();
+
+        /* Prepare console output */
+        preloader_console_init();
+
+# if defined(CONFIG_SPL_NAND_SUPPORT) || defined(CONFIG_SPL_ONENAND_SUPPORT)
+    gpmc_init();
+# endif
+# ifdef CONFIG_SPL_I2C_SUPPORT
+    i2c_init(CONFIG_SYS_OMAP24_I2C_SPEED, CONFIG_SYS_OMAP24_I2C_SLAVE);
+# endif
+# if defined(CONFIG_AM33XX) &amp;&amp; defined(CONFIG_SPL_MUSB_NEW_SUPPORT)
+    arch_misc_init();
+# endif
+# if defined(CONFIG_HW_WATCHDOG)
+    hw_watchdog_init();
+# endif
+# ifdef CONFIG_AM33XX
+    am33xx_spl_board_init();
+# endif
+}
+</code></pre><h3 id="board/ti/am335x/board-c"><a href="#board/ti/am335x/board-c" class="headerlink" title="board/ti/am335x/board.c"></a><code>board/ti/am335x/board.c</code></h3><p>特定板子的硬件实现，完成了<code>am33x_spl_board_init()</code>。这里根据<code>board_is_XXX()</code>函数确定不同的板子型号，继而进行不同的硬件初始化流程。要注意这个板子的型号是根据EEPROM中烧录的信息来确定的，如果硬件上有修改，需要手动进行一些特殊处理。我手头的板子就是没有这个EEPROM的，当时也给我造成了一点小麻烦。<br>这些硬件初始化都完成后，就可以一路跳回<code>common/spl/spl.c, board_init_r()</code>，跑后续的uboot启动流程。至此，SPL任务完成！</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/30/bootup-1-main/" rel="next">ARM板移植Linux系统启动（一）启动流程</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/logo.png" alt="Conan Wang" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Conan Wang</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">入门iOS开发，相关不相关乱七八糟的一切</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">82</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">37</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/conanwhf" target="_blank">Github</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://git.oschina.net/conanwhf/" target="_blank">OSchina</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/1864854042" target="_blank">Weibo</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:conan.whf@gmail.com" target="_blank">MailtoMe</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">Links</p>
+            
+              <span class="links-of-author-item">
+              <a href="http://conanwhf.coding.me" target="_blank">本站墙内链接</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://conanwhf.github.io" target="_blank">本站墙外链接</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">我的资源收集</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://conanwhf.github.io/2015/09/06/RoadMap/" target="_blank">学习进度表</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/conanwhf/ResourceDoc/blob/master/tryList.md" target="_blank">练手小项目清单</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://www.imooc.com/" target="_blank">慕课网</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://toutiao.io" target="_blank">开发者头条</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u542F_u52A8_u6A21_u5F0F"><span class="nav-number">1.</span> <span class="nav-text">启动模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SRAM_u548CDRAM"><span class="nav-number">2.</span> <span class="nav-text">SRAM和DRAM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4EE3_u7801_u6D41_u7A0B"><span class="nav-number">3.</span> <span class="nav-text">代码流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#arch/arm/cpu/armv7/start-S"><span class="nav-number">3.1.</span> <span class="nav-text">arch/arm/cpu/armv7/start.S</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#arch/arm/lib/crt0-S"><span class="nav-number">3.2.</span> <span class="nav-text">arch/arm/lib/crt0.S</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#common/spl/spl-c"><span class="nav-number">3.3.</span> <span class="nav-text">common/spl/spl.c</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#arch/arm/mach-omap2/boot-common-c"><span class="nav-number">3.4.</span> <span class="nav-text">arch/arm/mach-omap2/boot-common.c</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#board/ti/am335x/board-c"><span class="nav-number">3.5.</span> <span class="nav-text">board/ti/am335x/board.c</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Conan Wang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>
