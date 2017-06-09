@@ -51,7 +51,7 @@
 <meta property="og:url" content="http://conanwhf.coding.me/2017/06/08/bootup-2-spl/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="启动模式面对一块完全的空板子，首先要做的当然是让它启动起来。emmc/nand中完全没有内容，意味着没有uboot，没有命令行，所有的硬件包括内存都没有初始化，除了CPU。在上电的CPU之上，还跑了一个小小的叫做BootROM的程序。通常每块芯片，都在硬件中包含了一个BootROM，是一个小程序，上电后自动运行，无法修改，不同的厂家有不同的设计，但都是给定几种不同的启动模式，然后循环检测。TI这块">
-<meta property="og:updated_time" content="2017-06-08T11:03:13.000Z">
+<meta property="og:updated_time" content="2017-06-08T11:03:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ARM板移植Linux系统启动（二）SPL">
 <meta name="twitter:description" content="启动模式面对一块完全的空板子，首先要做的当然是让它启动起来。emmc/nand中完全没有内容，意味着没有uboot，没有命令行，所有的硬件包括内存都没有初始化，除了CPU。在上电的CPU之上，还跑了一个小小的叫做BootROM的程序。通常每块芯片，都在硬件中包含了一个BootROM，是一个小程序，上电后自动运行，无法修改，不同的厂家有不同的设计，但都是给定几种不同的启动模式，然后循环检测。TI这块">
@@ -401,6 +401,8 @@ jump_to_image_no_args(&amp;spl_image);
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2017/06/09/bootup-3-uboot/" rel="prev">ARM板移植Linux系统启动（三）UBOOT移植</a>
+            
           </div>
 
           <div class="post-nav-next post-nav-item">
@@ -467,7 +469,7 @@ jump_to_image_no_args(&amp;spl_image);
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">82</span>
+              <span class="site-state-item-count">83</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

@@ -4,8 +4,26 @@
 
     
   <url>
+    <loc>http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/</loc>
+    <lastmod>2017-06-09T12:07:06.000Z</lastmod>
+    <data>
+        <display>
+        <title>ARM板移植Linux系统启动（三）UBOOT移植</title>
+        <pubTime>2017-06-09T09:31:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Linux" url="http://conanwhf.coding.me/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.coding.me/2017/06/08/bootup-2-spl/</loc>
-    <lastmod>2017-06-08T11:03:13.000Z</lastmod>
+    <lastmod>2017-06-08T11:03:44.000Z</lastmod>
     <data>
         <display>
         <title>ARM板移植Linux系统启动（二）SPL</title>
@@ -245,28 +263,6 @@
            
              
               <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2016/01/21/newsreader-8/</loc>
-    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>从打造新闻app学到的(8)：自定义TableViewCell</title>
-        <pubTime>2016-01-21T09:32:45.000Z</pubTime>
-        
-        <tag>StoryBoard</tag>
-         
-        <tag>TableView</tag>
-         
-         
-           
-             
-              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
           
         </display>
     </data>
@@ -523,6 +519,26 @@
            
              
               <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/09/12/AddTableViewInUIViewController/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>在UIViewController中添加TableView</title>
+        <pubTime>2015-09-12T09:32:45.000Z</pubTime>
+        
+        <tag>TableView</tag>
+         
+         
+           
+             
+              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
           
         </display>
     </data>
@@ -1214,19 +1230,17 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/09/12/AddTableViewInUIViewController/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/30/precision/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>在UIViewController中添加TableView</title>
-        <pubTime>2015-09-12T09:32:45.000Z</pubTime>
+        <title>Swift中数据类型精度的一点探索</title>
+        <pubTime>2015-12-30T09:14:35.000Z</pubTime>
         
-        <tag>TableView</tag>
-         
          
            
              
-              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
@@ -1254,17 +1268,21 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/30/precision/</loc>
+    <loc>http://conanwhf.coding.me/2016/01/21/newsreader-8/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>Swift中数据类型精度的一点探索</title>
-        <pubTime>2015-12-30T09:14:35.000Z</pubTime>
+        <title>从打造新闻app学到的(8)：自定义TableViewCell</title>
+        <pubTime>2016-01-21T09:32:45.000Z</pubTime>
         
+        <tag>StoryBoard</tag>
+         
+        <tag>TableView</tag>
+         
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
           
         </display>
     </data>

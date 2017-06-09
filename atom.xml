@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.coding.me/"/>
-  <updated>2017-06-08T11:03:13.000Z</updated>
+  <updated>2017-06-09T12:07:06.000Z</updated>
   <id>http://conanwhf.coding.me/</id>
   
   <author>
@@ -15,11 +15,212 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[ARM板移植Linux系统启动（三）UBOOT移植]]></title>
+    <link href="http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/"/>
+    <id>http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/</id>
+    <published>2017-06-09T09:31:26.000Z</published>
+    <updated>2017-06-09T12:07:06.000Z</updated>
+    <content type="html"><![CDATA[<p>经过这些年的演变，U-boot已经从一个简单的loader慢慢发展成了一个小小系统，硬件上原生支持各种平台、外设，软件上支持Fat&amp;ext234等文件系统、传输协议、测试工具，可以说相当完善了。这种进化，负面影响是让整体变得更复杂臃肿，但也有更多的正面影响，是让我们的移植工作更加简单、模块化。</p>
+<h2 id="Uboot_u4EE3_u7801_u7ED3_u6784"><a href="#Uboot_u4EE3_u7801_u7ED3_u6784" class="headerlink" title="Uboot代码结构"></a>Uboot代码结构</h2><a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/'>ARM板移植Linux系统启动（三）UBOOT移植</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+
+<p>代码结构是了解uboot的基础，作为一个成熟的开源软件，uboot的代码结构很清晰。绝大多数的代码都是通用的，所以在移植过程中，基本上只需要找到自己的对应平台，修改板子特有的部分即可。<br>├── api                uboot提供的API接口<br>├── arch               与体系结构相关的代码<br>│   ├── arm<br>│   │   ├── mach-omap2  BeagleBoneBlack使用的架构<br>│   ├── x86<br>├── board              根据不同的具体开发板而定制的代码<br>│   ├── ti             厂商：TI<br>│   │   ├── am335x     BeagleBoneBlack使用的平台，主要的改动应该在这里，包括内存初始化<br>│   │   ├── beagle<br>│   │   ├── common<br>│   │   ├── evm<br>├── cmd                通用命令行处理工具<br>├── common             通用核心代码，主要给uboot使用，部分SPL<br>│   ├── spl            SPL的通用代码<br>├── configs            配置文件<br>├── disk               磁盘分区相关<br>├── doc                文档<br>├── drivers            各种驱动，uboot使用<br>├── dts                dtb文件的编译脚本<br>├── examples           范例<br>├── fs                 文件系统代码<br>├── include            公用头文件<br>│   ├── configs        不同板子配置选项的头文件<br>├── lib                通用库<br>├── net                网络相关<br>├── post               Power On Self Test，开机自检程序<br>├── scripts            编译脚本<br>├── test               测试程序<br>├── tools              相关小工具<br>如果是想要重新编译和优化uboot，那么通常修改配置文件即可；如果是一块硬件上有修改的板子，那么则需要另外关注board/XXX/部分，基于原有的初始化代码进行修改；如果是完全新设计的芯片，则必须根据芯片不同模块的datasheet自己添加一套初始化代码，只有arm平台的一些基本内容可以通用了。</p>
+<h2 id="u542F_u52A8_u6D41_u7A0B"><a href="#u542F_u52A8_u6D41_u7A0B" class="headerlink" title="启动流程"></a>启动流程</h2><p>前一篇讲SPL的启动的时候提到，最初从<code>start.S</code> call到了<code>crt0.S</code>。<code>crt0.S</code>会先后调用<code>board_init_f()</code>和<code>board_init_r()</code>两个函数，当作为SPL编译时<code>board_init_f()</code>是直接返回的，而在uboot时是有用的。大致上来说，<code>board_init_f()</code>侧重于基础硬件的初始化，以及软件堆栈等方面的准备，更底层一点；而<code>board_init_r()</code>则更多的是软件方面的初始化，并且最终完成uboot启动过程或进入命令行。</p>
+<h3 id="common/board_f-c"><a href="#common/board_f-c" class="headerlink" title="common/board_f.c"></a><code>common/board_f.c</code></h3><p>这是uboot(实际上是uboot第二阶段，<strong>u-boot.img</strong>所包含的内容，下文不再区分)的入口函数<code>board_init_f()</code>所在的文件。可以看到函数<code>board_init_f()</code>很简单，初始化全局变量后，就根据一个<code>init_sequence_f</code>依次运行不同的函数，失败则把系统hang住，成功当然就是进入正常的启动流程中去了。<code>init_sequence_f</code>在同一个文件中也有定义，很长，我删减无关平台的内容大致看看：</p>
+<pre><code>static init_fnc_t init_sequence_f[] = {
+//==========基本数据init，malloc数据块
+    setup_mon_len,
+#ifdef CONFIG_OF_CONTROL
+    fdtdec_setup,
+#endif
+#ifdef CONFIG_TRACE
+    trace_early_init,
+#endif
+    initf_malloc,
+    initf_console_record,
+//初始化CPU
+    arch_cpu_init,      /* basic arch cpu dependent setup */
+    mach_cpu_init,      /* SoC/machine dependent CPU setup */
+    initf_dm,
+    arch_cpu_init_dm,
+    mark_bootstage,     /* need timer, go after init dm */
+#if defined(CONFIG_BOARD_EARLY_INIT_F)
+    board_early_init_f,
+#endif
+//==========Timer
+#if defined(CONFIG_ARM) || defined(CONFIG_MIPS) || \
+        defined(CONFIG_BLACKFIN) || defined(CONFIG_NDS32) || \
+        defined(CONFIG_SH) || defined(CONFIG_SPARC)
+    timer_init,     /* initialize timer */
+#endif
+//==========初始化环境变量
+    env_init,       /* initialize environment */
+//==========初始化串口，并打印信息
+    init_baud_rate,     /* initialze baudrate settings */
+    serial_init,        /* serial communications setup */
+    console_init_f,     /* stage 1 init of console */
+    display_options,    /* say that we are here */
+    display_text_info,  /* show debugging info if required */
+    print_cpuinfo,      /* display cpu info (and speed) */
+#if defined(CONFIG_DISPLAY_BOARDINFO)
+    show_board_info,
+#endif
+//==========基本外设初始化，包括I2C，SPI，WatchDog等
+    INIT_FUNC_WATCHDOG_INIT
+#if defined(CONFIG_MISC_INIT_F)
+    misc_init_f,
+#endif
+    INIT_FUNC_WATCHDOG_RESET
+#if defined(CONFIG_HARD_I2C) || defined(CONFIG_SYS_I2C)
+    init_func_i2c,
+#endif
+#if defined(CONFIG_HARD_SPI)
+    init_func_spi,
+#endif
+//==========内存初始化
+    announce_dram_init,
+    /* TODO: unify all these dram functions? */
+#if defined(CONFIG_ARM) || defined(CONFIG_X86) || defined(CONFIG_NDS32) || \
+        defined(CONFIG_MICROBLAZE) || defined(CONFIG_AVR32) || \
+        defined(CONFIG_SH)
+    dram_init,      /* configure available RAM banks */
+#endif
+    INIT_FUNC_WATCHDOG_RESET
+#if defined(CONFIG_SYS_DRAM_TEST)
+    testdram,
+#endif /* CONFIG_SYS_DRAM_TEST */
+    INIT_FUNC_WATCHDOG_RESET
+//==========一堆显示相关的初始化，略
+    /*
+     * Now that we have DRAM mapped and working, we can
+     * relocate the code and continue running from DRAM.
+     *
+     * Reserve memory at end of RAM for (top down in that order):
+     *  - area that won&apos;t get touched by U-Boot and Linux (optional)
+     *  - kernel log buffer
+     *  - protected RAM
+     *  - LCD framebuffer
+     *  - monitor code
+     *  - board info struct
+     */
+//==========将环境变量重置，并打印相关信息
+    setup_machine,
+    reserve_global_data,
+    reserve_fdt,
+    reserve_arch,
+    reserve_stacks,
+    setup_dram_config,
+    show_dram_config,
+    display_new_sp,
+#ifdef CONFIG_SYS_EXTBDINFO
+    setup_board_extra,
+#endif
+    INIT_FUNC_WATCHDOG_RESET
+    reloc_fdt,
+    setup_reloc,
+    NULL,
+};
+</code></pre><h2 id="common/board_r-c"><a href="#common/board_r-c" class="headerlink" title="common/board_r.c"></a><code>common/board_r.c</code></h2><p>类似的，在<code>board_init_r()</code>中也会按顺序调用这么一个函数列表，函数名都很容易看懂，具体就不列出来了。跟<code>board_init_f()</code>不同的是，它最后有一个<code>run_main_loop</code>：</p>
+<pre><code>init_fnc_t init_sequence_r[] = {
+    initr_trace,
+    initr_reloc,
+    ......
+    run_main_loop,
+};
+</code></pre><p>这个函数会进入一个死循环，尝试自动启动系统或者进入uboot的命令行：</p>
+<pre><code>static int run_main_loop(void)
+{
+ifdef CONFIG_SANDBOX
+sandbox_main_loop_init();
+endif
+/* main_loop() can return to retry autoboot, if so just run it again */
+for (;;)
+main_loop();
+return 0;
+} 
+</code></pre><h2 id="common/main-c"><a href="#common/main-c" class="headerlink" title="common/main.c"></a><code>common/main.c</code></h2><p>函数<code>main_loop()</code>的实现在main.c，可以看到，做好最后的准备工作后，uboot会尝试用<code>autoboot_command(s)</code>来启动kernel，如果失败，则进入<code>cli_loop()</code>函数中。</p>
+<pre><code>void main_loop(void)
+{
+        const char *s;
+
+        bootstage_mark_name(BOOTSTAGE_ID_MAIN_LOOP, &quot;main_loop&quot;);
+
+#ifdef CONFIG_VERSION_VARIABLE
+        setenv(&quot;ver&quot;, version_string);  /* set version variable */
+#endif /* CONFIG_VERSION_VARIABLE */
+
+        cli_init();
+
+        run_preboot_environment_command();
+
+#if defined(CONFIG_UPDATE_TFTP)
+        update_tftp(0UL, NULL, NULL);
+#endif /* CONFIG_UPDATE_TFTP */
+
+        s = bootdelay_process();
+        if (cli_process_fdt(&amp;s))
+                cli_secure_boot_cmd(s);
+
+        autoboot_command(s);
+
+        cli_loop();
+        panic(&quot;No CLI available&quot;);
+}
+</code></pre><h2 id="cli_loop_28_29"><a href="#cli_loop_28_29" class="headerlink" title="cli_loop()"></a><code>cli_loop()</code></h2><p>这个函数比较简单，追踪code可以看到，<code>common/cli.c, cli_loop()-&gt;common/cli_simple.c, cli_simple_loop()</code>， <code>cli_simple_loop()</code>就是uboot的命令行了，不断读取用户输入来做出反应，同样也是个死循环。所以绝大部分的时候，<code>main_loop()</code>中的循环并不会进行多次，而是一旦自动启动失败就进入了命令行，不会再次自动尝试启动。</p>
+<h2 id="u4FEE_u6539_u79FB_u690D"><a href="#u4FEE_u6539_u79FB_u690D" class="headerlink" title="修改移植"></a>修改移植</h2><p>一般简单的板子移植，主要是内存初始化代码，和硬件配置选项，以及启动变量。硬件的驱动是不需要自己写的，但要配置准确。这些修改主要集中在两个地方：配置头文件和平台对应的board.c。以BeagleBoneBlack为例，它的特别内容都在以下两个文件中：</p>
+<ul>
+<li><code>board/ti/am335x/board.c</code></li>
+<li><code>include/configs/am335x_evm.h</code><br>这是编译时脚本根据config中<code>CONFIG_TARGET_AM335X_EVM=y</code>来对应的，不同的平台文件会有所不同，但都可以通过查看Makefile和Kconfig来找到正确的文件。下文均以BeagleBoneBlack为例。</li>
+</ul>
+<h3 id="u542F_u52A8_u65B9_u5F0F"><a href="#u542F_u52A8_u65B9_u5F0F" class="headerlink" title="启动方式"></a>启动方式</h3><p>当uboot的启动流程进入到autoboot，其历史使命基本上也就完成了。但对于一个移植的板子来说，配置自动启动的选项却是一个很重要的问题。启动方式的列表定义在在<code>am335x_evm.h</code>中:</p>
+<pre><code>define BOOT_TARGET_DEVICES(func) \
+func(MMC, mmc, 0) \
+func(LEGACY_MMC, legacy_mmc, 0) \
+func(MMC, mmc, 1) \
+func(LEGACY_MMC, legacy_mmc, 1) \
+func(NAND, nand, 0) \
+func(PXE, pxe, na) \
+func(DHCP, dhcp, na)
+endif
+</code></pre><p>很容易看到这个启动方式是emmc,nand,PXE,DHCP，可以自己按照需要调整顺序或者添删。</p>
+<h3 id="u5185_u5B58_u521D_u59CB_u5316"><a href="#u5185_u5B58_u521D_u59CB_u5316" class="headerlink" title="内存初始化"></a>内存初始化</h3><p>在<code>board/ti/am335x/board.c</code>中的函数<code>sdram_init()</code>就是内存的初始化函数，它会根据EEPROM得到的板子型号，对应不同的DRAM配置。阅读代码不难发现，配置具体信息是定义在<code>arch/arm/include/asm/arch-am33xx/ddr_defs.h</code>。如果需要修改或者添加不同的内存配置，修改这两个文件即可。</p>
+<h3 id="u5176_u4ED6_u786C_u4EF6_u8C03_u6574"><a href="#u5176_u4ED6_u786C_u4EF6_u8C03_u6574" class="headerlink" title="其他硬件调整"></a>其他硬件调整</h3><p>绝大多数硬件的配置定义都在<code>am335x_evm.h</code>中，包括各种模块的Base address、初始化值、硬件定义等等，读者可以自行阅读。这些设置有的是根据芯片的手册而定，比如说memory的初始化值；有的是根据硬件设计而定，比如USB的Host &amp; PERIPHERAL设置；有的是可以根据需要自行决定，比如<code>CONFIG_SYS_BOOTM_LEN</code>。具体改什么、怎么改，要根据情况分析而定。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>经过这些年的演变，U-boot已经从一个简单的loader慢慢发展成了一个小小系统，硬件上原生支持各种平台、外设，软件上支持Fat&amp;ext234等文件系统、传输协议、测试工具，可以说相当完善了。这种进化，负面影响是让整体变得更复杂臃肿，但也有更多的正面影响，是让我们的移植工作更加简单、模块化。</p>
+<h2 id="Uboot_u4EE3_u7801_u7ED3_u6784"><a href="#Uboot_u4EE3_u7801_u7ED3_u6784" class="headerlink" title="Uboot代码结构"></a>Uboot代码结构</h2>]]>
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://conanwhf.coding.me/categories/Linux/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[ARM板移植Linux系统启动（二）SPL]]></title>
     <link href="http://conanwhf.coding.me/2017/06/08/bootup-2-spl/"/>
     <id>http://conanwhf.coding.me/2017/06/08/bootup-2-spl/</id>
     <published>2017-06-08T09:31:26.000Z</published>
-    <updated>2017-06-08T11:03:13.000Z</updated>
+    <updated>2017-06-08T11:03:44.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u542F_u52A8_u6A21_u5F0F"><a href="#u542F_u52A8_u6A21_u5F0F" class="headerlink" title="启动模式"></a>启动模式</h2><p>面对一块完全的空板子，首先要做的当然是让它启动起来。emmc/nand中完全没有内容，意味着没有uboot，没有命令行，所有的硬件包括内存都没有初始化，除了CPU。在上电的CPU之上，还跑了一个小小的叫做BootROM的程序。<br>通常每块芯片，都在硬件中包含了一个BootROM，是一个小程序，上电后自动运行，无法修改，不同的厂家有不同的设计，但都是给定几种不同的启动模式，然后循环检测。TI这块板就支持各种模式，如emmc, nand flash, network, spi, uart等。<br>所谓的不同启动模式，本质上也是类似的，都是从某个设备中读取很少的一点数据放到一定的地方（一般是SRAM或者STACK），然后把PC指针交给它。所以并不是支持什么启动就可以直接在设备上放操作系统了，BootROM能做的只是很基础的硬件初始化工作，更多的事情是需要Uboot来完成。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/08/bootup-2-spl/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/08/bootup-2-spl/'>ARM板移植Linux系统启动（二）SPL</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
@@ -1462,112 +1663,6 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
     </summary>
     
       <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[开发Tips收集-2016年02月]]></title>
-    <link href="http://conanwhf.coding.me/2016/03/01/Tips201602/"/>
-    <id>http://conanwhf.coding.me/2016/03/01/Tips201602/</id>
-    <published>2016-03-01T09:25:39.000Z</published>
-    <updated>2017-05-04T08:55:30.000Z</updated>
-    <content type="html"><![CDATA[<blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>UIView 的translatesAutoresizingMaskIntoConstraints属性为true时，设置 frame 会自动转化为约束，修改 frame 时也会自动调整约束。这时候就不要再手动添加约束了，你再添加约束往往会造成冲突</li>
-<li>使用XCODE交付应用，常见的返回错误：<ol>
-<li>ERROR：–90096 ：原因是：启动图的问题；解决 ：添加一张名字是 Default-568h@2x.png 的启动图；</li>
-<li>ERROR：–90535 ：原因是：导入的第三方的问题；解决 ：删除第三方包中的info.plist里的Executable file 这一行</li>
-</ol>
-</li>
-<li>ios下每个app可用的内存是被限制的，如果一个app使用的内存超过了这个阀值，则系统会向该app发送Memory Warning消息。收到消息后，app必须尽可能多的释放一些不必要的内存，否则OS会关闭app。</li>
-<li>数组的contains方法需要用到==操作符，所以当数组的内容为自定义类型，且需要使用contains方法是，需要自定义的类实现Equatable协议即可</li>
-<li>Swift 的枚举类型，如果指定了原始值的类型（Int， String等），就会有默认值的存在。如果不指定原始值类型，编译器就不会分配默认值。<ol>
-<li>当枚举类型的原始值类型指定为 Int 时，这个时候，就和其他语言的枚举的默认值分配一样，从0开始</li>
-<li>如果指定了一个枚举值的原始值，后面接下来的枚举值的原始值会自动 +1</li>
-<li>原始值类型为字符串的时候，默认的值就是和枚举值的字符串一样</li>
-<li>没有设置原始值的，就使用默认值</li>
-</ol>
-</li>
-<li>开发中经常会遇到控件不接收用户交互了，可以从以下几个方面检查：<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/03/01/Tips201602/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/03/01/Tips201602/'>开发Tips收集-2016年02月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-<ol>
-<li>enable = NO 就不可以被点击 ->也会让按钮显示禁用状态</li>
-<li>设置了控件的 userInterActionEnabel = NO</li>
-<li>hidden属性为YES</li>
-<li>控件的alpha \&lt; = 0.01</li>
-<li>如果一个父控件与用户的交互设置为NO ,那么它子控件将获取不到交互事件</li>
-<li>如果子视图超出父视图范围,超出范围的部分也不能接收用户交互</li>
-</ol>
-</li>
-<li>UIApplication 中 statusBarOrientation 属性在ios 9 中已经不能用了 项目中需要横屏的页面直接隐藏了状态栏</li>
-<li>自定义一个cell继承自UITableViewCell，然后重载它的以下两个方法:<ul>
-<li>(void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated;</li>
-<li>(void)setSelected:(BOOL)selected animated:(BOOL)animated;<br>发现当我们点击cell的时候，其实是先设置cell的高亮状态为YES，然后松手的时候再将cell的高亮状态设置为NO，接着才是设置cell的选中状态为YES，最后才会去调用didSelectRowAtIndexPath:方法。<br>由此可见：cell的高亮状态是不能持久的，即tap的时候会变成高亮，松手的时候就会自动设置为非高亮状态。而cell的选中状态则是可以持久的，我们不去触发它改变状态，则选中状态就不会</li>
-</ul>
-</li>
-<li>awakeFromNib和viewDidLoad的区别：<br>  <strong>awakeFromNib</strong>:当.nib文件被加载的时候，会发送一个awakeFromNib的消息到.nib文件中的每个对象，每个对象都可以定义自己的 awakeFromNib函数来响应这个消息，执行一些必要的操作。也就是说通过nib文件创建view对象是执行awakeFromNib 。<br>  <strong>viewDidLoad</strong>:当view对象被加载到内存是就会执行viewDidLoad，所以不管通过nib文件还是代码的方式创建对象都会执行viewDidLoad。</li>
-<li>UIWebView要实现横向滑动，跟UIWebview的增高没有关系，你需要设定UIWebView的属性scrollView的contentsize.width大于UIWebView的frame.size.width.</li>
-<li>到 Xcode 5.1， iOS SDK 7.1 后，TableView Cell clipsToBounds 属性默认都是NO，导致以前用的把cell的height设为0来隐藏某个cell的方法没用了。cell内容会叠起来。 解决方法就是手动把clipsToBounds改YES，或者Storyboard里Clip Subview打勾。</li>
-<li>CADisplayLink在正常情况下会在每次刷新结束都被调用，精确度相当的高。但如果调用的方法比较耗时，超过了屏幕刷新周期，就会导致跳过若干次回调调用机会。</li>
-<li>在IOS7以后 ViewController 开始使用全屏布局的，而且是默认的行为通常涉及到布局，就离不开这个属性 edgesForExtendedLayout，它是一个类型为UIExtendedEdge的属性，指定边缘要延伸的方向，它的默认值很自然地是UIRectEdgeAll，四周边缘均延伸，就是说，如果即使视图中上有navigationBar，下有tabBar，那么视图仍会延伸覆盖到四周的区域。一般为了不让tableView 不延伸到 navigationBar 下面，属性设置为 UIRectEdgeNone</li>
-<li>当一个iOS应用被送到后台，它的主线程会被暂停。你用NSThread的detachNewThreadSelector:toTar get:withObject:类方法创建的线程也被挂起了。如果你想在后台完成一个长期任务，就必须调用UIApplication的beginBackgroundTaskWithExpirationHandler:实例方法，来向iOS借点时间。UIApplication的backgroundTimeRemaining属性包含了程序完成他的任务可以使用的秒数。如果在这个期限内，长期任务没有被完成，iOS将终止程序。每个对beginBackgroundTaskWithExpirationHandler:方法的调用，必须要相应的调用endBackgroundTask:方法（UIApplication的另一个实例方法）。</li>
-<li>为了保持用户界面的响应，iOS系统包括一个看门狗机制。如果您的应用程序未能响应某些用户界面事件（启动、暂停、恢复、终止）的时间，该看门狗将杀死您的应用程序，并产生一个看门狗超时崩溃报告</li>
-<li>setNeedsUpdateConstraints 确保在未来的某个阶段updateConstraintsIfNeeded这个方法会调用 updateConstraints.<br>  setNeedsLayout 确保在未来的某个阶段 layoutIfNeeded 这个方法会调用 layoutSubviews.<br>  直接调用setNeedsUpdateConstraints去更新约束是很奇怪的，因为只有在某些情况下你的某个约束失效了，你需要移除它，这时候才需要直接调用这个方法。</li>
-<li>在制作动画前，需要弄清楚anchorPoint与position之间的关系，对最终将动画渲染在屏幕上的位置至关重要。<pre><code>1. position:CAReplicatorLayer的position决定了其在父视图中位置坐标。
-2. anchorPoint：CAReplicatorLayer的anchorPoint决定了其position的位置。anchorPoint的默认值为(0.5, 0.5),此时CAReplicatorLayer在父视图中坐标位置对应其中心点的坐标。
-</code></pre></li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>UIView 的translatesAutoresizingMaskIntoConstraints属性为true时，设置 frame 会自动转化为约束，修改 frame 时也会自动调整约束。这时候就不要再手动添加约束了，你再添加约束往往会造成冲突</li>
-<li>使用XCODE交付应用，常见的返回错误：<ol>
-<li>ERROR：–90096 ：原因是：启动图的问题；解决 ：添加一张名字是 Default-568h@2x.png 的启动图；</li>
-<li>ERROR：–90535 ：原因是：导入的第三方的问题；解决 ：删除第三方包中的info.plist里的Executable file 这一行</li>
-</ol>
-</li>
-<li>ios下每个app可用的内存是被限制的，如果一个app使用的内存超过了这个阀值，则系统会向该app发送Memory Warning消息。收到消息后，app必须尽可能多的释放一些不必要的内存，否则OS会关闭app。</li>
-<li>数组的contains方法需要用到==操作符，所以当数组的内容为自定义类型，且需要使用contains方法是，需要自定义的类实现Equatable协议即可</li>
-<li>Swift 的枚举类型，如果指定了原始值的类型（Int， String等），就会有默认值的存在。如果不指定原始值类型，编译器就不会分配默认值。<ol>
-<li>当枚举类型的原始值类型指定为 Int 时，这个时候，就和其他语言的枚举的默认值分配一样，从0开始</li>
-<li>如果指定了一个枚举值的原始值，后面接下来的枚举值的原始值会自动 +1</li>
-<li>原始值类型为字符串的时候，默认的值就是和枚举值的字符串一样</li>
-<li>没有设置原始值的，就使用默认值</li>
-</ol>
-</li>
-<li>开发中经常会遇到控件不接收用户交互了，可以从以下几个方面检查：]]>
-    
-    </summary>
-    
-      <category term="Xcode" scheme="http://conanwhf.coding.me/tags/Xcode/"/>
-    
-      <category term="iOS - Swift" scheme="http://conanwhf.coding.me/tags/iOS-Swift/"/>
-    
-      <category term="DevTips" scheme="http://conanwhf.coding.me/categories/DevTips/"/>
     
   </entry>
   
