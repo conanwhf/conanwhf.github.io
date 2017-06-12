@@ -4,6 +4,24 @@
 
     
   <url>
+    <loc>http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/</loc>
+    <lastmod>2017-06-12T15:01:25.000Z</lastmod>
+    <data>
+        <display>
+        <title>ARM板移植Linux系统启动（四）配置Kernel</title>
+        <pubTime>2017-06-12T09:31:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Linux" url="http://conanwhf.coding.me/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/</loc>
     <lastmod>2017-06-09T12:07:06.000Z</lastmod>
     <data>
@@ -252,41 +270,17 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/02/Swift_Syntax/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/04/Swift_open/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>Swift2.0语法笔记</title>
-        <pubTime>2015-12-02T08:29:26.000Z</pubTime>
+        <title>Swift开源了！！！</title>
+        <pubTime>2015-12-04T10:29:26.000Z</pubTime>
         
          
            
              
               <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2016/01/01/newsreader-7/</loc>
-    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>从打造新闻app学到的(7)：下拉刷新和上拉更多</title>
-        <pubTime>2016-01-01T06:56:35.000Z</pubTime>
-        
-        <tag>NewsAPP</tag>
-         
-        <tag>Thread</tag>
-         
-        <tag>iOS</tag>
-         
-         
-           
-             
-              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
           
         </display>
     </data>
@@ -539,6 +533,24 @@
            
              
               <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/12/30/precision/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>Swift中数据类型精度的一点探索</title>
+        <pubTime>2015-12-30T09:14:35.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
@@ -892,13 +904,15 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/04/Swift_open/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/15/swift_xml/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>Swift开源了！！！</title>
-        <pubTime>2015-12-04T10:29:26.000Z</pubTime>
+        <title>使用Swift原生库解析XML数据</title>
+        <pubTime>2015-12-15T10:14:35.000Z</pubTime>
         
+        <tag>XML</tag>
+         
          
            
              
@@ -910,15 +924,13 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/15/swift_xml/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/02/Swift_Syntax/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>使用Swift原生库解析XML数据</title>
-        <pubTime>2015-12-15T10:14:35.000Z</pubTime>
+        <title>Swift2.0语法笔记</title>
+        <pubTime>2015-12-02T08:29:26.000Z</pubTime>
         
-        <tag>XML</tag>
-         
          
            
              
@@ -1230,17 +1242,21 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/30/precision/</loc>
+    <loc>http://conanwhf.coding.me/2016/01/21/newsreader-8/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>Swift中数据类型精度的一点探索</title>
-        <pubTime>2015-12-30T09:14:35.000Z</pubTime>
+        <title>从打造新闻app学到的(8)：自定义TableViewCell</title>
+        <pubTime>2016-01-21T09:32:45.000Z</pubTime>
         
+        <tag>StoryBoard</tag>
+         
+        <tag>TableView</tag>
+         
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
           
         </display>
     </data>
@@ -1268,16 +1284,18 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2016/01/21/newsreader-8/</loc>
+    <loc>http://conanwhf.coding.me/2016/01/01/newsreader-7/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>从打造新闻app学到的(8)：自定义TableViewCell</title>
-        <pubTime>2016-01-21T09:32:45.000Z</pubTime>
+        <title>从打造新闻app学到的(7)：下拉刷新和上拉更多</title>
+        <pubTime>2016-01-01T06:56:35.000Z</pubTime>
         
-        <tag>StoryBoard</tag>
+        <tag>NewsAPP</tag>
          
-        <tag>TableView</tag>
+        <tag>Thread</tag>
+         
+        <tag>iOS</tag>
          
          
            

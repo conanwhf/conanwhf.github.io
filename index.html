@@ -223,6 +223,89 @@
           
           
             
+              <a class="post-title-link" href="/2017/06/12/bootup-4-kernel/" itemprop="url">
+                ARM板移植Linux系统启动（四）配置Kernel
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2017-06-12T17:31:26+08:00" content="2017-06-12">
+            2017-06-12
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Linux/" itemprop="url" rel="index">
+                  <span itemprop="name">Linux</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>如今的Linux比uboot要成熟得更多，所有的模块都是可配置的。所以基本上对于kernel的移植，特别是这种已经有基础源码的项目，代码改动其实相当少，更多是时间花在调试和配置上。在所有工作中，最主要的困难恐怕就是怎么把系统跑进console了。</p>
+<h2 id="uImage__26amp_3B_zImage"><a href="#uImage__26amp_3B_zImage" class="headerlink" title="uImage &amp; zImage"></a>uImage &amp; zImage</h2><p>这个问题太基础，只是因为跟手动跑系统有关，所以稍微提一下。kernel编译后的成果是zImage，uImage只是添加了一个长度为0x40的头，用来记录给uboot的相关信息。虽然uImage是专门给uboot用的，但uboot的启动并不一定要uImage，它既可以接受uImage也可以接受zImage。可以说：uImage的头信息本质上是一种启动参数的传递形式。<br>制作uImage的工具是<strong>mkimage</strong>，它是来自于uboot。为了避免各种可能的版本问题，建议直接使用uboot编译后的<code>uboot/tools/mkimage</code>。而uImage的制作脚本则包含在kernel的编译脚本中，使用命令：<br><code>make uImage LOADADDR=0x80008000</code><br>即可编译获得uImage，前提是你已经将mkimage放入了编译环境的/bin/文件夹下。LOADADDR是kernel的启动地址（<strong>注意，这不是真正的kernel运行地址</strong>），uBoot会将kernel拷贝到此地址后（实际中也可能不拷贝）执行。关于uboot使用的几个内存地址的具体讲解也很多，这么些年也没什么变化，需要了解的可以自行去搜索。</p>
+<h2 id="u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C"><a href="#u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C" class="headerlink" title="根文件系统的制作"></a>根文件系统的制作</h2><p>一个系统必须要有文件系统才能跑起来，即使是很小很小的文件系统。目前一个最基本的文件系统都是基于Busybox制作的，制作过程的教程很多也大同小异，我就不赘述了。有的厂商或者Linux系统发行商也会提供根文件系统的下载，不过大多太过冗余，需要自行裁剪。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/06/12/bootup-4-kernel/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2017/06/09/bootup-3-uboot/" itemprop="url">
                 ARM板移植Linux系统启动（三）UBOOT移植
               </a>
@@ -798,88 +881,6 @@
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2017/02/01/ReadingList2017-01/" itemprop="url">
-                读书清单 2017-01
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2017-02-01T17:36:54+08:00" content="2017-02-01">
-            2017-02-01
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li><strong>黑客</strong><br>一本常常出现在IT人书单上的书，然而我却没有看完。从晶体管时代开始，讲述那些以改进系统为唯一目标的天才程序员的故事。也不能说不好看，作为技术人员来说，过去那些事还是挺有意思的，比如思考一下如何用蜂鸣器做出音乐效果而不只是节拍，或者考虑最初的三个CPU指令应该是哪些，要不就是想象怎么在一个资源少到极限的系统中做调试器……这让我每每翻开这本书就有一种很纠结的心情：一方面看得实在是太慢了，大部分地方读起来也挺无聊，感觉不知道啥时候才能看完；另一方面偶尔有点思维体操的惊喜感，又让人不是能那么决绝地放弃这本书。最后我在看到大约三分之一的地方还是半途而废了，确实书里讲的东西离现在太远了，描述也蛮枯燥的。剩下的三分之二我大略地翻了翻，然后看完了后记以及2010年kindle版上市时的后后记。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/02/01/ReadingList2017-01/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -918,7 +919,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">83</span>
+              <span class="site-state-item-count">84</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

@@ -223,6 +223,88 @@
           
           
             
+              <a class="post-title-link" href="/2015/12/22/newsreader-4/" itemprop="url">
+                从打造新闻app学到的(4)：使用Segue在ViewController之间传递数据
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-22T21:14:35+08:00" content="2015-12-22">
+            2015-12-22
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/CocoaTouch/" itemprop="url" rel="index">
+                  <span itemprop="name">CocoaTouch</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>要实现不同界面的跳转，简单的办法是在StroyBoard中直接拖动控件。<strong>按住^</strong>将触发跳转的控件拖到待触发的View中，松开鼠标在弹出的菜单中选择对应的选项（跳转为View），一个segue(大致译为“转场、过渡”)就完成了：<br><img src="http://whf.d.pr/13y1z+" alt=""><br>而要实现在两个ViewController之间传数据，在这种建立segue的情况下也很简单。假设我们需要在从ViewA（ControllerA代理）跳转去ViewB（ControllerB代理）时传递一个Int变量id，那么先要在ControllerB中定义.id属性，然后在ControllerA中实现：</p>
+<pre><code>override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//print(“this is segue \(segue.identifier), \(sender.debugDescription)&quot;)
+ControllerB.id = passValue
+}
+</code></pre><p>这样的方式适合参数比较少或者已经打包的情况，缺点是必须将待传递的参数在ControllerB中暴露出来。</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/12/21/newsreader-3/" itemprop="url">
                 从打造新闻app学到的(3)：让自定义的类可排序
               </a>
@@ -819,92 +901,6 @@ guard data = NSData(contentsOfURL: url)  else{
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/15/runInTerm/" itemprop="url">
-                在终端运行Swift程序
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-15T12:14:35+08:00" content="2015-12-15">
-            2015-12-15
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Swift/" itemprop="url" rel="index">
-                  <span itemprop="name">Swift</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>好几天没做总结了，一直被写code的欲望牵引着，噼里啪啦打了很多code，也走了很多弯路。好多时候，突然搞定的时候，才发现自己真真像个新新手一样，给自己挖了好多坑，真是傻到家了！<br>好在我一直觉得，在debug上浪费的时间通常都不会是彻底浪费掉的，总有那么一些东西是留在脑子里，通俗地来讲，就是经验。是时候把过程理一理，记录下来了。<br>之前也说过，之所以把String顺了一遍，其根本缘由是想找到一个编码转换的函数，把我那些下载下来的书名乱码都改过来。后来编码是解决了，但改名还需要自己来……于是我琢磨着给Mac写个文件pickup的界面？刚巧看到源码推荐一个swift开源的命令行增强工具，突然意识到swift也是可以直接编译跑在终端的！做起来简单得不能更简单（先要装好Xcode command line tool，如果没装，在终端跑<code>xcode-select --install</code>）：</p>
-<pre><code>swiftc test.swift//生成一个test二进制程序
-./test
-</code></pre><p>这是有编译过程的，更省事的是直接跑了：</p>
-<pre><code>swift test.swift
-</code></pre><p>当然这个<strong>swift</strong>命令还有更多用法和参数，
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/15/runInTerm/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -943,7 +939,7 @@ guard data = NSData(contentsOfURL: url)  else{
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">83</span>
+              <span class="site-state-item-count">84</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

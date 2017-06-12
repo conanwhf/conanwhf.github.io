@@ -34,7 +34,7 @@
 
 
 
-  <meta name="keywords" content="String," />
+  <meta name="keywords" content="Conan" />
 
 
 
@@ -45,37 +45,20 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="本系列第三篇，String相关的类型转换。其他的几篇传送门：
-
-Swift2.0 中的String（一）：常用属性
-Swift2.0 中的String（二）：基本操作
-Swift2.0 中的String（三）：类型转换
-Swift2.0 中的String（四）：编码转换
-Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 
-Swift2.0 中的String（六）：">
+<meta name="description" content="如今的Linux比uboot要成熟得更多，所有的模块都是可配置的。所以基本上对于kernel的移植，特别是这种已经有基础源码的项目，代码改动其实相当少，更多是时间花在调试和配置上。在所有工作中，最主要的困难恐怕就是怎么把系统跑进console了。
+uImage &amp;amp; zImage这个问题太基础，只是因为跟手动跑系统有关，所以稍微提一下。kernel编译后的成果是zImage，uImage只是">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift2.0 中的String（三）：类型转换">
-<meta property="og:url" content="http://conanwhf.coding.me/2015/12/03/Swift_String_3/index.html">
+<meta property="og:title" content="ARM板移植Linux系统启动（四）配置Kernel">
+<meta property="og:url" content="http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
-<meta property="og:description" content="本系列第三篇，String相关的类型转换。其他的几篇传送门：
-
-Swift2.0 中的String（一）：常用属性
-Swift2.0 中的String（二）：基本操作
-Swift2.0 中的String（三）：类型转换
-Swift2.0 中的String（四）：编码转换
-Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 
-Swift2.0 中的String（六）：">
-<meta property="og:updated_time" content="2017-05-04T08:55:30.000Z">
+<meta property="og:description" content="如今的Linux比uboot要成熟得更多，所有的模块都是可配置的。所以基本上对于kernel的移植，特别是这种已经有基础源码的项目，代码改动其实相当少，更多是时间花在调试和配置上。在所有工作中，最主要的困难恐怕就是怎么把系统跑进console了。
+uImage &amp;amp; zImage这个问题太基础，只是因为跟手动跑系统有关，所以稍微提一下。kernel编译后的成果是zImage，uImage只是">
+<meta property="og:image" content="http://whf.d.pr/zWYCTN+">
+<meta property="og:updated_time" content="2017-06-12T15:01:25.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift2.0 中的String（三）：类型转换">
-<meta name="twitter:description" content="本系列第三篇，String相关的类型转换。其他的几篇传送门：
-
-Swift2.0 中的String（一）：常用属性
-Swift2.0 中的String（二）：基本操作
-Swift2.0 中的String（三）：类型转换
-Swift2.0 中的String（四）：编码转换
-Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 
-Swift2.0 中的String（六）：">
+<meta name="twitter:title" content="ARM板移植Linux系统启动（四）配置Kernel">
+<meta name="twitter:description" content="如今的Linux比uboot要成熟得更多，所有的模块都是可配置的。所以基本上对于kernel的移植，特别是这种已经有基础源码的项目，代码改动其实相当少，更多是时间花在调试和配置上。在所有工作中，最主要的困难恐怕就是怎么把系统跑进console了。
+uImage &amp;amp; zImage这个问题太基础，只是因为跟手动跑系统有关，所以稍微提一下。kernel编译后的成果是zImage，uImage只是">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -85,7 +68,7 @@ Swift2.0 中的String（六）：">
   };
 </script>
 
-  <title> Swift2.0 中的String（三）：类型转换 | iOS开发和七七八八 </title>
+  <title> ARM板移植Linux系统启动（四）配置Kernel | iOS开发和七七八八 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -243,7 +226,7 @@ Swift2.0 中的String（六）：">
           
           
             
-              Swift2.0 中的String（三）：类型转换
+              ARM板移植Linux系统启动（四）配置Kernel
             
           
         </h1>
@@ -252,8 +235,8 @@ Swift2.0 中的String（六）：">
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-12-03T15:20:26+08:00" content="2015-12-03">
-            2015-12-03
+          <time itemprop="dateCreated" datetime="2017-06-12T17:31:26+08:00" content="2017-06-12">
+            2017-06-12
           </time>
         </span>
 
@@ -262,8 +245,8 @@ Swift2.0 中的String（六）：">
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Swift/" itemprop="url" rel="index">
-                  <span itemprop="name">Swift</span>
+                <a href="/categories/Linux/" itemprop="url" rel="index">
+                  <span itemprop="name">Linux</span>
                 </a>
               </span>
 
@@ -286,30 +269,9 @@ Swift2.0 中的String（六）：">
       
 
       
-        <span itemprop="articleBody"><p>本系列第三篇，String相关的类型转换。其他的几篇传送门：</p>
-<ul>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性" target="_blank" rel="external">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作" target="_blank" rel="external">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换" target="_blank" rel="external">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换" target="_blank" rel="external">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换" target="_blank" rel="external">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.github.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配" target="_blank" rel="external">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
-</ul>
-<p>虽然Swift是强类型语言，但简单的String类型转换其实还是比较方便的，最暴力的就是强制类型转换，百试百灵：</p>
-<pre><code>func toString&lt;T&gt;(a: T) -&gt; String{
-    // Way one, format
-    //return &quot;\(a)&quot;
-    // Way two, new string
-    return String(a)
-}
-toString(123)
-toString(0.007)
-toString([4, 8, 32, 5 ])
-toString(&quot;test&quot;.startIndex)
-</code></pre><p>同样照葫芦画瓢也能转回来：</p>
-<pre><code>Int(&quot;123&quot;)
-Float(&quot;3.1&quot;)
-</code></pre><p>但这个太简单、太有局限性了！我最喜欢的是下面这个，利用了New的时候format方法，简直就是<strong>sprintf()</strong>的替代品！ <a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2015/12/03/Swift_String_3/</p><p>访问原文「<a href='http://conanwhf.coding.me/2015/12/03/Swift_String_3/'>Swift2.0 中的String（三）：类型转换</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+        <span itemprop="articleBody"><p>如今的Linux比uboot要成熟得更多，所有的模块都是可配置的。所以基本上对于kernel的移植，特别是这种已经有基础源码的项目，代码改动其实相当少，更多是时间花在调试和配置上。在所有工作中，最主要的困难恐怕就是怎么把系统跑进console了。</p>
+<h2 id="uImage__26amp_3B_zImage"><a href="#uImage__26amp_3B_zImage" class="headerlink" title="uImage &amp; zImage"></a>uImage &amp; zImage</h2><p>这个问题太基础，只是因为跟手动跑系统有关，所以稍微提一下。kernel编译后的成果是zImage，uImage只是添加了一个长度为0x40的头，用来记录给uboot的相关信息。虽然uImage是专门给uboot用的，但uboot的启动并不一定要uImage，它既可以接受uImage也可以接受zImage。可以说：uImage的头信息本质上是一种启动参数的传递形式。<br>制作uImage的工具是<strong>mkimage</strong>，它是来自于uboot。为了避免各种可能的版本问题，建议直接使用uboot编译后的<code>uboot/tools/mkimage</code>。而uImage的制作脚本则包含在kernel的编译脚本中，使用命令：<br><code>make uImage LOADADDR=0x80008000</code><br>即可编译获得uImage，前提是你已经将mkimage放入了编译环境的/bin/文件夹下。LOADADDR是kernel的启动地址（<strong>注意，这不是真正的kernel运行地址</strong>），uBoot会将kernel拷贝到此地址后（实际中也可能不拷贝）执行。关于uboot使用的几个内存地址的具体讲解也很多，这么些年也没什么变化，需要了解的可以自行去搜索。</p>
+<h2 id="u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C"><a href="#u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C" class="headerlink" title="根文件系统的制作"></a>根文件系统的制作</h2><p>一个系统必须要有文件系统才能跑起来，即使是很小很小的文件系统。目前一个最基本的文件系统都是基于Busybox制作的，制作过程的教程很多也大同小异，我就不赘述了。有的厂商或者Linux系统发行商也会提供根文件系统的下载，不过大多太过冗余，需要自行裁剪。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/'>ARM板移植Linux系统启动（四）配置Kernel</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -330,71 +292,62 @@ Float(&quot;3.1&quot;)
   }
 })()
 </script>
-</p>
-<pre><code>// Way 1, 格式化转String
-String(format:&quot;%i,  0x%x,  0o%o,  %.2f&quot;, 31, 31,  31, 3.1)
-// Way 2
-String().stringByAppendingFormat(&quot;%x&quot;,31)
-String().stringByAppendingFormat(&quot;%o&quot;,31)
-</code></pre><p>同样的，有了sprintf()，怎么能没有<strong>sscanf()</strong>？？</p>
-<pre><code>//十六进制String转整数
-var res:UInt32   = 0
-NSScanner.localizedScannerWithString(str).scanHexInt(&amp;res)
-</code></pre><p>当然，这个用起来就要麻烦许多，类似的一堆API:</p>
-<pre><code>    NSScanner.localizedScannerWithString(str).scanInt(&amp;res)
-    NSScanner.localizedScannerWithString(str).scanFloat(&amp;res)
-    NSScanner.localizedScannerWithString(str).scanDouble(&amp;res)
-    NSScanner.localizedScannerWithString(str).scanInteger(&amp;res)
-NSScanner.localizedScannerWithString(str).scanHexFloat(&amp;res)
-</code></pre><p>最后，虽然ASCII码现在不大常用了，但我这种老人家还是很喜欢……写个ASCII码的转换函数吧：</p>
-<pre><code>/**
-ASCII value to char
-*/
-func ASCII ( n : Int) -&gt; String? {
-    guard (n &gt;= 0 &amp;&amp; n &lt; 255 ) else {
-    return nil
-    }
-return String(format:&quot;%c&quot;, n)
-}
-
-/**
-ASCII char to int value
-*/
-func ASCII (c : String) -&gt; Int8?{
-    let str:NSString = c
-    let n = str.UTF8String[0]
-    guard n&gt;=0 else {
-        return nil
-    }
-    return n
-}
-
-ASCII(70)
-ASCII(&quot;B&quot;)
-</code></pre></span>
+<br>对于一块空板子，通常的做法是用一个能进入命令行的最小文件系统，然后将完整的文件系统和kernel等烧写到存储设备上。所以如何做一个能够启动的最小系统，就成了第一个步骤。由于这种最小系统启动时还不会用到存储装置（emmc or nand flash），文件系统是跑在RAM里的，有两种做法：将其包含在Kernel的镜像中，或者用uboot加载到内存后告诉kernel加载的内存地址。</p>
+<h3 id="u5E26Ramdisk_u7684Kernel_u955C_u50CF"><a href="#u5E26Ramdisk_u7684Kernel_u955C_u50CF" class="headerlink" title="带Ramdisk的Kernel镜像"></a>带Ramdisk的Kernel镜像</h3><p>menuconfig里面配置kernel:<br>General setup  —> 选中Initial RAM filesystem and RAM disk (initramfs/initrd) support，将（）Initramfs source file(s)填写为准备好的根文件系统路径<br><img src="http://whf.d.pr/zWYCTN+" alt=""><br>保存，编译后即可。</p>
+<h3 id="U-boot_u652F_u6301_u7684rootfs_u955C_u50CF"><a href="#U-boot_u652F_u6301_u7684rootfs_u955C_u50CF" class="headerlink" title="U-boot支持的rootfs镜像"></a>U-boot支持的rootfs镜像</h3><p>另一种方法是使用单独的根文件系统镜像，这样不需要重新编译kernel，只需要把数据重新打包即可。</p>
+<ol>
+<li><p>生成空白Image，可以稍微预留大一点，全0数据压缩后可以忽略：</p>
+<pre><code>dd if=/dev/zero of=TEMP bs=1M count=5
+</code></pre></li>
+<li><p>将image挂载为loop文件系统</p>
+<pre><code>losetup /dev/loop0 TEMP
+sudo mke2fs -m 0 /dev/loop0
+mkdir -p loop 
+sudo mount -t ext2 /dev/loop0 loop
+</code></pre></li>
+<li><p>将数据copy到挂载后的image中，然后卸载：</p>
+<pre><code>sudo cp -raf initramfs/* loop
+sudo umount loop; rm -rf loop
+</code></pre></li>
+<li><p>压缩并制作成img:</p>
+<pre><code>gzip -v9 TEMP
+mkimage -n &apos;YOUR_MARK ext2 uboot ramdisk&apos; -A arm -O linux -T ramdisk -C gzip -d TEMP.gz ramdisk.img
+</code></pre><p>这里的mkimage就是上文提到的来自于uboot的工具，它同样也只是将已有的文件加了一个uboot可以识别的头信息。注意这里的<code>-A arm</code>必须和kernel的目标平台相对应，否则uboot会拒绝引导。</p>
+</li>
+</ol>
+<h2 id="DTS_28Device_Tree_Source_29"><a href="#DTS_28Device_Tree_Source_29" class="headerlink" title="DTS(Device Tree Source)"></a>DTS(Device Tree Source)</h2><p>在老的内核版本中，关于硬件的定义、配置和描述都是通过各种头文件和<code>#define</code>来实现的，而在新的内核中已经全部使用了DTS来描述硬件信息，从而实现了更加灵活的硬件支持和配置。DTS中的“硬件描述”，准确地说是设备描述，包括所有的硬件设备和软件设备节点，从CPU到外设，从型号描述到地址定义，具体到设备节点到硬件的链接等等，都可以定义。<br>DTS的具体表达文件是<code>*.dtb</code>，它们是由一组遵循特定语法的dts源文件编译而成，放在<code>arch/$PLATFORM/boot/dts</code>下，对于arm板来说就是<code>arch/arm/boot/dts/</code>。这个文件夹底下的文件有点像config file，每个<code>*.dts</code>文件对应一种配置，而dts文件又可以通过include某些<code>$SLICON.dtsi</code>来作为配置的基础，在此基础上添加、覆盖原有内容。一个dts一般只对应一种板子，但同一块板子可以使用几种不同的dts，例如可以通过指定不同的dtb文件，来选择启动时将HDMI还是LCD屏作为标准输出（lcdc0）。以BeagleBoneBlack举例，它的基本启动配置是am335x-boneblack.dts，而它又inlcude了am33xx.dtsi, am335x-bone-common.dtsi, am33xx-pruss-rproc.dtsi等文件。<br>查找编译所对应的dts file，可以查看<code>arch/arm/boot/dts/Makefile</code>，看看kernel config里定义的<code>CONFIG_SOC_XXX</code>所对应编译出来的dtb文件。一般来说一个芯片下有好几个dtb文件，它们就是对应了不同的应用场景，需要根据需要选择一个来作为启动配置。如果需要添加自己的dts文件，除了新建一个dts文件以外，还要记得在这个Makefile中把自己的target dtb添加进去。<br>关于DTS设备定义的语法，也不是这篇文章的重点，请允许我跳过。</p>
+<h3 id="u4F7F_u7528DTS_u542F_u52A8_u7CFB_u7EDF"><a href="#u4F7F_u7528DTS_u542F_u52A8_u7CFB_u7EDF" class="headerlink" title="使用DTS启动系统"></a>使用DTS启动系统</h3><p>之前我并没有使用过DTS，对它也只有耳闻，所以开始移植的时候并没有想到这个部分。做好了kernel在uboot中手动引导启动后，我发现系统停在了<code>Starting kernel ...</code>这样的打印信息之后。经过搜索资料，我发现很有可能是因为uboot和kernel的机器号(Mechine ID)不匹配，为了确定这个问题，我在kernel config中打开low-level的调试选项：</p>
+<blockquote>
+<p>Kernel hacking  —><br>|- (X) Kernel low-level debugging functions (read help!)<br>-|— Kernel low-level debugging port (Kernel low-level debugging…   —><br>—- |- ( ) Kernel low-level debugging messages via OMAP36XX UART4<br>—- |- ( ) Kernel low-level debugging messages via OMAP4/5 UART4<br>—- |- ( ) Kernel low-level debugging messages via TI81XX UART1<br>—- |- ( ) Kernel low-level debugging messages via TI81XX UART2<br>—- |- ( ) Kernel low-level debugging messages via TI81XX UART3<br>—- |- (X) Kernel low-level debugging messages via AM33XX UART1<br>|- (X) Early printk</p>
+</blockquote>
+<p>记得选对UART驱动，不然是看不到打印的。这个驱动不是在kernel的drivers里面配置对了就可以的，driver里面的驱动要等基本的项目初始化后才会跑，这里指的是提前初始化UART以提供打印的驱动程序。<br>然后再次尝试，看打印信息果然是这个原因，但奇怪的是，在aviliable mechine的list里面，只有一个0xFFFFFFFF的mechine ID。我跟踪了很久的kernel和uboot代码，还是对此一筹莫展，直到再次搜索了类似的情况，发现有人说使用新版本的kernel才会出现这种情况，才想到了是没有使用DTS的原因。<br>于是我添加了对dts文件的地址指定：</p>
+<pre><code>fatload usb 0:1 0x82000000 am335x-boneblack.dtb
+fatload usb 0:1 0x83000000 uImage
+bootm 0x83000000 - 0x82000000
+</code></pre><p>这次uboot将dtb加载并传递了地址给kernel，kernel能够看到所需要的各种初始化信息，终于顺利地将系统跑了起来。</p>
+<h2 id="u7F16_u8BD1_u540E_u7684_u6587_u4EF6location"><a href="#u7F16_u8BD1_u540E_u7684_u6587_u4EF6location" class="headerlink" title="编译后的文件location"></a>编译后的文件location</h2><p>至此，系统已经能够跑进console，剩下的就是引导和烧写问题了。编译后的相关文件location如下，在制作文件系统时需要将它们更新至软件包中：</p>
+<ul>
+<li>kernel: ./boot/zImage</li>
+<li>dts: ./boot/dst/XXX.dtb</li>
+<li>firmware: ./lib/firmware/</li>
+<li>module:/lib/modules/$KERNEL_VERSION</li>
+</ul>
+</span>
       
     </div>
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/String/" rel="tag">#String</a>
-          
-        </div>
       
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/04/Swift_open/" rel="prev">Swift开源了！！！</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/03/Swift_String_2/" rel="next">Swift2.0 中的String（二）：基本操作</a>
+              <a href="/2017/06/09/bootup-3-uboot/" rel="next">ARM板移植Linux系统启动（三）UBOOT移植</a>
             
           </div>
         </div>
@@ -554,7 +507,7 @@ ASCII(&quot;B&quot;)
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#uImage__26amp_3B_zImage"><span class="nav-number">1.</span> <span class="nav-text">uImage & zImage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C"><span class="nav-number">2.</span> <span class="nav-text">根文件系统的制作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u5E26Ramdisk_u7684Kernel_u955C_u50CF"><span class="nav-number">2.1.</span> <span class="nav-text">带Ramdisk的Kernel镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#U-boot_u652F_u6301_u7684rootfs_u955C_u50CF"><span class="nav-number">2.2.</span> <span class="nav-text">U-boot支持的rootfs镜像</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DTS_28Device_Tree_Source_29"><span class="nav-number">3.</span> <span class="nav-text">DTS(Device Tree Source)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u4F7F_u7528DTS_u542F_u52A8_u7CFB_u7EDF"><span class="nav-number">3.1.</span> <span class="nav-text">使用DTS启动系统</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u7F16_u8BD1_u540E_u7684_u6587_u4EF6location"><span class="nav-number">4.</span> <span class="nav-text">编译后的文件location</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.coding.me/"/>
-  <updated>2017-06-09T12:07:06.000Z</updated>
+  <updated>2017-06-12T15:01:25.000Z</updated>
   <id>http://conanwhf.coding.me/</id>
   
   <author>
@@ -13,6 +13,87 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[ARM板移植Linux系统启动（四）配置Kernel]]></title>
+    <link href="http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/"/>
+    <id>http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/</id>
+    <published>2017-06-12T09:31:26.000Z</published>
+    <updated>2017-06-12T15:01:25.000Z</updated>
+    <content type="html"><![CDATA[<p>如今的Linux比uboot要成熟得更多，所有的模块都是可配置的。所以基本上对于kernel的移植，特别是这种已经有基础源码的项目，代码改动其实相当少，更多是时间花在调试和配置上。在所有工作中，最主要的困难恐怕就是怎么把系统跑进console了。</p>
+<h2 id="uImage__26amp_3B_zImage"><a href="#uImage__26amp_3B_zImage" class="headerlink" title="uImage &amp; zImage"></a>uImage &amp; zImage</h2><p>这个问题太基础，只是因为跟手动跑系统有关，所以稍微提一下。kernel编译后的成果是zImage，uImage只是添加了一个长度为0x40的头，用来记录给uboot的相关信息。虽然uImage是专门给uboot用的，但uboot的启动并不一定要uImage，它既可以接受uImage也可以接受zImage。可以说：uImage的头信息本质上是一种启动参数的传递形式。<br>制作uImage的工具是<strong>mkimage</strong>，它是来自于uboot。为了避免各种可能的版本问题，建议直接使用uboot编译后的<code>uboot/tools/mkimage</code>。而uImage的制作脚本则包含在kernel的编译脚本中，使用命令：<br><code>make uImage LOADADDR=0x80008000</code><br>即可编译获得uImage，前提是你已经将mkimage放入了编译环境的/bin/文件夹下。LOADADDR是kernel的启动地址（<strong>注意，这不是真正的kernel运行地址</strong>），uBoot会将kernel拷贝到此地址后（实际中也可能不拷贝）执行。关于uboot使用的几个内存地址的具体讲解也很多，这么些年也没什么变化，需要了解的可以自行去搜索。</p>
+<h2 id="u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C"><a href="#u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C" class="headerlink" title="根文件系统的制作"></a>根文件系统的制作</h2><p>一个系统必须要有文件系统才能跑起来，即使是很小很小的文件系统。目前一个最基本的文件系统都是基于Busybox制作的，制作过程的教程很多也大同小异，我就不赘述了。有的厂商或者Linux系统发行商也会提供根文件系统的下载，不过大多太过冗余，需要自行裁剪。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/'>ARM板移植Linux系统启动（四）配置Kernel</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+<br>对于一块空板子，通常的做法是用一个能进入命令行的最小文件系统，然后将完整的文件系统和kernel等烧写到存储设备上。所以如何做一个能够启动的最小系统，就成了第一个步骤。由于这种最小系统启动时还不会用到存储装置（emmc or nand flash），文件系统是跑在RAM里的，有两种做法：将其包含在Kernel的镜像中，或者用uboot加载到内存后告诉kernel加载的内存地址。</p>
+<h3 id="u5E26Ramdisk_u7684Kernel_u955C_u50CF"><a href="#u5E26Ramdisk_u7684Kernel_u955C_u50CF" class="headerlink" title="带Ramdisk的Kernel镜像"></a>带Ramdisk的Kernel镜像</h3><p>menuconfig里面配置kernel:<br>General setup  —> 选中Initial RAM filesystem and RAM disk (initramfs/initrd) support，将（）Initramfs source file(s)填写为准备好的根文件系统路径<br><img src="http://whf.d.pr/zWYCTN+" alt=""><br>保存，编译后即可。</p>
+<h3 id="U-boot_u652F_u6301_u7684rootfs_u955C_u50CF"><a href="#U-boot_u652F_u6301_u7684rootfs_u955C_u50CF" class="headerlink" title="U-boot支持的rootfs镜像"></a>U-boot支持的rootfs镜像</h3><p>另一种方法是使用单独的根文件系统镜像，这样不需要重新编译kernel，只需要把数据重新打包即可。</p>
+<ol>
+<li><p>生成空白Image，可以稍微预留大一点，全0数据压缩后可以忽略：</p>
+<pre><code>dd if=/dev/zero of=TEMP bs=1M count=5
+</code></pre></li>
+<li><p>将image挂载为loop文件系统</p>
+<pre><code>losetup /dev/loop0 TEMP
+sudo mke2fs -m 0 /dev/loop0
+mkdir -p loop 
+sudo mount -t ext2 /dev/loop0 loop
+</code></pre></li>
+<li><p>将数据copy到挂载后的image中，然后卸载：</p>
+<pre><code>sudo cp -raf initramfs/* loop
+sudo umount loop; rm -rf loop
+</code></pre></li>
+<li><p>压缩并制作成img:</p>
+<pre><code>gzip -v9 TEMP
+mkimage -n &apos;YOUR_MARK ext2 uboot ramdisk&apos; -A arm -O linux -T ramdisk -C gzip -d TEMP.gz ramdisk.img
+</code></pre><p>这里的mkimage就是上文提到的来自于uboot的工具，它同样也只是将已有的文件加了一个uboot可以识别的头信息。注意这里的<code>-A arm</code>必须和kernel的目标平台相对应，否则uboot会拒绝引导。</p>
+</li>
+</ol>
+<h2 id="DTS_28Device_Tree_Source_29"><a href="#DTS_28Device_Tree_Source_29" class="headerlink" title="DTS(Device Tree Source)"></a>DTS(Device Tree Source)</h2><p>在老的内核版本中，关于硬件的定义、配置和描述都是通过各种头文件和<code>#define</code>来实现的，而在新的内核中已经全部使用了DTS来描述硬件信息，从而实现了更加灵活的硬件支持和配置。DTS中的“硬件描述”，准确地说是设备描述，包括所有的硬件设备和软件设备节点，从CPU到外设，从型号描述到地址定义，具体到设备节点到硬件的链接等等，都可以定义。<br>DTS的具体表达文件是<code>*.dtb</code>，它们是由一组遵循特定语法的dts源文件编译而成，放在<code>arch/$PLATFORM/boot/dts</code>下，对于arm板来说就是<code>arch/arm/boot/dts/</code>。这个文件夹底下的文件有点像config file，每个<code>*.dts</code>文件对应一种配置，而dts文件又可以通过include某些<code>$SLICON.dtsi</code>来作为配置的基础，在此基础上添加、覆盖原有内容。一个dts一般只对应一种板子，但同一块板子可以使用几种不同的dts，例如可以通过指定不同的dtb文件，来选择启动时将HDMI还是LCD屏作为标准输出（lcdc0）。以BeagleBoneBlack举例，它的基本启动配置是am335x-boneblack.dts，而它又inlcude了am33xx.dtsi, am335x-bone-common.dtsi, am33xx-pruss-rproc.dtsi等文件。<br>查找编译所对应的dts file，可以查看<code>arch/arm/boot/dts/Makefile</code>，看看kernel config里定义的<code>CONFIG_SOC_XXX</code>所对应编译出来的dtb文件。一般来说一个芯片下有好几个dtb文件，它们就是对应了不同的应用场景，需要根据需要选择一个来作为启动配置。如果需要添加自己的dts文件，除了新建一个dts文件以外，还要记得在这个Makefile中把自己的target dtb添加进去。<br>关于DTS设备定义的语法，也不是这篇文章的重点，请允许我跳过。</p>
+<h3 id="u4F7F_u7528DTS_u542F_u52A8_u7CFB_u7EDF"><a href="#u4F7F_u7528DTS_u542F_u52A8_u7CFB_u7EDF" class="headerlink" title="使用DTS启动系统"></a>使用DTS启动系统</h3><p>之前我并没有使用过DTS，对它也只有耳闻，所以开始移植的时候并没有想到这个部分。做好了kernel在uboot中手动引导启动后，我发现系统停在了<code>Starting kernel ...</code>这样的打印信息之后。经过搜索资料，我发现很有可能是因为uboot和kernel的机器号(Mechine ID)不匹配，为了确定这个问题，我在kernel config中打开low-level的调试选项：</p>
+<blockquote>
+<p>Kernel hacking  —><br>|- (X) Kernel low-level debugging functions (read help!)<br>-|— Kernel low-level debugging port (Kernel low-level debugging…   —><br>—- |- ( ) Kernel low-level debugging messages via OMAP36XX UART4<br>—- |- ( ) Kernel low-level debugging messages via OMAP4/5 UART4<br>—- |- ( ) Kernel low-level debugging messages via TI81XX UART1<br>—- |- ( ) Kernel low-level debugging messages via TI81XX UART2<br>—- |- ( ) Kernel low-level debugging messages via TI81XX UART3<br>—- |- (X) Kernel low-level debugging messages via AM33XX UART1<br>|- (X) Early printk</p>
+</blockquote>
+<p>记得选对UART驱动，不然是看不到打印的。这个驱动不是在kernel的drivers里面配置对了就可以的，driver里面的驱动要等基本的项目初始化后才会跑，这里指的是提前初始化UART以提供打印的驱动程序。<br>然后再次尝试，看打印信息果然是这个原因，但奇怪的是，在aviliable mechine的list里面，只有一个0xFFFFFFFF的mechine ID。我跟踪了很久的kernel和uboot代码，还是对此一筹莫展，直到再次搜索了类似的情况，发现有人说使用新版本的kernel才会出现这种情况，才想到了是没有使用DTS的原因。<br>于是我添加了对dts文件的地址指定：</p>
+<pre><code>fatload usb 0:1 0x82000000 am335x-boneblack.dtb
+fatload usb 0:1 0x83000000 uImage
+bootm 0x83000000 - 0x82000000
+</code></pre><p>这次uboot将dtb加载并传递了地址给kernel，kernel能够看到所需要的各种初始化信息，终于顺利地将系统跑了起来。</p>
+<h2 id="u7F16_u8BD1_u540E_u7684_u6587_u4EF6location"><a href="#u7F16_u8BD1_u540E_u7684_u6587_u4EF6location" class="headerlink" title="编译后的文件location"></a>编译后的文件location</h2><p>至此，系统已经能够跑进console，剩下的就是引导和烧写问题了。编译后的相关文件location如下，在制作文件系统时需要将它们更新至软件包中：</p>
+<ul>
+<li>kernel: ./boot/zImage</li>
+<li>dts: ./boot/dst/XXX.dtb</li>
+<li>firmware: ./lib/firmware/</li>
+<li>module:/lib/modules/$KERNEL_VERSION</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>如今的Linux比uboot要成熟得更多，所有的模块都是可配置的。所以基本上对于kernel的移植，特别是这种已经有基础源码的项目，代码改动其实相当少，更多是时间花在调试和配置上。在所有工作中，最主要的困难恐怕就是怎么把系统跑进console了。</p>
+<h2 id="uImage__26amp_3B_zImage"><a href="#uImage__26amp_3B_zImage" class="headerlink" title="uImage &amp; zImage"></a>uImage &amp; zImage</h2><p>这个问题太基础，只是因为跟手动跑系统有关，所以稍微提一下。kernel编译后的成果是zImage，uImage只是添加了一个长度为0x40的头，用来记录给uboot的相关信息。虽然uImage是专门给uboot用的，但uboot的启动并不一定要uImage，它既可以接受uImage也可以接受zImage。可以说：uImage的头信息本质上是一种启动参数的传递形式。<br>制作uImage的工具是<strong>mkimage</strong>，它是来自于uboot。为了避免各种可能的版本问题，建议直接使用uboot编译后的<code>uboot/tools/mkimage</code>。而uImage的制作脚本则包含在kernel的编译脚本中，使用命令：<br><code>make uImage LOADADDR=0x80008000</code><br>即可编译获得uImage，前提是你已经将mkimage放入了编译环境的/bin/文件夹下。LOADADDR是kernel的启动地址（<strong>注意，这不是真正的kernel运行地址</strong>），uBoot会将kernel拷贝到此地址后（实际中也可能不拷贝）执行。关于uboot使用的几个内存地址的具体讲解也很多，这么些年也没什么变化，需要了解的可以自行去搜索。</p>
+<h2 id="u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C"><a href="#u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C" class="headerlink" title="根文件系统的制作"></a>根文件系统的制作</h2><p>一个系统必须要有文件系统才能跑起来，即使是很小很小的文件系统。目前一个最基本的文件系统都是基于Busybox制作的，制作过程的教程很多也大同小异，我就不赘述了。有的厂商或者Linux系统发行商也会提供根文件系统的下载，不过大多太过冗余，需要自行裁剪。]]>
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://conanwhf.coding.me/categories/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[ARM板移植Linux系统启动（三）UBOOT移植]]></title>
@@ -1620,49 +1701,6 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
       <category term="iOS - Swift" scheme="http://conanwhf.coding.me/tags/iOS-Swift/"/>
     
       <category term="DevTips" scheme="http://conanwhf.coding.me/categories/DevTips/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[域名更新]]></title>
-    <link href="http://conanwhf.coding.me/2016/03/02/addressUpdate/"/>
-    <id>http://conanwhf.coding.me/2016/03/02/addressUpdate/</id>
-    <published>2016-03-02T09:35:25.000Z</published>
-    <updated>2017-05-04T08:55:30.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="u9996_u5148_uFF0C_http_3A//conanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01"><a href="#u9996_u5148_uFF0C_http_3A//conanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01" class="headerlink" title="首先， http://conanwhf.github.io 还是可用主力哈！"></a>首先，<a href="http://conanwhf.github.io" target="_blank" rel="external"> http://conanwhf.github.io</a> 还是可用主力哈！</h2><p>主要是怕哪天GFW发威上不了了，所以在国内服务商放个镜像而已。</p>
-<h2 id="u5899_u5185_u65B0_u57DF_u540D_uFF1Ahttp_3A//conanwhf-coding-me/"><a href="#u5899_u5185_u65B0_u57DF_u540D_uFF1Ahttp_3A//conanwhf-coding-me/" class="headerlink" title="墙内新域名：http://conanwhf.coding.me/"></a>墙内新域名：<a href="http://conanwhf.coding.me/">http://conanwhf.coding.me/</a></h2><p>旧的gitcafe那个，就不用了</p>
-<p>周末爬山下海的，肌肉酸痛还没解除，就看到GitCafe要关闭，整个迁移到Coding去了，晕！连封邮件也没发给我，突然就说什么要全部迁移删除，然后一看时间，最后期限5月份，但是从今天开始就全部只读了……😡我真是服了国内的这些服务商，不靠谱到了一个境界。还能怎么办呢？迁移呗！本来因为是中文博客，我的各种相关配置和网络服务都注册的是GitCafe的域名，这次也都要检查一遍、修改更换，麻烦死了。以后还是准备回归GitHub为主吧！<br>另外，因为gitcafe已经全面只读了，我连提交个域名更新说明的机会都没，真是@#$$(%#^%^)$$%^%$#$%😤😱<br>长长的年过完了，紧接着又巴厘岛玩了几天，以至于留下了太多功课没有做完。家里两位老人天天拉着我聊天修电脑，再加上新接了个项目，搞OpenCV和C++搞得连轴转，更没时间管iOS的东西了。想想每天也没做什么，过个年，跑跑步，吃三顿饭，刷刷新闻社交，帮公婆处理点杂事，研究旅游的各种事情，最后出去玩一趟，怎么哗哗哗一个月就过去了？！搞得我好焦虑，害怕项目进度赶不完。怎么办！！！</p>
-<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/03/02/addressUpdate/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/03/02/addressUpdate/'>域名更新</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="u9996_u5148_uFF0C_http_3A//conanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01"><a href="#u9996_u5148_uFF0C_http_3A//conanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01" class="headerlink" title="首先， http://conanwhf.github.io 还是可用主力哈！"></a>首先，<a href="http://conanwhf.github.io"> http://conanwhf.github.io</a> 还是可用主力哈！</h2><p>主要是怕哪天GFW发威上不了了，所以在国内服务商放个镜像而已。</p>
-<h2 id="u5899_u5185_u65B0_u57DF_u540D_uFF1Ahttp_3A//conanwhf-coding-me/"><a href="#u5899_u5185_u65B0_u57DF_u540D_uFF1Ahttp_3A//conanwhf-coding-me/" class="headerlink" title="墙内新域名：http://conanwhf.coding.me/"></a>墙内新域名：<a href="http://conanwhf.coding.me/">http://conanwhf.coding.me/</a></h2><p>旧的gitcafe那个，就不用了</p>
-<p>周末爬山下海的，肌肉酸痛还没解除，就看到GitCafe要关闭，整个迁移到Coding去了，晕！连封邮件也没发给我，突然就说什么要全部迁移删除，然后一看时间，最后期限5月份，但是从今天开始就全部只读了……😡我真是服了国内的这些服务商，不靠谱到了一个境界。还能怎么办呢？迁移呗！本来因为是中文博客，我的各种相关配置和网络服务都注册的是GitCafe的域名，这次也都要检查一遍、修改更换，麻烦死了。以后还是准备回归GitHub为主吧！<br>另外，因为gitcafe已经全面只读了，我连提交个域名更新说明的机会都没，真是@#$$(%#^%^)$$%^%$#$%😤😱<br>长长的年过完了，紧接着又巴厘岛玩了几天，以至于留下了太多功课没有做完。家里两位老人天天拉着我聊天修电脑，再加上新接了个项目，搞OpenCV和C++搞得连轴转，更没时间管iOS的东西了。想想每天也没做什么，过个年，跑跑步，吃三顿饭，刷刷新闻社交，帮公婆处理点杂事，研究旅游的各种事情，最后出去玩一趟，怎么哗哗哗一个月就过去了？！搞得我好焦虑，害怕项目进度赶不完。怎么办！！！</p>]]>
-    
-    </summary>
-    
-      <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
     
   </entry>
   
