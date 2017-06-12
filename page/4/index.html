@@ -59,7 +59,7 @@
 <script type="text/javascript" id="hexo.configuration">
   var CONFIG = {
     scheme: '',
-    sidebar: 'always'
+    sidebar: 'post'
   };
 </script>
 
@@ -601,7 +601,7 @@ let y = (Float(ctl.show.frame.height) - conf[1] )/2
 back.frame.size = CGSize(width: CGFloat(conf[0], height: CGFloat(conf[1])
 back.frame.origin = CGPoint(x: Int(x), y: Int(y))
 back.transform = CGAffineTransformMakeRotation( CGFloat(Double(conf[7] * M_PI  / 180.0))
-</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样有时候会自己拉扁的：<br><img src="http://whf.d.pr/CNsl+" alt=""></p>
+</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样有时候会自己拉扁的：<br><img src="http://whf.d.pr/CNsl+" alt=""><br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/01/16/Transform/#more" rel="contents">
               阅读全文 &raquo;
@@ -765,7 +765,7 @@ back.transform = CGAffineTransformMakeRotation( CGFloat(Double(conf[7] * M_PI  /
         
           <p>作为一个（曾经的）内核开发者，弄到块板子怎么能不重新编译内核？系统配好跑起来后的第二件事，就是编译内核了。在树莓派上编译内核很简单，基本上就是按照官方文档跑脚本，先放GitHub上的Script<a href="https://github.com/conanwhf/RaspberryPi-script">传送门</a>，<strong>build/kernel.sh</strong></p>
 <h2 id="u7CFB_u7EDF_u7B80_u4ECB"><a href="#u7CFB_u7EDF_u7B80_u4ECB" class="headerlink" title="系统简介"></a>系统简介</h2><h3 id="u6587_u4EF6_u7CFB_u7EDF"><a href="#u6587_u4EF6_u7CFB_u7EDF" class="headerlink" title="文件系统"></a>文件系统</h3><p>树莓派的文件系统设计还是不错的，能比较方便地更新内核和各种固件。整个文件系统分为两个部分：Fat32分区和Ext4分区。Fat32分区是mount到/boot上的，里面放了内核和启动的核心固件；Ext4就是一般的根文件系统了，放其他的所有东西，包括firmware和各种ko等。这种设计免去了用户烧录的麻烦，只是他们的bootloader没有开放源码，对于极客来说是很不爽的事情。<br>所谓的系统更新，就是每次编译kernel之后，直接把生成的文件放到特定的地方，重启就行。这也是为什么系统自带的工具<strong>rpi-update</strong>可以自动更新内核、firmware等等一切东西。</p>
-<h3 id="u786C_u4EF6_u7684_u9009_u62E9_u548C_u542F_u52A8"><a href="#u786C_u4EF6_u7684_u9009_u62E9_u548C_u542F_u52A8" class="headerlink" title="硬件的选择和启动"></a>硬件的选择和启动</h3><p>树莓派一代和二代用的两个不同的ARM芯片，这个差别在操作系统中并没有体现出来，我是指：官方提供的系统镜像是同一个。开始我很奇怪，后来看到了它的文件系统，才明白，它是靠不同的kernel文件名来区分的。这两种板子的platform分别叫”bcm2708”和”bcm2709”，启动的时候bootloader会根据硬件情况自动区分，读取不同的kernel image，进而load不同的firmware和driver。</p>
+<h3 id="u786C_u4EF6_u7684_u9009_u62E9_u548C_u542F_u52A8"><a href="#u786C_u4EF6_u7684_u9009_u62E9_u548C_u542F_u52A8" class="headerlink" title="硬件的选择和启动"></a>硬件的选择和启动</h3><p>树莓派一代和二代用的两个不同的ARM芯片，这个差别在操作系统中并没有体现出来，我是指：官方提供的系统镜像是同一个。开始我很奇怪，后来看到了它的文件系统，才明白，它是靠不同的kernel文件名来区分的。这两种板子的platform分别叫”bcm2708”和”bcm2709”，启动的时候bootloader会根据硬件情况自动区分，读取不同的kernel image，进而load不同的firmware和driver。<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/01/12/rpi-kernel/#more" rel="contents">
               阅读全文 &raquo;
@@ -846,7 +846,7 @@ back.transform = CGAffineTransformMakeRotation( CGFloat(Double(conf[7] * M_PI  /
 
       
         
-          <p>关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，<a href="https://github.com/conanwhf/RaspberryPi-script">传送门</a></p>
+          <p>关于树莓派的开箱流程、初始配置文章不少，那些基础的有GUI配置的我就不多说了。可能是版本原因，我看到的有的东西已经跟我手头上的对不太上，记录一下。我是二代B型（真不想说我是2B😂），自用主机是MacBookPro，以下内容都基于此。另外我是基于一个程序员的视角而写，所以那些怎么ssh，开终端之类的东西都省略。所有脚本我都放在了GitHub上，<a href="https://github.com/conanwhf/RaspberryPi-script">传送门</a><br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/01/12/rpi-start/#more" rel="contents">
               阅读全文 &raquo;

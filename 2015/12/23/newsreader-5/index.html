@@ -55,7 +55,7 @@ prepareForSegue() -&amp;gt; ne">
 <meta property="og:description" content="在从TableCell跳转到具体新闻页面的时候，我遇到了一个问题：整个流程的时序跟我想的不太一样。因为我需要在点击Cell的时候知道这是哪个Cell，再将它作为参数传递给下一个View，所以我实现了函数 didSelectRowAtIndexPath，然后设好一个private的变量，供prepareForSegue调用。可是事实上的流程却变成了：
 
 prepareForSegue() -&amp;gt; ne">
-<meta property="og:updated_time" content="2017-05-04T08:55:30.000Z">
+<meta property="og:updated_time" content="2017-06-12T15:15:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从打造新闻app学到的(5)：解决TableCell调用segue的时序问题">
 <meta name="twitter:description" content="在从TableCell跳转到具体新闻页面的时候，我遇到了一个问题：整个流程的时序跟我想的不太一样。因为我需要在点击Cell的时候知道这是哪个Cell，再将它作为参数传递给下一个View，所以我实现了函数 didSelectRowAtIndexPath，然后设好一个private的变量，供prepareForSegue调用。可是事实上的流程却变成了：
@@ -66,7 +66,7 @@ prepareForSegue() -&amp;gt; ne">
 <script type="text/javascript" id="hexo.configuration">
   var CONFIG = {
     scheme: '',
-    sidebar: 'always'
+    sidebar: 'post'
   };
 </script>
 
@@ -278,7 +278,7 @@ prepareForSegue() -&amp;gt; ne">
 <p>也就是说当Cell的点击发生，会先调用StroyBaord中设置的Segue，新的View初始化完成后再回调didSelectRowAtIndexPath，导致我在viewDidLoad()中拿不到想要的数据。<br>在网上搜了一下，有人也遇到了同样的问题，他的解决方法是：<br>1) 将 ->NextView的Segue改为 ->NextViewController(NextView的代理)<br>2) 在StoryBoard中配置此Segue的ID为<strong>“ABC”</strong><br>3) 在didSelectRowAtIndexPath()准备好数据之后手动调用转场：</p>
 <pre><code>//跳转到下一个页面，识别“ABC”
 self.performSegueWithIdentifier(“ABC”, sender: self)
-</code></pre><p>实测这个方法是有效的，不过我总感觉不够漂亮……于是打开Dash把所有tableView()的相关Callback都过了一遍，挑出几个加打印实测，<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2015/12/23/newsreader-5/</p><p>访问原文「<a href='http://conanwhf.coding.me/2015/12/23/newsreader-5/'>从打造新闻app学到的(5)：解决TableCell调用segue的时序问题</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+</code></pre><p>实测这个方法是有效的，不过我总感觉不够漂亮……于是打开Dash把所有tableView()的相关Callback都过了一遍，挑出几个加打印实测，<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2015/12/23/newsreader-5/</p><p>访问原文「<a href='http://conanwhf.coding.me/2015/12/23/newsreader-5/'>从打造新闻app学到的(5)：解决TableCell调用segue的时序问题</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {

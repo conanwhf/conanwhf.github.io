@@ -54,7 +54,7 @@ uImage &amp;amp; zImage这个问题太基础，只是因为跟手动跑系统有
 <meta property="og:description" content="如今的Linux比uboot要成熟得更多，所有的模块都是可配置的。所以基本上对于kernel的移植，特别是这种已经有基础源码的项目，代码改动其实相当少，更多是时间花在调试和配置上。在所有工作中，最主要的困难恐怕就是怎么把系统跑进console了。
 uImage &amp;amp; zImage这个问题太基础，只是因为跟手动跑系统有关，所以稍微提一下。kernel编译后的成果是zImage，uImage只是">
 <meta property="og:image" content="http://whf.d.pr/zWYCTN+">
-<meta property="og:updated_time" content="2017-06-12T15:01:25.000Z">
+<meta property="og:updated_time" content="2017-06-12T15:07:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ARM板移植Linux系统启动（四）配置Kernel">
 <meta name="twitter:description" content="如今的Linux比uboot要成熟得更多，所有的模块都是可配置的。所以基本上对于kernel的移植，特别是这种已经有基础源码的项目，代码改动其实相当少，更多是时间花在调试和配置上。在所有工作中，最主要的困难恐怕就是怎么把系统跑进console了。
@@ -64,7 +64,7 @@ uImage &amp;amp; zImage这个问题太基础，只是因为跟手动跑系统有
 <script type="text/javascript" id="hexo.configuration">
   var CONFIG = {
     scheme: '',
-    sidebar: 'always'
+    sidebar: 'post'
   };
 </script>
 
@@ -271,7 +271,7 @@ uImage &amp;amp; zImage这个问题太基础，只是因为跟手动跑系统有
       
         <span itemprop="articleBody"><p>如今的Linux比uboot要成熟得更多，所有的模块都是可配置的。所以基本上对于kernel的移植，特别是这种已经有基础源码的项目，代码改动其实相当少，更多是时间花在调试和配置上。在所有工作中，最主要的困难恐怕就是怎么把系统跑进console了。</p>
 <h2 id="uImage__26amp_3B_zImage"><a href="#uImage__26amp_3B_zImage" class="headerlink" title="uImage &amp; zImage"></a>uImage &amp; zImage</h2><p>这个问题太基础，只是因为跟手动跑系统有关，所以稍微提一下。kernel编译后的成果是zImage，uImage只是添加了一个长度为0x40的头，用来记录给uboot的相关信息。虽然uImage是专门给uboot用的，但uboot的启动并不一定要uImage，它既可以接受uImage也可以接受zImage。可以说：uImage的头信息本质上是一种启动参数的传递形式。<br>制作uImage的工具是<strong>mkimage</strong>，它是来自于uboot。为了避免各种可能的版本问题，建议直接使用uboot编译后的<code>uboot/tools/mkimage</code>。而uImage的制作脚本则包含在kernel的编译脚本中，使用命令：<br><code>make uImage LOADADDR=0x80008000</code><br>即可编译获得uImage，前提是你已经将mkimage放入了编译环境的/bin/文件夹下。LOADADDR是kernel的启动地址（<strong>注意，这不是真正的kernel运行地址</strong>），uBoot会将kernel拷贝到此地址后（实际中也可能不拷贝）执行。关于uboot使用的几个内存地址的具体讲解也很多，这么些年也没什么变化，需要了解的可以自行去搜索。</p>
-<h2 id="u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C"><a href="#u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C" class="headerlink" title="根文件系统的制作"></a>根文件系统的制作</h2><p>一个系统必须要有文件系统才能跑起来，即使是很小很小的文件系统。目前一个最基本的文件系统都是基于Busybox制作的，制作过程的教程很多也大同小异，我就不赘述了。有的厂商或者Linux系统发行商也会提供根文件系统的下载，不过大多太过冗余，需要自行裁剪。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/'>ARM板移植Linux系统启动（四）配置Kernel</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<h2 id="u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C"><a href="#u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C" class="headerlink" title="根文件系统的制作"></a>根文件系统的制作</h2><p>一个系统必须要有文件系统才能跑起来，即使是很小很小的文件系统。目前一个最基本的文件系统都是基于Busybox制作的，制作过程的教程很多也大同小异，我就不赘述了。有的厂商或者Linux系统发行商也会提供根文件系统的下载，不过大多太过冗余，需要自行裁剪。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/'>ARM板移植Linux系统启动（四）配置Kernel</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {

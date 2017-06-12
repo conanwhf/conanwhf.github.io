@@ -57,7 +57,7 @@ let manager = NSFileManager.defaultManager()
 初始化 &amp;amp; 文件路径所有的文件操作都要先声明一个根控制器以获得文件的句柄：
 let manager = NSFileManager.defaultManager()
 而文件路径的表示有两种方式：String和NSURL。在NSURL的视角中，本地文件作为一种特殊的网络文件而存在，以“file://">
-<meta property="og:updated_time" content="2017-05-04T08:55:30.000Z">
+<meta property="og:updated_time" content="2017-06-12T15:16:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文件操作">
 <meta name="twitter:description" content="（挖坑自己跳系列二）上回说到文件操作，那就把文件操作来一遍吧，先放源码：GitHub某个地方
@@ -69,7 +69,7 @@ let manager = NSFileManager.defaultManager()
 <script type="text/javascript" id="hexo.configuration">
   var CONFIG = {
     scheme: '',
-    sidebar: 'always'
+    sidebar: 'post'
   };
 </script>
 
@@ -284,7 +284,7 @@ let manager = NSFileManager.defaultManager()
     return url
     }
 }
-</code></pre><p>这里使用参数<strong>fileURLWithPath:</strong>而不是<strong>string:</strong>就是为了上述原因。<br>对于路径的修改，String表示方法很简单，直接相加即可；NSURL需要用以下代码：<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2015/12/15/fileop/</p><p>访问原文「<a href='http://conanwhf.coding.me/2015/12/15/fileop/'>文件操作</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+</code></pre><p>这里使用参数<strong>fileURLWithPath:</strong>而不是<strong>string:</strong>就是为了上述原因。<br>对于路径的修改，String表示方法很简单，直接相加即可；NSURL需要用以下代码：<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2015/12/15/fileop/</p><p>访问原文「<a href='http://conanwhf.coding.me/2015/12/15/fileop/'>文件操作</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {

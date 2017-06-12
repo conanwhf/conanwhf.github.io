@@ -53,7 +53,7 @@
 <meta property="og:description" content="这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周BlogUIController中Slider监听回调">
 <meta property="og:image" content="http://whf.d.pr/CNsl+">
 <meta property="og:image" content="http://whf.d.pr/1dzlq+">
-<meta property="og:updated_time" content="2017-05-04T08:55:30.000Z">
+<meta property="og:updated_time" content="2017-06-12T15:11:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用.transform旋转带来的坑">
 <meta name="twitter:description" content="这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周BlogUIController中Slider监听回调">
@@ -62,7 +62,7 @@
 <script type="text/javascript" id="hexo.configuration">
   var CONFIG = {
     scheme: '',
-    sidebar: 'always'
+    sidebar: 'post'
   };
 </script>
 
@@ -273,8 +273,7 @@ let y = (Float(ctl.show.frame.height) - conf[1] )/2
 back.frame.size = CGSize(width: CGFloat(conf[0], height: CGFloat(conf[1])
 back.frame.origin = CGPoint(x: Int(x), y: Int(y))
 back.transform = CGAffineTransformMakeRotation( CGFloat(Double(conf[7] * M_PI  / 180.0))
-</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样有时候会自己拉扁的：<br><img src="http://whf.d.pr/CNsl+" alt=""></p>
-<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/16/Transform/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/16/Transform/'>使用.transform旋转带来的坑</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样有时候会自己拉扁的：<br><img src="http://whf.d.pr/CNsl+" alt=""><br><a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/16/Transform/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/16/Transform/'>使用.transform旋转带来的坑</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -295,8 +294,7 @@ back.transform = CGAffineTransformMakeRotation( CGFloat(Double(conf[7] * M_PI  /
   }
 })()
 </script>
-
-<p>添加了打印信息以后发现，经过旋转的View.frame，不管是size还是position都变掉了，并且完全不是按照希望的样子变化的。不论我把旋转放在整个片段的哪里，都不对，frame的size总是不受控制。后来只好把scaling的部分改成了CGAffineTransformScale()。去看了看transform系列的文档，它其实是一类矩阵变换方式，旋转、缩放、平移只是其中的一些常用算法，系统给出了这些功能的API。如果你数学够好，其实也是可以自己设置这种变换的映射方式，最后转换后的View，其frame size是包含目标图形的一个最小矩形。而我猜，我碰到的问题，是因为系统对于旋转的处理有点特殊，因为scaling时拿到的参数不正确（当时的frame还没有画成缩放后的样子）导致。<br>于是我将UIView的变化都改为用CGAffineTransform系列函数进行，又发现对transform的操作先后顺序会影响最终的效果。出于兴趣我在playground里面做了点测试，先申请了一个100*300的矩形，然后做了两个transform的参数分别表示旋转90度和缩放至200*200（长宽缩放比例为1:2和1:0.667）：</p>
+<br>添加了打印信息以后发现，经过旋转的View.frame，不管是size还是position都变掉了，并且完全不是按照希望的样子变化的。不论我把旋转放在整个片段的哪里，都不对，frame的size总是不受控制。后来只好把scaling的部分改成了CGAffineTransformScale()。去看了看transform系列的文档，它其实是一类矩阵变换方式，旋转、缩放、平移只是其中的一些常用算法，系统给出了这些功能的API。如果你数学够好，其实也是可以自己设置这种变换的映射方式，最后转换后的View，其frame size是包含目标图形的一个最小矩形。而我猜，我碰到的问题，是因为系统对于旋转的处理有点特殊，因为scaling时拿到的参数不正确（当时的frame还没有画成缩放后的样子）导致。<br>于是我将UIView的变化都改为用CGAffineTransform系列函数进行，又发现对transform的操作先后顺序会影响最终的效果。出于兴趣我在playground里面做了点测试，先申请了一个100*300的矩形，然后做了两个transform的参数分别表示旋转90度和缩放至200*200（长宽缩放比例为1:2和1:0.667）：</p>
 <pre><code>let demo = UIView(frame:CGRectMake(0.0, 0.0, 100.0,  300.0))
 //缩放参数
 let sx =  200 / demo.frame.width

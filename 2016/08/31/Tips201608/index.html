@@ -63,7 +63,7 @@ coreData">
 数据缓存方式选择:
 fmdata数据库(增删改查)   –数据需要:增删改查
 coreData">
-<meta property="og:updated_time" content="2017-05-04T08:55:30.000Z">
+<meta property="og:updated_time" content="2017-06-12T15:11:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="开发Tips收集-2016年08月">
 <meta name="twitter:description" content="这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。如有侵权不得转载等情况，请联系我告知，谢谢！
@@ -78,7 +78,7 @@ coreData">
 <script type="text/javascript" id="hexo.configuration">
   var CONFIG = {
     scheme: '',
-    sidebar: 'always'
+    sidebar: 'post'
   };
 </script>
 
@@ -299,7 +299,8 @@ coreData">
 </li>
 <li>清除签名文件 删除签名文件 清理Profile文件：Xcode - Preferences - Account - View Details,这个时候左下角有个刷新图标，点击一下就可以了</li>
 <li>TableView头视图不随视图移动，头视图出现错位的错误原因：tableView的 UITableViewStyle 没有明确的声明。解决方法：在tableView声明的时候明确为 UITableViewStyleGrouped</li>
-<li>ViewController生命周期：<br>  alloc -> initWithNibName -> loadView -> viewDidLoad -> viewWillAppear -> viewDidAppear -> viewWillDisappear -> viewDidDisappear -> dealloc<br>  注意1. 不要在loadView中调用父类方法<a href="/">super loadView</a>，因为这会影响CPU性能。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/31/Tips201608/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/31/Tips201608/'>开发Tips收集-2016年08月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<li>ViewController生命周期：<br>  alloc -> initWithNibName -> loadView -> viewDidLoad -> viewWillAppear -> viewDidAppear -> viewWillDisappear -> viewDidDisappear -> dealloc<br>  注意1. 不要在loadView中调用父类方法<a href="/">super loadView</a>，因为这会影响CPU性能。<a id="more"></a></li>
+<li></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/31/Tips201608/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/31/Tips201608/'>开发Tips收集-2016年08月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -320,7 +321,8 @@ coreData">
   }
 })()
 </script>
-<br>  注意2. 切换前后台不会调用viewWillAppear</li>
+
+  注意2. 切换前后台不会调用viewWillAppear</li>
 <li>关于数据存储需要注意的点，总结在下面：<ol>
 <li>关键数据<br>内容：用户创建的数据文件，无法在删除后自动重新创建<br>路径：主目录/Documents<br>管理：iOS系统即时遇到存储空间不足的情况下，也不会清除，同时会备份到iTunes或iCloud中</li>
 <li>缓存数据<br>内容：可用于离线环境，可被重复下载重复生成，即使在离线时缺失，应用本身也可以正常运行<br>路径：主目录/Library/Caches<br>管理：在存储空间不足的情况下，会清空， 并且不会被自动备份到iTunes和iCloud中</li>

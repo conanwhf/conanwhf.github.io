@@ -51,7 +51,7 @@
 <meta property="og:url" content="http://conanwhf.coding.me/2017/05/30/bootup-1-main/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="几年前，我是一个标准的原厂Linux系统开发人员，用公司自己的芯片，移植整套BSP。对于Linux系统启动方面，自认为摸得很熟了，从上电加载的汇编码到Linux内核及文件系统的配置，无一不留下了我修改的代码，细节精确到nand flash的某block某page放了什么代码，内存某个地址加载的是什么，代码某个改动是为了兼容什么project，一清二楚。所以最近接到这个移植系统的工作，信心挺足，估摸">
-<meta property="og:updated_time" content="2017-06-01T10:25:06.000Z">
+<meta property="og:updated_time" content="2017-06-12T15:12:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ARM板移植Linux系统启动（一）启动流程">
 <meta name="twitter:description" content="几年前，我是一个标准的原厂Linux系统开发人员，用公司自己的芯片，移植整套BSP。对于Linux系统启动方面，自认为摸得很熟了，从上电加载的汇编码到Linux内核及文件系统的配置，无一不留下了我修改的代码，细节精确到nand flash的某block某page放了什么代码，内存某个地址加载的是什么，代码某个改动是为了兼容什么project，一清二楚。所以最近接到这个移植系统的工作，信心挺足，估摸">
@@ -60,7 +60,7 @@
 <script type="text/javascript" id="hexo.configuration">
   var CONFIG = {
     scheme: '',
-    sidebar: 'always'
+    sidebar: 'post'
   };
 </script>
 
@@ -265,7 +265,7 @@
       
 
       
-        <span itemprop="articleBody"><p>几年前，我是一个标准的原厂Linux系统开发人员，用公司自己的芯片，移植整套BSP。对于Linux系统启动方面，自认为摸得很熟了，从上电加载的汇编码到Linux内核及文件系统的配置，无一不留下了我修改的代码，细节精确到nand flash的某block某page放了什么代码，内存某个地址加载的是什么，代码某个改动是为了兼容什么project，一清二楚。所以最近接到这个移植系统的工作，信心挺足，估摸硬件没有问题的话几天之内移植就能完成，哪知道被现实结结实实打脸。<br>之前我用的Linux系统是2.6，Uboot版本不详但Fat32的支持还是我们自己移植进去的，可以说相当跟不上时代了。最新的Kernel早就采用了DTS，Uboot也加了很多功能和驱动，我在移植的过程中几乎完成了一次重新学习的过程。虽然我这次用的板是基于TI的，但我希望能不局限于具体的板子型号，而是把规律性的东西写出来，让后来人有个参考。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/05/30/bootup-1-main/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/05/30/bootup-1-main/'>ARM板移植Linux系统启动（一）启动流程</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+        <span itemprop="articleBody"><p>几年前，我是一个标准的原厂Linux系统开发人员，用公司自己的芯片，移植整套BSP。对于Linux系统启动方面，自认为摸得很熟了，从上电加载的汇编码到Linux内核及文件系统的配置，无一不留下了我修改的代码，细节精确到nand flash的某block某page放了什么代码，内存某个地址加载的是什么，代码某个改动是为了兼容什么project，一清二楚。所以最近接到这个移植系统的工作，信心挺足，估摸硬件没有问题的话几天之内移植就能完成，哪知道被现实结结实实打脸。<br>之前我用的Linux系统是2.6，Uboot版本不详但Fat32的支持还是我们自己移植进去的，可以说相当跟不上时代了。最新的Kernel早就采用了DTS，Uboot也加了很多功能和驱动，我在移植的过程中几乎完成了一次重新学习的过程。虽然我这次用的板是基于TI的，但我希望能不局限于具体的板子型号，而是把规律性的东西写出来，让后来人有个参考。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/05/30/bootup-1-main/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/05/30/bootup-1-main/'>ARM板移植Linux系统启动（一）启动流程</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -300,7 +300,7 @@
 <h3 id="u542F_u52A8_u6D41_u7A0B_u7684_u53D8_u5F0F"><a href="#u542F_u52A8_u6D41_u7A0B_u7684_u53D8_u5F0F" class="headerlink" title="启动流程的变式"></a>启动流程的变式</h3><h4 id="u88AB_u8C01_u52A0_u8F7D"><a href="#u88AB_u8C01_u52A0_u8F7D" class="headerlink" title="被谁加载"></a><strong>被谁加载</strong></h4><p>对于一个完整的流程而言，每个文件被谁加载基本上都是固定的，除了根文件系统。根文件系统既有可能被uboot加载，也可能被kernel加载。注意被uboot加载时，根文件系统需要做成一个uboot能够接受的image，有固定的头，类似zImage和uImage的区别。而在调试过程中，加载的过程有可能是手动的，或者通过不同的设备传输拷贝，被谁加载其实完全不重要了。</p>
 <h4 id="u4ECE_u54EA_u91CC_u52A0_u8F7D"><a href="#u4ECE_u54EA_u91CC_u52A0_u8F7D" class="headerlink" title="从哪里加载"></a><strong>从哪里加载</strong></h4><p>这个问题的各种变化，就对应了不同的启动模式（一般意义上的，非硬件意义上）。你当然可以所有的东西都读取自内置emmc，也可以插卡让系统从卡上加载；你也可以从Uart传输uboot的image跑起来，进入uboot的命令行，手动从TF卡或者网络读取kernel；你甚至可以在uboot中从nand flash读取Kernel image，从网络获得根文件系统，从usb中加载dtb，从TF卡里拿到启动参数，最后把它们综合到一起，引导整个系统。</p>
 <h4 id="u52A0_u8F7D_u5230_u5185_u5B58_u7684_u54EA_u91CC"><a href="#u52A0_u8F7D_u5230_u5185_u5B58_u7684_u54EA_u91CC" class="headerlink" title="加载到内存的哪里"></a><strong>加载到内存的哪里</strong></h4><p>其实也很简单：加载到哪里都可以，只要不冲突。首先是要计算好文件的大小，不要让后来加载的文件覆盖了之前的；然后是最好将Kernel从较高的地址跑起来，规划好内存分区，以免kernel跑起来后破坏了根文件系统等数据。关于怎么定义内存地址，又是另外一个话题，网上教程很多，我就不多说了。</p>
-<h4 id="u52A0_u8F7D_u6587_u4EF6_u7684_u53D8_u5316"><a href="#u52A0_u8F7D_u6587_u4EF6_u7684_u53D8_u5316" class="headerlink" title="加载文件的变化"></a>加载文件的变化</h4><p>在实际中，Kernel启动的阶段变化很多，Kernel、根文件系统、DTB这三个部分也并非形式僵化的三个文件。比如大部分日常启动时，uboot只加载了kernel和dtb，文件系统往往是kernel后来自己mount上去的，这时候只是传递了一个启动参数，<em>root=XXXXX</em>；而调试阶段常用的自带rootdisk的kernel，也不需要另外加载根文件系统。DTB文件是DTS全面应用之后才出现的，定义了板子的硬件设备信息，经过某些特殊配置有时也是可以省略（理论上，并未亲测过）。</p>
+<h4 id="u52A0_u8F7D_u6587_u4EF6_u7684_u53D8_u5316"><a href="#u52A0_u8F7D_u6587_u4EF6_u7684_u53D8_u5316" class="headerlink" title="加载文件的变化"></a>加载文件的变化</h4><p>在实际中，Kernel启动的阶段变化很多，Kernel、根文件系统、DTB这三个部分也并非形式僵化的三个文件。比如大部分日常启动时，uboot只加载了kernel和dtb，文件系统往往是kernel后来自己mount上去的，这时候只是传递了一个启动参数，_root=XXXXX_；而调试阶段常用的自带rootdisk的kernel，也不需要另外加载根文件系统。DTB文件是DTS全面应用之后才出现的，定义了板子的硬件设备信息，经过某些特殊配置有时也是可以省略（理论上，并未亲测过）。</p>
 <p>   在调试中，往往会遇到很多启动的问题，明确启动的这几个基本原则和流程，能让调试的过程更轻松。</p>
 </span>
       

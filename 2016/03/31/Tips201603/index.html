@@ -59,7 +59,7 @@ UIProgressView 的 subviews 是两个 UIImageView，第一个是 TrackTintColor 
 
 UIProgressView 的 subviews 是两个 UIImageView，第一个是 TrackTintColor 层（轨道），第二个是 Progress Tint Color 层（进度）
 如果你对文本显示没有特殊要求，可以">
-<meta property="og:updated_time" content="2017-05-04T08:55:30.000Z">
+<meta property="og:updated_time" content="2017-06-12T15:11:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="开发Tips收集-2016年03月">
 <meta name="twitter:description" content="这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。如有侵权不得转载等情况，请联系我告知，谢谢！
@@ -72,7 +72,7 @@ UIProgressView 的 subviews 是两个 UIImageView，第一个是 TrackTintColor 
 <script type="text/javascript" id="hexo.configuration">
   var CONFIG = {
     scheme: '',
-    sidebar: 'always'
+    sidebar: 'post'
   };
 </script>
 
@@ -290,28 +290,7 @@ UIProgressView 的 subviews 是两个 UIImageView，第一个是 TrackTintColor 
 <li>Segue：以上两种方式都可以，如果在打开目标控制器前需要额外处理，可使用perfromSegueWithIdentifier方法。Identifier在storyboard里设置。</li>
 </ol>
 </li>
-<li>设置UIImage的渲染模式：你可以设置一个UIImage在渲染时是否使用当前视图的Tint Color。UIImage新增了一个只读属性：renderingMode，对应的还有一个新增方法：imageWithRenderingMode:，它使用UIImageRenderingMode枚举值来设置图片的renderingMode属性。该枚举中包含下列值：<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/03/31/Tips201603/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/03/31/Tips201603/'>开发Tips收集-2016年03月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-<ol>
+<li>设置UIImage的渲染模式：你可以设置一个UIImage在渲染时是否使用当前视图的Tint Color。UIImage新增了一个只读属性：renderingMode，对应的还有一个新增方法：imageWithRenderingMode:，它使用UIImageRenderingMode枚举值来设置图片的renderingMode属性。该枚举中包含下列值：<a id="more"></a><ol>
 <li>UIImageRenderingModeAutomatic  // 根据图片的使用环境和所处的绘图上下文自动调整渲染模式。  </li>
 <li>UIImageRenderingModeAlwaysOriginal   // 始终绘制图片原始状态，不使用Tint Color。  </li>
 <li>UIImageRenderingModeAlwaysTemplate   // 始终根据Tint Color绘制图片，忽略图片的颜色信息。  </li>

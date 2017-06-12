@@ -51,7 +51,7 @@
 <meta property="og:url" content="http://conanwhf.coding.me/2015/12/15/swift_xml/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="（挖坑自己跳系列三）在实现文件操作的时候我意识到了一个事实：由于NSURL是可支持的路径，很多文件的操作实际上可以扩充到网络上去，比如从网上下载一个文件、拿取一些数据……想到这里，埋藏在心中很久的愿望又开始蠢蠢欲动：写一个新闻客户端！我有一个常看的新闻网站（不要问我是哪个，要FQ），官方客户端很难用，第三方广告满天飞，严重影响心情。所以当初开始学iOS的时候就把重做一个客户端的目标放在了首位。最开">
-<meta property="og:updated_time" content="2017-05-04T08:55:30.000Z">
+<meta property="og:updated_time" content="2017-06-12T15:13:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Swift原生库解析XML数据">
 <meta name="twitter:description" content="（挖坑自己跳系列三）在实现文件操作的时候我意识到了一个事实：由于NSURL是可支持的路径，很多文件的操作实际上可以扩充到网络上去，比如从网上下载一个文件、拿取一些数据……想到这里，埋藏在心中很久的愿望又开始蠢蠢欲动：写一个新闻客户端！我有一个常看的新闻网站（不要问我是哪个，要FQ），官方客户端很难用，第三方广告满天飞，严重影响心情。所以当初开始学iOS的时候就把重做一个客户端的目标放在了首位。最开">
@@ -60,7 +60,7 @@
 <script type="text/javascript" id="hexo.configuration">
   var CONFIG = {
     scheme: '',
-    sidebar: 'always'
+    sidebar: 'post'
   };
 </script>
 
@@ -267,9 +267,7 @@
       
         <span itemprop="articleBody"><p>（挖坑自己跳系列三）<br>在实现文件操作的时候我意识到了一个事实：由于NSURL是可支持的路径，很多文件的操作实际上可以扩充到网络上去，比如从网上下载一个文件、拿取一些数据……想到这里，埋藏在心中很久的愿望又开始蠢蠢欲动：写一个新闻客户端！<br>我有一个常看的新闻网站（不要问我是哪个，要FQ），官方客户端很难用，第三方广告满天飞，严重影响心情。所以当初开始学iOS的时候就把重做一个客户端的目标放在了首位。最开始的时候想得太简单，兴冲冲地开了个project，搞了两下TableView，然后发现……对于我这种从来只写底层代码，swift/OC语法都不会的人，做这个简直是异想天开好嘛！<br>折腾的过程中，为了拿到数据，还跑去下了Android的官方客户端反编译，find + grep出来了人家的数据接口地址（论一个爱折腾的程序员是怎么给自己挖坑的），返回的是XML数据，连蒙带猜试了试，可以用！不过后来做UI受挫（其实不止做UI，挫败感太大），就把那份东西闲置起来了。这两天突然想起来，现在我貌似感觉有点良好，何不捡起来继续写我的客户端？<br>因为UI我还一窍不通，不懂怎么调试，也不懂怎么把数据显示出来，为了避免到处打印的麻烦，我选择playground。这样也就是需要用原生库，这个很简单，搜一下就有了：NSXMLParserDelegate，还有好些源码，虽然大多是OC的。<br>问题是有源码，我依！然！看！不！懂！怎么用！每个教程都是扔了源码上来，可没人解释清楚到底怎么运行。我研究了好一阵，终于明白了大概的机制：</p>
 <blockquote>
-<p><strong>自己写一个类继承NSXMLParserDelegate，就叫它XmlReader吧；并且实现一些必须的callback函数，在XmlReader的Init中调用.parse()方法，最后在new XmlReader的时候就会自动完成整个parse了</strong></p>
-</blockquote>
-<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2015/12/15/swift_xml/</p><p>访问原文「<a href='http://conanwhf.coding.me/2015/12/15/swift_xml/'>使用Swift原生库解析XML数据</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<p><strong>自己写一个类继承NSXMLParserDelegate，就叫它XmlReader吧；并且实现一些必须的callback函数，在XmlReader的Init中调用.parse()方法，最后在new XmlReader的时候就会自动完成整个parse了</strong><br><a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2015/12/15/swift_xml/</p><p>访问原文「<a href='http://conanwhf.coding.me/2015/12/15/swift_xml/'>使用Swift原生库解析XML数据</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -290,8 +288,8 @@
   }
 })()
 </script>
-
-<p>当然你也可以不把parse()放在init()中调用，而是在new了XmlReader之后强制调用，重要的是那些callback函数的实现。XmlReader中还可以声明一些变量，来保存解析过程中的状态，而具体的获得到的数据填充，也是需要你自己做的（数据结构自行定义）。<br><strong>鉴于XML是一个有层级的带递归意味的数据结构，程序会层层解析下去直到结束，中间遇到的各种类似section开始、结束、拿到字符串等情况都会call一个固定的函数，将解析出来的数据作为参数传进去，而你要做的，就是实现这些callback以完成自己想要做的事。</strong><br>下面是具体的代码示范。首先是定义一个新的类：</p>
+<br>当然你也可以不把parse()放在init()中调用，而是在new了XmlReader之后强制调用，重要的是那些callback函数的实现。XmlReader中还可以声明一些变量，来保存解析过程中的状态，而具体的获得到的数据填充，也是需要你自己做的（数据结构自行定义）。<br><strong>鉴于XML是一个有层级的带递归意味的数据结构，程序会层层解析下去直到结束，中间遇到的各种类似section开始、结束、拿到字符串等情况都会call一个固定的函数，将解析出来的数据作为参数传进去，而你要做的，就是实现这些callback以完成自己想要做的事。</strong><br>下面是具体的代码示范。首先是定义一个新的类：</p>
+</blockquote>
 <pre><code>class XmlReader: NSObject, NSXMLParserDelegate {
 var currentName :String? = nil
 var level :Int = 0

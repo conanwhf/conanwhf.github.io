@@ -57,7 +57,7 @@
 
 
 你可以在 Gemfile 中指定 cocoapods gem 的使用版本。  source &amp;#39;https://rubygems.org&amp;#39;  gem &amp;#39;cocoapods&amp;#39;, &amp;#39;0.39.0&amp;#">
-<meta property="og:updated_time" content="2017-05-04T08:55:30.000Z">
+<meta property="og:updated_time" content="2017-06-12T15:12:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="开发Tips收集-2016年01月">
 <meta name="twitter:description" content="这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。如有侵权不得转载等情况，请联系我告知，谢谢！
@@ -69,7 +69,7 @@
 <script type="text/javascript" id="hexo.configuration">
   var CONFIG = {
     scheme: '',
-    sidebar: 'always'
+    sidebar: 'post'
   };
 </script>
 
@@ -279,28 +279,7 @@
 </blockquote>
 <ul>
 <li>你可以在 Gemfile 中指定 cocoapods gem 的使用版本。<br>  <code>source &#39;https://rubygems.org&#39;</code><br>  <code>gem &#39;cocoapods&#39;, &#39;0.39.0&#39;</code><br>  当你更新了 Gemfile 文件并且自动安装了正确版本的 gem 后，确保团队的每个成员都运行一次 <code>bundle install</code> 这条命令。此后，只需要运行 <code>bundle exec pod install</code> 这条命令来安装新的 CocoaPods——这将会确保通过你在的 Gemfile 中指定 cocoapods gem 的版本后，pods 仍可以被正确的安装。</li>
-<li>instrument调试后，发现没被释放的全是imageIO，差不多就知道了，把读图的方式，从UIImage imageNamed:@”“,改成imageWithContentsOfFile，就可以了。问题原因：imageNamed读取图片的方法，会缓存在内存中，所以较大的图片，还是用<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/31/Tips201601/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/31/Tips201601/'>开发Tips收集-2016年01月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
- imageWithContentsOfFile。<br>  Tip1：.xcassets里的图片无法用imageWithContentsOfFile读取；<br>  Tip2：imageWithContentsOfFile读取图片需要加文件后缀名如png，jpg等； </li>
+<li>instrument调试后，发现没被释放的全是imageIO，差不多就知道了，把读图的方式，从UIImage imageNamed:@”“,改成imageWithContentsOfFile，就可以了。问题原因：imageNamed读取图片的方法，会缓存在内存中，所以较大的图片，还是用<a id="more"></a>imageWithContentsOfFile。<br>  Tip1：.xcassets里的图片无法用imageWithContentsOfFile读取；<br>  Tip2：imageWithContentsOfFile读取图片需要加文件后缀名如png，jpg等； </li>
 <li>不要将旋转视作设备的移动。相反将其视为视图控制器尺寸的改变，因为从用户的角度来看，这才是真实发生的操作。<ul>
 <li>资源文件瘦身：<ol>
 <li>减少图片和音频文件的大小</li>
@@ -357,7 +336,7 @@
 </ol>
 </li>
 <li>每当在UICollectionView显示它的subview之前调用scrollToItemAtIndexPath:atScrollPosition:Animated方法，UIKit就会报错。所以要解决它，就应该在viewController中，在你能确认CollectionView完全计算出其subview布局的地方去调用这个方法。比如在viewDidLayoutSubviews里调用就没有问题。</li>
-<li>设置缓存只需要：<strong>如果你已经使用 了 GET 请求，iOS 系统 SDK 已经帮你做好了缓存</strong>。你需要的仅仅是设置下内存缓存大小、磁盘缓存大小、以及缓存路径。甚至这两行代码不设置也是可以的，会有一个默认值。代码如下：<br>NSURLCache <em>urlCache = [[NSURLCache alloc] initWithMemoryCapacity:4 </em> 1024 <em> 1024 diskCapacity:20 </em> 1024 * 1024 diskPath:nil];<br>[NSURLCache setSharedURLCache:urlCache];</li>
+<li>设置缓存只需要：<strong>如果你已经使用 了 GET 请求，iOS 系统 SDK 已经帮你做好了缓存</strong>。你需要的仅仅是设置下内存缓存大小、磁盘缓存大小、以及缓存路径。甚至这两行代码不设置也是可以的，会有一个默认值。代码如下：<br>NSURLCache *urlCache = [[NSURLCache alloc] initWithMemoryCapacity:4 * 1024 * 1024 diskCapacity:20 * 1024 * 1024 diskPath:nil];<br>[NSURLCache setSharedURLCache:urlCache];</li>
 <li>在 LLDB 中输入 <code>fr v -R foo</code>，可以查看 foo 这个变量的内存构成。</li>
 <li>倘若一个标记为 lazy 的属性同时被多个线程修改时，且该属性还未进行初始化操作，那么将无法保证该属性仅被初始化一次。</li>
 <li>页面跳转必须在viewDidLoad和viewDidAppear之后才能进行</li>

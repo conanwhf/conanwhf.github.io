@@ -59,7 +59,7 @@
 <script type="text/javascript" id="hexo.configuration">
   var CONFIG = {
     scheme: '',
-    sidebar: 'always'
+    sidebar: 'post'
   };
 </script>
 
@@ -269,7 +269,7 @@
 
       
         
-          <blockquote>
+          <span itemprop="articleBody"><blockquote>
 <p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
 </blockquote>
 <ul>
@@ -277,22 +277,14 @@
 <li>如果 App 状态为未运行，此函数将被调用，如果launchOptions包含UIApplicationLaunchOptionsRemoteNotificationKey表示用户点击apn 通知导致app被启动运行；如果不含有对应键值则表示 App 不是因点击apn而被启动，可能为直接点击icon被启动或其他。<br>(BOOL)application:(UIApplication <em>)application didFinishLaunchingWithOptions:(NSDictionary </em>)launchOptions;<br>// apn 内容获取：<br>NSDictionary *remoteNotification = [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey]</li>
 </ol>
 </li>
-</ul>
-<ol>
-<li>基于iOS 6 及以下的系统版本，如果 App状态为正在前台或者点击通知栏的通知消息，那么此函数将被调用，并且可通过AppDelegate的applicationState是否为UIApplicationStateActive判断程序是否在前台运行。此种情况在此函数中处理：<br> (void)application:(UIApplication <em>)application didReceiveRemoteNotification:(NSDictionary </em>)userInfo; // apn内容为userInfo</li>
-<li>基于iOS 7 及以上的系统版本，如果是使用 iOS 7 的 Remote Notification 特性那么处理函数需要使用<br> (void)application:(UIApplication <em>)application didReceiveRemoteNotification:(NSDictionary </em>)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler; // apn内容为userInfo</li>
-</ol>
-<ul>
+<li>基于iOS 6 及以下的系统版本，如果 App状态为正在前台或者点击通知栏的通知消息，那么此函数将被调用，并且可通过AppDelegate的applicationState是否为UIApplicationStateActive判断程序是否在前台运行。此种情况在此函数中处理：<br>  (void)application:(UIApplication <em>)application didReceiveRemoteNotification:(NSDictionary </em>)userInfo; // apn内容为userInfo</li>
+<li>基于iOS 7 及以上的系统版本，如果是使用 iOS 7 的 Remote Notification 特性那么处理函数需要使用<br>  (void)application:(UIApplication <em>)application didReceiveRemoteNotification:(NSDictionary </em>)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler; // apn内容为userInfo</li>
 <li>触摸事件withEvent:的方法处理流程:首先会在当前视图view上调用pointInside:withEvent:方法来判断触摸事件是否存在当前view中，如果返回NO，则说明触摸事件不在该view范围中，hitText:withEvent:方法返回nil；如果返回YES，则说明触摸在该view中，则向该view的subViews发送htiText:withEvent:消息，所有subviews的数组遍历顺序是从后往前，直至遍历到pointInside:withEvent:返回值为非空或者遍历完所有subview结束。如果遍历有非空对象,则hitTextField:withEvent:返回该对象结束；如果遍历完没有非空对象，则返回自己（self）。</li>
 <li>响应者原理：首先会在触摸view上调用inital view方法，看能否处理此事件，如果不能则会将事件传递给其上级视图（inital view的superView）；如果上级视图仍然无法处理则会继续往上传递；一直传递到视图控制器view controller，首先判断视图控制器的根视图view是否能处理此事件；如果不能则接着判断该视图控制器能否处理此事件，如果还是不能则继续向上传递；（对于第二个图视图控制器本身还在另一个视图控制器中，则继续交给父视图控制器的根视图，如果根视图不能处理则交给父视图控制器处理）；一直到window，如果window还是不能处理此事件则继续交给application（UIApplication单例对象）处理，如果最后application还是不能处理此事件则将其丢弃。</li>
 <li>UITabBarController的subview 共有两个，一个叫 UITabBar，就是底下的那个 Bar；另一个叫UITranstionview，就是 Bar 上面的视图。把UITabBar的 y 向下移49个单位，把UITranstionview 的 hight 加长 49 个单位，也能实现隐藏UITabBar的效果。</li>
 <li>UITextView开始编辑时，文字没有左上角对齐解决办法：其一，没有给textview对齐方式；其二，没有将BOOL类型的“automaticallyAdjustsScrollViewInsets”属性置为yes</li>
 </ul>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/01/Tips201606/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+</span>
         
       
     </div>
@@ -653,14 +645,31 @@
 
       
         
-          <h2 id="u9996_u5148_uFF0C_http_3A//conanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01"><a href="#u9996_u5148_uFF0C_http_3A//conanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01" class="headerlink" title="首先， http://conanwhf.github.io 还是可用主力哈！"></a>首先，<a href="http://conanwhf.github.io"> http://conanwhf.github.io</a> 还是可用主力哈！</h2><p>主要是怕哪天GFW发威上不了了，所以在国内服务商放个镜像而已。</p>
+          <span itemprop="articleBody"><h2 id="u9996_u5148_uFF0C_http_3A//conanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01"><a href="#u9996_u5148_uFF0C_http_3A//conanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01" class="headerlink" title="首先， http://conanwhf.github.io 还是可用主力哈！"></a>首先，<a href="http://conanwhf.github.io" target="_blank" rel="external"> http://conanwhf.github.io</a> 还是可用主力哈！</h2><p>主要是怕哪天GFW发威上不了了，所以在国内服务商放个镜像而已。</p>
 <h2 id="u5899_u5185_u65B0_u57DF_u540D_uFF1Ahttp_3A//conanwhf-coding-me/"><a href="#u5899_u5185_u65B0_u57DF_u540D_uFF1Ahttp_3A//conanwhf-coding-me/" class="headerlink" title="墙内新域名：http://conanwhf.coding.me/"></a>墙内新域名：<a href="http://conanwhf.coding.me/">http://conanwhf.coding.me/</a></h2><p>旧的gitcafe那个，就不用了</p>
-<p>周末爬山下海的，肌肉酸痛还没解除，就看到GitCafe要关闭，整个迁移到Coding去了，晕！连封邮件也没发给我，突然就说什么要全部迁移删除，然后一看时间，最后期限5月份，但是从今天开始就全部只读了……😡我真是服了国内的这些服务商，不靠谱到了一个境界。还能怎么办呢？迁移呗！本来因为是中文博客，我的各种相关配置和网络服务都注册的是GitCafe的域名，这次也都要检查一遍、修改更换，麻烦死了。以后还是准备回归GitHub为主吧！<br>另外，因为gitcafe已经全面只读了，我连提交个域名更新说明的机会都没，真是@#$$(%#^%^)$$%^%$#$%😤😱<br>长长的年过完了，紧接着又巴厘岛玩了几天，以至于留下了太多功课没有做完。家里两位老人天天拉着我聊天修电脑，再加上新接了个项目，搞OpenCV和C++搞得连轴转，更没时间管iOS的东西了。想想每天也没做什么，过个年，跑跑步，吃三顿饭，刷刷新闻社交，帮公婆处理点杂事，研究旅游的各种事情，最后出去玩一趟，怎么哗哗哗一个月就过去了？！搞得我好焦虑，害怕项目进度赶不完。怎么办！！！</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/03/02/addressUpdate/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+<p>周末爬山下海的，肌肉酸痛还没解除，就看到GitCafe要关闭，整个迁移到Coding去了，晕！连封邮件也没发给我，突然就说什么要全部迁移删除，然后一看时间，最后期限5月份，但是从今天开始就全部只读了……😡我真是服了国内的这些服务商，不靠谱到了一个境界。还能怎么办呢？迁移呗！本来因为是中文博客，我的各种相关配置和网络服务都注册的是GitCafe的域名，这次也都要检查一遍、修改更换，麻烦死了。以后还是准备回归GitHub为主吧！<br>另外，因为gitcafe已经全面只读了，我连提交个域名更新说明的机会都没，真是@#$$(%#^%^)$$%^%$#$%😤😱<br>长长的年过完了，紧接着又巴厘岛玩了几天，以至于留下了太多功课没有做完。家里两位老人天天拉着我聊天修电脑，再加上新接了个项目，搞OpenCV和C++搞得连轴转，更没时间管iOS的东西了。想想每天也没做什么，过个年，跑跑步，吃三顿饭，刷刷新闻社交，帮公婆处理点杂事，研究旅游的各种事情，最后出去玩一趟，怎么哗哗哗一个月就过去了？！搞得我好焦虑，害怕项目进度赶不完。怎么办！！！<br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/03/02/addressUpdate/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/03/02/addressUpdate/'>域名更新</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+</p>
+</span>
         
       
     </div>

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.coding.me/"/>
-  <updated>2017-06-12T15:01:25.000Z</updated>
+  <updated>2017-06-12T15:07:39.000Z</updated>
   <id>http://conanwhf.coding.me/</id>
   
   <author>
@@ -19,10 +19,10 @@
     <link href="http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/"/>
     <id>http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/</id>
     <published>2017-06-12T09:31:26.000Z</published>
-    <updated>2017-06-12T15:01:25.000Z</updated>
+    <updated>2017-06-12T15:07:39.000Z</updated>
     <content type="html"><![CDATA[<p>如今的Linux比uboot要成熟得更多，所有的模块都是可配置的。所以基本上对于kernel的移植，特别是这种已经有基础源码的项目，代码改动其实相当少，更多是时间花在调试和配置上。在所有工作中，最主要的困难恐怕就是怎么把系统跑进console了。</p>
 <h2 id="uImage__26amp_3B_zImage"><a href="#uImage__26amp_3B_zImage" class="headerlink" title="uImage &amp; zImage"></a>uImage &amp; zImage</h2><p>这个问题太基础，只是因为跟手动跑系统有关，所以稍微提一下。kernel编译后的成果是zImage，uImage只是添加了一个长度为0x40的头，用来记录给uboot的相关信息。虽然uImage是专门给uboot用的，但uboot的启动并不一定要uImage，它既可以接受uImage也可以接受zImage。可以说：uImage的头信息本质上是一种启动参数的传递形式。<br>制作uImage的工具是<strong>mkimage</strong>，它是来自于uboot。为了避免各种可能的版本问题，建议直接使用uboot编译后的<code>uboot/tools/mkimage</code>。而uImage的制作脚本则包含在kernel的编译脚本中，使用命令：<br><code>make uImage LOADADDR=0x80008000</code><br>即可编译获得uImage，前提是你已经将mkimage放入了编译环境的/bin/文件夹下。LOADADDR是kernel的启动地址（<strong>注意，这不是真正的kernel运行地址</strong>），uBoot会将kernel拷贝到此地址后（实际中也可能不拷贝）执行。关于uboot使用的几个内存地址的具体讲解也很多，这么些年也没什么变化，需要了解的可以自行去搜索。</p>
-<h2 id="u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C"><a href="#u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C" class="headerlink" title="根文件系统的制作"></a>根文件系统的制作</h2><p>一个系统必须要有文件系统才能跑起来，即使是很小很小的文件系统。目前一个最基本的文件系统都是基于Busybox制作的，制作过程的教程很多也大同小异，我就不赘述了。有的厂商或者Linux系统发行商也会提供根文件系统的下载，不过大多太过冗余，需要自行裁剪。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/'>ARM板移植Linux系统启动（四）配置Kernel</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<h2 id="u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C"><a href="#u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C" class="headerlink" title="根文件系统的制作"></a>根文件系统的制作</h2><p>一个系统必须要有文件系统才能跑起来，即使是很小很小的文件系统。目前一个最基本的文件系统都是基于Busybox制作的，制作过程的教程很多也大同小异，我就不赘述了。有的厂商或者Linux系统发行商也会提供根文件系统的下载，不过大多太过冗余，需要自行裁剪。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/'>ARM板移植Linux系统启动（四）配置Kernel</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -100,9 +100,10 @@ bootm 0x83000000 - 0x82000000
     <link href="http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/"/>
     <id>http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/</id>
     <published>2017-06-09T09:31:26.000Z</published>
-    <updated>2017-06-09T12:07:06.000Z</updated>
+    <updated>2017-06-12T15:10:19.000Z</updated>
     <content type="html"><![CDATA[<p>经过这些年的演变，U-boot已经从一个简单的loader慢慢发展成了一个小小系统，硬件上原生支持各种平台、外设，软件上支持Fat&amp;ext234等文件系统、传输协议、测试工具，可以说相当完善了。这种进化，负面影响是让整体变得更复杂臃肿，但也有更多的正面影响，是让我们的移植工作更加简单、模块化。</p>
-<h2 id="Uboot_u4EE3_u7801_u7ED3_u6784"><a href="#Uboot_u4EE3_u7801_u7ED3_u6784" class="headerlink" title="Uboot代码结构"></a>Uboot代码结构</h2><a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/'>ARM板移植Linux系统启动（三）UBOOT移植</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<h2 id="Uboot_u4EE3_u7801_u7ED3_u6784"><a href="#Uboot_u4EE3_u7801_u7ED3_u6784" class="headerlink" title="Uboot代码结构"></a>Uboot代码结构</h2><a id="more"></a>
+</p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/'>ARM板移植Linux系统启动（三）UBOOT移植</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -301,8 +302,8 @@ endif
     <link href="http://conanwhf.coding.me/2017/06/08/bootup-2-spl/"/>
     <id>http://conanwhf.coding.me/2017/06/08/bootup-2-spl/</id>
     <published>2017-06-08T09:31:26.000Z</published>
-    <updated>2017-06-08T11:03:44.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="u542F_u52A8_u6A21_u5F0F"><a href="#u542F_u52A8_u6A21_u5F0F" class="headerlink" title="启动模式"></a>启动模式</h2><p>面对一块完全的空板子，首先要做的当然是让它启动起来。emmc/nand中完全没有内容，意味着没有uboot，没有命令行，所有的硬件包括内存都没有初始化，除了CPU。在上电的CPU之上，还跑了一个小小的叫做BootROM的程序。<br>通常每块芯片，都在硬件中包含了一个BootROM，是一个小程序，上电后自动运行，无法修改，不同的厂家有不同的设计，但都是给定几种不同的启动模式，然后循环检测。TI这块板就支持各种模式，如emmc, nand flash, network, spi, uart等。<br>所谓的不同启动模式，本质上也是类似的，都是从某个设备中读取很少的一点数据放到一定的地方（一般是SRAM或者STACK），然后把PC指针交给它。所以并不是支持什么启动就可以直接在设备上放操作系统了，BootROM能做的只是很基础的硬件初始化工作，更多的事情是需要Uboot来完成。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/08/bootup-2-spl/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/08/bootup-2-spl/'>ARM板移植Linux系统启动（二）SPL</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+    <updated>2017-06-12T15:12:43.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="u542F_u52A8_u6A21_u5F0F"><a href="#u542F_u52A8_u6A21_u5F0F" class="headerlink" title="启动模式"></a>启动模式</h2><p>面对一块完全的空板子，首先要做的当然是让它启动起来。emmc/nand中完全没有内容，意味着没有uboot，没有命令行，所有的硬件包括内存都没有初始化，除了CPU。在上电的CPU之上，还跑了一个小小的叫做BootROM的程序。<br>通常每块芯片，都在硬件中包含了一个BootROM，是一个小程序，上电后自动运行，无法修改，不同的厂家有不同的设计，但都是给定几种不同的启动模式，然后循环检测。TI这块板就支持各种模式，如emmc, nand flash, network, spi, uart等。<br>所谓的不同启动模式，本质上也是类似的，都是从某个设备中读取很少的一点数据放到一定的地方（一般是SRAM或者STACK），然后把PC指针交给它。所以并不是支持什么启动就可以直接在设备上放操作系统了，BootROM能做的只是很基础的硬件初始化工作，更多的事情是需要Uboot来完成。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/08/bootup-2-spl/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/08/bootup-2-spl/'>ARM板移植Linux系统启动（二）SPL</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -442,8 +443,8 @@ jump_to_image_no_args(&amp;spl_image);
     <link href="http://conanwhf.coding.me/2017/05/30/bootup-1-main/"/>
     <id>http://conanwhf.coding.me/2017/05/30/bootup-1-main/</id>
     <published>2017-05-30T09:31:26.000Z</published>
-    <updated>2017-06-01T10:25:06.000Z</updated>
-    <content type="html"><![CDATA[<p>几年前，我是一个标准的原厂Linux系统开发人员，用公司自己的芯片，移植整套BSP。对于Linux系统启动方面，自认为摸得很熟了，从上电加载的汇编码到Linux内核及文件系统的配置，无一不留下了我修改的代码，细节精确到nand flash的某block某page放了什么代码，内存某个地址加载的是什么，代码某个改动是为了兼容什么project，一清二楚。所以最近接到这个移植系统的工作，信心挺足，估摸硬件没有问题的话几天之内移植就能完成，哪知道被现实结结实实打脸。<br>之前我用的Linux系统是2.6，Uboot版本不详但Fat32的支持还是我们自己移植进去的，可以说相当跟不上时代了。最新的Kernel早就采用了DTS，Uboot也加了很多功能和驱动，我在移植的过程中几乎完成了一次重新学习的过程。虽然我这次用的板是基于TI的，但我希望能不局限于具体的板子型号，而是把规律性的东西写出来，让后来人有个参考。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/05/30/bootup-1-main/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/05/30/bootup-1-main/'>ARM板移植Linux系统启动（一）启动流程</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+    <updated>2017-06-12T15:12:39.000Z</updated>
+    <content type="html"><![CDATA[<p>几年前，我是一个标准的原厂Linux系统开发人员，用公司自己的芯片，移植整套BSP。对于Linux系统启动方面，自认为摸得很熟了，从上电加载的汇编码到Linux内核及文件系统的配置，无一不留下了我修改的代码，细节精确到nand flash的某block某page放了什么代码，内存某个地址加载的是什么，代码某个改动是为了兼容什么project，一清二楚。所以最近接到这个移植系统的工作，信心挺足，估摸硬件没有问题的话几天之内移植就能完成，哪知道被现实结结实实打脸。<br>之前我用的Linux系统是2.6，Uboot版本不详但Fat32的支持还是我们自己移植进去的，可以说相当跟不上时代了。最新的Kernel早就采用了DTS，Uboot也加了很多功能和驱动，我在移植的过程中几乎完成了一次重新学习的过程。虽然我这次用的板是基于TI的，但我希望能不局限于具体的板子型号，而是把规律性的东西写出来，让后来人有个参考。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/05/30/bootup-1-main/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/05/30/bootup-1-main/'>ARM板移植Linux系统启动（一）启动流程</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -478,7 +479,7 @@ jump_to_image_no_args(&amp;spl_image);
 <h3 id="u542F_u52A8_u6D41_u7A0B_u7684_u53D8_u5F0F"><a href="#u542F_u52A8_u6D41_u7A0B_u7684_u53D8_u5F0F" class="headerlink" title="启动流程的变式"></a>启动流程的变式</h3><h4 id="u88AB_u8C01_u52A0_u8F7D"><a href="#u88AB_u8C01_u52A0_u8F7D" class="headerlink" title="被谁加载"></a><strong>被谁加载</strong></h4><p>对于一个完整的流程而言，每个文件被谁加载基本上都是固定的，除了根文件系统。根文件系统既有可能被uboot加载，也可能被kernel加载。注意被uboot加载时，根文件系统需要做成一个uboot能够接受的image，有固定的头，类似zImage和uImage的区别。而在调试过程中，加载的过程有可能是手动的，或者通过不同的设备传输拷贝，被谁加载其实完全不重要了。</p>
 <h4 id="u4ECE_u54EA_u91CC_u52A0_u8F7D"><a href="#u4ECE_u54EA_u91CC_u52A0_u8F7D" class="headerlink" title="从哪里加载"></a><strong>从哪里加载</strong></h4><p>这个问题的各种变化，就对应了不同的启动模式（一般意义上的，非硬件意义上）。你当然可以所有的东西都读取自内置emmc，也可以插卡让系统从卡上加载；你也可以从Uart传输uboot的image跑起来，进入uboot的命令行，手动从TF卡或者网络读取kernel；你甚至可以在uboot中从nand flash读取Kernel image，从网络获得根文件系统，从usb中加载dtb，从TF卡里拿到启动参数，最后把它们综合到一起，引导整个系统。</p>
 <h4 id="u52A0_u8F7D_u5230_u5185_u5B58_u7684_u54EA_u91CC"><a href="#u52A0_u8F7D_u5230_u5185_u5B58_u7684_u54EA_u91CC" class="headerlink" title="加载到内存的哪里"></a><strong>加载到内存的哪里</strong></h4><p>其实也很简单：加载到哪里都可以，只要不冲突。首先是要计算好文件的大小，不要让后来加载的文件覆盖了之前的；然后是最好将Kernel从较高的地址跑起来，规划好内存分区，以免kernel跑起来后破坏了根文件系统等数据。关于怎么定义内存地址，又是另外一个话题，网上教程很多，我就不多说了。</p>
-<h4 id="u52A0_u8F7D_u6587_u4EF6_u7684_u53D8_u5316"><a href="#u52A0_u8F7D_u6587_u4EF6_u7684_u53D8_u5316" class="headerlink" title="加载文件的变化"></a>加载文件的变化</h4><p>在实际中，Kernel启动的阶段变化很多，Kernel、根文件系统、DTB这三个部分也并非形式僵化的三个文件。比如大部分日常启动时，uboot只加载了kernel和dtb，文件系统往往是kernel后来自己mount上去的，这时候只是传递了一个启动参数，<em>root=XXXXX</em>；而调试阶段常用的自带rootdisk的kernel，也不需要另外加载根文件系统。DTB文件是DTS全面应用之后才出现的，定义了板子的硬件设备信息，经过某些特殊配置有时也是可以省略（理论上，并未亲测过）。</p>
+<h4 id="u52A0_u8F7D_u6587_u4EF6_u7684_u53D8_u5316"><a href="#u52A0_u8F7D_u6587_u4EF6_u7684_u53D8_u5316" class="headerlink" title="加载文件的变化"></a>加载文件的变化</h4><p>在实际中，Kernel启动的阶段变化很多，Kernel、根文件系统、DTB这三个部分也并非形式僵化的三个文件。比如大部分日常启动时，uboot只加载了kernel和dtb，文件系统往往是kernel后来自己mount上去的，这时候只是传递了一个启动参数，_root=XXXXX_；而调试阶段常用的自带rootdisk的kernel，也不需要另外加载根文件系统。DTB文件是DTS全面应用之后才出现的，定义了板子的硬件设备信息，经过某些特殊配置有时也是可以省略（理论上，并未亲测过）。</p>
 <p>   在调试中，往往会遇到很多启动的问题，明确启动的这几个基本原则和流程，能让调试的过程更轻松。</p>
 ]]></content>
     <summary type="html">
@@ -517,7 +518,7 @@ jump_to_image_no_args(&amp;spl_image);
     <link href="http://conanwhf.coding.me/2017/02/28/Tips201702/"/>
     <id>http://conanwhf.coding.me/2017/02/28/Tips201702/</id>
     <published>2017-02-28T09:25:39.000Z</published>
-    <updated>2017-05-04T08:55:30.000Z</updated>
+    <updated>2017-06-12T15:11:20.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
 </blockquote>
@@ -534,7 +535,7 @@ jump_to_image_no_args(&amp;spl_image);
 <li>分析ipa包，找出大于500K的文件或内容 使用<code>find . -type f -size +500000c | xargs ls -lh</code></li>
 </ol>
 </li>
-<li><strong>给代码排序</strong>：使用Spotlight来搜索Automator，并打开它；然后点击File->New，并选择服务(service)一项；在Actions筛选栏，输入shell，然后双击运行shell脚本；在新添加的服务的菜单栏上,检查Output replaces selected text；<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/02/28/Tips201702/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/02/28/Tips201702/'>开发Tips收集-2017年02月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<li><strong>给代码排序</strong>：使用Spotlight来搜索Automator，并打开它；然后点击File->New，并选择服务(service)一项；在Actions筛选栏，输入shell，然后双击运行shell脚本；在新添加的服务的菜单栏上,检查Output replaces selected text；<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/02/28/Tips201702/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/02/28/Tips201702/'>开发Tips收集-2017年02月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -603,7 +604,7 @@ jump_to_image_no_args(&amp;spl_image);
     <link href="http://conanwhf.coding.me/2017/02/28/ReadingList2017-02/"/>
     <id>http://conanwhf.coding.me/2017/02/28/ReadingList2017-02/</id>
     <published>2017-02-28T02:36:54.000Z</published>
-    <updated>2017-05-04T08:55:30.000Z</updated>
+    <updated>2017-06-12T15:14:41.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
 <li><strong>术与道:移动应用UI设计必修课</strong><br>家里人这次过来帮我带了不少实体书，这就是其中的一本，亚马逊双十一打折时候买的。整本书内容很少，图特别多，用零碎时间翻了两下就看完了。开始的时候，即使是小白如我也觉得作者在凑字数骗稿费，后来慢慢地看出一点点门道，关于APP设计的思维和规范，虽然书里真的没讲什么，都是基础得不能再基础的东西。不过作为一个一点都不懂设计的开发人员，看完以后有一点点入门的感觉。我猜人家的受众也就是定义在刚毕业啥都不会的菜鸟设计师，作为一本教设计的书来说肯定不合格太简单了，但是对我倒是有点正合适。准备下回写APP的时候认真地按照书中讲的设计规范来做事，也算是没白看。</li>
 <li><strong>金融的解释:金融学二十九讲</strong><br>这本书是早就定下的书单，跟着那本斯坦福极简经济学的，先读读经济原理，再搞清楚金融运作。它经常出现在各种推荐书单上，我原本抱有很大的期望，但也许是珠玉在前，一读之下，有点失望。此书的前面三分之一部分也是讲经济的，后面才引申到金融。跟极简经济学那本相比，明显少了一种脉络感，让人有种盲人摸象无法领悟整体的感觉。同样的内容，这本书就更像是拿教科书来扩充讲解一下，读完了还是有点模模糊糊无法抓住重点；而斯坦福极简经济学则会把经济学中各种概念的因果关系和相互影响的线索讲得很清晰，读完心中自成体系。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/02/28/ReadingList2017-02/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/02/28/ReadingList2017-02/'>读书清单 2017-02</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
@@ -627,7 +628,8 @@ jump_to_image_no_args(&amp;spl_image);
   }
 })()
 </script>
-<br>所以不知道是金融的部分更难，还是确实作者功力有限，后面的金融学部分我读完了还是有点雾里看花的感觉。原本读这本书就是带有功利性的，想多了解一些金融的运作，对自己的投资行为有所帮助。可是读完了只是明白了那些概念是什么，而不明白那些变化是为什么；以我自己的功力，显然不足以自行推演出来。不明白为什么的话，又怎么能进行逻辑分析、指导实践呢？于是这本书完全变成了金融学科普，没有达到想象中的效果。</li>
+
+所以不知道是金融的部分更难，还是确实作者功力有限，后面的金融学部分我读完了还是有点雾里看花的感觉。原本读这本书就是带有功利性的，想多了解一些金融的运作，对自己的投资行为有所帮助。可是读完了只是明白了那些概念是什么，而不明白那些变化是为什么；以我自己的功力，显然不足以自行推演出来。不明白为什么的话，又怎么能进行逻辑分析、指导实践呢？于是这本书完全变成了金融学科普，没有达到想象中的效果。</li>
 <li><strong>几何天才的杰作:伊斯兰图案设计</strong><br>很薄的一本小册子，看中亚的评价都出乎意料地好，于是买了。这本书从最基本的五芒星、正方形、圆形等构件出发，利用各个形状的不同比例，通过各种重复、旋转、组合、扩充（不同图形的顶点相连）来变化出更多更复杂的图形。我一直很喜欢分形的东西，觉得那种无限延伸的秩序感很让人着迷，这本书中的很多图就让我可以发上好久的呆。原本以为这本书会比较偏数学，但其实只是由浅入深比较平实地罗列各种伊斯兰图案而已。让我感到震惊的是，书中讲到，每个图案都有它自己代表的意思，对应古兰经中的内容；甚至他们有一套使用阿拉伯数字以前的数字和符号系统，也能融入图案中去，一幅图可以表明古兰经中的某一章节！我看了那图，感觉前阵子《你一生的故事》中间外星人的文字也不过就是这样了……<br>书的最后还有一些实践性的内容，告诉你如何使用模板自己画一些相对简单的图案（其实也很复杂了）。刚好最近买了点磁力小短棒和钢珠在搭着玩，亲身体会到了书中说的那些奇妙的变换。关于等n边型的不同边长和角度的重复却神奇的变化，图形的世界真是令人着迷！</li>
 </ol>
 <h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2><ol>
@@ -666,8 +668,8 @@ jump_to_image_no_args(&amp;spl_image);
     <link href="http://conanwhf.coding.me/2017/02/12/JingJingTest/"/>
     <id>http://conanwhf.coding.me/2017/02/12/JingJingTest/</id>
     <published>2017-02-12T09:35:25.000Z</published>
-    <updated>2017-05-04T08:55:30.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="u6574_u4F53_u611F_u89C9"><a href="#u6574_u4F53_u611F_u89C9" class="headerlink" title="整体感觉"></a>整体感觉</h2><p>我已经有个KPW3，携带方便，其他方面都挺满意，就是觉得屏幕小了点。大屏电子书可选择的太少，我的要求一是要屏大，二是要能看的格式多（我对PDF要求并不多，我的书基本上以azw3&amp;mobi为主，少量epub&amp;pdf），三是不要太重（不能超过iPad），这三条综合下来就已经淘汰了大法、DXG，最终选了静境，带电磁书写款，总价2399。<br>整个静境电子书的大小比普通的教材书籍略小<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/02/12/JingJingTest/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/02/12/JingJingTest/'>静境电子书评测</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+    <updated>2017-06-12T15:16:03.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="u6574_u4F53_u611F_u89C9"><a href="#u6574_u4F53_u611F_u89C9" class="headerlink" title="整体感觉"></a>整体感觉</h2><p>我已经有个KPW3，携带方便，其他方面都挺满意，就是觉得屏幕小了点。大屏电子书可选择的太少，我的要求一是要屏大，二是要能看的格式多（我对PDF要求并不多，我的书基本上以azw3&amp;mobi为主，少量epub&amp;pdf），三是不要太重（不能超过iPad），这三条综合下来就已经淘汰了大法、DXG，最终选了静境，带电磁书写款，总价2399。<br>整个静境电子书的大小比普通的教材书籍略小<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/02/12/JingJingTest/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/02/12/JingJingTest/'>静境电子书评测</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -725,9 +727,9 @@ jump_to_image_no_args(&amp;spl_image);
     <link href="http://conanwhf.coding.me/2017/02/01/ReadingList2017-01/"/>
     <id>http://conanwhf.coding.me/2017/02/01/ReadingList2017-01/</id>
     <published>2017-02-01T09:36:54.000Z</published>
-    <updated>2017-05-04T08:55:30.000Z</updated>
+    <updated>2017-06-12T15:14:48.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li><strong>黑客</strong><br>一本常常出现在IT人书单上的书，然而我却没有看完。从晶体管时代开始，讲述那些以改进系统为唯一目标的天才程序员的故事。也不能说不好看，作为技术人员来说，过去那些事还是挺有意思的，比如思考一下如何用蜂鸣器做出音乐效果而不只是节拍，或者考虑最初的三个CPU指令应该是哪些，要不就是想象怎么在一个资源少到极限的系统中做调试器……这让我每每翻开这本书就有一种很纠结的心情：一方面看得实在是太慢了，大部分地方读起来也挺无聊，感觉不知道啥时候才能看完；另一方面偶尔有点思维体操的惊喜感，又让人不是能那么决绝地放弃这本书。最后我在看到大约三分之一的地方还是半途而废了，确实书里讲的东西离现在太远了，描述也蛮枯燥的。剩下的三分之二我大略地翻了翻，然后看完了后记以及2010年kindle版上市时的后后记。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/02/01/ReadingList2017-01/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/02/01/ReadingList2017-01/'>读书清单 2017-01</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<li><strong>黑客</strong><br>一本常常出现在IT人书单上的书，然而我却没有看完。从晶体管时代开始，讲述那些以改进系统为唯一目标的天才程序员的故事。也不能说不好看，作为技术人员来说，过去那些事还是挺有意思的，比如思考一下如何用蜂鸣器做出音乐效果而不只是节拍，或者考虑最初的三个CPU指令应该是哪些，要不就是想象怎么在一个资源少到极限的系统中做调试器……这让我每每翻开这本书就有一种很纠结的心情：一方面看得实在是太慢了，大部分地方读起来也挺无聊，感觉不知道啥时候才能看完；另一方面偶尔有点思维体操的惊喜感，又让人不是能那么决绝地放弃这本书。最后我在看到大约三分之一的地方还是半途而废了，确实书里讲的东西离现在太远了，描述也蛮枯燥的。剩下的三分之二我大略地翻了翻，然后看完了后记以及2010年kindle版上市时的后后记。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/02/01/ReadingList2017-01/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/02/01/ReadingList2017-01/'>读书清单 2017-01</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -799,9 +801,10 @@ jump_to_image_no_args(&amp;spl_image);
     <link href="http://conanwhf.coding.me/2016/12/31/ReadingList2016-12/"/>
     <id>http://conanwhf.coding.me/2016/12/31/ReadingList2016-12/</id>
     <published>2016-12-31T07:26:54.000Z</published>
-    <updated>2017-05-04T08:55:30.000Z</updated>
+    <updated>2017-06-12T15:14:51.000Z</updated>
     <content type="html"><![CDATA[<h1 id="u8BFB_u4E66_u6E05_u53552016-02"><a href="#u8BFB_u4E66_u6E05_u53552016-02" class="headerlink" title="读书清单2016-02"></a>读书清单2016-02</h1><h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li><p><strong>极简投资</strong><br>小白入门书，不过里面讲的投资理念我觉得很好，确实适合懒人以及没投资天分的人，比如说我。后半部对万能险的推崇有做广告的嫌疑，毕竟是出自某商业刊物吧，目前来说万能险肯定是不适合了，P2P也很危险。不过无伤大雅，核心是理解极简投资是怎么一回事，而不是具体该投哪些项目。总结一下，极简投资的核心就是分散、中短期的投资方式。分散指的是将资金分散在几个尽量不相关的方向上（如股市龙头股、债市等），注意是方向，不是单一股票而是指数，这是为了均摊风险，东边不亮西边亮；中短期投资一般就是一年，为了减小市场和投资者心理波动所造成的损失，用长期收益抵消短期浮亏。从数学上来说，极简投资并不是最优投资方案，却是相对来说较安全且兼顾收益的稳健投资方案。 <a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/12/31/ReadingList2016-12/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/12/31/ReadingList2016-12/'>读书清单 2016-12</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<li><p><strong>极简投资</strong><br>小白入门书，不过里面讲的投资理念我觉得很好，确实适合懒人以及没投资天分的人，比如说我。后半部对万能险的推崇有做广告的嫌疑，毕竟是出自某商业刊物吧，目前来说万能险肯定是不适合了，P2P也很危险。不过无伤大雅，核心是理解极简投资是怎么一回事，而不是具体该投哪些项目。总结一下，极简投资的核心就是分散、中短期的投资方式。分散指的是将资金分散在几个尽量不相关的方向上（如股市龙头股、债市等），注意是方向，不是单一股票而是指数，这是为了均摊风险，东边不亮西边亮；中短期投资一般就是一年，为了减小市场和投资者心理波动所造成的损失，用长期收益抵消短期浮亏。从数学上来说，极简投资并不是最优投资方案，却是相对来说较安全且兼顾收益的稳健投资方案。 <a id="more"></a></p>
+</p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/12/31/ReadingList2016-12/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/12/31/ReadingList2016-12/'>读书清单 2016-12</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -822,7 +825,7 @@ jump_to_image_no_args(&amp;spl_image);
   }
 })()
 </script>
-</p>
+
 </li>
 <li><p><strong>跑步时该如何呼吸</strong><br>这本书整体看下来还是很有收获的，虽然讲得比较啰嗦，包括各种案例和人们的正面反馈，可以删掉。对我来说，只看关键点就是：<br>A). 跑步的强度可以用呼吸的频率来衡量，应该把对配速的关注转移到对呼吸上来；<br>B). 跑步时身体受到冲击最大的时候是落地且开始呼气的时候，跑者受伤多因为每次呼气都重复在同一侧落地时；<br>C). 韵律呼吸解决的就是上面的两个问题：用有规律且相对步数为单数的周期，平均分散左右两边的冲击，一个周期中呼气时间小于吸气时间，并保持可控的强度；<br>D). 具体到实践上，采取腹式呼吸，n步一吸/(n+1)步一呼的模式（n一般为2-4之间，n越小表示当前的跑步强度越大）<br>问题是理论清楚不代表能做到。实际上我是属于吸气短呼气长的人，操作起来特别别扭，因为往往一步的时间就把气吸到头了，呼气时又来不及把气吐完。正常情况下，就算是跑得最喘的时候，我呼气也要花3-4步的时间，而吸气一步之内就完成了。自己尝试了几次书中的方法，反而更容易岔气，也许要更长时间更多的练习才能熟练掌握吧。</p>
 </li>
@@ -890,7 +893,7 @@ jump_to_image_no_args(&amp;spl_image);
     <link href="http://conanwhf.coding.me/2016/08/31/Tips201608/"/>
     <id>http://conanwhf.coding.me/2016/08/31/Tips201608/</id>
     <published>2016-08-31T09:25:39.000Z</published>
-    <updated>2017-05-04T08:55:30.000Z</updated>
+    <updated>2017-06-12T15:11:25.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
 </blockquote>
@@ -907,7 +910,8 @@ jump_to_image_no_args(&amp;spl_image);
 </li>
 <li>清除签名文件 删除签名文件 清理Profile文件：Xcode - Preferences - Account - View Details,这个时候左下角有个刷新图标，点击一下就可以了</li>
 <li>TableView头视图不随视图移动，头视图出现错位的错误原因：tableView的 UITableViewStyle 没有明确的声明。解决方法：在tableView声明的时候明确为 UITableViewStyleGrouped</li>
-<li>ViewController生命周期：<br>  alloc -> initWithNibName -> loadView -> viewDidLoad -> viewWillAppear -> viewDidAppear -> viewWillDisappear -> viewDidDisappear -> dealloc<br>  注意1. 不要在loadView中调用父类方法<a href="/">super loadView</a>，因为这会影响CPU性能。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/31/Tips201608/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/31/Tips201608/'>开发Tips收集-2016年08月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<li>ViewController生命周期：<br>  alloc -> initWithNibName -> loadView -> viewDidLoad -> viewWillAppear -> viewDidAppear -> viewWillDisappear -> viewDidDisappear -> dealloc<br>  注意1. 不要在loadView中调用父类方法<a href="/">super loadView</a>，因为这会影响CPU性能。<a id="more"></a></li>
+<li></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/31/Tips201608/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/31/Tips201608/'>开发Tips收集-2016年08月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -928,7 +932,8 @@ jump_to_image_no_args(&amp;spl_image);
   }
 })()
 </script>
-<br>  注意2. 切换前后台不会调用viewWillAppear</li>
+
+  注意2. 切换前后台不会调用viewWillAppear</li>
 <li>关于数据存储需要注意的点，总结在下面：<ol>
 <li>关键数据<br>内容：用户创建的数据文件，无法在删除后自动重新创建<br>路径：主目录/Documents<br>管理：iOS系统即时遇到存储空间不足的情况下，也不会清除，同时会备份到iTunes或iCloud中</li>
 <li>缓存数据<br>内容：可用于离线环境，可被重复下载重复生成，即使在离线时缺失，应用本身也可以正常运行<br>路径：主目录/Library/Caches<br>管理：在存储空间不足的情况下，会清空， 并且不会被自动备份到iTunes和iCloud中</li>
@@ -976,10 +981,10 @@ jump_to_image_no_args(&amp;spl_image);
     <link href="http://conanwhf.coding.me/2016/08/26/GPTandMBR/"/>
     <id>http://conanwhf.coding.me/2016/08/26/GPTandMBR/</id>
     <published>2016-08-26T09:30:25.000Z</published>
-    <updated>2017-05-04T08:55:30.000Z</updated>
+    <updated>2017-06-12T15:16:14.000Z</updated>
     <content type="html"><![CDATA[<p>MacBookPro的硬盘太小，前几天买了个128G的U盘想装好系统在虚拟机里引导，以节省日益膨胀的虚拟机文件占用的空间。我同时需要Mac、Win、Linux，买不起大容量MBP，天天寻思着删东西，实在是伤不起啊！😭预设的目标是要把Win和Ubuntu都装U盘上，而且支持在我的旧笔记本、Mac、虚拟机里都能正确引导，同时还要有一个数据分区，能在所有的系统中正常识别为U盘。为此，我狠狠研究了一通分区表，被各种缩写和规则搞得头昏脑胀。看看网上的东西也是常有错误，趁着还没忘光，自己梳理一遍吧！<br>声明：本文为作者（<a href="https://github.com/conanwhf" target="_blank" rel="external">Conan</a>）原创，转载请标明<a href="/conanwhf.github.io">出处</a>！</p>
 <h2 id="GPT_u548CMBR"><a href="#GPT_u548CMBR" class="headerlink" title="GPT和MBR"></a>GPT和MBR</h2><p>首先当然是这俩，一切都源于此。最重要的信息是：他们都是<strong>分区表</strong>，一种用来表示硬盘分区信息的格式，不太严格地说是一个<strong>软件概念</strong>。啰嗦一句分区表是干什么的：在操作系统启动之前、硬件初始化之后，确定从硬盘启动的话，需要获得硬盘分区的基本信息，那就需要分区表了。分区表不只包含硬盘的分区信息，也包括一个很小的最基本的引导程序，用到引导第二阶段引导程序，如NTLDR、BOOTMGR和GRUB等，这些第二阶段的引导程序，是需要针对每个分区进一步读取数据才能获得的。</p>
-<h3 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h3><p>全称<strong>主引导记录（Master Boot Record）</strong>，又叫做主引导扇区，位于硬盘的第一个扇区主要分为两个部分：引导程序和分区结构表。有时候也将其开头的446字节引导程序特指为MBR，其后是64字节的“磁盘分区表”（DPT），以及2字节的结束标志（55AA）。因此，在使用“主引导记<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/26/GPTandMBR/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/26/GPTandMBR/'>详细梳理分区表和系统启动相关的各种概念</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<h3 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h3><p>全称<strong>主引导记录（Master Boot Record）</strong>，又叫做主引导扇区，位于硬盘的第一个扇区主要分为两个部分：引导程序和分区结构表。有时候也将其开头的446字节引导程序特指为MBR，其后是64字节的“磁盘分区表”（DPT），以及2字节的结束标志（55AA）。因此，在使用“主引导记<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/26/GPTandMBR/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/26/GPTandMBR/'>详细梳理分区表和系统启动相关的各种概念</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1060,7 +1065,7 @@ jump_to_image_no_args(&amp;spl_image);
     <link href="http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/"/>
     <id>http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/</id>
     <published>2016-08-25T02:02:26.000Z</published>
-    <updated>2017-06-01T08:46:45.000Z</updated>
+    <updated>2017-06-12T15:14:31.000Z</updated>
     <content type="html"><![CDATA[<p>在树莓派上做开发，难免会弄出各种版本的系统，加上有时候还需要拿给客户自己烧录或者demo，总是要clone一下TF卡，做系统做到烦躁。于是想想有没有什么办法能做跟官方release一样的烧录img出来，基本要求就是全系统克隆，但做出的img跟卡的容量无关，只跟系统占用的存储大小有关。</p>
 <h2 id="u7B80_u5355_u5168_u5361_u5907_u4EFD"><a href="#u7B80_u5355_u5168_u5361_u5907_u4EFD" class="headerlink" title="简单全卡备份"></a>简单全卡备份</h2><p>其实如果只是简单备份，可以直接将TF卡插入Linux电脑，用dd命令来备份和恢复(设备号不固定这里只是例子，还是用fdisk -l先查看一下比较保险)：</p>
 <pre><code># Backup the system to img file in Linux
@@ -1074,7 +1079,7 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/mmcblk0
 dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
 </code></pre><p>不过这样做，16G的卡哪怕你只用了1G，整个备份文件也有16G，占用空间耗时间是小事，想想拿这么大文件给客户不方便，也显得太不专业了。<br>在网上搜了一下，已经有朋友先行做过类似的事情：<a href="http://www.fendou.info/raspberry-pi-sd-card-backup-and-recovery/" title="树莓派 Raspberry Pi SD卡系统备份与还原" target="_blank" rel="external">树莓派 Raspberry Pi SD卡系统备份与还原</a>，看了一下按照他的步骤实践了一遍，但出现了一些问题，折腾了很久最终才解决。</p>
 <h2 id="RaspberryPi_u7684_u6587_u4EF6_u7CFB_u7EDF"><a href="#RaspberryPi_u7684_u6587_u4EF6_u7CFB_u7EDF" class="headerlink" title="RaspberryPi的文件系统"></a>RaspberryPi的文件系统</h2><p>首先介绍一下RaspberryPi的文件系统。树莓派的官方系统是基于Debian的，主要是两个分区：<strong>启动分区boot和根分区</strong>。boot分区为fat32格式，挂载在/boot，存放一些系统启动需要的基本文件，包括内核、驱动、firmware、启动脚本等；根分区文件系统是ext4格式，挂载于/，存放一些安装的软件和库文件、系统配置、用户数据等等；另外当系统启动时会自动生成和挂载一些必要的其他文件夹，包括temfs、sysfs、proc、debugfs、configfs等（使用mount可以看到他们），这些都是虚拟文件系统，由操作系统自动管理，备份时不需要关注。日常使用时，修改的文件包括安装的软件都是在根分区中，而如果自行编译内核，需要更新的文件都在/boot中。<br>所以备份一个系统，实际上是要备份这两个分区，官方发布的烧录镜像，也是包含了这样的两个分区，并保证通过dd的操作，能将其完整写入目标TF卡。首次烧录完毕后，不论你的TF卡容量为多少，启动后的boot和/分区大小都是固定的，然后可以使用<code>raspi-config</code>来扩展根分区的大小，boot分区不变，来达到使用所有卡内容量的目的。<br>相对应的备份步骤，大致为：创建img，把img当作一个磁盘分区和格式化，mount各个分区，将文件备份至对应的分区中，umount分区结束备份。</p>
-<h2 id="u76EE_u6807_u5907_u4EFD_u6587_u4EF6_u7684_u521B_u5EFA_u548C_u5206_u533A"><a href="#u76EE_u6807_u5907_u4EFD_u6587_u4EF6_u7684_u521B_u5EFA_u548C_u5206_u533A" class="headerlink" title="目标备份文件的创建和分区"></a>目标备份文件的创建和分区</h2><p>既然是备份到文件，那么首先需要创建一个备份文件，并且把这个文件看作一个虚拟设备，对其进行分区。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/'>树莓派RaspberryPi系统备份Image的制作</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<h2 id="u76EE_u6807_u5907_u4EFD_u6587_u4EF6_u7684_u521B_u5EFA_u548C_u5206_u533A"><a href="#u76EE_u6807_u5907_u4EFD_u6587_u4EF6_u7684_u521B_u5EFA_u548C_u5206_u533A" class="headerlink" title="目标备份文件的创建和分区"></a>目标备份文件的创建和分区</h2><p>既然是备份到文件，那么首先需要创建一个备份文件，并且把这个文件看作一个虚拟设备，对其进行分区。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/'>树莓派RaspberryPi系统备份Image的制作</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1239,8 +1244,8 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
     <link href="http://conanwhf.coding.me/2016/08/20/DroplrTest/"/>
     <id>http://conanwhf.coding.me/2016/08/20/DroplrTest/</id>
     <published>2016-08-20T09:35:25.000Z</published>
-    <updated>2017-05-04T08:55:30.000Z</updated>
-    <content type="html"><![CDATA[<p>买了Droplr的永久会员，测试一下外链图片，如果OK就把七牛换了……国内的免费服务太让人没安全感！<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/20/DroplrTest/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/20/DroplrTest/'>Droplr的测试</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+    <updated>2017-06-12T15:16:31.000Z</updated>
+    <content type="html"><![CDATA[<p>买了Droplr的永久会员，测试一下外链图片，如果OK就把七牛换了……国内的免费服务太让人没安全感！<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/20/DroplrTest/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/20/DroplrTest/'>Droplr的测试</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1277,13 +1282,14 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
     <link href="http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/"/>
     <id>http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/</id>
     <published>2016-08-15T09:36:54.000Z</published>
-    <updated>2017-06-06T04:10:04.000Z</updated>
+    <updated>2017-06-12T15:14:55.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
 <li><strong>催眠师手记</strong><br>刚开通借阅，看到首页推荐，于是下下来看了下。故事还可以，看到一多半的时候就开始腻……最后是努力看完的后面两个故事，属于还能看看的故事书吧。本来以为是专业性比较强的东西，结果是打着手记外衣的小说。作者有点模仿福尔摩斯的感觉，只是这次厉害的那个关键人物换成了非第一人称：解密二人组，有一个人上知天文下知地理专业精湛，另一个负责处理杂事以及理解天才的不可理解之处。这样的故事讲好了也还不错，只可惜这本书里的故事，有点装神弄鬼。Any way，比起普遍的酸酸文艺风和无法直视的网文，这本书还算可以一读，拿来休闲正好。</li>
 </ol>
 <h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2><ol>
 <li>中文传媒精选</li>
-<li>知乎周刊2015年度300问-心理<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/'>读书清单 2016-08</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<li>知乎周刊2015年度300问-心理<a id="more"></a>
+</p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/'>读书清单 2016-08</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1364,7 +1370,7 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
     <link href="http://conanwhf.coding.me/2016/07/01/Tips201606/"/>
     <id>http://conanwhf.coding.me/2016/07/01/Tips201606/</id>
     <published>2016-07-01T09:25:39.000Z</published>
-    <updated>2017-05-04T08:55:30.000Z</updated>
+    <updated>2017-06-12T15:11:33.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
 </blockquote>
@@ -1373,60 +1379,20 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
 <li>如果 App 状态为未运行，此函数将被调用，如果launchOptions包含UIApplicationLaunchOptionsRemoteNotificationKey表示用户点击apn 通知导致app被启动运行；如果不含有对应键值则表示 App 不是因点击apn而被启动，可能为直接点击icon被启动或其他。<br>(BOOL)application:(UIApplication <em>)application didFinishLaunchingWithOptions:(NSDictionary </em>)launchOptions;<br>// apn 内容获取：<br>NSDictionary *remoteNotification = [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey]</li>
 </ol>
 </li>
-</ul>
-<ol>
-<li>基于iOS 6 及以下的系统版本，如果 App状态为正在前台或者点击通知栏的通知消息，那么此函数将被调用，并且可通过AppDelegate的applicationState是否为UIApplicationStateActive判断程序是否在前台运行。此种情况在此函数中处理：<br> (void)application:(UIApplication <em>)application didReceiveRemoteNotification:(NSDictionary </em>)userInfo; // apn内容为userInfo</li>
-<li>基于iOS 7 及以上的系统版本，如果是使用 iOS 7 的 Remote Notification 特性那么处理函数需要使用<br> (void)application:(UIApplication <em>)application didReceiveRemoteNotification:(NSDictionary </em>)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler; // apn内容为userInfo</li>
-</ol>
-<ul>
+<li>基于iOS 6 及以下的系统版本，如果 App状态为正在前台或者点击通知栏的通知消息，那么此函数将被调用，并且可通过AppDelegate的applicationState是否为UIApplicationStateActive判断程序是否在前台运行。此种情况在此函数中处理：<br>  (void)application:(UIApplication <em>)application didReceiveRemoteNotification:(NSDictionary </em>)userInfo; // apn内容为userInfo</li>
+<li>基于iOS 7 及以上的系统版本，如果是使用 iOS 7 的 Remote Notification 特性那么处理函数需要使用<br>  (void)application:(UIApplication <em>)application didReceiveRemoteNotification:(NSDictionary </em>)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler; // apn内容为userInfo</li>
 <li>触摸事件withEvent:的方法处理流程:首先会在当前视图view上调用pointInside:withEvent:方法来判断触摸事件是否存在当前view中，如果返回NO，则说明触摸事件不在该view范围中，hitText:withEvent:方法返回nil；如果返回YES，则说明触摸在该view中，则向该view的subViews发送htiText:withEvent:消息，所有subviews的数组遍历顺序是从后往前，直至遍历到pointInside:withEvent:返回值为非空或者遍历完所有subview结束。如果遍历有非空对象,则hitTextField:withEvent:返回该对象结束；如果遍历完没有非空对象，则返回自己（self）。</li>
 <li>响应者原理：首先会在触摸view上调用inital view方法，看能否处理此事件，如果不能则会将事件传递给其上级视图（inital view的superView）；如果上级视图仍然无法处理则会继续往上传递；一直传递到视图控制器view controller，首先判断视图控制器的根视图view是否能处理此事件；如果不能则接着判断该视图控制器能否处理此事件，如果还是不能则继续向上传递；（对于第二个图视图控制器本身还在另一个视图控制器中，则继续交给父视图控制器的根视图，如果根视图不能处理则交给父视图控制器处理）；一直到window，如果window还是不能处理此事件则继续交给application（UIApplication单例对象）处理，如果最后application还是不能处理此事件则将其丢弃。</li>
 <li>UITabBarController的subview 共有两个，一个叫 UITabBar，就是底下的那个 Bar；另一个叫UITranstionview，就是 Bar 上面的视图。把UITabBar的 y 向下移49个单位，把UITranstionview 的 hight 加长 49 个单位，也能实现隐藏UITabBar的效果。</li>
 <li>UITextView开始编辑时，文字没有左上角对齐解决办法：其一，没有给textview对齐方式；其二，没有将BOOL类型的“automaticallyAdjustsScrollViewInsets”属性置为yes</li>
 </ul>
-<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/07/01/Tips201606/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/07/01/Tips201606/'>开发Tips收集-2016年06月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
 ]]></content>
     <summary type="html">
     <![CDATA[<blockquote>
 <p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
 </blockquote>
 <ul>
-<li>iOS获取通知需要注意以：iOS 设备收到一条推送（APNs），用户点击推送通知打开应用时，应用程序根据状态不同进行处理需在 AppDelegate 中的以下两个方法中添加代码以获取apn内容<ol>
-<li>如果 App 状态为未运行，此函数将被调用，如果launchOptions包含UIApplicationLaunchOptionsRemoteNotificationKey表示用户点击apn 通知导致app被启动运行；如果不含有对应键值则表示 App 不是因点击apn而被启动，可能为直接点击icon被启动或其他。<br>(BOOL)application:(UIApplication <em>)application didFinishLaunchingWithOptions:(NSDictionary </em>)launchOptions;<br>// apn 内容获取：<br>NSDictionary *remoteNotification = [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey]</li>
-</ol>
-</li>
-</ul>
-<ol>
-<li>基于iOS 6 及以下的系统版本，如果 App状态为正在前台或者点击通知栏的通知消息，那么此函数将被调用，并且可通过AppDelegate的applicationState是否为UIApplicationStateActive判断程序是否在前台运行。此种情况在此函数中处理：<br> (void)application:(UIApplication <em>)application didReceiveRemoteNotification:(NSDictionary </em>)userInfo; // apn内容为userInfo</li>
-<li>基于iOS 7 及以上的系统版本，如果是使用 iOS 7 的 Remote Notification 特性那么处理函数需要使用<br> (void)application:(UIApplication <em>)application didReceiveRemoteNotification:(NSDictionary </em>)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler; // apn内容为userInfo</li>
-</ol>
-<ul>
-<li>触摸事件withEvent:的方法处理流程:首先会在当前视图view上调用pointInside:withEvent:方法来判断触摸事件是否存在当前view中，如果返回NO，则说明触摸事件不在该view范围中，hitText:withEvent:方法返回nil；如果返回YES，则说明触摸在该view中，则向该view的subViews发送htiText:withEvent:消息，所有subviews的数组遍历顺序是从后往前，直至遍历到pointInside:withEvent:返回值为非空或者遍历完所有subview结束。如果遍历有非空对象,则hitTextField:withEvent:返回该对象结束；如果遍历完没有非空对象，则返回自己（self）。</li>
-<li>响应者原理：首先会在触摸view上调用inital view方法，看能否处理此事件，如果不能则会将事件传递给其上级视图（inital view的superView）；如果上级视图仍然无法处理则会继续往上传递；一直传递到视图控制器view controller，首先判断视图控制器的根视图view是否能处理此事件；如果不能则接着判断该视图控制器能否处理此事件，如果还是不能则继续向上传递；（对于第二个图视图控制器本身还在另一个视图控制器中，则继续交给父视图控制器的根视图，如果根视图不能处理则交给父视图控制器处理）；一直到window，如果window还是不能处理此事件则继续交给application（UIApplication单例对象）处理，如果最后application还是不能处理此事件则将其丢弃。</li>
-<li>UITabBarController的subview 共有两个，一个叫 UITabBar，就是底下的那个 Bar；另一个叫UITranstionview，就是 Bar 上面的视图。把UITabBar的 y 向下移49个单位，把UITranstionview 的 hight 加长 49 个单位，也能实现隐藏UITabBar的效果。</li>
-<li>UITextView开始编辑时，文字没有左上角对齐解决办法：其一，没有给textview对齐方式；其二，没有将BOOL类型的“automaticallyAdjustsScrollViewInsets”属性置为yes</li>
-</ul>]]>
-    
+<l]]>
     </summary>
     
       <category term="Xcode" scheme="http://conanwhf.coding.me/tags/Xcode/"/>
@@ -1442,7 +1408,7 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
     <link href="http://conanwhf.coding.me/2016/05/31/Tips201605/"/>
     <id>http://conanwhf.coding.me/2016/05/31/Tips201605/</id>
     <published>2016-05-31T09:25:39.000Z</published>
-    <updated>2017-05-04T08:55:30.000Z</updated>
+    <updated>2017-06-12T15:11:38.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
 </blockquote>
@@ -1457,7 +1423,8 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
 </ol>
 </li>
 <li>在使用 ImagesQA.xcassets 时需要注意：将图片直接拖入image到ImagesQA.xcassets中时，图片的名字会保留。这个时候如果图片的名字过长，那么这个名字会存入到ImagesQA.xcassets中，名字过长会引起SourceTree判断异常。</li>
-<li>UIScrollView添加了一个很好用的属性keyboardDismissMode，这样可以让键盘在滚动时自动收起。这个属性使用了新的UIScrollViewKeyboardDismissMode enum枚举类型。这个enum枚举类型可能的值如下：<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/05/31/Tips201605/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/05/31/Tips201605/'>开发Tips收集-2016年05月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<li>UIScrollView添加了一个很好用的属性keyboardDismissMode，这样可以让键盘在滚动时自动收起。这个属性使用了新的UIScrollViewKeyboardDismissMode enum枚举类型。这个enum枚举类型可能的值如下：<a id="more"></a></li>
+<li></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/05/31/Tips201605/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/05/31/Tips201605/'>开发Tips收集-2016年05月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1478,6 +1445,7 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
   }
 })()
 </script>
+
 <ol>
 <li>UIScrollViewKeyboardDismissModeNone,</li>
 <li>UIScrollViewKeyboardDismissModeOnDrag,      // dismisses the keyboard when a drag begins</li>
@@ -1538,7 +1506,7 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
     <link href="http://conanwhf.coding.me/2016/04/30/Tips201604/"/>
     <id>http://conanwhf.coding.me/2016/04/30/Tips201604/</id>
     <published>2016-04-30T09:25:39.000Z</published>
-    <updated>2017-05-04T08:55:30.000Z</updated>
+    <updated>2017-06-12T15:11:47.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
 </blockquote>
@@ -1554,28 +1522,7 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
 <li>避免在drawRect：中进行耗费大量CPU资源的工作</li>
 <li>尽量少调用setNeedsDisplay:（视图内容变化时才调用）</li>
 <li>考虑使用setNeedDisplayInRect: , 传入drawRect:的rect越小，stoke，fill的时间越少, 即使drawRect:是根据视图边界绘制的）</li>
-<li>充分利用GPU的资源，直接设置layer的border，shadow，corner，gradient等属性, GPU将会处理这些属性（相反如果GPU紧张，CPU空闲，应由CPU处理，可在drawRect：中实现）<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/04/30/Tips201604/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/04/30/Tips201604/'>开发Tips收集-2016年04月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-</li>
+<li>充分利用GPU的资源，直接设置layer的border，shadow，corner，gradient等属性, GPU将会处理这些属性（相反如果GPU紧张，CPU空闲，应由CPU处理，可在drawRect：中实现）<a id="more"></a></li>
 <li>如果绘制很多东西到一个视图时，可尝试开启drawsAsynchronusly，那么GPU会将视图内容绘制到backing store中，但是开启后，内存会增加，因此需要评估开启前后性能的变化，谨慎使用。</li>
 </ol>
 </li>
@@ -1630,7 +1577,7 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
     <link href="http://conanwhf.coding.me/2016/03/31/Tips201603/"/>
     <id>http://conanwhf.coding.me/2016/03/31/Tips201603/</id>
     <published>2016-03-31T09:25:39.000Z</published>
-    <updated>2017-05-04T08:55:30.000Z</updated>
+    <updated>2017-06-12T15:11:53.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
 </blockquote>
@@ -1644,28 +1591,7 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
 <li>Segue：以上两种方式都可以，如果在打开目标控制器前需要额外处理，可使用perfromSegueWithIdentifier方法。Identifier在storyboard里设置。</li>
 </ol>
 </li>
-<li>设置UIImage的渲染模式：你可以设置一个UIImage在渲染时是否使用当前视图的Tint Color。UIImage新增了一个只读属性：renderingMode，对应的还有一个新增方法：imageWithRenderingMode:，它使用UIImageRenderingMode枚举值来设置图片的renderingMode属性。该枚举中包含下列值：<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/03/31/Tips201603/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/03/31/Tips201603/'>开发Tips收集-2016年03月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-<ol>
+<li>设置UIImage的渲染模式：你可以设置一个UIImage在渲染时是否使用当前视图的Tint Color。UIImage新增了一个只读属性：renderingMode，对应的还有一个新增方法：imageWithRenderingMode:，它使用UIImageRenderingMode枚举值来设置图片的renderingMode属性。该枚举中包含下列值：<a id="more"></a><ol>
 <li>UIImageRenderingModeAutomatic  // 根据图片的使用环境和所处的绘图上下文自动调整渲染模式。  </li>
 <li>UIImageRenderingModeAlwaysOriginal   // 始终绘制图片原始状态，不使用Tint Color。  </li>
 <li>UIImageRenderingModeAlwaysTemplate   // 始终根据Tint Color绘制图片，忽略图片的颜色信息。  </li>
