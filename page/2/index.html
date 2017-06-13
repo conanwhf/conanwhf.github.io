@@ -223,6 +223,87 @@
           
           
             
+              <a class="post-title-link" href="/2017/02/12/JingJingTest/" itemprop="url">
+                静境电子书评测
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2017-02-12T17:35:25+08:00" content="2017-02-12">
+            2017-02-12
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Life-Other/" itemprop="url" rel="index">
+                  <span itemprop="name">Life & Other</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h2 id="u6574_u4F53_u611F_u89C9"><a href="#u6574_u4F53_u611F_u89C9" class="headerlink" title="整体感觉"></a>整体感觉</h2><p>我已经有个KPW3，携带方便，其他方面都挺满意，就是觉得屏幕小了点。大屏电子书可选择的太少，我的要求一是要屏大，二是要能看的格式多（我对PDF要求并不多，我的书基本上以azw3&amp;mobi为主，少量epub&amp;pdf），三是不要太重（不能超过iPad），这三条综合下来就已经淘汰了大法、DXG，最终选了静境，带电磁书写款，总价2399。<br>整个静境电子书的大小比普通的教材书籍略小
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/02/12/JingJingTest/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2017/02/01/ReadingList2017-01/" itemprop="url">
                 读书清单 2017-01
               </a>
@@ -817,88 +898,6 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2016/08/12/rpi-3b/" itemprop="url">
-                树莓派RaspberryPi 3B的一些改变
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-08-12T19:31:26+08:00" content="2016-08-12">
-            2016-08-12
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Linux/" itemprop="url" rel="index">
-                  <span itemprop="name">Linux</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>工作原因换上了最新的树莓派3B，使用了几天，虽然变化不大，但跟2B还是有一些区别的。在这里写下来供爱好者们参考。</p>
-<ol>
-<li>硬件上，基本上是可以通用的，接口跟2B保持一致，GPIO的排列也没有变过。值得注意的是3B自带了WIFI模块，所以你会看到开机就能有Wlan0的设备。</li>
-<li>系统上，有一些改变可能是操作系统升级导致的，比如cmdline跟以前不同，但总的来说变化不大。官网的烧录img和github提供的kernel源码现在都已经提供了3B的支持，只是烧录系统就不讨论了，如果是自己编译kernel的话要注意<code>/boot/bcm2710-rpi-3-b.dtb</code>这个文件，这是系统支持3B的关键。内核的img名字还是<strong>kernel7.img</strong>没变，新的系统能同时支持3B和2B。是否把<strong>bcm2701-rpi-3-b.dtb</strong>拷贝到旧的系统中就能使其支持3B，我没有测试过，但我想应该不能成功，因为恐怕还需要更新一些index。</li>
-<li>实际使用中，关于UART发现了一个很好玩的变化。以前串口的设备是<code>/dev/ttyAMA0</code>，但在3B上变成了<code>/dev/ttyS0</code>。确切地说，是3B的设备多出来一个<strong>ttyS0</strong>，并且使用ttyAMA0无法传输数据，必须使用ttyS0。前面说了新的系统可以同时兼容两种板子，我用同样的软件在2B和3B上都试了一下，2B依然只有ttyAMA0，所以可以肯定这不是软件升级的区别，具体原因就不知到了。<br>目前只看到这些不同，用起来也没什么区别的样子，可能好的地方就是可以省出一个USB口吧。😀</li>
-</ol>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -937,7 +936,7 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">84</span>
+              <span class="site-state-item-count">85</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

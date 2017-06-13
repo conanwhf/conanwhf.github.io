@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.coding.me/"/>
-  <updated>2017-06-12T15:07:39.000Z</updated>
+  <updated>2017-06-13T17:02:15.000Z</updated>
   <id>http://conanwhf.coding.me/</id>
   
   <author>
@@ -13,6 +13,96 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[ARM板移植Linux系统启动（五）Uboot命令行]]></title>
+    <link href="http://conanwhf.coding.me/2017/06/13/bootup-5-ubootcmd/"/>
+    <id>http://conanwhf.coding.me/2017/06/13/bootup-5-ubootcmd/</id>
+    <published>2017-06-13T09:31:26.000Z</published>
+    <updated>2017-06-13T17:02:15.000Z</updated>
+    <content type="html"><![CDATA[<p>上次说到uboot的启动方式，最后会使用autoboot尝试引导kernel，如果失败或者被手动取消，则进入uboot的命令行。最新的uboot命令行已经发展得比较完善，很大程度上接近shell，包含了各种基本的驱动和完整的工具。这些工具的源码大多在<code>u-boot/cmd</code>下，查看Makefile可以看到，根据不同的配置编译出很多命令，你也可以通过搜索字符串<code>U_BOOT_CMD(</code>来查找这些命令的命名。这些命令的列表可以通过命令行输入<code>help</code>来查看，大致分成几个大类。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/13/bootup-5-ubootcmd/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/13/bootup-5-ubootcmd/'>ARM板移植Linux系统启动（五）Uboot命令行</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+</p>
+<h2 id="Boot"><a href="#Boot" class="headerlink" title="Boot"></a>Boot</h2><p>以boot开头的命令，围绕引导kernel的启动过程，有<strong>boot, bootm, bootz, bootefi, bootp</strong>等等。这其中boot和bootd只是重复调用了autoboot的过程，适用于手动设置参数后启动的情况；其他的boot命令，则适用于不同kernel镜像数据来源。</p>
+<h3 id="bootm_2C_bootz_2C_booti"><a href="#bootm_2C_bootz_2C_booti" class="headerlink" title="bootm, bootz, booti"></a>bootm, bootz, booti</h3><p>这几个都是从内存中的某个地址获得kernel image。bootz是启动zImage，而bootm和booti是启动uImage，其中booti专门用来启动ARM64的kernel image。<br>它们的基本语法是：<code>bootX &lt;kernel address&gt; &lt;rootdisk address&gt; &lt;fdt(dts file) address&gt;</code>，这里的address都是指内存的物理地址，需要提前把image和file加载到内存中，其中根文件系统的地址可以省略（包含在kernel image中），用<strong>-</strong>来代替。<br>在常规的启动引导过程中，uboot的各种启动方式实际上最后都是调用<strong>bootz</strong>的，但之前会设置很多环境变量作为启动的参数。在调试过程中，我们也同样可以手动设置好参数，直接用bootX系列来启动系统。</p>
+<h3 id="bootefi_2C_bootp_2C_nboot"><a href="#bootefi_2C_bootp_2C_nboot" class="headerlink" title="bootefi, bootp, nboot"></a>bootefi, bootp, nboot</h3><p>这三个命令用于不同来源的kernel image，一个来自efi分区中的启动image，一个来自于网络，一个来自nand flash。它们只是比bootz多了一步加载行为，即将kernel image从某个设备拷贝到内存中，本质上是一样的。类似的命令还有<strong>tftpboot, usbboot, dhcp, nfs, rarpboot</strong>等。</p>
+<p>其他boot系的命令也是大同小异，通过help能够看到对应的说明，需要自己根据情况选择使用。</p>
+<h2 id="Env"><a href="#Env" class="headerlink" title="Env"></a>Env</h2><p>uboot的环境变量跟shell的很相似，是存放在内存中的一些字符串。一个完整的evn包括名字(name)和值(value)，可以通过<code>$XXXX</code>来完成嵌套和调用。它们服务于最后的boot行为，用来定义启动过程中的各种顺序、参数、路径、IP地址等等，你可以通过<code>printenv</code>来查看当前所有的环境变量。 </p>
+<ul>
+<li><code>askenv &lt;name&gt;</code>：查询某个变量的值</li>
+<li><code>editenv &lt;name&gt;</code>：修改某个变量的值，一般用于比较value比较长的情况</li>
+<li><p><code>saveenv</code>：将所有环境变量保存在存储装置中。这个装置可以是nand flash, nor flash, 或者EEPROM，由uboot的源码来定义存储的位置和地址等信息：</p>
+<pre><code>if defined(CONFIG_ENV_IS_IN_NAND)
+    #define CONFIG_ENV_OFFSET               0x001c0000
+    #define CONFIG_ENV_OFFSET_REDUND        0x001e0000
+    #define CONFIG_SYS_ENV_SECT_SIZE        CONFIG_SYS_NAND_BLOCK_SIZE
+#elif !defined(CONFIG_ENV_IS_NOWHERE)
+/* Not NAND, SPI, NOR or eMMC env, so put ENV in a file on FAT */
+    #define CONFIG_ENV_IS_IN_FAT
+    #define FAT_ENV_INTERFACE               &quot;mmc&quot;
+    #define FAT_ENV_DEVICE_AND_PART         &quot;0:1&quot;
+    #define FAT_ENV_FILE                    &quot;uboot.env&quot;
+#endif/
+define CONFIG_ENV_SIZE     (128 &lt;&lt; 10)
+</code></pre></li>
+<li><code>setenv &lt;name&gt; &lt;value&gt;</code>：修改某个变量的值，如果value为空则表示删除这个变量</li>
+</ul>
+<h3 id="u5E38_u7528_u7684_u73AF_u5883_u53D8_u91CF"><a href="#u5E38_u7528_u7684_u73AF_u5883_u53D8_u91CF" class="headerlink" title="常用的环境变量"></a>常用的环境变量</h3><p>在调试中，特别是网络调试中，环境变量的设置很重要。一般的网络操作包括ping, boot等等都需要事先设定好正确的环境变量。这里列举几个常用的：</p>
+<ul>
+<li>baudrate，串口控制台的波特率</li>
+<li>netmask，网络掩码</li>
+<li>ethaddr，MAC地址</li>
+<li>serverip &amp; ipaddr，TFTP服务器端的IP地址以及本地的IP地址</li>
+<li>bootfile，默认的启动文件名，在网络启动模式中也是默认的下载文件名</li>
+<li>bootargs，传递给Linux内核的启动参数</li>
+<li>fdtfile &amp; fdtaddr，dts文件默认文件名以及load的内存地址</li>
+</ul>
+<h2 id="u5916_u90E8_u8BBE_u5907"><a href="#u5916_u90E8_u8BBE_u5907" class="headerlink" title="外部设备"></a>外部设备</h2><p>uboot自带很多外设的驱动，包括USB，MMC，Nand，Nor，GPIO，SPI，MII，I2C……具体的使用帮助可以通过<code>help &lt;tool&gt;</code>来查看。例如USB，在插入U盘的情况下，使用<code>usb start</code>便能看到有partition被检测到，接下来可以通过文件系统的支持来读取和查看U盘上的文件和目录。</p>
+<h2 id="u6587_u4EF6_u7CFB_u7EDF"><a href="#u6587_u4EF6_u7CFB_u7EDF" class="headerlink" title="文件系统"></a>文件系统</h2><p>我使用的这个uboot version为2017.03版本，其中已经包含了对fat, ext(2,3,4), cramfs, cbfs, jffs2, ubifs, yaffs2,zfs, reiserfs等相当多的文件系统支持。这其中用得最多的应该是fat和extX了。以fat为例，几个最重要的命令如下：</p>
+<ul>
+<li><code>fatinfo &lt;interface&gt; &lt;dev[:part]&gt;</code>：显示某个设备或分区的信息，如<code>fatinfo mmc 0</code></li>
+<li><code>fatload &lt;interface&gt; &lt;dev[:part]&gt; &lt;addr&gt; &lt;filename&gt; [bytes]</code>：将某个文件前X byte加载到指定的内存地址中，最后一个参数为空时加载整个文件，如<code>fatload usb 0:1 zImage 0x80000000</code>会把U盘上的zImage拷贝到内存的0x80000000处</li>
+<li><code>fatls  &lt;interface&gt; &lt;dev[:part]&gt; [directory]</code> ：读取并打印目录中的文件列表，如<code>fatls mmc 1:1</code>会打印mmc1 partition1的根目录文件列表</li>
+<li><code>fatwrite &lt;interface&gt; &lt;dev[:part]&gt; &lt;addr&gt; &lt;filename&gt; [bytes]</code>：将指定内存开始的X byte保存为文件，如<code>fatwrite mmc 0:1 0x80000000 img 0x1000</code>会将内存0x80000000起始的4K数据保存在emmc0的第一个分区<br>其他几个不同的文件系统的工具可照葫芦画瓢。<br>文件系统的支持不但意味着在uboot命令行我们可以手动进行文件的读写，还意味着在启动阶段，uboot可以从支持的文件系统分区中读取相应的数据，也就是说，从一个ext4的partition找到zImage并启动是可行的。这给我们配置启动参数以更大的灵活性和可定制性，从TF等设备启动系统也是基于这样的支持。</li>
+</ul>
+<h2 id="u83B7_u53D6_u6570_u636E_u548C_u5904_u7406"><a href="#u83B7_u53D6_u6570_u636E_u548C_u5904_u7406" class="headerlink" title="获取数据和处理"></a>获取数据和处理</h2><p>uboot关于数据的处理都是基于物理地址的，除了source和destination的地址，还有一种长度参数length，表示按照字节、字、长来处理内存数据。其中.b以字节为单位；.w以字为单位；.l以长字为单位。<strong>注意tool\<len\>中间不能有空格，例如需要直接输入<code>cmp.b XXX XXX XXX</code></len\></strong>。</p>
+<ul>
+<li><code>cmp&lt;len&gt; &lt;addr1&gt; &lt;addr2&gt; &lt;count&gt;</code>：比较addr1和add2的长度为count的（基于length计算）数据</li>
+<li><code>cp&lt;len&gt; &lt;src&gt; &lt;dst&gt; &lt;count&gt;</code>：把count个数据从src复制到dst</li>
+<li><code>mw&lt;len&gt; &lt;addr&gt; &lt;vaule&gt; [count]</code>：把addr开始的count个数据设为vaule</li>
+<li><code>md&lt;len&gt; addr count</code>：读取并显示addr开始的数据内容</li>
+<li><code>crc32 addr count res</code>：使用crc32校验addr开始的长度为count的数据，将结果存放在地址res中</li>
+</ul>
+<h3 id="u4ECE_u4E32_u53E3_u83B7_u53D6_u548C_u53D1_u9001_u6570_u636E"><a href="#u4ECE_u4E32_u53E3_u83B7_u53D6_u548C_u53D1_u9001_u6570_u636E" class="headerlink" title="从串口获取和发送数据"></a>从串口获取和发送数据</h3><p>在调试中经常需要从串口传输少量数据，虽然用起来比较麻烦，但有时也是必须的。跟串口传输相关的几个tool有：<br>loadb - load binary file over serial line (kermit mode)<br>loads - load S-Record file over serial line<br>loadx - load binary file over serial line (xmodem mode)<br>loady - load binary file over serial line (ymodem mode)<br>它们除了传输协议不同，别的都是一样的。一般的调用格式为：<code>loadX &lt;addr&gt; &lt;baudrate&gt;</code>，波特率一般都是115200，addr则是数据加载到的目的内存地址，默认为kernel加载地址，定义在<br><code>include/configs/ti_armv7_common.h:#define CONFIG_SYS_LOAD_ADDR        0x82000000</code><br>这几个工具的使用，因为是全命令行的，步骤比较多，但网上教程也很多，需要自查即可。</p>
+<h2 id="u5176_u4ED6_u547D_u4EE4"><a href="#u5176_u4ED6_u547D_u4EE4" class="headerlink" title="其他命令"></a>其他命令</h2><p>其他还有一些普通命令，大多跟shell很像，比如<strong>ping, echo, unzip</strong>等等。不太常用，也很简单，就不啰嗦了，需要的可以自己用help看看用法。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>上次说到uboot的启动方式，最后会使用autoboot尝试引导kernel，如果失败或者被手动取消，则进入uboot的命令行。最新的uboot命令行已经发展得比较完善，很大程度上接近shell，包含了各种基本的驱动和完整的工具。这些工具的源码大多在<code>u-boot/cmd</code>下，查看Makefile可以看到，根据不同的配置编译出很多命令，你也可以通过搜索字符串<code>U_BOOT_CMD(</code>来查找这些命令的命名。这些命令的列表可以通过命令行输入<code>help</code>来查看，大致分成几个大类。]]>
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://conanwhf.coding.me/categories/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[ARM板移植Linux系统启动（四）配置Kernel]]></title>
@@ -1561,64 +1651,6 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
 <li>尽量少调用setNeedsDisplay:（视图内容变化时才调用）</li>
 <li>考虑使用setNeedDisplayInRect: , 传入drawRect:的rect越小，stoke，fill的时间越少, 即使drawRect:是根据视图边界绘制的）</li>
 <li>充分利用GPU的资源，直接设置layer的border，shadow，corner，gradient等属性, GPU将会处理这些属性（相反如果GPU紧张，CPU空闲，应由CPU处理，可在drawRect：中实现）]]>
-    
-    </summary>
-    
-      <category term="Xcode" scheme="http://conanwhf.coding.me/tags/Xcode/"/>
-    
-      <category term="iOS - Swift" scheme="http://conanwhf.coding.me/tags/iOS-Swift/"/>
-    
-      <category term="DevTips" scheme="http://conanwhf.coding.me/categories/DevTips/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[开发Tips收集-2016年03月]]></title>
-    <link href="http://conanwhf.coding.me/2016/03/31/Tips201603/"/>
-    <id>http://conanwhf.coding.me/2016/03/31/Tips201603/</id>
-    <published>2016-03-31T09:25:39.000Z</published>
-    <updated>2017-06-12T15:11:53.000Z</updated>
-    <content type="html"><![CDATA[<blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>UIProgressView 的 subviews 是两个 UIImageView，第一个是 TrackTintColor 层（轨道），第二个是 Progress Tint Color 层（进度）</li>
-<li>如果你对文本显示没有特殊要求，可以参考下 UILabel 内部的实现方式：用 <a href="/">NSAttributedString boundingRectWithSize:options:context:</a> 来计算文本宽高，用 -<a href="/">NSAttributedString drawWithRect:options:context:</a> 来绘制文本。尽管这两个方法性能不错，但仍旧需要放到后台线程进行以避免阻塞主线程</li>
-<li>为了帮助你发现你的代码的问题，你可以使用Xcode来分析你的代码，帮助你找到出现问题的地方。注意，Xcode分析项目，它会指出每一个潜在的可能出现的问题的地方。从Xcode的 Product菜单选择 Analyze或按 Shift-Command-B.Xcode的将需要片刻的时间，但是当它完成的时候你会在左边的 Issue Navigator看到问题列表。由Analyze发现的问题用蓝色高亮显示</li>
-<li>多视图控制器跳转方法<ol>
-<li>Modal：<br> 打开：presentViewController<br> 关闭：dismissViewController</li>
-<li>Push:需搭配NavigationController使用，采用压栈和出栈的方式<br> 打开：pushViewController<br> 关闭：popViewController</li>
-<li>Segue：以上两种方式都可以，如果在打开目标控制器前需要额外处理，可使用perfromSegueWithIdentifier方法。Identifier在storyboard里设置。</li>
-</ol>
-</li>
-<li>设置UIImage的渲染模式：你可以设置一个UIImage在渲染时是否使用当前视图的Tint Color。UIImage新增了一个只读属性：renderingMode，对应的还有一个新增方法：imageWithRenderingMode:，它使用UIImageRenderingMode枚举值来设置图片的renderingMode属性。该枚举中包含下列值：<a id="more"></a><ol>
-<li>UIImageRenderingModeAutomatic  // 根据图片的使用环境和所处的绘图上下文自动调整渲染模式。  </li>
-<li>UIImageRenderingModeAlwaysOriginal   // 始终绘制图片原始状态，不使用Tint Color。  </li>
-<li>UIImageRenderingModeAlwaysTemplate   // 始终根据Tint Color绘制图片，忽略图片的颜色信息。  </li>
-</ol>
-</li>
-<li>引入了Foundation以后，数组会映射为<a href="/">AnyObject</a>,而值类型会映射了对应的Foundation类型（比如NSString，NSNumber等），也就是AnyObject了</li>
-<li>在lldb中一键打开模拟器sandbox路径：<br>  打开/.lldbinit，在里面加入一行：<br>  <code>command alias sb script from subprocess import call; call([&quot;open&quot;, &#39;{0:s}&#39;.format(lldb.frame.EvaluateExpression(&quot;NSHomeDirectory()&quot;)).split(&quot;\&quot;&quot;)[1]]);</code><br>  然后中断时，在lldb里打sb回车，就能打开模拟器当前运行的app的沙箱路径了</li>
-<li>UINavigationController导航控制器，是多个界面间跳转的重要元素，可以理解为它存储着多个viewController，它的存储结构是栈，栈的特点是先进后出。</li>
-<li>UINavigationController有几个常用的方法：<br>  1：<a href="/">UINavigationController initWithRootViewController：viewController </a> 是指将哪一个视图控制器设置为导航控制器的根视图控制器，即运行是第一次看到的界面。<br>  2：<a href="/">UINavigationController  pushViewController：viewController animated：BOOL</a> 是指将视图控制器送入堆栈，跳转到下一个视图控制器，即下一个界面。<br>  3：<a href="/">UINavigationController popViewControlleranimated：BOOL </a>是指将栈顶的试图控制器移出，即返回上一个界面。<br>  4：<a href="/">UINavigationController popToRootViewControlleranimated：BOOL </a>是指直接返回到根视图控制器，即返回第一个界面。<br>  5：<a href="/">UINavigationController popViewController：viewController  animated：BOOL </a> 跳转到对应的视图控制器，即相应界面。<br>  UINavigationController有一个属性，viewcontrollers，它是一个数组，所有视图控制器都被包含在其中，试图控制器在其中的位置跟UINavigationController的顺序一样。可以通过<a href="/">array objectAtIdenx:index</a>得到相应的视图控制器。</li>
-<li>在使用单例模式时一般使用allocWithZone，因为alloc最终还是会调用allocWithZone进行分配空间</li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>UIProgressView 的 subviews 是两个 UIImageView，第一个是 TrackTintColor 层（轨道），第二个是 Progress Tint Color 层（进度）</li>
-<li>如果你对文本显示没有特殊要求，可以参考下 UILabel 内部的实现方式：用 <a href="/">NSAttributedString boundingRectWithSize:options:context:</a> 来计算文本宽高，用 -<a href="/">NSAttributedString drawWithRect:options:context:</a> 来绘制文本。尽管这两个方法性能不错，但仍旧需要放到后台线程进行以避免阻塞主线程</li>
-<li>为了帮助你发现你的代码的问题，你可以使用Xcode来分析你的代码，帮助你找到出现问题的地方。注意，Xcode分析项目，它会指出每一个潜在的可能出现的问题的地方。从Xcode的 Product菜单选择 Analyze或按 Shift-Command-B.Xcode的将需要片刻的时间，但是当它完成的时候你会在左边的 Issue Navigator看到问题列表。由Analyze发现的问题用蓝色高亮显示</li>
-<li>多视图控制器跳转方法<ol>
-<li>Modal：<br> 打开：presentViewController<br> 关闭：dismissViewController</li>
-<li>Push:需搭配NavigationController使用，采用压栈和出栈的方式<br> 打开：pushViewController<br> 关闭：popViewController</li>
-<li>Segue：以上两种方式都可以，如果在打开目标控制器前需要额外处理，可使用perfromSegueWithIdentifier方法。Identifier在storyboard里设置。</li>
-</ol>
-</li>
-<li>设置UIImage的渲染模式：你可以设置一个UIImage在渲染时是否使用当前视图的Tint Color。UIImage新增了一个只读属性：renderingMode，对应的还有一个新增方法：imageWithRenderingMode:，它使用UIImageRenderingMode枚举值来设置图片的renderingMode属性。该枚举中包含下列值：]]>
     
     </summary>
     

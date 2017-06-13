@@ -4,6 +4,24 @@
 
     
   <url>
+    <loc>http://conanwhf.coding.me/2017/06/13/bootup-5-ubootcmd/</loc>
+    <lastmod>2017-06-13T17:02:15.000Z</lastmod>
+    <data>
+        <display>
+        <title>ARM板移植Linux系统启动（五）Uboot命令行</title>
+        <pubTime>2017-06-13T09:31:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Linux" url="http://conanwhf.coding.me/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.coding.me/2016/01/14/rpi-toolchain/</loc>
     <lastmod>2017-06-13T03:41:16.000Z</lastmod>
     <data>
@@ -1428,24 +1446,6 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/04/Swift_open/</loc>
-    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>Swift开源了！！！</title>
-        <pubTime>2015-12-04T10:29:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://conanwhf.coding.me/2015/12/16/creatDuoshuo/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
@@ -1490,26 +1490,6 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/09/03/StructPic/</loc>
-    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>Cocoa库的架构</title>
-        <pubTime>2015-09-03T09:19:33.000Z</pubTime>
-        
-        <tag>iOS</tag>
-         
-         
-           
-             
-              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://conanwhf.coding.me/2015/12/21/newsreader-3/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
@@ -1525,6 +1505,26 @@
            
              
               <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/09/03/StructPic/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>Cocoa库的架构</title>
+        <pubTime>2015-09-03T09:19:33.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+         
+           
+             
+              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
           
         </display>
     </data>
@@ -1574,6 +1574,24 @@
 
     
   <url>
+    <loc>http://conanwhf.coding.me/2016/01/22/microwave/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>微波炉的悲剧</title>
+        <pubTime>2016-01-22T09:35:25.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.coding.me/2015/11/05/ResourceInGit/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
@@ -1614,17 +1632,17 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2016/01/22/microwave/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/04/Swift_open/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>微波炉的悲剧</title>
-        <pubTime>2016-01-22T09:35:25.000Z</pubTime>
+        <title>Swift开源了！！！</title>
+        <pubTime>2015-12-04T10:29:26.000Z</pubTime>
         
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
