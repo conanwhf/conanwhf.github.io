@@ -4,6 +4,30 @@
 
     
   <url>
+    <loc>http://conanwhf.coding.me/2016/01/14/rpi-toolchain/</loc>
+    <lastmod>2017-06-13T03:41:16.000Z</lastmod>
+    <data>
+        <display>
+        <title>自己编译给树莓派RaspberryPi的交叉编译工具</title>
+        <pubTime>2016-01-14T03:31:26.000Z</pubTime>
+        
+        <tag>RaspberryPi</tag>
+         
+        <tag>crosstool-ng</tag>
+         
+        <tag>toolchain</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="http://conanwhf.coding.me/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.coding.me/2015/09/12/AddTableViewInUIViewController/</loc>
     <lastmod>2017-06-12T15:16:48.000Z</lastmod>
     <data>
@@ -25,7 +49,7 @@
     
   <url>
     <loc>http://conanwhf.coding.me/2015/09/20/CocoaPod/</loc>
-    <lastmod>2017-06-12T15:16:37.000Z</lastmod>
+    <lastmod>2017-06-12T15:16:38.000Z</lastmod>
     <data>
         <display>
         <title>CocoaPod</title>
@@ -330,6 +354,28 @@
         <tag>Thread</tag>
          
         <tag>iOS</tag>
+         
+         
+           
+             
+              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/01/21/newsreader-8/</loc>
+    <lastmod>2017-06-12T15:15:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>从打造新闻app学到的(8)：自定义TableViewCell</title>
+        <pubTime>2016-01-21T09:32:45.000Z</pubTime>
+        
+        <tag>StoryBoard</tag>
+         
+        <tag>TableView</tag>
          
          
            
@@ -678,30 +724,6 @@
         <pubTime>2016-01-12T06:31:26.000Z</pubTime>
         
         <tag>RaspberryPi</tag>
-         
-         
-           
-             
-              <breadCrumb title="Linux" url="http://conanwhf.coding.me/categories/Linux/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2016/01/14/rpi-toolchain/</loc>
-    <lastmod>2017-06-12T15:14:05.000Z</lastmod>
-    <data>
-        <display>
-        <title>自己编译给树莓派RaspberryPi的交叉编译工具</title>
-        <pubTime>2016-01-14T03:31:26.000Z</pubTime>
-        
-        <tag>RaspberryPi</tag>
-         
-        <tag>crosstool-ng</tag>
-         
-        <tag>toolchain</tag>
          
          
            
@@ -1406,26 +1428,6 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/09/02/MustGet/</loc>
-    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>iOS开发必知必会（自己总结的）</title>
-        <pubTime>2015-09-02T09:11:28.000Z</pubTime>
-        
-        <tag>iOS</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://conanwhf.coding.me/2015/12/04/Swift_open/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
@@ -1437,6 +1439,24 @@
            
              
               <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/12/16/creatDuoshuo/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>新配置了多说</title>
+        <pubTime>2015-12-16T05:35:25.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
           
         </display>
     </data>
@@ -1457,6 +1477,26 @@
          
         <tag>StroyBoard</tag>
          
+        <tag>iOS</tag>
+         
+         
+           
+             
+              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/09/03/StructPic/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>Cocoa库的架构</title>
+        <pubTime>2015-09-03T09:19:33.000Z</pubTime>
+        
         <tag>iOS</tag>
          
          
@@ -1534,59 +1574,21 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/09/03/StructPic/</loc>
+    <loc>http://conanwhf.coding.me/2015/11/05/ResourceInGit/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>Cocoa库的架构</title>
-        <pubTime>2015-09-03T09:19:33.000Z</pubTime>
+        <title>iOS开发资源</title>
+        <pubTime>2015-11-05T10:40:05.000Z</pubTime>
         
+        <tag>Git</tag>
+         
         <tag>iOS</tag>
          
          
            
              
-              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2016/01/22/microwave/</loc>
-    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>微波炉的悲剧</title>
-        <pubTime>2016-01-22T09:35:25.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2016/01/21/newsreader-8/</loc>
-    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>从打造新闻app学到的(8)：自定义TableViewCell</title>
-        <pubTime>2016-01-21T09:32:45.000Z</pubTime>
-        
-        <tag>StoryBoard</tag>
-         
-        <tag>TableView</tag>
-         
-         
-           
-             
-              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
           
         </display>
     </data>
@@ -1612,12 +1614,12 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/16/creatDuoshuo/</loc>
+    <loc>http://conanwhf.coding.me/2016/01/22/microwave/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>新配置了多说</title>
-        <pubTime>2015-12-16T05:35:25.000Z</pubTime>
+        <title>微波炉的悲剧</title>
+        <pubTime>2016-01-22T09:35:25.000Z</pubTime>
         
          
            
@@ -1648,28 +1650,6 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/11/05/ResourceInGit/</loc>
-    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>iOS开发资源</title>
-        <pubTime>2015-11-05T10:40:05.000Z</pubTime>
-        
-        <tag>Git</tag>
-         
-        <tag>iOS</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://conanwhf.coding.me/2015/09/03/NewProjectByCode/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
@@ -1683,6 +1663,26 @@
            
              
               <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/09/02/MustGet/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>iOS开发必知必会（自己总结的）</title>
+        <pubTime>2015-09-02T09:11:28.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
           
         </display>
     </data>
