@@ -46,18 +46,18 @@
 
 
 <meta name="description" content="经过这些年的演变，U-boot已经从一个简单的loader慢慢发展成了一个小小系统，硬件上原生支持各种平台、外设，软件上支持Fat&amp;amp;ext234等文件系统、传输协议、测试工具，可以说相当完善了。这种进化，负面影响是让整体变得更复杂臃肿，但也有更多的正面影响，是让我们的移植工作更加简单、模块化。
-Uboot代码结构">
+Uboot代码结构代码结构是了解uboot的基础，作为一个成熟的开源软件，uboot的代码结构很">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ARM板移植Linux系统启动（三）UBOOT移植">
 <meta property="og:url" content="http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="经过这些年的演变，U-boot已经从一个简单的loader慢慢发展成了一个小小系统，硬件上原生支持各种平台、外设，软件上支持Fat&amp;amp;ext234等文件系统、传输协议、测试工具，可以说相当完善了。这种进化，负面影响是让整体变得更复杂臃肿，但也有更多的正面影响，是让我们的移植工作更加简单、模块化。
-Uboot代码结构">
-<meta property="og:updated_time" content="2017-06-12T15:10:19.000Z">
+Uboot代码结构代码结构是了解uboot的基础，作为一个成熟的开源软件，uboot的代码结构很">
+<meta property="og:updated_time" content="2017-06-14T10:41:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ARM板移植Linux系统启动（三）UBOOT移植">
 <meta name="twitter:description" content="经过这些年的演变，U-boot已经从一个简单的loader慢慢发展成了一个小小系统，硬件上原生支持各种平台、外设，软件上支持Fat&amp;amp;ext234等文件系统、传输协议、测试工具，可以说相当完善了。这种进化，负面影响是让整体变得更复杂臃肿，但也有更多的正面影响，是让我们的移植工作更加简单、模块化。
-Uboot代码结构">
+Uboot代码结构代码结构是了解uboot的基础，作为一个成熟的开源软件，uboot的代码结构很">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -269,8 +269,7 @@ Uboot代码结构">
 
       
         <span itemprop="articleBody"><p>经过这些年的演变，U-boot已经从一个简单的loader慢慢发展成了一个小小系统，硬件上原生支持各种平台、外设，软件上支持Fat&amp;ext234等文件系统、传输协议、测试工具，可以说相当完善了。这种进化，负面影响是让整体变得更复杂臃肿，但也有更多的正面影响，是让我们的移植工作更加简单、模块化。</p>
-<h2 id="Uboot_u4EE3_u7801_u7ED3_u6784"><a href="#Uboot_u4EE3_u7801_u7ED3_u6784" class="headerlink" title="Uboot代码结构"></a>Uboot代码结构</h2><a id="more"></a>
-</p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/'>ARM板移植Linux系统启动（三）UBOOT移植</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<h2 id="Uboot_u4EE3_u7801_u7ED3_u6784"><a href="#Uboot_u4EE3_u7801_u7ED3_u6784" class="headerlink" title="Uboot代码结构"></a>Uboot代码结构</h2><p>代码结构是了解uboot的基础，作为一个成熟的开源软件，uboot的代码结构很清晰。绝大多数的代码都是通用的，所以在移植过程中，基本上只需要找到自己的对应平台，修改板子特有的部分即可。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/'>ARM板移植Linux系统启动（三）UBOOT移植</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -291,8 +290,7 @@ Uboot代码结构">
   }
 })()
 </script>
-
-<p>代码结构是了解uboot的基础，作为一个成熟的开源软件，uboot的代码结构很清晰。绝大多数的代码都是通用的，所以在移植过程中，基本上只需要找到自己的对应平台，修改板子特有的部分即可。<br>├── api                uboot提供的API接口<br>├── arch               与体系结构相关的代码<br>│   ├── arm<br>│   │   ├── mach-omap2  BeagleBoneBlack使用的架构<br>│   ├── x86<br>├── board              根据不同的具体开发板而定制的代码<br>│   ├── ti             厂商：TI<br>│   │   ├── am335x     BeagleBoneBlack使用的平台，主要的改动应该在这里，包括内存初始化<br>│   │   ├── beagle<br>│   │   ├── common<br>│   │   ├── evm<br>├── cmd                通用命令行处理工具<br>├── common             通用核心代码，主要给uboot使用，部分SPL<br>│   ├── spl            SPL的通用代码<br>├── configs            配置文件<br>├── disk               磁盘分区相关<br>├── doc                文档<br>├── drivers            各种驱动，uboot使用<br>├── dts                dtb文件的编译脚本<br>├── examples           范例<br>├── fs                 文件系统代码<br>├── include            公用头文件<br>│   ├── configs        不同板子配置选项的头文件<br>├── lib                通用库<br>├── net                网络相关<br>├── post               Power On Self Test，开机自检程序<br>├── scripts            编译脚本<br>├── test               测试程序<br>├── tools              相关小工具<br>如果是想要重新编译和优化uboot，那么通常修改配置文件即可；如果是一块硬件上有修改的板子，那么则需要另外关注board/XXX/部分，基于原有的初始化代码进行修改；如果是完全新设计的芯片，则必须根据芯片不同模块的datasheet自己添加一套初始化代码，只有arm平台的一些基本内容可以通用了。</p>
+<br>├── api                uboot提供的API接口<br>├── arch               与体系结构相关的代码<br>│   ├── arm<br>│   │   ├── mach-omap2  BeagleBoneBlack使用的架构<br>│   ├── x86<br>├── board              根据不同的具体开发板而定制的代码<br>│   ├── ti             厂商：TI<br>│   │   ├── am335x     BeagleBoneBlack使用的平台，主要的改动应该在这里，包括内存初始化<br>│   │   ├── beagle<br>│   │   ├── common<br>│   │   ├── evm<br>├── cmd                通用命令行处理工具<br>├── common             通用核心代码，主要给uboot使用，部分SPL<br>│   ├── spl            SPL的通用代码<br>├── configs            配置文件<br>├── disk               磁盘分区相关<br>├── doc                文档<br>├── drivers            各种驱动，uboot使用<br>├── dts                dtb文件的编译脚本<br>├── examples           范例<br>├── fs                 文件系统代码<br>├── include            公用头文件<br>│   ├── configs        不同板子配置选项的头文件<br>├── lib                通用库<br>├── net                网络相关<br>├── post               Power On Self Test，开机自检程序<br>├── scripts            编译脚本<br>├── test               测试程序<br>├── tools              相关小工具<br>如果是想要重新编译和优化uboot，那么通常修改配置文件即可；如果是一块硬件上有修改的板子，那么则需要另外关注board/XXX/部分，基于原有的初始化代码进行修改；如果是完全新设计的芯片，则必须根据芯片不同模块的datasheet自己添加一套初始化代码，只有arm平台的一些基本内容可以通用了。</p>
 <h2 id="u542F_u52A8_u6D41_u7A0B"><a href="#u542F_u52A8_u6D41_u7A0B" class="headerlink" title="启动流程"></a>启动流程</h2><p>前一篇讲SPL的启动的时候提到，最初从<code>start.S</code> call到了<code>crt0.S</code>。<code>crt0.S</code>会先后调用<code>board_init_f()</code>和<code>board_init_r()</code>两个函数，当作为SPL编译时<code>board_init_f()</code>是直接返回的，而在uboot时是有用的。大致上来说，<code>board_init_f()</code>侧重于基础硬件的初始化，以及软件堆栈等方面的准备，更底层一点；而<code>board_init_r()</code>则更多的是软件方面的初始化，并且最终完成uboot启动过程或进入命令行。</p>
 <h3 id="common/board_f-c"><a href="#common/board_f-c" class="headerlink" title="common/board_f.c"></a><code>common/board_f.c</code></h3><p>这是uboot(实际上是uboot第二阶段，<strong>u-boot.img</strong>所包含的内容，下文不再区分)的入口函数<code>board_init_f()</code>所在的文件。可以看到函数<code>board_init_f()</code>很简单，初始化全局变量后，就根据一个<code>init_sequence_f</code>依次运行不同的函数，失败则把系统hang住，成功当然就是进入正常的启动流程中去了。<code>init_sequence_f</code>在同一个文件中也有定义，很长，我删减无关平台的内容大致看看：</p>
 <pre><code>static init_fnc_t init_sequence_f[] = {
@@ -532,7 +530,7 @@ endif
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">85</span>
+              <span class="site-state-item-count">87</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

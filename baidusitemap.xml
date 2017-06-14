@@ -4,6 +4,60 @@
 
     
   <url>
+    <loc>http://conanwhf.coding.me/2017/06/14/bootup-7-loader/</loc>
+    <lastmod>2017-06-14T11:33:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>ARM板移植Linux系统启动（七）uBoot中的启动器</title>
+        <pubTime>2017-06-14T09:31:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Linux" url="http://conanwhf.coding.me/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2017/06/14/bootup-6-flasher/</loc>
+    <lastmod>2017-06-14T11:31:31.000Z</lastmod>
+    <data>
+        <display>
+        <title>ARM板移植Linux系统启动（六）烧写系统到emmc</title>
+        <pubTime>2017-06-14T04:31:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Linux" url="http://conanwhf.coding.me/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/</loc>
+    <lastmod>2017-06-14T10:41:25.000Z</lastmod>
+    <data>
+        <display>
+        <title>ARM板移植Linux系统启动（三）UBOOT移植</title>
+        <pubTime>2017-06-09T09:31:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Linux" url="http://conanwhf.coding.me/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.coding.me/2017/06/13/bootup-5-ubootcmd/</loc>
     <lastmod>2017-06-13T17:02:15.000Z</lastmod>
     <data>
@@ -1390,24 +1444,6 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/</loc>
-    <lastmod>2017-06-12T15:10:19.000Z</lastmod>
-    <data>
-        <display>
-        <title>ARM板移植Linux系统启动（三）UBOOT移植</title>
-        <pubTime>2017-06-09T09:31:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="Linux" url="http://conanwhf.coding.me/categories/Linux/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/</loc>
     <lastmod>2017-06-12T15:07:39.000Z</lastmod>
     <data>
@@ -1446,61 +1482,13 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/16/creatDuoshuo/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/04/Swift_open/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>新配置了多说</title>
-        <pubTime>2015-12-16T05:35:25.000Z</pubTime>
+        <title>Swift开源了！！！</title>
+        <pubTime>2015-12-04T10:29:26.000Z</pubTime>
         
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/22/newsreader-4/</loc>
-    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>从打造新闻app学到的(4)：使用Segue在ViewController之间传递数据</title>
-        <pubTime>2015-12-22T13:14:35.000Z</pubTime>
-        
-        <tag>NewsAPP</tag>
-         
-        <tag>Segue</tag>
-         
-        <tag>StroyBoard</tag>
-         
-        <tag>iOS</tag>
-         
-         
-           
-             
-              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-3/</loc>
-    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>从打造新闻app学到的(3)：让自定义的类可排序</title>
-        <pubTime>2015-12-21T11:14:35.000Z</pubTime>
-        
-        <tag>Class</tag>
-         
-        <tag>NewsAPP</tag>
-         
          
            
              
@@ -1532,21 +1520,77 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-2/</loc>
+    <loc>http://conanwhf.coding.me/2015/11/05/ResourceInGit/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>从打造新闻app学到的(2)：定义类中的只读属性</title>
-        <pubTime>2015-12-21T09:14:35.000Z</pubTime>
+        <title>iOS开发资源</title>
+        <pubTime>2015-11-05T10:40:05.000Z</pubTime>
         
-        <tag>Class</tag>
+        <tag>Git</tag>
          
-        <tag>NewsAPP</tag>
+        <tag>iOS</tag>
          
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/09/03/NewProjectByCode/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>第一个带UI的程序(New Project, Code mode only)</title>
+        <pubTime>2015-09-03T09:18:08.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+         
+           
+             
+              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/12/16/creatDuoshuo/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>新配置了多说</title>
+        <pubTime>2015-12-16T05:35:25.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2016/01/22/microwave/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>微波炉的悲剧</title>
+        <pubTime>2016-01-22T09:35:25.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
           
         </display>
     </data>
@@ -1574,39 +1618,21 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2016/01/22/microwave/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-2/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>微波炉的悲剧</title>
-        <pubTime>2016-01-22T09:35:25.000Z</pubTime>
+        <title>从打造新闻app学到的(2)：定义类中的只读属性</title>
+        <pubTime>2015-12-21T09:14:35.000Z</pubTime>
         
+        <tag>Class</tag>
          
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.coding.me/2015/11/05/ResourceInGit/</loc>
-    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>iOS开发资源</title>
-        <pubTime>2015-11-05T10:40:05.000Z</pubTime>
-        
-        <tag>Git</tag>
-         
-        <tag>iOS</tag>
+        <tag>NewsAPP</tag>
          
          
            
              
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
           
         </display>
     </data>
@@ -1632,13 +1658,17 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/04/Swift_open/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-3/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>Swift开源了！！！</title>
-        <pubTime>2015-12-04T10:29:26.000Z</pubTime>
+        <title>从打造新闻app学到的(3)：让自定义的类可排序</title>
+        <pubTime>2015-12-21T11:14:35.000Z</pubTime>
         
+        <tag>Class</tag>
+         
+        <tag>NewsAPP</tag>
+         
          
            
              
@@ -1668,13 +1698,19 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/09/03/NewProjectByCode/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/22/newsreader-4/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>第一个带UI的程序(New Project, Code mode only)</title>
-        <pubTime>2015-09-03T09:18:08.000Z</pubTime>
+        <title>从打造新闻app学到的(4)：使用Segue在ViewController之间传递数据</title>
+        <pubTime>2015-12-22T13:14:35.000Z</pubTime>
         
+        <tag>NewsAPP</tag>
+         
+        <tag>Segue</tag>
+         
+        <tag>StroyBoard</tag>
+         
         <tag>iOS</tag>
          
          

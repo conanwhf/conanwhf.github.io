@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.coding.me/"/>
-  <updated>2017-06-13T17:02:15.000Z</updated>
+  <updated>2017-06-14T11:33:50.000Z</updated>
   <id>http://conanwhf.coding.me/</id>
   
   <author>
@@ -13,6 +13,283 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[ARM板移植Linux系统启动（七）uBoot中的启动器]]></title>
+    <link href="http://conanwhf.coding.me/2017/06/14/bootup-7-loader/"/>
+    <id>http://conanwhf.coding.me/2017/06/14/bootup-7-loader/</id>
+    <published>2017-06-14T09:31:26.000Z</published>
+    <updated>2017-06-14T11:33:50.000Z</updated>
+    <content type="html"><![CDATA[<p>前面说了那么多，系统已经烧写完毕，按理说没什么问题了，但是我的系统依然跑不起来！通过debug发现，我的kernel镜像按照debian文件系统的要求重命名成了”vmlinuz-XXX”，但我的烧写进去的uboot却在打印信息中明确表示：我找的是zImage！在BeagleBoneBlack的TF卡烧写启动模式中，它的kernel也是修改了命名，但却能顺利引导，是因为把kernel的文件名信息写入了uEnv.txt文件，但是为什么在我的板子上就会失败呢？<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/14/bootup-7-loader/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/14/bootup-7-loader/'>ARM板移植Linux系统启动（七）uBoot中的启动器</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+<br>又是一通debug……原来，启动BeagleBoneBlack的TF卡上的uboot跟我编译出来的不一样，它会事先尝试读取<strong>uEnv.txt</strong>文件，如果成功的话，就用文件中配置的环境变量覆盖原有的，从而达到根据不同配置来引导的效果。这就牵涉到了uboot中的启动器，而这个步骤，在我拿到的release里面是没有的😳。这个问题卡住了我不少时间，很奇怪为什么和烧写相对应的源码，在TI的release里面竟然没有放出来，竟然需要自己修改，也不知道是不是我什么地方搞错了。<br>还是老规矩，我们通过阅读源码一步一步地解决问题。</p>
+<h2 id="u542F_u52A8_u5668_u7684_u8C03_u7528_u6D41_u7A0B"><a href="#u542F_u52A8_u5668_u7684_u8C03_u7528_u6D41_u7A0B" class="headerlink" title="启动器的调用流程"></a>启动器的调用流程</h2><h3 id="u9009_u62E9_u4ECE_u67D0_u8BBE_u5907_u542F_u52A8"><a href="#u9009_u62E9_u4ECE_u67D0_u8BBE_u5907_u542F_u52A8" class="headerlink" title="选择从某设备启动"></a>选择从某设备启动</h3><p>上次在讲uboot启动过程的时候，提到如何修改autoboot的尝试启动顺序：<code>include/configs/am335x_evm.h</code>文件中定义的</p>
+<pre><code>define BOOT_TARGET_DEVICES(func) \
+    func(MMC, mmc, 0) \
+    func(LEGACY_MMC, legacy_mmc, 0) \
+    func(MMC, mmc, 1) \
+    func(LEGACY_MMC, legacy_mmc, 1) \
+    func(NAND, nand, 0) \
+    func(PXE, pxe, na) \
+    func(DHCP, dhcp, na)
+endif
+</code></pre><p>这里的每一行代表了一种启动方式，以<code>LEGACY_MMC</code>为例，可以看到他们表面上是一个很长的字符串，实际上是一个函数的执行列表，或者说执行他们就等于执行一个函数队列。</p>
+<pre><code>define BOOTENV_DEV_LEGACY_MMC(devtypeu, devtypel, instance) \
+&quot;bootcmd_&quot; #devtypel #instance &quot;=&quot; \
+&quot;setenv mmcdev &quot; #instance&quot;; &quot;\
+&quot;setenv bootpart &quot; #instance&quot;:1 ; &quot;\
+&quot;run mmcboot\0&quot;
+</code></pre><p>这些setenv, run有没有很熟悉？是的，他们就是uboot中的命令，在运行的时候uboot也可以直接调用他们以及所有的环境变量。</p>
+<h3 id="u5BF9_u5E94_u7684_u542F_u52A8_u51FD_u6570"><a href="#u5BF9_u5E94_u7684_u542F_u52A8_u51FD_u6570" class="headerlink" title="对应的启动函数"></a>对应的启动函数</h3><p>上面步骤的核心是函数（为了方便，权当它就是函数了）<strong>mmcboot</strong>，它定义在<code>include/configs/ti_armv7_common.h</code>。打开文件，你会看到满屏的巨长的一个字符串，不要害怕，就当它是一个个完整的函数，遵守格式修改就OK。<strong>注意：这部分代码因为本身全部是字符串的原因，对格式要求特别严格，修改的时候尽量不要从网页直接copy/paste，以避免很多格式问题。编译之前多检查空格和tab，以及每行末尾多余的空格问题，不然会造成编译失败。</strong><br>可以看到，这里的函数中，有一个<code>loadbootenv</code>，便是用来从uEnv.txt中读取环境变量的：<br><code>&quot;loadbootenv=load ${devtype} ${bootpart} ${loadaddr} ${bootdir}/${bootenvfile}\0&quot;\</code><br>但mmcboot中并没有用到它，尝试在其中添加loadbootenv（格式已被注释破坏，请自行修改后再用）：</p>
+<pre><code>&quot;mmcboot=mmc dev ${mmcdev}; &quot; \首先设置mmc的硬件switch
+   &quot;setenv devnum ${mmcdev}; &quot; \
+   &quot;setenv devtype mmc; &quot; \然后是设备号等设置
+   &quot;if mmc rescan; then &quot; \如果mmc硬件初始化成功，
+       &quot;echo SD/MMC found on device ${mmcdev};&quot; \
+       则读取env数据，并更新环境变量
+       &quot;if run loadbootenv; then &quot; \
+           &quot;echo Loaded env from ${bootenvfile};&quot; \
+           &quot;run importbootenv;&quot; \
+       &quot;fi;&quot; \
+       &quot;echo debug: Get info=[${uname_r} ${bootfile} ${fdtfile}] ... ; &quot; \
+       尝试加载各种img并启动
+       &quot;if run loadimage; then &quot; \
+           &quot;if test ${boot_fit} -eq 1; then &quot; \
+               &quot;run loadfit; &quot; \
+           &quot;else &quot; \
+               &quot;run mmcloados;&quot; \
+           &quot;fi;&quot; \
+       &quot;fi;&quot; \
+   &quot;fi;\0&quot; \
+</code></pre><h3 id="u73AF_u5883_u53D8_u91CF_u548C_u51FD_u6570_u7684_u4FEE_u6539"><a href="#u73AF_u5883_u53D8_u91CF_u548C_u51FD_u6570_u7684_u4FEE_u6539" class="headerlink" title="环境变量和函数的修改"></a>环境变量和函数的修改</h3><p>事实上，上面这些（其实是一个）字符串，就是我们在uboot命令行中使用printenv所看到的各种环境变量了。在uboot尝试读取各种文件的过程中，环境变量作为参数配置扮演了很重要的角色。从哪里读、读哪个目录、文件名是什么、读取到内存什么地址……还有引导的流程、需要传递给kernel的启动参数，无一不是靠这些环境变量来决定。读者认真阅读的话，一定能看懂uboot引导kernel的整个流程和参数的配置过程。<br>经过上面的修改，系统果然尝试读取uEnv.txt并且成功启动了kernel，但依然会在启动时崩溃，因为找不到可以挂载的文件系统。自己检查log，发现uboot给的启动参数为<code>root=PARTUUID=${uuid} rw</code>，这里的UUID又是通过<code>finduuid=part uuid mmc ${bootpart} uuid\0</code>来获取的。不知道为什么我编译出来的这一套系统在BeagleBoneBlack上可以正确得到uuid，在我工作的板子上却不行。由于时间关系，原因我没有深究下去，大概还是因为缺少EEPROM的缘故吧。我决定修改uboot来绕过这个问题。为了尽量保持代码原样，我添加了一个<code>args_mmc_new</code>来作为我的启动参数：</p>
+<pre><code>&quot;args_mmc_new=setenv bootargs console=ttyS0,115200n8 ${optargs} &quot;\
+                &quot;root=/dev/mmcblk${mmcdev}p1 rw &quot; \
+                &quot;rootfstype=${mmcrootfstype} rootwait\0&quot; \
+</code></pre><p>然后在调用的地方替换原来的：</p>
+<pre><code>&quot;mmcloados=run args_mmc_new; &quot; \
+               &quot;if test ${boot_fdt} = yes || test ${boot_fdt} = try; then &quot; \
+                       &quot;if run loadfdt; then &quot; \
+                               &quot;echo debug: [${bootargs}] ... ; &quot; \
+                               &quot;echo debug: [bootz ${loadaddr} - ${fdtaddr}] ... ; &quot; \
+                               &quot;bootz ${loadaddr} - ${fdtaddr}; &quot; \
+                       &quot;else &quot; \
+                               &quot;if test ${boot_fdt} = try; then &quot; \
+                                       &quot;bootz; &quot; \
+                               &quot;else &quot; \
+                                       &quot;echo WARN: Cannot load the DT; &quot; \
+                               &quot;fi; &quot; \
+                       &quot;fi; &quot; \
+               &quot;else &quot; \
+                       &quot;bootz; &quot; \
+               &quot;fi;\0&quot; \
+</code></pre><p>至此，整个系统才是真正地能够顺利跑起来。</p>
+<h2 id="u81EA_u5DF1_u6DFB_u52A0USB_u542F_u52A8_u7684_u652F_u6301"><a href="#u81EA_u5DF1_u6DFB_u52A0USB_u542F_u52A8_u7684_u652F_u6301" class="headerlink" title="自己添加USB启动的支持"></a>自己添加USB启动的支持</h2><p>讲到这里，整个启动器的原理已经很清楚了。为了验证和练习，我自己照葫芦画瓢添加了一个USB启动的支持。这个support的本质跟emmc启动是一样的，只是系统的数据被烧写在USB上（不包括uboot），这样也相当于我变相做了一个不带bootloader的TF卡系统，能够更加方便地调试kernel了。毕竟可以在PC上对系统内容进行修改，万一把系统玩坏了，还能随时修复不用麻烦地重新烧写。<br>首先是在<code>include/configs/am335x_evm.h</code>文件中添加USB启动的选项：</p>
+<pre><code>#define BOOT_TARGET_DEVICES(func) \
+    func(LEGACY_USB, legacy_usb, 0) \
+    func(LEGACY_MMC, legacy_mmc, 1) \
+    func(LEGACY_MMC, legacy_mmc, 0)
+</code></pre><p>然后仿照EMMC定义USB的启动函数表：</p>
+<pre><code>#define BOOTENV_DEV_LEGACY_USB(devtypeu, devtypel, instance) \
+    &quot;bootcmd_&quot; #devtypel #instance &quot;=&quot; \
+    &quot;setenv usbdev &quot; #instance&quot;; &quot;\
+    &quot;setenv bootpart &quot; #instance&quot;:1 ; &quot;\
+    &quot;run usbboot\0&quot;
+</code></pre><p>最后在<code>include/configs/ti_armv7_common.h</code>添加USB启动的函数：</p>
+<pre><code>#define DEFAULT_USB_TI_ARGS \
+    &quot;usbdev=0\0&quot;\
+    &quot;args_usb=setenv bootargs console=ttyS0,115200 ${optargs} &quot; \
+            &quot;root=/dev/sda1 rw &quot; \
+            &quot;rootfstype=ext4 rootwait\0&quot; \
+    &quot;usbboot=usb reset; &quot; \
+            &quot;setenv devnum ${usbdev}; &quot; \
+            &quot;setenv devtype usb; &quot; \
+            &quot;if usb start; then &quot; \
+                    &quot;echo USB device found on device ${usbdev}:${bootpart};&quot; \
+                    &quot;if run loadbootenv; then &quot; \
+                            &quot;echo Loaded env from ${bootenvfile};&quot; \
+                            &quot;run importbootenv;&quot; \
+                    &quot;fi;&quot; \
+            &quot;echo debug: Get info=[${uname_r} ${bootfile} ${fdtfile}] ... ; &quot; \
+            &quot;if run loadimage; then &quot; \
+                    &quot;run args_usb; &quot; \
+                    &quot;echo debug: [${bootargs}] ... ; &quot; \
+                    &quot;if run loadfdt; then &quot; \
+                            &quot;echo debug: [bootz ${loadaddr} - ${fdtaddr}] ... ; &quot; \
+                            &quot;bootz ${loadaddr} - ${fdtaddr}; &quot; \
+                    &quot;else &quot; \
+                            &quot;echo WARN: Cannot load the DT; &quot; \
+                    &quot;fi; &quot; \
+            &quot;fi;&quot; \
+    &quot;fi;\0&quot; \
+</code></pre><p>大功告成！😊</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>前面说了那么多，系统已经烧写完毕，按理说没什么问题了，但是我的系统依然跑不起来！通过debug发现，我的kernel镜像按照debian文件系统的要求重命名成了”vmlinuz-XXX”，但我的烧写进去的uboot却在打印信息中明确表示：我找的是zImage！在BeagleBoneBlack的TF卡烧写启动模式中，它的kernel也是修改了命名，但却能顺利引导，是因为把kernel的文件名信息写入了uEnv.txt文件，但是为什么在我的板子上就会失败呢？]]>
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://conanwhf.coding.me/categories/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[ARM板移植Linux系统启动（六）烧写系统到emmc]]></title>
+    <link href="http://conanwhf.coding.me/2017/06/14/bootup-6-flasher/"/>
+    <id>http://conanwhf.coding.me/2017/06/14/bootup-6-flasher/</id>
+    <published>2017-06-14T04:31:26.000Z</published>
+    <updated>2017-06-14T11:31:31.000Z</updated>
+    <content type="html"><![CDATA[<p>能够从Uart把系统跑起来，基本上已经完成了移植工作的关键。但此时自动的引导流程还没有建立好，要想让系统能正常启动，必须将数据烧写到存储设备里去。烧写的原理对于所有的板子都是一样的，只是烧写数据的来源和目标有区别，掌握原理以后就可以自己灵活修改，不用拿着从ftp烧写的脚本对着USB烧写的需求一筹莫展。:-) <a id="more"></a><br> </p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/14/bootup-6-flasher/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/14/bootup-6-flasher/'>ARM板移植Linux系统启动（六）烧写系统到emmc</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+</p>
+<h2 id="BeagleBoneBlack_u7684_u70E7_u5199"><a href="#BeagleBoneBlack_u7684_u70E7_u5199" class="headerlink" title="BeagleBoneBlack的烧写"></a>BeagleBoneBlack的烧写</h2><p>BeagleBoneBlack支持外部TF卡(emmc)烧写系统。它的流程是启动时长按某个button进入TF启动模式，然后修改init命令行参数让系统重新启动后自动运行烧写脚本。这个过程其实分几个步骤：</p>
+<ol>
+<li>按住button调整启动模式。BeagleBoneBlack有两种顺序不同的启动模式：｛SPI0，MMC0，USB0，UART0｝和｛MMC1，MMC0，UART0，USB0｝，按下时进入第二种模式。TF卡是外接在MMC1上，即意味着按下button时优先启动TF卡上的系统。<strong>注意这里的MMC0和MMC1是硬件意义上的，与进入系统后的设备结点mmc0,mmc1没有对应关系，可以不同。</strong></li>
+<li>BootROM在TF卡上寻找到uboot数据，进入uboot；然后uboot引导卡上的kernel，进入系统。</li>
+<li>如果此时的init参数已经修改，则自动运行init指定的脚本，进行烧写系统的工作。</li>
+<li>烧写完毕，系统自动断电，等待重新上电启动。</li>
+</ol>
+<p>从这个过程我们可以推理出几件事：</p>
+<ul>
+<li>因为引导系统的uboot也是来自于外部TF卡，这种烧写方法可以用在完全被破坏的无法启动的板子上，例如板载emmc被彻底擦除干净的设备。这就意味着你可以随意折腾你的板载系统，不用害怕，TF卡烧写是一种有效的救援措施</li>
+<li>官方的烧写教程是让我们enable uEnv.txt中的一行代码<code>cmdline=init=/opt/scripts/tools/eMMC/init-eMMC-flasher-v3.sh</code>，这个flasher-v3.sh就是官方的烧写脚本。进入系统后手动运行效果也是一样的</li>
+<li>从整个引导的过程来看，MMC0和MMC1的启动没有区别，所以实际上我们可以制作自己的TF卡系统而不是只局限于烧录，便于调试和使用（像RasspberryPi那样，换一张卡换个系统，甚至可以跑Windows），并且emmc是可读写的，修改的任何数据都会保留，不会重启消失</li>
+<li>我们同样可以修改flasher-v3.sh，来完成自己的需求<br>关于怎么玩BeagleBoneBlack，不是这篇文章的讨论重点，我只是为了弄清楚BeagleBoneBlack的烧写机制以为己用。TF卡烧写很好用，可惜我的板子没有TF卡。:(</li>
+</ul>
+<h2 id="u70E7_u5199_u524D_u7684_u51C6_u5907"><a href="#u70E7_u5199_u524D_u7684_u51C6_u5907" class="headerlink" title="烧写前的准备"></a>烧写前的准备</h2><ol>
+<li>编译kernel， uboot，获得zImage, MLO, u-boot.img等binary</li>
+<li>准备一个根文件系统，通常Linux发行版会提供一个小型的文件系统，将Kernel镜像（一般放在/boot下），以及编译出来的驱动等等更新，打包并压缩。</li>
+<li>编写合适的烧写脚本，等下会详细介绍。</li>
+<li>确定你能进入console，并且在console里能access上面所提到的文件和脚本。</li>
+<li>将准备好的文件拷贝进某个存储介质，例如USB，或者放在服务器端等待tftp获取。</li>
+</ol>
+<h2 id="u70E7_u5199_u6D41_u7A0B"><a href="#u70E7_u5199_u6D41_u7A0B" class="headerlink" title="烧写流程"></a>烧写流程</h2><p>flasher-v3.sh整个脚本很长，用的各种判断和变量也非常多，刚开始读难免眼花缭乱。我基于这个脚本，根据自己的需要，重新写了一份。文件系统烧写的原理都是一样：将存放源数据的设备挂载成文件夹A，将烧写的目标设备挂载成文件夹B，然后读取A中的数据解压，将文件系统写入B中。而对于bootloader的情况就比较复杂，他们的数据写入通常是不基于文件系统的，而写入的位置必须跟BootROM相对应，需要阅读厂商的文档。<br>我做的项目不是开源，所以无法发布完整的烧写脚本，读者可以根据大致流程自行编写。</p>
+<h3 id="u53D8_u91CF_u5B9A_u4E49"><a href="#u53D8_u91CF_u5B9A_u4E49" class="headerlink" title="变量定义"></a>变量定义</h3><pre><code>source=&quot;/dev/sda1&quot;
+destination=&quot;/dev/mmcblk1&quot;
+src=&quot;/tmp/usb/&quot;
+dst=&quot;/tmp/dst/&quot;
+spl_file=&quot;${src}/MLO&quot;
+uboot_file=&quot;${src}/u-boot.img&quot;
+rootfs_file=&quot;${src}/rootfs.tar.gz&quot;
+boot_label=&quot;TEST&quot;
+boot_fstype=ext3
+</code></pre><p>这里定义几个全局变量方便使用，分别是数据源和目标设备的设备结点和挂载点，以及一些文件名的定义。读者可以根据需要自行修改，例如mmcblk1换成sdc1，或者从TF烧写而不是USB的时候将sda1换成mmcblk0p1等等。</p>
+<h3 id="u70E7_u5199bootloader_uFF08uboot_uFF09"><a href="#u70E7_u5199bootloader_uFF08uboot_uFF09" class="headerlink" title="烧写bootloader（uboot）"></a>烧写bootloader（uboot）</h3><p>bootloader的烧写包括两个文件：MLO和u-boot.img，烧写是直接使用dd写入数据，参数来自TI官方release。</p>
+<pre><code># 烧写之前先擦除整块emmc
+echo &quot;Erasing: ${destination} any partion information&quot;
+dd if=/dev/zero of=${destination} bs=1M count=20
+sync
+
+# 烧写SPL和uboot
+spl_opt=&quot;count=1 seek=1 conv=notrunc bs=128k&quot;
+uboot_opt=&quot;count=2 seek=1 conv=notrunc bs=384k&quot;
+
+echo &quot;dd if=${spl_file} of=${destination} ${spl_opt}&quot;
+dd if=${spl_file} of=${destination} ${spl_opt}
+
+echo &quot;dd if=${uboot_file} of=${destination} ${uboot_opt}&quot;
+dd if=${uboot_file} of=${destination} ${uboot_opt}
+</code></pre><h3 id="u5BF9_u70E7_u5199_u7684_u76EE_u6807_u8BBE_u5907_u5206_u533A"><a href="#u5BF9_u70E7_u5199_u7684_u76EE_u6807_u8BBE_u5907_u5206_u533A" class="headerlink" title="对烧写的目标设备分区"></a>对烧写的目标设备分区</h3><p>过去，kernel的镜像文件的数据是不基于文件系统的，也就是并非以一个文件的形式存放在某个目录里，因为那时的uboot并没有文件系统的支持，只能从固定的块、页、扇区读取数据。后来特别是EFI被广泛运用后，将关键的文件系统相关数据写在一个单独的Fat32分区中成了一种普遍的方案，通常会将它们只读挂载在/boot下，系统数据和各种库文件是分开的，日常使用更加安全。而现在，uboot支持了更多的文件系统，也就使得我们可以将所有数据都放在一起，怎么设计这些分区，也就更加随意和灵活。TI所用的脚本中，就有了两种选择：fat+ext4或者整个emmc只有一个ext4分区。在这块板子上我选择了后面的方案，方便后期的开发和调试，烧写方案也比较简洁。<br>烧写的工具使用的是sfdisk，请确保你的最小系统中包含这个工具。</p>
+<pre><code># 参数变量设置
+sfdisk_options=&quot;--force --Linux --in-order --unit M&quot;
+sfdisk_boot_startmb=1
+sfdisk_fstype=&quot;L&quot;
+
+# 使用sfdisk分区
+test_sfdisk=$(LC_ALL=C sfdisk --help | grep -m 1 -e &quot;--in-order&quot; || true)
+if [ &quot;x${test_sfdisk}&quot; = &quot;x&quot; ] ; then
+    echo &quot;sfdisk: [2.26.x or greater]&quot;
+    if [ &quot;x${bootrom_gpt}&quot; = &quot;xenable&quot; ] ; then
+        sfdisk_options=&quot;--force --label gpt&quot;
+    else
+        sfdisk_options=&quot;--force&quot;
+    fi
+    sfdisk_boot_startmb=&quot;${sfdisk_boot_startmb}M&quot;
+fi
+echo &quot;sfdisk: [$(LC_ALL=C sfdisk --version)]&quot;
+echo &quot;sfdisk: [sfdisk ${sfdisk_options} ${destination}]&quot;
+echo &quot;sfdisk: [${sfdisk_boot_startmb},${sfdisk_boot_endmb},${sfdisk_fstype},*]&quot;
+
+LC_ALL=C sfdisk ${sfdisk_options} &quot;${destination}&quot; &lt;&lt;-__EOF__
+    ${sfdisk_boot_startmb},,${sfdisk_fstype},*
+__EOF__
+</code></pre><p>分区完毕，将分区格式化为ext3，然后就可以往里面写数据了。</p>
+<pre><code>echo &quot;mkfs.${boot_fstype} ${destination}p1 -L ${boot_label}&quot;
+mkfs.${boot_fstype} ${destination}p1 -L ${boot_label}
+sync
+</code></pre><h3 id="u70E7_u5199_u6587_u4EF6_u7CFB_u7EDF"><a href="#u70E7_u5199_u6587_u4EF6_u7CFB_u7EDF" class="headerlink" title="烧写文件系统"></a>烧写文件系统</h3><p>文件系统的烧写实际上就是数据拷贝的过程。在TI的TF卡烧写方式中，是将当前系统（也就是TF卡上的系统）的所有文件都拷贝到目标文件夹，再进行一定的动态支持处理，我这里是直接将准备好的文件系统包解压到对应的地方。首先挂载分区：</p>
+<pre><code>#mount emmc partition
+mkdir -p $dst
+mount ${destination}p1 $dst -o async,noatime
+is_mounted=$(grep ${destination}p /proc/mounts | awk &apos;{print $2}&apos;)
+if grep -q ${destination}p /proc/mounts; then
+        echo &quot;Found mounted partition(s) on &quot; ${destination}&quot;: &quot; $is_mounted
+else
+        echo &quot;No eMMC partition found. exit.&quot;
+        exit
+fi
+</code></pre><p>然后将数据解压，并做一点点小的处理，确保login系统的正常运行：</p>
+<pre><code>cd $dst
+tar xzvf $rootfs_file
+cd - 
+
+if [ -d $dst/etc/ssh/ ] ; then
+    #ssh keys will now get regenerated on the next bootup
+    touch $dst/etc/ssh/ssh.regenerate
+    sync
+fi
+</code></pre><p>最后将挂载点umount，完成全部烧写工作：  </p>
+<pre><code>umount $dst || umount -l $dst
+dd if=${destination} of=/dev/null count=100000
+sync
+echo &quot;Syncing: ${destination} complete&quot;
+</code></pre><p>至此，全部烧写完毕，板子应该能顺利地跑起来了，开机试试吧！:-)</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>能够从Uart把系统跑起来，基本上已经完成了移植工作的关键。但此时自动的引导流程还没有建立好，要想让系统能正常启动，必须将数据烧写到存储设备里去。烧写的原理对于所有的板子都是一样的，只是烧写数据的来源和目标有区别，掌握原理以后就可以自己灵活修改，不用拿着从ftp烧写的脚本对着USB烧写的需求一筹莫展。:-)]]>
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://conanwhf.coding.me/categories/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[ARM板移植Linux系统启动（五）Uboot命令行]]></title>
@@ -190,10 +467,9 @@ bootm 0x83000000 - 0x82000000
     <link href="http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/"/>
     <id>http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/</id>
     <published>2017-06-09T09:31:26.000Z</published>
-    <updated>2017-06-12T15:10:19.000Z</updated>
+    <updated>2017-06-14T10:41:25.000Z</updated>
     <content type="html"><![CDATA[<p>经过这些年的演变，U-boot已经从一个简单的loader慢慢发展成了一个小小系统，硬件上原生支持各种平台、外设，软件上支持Fat&amp;ext234等文件系统、传输协议、测试工具，可以说相当完善了。这种进化，负面影响是让整体变得更复杂臃肿，但也有更多的正面影响，是让我们的移植工作更加简单、模块化。</p>
-<h2 id="Uboot_u4EE3_u7801_u7ED3_u6784"><a href="#Uboot_u4EE3_u7801_u7ED3_u6784" class="headerlink" title="Uboot代码结构"></a>Uboot代码结构</h2><a id="more"></a>
-</p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/'>ARM板移植Linux系统启动（三）UBOOT移植</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<h2 id="Uboot_u4EE3_u7801_u7ED3_u6784"><a href="#Uboot_u4EE3_u7801_u7ED3_u6784" class="headerlink" title="Uboot代码结构"></a>Uboot代码结构</h2><p>代码结构是了解uboot的基础，作为一个成熟的开源软件，uboot的代码结构很清晰。绝大多数的代码都是通用的，所以在移植过程中，基本上只需要找到自己的对应平台，修改板子特有的部分即可。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/'>ARM板移植Linux系统启动（三）UBOOT移植</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -214,8 +490,7 @@ bootm 0x83000000 - 0x82000000
   }
 })()
 </script>
-
-<p>代码结构是了解uboot的基础，作为一个成熟的开源软件，uboot的代码结构很清晰。绝大多数的代码都是通用的，所以在移植过程中，基本上只需要找到自己的对应平台，修改板子特有的部分即可。<br>├── api                uboot提供的API接口<br>├── arch               与体系结构相关的代码<br>│   ├── arm<br>│   │   ├── mach-omap2  BeagleBoneBlack使用的架构<br>│   ├── x86<br>├── board              根据不同的具体开发板而定制的代码<br>│   ├── ti             厂商：TI<br>│   │   ├── am335x     BeagleBoneBlack使用的平台，主要的改动应该在这里，包括内存初始化<br>│   │   ├── beagle<br>│   │   ├── common<br>│   │   ├── evm<br>├── cmd                通用命令行处理工具<br>├── common             通用核心代码，主要给uboot使用，部分SPL<br>│   ├── spl            SPL的通用代码<br>├── configs            配置文件<br>├── disk               磁盘分区相关<br>├── doc                文档<br>├── drivers            各种驱动，uboot使用<br>├── dts                dtb文件的编译脚本<br>├── examples           范例<br>├── fs                 文件系统代码<br>├── include            公用头文件<br>│   ├── configs        不同板子配置选项的头文件<br>├── lib                通用库<br>├── net                网络相关<br>├── post               Power On Self Test，开机自检程序<br>├── scripts            编译脚本<br>├── test               测试程序<br>├── tools              相关小工具<br>如果是想要重新编译和优化uboot，那么通常修改配置文件即可；如果是一块硬件上有修改的板子，那么则需要另外关注board/XXX/部分，基于原有的初始化代码进行修改；如果是完全新设计的芯片，则必须根据芯片不同模块的datasheet自己添加一套初始化代码，只有arm平台的一些基本内容可以通用了。</p>
+<br>├── api                uboot提供的API接口<br>├── arch               与体系结构相关的代码<br>│   ├── arm<br>│   │   ├── mach-omap2  BeagleBoneBlack使用的架构<br>│   ├── x86<br>├── board              根据不同的具体开发板而定制的代码<br>│   ├── ti             厂商：TI<br>│   │   ├── am335x     BeagleBoneBlack使用的平台，主要的改动应该在这里，包括内存初始化<br>│   │   ├── beagle<br>│   │   ├── common<br>│   │   ├── evm<br>├── cmd                通用命令行处理工具<br>├── common             通用核心代码，主要给uboot使用，部分SPL<br>│   ├── spl            SPL的通用代码<br>├── configs            配置文件<br>├── disk               磁盘分区相关<br>├── doc                文档<br>├── drivers            各种驱动，uboot使用<br>├── dts                dtb文件的编译脚本<br>├── examples           范例<br>├── fs                 文件系统代码<br>├── include            公用头文件<br>│   ├── configs        不同板子配置选项的头文件<br>├── lib                通用库<br>├── net                网络相关<br>├── post               Power On Self Test，开机自检程序<br>├── scripts            编译脚本<br>├── test               测试程序<br>├── tools              相关小工具<br>如果是想要重新编译和优化uboot，那么通常修改配置文件即可；如果是一块硬件上有修改的板子，那么则需要另外关注board/XXX/部分，基于原有的初始化代码进行修改；如果是完全新设计的芯片，则必须根据芯片不同模块的datasheet自己添加一套初始化代码，只有arm平台的一些基本内容可以通用了。</p>
 <h2 id="u542F_u52A8_u6D41_u7A0B"><a href="#u542F_u52A8_u6D41_u7A0B" class="headerlink" title="启动流程"></a>启动流程</h2><p>前一篇讲SPL的启动的时候提到，最初从<code>start.S</code> call到了<code>crt0.S</code>。<code>crt0.S</code>会先后调用<code>board_init_f()</code>和<code>board_init_r()</code>两个函数，当作为SPL编译时<code>board_init_f()</code>是直接返回的，而在uboot时是有用的。大致上来说，<code>board_init_f()</code>侧重于基础硬件的初始化，以及软件堆栈等方面的准备，更底层一点；而<code>board_init_r()</code>则更多的是软件方面的初始化，并且最终完成uboot启动过程或进入命令行。</p>
 <h3 id="common/board_f-c"><a href="#common/board_f-c" class="headerlink" title="common/board_f.c"></a><code>common/board_f.c</code></h3><p>这是uboot(实际上是uboot第二阶段，<strong>u-boot.img</strong>所包含的内容，下文不再区分)的入口函数<code>board_init_f()</code>所在的文件。可以看到函数<code>board_init_f()</code>很简单，初始化全局变量后，就根据一个<code>init_sequence_f</code>依次运行不同的函数，失败则把系统hang住，成功当然就是进入正常的启动流程中去了。<code>init_sequence_f</code>在同一个文件中也有定义，很长，我删减无关平台的内容大致看看：</p>
 <pre><code>static init_fnc_t init_sequence_f[] = {
@@ -379,7 +654,7 @@ endif
 ]]></content>
     <summary type="html">
     <![CDATA[<p>经过这些年的演变，U-boot已经从一个简单的loader慢慢发展成了一个小小系统，硬件上原生支持各种平台、外设，软件上支持Fat&amp;ext234等文件系统、传输协议、测试工具，可以说相当完善了。这种进化，负面影响是让整体变得更复杂臃肿，但也有更多的正面影响，是让我们的移植工作更加简单、模块化。</p>
-<h2 id="Uboot_u4EE3_u7801_u7ED3_u6784"><a href="#Uboot_u4EE3_u7801_u7ED3_u6784" class="headerlink" title="Uboot代码结构"></a>Uboot代码结构</h2>]]>
+<h2 id="Uboot_u4EE3_u7801_u7ED3_u6784"><a href="#Uboot_u4EE3_u7801_u7ED3_u6784" class="headerlink" title="Uboot代码结构"></a>Uboot代码结构</h2><p>代码结构是了解uboot的基础，作为一个成熟的开源软件，uboot的代码结构很清晰。绝大多数的代码都是通用的，所以在移植过程中，基本上只需要找到自己的对应平台，修改板子特有的部分即可。]]>
     
     </summary>
     
@@ -1483,175 +1758,6 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
 </blockquote>
 <ul>
 <l]]>
-    </summary>
-    
-      <category term="Xcode" scheme="http://conanwhf.coding.me/tags/Xcode/"/>
-    
-      <category term="iOS - Swift" scheme="http://conanwhf.coding.me/tags/iOS-Swift/"/>
-    
-      <category term="DevTips" scheme="http://conanwhf.coding.me/categories/DevTips/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[开发Tips收集-2016年05月]]></title>
-    <link href="http://conanwhf.coding.me/2016/05/31/Tips201605/"/>
-    <id>http://conanwhf.coding.me/2016/05/31/Tips201605/</id>
-    <published>2016-05-31T09:25:39.000Z</published>
-    <updated>2017-06-12T15:11:38.000Z</updated>
-    <content type="html"><![CDATA[<blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>UIImage两种初始化方式的区别：<br>　　使用<strong>imageNamed</strong>：第一次读取的时候，先把这个图片放到缓存里，下次再使用到这个同名图片的时候直接从缓存中读取；优点：方便快捷，只有第一次使用的时候稍慢，接下来再使用就会稍微快点；缺点：如果在当前工程中只使用一次会浪费内存。（这个内存在程序关闭的时候才释放）<br>　　使用<strong>initWithContentsOfFile</strong>：每次都会根据路径去读取，不会占用内存，如果图片在当前工程中只使用一次，应该选择这个方法</li>
-<li>UIView和CALayer的区别与联系）<ol>
-<li>每个 UIView 内部都有一个 CALayer 在背后提供内容的绘制和显示，并且 UIView 的尺寸样式都由内部的 Layer 所提供。两者都有树状层级结构，layer 内部有 SubLayers，View 内部有 SubViews.但是 Layer 比 View 多了个AnchorPoint</li>
-<li>在 View显示的时候，UIView 做为 Layer 的 CALayerDelegate,View 的显示内容由内部的 CALayer 的 display</li>
-<li>CALayer 是默认修改属性支持隐式动画的，在给 UIView 的 Layer 做动画的时候，View 作为 Layer 的代理，Layer 通过 actionForLayer:forKey:向 View请求相应的 action(动画行为)</li>
-<li>layer 内部维护着三分 layer tree,分别是 presentLayer Tree(动画树),modeLayer Tree(模型树), Render Tree (渲染树),在做 iOS动画的时候，我们修改动画的属性，在动画的其实是 Layer 的 presentLayer的属性值,而最终展示在界面上的其实是提供 View的modelLayer</li>
-<li>两者最明显的区别是 View可以接受并处理事件，而 Layer 不可以</li>
-</ol>
-</li>
-<li>在使用 ImagesQA.xcassets 时需要注意：将图片直接拖入image到ImagesQA.xcassets中时，图片的名字会保留。这个时候如果图片的名字过长，那么这个名字会存入到ImagesQA.xcassets中，名字过长会引起SourceTree判断异常。</li>
-<li>UIScrollView添加了一个很好用的属性keyboardDismissMode，这样可以让键盘在滚动时自动收起。这个属性使用了新的UIScrollViewKeyboardDismissMode enum枚举类型。这个enum枚举类型可能的值如下：<a id="more"></a></li>
-<li></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/05/31/Tips201605/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/05/31/Tips201605/'>开发Tips收集-2016年05月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-
-<ol>
-<li>UIScrollViewKeyboardDismissModeNone,</li>
-<li>UIScrollViewKeyboardDismissModeOnDrag,      // dismisses the keyboard when a drag begins</li>
-<li>UIScrollViewKeyboardDismissModeInteractive, // the keyboard follows the dragging touch off screen, and may be pulled upward again to cancel the dismiss</li>
-</ol>
-</li>
-<li>iOS加载启动图的时候隐藏statusbar只需要在info.plist中加入<strong>Status bar is initially hidden</strong>，设置为YES就好</li>
-<li>NSDate 在保存数据，传输数据中，一般最好使用UTC时间。在显示到界面给用户看的时候，需要转换为本地时间。</li>
-<li>UITableViewCell中，对cell设置<strong>indentationLevel</strong>的值，可以将cell 分级别。还有 CGFloat <strong>indentationWidth</strong>属性，设置缩进的宽度。总缩进的宽度 = indentationLevel * indentationWidth</li>
-<li>static的使用：<ol>
-<li>修饰局部变量,修改的是生命周期，在整个程序运行过程中,只初始化一次,而且只有一份内存,并没有改变作用域</li>
-<li>修饰全局变量,修改的是作用域。没有被static修饰的全局变量,项目中的任何文件,可以访问；static修饰的全局变量,只在当前文件中访问</li>
-</ol>
-</li>
-<li>isMemberOfClass 和 isKindOfClass：两者都能检测一个对象是不是某个类的成员；isKindOfClass不仅能确定一个对象是不是某个类的成员,也能确定一个对象是否是派生自该类的类的成员,而isMemberOfClass只能做到前者.</li>
-<li>TCP 和UDP 的区别与联系：TCP 为传输控制层协议,为面向连接,可靠的,点到点的通信；UDP 为用户数据报协议,非连接的不可靠的点到多点的通信；TCP 侧重可靠传输,UDP 侧重快速传输</li>
-<li>读写小文件是 iPhone 的一大弱点。16MB 的文件测试与 Mac 的测试结果差不多，但是 16 字节的文件测试 iPhone 花了 Mac 10 倍的时间。相比 Mac，iPhone 的存储设备吞吐量很高，但是有一些额外的延迟。</li>
-<li>iOS的应用都是通过bundle进行封装的，对应的bundle类型是Application类型，平时我们通过XCode编译出来的Target（即我们开发的应用），其实就是一个Application类型bundle，即一个文件夹！但是Finder会把这个bundle当做一个文件显示给我们，其实是因为这个bundle自身也是一个package，而Mac系统会把所有的package当做一个文件来对待，显示给用户，从而防止用户误操作导致程序文件损坏或丢失。</li>
-<li>NSURLConnettion是 Core Foundation/CFNetwork框架 API 之上的一个抽象. NSURLConnettion是用来指代 Foundation 框架中的一系列组件: NSURLRequest,NSURLResponse,NSURLProtocol,NSURLCache,NSHTTPCookieStorage,NSURLCredentialStorage 以及同名类 NSURLConnection.</li>
-<li>NSURLSession 不仅仅包括同名的 NSURLSession, 还包括NSURLRequest 和 NSURLCache. 同时将NSURLConnection 对应为NSURLSession,NSURLSessionFiguration 以及NSURLSession 的三个子类,即NSURLSessionTask,NSURLSessionUpLoadTask 和 NSULSessionDownLoadTask.</li>
-<li>和 NSURLConnection 相比, NSURLSession 最大的改变可以配置每一个缓存的session 缓存, cookie 值,协议以及证书策略甚至夸程序共享这些信息.这保证了程序和网络框架之间的相互独立.每一个 NSURLSession 有一个 NSURLSessionConfiguration 来进行初始化, NSURLSessionConfiguration指定了策略,以及在移动设备上增强性能的选项.NSURLSession 的另一个特点就是 session Task, 用来处理的上传和下载.和 NSURLConnection 最大的不同之处在于,所有的 task 共享其创造者 NSURLSession.</li>
-<li>NSURLSession即有 session 的代理方法又有 Task 的代理方法.session 的代理方法用来处理连接层的问题(服务器的信任,客户端证书的评估等),Task 的代理方法用来处理鉴权查询和以网络请求有关的问题.</li>
-<li>AVAudioPlayer包含在 AVFoundation框架中，所以开发的时候首先导入音频的框架AVFoundation.framework。注意：引入头文件 #import \<avfoundation avfoundation.h\="">。<pre><code>AVAudioPlayer的初始化的时候需要给一个播放文件：AVAudioPlayer  *avAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:文件路径 error:nil];
-</code></pre></avfoundation></li>
-<li>要修改app名字的时候最好不要修改product，可以在info.plist中修改Bundle display name.</li>
-<li>当UIWebView播放视频时，可以看到view hierarchy里有FigPluginView的身影。这个类来自于QuickTime Plugin，plugin的路径为：/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/System/Library/Internet Plug-Ins/QuickTime Plugin.webplugin，这是个文件夹，里面还有链接库以及文件和图片资源。</li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>UIImage两种初始化方式的区别：<br>　　使用<strong>imageNamed</strong>：第一次读取的时候，先把这个图片放到缓存里，下次再使用到这个同名图片的时候直接从缓存中读取；优点：方便快捷，只有第一次使用的时候稍慢，接下来再使用就会稍微快点；缺点：如果在当前工程中只使用一次会浪费内存。（这个内存在程序关闭的时候才释放）<br>　　使用<strong>initWithContentsOfFile</strong>：每次都会根据路径去读取，不会占用内存，如果图片在当前工程中只使用一次，应该选择这个方法</li>
-<li>UIView和CALayer的区别与联系）<ol>
-<li>每个 UIView 内部都有一个 CALayer 在背后提供内容的绘制和显示，并且 UIView 的尺寸样式都由内部的 Layer 所提供。两者都有树状层级结构，layer 内部有 SubLayers，View 内部有 SubViews.但是 Layer 比 View 多了个AnchorPoint</li>
-<li>在 View显示的时候，UIView 做为 Layer 的 CALayerDelegate,View 的显示内容由内部的 CALayer 的 display</li>
-<li>CALayer 是默认修改属性支持隐式动画的，在给 UIView 的 Layer 做动画的时候，View 作为 Layer 的代理，Layer 通过 actionForLayer:forKey:向 View请求相应的 action(动画行为)</li>
-<li>layer 内部维护着三分 layer tree,分别是 presentLayer Tree(动画树),modeLayer Tree(模型树), Render Tree (渲染树),在做 iOS动画的时候，我们修改动画的属性，在动画的其实是 Layer 的 presentLayer的属性值,而最终展示在界面上的其实是提供 View的modelLayer</li>
-<li>两者最明显的区别是 View可以接受并处理事件，而 Layer 不可以</li>
-</ol>
-</li>
-<li>在使用 ImagesQA.xcassets 时需要注意：将图片直接拖入image到ImagesQA.xcassets中时，图片的名字会保留。这个时候如果图片的名字过长，那么这个名字会存入到ImagesQA.xcassets中，名字过长会引起SourceTree判断异常。</li>
-<li>UIScrollView添加了一个很好用的属性keyboardDismissMode，这样可以让键盘在滚动时自动收起。这个属性使用了新的UIScrollViewKeyboardDismissMode enum枚举类型。这个enum枚举类型可能的值如下：]]>
-    
-    </summary>
-    
-      <category term="Xcode" scheme="http://conanwhf.coding.me/tags/Xcode/"/>
-    
-      <category term="iOS - Swift" scheme="http://conanwhf.coding.me/tags/iOS-Swift/"/>
-    
-      <category term="DevTips" scheme="http://conanwhf.coding.me/categories/DevTips/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[开发Tips收集-2016年04月]]></title>
-    <link href="http://conanwhf.coding.me/2016/04/30/Tips201604/"/>
-    <id>http://conanwhf.coding.me/2016/04/30/Tips201604/</id>
-    <published>2016-04-30T09:25:39.000Z</published>
-    <updated>2017-06-12T15:11:47.000Z</updated>
-    <content type="html"><![CDATA[<blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>当手势和touchmoved同时加在uiview上面的时候将会优先的识别手势。滑动手势的识别是需要时间的，当手势在被识别出来以前，touchbegan 依旧会被调用。如果你希望在你的手势被识别的过程中touchbegan不被调用，那么你需要调用delaysTouchesBegan。</li>
-<li>修改状态栏字体颜色:只能设置两种颜色，黑色和白色，系统默认黑色。设置为白色方法：<ol>
-<li>在plist里面添加Status bar style，值为UIStatusBarStyleLightContent（白色）或UIStatusBarStyleDefault（黑 色）</li>
-<li>在Info.plist中设置UIViewControllerBasedStatusBarAppearance 为NO</li>
-</ol>
-</li>
-<li>改善APP的流畅度：<ol>
-<li>尽量不要实现drawRect（每次调用该方法时，都要为backing store分配内存，非常消耗CPU）</li>
-<li>避免在drawRect：中进行耗费大量CPU资源的工作</li>
-<li>尽量少调用setNeedsDisplay:（视图内容变化时才调用）</li>
-<li>考虑使用setNeedDisplayInRect: , 传入drawRect:的rect越小，stoke，fill的时间越少, 即使drawRect:是根据视图边界绘制的）</li>
-<li>充分利用GPU的资源，直接设置layer的border，shadow，corner，gradient等属性, GPU将会处理这些属性（相反如果GPU紧张，CPU空闲，应由CPU处理，可在drawRect：中实现）<a id="more"></a></li>
-<li>如果绘制很多东西到一个视图时，可尝试开启drawsAsynchronusly，那么GPU会将视图内容绘制到backing store中，但是开启后，内存会增加，因此需要评估开启前后性能的变化，谨慎使用。</li>
-</ol>
-</li>
-<li>推送，必须通过iOS Developer Program Portal获得SSL证书。每个证书限用于一个程序，使用程序的bundle ID作为标识。证书有两种用途的：一种是针对sandbox（用于开发和测试），另外一种针对发布产品。<ol>
-<li><strong>sandbox推送是在测试环境时候做的推送</strong>需要：1开发证书2ssl证书3验证性文件。在申请ssl证书的时候需要注意bundle ID的配套，并且不能含有＊等字号。这三个申请下来就可以做推送了。因为我是用的个推，所以在推送的时候需要把申请的ssl证书在钥匙串里面导出为p12文件，然后上传到个推上去，个推会自动检测是开发证书还是生产证书。接下来就可以做推送了。</li>
-<li><strong>生产环境推送</strong>需要：1生产证书app store and ad hoc 2生产环境ssl证书3验证性文件。步骤和sandbox类似。记住一定要在codesigning这里配置好。也许有人问，如果想要测试一下生产环境的推送怎么办，好办！只要你利用申请好生产证书app store and ad hoc打一个测试包装到手机里，既可以进行正式环境的测试了。</li>
-</ol>
-</li>
-<li>应用程序的状态：<br>  <strong>Not running</strong>未运行：程序没启动。<br>  <strong>Inactive</strong>未激活：程序在前台运行，不过没有接收到事件。在没有事件处理情况下程序通常停留在这个状态。<br>  <strong>Active</strong>激活：程序在前台运行而且接收到了事件。这也是前台的一个正常的模式。<br>  <strong>Backgroud</strong>后台：程序在后台而且能执行代码，大多数程序进入这个状态后会在在这个状态上停留一会。时间到之后会进入挂起状态(Suspended)。有的程序经过特殊的请求后可以长期处于Backgroud状态。<br>  <strong>Suspended</strong>挂起：程序在后台不能执行代码。系统会自动把程序变成这个状态而且不会发出通知。当挂起时，程序还是停留在内存中的，当系统内存低时，系统就把挂起的程序清除掉，为前台程序提供更多的内存。</li>
-<li>UIScrollView有个keyboardDismissMode属性，设置成UIScrollViewKeyboardDismissModeOnDrag就可以在拖拽ScrollView的时候自动缩起键盘</li>
-<li>iOS开发需要的图片<ol>
-<li>产品设计图:可以以6的长宽比 750*1134来设计。这些图片用于描述app是什么样子的，这是app开发人员的开发参考。</li>
-<li>产品切图:将设计师将设计稿切成可以用来开发的图。内部设计细节：A. 所有能点击的图片不得小于44px（Retina需要88px）B. 单独存在的部件必须是双数尺寸 C. 两倍图以@2x作为命名后缀</li>
-<li>图标icon: 需要四种尺寸：58*58、80*80、120*120、180*180</li>
-<li>启动图LaunchImage: 需要四种尺寸：3.5英寸（640*960），4英寸（640*1136），4.7英寸（750*1134），5.5英寸（1242*2208）</li>
-<li>引导图: 用户第一次使用app或者app更新之后展示新特性的图</li>
-<li>App Store上架图: 用于在App Store上面 介绍app的，需要四种尺寸：3.5英寸（640*960），4英寸（640*1136），4.7英寸（750*1134），5.5英寸（1242*2208）</li>
-</ol>
-</li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>当手势和touchmoved同时加在uiview上面的时候将会优先的识别手势。滑动手势的识别是需要时间的，当手势在被识别出来以前，touchbegan 依旧会被调用。如果你希望在你的手势被识别的过程中touchbegan不被调用，那么你需要调用delaysTouchesBegan。</li>
-<li>修改状态栏字体颜色:只能设置两种颜色，黑色和白色，系统默认黑色。设置为白色方法：<ol>
-<li>在plist里面添加Status bar style，值为UIStatusBarStyleLightContent（白色）或UIStatusBarStyleDefault（黑 色）</li>
-<li>在Info.plist中设置UIViewControllerBasedStatusBarAppearance 为NO</li>
-</ol>
-</li>
-<li>改善APP的流畅度：<ol>
-<li>尽量不要实现drawRect（每次调用该方法时，都要为backing store分配内存，非常消耗CPU）</li>
-<li>避免在drawRect：中进行耗费大量CPU资源的工作</li>
-<li>尽量少调用setNeedsDisplay:（视图内容变化时才调用）</li>
-<li>考虑使用setNeedDisplayInRect: , 传入drawRect:的rect越小，stoke，fill的时间越少, 即使drawRect:是根据视图边界绘制的）</li>
-<li>充分利用GPU的资源，直接设置layer的border，shadow，corner，gradient等属性, GPU将会处理这些属性（相反如果GPU紧张，CPU空闲，应由CPU处理，可在drawRect：中实现）]]>
-    
     </summary>
     
       <category term="Xcode" scheme="http://conanwhf.coding.me/tags/Xcode/"/>

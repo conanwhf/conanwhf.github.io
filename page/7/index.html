@@ -223,6 +223,176 @@
           
           
             
+              <a class="post-title-link" href="/2015/12/15/swift_json/" itemprop="url">
+                使用原生库解析JSON
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-15T20:14:35+08:00" content="2015-12-15">
+            2015-12-15
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Swift/" itemprop="url" rel="index">
+                  <span itemprop="name">Swift</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>（挖坑自己跳系列四）<br>以为实现了xml的解析，我就能拿到所有想要的数据，可是经过几次尝试，发现有的API失效了！😱无论我怎么尝试，有的数据就是拿不到，苦恼了好久，灵光一闪：前阵子买的surge可以派上用场了！不知道surge是啥的我给解释一下，是个iOS App，利用iOS9的特性能给设备做个全局代理，前阵子大家纷纷用来流畅FQ，已下架。对我来说，用来过滤下广告正好，偶尔还能看看http log。<br>看了下自己手机上的第三方客户端，request居然直接是网页，看来是直接解析网页了，这个太高深、放弃；只好去下载官方客户端来看，在网页看同样的请求，返回居然换成JSON了……😥<br>还能说啥呢，去找找JSON怎么解析呗！这次看了看，似乎比XML简单多了……先拿数据：</p>
+<pre><code>let url = NSURL(string:TESTURL)!
+guard data = NSData(contentsOfURL: url)  else{
+    print(&quot;Can&apos;t get any data&quot;)
+    exit(0)
+}
+</code></pre><p>然后解析出来：
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/12/15/swift_json/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/12/15/swift_xml/" itemprop="url">
+                使用Swift原生库解析XML数据
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-15T18:14:35+08:00" content="2015-12-15">
+            2015-12-15
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Swift/" itemprop="url" rel="index">
+                  <span itemprop="name">Swift</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>（挖坑自己跳系列三）<br>在实现文件操作的时候我意识到了一个事实：由于NSURL是可支持的路径，很多文件的操作实际上可以扩充到网络上去，比如从网上下载一个文件、拿取一些数据……想到这里，埋藏在心中很久的愿望又开始蠢蠢欲动：写一个新闻客户端！<br>我有一个常看的新闻网站（不要问我是哪个，要FQ），官方客户端很难用，第三方广告满天飞，严重影响心情。所以当初开始学iOS的时候就把重做一个客户端的目标放在了首位。最开始的时候想得太简单，兴冲冲地开了个project，搞了两下TableView，然后发现……对于我这种从来只写底层代码，swift/OC语法都不会的人，做这个简直是异想天开好嘛！<br>折腾的过程中，为了拿到数据，还跑去下了Android的官方客户端反编译，find + grep出来了人家的数据接口地址（论一个爱折腾的程序员是怎么给自己挖坑的），返回的是XML数据，连蒙带猜试了试，可以用！不过后来做UI受挫（其实不止做UI，挫败感太大），就把那份东西闲置起来了。这两天突然想起来，现在我貌似感觉有点良好，何不捡起来继续写我的客户端？<br>因为UI我还一窍不通，不懂怎么调试，也不懂怎么把数据显示出来，为了避免到处打印的麻烦，我选择playground。这样也就是需要用原生库，这个很简单，搜一下就有了：NSXMLParserDelegate，还有好些源码，虽然大多是OC的。<br>问题是有源码，我依！然！看！不！懂！怎么用！每个教程都是扔了源码上来，可没人解释清楚到底怎么运行。我研究了好一阵，终于明白了大概的机制：</p>
+<blockquote>
+<p><strong>自己写一个类继承NSXMLParserDelegate，就叫它XmlReader吧；并且实现一些必须的callback函数，在XmlReader的Init中调用.parse()方法，最后在new XmlReader的时候就会自动完成整个parse了</strong><br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/12/15/swift_xml/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/12/15/fileop/" itemprop="url">
                 文件操作
               </a>
@@ -740,207 +910,6 @@ let pattern = &quot;1[3|5|7|8][0-9]\\d{8}&quot;
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/03/Swift_String_3/" itemprop="url">
-                Swift2.0 中的String（三）：类型转换
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-03T15:20:26+08:00" content="2015-12-03">
-            2015-12-03
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Swift/" itemprop="url" rel="index">
-                  <span itemprop="name">Swift</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>本系列第三篇，String相关的类型转换。其他的几篇传送门：</p>
-<ul>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.github.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages">这里</a>看到</li>
-</ul>
-<p>虽然Swift是强类型语言，但简单的String类型转换其实还是比较方便的，最暴力的就是强制类型转换，百试百灵：</p>
-<pre><code>func toString&lt;T&gt;(a: T) -&gt; String{
-    // Way one, format
-    //return &quot;\(a)&quot;
-    // Way two, new string
-    return String(a)
-}
-toString(123)
-toString(0.007)
-toString([4, 8, 32, 5 ])
-toString(&quot;test&quot;.startIndex)
-</code></pre><p>同样照葫芦画瓢也能转回来：</p>
-<pre><code>Int(&quot;123&quot;)
-Float(&quot;3.1&quot;)
-</code></pre><p>但这个太简单、太有局限性了！我最喜欢的是下面这个，利用了New的时候format方法，简直就是<strong>sprintf()</strong>的替代品！
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/03/Swift_String_3/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/03/Swift_String_2/" itemprop="url">
-                Swift2.0 中的String（二）：基本操作
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-03T15:20:16+08:00" content="2015-12-03">
-            2015-12-03
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Swift/" itemprop="url" rel="index">
-                  <span itemprop="name">Swift</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>Swift中的字符串，第二篇，基本操作。其他的几篇传送门：</p>
-<ul>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.github.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages">这里</a>看到</li>
-</ul>
-<p>首先，我们要记得使用字符串最常用的两个参数：下标(Index)和范围(Range)，几乎所有API都要用到它们</p>
-<pre><code>let offset = str.startIndex.advancedBy(2)// offset: 3rd char
-let range  = Range(start: str.startIndex.advancedBy(3), end: str.endIndex.advancedBy(-2))// range: 3..&lt;6, &quot;345&quot;
-</code></pre><p><strong>强制类型转换</strong></p>
-<pre><code>let n      = Int(str)!
-String(&quot;the number is \(n)&quot;)
-String(format:&quot;%.2f,  %i&quot;, 9.1, 304)
-</code></pre><p><strong>内容反转</strong>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/03/Swift_String_2/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -979,7 +948,7 @@ String(format:&quot;%.2f,  %i&quot;, 9.1, 304)
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">85</span>
+              <span class="site-state-item-count">87</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
