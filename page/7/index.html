@@ -223,6 +223,163 @@
           
           
             
+              <a class="post-title-link" href="/2015/12/20/newsreader-1/" itemprop="url">
+                从打造新闻app学到的(1)：抽象概念，定义好的数据结构
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-20T17:14:35+08:00" content="2015-12-20">
+            2015-12-20
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/iOS开发杂项/" itemprop="url" rel="index">
+                  <span itemprop="name">iOS开发杂项</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><blockquote>
+<p>怎么从JSON拿数据学会了，那么接下来就是正式打造一个自己的新闻客户端了。虽然我Swift语法还没认真学完，但实在是心痒痒，就跳过一点基础，先来个实战吧！经过这个礼拜，我的APP也基本成型了。网上关于怎么做一个新闻客户端的例子很多，我就不赘述了，只是把过程中碰到的一些小问题和心得、我自己无法很容易搜到完美答案的写一写。过程中的弯路肯定没少走，但经验的收获也是不少的。</p>
+</blockquote>
+<p>关于这个APP使用的数据结构，其实我是重构过的。新闻一般都是有两种数据源：新闻列表(List)，和单条新闻(Post)详细信息。开始我在playground写了对应的List&amp;Post数据结构，以及处理数据的函数。打印测试成功后，往project里面放的时候……不忍直视！作为一个初学者，我往viewDidLoad()里面塞了几乎所有的流程调用，以至于第一次运行成功在模拟器中看到数据的时候，我最大的感觉不是兴奋，而是我怎么把code写得这么丑陋！😖<br><strong>功能不行可以再学习怎么做，但代码太丑是真真正正不能忍！</strong>我曾经的经验如是告诉我。我试着模块化各种数据和过程，一番思考和尝试后，变成了现在的结构：<br><img src="http://whf.d.pr/dHuS+" alt="" title="新闻APP拿取数据框图"><br>DataManager是整个业务的最顶层类，它提供了很少的几个接口供ViewController使用：请求最新列表、请求更多列表数据、请求某个新闻、少量设置，并且设置也都是有default值的。考虑到将来有可能支持更多的新闻网站，GetURL和数据解析部分也是独立可更换的模块。在数据结构部分，我定义了一个Item类型，包括几个通用的属性，以及几个通用函数的实现，然后让ListItem，PostItem，CommentItem分别继承。这样既逻辑清晰，减少重复代码，也便于调试。所有上层不需要知道的参数都封装在内部，只有一个Manger和它的API，以及几个配置属性暴露在外。<br>也许这样的抽象定义过程，对于老手来说是不值一提的基础，就像吃饭要先煮饭一样简单。但我想对于刚刚接触APP开发的新人来说，如何更好的定义数据结构和API，恰当地抽象各种概念，还是值得多多思考的功课。</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/12/16/creatDuoshuo/" itemprop="url">
+                新配置了多说
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-16T13:35:25+08:00" content="2015-12-16">
+            2015-12-16
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Life-Other/" itemprop="url" rel="index">
+                  <span itemprop="name">Life & Other</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>测试一下！配置好像相当简单嘛！:) 而且好像不是用域名而是ID单匹配的，自己本地的测试服务也能用，所以像我这种两个域名的配置起来完全无障碍，注册、改config一站式完成，赞！</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/12/15/swift_json/" itemprop="url">
                 使用原生库解析JSON
               </a>
@@ -743,178 +900,11 @@ let pattern = &quot;1[3|5|7|8][0-9]\\d{8}&quot;
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/08/Swift_String_4/" itemprop="url">
-                Swift2.0 中的String（四）：编码转换
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-08T15:20:16+08:00" content="2015-12-08">
-            2015-12-08
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Swift/" itemprop="url" rel="index">
-                  <span itemprop="name">Swift</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>Swift中的字符串，第四篇，中文字符编码的转换。其他的几篇传送门：</p>
-<ul>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.github.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages">这里</a>看到</li>
-</ul>
-<p>不知道是不是Safari的原因，我用浏览器下载中文名文件的时候常常文件名会变成乱码，就是“%EF%77%3D%20”那种，又因为很多是电子书，名称也不能乱改，还需要自己去copy一遍重命名，很烦，于是想到用Swift自己写个函数试试纠正这个乱码。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/08/Swift_String_4/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/04/Swift_open/" itemprop="url">
-                Swift开源了！！！
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-04T18:29:26+08:00" content="2015-12-04">
-            2015-12-04
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Swift/" itemprop="url" rel="index">
-                  <span itemprop="name">Swift</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>这篇都不知道该算吐槽还是开发文章😀。<br>早晨起床一刷新闻，Swift承诺中的开源实现了！想想读书的时候写Pascal玩，进了大学才发现原来这玩意儿早过时了，大学的时候也是东搞西搞像无头苍蝇一样没有方向，偶尔有需要写程序的偏门作业就突击什么vfox, delphi, jsp之类的……等毕业工作半年了才开始学C，后来对着个Android1.2研究了下就觉得一层一层好复杂啊！😥这么些年永远走在潮流之后，什么GitHub是什么鬼从来没用过，学习Swift的过程就跟不断发现新大陆一样感觉信息爆炸性扑面而来，这次突然有一种自己终于跟上了时代的感觉，哈哈！<br>下午跑去Github上观光了一下Swift，手贱Watch了，结果十几分钟来了20封邮件！吓得我赶紧去unwatch，终于懂了为什么star的那么多watch的却很少了。这效率让我有点瞠目结舌：才一天，搭搭环境看看代码结构就差不多了吧，哪里来那么多大神神速找了bug出来还fix了！！膜拜的同时心生自卑：人家是怎么做到的？是我智商低吗？难道说这就是老人被拍死在沙滩上的真实写照……😱<br>看看文档，Swift3.0还要大改，居然都有计划做什么2.0到3.0的迁移器，那多半是改动多得大项目根本无法用人力迁移了。1.2到2.0的改动就够让我晕头转向的了，还没整明白呢，又来，我也真是醉……跟钱同学讨论这个问题，他相当不能理解这种不稳定性，觉得iOS开发者都这么好脾气吗？！其实我一个月前也不能忍，那种随便一找资料就过时、网上几乎所有的sample都编不过又不知道怎么改的感觉太令人抓狂，不过随着慢慢入门，这种感觉就好多了，也知道如何应对。也许对于这种剧烈变动的语言，亦步亦趋比猛插一杠子开干还是要容易吧！<br>最近读了一些文档、文章，感觉自己虽然语法差不多知道了些，思维却还是旧式的。对于那些流行的（或者其实是已经用了很长时间了，只是我不知道）的编程思想和范式，还很陌生。这种思维方式的转变，需要更多的时间来磨练和体会，不求成为大牛，只想做一个不是吃青春饭的工程师。给自己加油！🤗</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/8/">&raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/6/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/8/">&raquo;</a>
   </nav>
 
  </div>
@@ -948,7 +938,7 @@ let pattern = &quot;1[3|5|7|8][0-9]\\d{8}&quot;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">87</span>
+              <span class="site-state-item-count">89</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -962,7 +952,7 @@ let pattern = &quot;1[3|5|7|8][0-9]\\d{8}&quot;
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">37</span>
+              <span class="site-state-item-count">38</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

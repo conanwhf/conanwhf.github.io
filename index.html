@@ -223,6 +223,174 @@
           
           
             
+              <a class="post-title-link" href="/2017/07/12/CentosPython/" itemprop="url">
+                在Centos中安装和使用Python3
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2017-07-12T18:31:26+08:00" content="2017-07-12">
+            2017-07-12
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Linux/" itemprop="url" rel="index">
+                  <span itemprop="name">Linux</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>前几天碰到一个有点尴尬的需求：我一直有个Bandwagon的服务器用来做SS，自己写了个Python3的脚本，想用这个服务器定时启动跑一下。结果发现Bandwagon的SS只支持Centos的系统，而Centos系统里又只默认安装了python2.6，并且SS也必须要Python2.6才能跑。<br>虽然Bandwagon支持更换操作系统，可选的版本也很多，但我实在懒得折腾，想想还要自己安装维护SS服务就头大，只好考虑在Centos上安装Python3了。</p>
+<h2 id="Install_python3"><a href="#Install_python3" class="headerlink" title="Install python3"></a>Install python3</h2><p>不同于Ubuntu和Debian的apt-get，在Centos上的安装工具是yum，这个我没用过，但是也大同小异。首先是需要安装几个开发工具库，脚本也是网上看到的，有的是已经有了的，姑且无脑安装一下吧。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/07/12/CentosPython/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2017/07/12/Tips201707/" itemprop="url">
+                开发Tips收集-2017年07月
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2017-07-12T17:25:39+08:00" content="2017-07-12">
+            2017-07-12
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/DevTips/" itemprop="url" rel="index">
+                  <span itemprop="name">DevTips</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>点击通知栏的通知进入程序时，会触发App Delegate里的方法，分为以下两种情况：<ol>
+<li>程序未启动（即底部任务栏里没有进程）时：<br>　　<code>- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions</code>。对于launchOptions参数，需要经过以下处理：<code>NSDictionary* pushNotificationKey = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]</code>，其中的pushNotificationKey才是从服务端推送过来的数据，使用键值对方式就可以读取服务器传递过来的额外参数了。<br>应用还没有加载，这时如果点击通知的显示按钮，会调用didFinishLaunchingWithOptions，不会调用didReceiveRemoteNotification方法。如果点击通知的关闭按钮，再点击应用，只会调用didFinishLaunchingWithOptions方法。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/07/12/Tips201707/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2017/06/14/bootup-7-loader/" itemprop="url">
                 ARM板移植Linux系统启动（七）uBoot中的启动器
               </a>
@@ -701,173 +869,11 @@
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2017/05/30/bootup-1-main/" itemprop="url">
-                ARM板移植Linux系统启动（一）启动流程
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2017-05-30T17:31:26+08:00" content="2017-05-30">
-            2017-05-30
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Linux/" itemprop="url" rel="index">
-                  <span itemprop="name">Linux</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>几年前，我是一个标准的原厂Linux系统开发人员，用公司自己的芯片，移植整套BSP。对于Linux系统启动方面，自认为摸得很熟了，从上电加载的汇编码到Linux内核及文件系统的配置，无一不留下了我修改的代码，细节精确到nand flash的某block某page放了什么代码，内存某个地址加载的是什么，代码某个改动是为了兼容什么project，一清二楚。所以最近接到这个移植系统的工作，信心挺足，估摸硬件没有问题的话几天之内移植就能完成，哪知道被现实结结实实打脸。<br>之前我用的Linux系统是2.6，Uboot版本不详但Fat32的支持还是我们自己移植进去的，可以说相当跟不上时代了。最新的Kernel早就采用了DTS，Uboot也加了很多功能和驱动，我在移植的过程中几乎完成了一次重新学习的过程。虽然我这次用的板是基于TI的，但我希望能不局限于具体的板子型号，而是把规律性的东西写出来，让后来人有个参考。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/05/30/bootup-1-main/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2017/03/23/DuoShuoClose/" itemprop="url">
-                多说评论关闭
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2017-03-23T17:35:25+08:00" content="2017-03-23">
-            2017-03-23
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>刚刚发现多说不正常，去官网看，才发现多说已经要关了……</p>
-<blockquote>
-<p>重要通知: 多说即将关闭<br>多说网 发表于 3月21日<br>因公司业务调整，非常遗憾的向大家宣布多说项目即将关闭。 我们将于2017年6月1日正式关停服务，在此之前您可以通过后台的数据导出功能导出自己站点的评论数据。 对此给您造成的不便，我们深表歉意，感谢您的一路相伴。</p>
-</blockquote>
-<p>感谢多说在过去日子里提供的服务，一个无法变现的项目难以为继，作为程序员我能理解。合适的新评论系统我还没有找到，国内的服务太多广告太一言难尽，国外的又太慢会被墙，不然我也不会专门在coding放个整站镜像了。所以目前的计划是所有评论暂时关闭，如果有什么想说的，欢迎发email给我交流，或者在github上留言也OK。虽然这么长时间并没有什么人留言，但还是感谢每一个关注的人。谢谢！</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
   </nav>
 
  </div>
@@ -901,7 +907,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">87</span>
+              <span class="site-state-item-count">89</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -915,7 +921,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">37</span>
+              <span class="site-state-item-count">38</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

@@ -4,6 +4,50 @@
 
     
   <url>
+    <loc>http://conanwhf.coding.me/2017/07/12/CentosPython/</loc>
+    <lastmod>2017-07-12T12:32:17.000Z</lastmod>
+    <data>
+        <display>
+        <title>在Centos中安装和使用Python3</title>
+        <pubTime>2017-07-12T10:31:26.000Z</pubTime>
+        
+        <tag>Centos</tag>
+         
+        <tag>Python</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="http://conanwhf.coding.me/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2017/07/12/Tips201707/</loc>
+    <lastmod>2017-07-12T10:57:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>开发Tips收集-2017年07月</title>
+        <pubTime>2017-07-12T09:25:39.000Z</pubTime>
+        
+        <tag>Xcode</tag>
+         
+        <tag>iOS - Swift</tag>
+         
+         
+           
+             
+              <breadCrumb title="DevTips" url="http://conanwhf.coding.me/categories/DevTips/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.coding.me/2017/06/14/bootup-7-loader/</loc>
     <lastmod>2017-06-14T11:33:50.000Z</lastmod>
     <data>
@@ -1500,26 +1544,6 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/09/03/StructPic/</loc>
-    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>Cocoa库的架构</title>
-        <pubTime>2015-09-03T09:19:33.000Z</pubTime>
-        
-        <tag>iOS</tag>
-         
-         
-           
-             
-              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://conanwhf.coding.me/2015/11/05/ResourceInGit/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
@@ -1555,6 +1579,26 @@
            
              
               <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/09/02/MustGet/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>iOS开发必知必会（自己总结的）</title>
+        <pubTime>2015-09-02T09:11:28.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
           
         </display>
     </data>
@@ -1618,28 +1662,6 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-2/</loc>
-    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>从打造新闻app学到的(2)：定义类中的只读属性</title>
-        <pubTime>2015-12-21T09:14:35.000Z</pubTime>
-        
-        <tag>Class</tag>
-         
-        <tag>NewsAPP</tag>
-         
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://conanwhf.coding.me/2017/03/23/DuoShuoClose/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
@@ -1658,12 +1680,12 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-3/</loc>
+    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-2/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>从打造新闻app学到的(3)：让自定义的类可排序</title>
-        <pubTime>2015-12-21T11:14:35.000Z</pubTime>
+        <title>从打造新闻app学到的(2)：定义类中的只读属性</title>
+        <pubTime>2015-12-21T09:14:35.000Z</pubTime>
         
         <tag>Class</tag>
          
@@ -1698,6 +1720,28 @@
 
     
   <url>
+    <loc>http://conanwhf.coding.me/2015/12/21/newsreader-3/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>从打造新闻app学到的(3)：让自定义的类可排序</title>
+        <pubTime>2015-12-21T11:14:35.000Z</pubTime>
+        
+        <tag>Class</tag>
+         
+        <tag>NewsAPP</tag>
+         
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.coding.me/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.coding.me/2015/12/22/newsreader-4/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
@@ -1724,26 +1768,6 @@
 
     
   <url>
-    <loc>http://conanwhf.coding.me/2015/09/02/MustGet/</loc>
-    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>iOS开发必知必会（自己总结的）</title>
-        <pubTime>2015-09-02T09:11:28.000Z</pubTime>
-        
-        <tag>iOS</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.coding.me/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://conanwhf.coding.me/2016/02/06/ChineseNewYear2016/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
@@ -1757,6 +1781,26 @@
            
              
               <breadCrumb title="Life &amp; Other" url="http://conanwhf.coding.me/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.coding.me/2015/09/03/StructPic/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>Cocoa库的架构</title>
+        <pubTime>2015-09-03T09:19:33.000Z</pubTime>
+        
+        <tag>iOS</tag>
+         
+         
+           
+             
+              <breadCrumb title="CocoaTouch" url="http://conanwhf.coding.me/categories/CocoaTouch/"/>
           
         </display>
     </data>

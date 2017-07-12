@@ -223,6 +223,183 @@
           
           
             
+              <a class="post-title-link" href="/2016/08/26/GPTandMBR/" itemprop="url">
+                详细梳理分区表和系统启动相关的各种概念
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-08-26T17:30:25+08:00" content="2016-08-26">
+            2016-08-26
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Life-Other/" itemprop="url" rel="index">
+                  <span itemprop="name">Life & Other</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>MacBookPro的硬盘太小，前几天买了个128G的U盘想装好系统在虚拟机里引导，以节省日益膨胀的虚拟机文件占用的空间。我同时需要Mac、Win、Linux，买不起大容量MBP，天天寻思着删东西，实在是伤不起啊！😭预设的目标是要把Win和Ubuntu都装U盘上，而且支持在我的旧笔记本、Mac、虚拟机里都能正确引导，同时还要有一个数据分区，能在所有的系统中正常识别为U盘。为此，我狠狠研究了一通分区表，被各种缩写和规则搞得头昏脑胀。看看网上的东西也是常有错误，趁着还没忘光，自己梳理一遍吧！<br>声明：本文为作者（<a href="https://github.com/conanwhf">Conan</a>）原创，转载请标明<a href="/conanwhf.github.io">出处</a>！</p>
+<h2 id="GPT_u548CMBR"><a href="#GPT_u548CMBR" class="headerlink" title="GPT和MBR"></a>GPT和MBR</h2><p>首先当然是这俩，一切都源于此。最重要的信息是：他们都是<strong>分区表</strong>，一种用来表示硬盘分区信息的格式，不太严格地说是一个<strong>软件概念</strong>。啰嗦一句分区表是干什么的：在操作系统启动之前、硬件初始化之后，确定从硬盘启动的话，需要获得硬盘分区的基本信息，那就需要分区表了。分区表不只包含硬盘的分区信息，也包括一个很小的最基本的引导程序，用到引导第二阶段引导程序，如NTLDR、BOOTMGR和GRUB等，这些第二阶段的引导程序，是需要针对每个分区进一步读取数据才能获得的。</p>
+<h3 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h3><p>全称<strong>主引导记录（Master Boot Record）</strong>，又叫做主引导扇区，位于硬盘的第一个扇区主要分为两个部分：引导程序和分区结构表。有时候也将其开头的446字节引导程序特指为MBR，其后是64字节的“磁盘分区表”（DPT），以及2字节的结束标志（55AA）。因此，在使用“主引导记
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/26/GPTandMBR/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2016/08/25/rpi-cloneimg/" itemprop="url">
+                树莓派RaspberryPi系统备份Image的制作
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-08-25T10:02:26+08:00" content="2016-08-25">
+            2016-08-25
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Linux/" itemprop="url" rel="index">
+                  <span itemprop="name">Linux</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>在树莓派上做开发，难免会弄出各种版本的系统，加上有时候还需要拿给客户自己烧录或者demo，总是要clone一下TF卡，做系统做到烦躁。于是想想有没有什么办法能做跟官方release一样的烧录img出来，基本要求就是全系统克隆，但做出的img跟卡的容量无关，只跟系统占用的存储大小有关。</p>
+<h2 id="u7B80_u5355_u5168_u5361_u5907_u4EFD"><a href="#u7B80_u5355_u5168_u5361_u5907_u4EFD" class="headerlink" title="简单全卡备份"></a>简单全卡备份</h2><p>其实如果只是简单备份，可以直接将TF卡插入Linux电脑，用dd命令来备份和恢复(设备号不固定这里只是例子，还是用fdisk -l先查看一下比较保险)：</p>
+<pre><code># Backup the system to img file in Linux
+dd if=/dev/mmcblk0 of=raspberrypi-bak.img bs=1M
+# A little difference if Mac
+dd if=/dev/rdisk2 of=raspberrypi-bak.img bs=1M
+#
+# Restore system from img
+dd if=raspberrypi-bak.img bs=1M of=/dev/mmcblk0
+# Or in Mac
+dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
+</code></pre><p>不过这样做，16G的卡哪怕你只用了1G，整个备份文件也有16G，占用空间耗时间是小事，想想拿这么大文件给客户不方便，也显得太不专业了。<br>在网上搜了一下，已经有朋友先行做过类似的事情：<a href="http://www.fendou.info/raspberry-pi-sd-card-backup-and-recovery/" title="树莓派 Raspberry Pi SD卡系统备份与还原">树莓派 Raspberry Pi SD卡系统备份与还原</a>，看了一下按照他的步骤实践了一遍，但出现了一些问题，折腾了很久最终才解决。</p>
+<h2 id="RaspberryPi_u7684_u6587_u4EF6_u7CFB_u7EDF"><a href="#RaspberryPi_u7684_u6587_u4EF6_u7CFB_u7EDF" class="headerlink" title="RaspberryPi的文件系统"></a>RaspberryPi的文件系统</h2><p>首先介绍一下RaspberryPi的文件系统。树莓派的官方系统是基于Debian的，主要是两个分区：<strong>启动分区boot和根分区</strong>。boot分区为fat32格式，挂载在/boot，存放一些系统启动需要的基本文件，包括内核、驱动、firmware、启动脚本等；根分区文件系统是ext4格式，挂载于/，存放一些安装的软件和库文件、系统配置、用户数据等等；另外当系统启动时会自动生成和挂载一些必要的其他文件夹，包括temfs、sysfs、proc、debugfs、configfs等（使用mount可以看到他们），这些都是虚拟文件系统，由操作系统自动管理，备份时不需要关注。日常使用时，修改的文件包括安装的软件都是在根分区中，而如果自行编译内核，需要更新的文件都在/boot中。<br>所以备份一个系统，实际上是要备份这两个分区，官方发布的烧录镜像，也是包含了这样的两个分区，并保证通过dd的操作，能将其完整写入目标TF卡。首次烧录完毕后，不论你的TF卡容量为多少，启动后的boot和/分区大小都是固定的，然后可以使用<code>raspi-config</code>来扩展根分区的大小，boot分区不变，来达到使用所有卡内容量的目的。<br>相对应的备份步骤，大致为：创建img，把img当作一个磁盘分区和格式化，mount各个分区，将文件备份至对应的分区中，umount分区结束备份。</p>
+<h2 id="u76EE_u6807_u5907_u4EFD_u6587_u4EF6_u7684_u521B_u5EFA_u548C_u5206_u533A"><a href="#u76EE_u6807_u5907_u4EFD_u6587_u4EF6_u7684_u521B_u5EFA_u548C_u5206_u533A" class="headerlink" title="目标备份文件的创建和分区"></a>目标备份文件的创建和分区</h2><p>既然是备份到文件，那么首先需要创建一个备份文件，并且把这个文件看作一个虚拟设备，对其进行分区。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/25/rpi-cloneimg/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2016/08/20/DroplrTest/" itemprop="url">
                 Droplr的测试
               </a>
@@ -743,205 +920,11 @@
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2016/03/31/Tips201603/" itemprop="url">
-                开发Tips收集-2016年03月
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-03-31T17:25:39+08:00" content="2016-03-31">
-            2016-03-31
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/DevTips/" itemprop="url" rel="index">
-                  <span itemprop="name">DevTips</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>UIProgressView 的 subviews 是两个 UIImageView，第一个是 TrackTintColor 层（轨道），第二个是 Progress Tint Color 层（进度）</li>
-<li>如果你对文本显示没有特殊要求，可以参考下 UILabel 内部的实现方式：用 <a href="/">NSAttributedString boundingRectWithSize:options:context:</a> 来计算文本宽高，用 -<a href="/">NSAttributedString drawWithRect:options:context:</a> 来绘制文本。尽管这两个方法性能不错，但仍旧需要放到后台线程进行以避免阻塞主线程</li>
-<li>为了帮助你发现你的代码的问题，你可以使用Xcode来分析你的代码，帮助你找到出现问题的地方。注意，Xcode分析项目，它会指出每一个潜在的可能出现的问题的地方。从Xcode的 Product菜单选择 Analyze或按 Shift-Command-B.Xcode的将需要片刻的时间，但是当它完成的时候你会在左边的 Issue Navigator看到问题列表。由Analyze发现的问题用蓝色高亮显示</li>
-<li>多视图控制器跳转方法<ol>
-<li>Modal：<br> 打开：presentViewController<br> 关闭：dismissViewController</li>
-<li>Push:需搭配NavigationController使用，采用压栈和出栈的方式<br> 打开：pushViewController<br> 关闭：popViewController</li>
-<li>Segue：以上两种方式都可以，如果在打开目标控制器前需要额外处理，可使用perfromSegueWithIdentifier方法。Identifier在storyboard里设置。</li>
-</ol>
-</li>
-<li>设置UIImage的渲染模式：你可以设置一个UIImage在渲染时是否使用当前视图的Tint Color。UIImage新增了一个只读属性：renderingMode，对应的还有一个新增方法：imageWithRenderingMode:，它使用UIImageRenderingMode枚举值来设置图片的renderingMode属性。该枚举中包含下列值：
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/03/31/Tips201603/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2016/03/02/addressUpdate/" itemprop="url">
-                域名更新
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-03-02T17:35:25+08:00" content="2016-03-02">
-            2016-03-02
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><h2 id="u9996_u5148_uFF0C_http_3A//conanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01"><a href="#u9996_u5148_uFF0C_http_3A//conanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01" class="headerlink" title="首先， http://conanwhf.github.io 还是可用主力哈！"></a>首先，<a href="http://conanwhf.github.io" target="_blank" rel="external"> http://conanwhf.github.io</a> 还是可用主力哈！</h2><p>主要是怕哪天GFW发威上不了了，所以在国内服务商放个镜像而已。</p>
-<h2 id="u5899_u5185_u65B0_u57DF_u540D_uFF1Ahttp_3A//conanwhf-coding-me/"><a href="#u5899_u5185_u65B0_u57DF_u540D_uFF1Ahttp_3A//conanwhf-coding-me/" class="headerlink" title="墙内新域名：http://conanwhf.coding.me/"></a>墙内新域名：<a href="http://conanwhf.coding.me/">http://conanwhf.coding.me/</a></h2><p>旧的gitcafe那个，就不用了</p>
-<p>周末爬山下海的，肌肉酸痛还没解除，就看到GitCafe要关闭，整个迁移到Coding去了，晕！连封邮件也没发给我，突然就说什么要全部迁移删除，然后一看时间，最后期限5月份，但是从今天开始就全部只读了……😡我真是服了国内的这些服务商，不靠谱到了一个境界。还能怎么办呢？迁移呗！本来因为是中文博客，我的各种相关配置和网络服务都注册的是GitCafe的域名，这次也都要检查一遍、修改更换，麻烦死了。以后还是准备回归GitHub为主吧！<br>另外，因为gitcafe已经全面只读了，我连提交个域名更新说明的机会都没，真是@#$$(%#^%^)$$%^%$#$%😤😱<br>长长的年过完了，紧接着又巴厘岛玩了几天，以至于留下了太多功课没有做完。家里两位老人天天拉着我聊天修电脑，再加上新接了个项目，搞OpenCV和C++搞得连轴转，更没时间管iOS的东西了。想想每天也没做什么，过个年，跑跑步，吃三顿饭，刷刷新闻社交，帮公婆处理点杂事，研究旅游的各种事情，最后出去玩一趟，怎么哗哗哗一个月就过去了？！搞得我好焦虑，害怕项目进度赶不完。怎么办！！！<br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/03/02/addressUpdate/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/03/02/addressUpdate/'>域名更新</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo;</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/4/">&raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo;</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/4/">&raquo;</a>
   </nav>
 
  </div>
@@ -975,7 +958,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">87</span>
+              <span class="site-state-item-count">89</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -989,7 +972,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">37</span>
+              <span class="site-state-item-count">38</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
