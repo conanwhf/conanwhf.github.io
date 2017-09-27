@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.coding.me/"/>
-  <updated>2017-07-12T12:32:17.000Z</updated>
+  <updated>2017-09-27T11:28:44.000Z</updated>
   <id>http://conanwhf.coding.me/</id>
   
   <author>
@@ -13,6 +13,100 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[树莓派打造的家庭环境监控]]></title>
+    <link href="http://conanwhf.coding.me/2017/09/16/EnvMonitor/"/>
+    <id>http://conanwhf.coding.me/2017/09/16/EnvMonitor/</id>
+    <published>2017-09-16T09:31:26.000Z</published>
+    <updated>2017-09-27T11:28:44.000Z</updated>
+    <content type="html"><![CDATA[<p>最近空气质量又有下降的趋势，想想手头的RPI2B，干脆拿来改造成一个环境监控系统吧，放在客厅随时可以看到，情况不对马上开净化器😊。传感器部分都是以前就买了的，平时拿来偶尔玩一下。主要是三个：一个空气质量检测的激光传感器，一个温湿度的DHT22，一个凑数的带光感的数模转换。屏幕是一块5寸的HDMI破电阻屏，用来搭建本体的是两包白色塑料小积木，所有东西均购自淘宝，包括树莓派物料成本大约500+。说起来这个成本很高了，主要是树莓派本身加一个屏幕，光用来做这个有点浪费。好在我本来也是要放在那边当小服务器用，跑个定时脚本，偶尔看个kernel什么的。</p>
+<h2 id="u786C_u4EF6_u90E8_u5206"><a href="#u786C_u4EF6_u90E8_u5206" class="headerlink" title="硬件部分"></a>硬件部分</h2><a id="more"></a>
+<p>因为传感器都是做好了的，树莓派自己也引出了两排Pin脚，硬件其实就是连几根线而已。只有一个问题需要考虑就是传感器都是上电即工作的，如果一直通电的话，过不了多久估计就烧了。所以我决定用GPIO当作开关来控制sensor的电源，只在需要获得数据时打开。这样一来那两个只需要3.3V的sensor还好，直接用GPIO给电即可，空气质量那个传感器需要5V的就麻烦了。还有LCD屏幕，也是要求5V，并且本身是USB供电，只好把原有的拨动开关拆了，小改电路，使用一个接入的5V电源来解决。<br>最终的硬件连线图如下：</p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/09/16/EnvMonitor/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/09/16/EnvMonitor/'>树莓派打造的家庭环境监控</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+<br><img src="http://whf.d.pr/hhTgSG+" alt=""><br>图中的空气质量sensor和屏幕的电源都外接了一个场效应管，用来决定5V电源Pin的通断，由一个GPIO接入来控制。空气质量的数据是UART传输，PCF8591的接口是I2C，而DHT11则直接使用GPIO的一个Pin来传输数据（总感觉有点不靠谱的），另外添加了三个LED灯来实时反应空气质量的等级。</p>
+<h2 id="u8F6F_u4EF6_u90E8_u5206"><a href="#u8F6F_u4EF6_u90E8_u5206" class="headerlink" title="软件部分"></a>软件部分</h2><p>软件语言使用的是Python3，一个不在乎速度的上上之选。我虽然是那种一边百度一边写python的超级新手，但用过以后就再也不想换回繁琐的C了，更别说在树莓派上有那么多现成的库可以给你用。</p>
+<h3 id="u6574_u4F53_u7ED3_u6784"><a href="#u6574_u4F53_u7ED3_u6784" class="headerlink" title="整体结构"></a>整体结构</h3><p>软件方面只有三个主要的线程，两个负责拿数据，一个负责UI：<br><img src="http://whf.d.pr/QctyUV+" alt=""><br>程序跑起来后除了UI，会自己开两个线程进行循环，在循环中获取系统、sensor的状态并刷新在UI上。运行的模式有两种：实时和日常。实时模式主要是给需要迅速获得状态的时候使用，例如刚刚打开净化器想看看质量是否在持续改善，或者是网络有问题的时候看看能否ping通google；而日常模式则是无人关注的日常行为。主界面有一个按钮可以切换这两种模式，线程内部会根据切换后的状态判断自己应该睡眠多久再进行下一轮状态更新。<br>在日常模式中，系统每个循环会获取所有传感器的数据并更新上报至Yeelink，以及根据空气质量调整相对应的LED灯。而在实时模式，每个循环内则会另外获取一些操作系统状态来显示，并刷新ping服务器（Google）的结果。除了日常和实时两个模式中获取的状态，还有一个单独的线程用来刷新开机时间和公网IP。这两个数据对实时的要求不高，更新频率也很低，就直接固定为30分钟一次了。</p>
+<h3 id="u4F20_u611F_u5668_u6570_u636E_u83B7_u53D6"><a href="#u4F20_u611F_u5668_u6570_u636E_u83B7_u53D6" class="headerlink" title="传感器数据获取"></a>传感器数据获取</h3><p>传感器方面，以前都是用过的，底层的库也很成熟，所以代码量很小，主要是封装一下变成类库。要说重新写的部分，就是自己写了个Power的类，免得分散在GPIO的相关代码里面，很难看。以前用的DHT11，这次换成DHT22，懒得再自己写程序了，直接用的官方库。</p>
+<h3 id="UI_u8BBE_u8BA1"><a href="#UI_u8BBE_u8BA1" class="headerlink" title="UI设计"></a>UI设计</h3><p>UI部分我用的Python自带的tkinter，虽然是头一次用，但毕竟是Python，随便看看文档就搞定了，API简单得不得了。当然，主要是因为我的UI很简单：显示label，button，监听点击和关闭事件就是所有需求了。而这些对于任何一个语言的UI来说，用法基本都是通用的。唯一有点不同的是它对于控件的排列方式，使用了个叫<strong>grid</strong>的方法，实际上是将整个界面划分为N*M的小方格，再通过对控件所占用方格的位置、大小、对齐属性，来决定控件的具体位置。<br>另外一个小问题是在调试时发生的，我发现在SSH的状态下，无法从命令行启动UI，报错的具体内容我忘了，大概意思是找不到具体设备。网上搜了一下有人遇到同样的问题，年代久远，且无人回答。后来看了下API的文档，发现窗口的初始化函数Tk是可以带参数的：</p>
+<ol>
+<li>在有UI的桌面环境下打开终端，运行<code>export</code></li>
+<li>在输出结果中找到<code>DISPLAY=XXXX</code>的部分，比如说我的是<code>DISPLAY=&quot;:0.0&quot;</code></li>
+<li>在代码中添加参数：<code>tk.Tk(screenName=&quot;:0.0&quot;)</code><br>问题解决。</li>
+</ol>
+<h3 id="u6570_u636E_u4E0A_u4F20"><a href="#u6570_u636E_u4E0A_u4F20" class="headerlink" title="数据上传"></a>数据上传</h3><p>Yeelink是一个对个人用户免费的物联网服务，你可以将自己的数据上传，并在Web端查看。虽然时常抽风，但既然是免费的我还能抱怨什么呢？感谢天感谢地，感谢Yeelink让我和家人可以随时随地用手机查看家里的环境数据😜。系统每次获取到sensor的数据后会自动上报给Yeelink，让我奇怪的是官方好像只有接口文档而没有给出范例代码，网上的也大都有点过时了，害得我想偷个懒都不成。虽然GitHub上有，但我还是占用一些篇幅放出这部份代码，以造福想用搜索引擎偷懒的小朋友们吧：</p>
+<pre><code>#!/usr/bin/python3
+import time
+import json
+import requests
+
+#yeelink api配置
+apiUrl=&apos;http://api.yeelink.net/v1.1/device/%s/sensor/%s/datapoints&apos;
+apiKey=&apos;123456&apos; #请填入专属的api key
+apiHeaders={&apos;U-ApiKey&apos;:apiKey,&apos;content-type&apos;: &apos;application/json&apos;}
+deviceID = 1232312
+sensorID = {&apos;pm25&apos;:123, &apos;pm10&apos;: 456,&apos;temperature&apos;:789, &apos;humidity&apos;:111}
+
+#上传sensor数据到yeelink
+def upload_to_yeelink(name, value):
+    url= apiUrl % (deviceID,sensorID[name])
+    strftime=time.strftime(&quot;%Y-%m-%dT%H:%M:%S&quot;)
+    #print(url, strftime)
+    data={&quot;timestamp&quot;:strftime , &quot;value&quot;: value}
+    try:
+        res=requests.post(url,headers=apiHeaders,json=data, timeout=3.0)
+        if res.status_code!=200:
+            print(&quot;status_code:&quot;,res.status_code)
+        else:
+            pass
+    except:
+        print(&quot;report to yeelink fail&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    upload_to_yeelink(&apos;pm25&apos;, 100)
+</code></pre><p>从哪里获取deviceID、sensorID我就不多说了，注册和新建的时候自然都知道了。值得一提的是其中的timeout参数（3.0那个），是因为我发现即使网络没问题，有时候也会无限卡死在等response的地方，不知道是不是服务器会抽风。<br>使用这段代码需要先装requests库，原因？自然是为了偷懒。不然原生的http api处理什么json, error，timeout要多写好几行呢！</p>
+<h3 id="u5176_u4ED6"><a href="#u5176_u4ED6" class="headerlink" title="其他"></a>其他</h3><p>软件方面的其他内容还有三个小地方值得注意：</p>
+<ol>
+<li>桌面图标。要想完全脱离键盘用UI来操作，一个桌面的打开快捷方式必不可少。原来我以为直接放一个main的软链接就行了，结果人家直接不显示，原来需要固定格式的桌面图标文件才行。我以chrome的图标为基准修改了一个，还能自己定义ico，挺好玩。</li>
+<li>循环睡眠的代码。之前我想当然地在日常模式中直接写了sleep(600)，结果发现这个bug太蠢了：在UI上切换入实时模式时根本无法实时响应变化，非要等10分钟后睡醒了才知道。后来就改成了无论那种模式都是每次睡一秒，醒来看看状态是否变为实时模式，以决定是否要继续睡。</li>
+<li>循环时间。在循环中，每个cycle的时间并不真的是1秒或者10分钟，那个只是睡眠的时间；整个cycle还包括了获取数据的时间、上报数据的时间、以及其他开销。</li>
+</ol>
+<h2 id="u78B0_u5230_u7684_u95EE_u9898"><a href="#u78B0_u5230_u7684_u95EE_u9898" class="headerlink" title="碰到的问题"></a>碰到的问题</h2><p>改造系统的过程中碰到了不少问题，记得起来的写一下。</p>
+<h3 id="u7535_u538B_u95EE_u9898"><a href="#u7535_u538B_u95EE_u9898" class="headerlink" title="电压问题"></a>电压问题</h3><p>我的树莓派上除了接这些sensor和屏幕，还有一个蓝牙、一个USB WIFI、一个摄像头，可想而知耗电量是相当大的了。如果只提供5V1A的供电，系统则会在屏幕右上角显示一个黄色的闪电符号，提醒你电量不足。但即使是电量不足，程序也都是能运行的，只是……会影响sensor的读数。<br>刚开始放到电视柜上的时候，发现空气质量的读数突然变得巨大，完全不正常，而拿去书房debug又降下来很多（依然不正常），百思不得其解，直到把屏幕拿掉读数完全正常，才发现是给电的问题。最后我用了两个5V2A的USB供电（一个专供显示屏），才算解决了这个问题。</p>
+<h3 id="DHT22_u7684_u5B98_u65B9_u5E93"><a href="#DHT22_u7684_u5B98_u65B9_u5E93" class="headerlink" title="DHT22的官方库"></a>DHT22的官方库</h3><p>说起来虽然DHT系列的sensor本身质量不怎么样，公司还不错，能提供python的库直接用，而且同时支持DHT22和DHT11。DHT11之前我是自己写的，拿一个GPIO Pin来发命令、收数据，该说这想法很👍呢还是很😫呢？其实用C还好，用python就总觉的太不……专业。DHT11的数据特别是湿度实在是太不准了，差了十万八千里，有个Pin脚好像也有点问题，于是打算换个DHT22试试。结果嘛，虽然比原来准了一点但依然有25%-40%的误差🙄，并且这个官方给的库坑得我不轻。<br>首先是无响应问题。在硬件都正常的情况下，API很偶尔会无响应，估计是因为timming的问题miss掉了某个状态之类的。其实timeout是有的，但是那时间长得令人发指，直接可以当作死循环了。这个问题我也懒得去搞什么花样来解决了，死等就死等吧，别真死就行。<br>然后是返回值的问题。返回值一般是float的，比如35.4这类，坑的是如果它是35.0，就会直接给你个int的35，害得我用.1f输出就死了，需要自己强制转换下类型；这还不够奇葩，奇葩的是如果有什么问题拿不到数据，它直接给你个NULL，害得我在转换类型时又死了😳……心累！</p>
+<h3 id="u6563_u70ED_u95EE_u9898"><a href="#u6563_u70ED_u95EE_u9898" class="headerlink" title="散热问题"></a>散热问题</h3><p>除了电压，散热也是会影响sensor工作的。而最直接的影响，就是温度检测了。机器跑了两天后，我突然发现上报的温度太高，比普通温度计测量的结果高差不多4度。而同样的，当我拿去书房debug，一切又恢复了正常😓……这次我没那么傻了，估计是散热问题，之前做的积木壳，只留出一面开口用来插数据线和通风，确实散热太差，CPU长期保持在59℃也是挺吓人的。于是我将外壳加高了两层，让里面的各种线和元器件不要那么拥挤，又在侧面加了个小风扇，果然解决问题，CPU降到了45℃，温度测量也正常了。<br>值得一提的是这个风扇是当初买rpi亚克力壳子送的，接上之后持续发出我无法忍受的高频噪音，我这才想起来为什么当初被我扔到角落里了😌。想来想去，采取了折中的手段：将原本需要5V的风扇电源接到3.3V上，风扇转速降低，但是一点都不响了。CPU这次大概在48℃左右还可以接受，温度的sensor也读数正常。</p>
+<h2 id="u6700_u7EC8_u6548_u679C"><a href="#u6700_u7EC8_u6548_u679C" class="headerlink" title="最终效果"></a>最终效果</h2><p>整个项目中，组装其实是最大的挑战：用那个小积木拼东西手太疼了啊！拼了我整整一天，手指头都脱皮了，才搞定整个造型。<br>这是没有盖上屏幕的样子：<br><img src="http://whf.d.pr/135Aov+" alt=""><br>以及最终成品：<br><img src="http://whf.d.pr/VaydLR+" alt=""><br>项目源码已上传至GitHub：<a href="https://github.com/conanwhf/Rpi-envMonitor" title="Rpi-envMonitor" target="_blank" rel="external">Rpi-envMonitor</a>，欢迎Star！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近空气质量又有下降的趋势，想想手头的RPI2B，干脆拿来改造成一个环境监控系统吧，放在客厅随时可以看到，情况不对马上开净化器😊。传感器部分都是以前就买了的，平时拿来偶尔玩一下。主要是三个：一个空气质量检测的激光传感器，一个温湿度的DHT22，一个凑数的带光感的数模转换。屏幕是一块5寸的HDMI破电阻屏，用来搭建本体的是两包白色塑料小积木，所有东西均购自淘宝，包括树莓派物料成本大约500+。说起来这个成本很高了，主要是树莓派本身加一个屏幕，光用来做这个有点浪费。好在我本来也是要放在那边当小服务器用，跑个定时脚本，偶尔看个kernel什么的。</p>
+<h2 id="u786C_u4EF6_u90E8_u5206"><a href="#u786C_u4EF6_u90E8_u5206" class="headerlink" title="硬件部分"></a>硬件部分</h2>]]>
+    
+    </summary>
+    
+      <category term="RaspberryPi" scheme="http://conanwhf.coding.me/tags/RaspberryPi/"/>
+    
+      <category term="Linux" scheme="http://conanwhf.coding.me/categories/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[在Centos中安装和使用Python3]]></title>
@@ -156,6 +250,67 @@ yum clean all
       <category term="iOS - Swift" scheme="http://conanwhf.coding.me/tags/iOS-Swift/"/>
     
       <category term="DevTips" scheme="http://conanwhf.coding.me/categories/DevTips/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[读书清单 2017-06]]></title>
+    <link href="http://conanwhf.coding.me/2017/06/30/ReadingList2017-06/"/>
+    <id>http://conanwhf.coding.me/2017/06/30/ReadingList2017-06/</id>
+    <published>2017-06-30T02:36:54.000Z</published>
+    <updated>2017-09-27T03:57:08.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
+<li><strong>浪潮之巅</strong><br>这本书好多年前红得发紫，也是那时候就打开读一读，但是不知道为什么一而再再而三地没有读下去。这次在它红了近十年之后，终于终结了，然而我的感觉是：平淡得很。<a id="more"></a>
+</p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/30/ReadingList2017-06/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/30/ReadingList2017-06/'>读书清单 2017-06</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+
+可能是时间证明了一切，十年前那些激动人心的事情，现在已经早就化为日常；又或者是读者的眼界已经今非昔比，除了偶尔赞叹一下之外反而时常对于作者字里行间透露的美帝优越感or崇拜感到不太舒服，这种感觉在开始金融的部分后才稍稍缓解。或者说，这本书对我来说，只有最后两章是有意思的。<br>潮起潮落，IT的浪潮已经席卷世界，IT公司的浪潮却上下颠簸让人唏嘘。走到现在，看看当红炸子鸡Apple、goole、facebook，听听如潮涌般一浪高过一浪的人工智能、深度学习，有一种不知他们要将这个世界带往何处的茫然感觉。我甚至经常感到毛骨悚然，因为这变革的速度太快，快到随时可能失控，快到也许有一天，人类的命脉真的掌握在01创建的智慧中，到时候谁又能说它们不是一种新的生命物种呢？</li>
+<li><strong>蒋勋说红楼梦</strong><br>太长，越读到后面重复感越强，放弃了。 </li>
+<li><strong>《经济学人》2016必读精选-当黑天鹅坐上无人车</strong><br>同样的烂尾，有点快餐读物的感觉。</li>
+</ol>
+<h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2><ol>
+<li>中文传媒精选<br>貌似从9月开始不更新了</li>
+<li>名侦探柯南漫画</li>
+</ol>
+<h2 id="u6B63_u5728_u8BFB_u7684_u4E66"><a href="#u6B63_u5728_u8BFB_u7684_u4E66" class="headerlink" title="正在读的书"></a>正在读的书</h2><ol>
+<li>大脑使用指南：其实你活在大脑创造的虚拟世界中</li>
+</ol>
+<h2 id="u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_uFF0804-06_u6708_uFF09_54-98"><a href="#u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_uFF0804-06_u6708_uFF09_54-98" class="headerlink" title="买的正版非免费书（04-06月）             54.98"></a>买的正版非免费书（04-06月）             <strong>54.98</strong></h2><ol>
+<li>中国科幻丛书（套装共7册）                        <strong>12.99</strong> </li>
+<li>中信历史的镜像系列（套装共10本）                  <strong>39.99</strong></li>
+<li>上帝的图书馆 (世界奇幻大师丛书)                                   <strong>1.00</strong></li>
+<li>疯狂成瘾者：TED脑科学家的戒瘾成功之路（高铭力荐的《天生变态狂》姊妹篇） <strong>1.00</strong></li>
+</ol>
+<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>这段时间比较背运，莫名其妙腰受伤了，左腿甚至整个半边身子都发麻，左脚发木。开始以为是腰椎或者脑部的问题，排队拍核磁共振、等结果搞了两个月，结果医生说看片子啥事没有，就是普通的伤到了神经。说实话我真的挺不信的，没见过几个突然神经受伤的，但也没什么办法，只能好好养着。开始两周根本就是躺着，下地走两步就加重病情，后来渐渐好转，悬着的心才慢慢放下来。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
+<li><strong>浪潮之巅</strong><br>这本书好多年前红得发紫，也是那时候就打开读一读，但是不知道为什么一而再再而三地没有读下去。这次在它红了近十年之后，终于终结了，然而我的感觉是：平淡得很。]]>
+    
+    </summary>
+    
+      <category term="BookList" scheme="http://conanwhf.coding.me/tags/BookList/"/>
+    
+      <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
     
   </entry>
   
@@ -1002,6 +1157,40 @@ jump_to_image_no_args(&amp;spl_image);
   </entry>
   
   <entry>
+    <title><![CDATA[读书清单 2017-03]]></title>
+    <link href="http://conanwhf.coding.me/2017/03/31/ReadingList2017-03/"/>
+    <id>http://conanwhf.coding.me/2017/03/31/ReadingList2017-03/</id>
+    <published>2017-03-31T02:36:54.000Z</published>
+    <updated>2017-09-18T04:05:19.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
+<li>嫌疑人X的献身<br>这本书是因为看到3月31日有凯凯王和鱼蛋演的电影版上映，决定要先读一遍小说，才开始看的。之前在门口徘徊了好多次，也没有拿起过第二本的东野圭吾，这算是第一本真正的东野吧。<br>这本小说比想象中短很多，原本是抱着看大片的心态，结果半集电视剧的长度就结束了……原以为渐入佳境的时候，撇了一眼进度，却是快结束了！如果说这是东野的经典之作，那么多多少少让我失望了。小说的构思和故事结构是唯一经典的地方，但其他血肉和更多细节的缺失，让我有一种在看故事梗概的感觉。也因为之前被书评剧透“看到最后才发现不是你以为的”，所以心里已经有了差不多的猜测，最终的真相大白时我的震撼也小了很多。总的来说，这是个精彩的故事，却不是本出色的小说。有点遗憾作者浪费了一个好故事，明明可以花更多的笔墨，将故事讲得更大更详细，将人物塑造得更深刻更立体。Anyway，花这点时间读到一个好故事，怎么也不算亏。</li>
+</ol>
+<h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2><ol>
+<li>中文传媒精选</li>
+<li>名侦探柯南漫</li>
+</ol>
+<h2 id="u6B63_u5728_u8BFB_u7684_u4E66"><a href="#u6B63_u5728_u8BFB_u7684_u4E66" class="headerlink" title="正在读的书"></a>正在读的书</h2><ol>
+<li>蒋勋说红楼梦</li>
+<li>《经济学人》2016必读精选-当黑天鹅坐上无人车</li>
+<li>大脑使用指南：其实你活在大脑创造的虚拟世界中</li>
+</ol>
+<h2 id="u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_0-99"><a href="#u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_0-99" class="headerlink" title="买的正版非免费书             0.99"></a>买的正版非免费书             <strong>0.99</strong></h2><ol>
+<li>独裁者手册                <strong>0.99</strong></li>
+</ol>
+<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>这个月公婆来了，加上我月中开始重重重感冒到卧床不起，到月底炎症还没全好利索，自然也没怎么读书。除了点杂志漫画，就读了一本小说。新买了一个Switch，玩塞尔达荒野之息玩得不亦乐乎，再加上拼图，哪有时间搞学习啊？想想大人尚且如此，小孩子贪玩也就真的没什么可说的了。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
+<li>嫌疑人X的献身<br>这本书是因为看]]>
+    </summary>
+    
+      <category term="BookList" scheme="http://conanwhf.coding.me/tags/BookList/"/>
+    
+      <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[多说评论关闭]]></title>
     <link href="http://conanwhf.coding.me/2017/03/23/DuoShuoClose/"/>
     <id>http://conanwhf.coding.me/2017/03/23/DuoShuoClose/</id>
@@ -1114,7 +1303,7 @@ jump_to_image_no_args(&amp;spl_image);
     <link href="http://conanwhf.coding.me/2017/02/28/ReadingList2017-02/"/>
     <id>http://conanwhf.coding.me/2017/02/28/ReadingList2017-02/</id>
     <published>2017-02-28T02:36:54.000Z</published>
-    <updated>2017-06-12T15:14:41.000Z</updated>
+    <updated>2017-09-22T09:03:37.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
 <li><strong>术与道:移动应用UI设计必修课</strong><br>家里人这次过来帮我带了不少实体书，这就是其中的一本，亚马逊双十一打折时候买的。整本书内容很少，图特别多，用零碎时间翻了两下就看完了。开始的时候，即使是小白如我也觉得作者在凑字数骗稿费，后来慢慢地看出一点点门道，关于APP设计的思维和规范，虽然书里真的没讲什么，都是基础得不能再基础的东西。不过作为一个一点都不懂设计的开发人员，看完以后有一点点入门的感觉。我猜人家的受众也就是定义在刚毕业啥都不会的菜鸟设计师，作为一本教设计的书来说肯定不合格太简单了，但是对我倒是有点正合适。准备下回写APP的时候认真地按照书中讲的设计规范来做事，也算是没白看。</li>
 <li><strong>金融的解释:金融学二十九讲</strong><br>这本书是早就定下的书单，跟着那本斯坦福极简经济学的，先读读经济原理，再搞清楚金融运作。它经常出现在各种推荐书单上，我原本抱有很大的期望，但也许是珠玉在前，一读之下，有点失望。此书的前面三分之一部分也是讲经济的，后面才引申到金融。跟极简经济学那本相比，明显少了一种脉络感，让人有种盲人摸象无法领悟整体的感觉。同样的内容，这本书就更像是拿教科书来扩充讲解一下，读完了还是有点模模糊糊无法抓住重点；而斯坦福极简经济学则会把经济学中各种概念的因果关系和相互影响的线索讲得很清晰，读完心中自成体系。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/02/28/ReadingList2017-02/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/02/28/ReadingList2017-02/'>读书清单 2017-02</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
@@ -1565,286 +1754,6 @@ jump_to_image_no_args(&amp;spl_image);
       <category term="GPT" scheme="http://conanwhf.coding.me/tags/GPT/"/>
     
       <category term="MBR" scheme="http://conanwhf.coding.me/tags/MBR/"/>
-    
-      <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[树莓派RaspberryPi系统备份Image的制作]]></title>
-    <link href="http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/"/>
-    <id>http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/</id>
-    <published>2016-08-25T02:02:26.000Z</published>
-    <updated>2017-06-12T15:14:31.000Z</updated>
-    <content type="html"><![CDATA[<p>在树莓派上做开发，难免会弄出各种版本的系统，加上有时候还需要拿给客户自己烧录或者demo，总是要clone一下TF卡，做系统做到烦躁。于是想想有没有什么办法能做跟官方release一样的烧录img出来，基本要求就是全系统克隆，但做出的img跟卡的容量无关，只跟系统占用的存储大小有关。</p>
-<h2 id="u7B80_u5355_u5168_u5361_u5907_u4EFD"><a href="#u7B80_u5355_u5168_u5361_u5907_u4EFD" class="headerlink" title="简单全卡备份"></a>简单全卡备份</h2><p>其实如果只是简单备份，可以直接将TF卡插入Linux电脑，用dd命令来备份和恢复(设备号不固定这里只是例子，还是用fdisk -l先查看一下比较保险)：</p>
-<pre><code># Backup the system to img file in Linux
-dd if=/dev/mmcblk0 of=raspberrypi-bak.img bs=1M
-# A little difference if Mac
-dd if=/dev/rdisk2 of=raspberrypi-bak.img bs=1M
-#
-# Restore system from img
-dd if=raspberrypi-bak.img bs=1M of=/dev/mmcblk0
-# Or in Mac
-dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
-</code></pre><p>不过这样做，16G的卡哪怕你只用了1G，整个备份文件也有16G，占用空间耗时间是小事，想想拿这么大文件给客户不方便，也显得太不专业了。<br>在网上搜了一下，已经有朋友先行做过类似的事情：<a href="http://www.fendou.info/raspberry-pi-sd-card-backup-and-recovery/" title="树莓派 Raspberry Pi SD卡系统备份与还原" target="_blank" rel="external">树莓派 Raspberry Pi SD卡系统备份与还原</a>，看了一下按照他的步骤实践了一遍，但出现了一些问题，折腾了很久最终才解决。</p>
-<h2 id="RaspberryPi_u7684_u6587_u4EF6_u7CFB_u7EDF"><a href="#RaspberryPi_u7684_u6587_u4EF6_u7CFB_u7EDF" class="headerlink" title="RaspberryPi的文件系统"></a>RaspberryPi的文件系统</h2><p>首先介绍一下RaspberryPi的文件系统。树莓派的官方系统是基于Debian的，主要是两个分区：<strong>启动分区boot和根分区</strong>。boot分区为fat32格式，挂载在/boot，存放一些系统启动需要的基本文件，包括内核、驱动、firmware、启动脚本等；根分区文件系统是ext4格式，挂载于/，存放一些安装的软件和库文件、系统配置、用户数据等等；另外当系统启动时会自动生成和挂载一些必要的其他文件夹，包括temfs、sysfs、proc、debugfs、configfs等（使用mount可以看到他们），这些都是虚拟文件系统，由操作系统自动管理，备份时不需要关注。日常使用时，修改的文件包括安装的软件都是在根分区中，而如果自行编译内核，需要更新的文件都在/boot中。<br>所以备份一个系统，实际上是要备份这两个分区，官方发布的烧录镜像，也是包含了这样的两个分区，并保证通过dd的操作，能将其完整写入目标TF卡。首次烧录完毕后，不论你的TF卡容量为多少，启动后的boot和/分区大小都是固定的，然后可以使用<code>raspi-config</code>来扩展根分区的大小，boot分区不变，来达到使用所有卡内容量的目的。<br>相对应的备份步骤，大致为：创建img，把img当作一个磁盘分区和格式化，mount各个分区，将文件备份至对应的分区中，umount分区结束备份。</p>
-<h2 id="u76EE_u6807_u5907_u4EFD_u6587_u4EF6_u7684_u521B_u5EFA_u548C_u5206_u533A"><a href="#u76EE_u6807_u5907_u4EFD_u6587_u4EF6_u7684_u521B_u5EFA_u548C_u5206_u533A" class="headerlink" title="目标备份文件的创建和分区"></a>目标备份文件的创建和分区</h2><p>既然是备份到文件，那么首先需要创建一个备份文件，并且把这个文件看作一个虚拟设备，对其进行分区。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/25/rpi-cloneimg/'>树莓派RaspberryPi系统备份Image的制作</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-需要用到的工具有_parted, kpartx, dosfstools, rsync_，使用apt-get安装：</p>
-<pre><code>sudo apt-get -y install rsync dosfstools parted kpartx
-</code></pre><h3 id="u521B_u5EFA_u65B0_u7684_u6587_u4EF6"><a href="#u521B_u5EFA_u65B0_u7684_u6587_u4EF6" class="headerlink" title="创建新的文件"></a>创建新的文件</h3><p>我们用<code>dd</code>命令来创建一个新的img，img的大小和当前RaspberryPi已使用的存储空间有关。使用<code>df -P</code>来查看磁盘空间状态（以1K为单位），会看到如下的信息：<br><img src="http://whf.d.pr/1awb8+" alt=""><br>其中红框的部分就是我们需要关注的，将它们对应的Used数目取出，计算得到需要创建的img大小：<br>    img=rpibackup.img</p>
-<pre><code>#sudo rm $img
-bootsz=df -P | grep /boot | awk &apos;{print $2}&apos;
-rootsz=df -P | grep /dev/root | awk &apos;{print $3}&apos;
-totalsz=echo $bootsz $rootsz | awk &apos;{print int(($1+$2)*1.3)}&apos;
-sudo dd if=/dev/zero of=$img bs=1K count=$totalsz
-</code></pre><p>这里的totalsz是基于两个分区使用总和的1.3倍，一方面是分区表、格式化等操作造成的空间损失，另一方面是系统对剩余空间的要求。我曾经尝试过使用1.1，然而系统启动后在终端大部分命令都报错，说空间不足。</p>
-<h3 id="u5C06_u6587_u4EF6_u5206_u533A"><a href="#u5C06_u6587_u4EF6_u5206_u533A" class="headerlink" title="将文件分区"></a>将文件分区</h3><p>工具parted可以用来把一个img文件当作一个磁盘来分区。使用<code>fdisk -l</code>能够看到系统中各个磁盘分区的情况，在我的树莓派上系统TF卡的分区情况如下：<br><img src="http://whf.d.pr/1dR76+" alt=""><br>我们把boot分区设计为跟原分区大小一样，root分区则是扩展到img文件的末尾。对应的脚本：</p>
-<pre><code>bootstart=sudo fdisk -l /dev/mmcblk0 | grep mmcblk0p1 | awk &apos;{print $2}&apos;
-bootend=sudo fdisk -l /dev/mmcblk0 | grep mmcblk0p1 | awk &apos;{print $3}&apos;
-rootstart=sudo fdisk -l /dev/mmcblk0 | grep mmcblk0p2 | awk &apos;{print $2}&apos;
-echo &quot;boot: $bootstart &gt;&gt;&gt; $bootend, root: $rootstart &gt;&gt;&gt; end&quot;
-rootend=sudo fdisk -l /dev/mmcblk0 | grep mmcblk0p2 | awk &apos;{print $3}&apos;
-sudo parted $img --script -- mklabel msdos
-sudo parted $img --script -- mkpart primary fat32 ${bootstart}s ${bootend}s
-sudo parted $img --script -- mkpart primary ext4 ${rootstart}s -1
-</code></pre><h3 id="u5206_u522B_u683C_u5F0F_u5316fat32_u548Cext4_u5206_u533A"><a href="#u5206_u522B_u683C_u5F0F_u5316fat32_u548Cext4_u5206_u533A" class="headerlink" title="分别格式化fat32和ext4分区"></a>分别格式化fat32和ext4分区</h3><p>然后对分区分别进行格式化，我们可以通过loop来建立虚拟的磁盘挂载点，进行后续的操作：</p>
-<pre><code>loopdevice=sudo losetup -f --show $img
-device=/dev/mapper/sudo kpartx -va $loopdevice | sed -E &apos;s/.*(loop[0-9])p.*/\1/g&apos; | head -1
-sleep 5
-sudo mkfs.vfat ${device}p1 -n boot
-sudo mkfs.ext4 ${device}p2
-</code></pre><p>在中间的这个sleep是我在实践中发现，创建loop的设备节点需要一些时间，如果手动在终端贴命令则没有问题，而若是用脚本执行，则在format时节点还没有创建好，从而造成格式化失败。</p>
-<h2 id="u5907_u4EFDBoot_u5206_u533A"><a href="#u5907_u4EFDBoot_u5206_u533A" class="headerlink" title="备份Boot分区"></a>备份Boot分区</h2><p>Boot分区是Fat32格式且数据不多，直接mount然后copy数据即可，注意权限问题。</p>
-<pre><code>mountb=$usbmount/backup_boot/
-mkdir -p $mountb
-sudo mount -t vfat ${device}p1 $mountb
-sudo cp -rfp /boot/* $mountb
-sync 
-sudo umount $mountb
-</code></pre><h2 id="u5907_u4EFD_u6839_uFF08root_uFF09_u5206_u533A"><a href="#u5907_u4EFD_u6839_uFF08root_uFF09_u5206_u533A" class="headerlink" title="备份根（root）分区"></a>备份根（root）分区</h2><p>根分区的备份是我折腾了很久的部分。因为它文件众多，不止一个文件夹，而且在系统运行时有一些文件、文件夹是临时生成或者mount的，不能全部直接copy。这就需要有一种方法能区分真正写在磁盘上的文件并将其备份。</p>
-<h3 id="u5931_u8D25_u7684_u7ECF_u9A8C_uFF1Adump_26amp_3Brestore"><a href="#u5931_u8D25_u7684_u7ECF_u9A8C_uFF1Adump_26amp_3Brestore" class="headerlink" title="失败的经验：dump&amp;restore"></a>失败的经验：dump&amp;restore</h3><p>在开头提到的道友那篇文章里，是采用了针对ext4备份和恢复的工具dump和restore。</p>
-<blockquote>
-<p>sudo mount -t ext4 $partRoot /media/<br>cd /media<br>sudo dump -0uaf - / |  sudo restore -rf -<br>cd; sudo umount /media</p>
-</blockquote>
-<p>但在关键的步骤出现了<strong> Broken pipe</strong>错误，经过重复测试多次，虽然每次报错的文件和inode不一样，但每次都无法顺利完成。这个问题在原博的评论中也有人遇到了：</p>
-<blockquote>
-<p>restore: ./lost+found: File exists<br>./tmp/rstdir1445584846: (inode 159534) not found on tape<br>./tmp/rstmode1445584846: (inode 161527) not found on tape<br>DUMP: Broken pipe<br>DUMP: The ENTIRE dump is aborted.<br>………………</p>
-</blockquote>
-<p>针对这个问题我做了一些测试。首先是把<code>sudo dump -0uaf - / | sudo restore -rf -</code>分开，取消管道，先dump到一个文件再restore。发现dump总是成功的，而问题出在restore上，所以就broken pipe了。开始怀疑是restore的时候权限有问题，后来把dump出来的文件拿到PC上做restore，也同样是失败。这样就很有可能是dump的文件有问题，仔细看看每次出错的文件都是隐藏或者临时文件，怀疑跟这个有关，但找了一大圈dump相关的参数尝试，依然是没有解决。</p>
-<h3 id="u4F7F_u7528rsync_u5907_u4EFD"><a href="#u4F7F_u7528rsync_u5907_u4EFD" class="headerlink" title="使用rsync备份"></a>使用rsync备份</h3><p>由于每次测试dump和restore花的时间很长，项目又比较急，我实在是不能再耽搁下去了，于是决定放弃这种方式。想了一下，曾经用过<a href="https://github.com/billw2/rpi-clone" title="rpi-clone" target="_blank" rel="external">rpi-clone</a>来做卡与卡之间的备份，那么备份成文件也应该是一样的。我于是去看了下它的源码，把根文件系统备份相关的部分提出来就能直接用起来了。这里用的是备份工具rsync，其本质上是基于文件系统之上的的直接拷贝，因为没有用到增量备份，所以跟cp其实是一回事。只是rsync能很好的保留各种权限、时间戳、软链接和文件信息，避免了一些用cp的问题。保险起见，我依然沿用了它。<br>首先还是mount一下：</p>
-<pre><code>mountr=$usbmount/backup_root/
-mkdir -p $mountr
-sudo mount -t ext4 ${device}p2 $mountr
-</code></pre><p>然后要对存在swap分区的情况进行特殊处理：</p>
-<pre><code>if [ -f /etc/dphys-swapfile ]; then
-        SWAPFILE=`cat /etc/dphys-swapfile | grep ^CONF_SWAPFILE | cut -f 2 -d=`
-    if [ &quot;$SWAPFILE&quot; = &quot;&quot; ]; then
-        SWAPFILE=/var/swap
-    fi
-    EXCLUDE_SWAPFILE=&quot;--exclude $SWAPFILE&quot;
-fi
-</code></pre><p>接着就是所有文件的备份，跳过某些临时、系统自动生成的文件和文件夹：</p>
-<pre><code>sudo rsync --force -rltWDEgopt --delete --stats --progress\
-    $EXCLUDE_SWAPFILE \
-    --exclude &apos;.gvfs&apos; \
-    --exclude &apos;/dev&apos; \
-        --exclude &apos;/media&apos; \
-    --exclude &apos;/mnt&apos; \
-    --exclude &apos;/proc&apos; \
-        --exclude &apos;/run&apos; \
-    --exclude &apos;/sys&apos; \
-    --exclude &apos;/tmp&apos; \
-        --exclude &apos;lost\+found&apos; \
-    --exclude &apos;$usbmount&apos; \
-    // $mountr
-</code></pre><p>完成后新建一些特殊文件夹，用来做系统启动时某些文件的自动挂载点，例如proc和mnt等等：</p>
-<pre><code>for i in dev media mnt proc run sys boot; do
-    if [ ! -d $mountr/$i ]; then
-        sudo mkdir $mountr/$i
-    fi
-done
-if [ ! -d $mountr/tmp ]; then
-    sudo mkdir $mountr/tmp
-    sudo chmod a+w $mountr/tmp
-fi
-</code></pre><p>到这里基本上就完成了，有一点小小的修改就是把网络配置文件删掉，以免换了新的网络环境启动系统无法自动配置：</p>
-<pre><code>sudo rm -f $mountr/etc/udev/rules.d/70-persistent-net.rules
-sync
-</code></pre><p>最后umount，清理loop设备，结束备份：</p>
-<pre><code>sudo umount $mountr
-# umount loop device
-sudo kpartx -d $loopdevice
-sudo losetup -d $loopdevice
-sudo umount $usbmount
-rm -rf $mountb $mountr
-</code></pre><h3 id="Mount_USB_device"><a href="#Mount_USB_device" class="headerlink" title="Mount USB device"></a>Mount USB device</h3><p>使用dump/restore的时候，有一个跳过特定文件的参数，在前文提到的教程中，作者是将img放到用户目录，并且跳过这个文件的。虽然使用rsync备份的时候，依然可以这么做，但考虑到通用性和调试的方便，我把文件直接备份在了外接的U盘上，以避免考虑各种“自己备份自己”可能带来的问题。顺便把相关的USB mount脚本和判断也贴一下供参考：</p>
-<pre><code>usbmount=/mnt
-mkdir -p $usbmount
-if [ -z $1 ]; then
-    echo &quot;no argument, assume the mount device is /dev/sda1 ? Y/N&quot;
-    read key
-    if [ &quot;$key&quot; = &quot;y&quot; -o &quot;$key&quot; = &quot;Y&quot; ]; then
-        sudo mount -t vfat -o uid=1000 /dev/sda1 $usbmount
-    else
-        echo &quot;$0 [backup dest device name], e.g. $0 /dev/sda1&quot;
-        exit 0
-    fi
-else
-    sudo mount -t vfat -o uid=1000 $1 $usbmount
-fi
-if [ -z &quot;`grep $usbmount /etc/mtab`&quot; ]; then
-    echo &quot;mount fail, exit now&quot;
-    exit 0
-fi 
-</code></pre><p> 当然，如果你有兴趣，大可以自己改一改尝试直接备份在用户目录，只是我感觉依然是需要copy出来，意义不大。😏</p>
-<h2 id="u6062_u590D_u5907_u4EFD"><a href="#u6062_u590D_u5907_u4EFD" class="headerlink" title="恢复备份"></a>恢复备份</h2><p>备份img做好了，恢复备份就无需多谈了。既然是用树莓派的小伙伴，自然有一百种方法将镜像烧录到卡上。实在不知道的，放官方链接：<a href="https://www.raspberrypi.org/documentation/installation/installing-images/README.md" title="Installing images" target="_blank" rel="external">Installing images</a>，或者看这篇：<a href="http://conanwhf.github.io/2016/01/12/rpi-start/" title="树莓派初始配置指南（2代B型）" target="_blank" rel="external">树莓派初始配置指南（2代B型）</a>。</p>
-<h2 id="u5C0F_u7ED3"><a href="#u5C0F_u7ED3" class="headerlink" title="小结"></a>小结</h2><p>整理后完整的script我已经更新到GitHub:<a href="https://github.com/conanwhf/RaspberryPi-script/blob/master/rpi-backup.sh" target="_blank" rel="external">https://github.com/conanwhf/RaspberryPi-script/blob/master/rpi-backup.sh</a>，如果对你有所帮助，<strong>欢迎Star</strong>！😊有什么疑问和质疑，也欢迎砸过来！🤗<br>顺便提一下，写这篇文章的时候，我发现官方已经release了一个备份工具，<a href="https://github.com/raspberrypi/piclone" title="piclone" target="_blank" rel="external">piclone</a>，看上去是在两个TF卡之间备份，跟rpi-clone功能一样。我还没有测过，有兴趣的小伙伴可以试一下，看看源码，也许/的备份能有新的思路和方法。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>在树莓派上做开发，难免会弄出各种版本的系统，加上有时候还需要拿给客户自己烧录或者demo，总是要clone一下TF卡，做系统做到烦躁。于是想想有没有什么办法能做跟官方release一样的烧录img出来，基本要求就是全系统克隆，但做出的img跟卡的容量无关，只跟系统占用的存储大小有关。</p>
-<h2 id="u7B80_u5355_u5168_u5361_u5907_u4EFD"><a href="#u7B80_u5355_u5168_u5361_u5907_u4EFD" class="headerlink" title="简单全卡备份"></a>简单全卡备份</h2><p>其实如果只是简单备份，可以直接将TF卡插入Linux电脑，用dd命令来备份和恢复(设备号不固定这里只是例子，还是用fdisk -l先查看一下比较保险)：</p>
-<pre><code># Backup the system to img file in Linux
-dd if=/dev/mmcblk0 of=raspberrypi-bak.img bs=1M
-# A little difference if Mac
-dd if=/dev/rdisk2 of=raspberrypi-bak.img bs=1M
-#
-# Restore system from img
-dd if=raspberrypi-bak.img bs=1M of=/dev/mmcblk0
-# Or in Mac
-dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
-</code></pre><p>不过这样做，16G的卡哪怕你只用了1G，整个备份文件也有16G，占用空间耗时间是小事，想想拿这么大文件给客户不方便，也显得太不专业了。<br>在网上搜了一下，已经有朋友先行做过类似的事情：<a href="http://www.fendou.info/raspberry-pi-sd-card-backup-and-recovery/" title="树莓派 Raspberry Pi SD卡系统备份与还原">树莓派 Raspberry Pi SD卡系统备份与还原</a>，看了一下按照他的步骤实践了一遍，但出现了一些问题，折腾了很久最终才解决。</p>
-<h2 id="RaspberryPi_u7684_u6587_u4EF6_u7CFB_u7EDF"><a href="#RaspberryPi_u7684_u6587_u4EF6_u7CFB_u7EDF" class="headerlink" title="RaspberryPi的文件系统"></a>RaspberryPi的文件系统</h2><p>首先介绍一下RaspberryPi的文件系统。树莓派的官方系统是基于Debian的，主要是两个分区：<strong>启动分区boot和根分区</strong>。boot分区为fat32格式，挂载在/boot，存放一些系统启动需要的基本文件，包括内核、驱动、firmware、启动脚本等；根分区文件系统是ext4格式，挂载于/，存放一些安装的软件和库文件、系统配置、用户数据等等；另外当系统启动时会自动生成和挂载一些必要的其他文件夹，包括temfs、sysfs、proc、debugfs、configfs等（使用mount可以看到他们），这些都是虚拟文件系统，由操作系统自动管理，备份时不需要关注。日常使用时，修改的文件包括安装的软件都是在根分区中，而如果自行编译内核，需要更新的文件都在/boot中。<br>所以备份一个系统，实际上是要备份这两个分区，官方发布的烧录镜像，也是包含了这样的两个分区，并保证通过dd的操作，能将其完整写入目标TF卡。首次烧录完毕后，不论你的TF卡容量为多少，启动后的boot和/分区大小都是固定的，然后可以使用<code>raspi-config</code>来扩展根分区的大小，boot分区不变，来达到使用所有卡内容量的目的。<br>相对应的备份步骤，大致为：创建img，把img当作一个磁盘分区和格式化，mount各个分区，将文件备份至对应的分区中，umount分区结束备份。</p>
-<h2 id="u76EE_u6807_u5907_u4EFD_u6587_u4EF6_u7684_u521B_u5EFA_u548C_u5206_u533A"><a href="#u76EE_u6807_u5907_u4EFD_u6587_u4EF6_u7684_u521B_u5EFA_u548C_u5206_u533A" class="headerlink" title="目标备份文件的创建和分区"></a>目标备份文件的创建和分区</h2><p>既然是备份到文件，那么首先需要创建一个备份文件，并且把这个文件看作一个虚拟设备，对其进行分区。]]>
-    
-    </summary>
-    
-      <category term="Boot" scheme="http://conanwhf.coding.me/tags/Boot/"/>
-    
-      <category term="RaspberryPi" scheme="http://conanwhf.coding.me/tags/RaspberryPi/"/>
-    
-      <category term="Script" scheme="http://conanwhf.coding.me/tags/Script/"/>
-    
-      <category term="Linux" scheme="http://conanwhf.coding.me/categories/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Droplr的测试]]></title>
-    <link href="http://conanwhf.coding.me/2016/08/20/DroplrTest/"/>
-    <id>http://conanwhf.coding.me/2016/08/20/DroplrTest/</id>
-    <published>2016-08-20T09:35:25.000Z</published>
-    <updated>2017-06-12T15:16:31.000Z</updated>
-    <content type="html"><![CDATA[<p>买了Droplr的永久会员，测试一下外链图片，如果OK就把七牛换了……国内的免费服务太让人没安全感！<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/20/DroplrTest/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/20/DroplrTest/'>Droplr的测试</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-<br><img src="http://whf.d.pr/18C89+" alt=""></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>买了Droplr的永久会员，测试一下外链图片，如果OK就把七牛换了……国内的免费服务太让人没安全感！]]>
-    
-    </summary>
-    
-      <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[读书清单 2016-08]]></title>
-    <link href="http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/"/>
-    <id>http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/</id>
-    <published>2016-08-15T09:36:54.000Z</published>
-    <updated>2017-06-12T15:14:55.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li><strong>催眠师手记</strong><br>刚开通借阅，看到首页推荐，于是下下来看了下。故事还可以，看到一多半的时候就开始腻……最后是努力看完的后面两个故事，属于还能看看的故事书吧。本来以为是专业性比较强的东西，结果是打着手记外衣的小说。作者有点模仿福尔摩斯的感觉，只是这次厉害的那个关键人物换成了非第一人称：解密二人组，有一个人上知天文下知地理专业精湛，另一个负责处理杂事以及理解天才的不可理解之处。这样的故事讲好了也还不错，只可惜这本书里的故事，有点装神弄鬼。Any way，比起普遍的酸酸文艺风和无法直视的网文，这本书还算可以一读，拿来休闲正好。</li>
-</ol>
-<h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2><ol>
-<li>中文传媒精选</li>
-<li>知乎周刊2015年度300问-心理<a id="more"></a>
-</p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/15/ReadingList2016-08/'>读书清单 2016-08</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-
-<h2 id="u6B63_u5728_u8BFB_u7684_u4E66"><a href="#u6B63_u5728_u8BFB_u7684_u4E66" class="headerlink" title="正在读的书"></a>正在读的书</h2></li>
-<li>南海暗战</li>
-</ol>
-<h2 id="u4E2D_u4E9A_u4E70_u7684_u4E66_uFF0807-08_u6708_uFF09_37-73"><a href="#u4E2D_u4E9A_u4E70_u7684_u4E66_uFF0807-08_u6708_uFF09_37-73" class="headerlink" title="中亚买的书（07-08月）             37.73"></a>中亚买的书（07-08月）             <strong>37.73</strong></h2><ol>
-<li>斯坦福极简经济学              <strong>1.00</strong></li>
-<li>巴金文集（套装共19本）         <strong>9.99</strong></li>
-<li>专业主义                     <strong>3.36</strong></li>
-<li>高盛帝国(套装上下册):全球唯一一部全面讲述高盛百年屹立的企业传记    <strong>3.40</strong></li>
-<li>精准拉伸 疼痛消除和损伤预防的针对性练习   <strong>9.99</strong></li>
-<li>Linux内核设计的艺术：图解Linux操作系统架构设计与实现原理（第2版）  <strong>9.99</strong></li>
-</ol>
-<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>这几个月都没写这个了，今天算是几个月的总结吧。其实也是几个月没读书了……说是读书总结，不如说是买书总结，因为最近都在忙项目，书买得不少却一直没怎么看，连运动都好几周没做，整个人快懒坏。但七月份有一天是结结实实捡了大漏，兴奋了我好几天，不记一下不甘心。:-)<br>那天刷微博，看到大锤转发说亚马逊发福利，一批书1元购，但不是所有人都有。马上去查了下自己的优惠券，啥也没有，挺失落的。到了晚上，又刷出来一条说有的话会收到短信，我再去看千年不用专收验证码的手机，果然有！开心打开链接，书的质量真是不错，有好几本都是我放在心愿单上等降价的。试着下了一本，0元？好奇怪……收到的短信说是1元啊……再试，还是0元。这……考虑到亚马逊历来的良心表现，即使这是个bug，也不会不认账的。我放心地把心仪的几本都买下来，全部0元。跑去看李大锤微博的评论，有说0元的，有说1元的，有说收到优惠券的……我有点蒙，但隐隐约约一种“要占大便宜”的感觉充斥了大脑，使我兴奋得不行。我再次打开优惠链接，确认之前真的没扣款，按价格从高到低排序，放心大胆地一条条点开购买起来！当然里面的书也有很一般的，我只点开有兴趣的看看评论，决定要不要，一开几十个tab，慢慢临幸过来，那感觉真是爽！整个过程虽然有点机械和无聊，但被强烈兴奋感所驱使的我，毫无懈怠感，不停地点击了一个多钟头，一直到过12点才全部完成。等喘口气才发现，不加判断点击购买的最后几本书，已经不是0元了，但是个很奇怪的数字，大约是2-3折的样子。<br>第二天我打开邮箱，亚马逊的购买记录180条……去看微博评论，原来真正的活动是部分用户发了张100元的优惠券，可以在书单中以1元的价格买书，也就是上限100本；而我却是0元买了180本……这时候再去看那些书单，价格也不是1元了，而是另外一个打了折的价格。也就是说，在12点之前，大概是有bug导致我可以0元无限购书，之后就恢复正常了……不犯懒是个多好的品质啊！幸亏我速度快清单都点完了，也幸亏我跳过了部分不喜欢的书，不然也点不完，哈哈哈！本来以为这个漏洞很多人都抓到了，后来看看微博评论、各大论坛的反馈，并没有什么大面积占到便宜的反馈，我心里更是开心了好几天啊！某人说现在知道我是真爱书了，买到了书能高兴这么久。而且这些书的质量确实都很高，评分绝大多数在4+，特别是很多历史书正和某人口味，这段时间一直在看，感觉一时半会是看不完了。:D</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li><strong>催眠师手记</strong><br>刚开通借阅，看到首页推荐，于是下下来看了下。故事还可以，看到一多半的时候就开始腻……最后是努力看完的后面两个故事，属于还能看看的故事书吧。本来以为是专业性比较强的东西，结果是打着手记外衣的小说。作者有点模仿福尔摩斯的感觉，只是这次厉害的那个关键人物换成了非第一人称：解密二人组，有一个人上知天文下知地理专业精湛，另一个负责处理杂事以及理解天才的不可理解之处。这样的故事讲好了也还不错，只可惜这本书里的故事，有点装神弄鬼。Any way，比起普遍的酸酸文艺风和无法直视的网文，这本书还算可以一读，拿来休闲正好。</li>
-</ol>
-<h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2><ol>
-<li>中文传媒精选</li>
-<li>知乎周刊2015年度300问-心理]]>
-    
-    </summary>
-    
-      <category term="BookList" scheme="http://conanwhf.coding.me/tags/BookList/"/>
     
       <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
     

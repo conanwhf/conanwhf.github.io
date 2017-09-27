@@ -30,7 +30,7 @@
 <link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
 
 
-    <meta name="description" content="入门iOS开发，相关不相关乱七八糟的一切" />
+    <meta name="description" content="入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切" />
 
 
 
@@ -45,15 +45,15 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="入门iOS开发，相关不相关乱七八糟的一切">
+<meta name="description" content="入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切">
 <meta property="og:type" content="website">
 <meta property="og:title" content="iOS开发和七七八八">
 <meta property="og:url" content="http://conanwhf.coding.me/page/8/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
-<meta property="og:description" content="入门iOS开发，相关不相关乱七八糟的一切">
+<meta property="og:description" content="入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS开发和七七八八">
-<meta name="twitter:description" content="入门iOS开发，相关不相关乱七八糟的一切">
+<meta name="twitter:description" content="入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -211,6 +211,276 @@
       <div class="main-inner">
         <div id="content" class="content"> 
   <section id="posts" class="posts-expand">
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/12/15/runInTerm/" itemprop="url">
+                在终端运行Swift程序
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-15T12:14:35+08:00" content="2015-12-15">
+            2015-12-15
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Swift/" itemprop="url" rel="index">
+                  <span itemprop="name">Swift</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>好几天没做总结了，一直被写code的欲望牵引着，噼里啪啦打了很多code，也走了很多弯路。好多时候，突然搞定的时候，才发现自己真真像个新新手一样，给自己挖了好多坑，真是傻到家了！<br>好在我一直觉得，在debug上浪费的时间通常都不会是彻底浪费掉的，总有那么一些东西是留在脑子里，通俗地来讲，就是经验。是时候把过程理一理，记录下来了。<br>之前也说过，之所以把String顺了一遍，其根本缘由是想找到一个编码转换的函数，把我那些下载下来的书名乱码都改过来。后来编码是解决了，但改名还需要自己来……于是我琢磨着给Mac写个文件pickup的界面？刚巧看到源码推荐一个swift开源的命令行增强工具，突然意识到swift也是可以直接编译跑在终端的！做起来简单得不能更简单（先要装好Xcode command line tool，如果没装，在终端跑<code>xcode-select --install</code>）：</p>
+<pre><code>swiftc test.swift//生成一个test二进制程序
+./test
+</code></pre><p>这是有编译过程的，更省事的是直接跑了：</p>
+<pre><code>swift test.swift
+</code></pre><p>当然这个<strong>swift</strong>命令还有更多用法和参数，
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/12/15/runInTerm/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/12/09/Swift_String_6/" itemprop="url">
+                Swift2.0 中的String（六）：正则匹配
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-09T16:20:16+08:00" content="2015-12-09">
+            2015-12-09
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Swift/" itemprop="url" rel="index">
+                  <span itemprop="name">Swift</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>Swift中的字符串，第六篇，正则匹配。其他的几篇传送门：</p>
+<ul>
+<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
+<li><a href="http://conanwhf.github.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages">这里</a>看到</li>
+</ul>
+<p>对于字符串的操作来说，正则匹配算是很重要的一项应用了。虽然其实我不太用，但偶尔需要的时候还是感到这东西真挺有用的。在网上找了找，对于iOS中使用正则，基本上都是说有三种方法，可惜给的Swift源码比较少，版本问题也不能直接跑，于是自己动手做一遍。总结了下其实所谓的三种方法其中两种还是很有局限性的。</p>
+<p>首先我们定义好待匹配的字符串和pattern：</p>
+<pre><code>let str = &quot;18800002222---13144445555&quot;
+let pattern = &quot;1[3|5|7|8][0-9]\\d{8}&quot;
+</code></pre><p>简单示范，就不搞太复杂了。这个pattern是手机号码的正则，因为准备demo匹配多个结果，没有加开头和结尾的限制。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/12/09/Swift_String_6/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/12/08/Swift_String_5/" itemprop="url">
+                Swift2.0 中的String（五）：String和NS-XXX系列的互相转换
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-08T16:20:16+08:00" content="2015-12-08">
+            2015-12-08
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Swift/" itemprop="url" rel="index">
+                  <span itemprop="name">Swift</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>Swift中的字符串，第五篇，常用NS-XXX系列的类型转换。其他的几篇传送门：</p>
+<ul>
+<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
+<li><a href="http://conanwhf.github.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages">这里</a>看到</li>
+</ul>
+<p>刚开始碰String的时候着实被各种繁琐的操作折腾得不轻，不能随便取字串、比较、赋值，不能获得实际编码值……往往想干点什么，一搜，就是NSString，NSData的API，晕头转向。研究了一阵子编码，慢慢也摸清了这些数据类型和它们的方法，简单总结一下互相转换的方法，给新手一点方向。这篇文章里的类型包括了String, NSString, NSURL, NSData这几种，String是Swift的字符串类型不用多讲，封装得很豪华但各种概念多用起来有点麻烦；NSString是OC里面的字符串，但有很多实用且方便的API；NSData其实属于无差别的Data类型，存储字符串的话是RawData，有点像C语言里面的string，其实是数据块；NSURL专门用来表示网络地址，有一些网络相关API。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/12/08/Swift_String_5/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -672,265 +942,6 @@ String(format:&quot;%.2f,  %i&quot;, 9.1, 304)
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/02/Swift_Syntax/" itemprop="url">
-                Swift2.0语法笔记
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-02T16:29:26+08:00" content="2015-12-02">
-            2015-12-02
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Swift/" itemprop="url" rel="index">
-                  <span itemprop="name">Swift</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>作为一个一直在玩Linux kernel的码农，从来不知道什么叫面向对象，也没有一点面向对象的概念，学Swift的时候还是感觉蛮不适应的，很多东西不一样。不像以前从Pascal转到C，只是书写的语法规则有点变化而已。C用久了，对指针、地址、内存的敏感性已经深入骨髓，突然看到这么个不怎么需要考虑内存的语言，有点儿混乱…… :-)<br>惭愧，一直懒懒散散，现在总算是把基础的语法部分学完了。不知道是不是因为C没有那么多面向对象的复杂用法的原因，我总想要慢慢把语法弄扎实，没有急着去做UI(其实心里还挺急的，哈哈)，不知是走对了路还是舍近求远了<br>Swift自己也是个不断变化的语言，玩了一阵子，更新到2.0以后好多东西又不一样了，我也是挺晕的<br>这里把过程中的笔记写一写，主要是基于一个C程序员的角度，有些容易出错的地方以及和C的异同<br>练习源码见：<a href="https://github.com/conanwhf/swiftplayground/tree/master/Swift_Syntax.playground/Pages">GitHub</a>　</p>
-</blockquote>
-<p>首先很重要的一点：<strong>空格不能少！！养成习惯！</strong></p>
-<h2 id="u53D8_u91CF_u7C7B_u578B_26amp_3B_u6570_u503C_u8BA1_u7B97"><a href="#u53D8_u91CF_u7C7B_u578B_26amp_3B_u6570_u503C_u8BA1_u7B97" class="headerlink" title="变量类型&amp;数值计算"></a>变量类型&amp;数值计算</h2><ul>
-<li>Float/Double/Int可强制用<strong>String()</strong>转换，通用类型转换可用”\(var)”，String转换Int可用<strong>Int()</strong></li>
-<li>变量名大小写区分
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/02/Swift_Syntax/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/01/ReadingList2015-11/" itemprop="url">
-                读书清单 2015-11
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-01T20:02:38+08:00" content="2015-12-01">
-            2015-12-01
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li><strong>金粉世家</strong><br>大部头，看了好久才看完，看得有点累。可能受电视剧影响太深，我一边看一边不停地脑补陈坤、董洁、天线。小说写得是不错，那种世家的感觉，各种支线带来的社会整体描绘，感情线的冲突……虽然不至于欲罢不能但每次放下也有点恋恋不舍。我蛮喜欢小说里面的金燕西的，反倒对冷清秋有点反感，感觉多少有点想攀龙附凤又扔不掉自己的清高吧，特别是早期，很多经济上的便宜占得没骨气。</li>
-<li><strong>The Swift Programming Language</strong><br>开发文档，算是看完了吧，不过还有很多东西待查</li>
-<li><strong>AppStore经营之道</strong><br>台湾人写的东西，怎么看都是嗲嗲的，哪怕是在讲纯技术的东西。而且台版的书籍通常都是内容不多，图多、啰嗦，所以这本书虽然开了个很大的标题，其实里面的干货一般般，很快就读完了。对利用Appstore来挣钱（开发APP，不是刷榜）
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/01/ReadingList2015-11/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/11/30/Tips201511/" itemprop="url">
-                开发Tips收集-2015年11月
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-11-30T17:25:39+08:00" content="2015-11-30">
-            2015-11-30
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/DevTips/" itemprop="url" rel="index">
-                  <span itemprop="name">DevTips</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>UICollectionView如果在数据不够一屏时上下滚动 当数据不多，collectionView.contentSize小于collectionView.frame.size的时候，UICollectionView是不会滚动的，可以增加下面代码就可以： self.myCollectionView.alwaysBounceVertical = YES;</li>
-<li>drawRect &amp; layoutSubviews两个方法都是异步执行，layoutSubviews方便数据计算，drawRect方便视图重绘。 </li>
-<li>drawRect方法使用注意点：<ol>
-<li>若使用UIView绘图，只能在drawRect：方法中获取相应的contextRef并绘图。如果在其他方法中获取将获取到一个invalidate 的ref并且不能用于画图。drawRect：方法不能手动显示调用，必须通过调用setNeedsDisplay 或 者 setNeedsDisplayInRect，让系统自动调该方法。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/11/30/Tips201511/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -965,25 +976,25 @@ String(format:&quot;%.2f,  %i&quot;, 9.1, 304)
           <img class="site-author-image" src="/images/logo.png" alt="Conan Wang" itemprop="image"/>
           <p class="site-author-name" itemprop="name">Conan Wang</p>
         </div>
-        <p class="site-description motion-element" itemprop="description">入门iOS开发，相关不相关乱七八糟的一切</p>
+        <p class="site-description motion-element" itemprop="description">入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切</p>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">89</span>
+              <span class="site-state-item-count">92</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">7</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-count">39</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -1007,11 +1018,11 @@ String(format:&quot;%.2f,  %i&quot;, 9.1, 304)
               </span>
             
               <span class="links-of-author-item">
-                <a href="https://git.oschina.net/conanwhf/" target="_blank">OSchina</a>
+                <a href="http://weibo.com/1864854042" target="_blank">Weibo</a>
               </span>
             
               <span class="links-of-author-item">
-                <a href="http://weibo.com/1864854042" target="_blank">Weibo</a>
+                <a href="/atom.xml" target="_blank">rss</a>
               </span>
             
               <span class="links-of-author-item">
@@ -1037,23 +1048,7 @@ String(format:&quot;%.2f,  %i&quot;, 9.1, 304)
               </span>
             
               <span class="links-of-author-item">
-              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">我的资源收集</a>
-              </span>
-            
-              <span class="links-of-author-item">
-              <a href="http://conanwhf.github.io/2015/09/06/RoadMap/" target="_blank">学习进度表</a>
-              </span>
-            
-              <span class="links-of-author-item">
-              <a href="https://github.com/conanwhf/ResourceDoc/blob/master/tryList.md" target="_blank">练手小项目清单</a>
-              </span>
-            
-              <span class="links-of-author-item">
-              <a href="http://www.imooc.com/" target="_blank">慕课网</a>
-              </span>
-            
-              <span class="links-of-author-item">
-              <a href="http://toutiao.io" target="_blank">开发者头条</a>
+              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">我的iOS资源收集(Swift)</a>
               </span>
             
           

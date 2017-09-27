@@ -30,7 +30,7 @@
 <link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
 
 
-    <meta name="description" content="入门iOS开发，相关不相关乱七八糟的一切" />
+    <meta name="description" content="入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切" />
 
 
 
@@ -45,15 +45,15 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="入门iOS开发，相关不相关乱七八糟的一切">
+<meta name="description" content="入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切">
 <meta property="og:type" content="website">
 <meta property="og:title" content="iOS开发和七七八八">
 <meta property="og:url" content="http://conanwhf.coding.me/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
-<meta property="og:description" content="入门iOS开发，相关不相关乱七八糟的一切">
+<meta property="og:description" content="入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS开发和七七八八">
-<meta name="twitter:description" content="入门iOS开发，相关不相关乱七八糟的一切">
+<meta name="twitter:description" content="入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -223,6 +223,88 @@
           
           
             
+              <a class="post-title-link" href="/2017/09/16/EnvMonitor/" itemprop="url">
+                树莓派打造的家庭环境监控
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2017-09-16T17:31:26+08:00" content="2017-09-16">
+            2017-09-16
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Linux/" itemprop="url" rel="index">
+                  <span itemprop="name">Linux</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>最近空气质量又有下降的趋势，想想手头的RPI2B，干脆拿来改造成一个环境监控系统吧，放在客厅随时可以看到，情况不对马上开净化器😊。传感器部分都是以前就买了的，平时拿来偶尔玩一下。主要是三个：一个空气质量检测的激光传感器，一个温湿度的DHT22，一个凑数的带光感的数模转换。屏幕是一块5寸的HDMI破电阻屏，用来搭建本体的是两包白色塑料小积木，所有东西均购自淘宝，包括树莓派物料成本大约500+。说起来这个成本很高了，主要是树莓派本身加一个屏幕，光用来做这个有点浪费。好在我本来也是要放在那边当小服务器用，跑个定时脚本，偶尔看个kernel什么的。</p>
+<h2 id="u786C_u4EF6_u90E8_u5206"><a href="#u786C_u4EF6_u90E8_u5206" class="headerlink" title="硬件部分"></a>硬件部分</h2>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/09/16/EnvMonitor/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2017/07/12/CentosPython/" itemprop="url">
                 在Centos中安装和使用Python3
               </a>
@@ -359,6 +441,88 @@
 <li>程序未启动（即底部任务栏里没有进程）时：<br>　　<code>- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions</code>。对于launchOptions参数，需要经过以下处理：<code>NSDictionary* pushNotificationKey = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]</code>，其中的pushNotificationKey才是从服务端推送过来的数据，使用键值对方式就可以读取服务器传递过来的额外参数了。<br>应用还没有加载，这时如果点击通知的显示按钮，会调用didFinishLaunchingWithOptions，不会调用didReceiveRemoteNotification方法。如果点击通知的关闭按钮，再点击应用，只会调用didFinishLaunchingWithOptions方法。
           <div class="post-more-link text-center">
             <a class="btn" href="/2017/07/12/Tips201707/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2017/06/30/ReadingList2017-06/" itemprop="url">
+                读书清单 2017-06
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2017-06-30T10:36:54+08:00" content="2017-06-30">
+            2017-06-30
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Life-Other/" itemprop="url" rel="index">
+                  <span itemprop="name">Life & Other</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
+<li><strong>浪潮之巅</strong><br>这本书好多年前红得发紫，也是那时候就打开读一读，但是不知道为什么一而再再而三地没有读下去。这次在它红了近十年之后，终于终结了，然而我的感觉是：平淡得很。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/06/30/ReadingList2017-06/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -706,169 +870,6 @@
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2017/06/09/bootup-3-uboot/" itemprop="url">
-                ARM板移植Linux系统启动（三）UBOOT移植
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2017-06-09T17:31:26+08:00" content="2017-06-09">
-            2017-06-09
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Linux/" itemprop="url" rel="index">
-                  <span itemprop="name">Linux</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>经过这些年的演变，U-boot已经从一个简单的loader慢慢发展成了一个小小系统，硬件上原生支持各种平台、外设，软件上支持Fat&amp;ext234等文件系统、传输协议、测试工具，可以说相当完善了。这种进化，负面影响是让整体变得更复杂臃肿，但也有更多的正面影响，是让我们的移植工作更加简单、模块化。</p>
-<h2 id="Uboot_u4EE3_u7801_u7ED3_u6784"><a href="#Uboot_u4EE3_u7801_u7ED3_u6784" class="headerlink" title="Uboot代码结构"></a>Uboot代码结构</h2><p>代码结构是了解uboot的基础，作为一个成熟的开源软件，uboot的代码结构很清晰。绝大多数的代码都是通用的，所以在移植过程中，基本上只需要找到自己的对应平台，修改板子特有的部分即可。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/06/09/bootup-3-uboot/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2017/06/08/bootup-2-spl/" itemprop="url">
-                ARM板移植Linux系统启动（二）SPL
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2017-06-08T17:31:26+08:00" content="2017-06-08">
-            2017-06-08
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Linux/" itemprop="url" rel="index">
-                  <span itemprop="name">Linux</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="u542F_u52A8_u6A21_u5F0F"><a href="#u542F_u52A8_u6A21_u5F0F" class="headerlink" title="启动模式"></a>启动模式</h2><p>面对一块完全的空板子，首先要做的当然是让它启动起来。emmc/nand中完全没有内容，意味着没有uboot，没有命令行，所有的硬件包括内存都没有初始化，除了CPU。在上电的CPU之上，还跑了一个小小的叫做BootROM的程序。<br>通常每块芯片，都在硬件中包含了一个BootROM，是一个小程序，上电后自动运行，无法修改，不同的厂家有不同的设计，但都是给定几种不同的启动模式，然后循环检测。TI这块板就支持各种模式，如emmc, nand flash, network, spi, uart等。<br>所谓的不同启动模式，本质上也是类似的，都是从某个设备中读取很少的一点数据放到一定的地方（一般是SRAM或者STACK），然后把PC指针交给它。所以并不是支持什么启动就可以直接在设备上放操作系统了，BootROM能做的只是很基础的硬件初始化工作，更多的事情是需要Uboot来完成。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/06/08/bootup-2-spl/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -903,25 +904,25 @@
           <img class="site-author-image" src="/images/logo.png" alt="Conan Wang" itemprop="image"/>
           <p class="site-author-name" itemprop="name">Conan Wang</p>
         </div>
-        <p class="site-description motion-element" itemprop="description">入门iOS开发，相关不相关乱七八糟的一切</p>
+        <p class="site-description motion-element" itemprop="description">入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切</p>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">89</span>
+              <span class="site-state-item-count">92</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">7</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-count">39</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -945,11 +946,11 @@
               </span>
             
               <span class="links-of-author-item">
-                <a href="https://git.oschina.net/conanwhf/" target="_blank">OSchina</a>
+                <a href="http://weibo.com/1864854042" target="_blank">Weibo</a>
               </span>
             
               <span class="links-of-author-item">
-                <a href="http://weibo.com/1864854042" target="_blank">Weibo</a>
+                <a href="/atom.xml" target="_blank">rss</a>
               </span>
             
               <span class="links-of-author-item">
@@ -975,23 +976,7 @@
               </span>
             
               <span class="links-of-author-item">
-              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">我的资源收集</a>
-              </span>
-            
-              <span class="links-of-author-item">
-              <a href="http://conanwhf.github.io/2015/09/06/RoadMap/" target="_blank">学习进度表</a>
-              </span>
-            
-              <span class="links-of-author-item">
-              <a href="https://github.com/conanwhf/ResourceDoc/blob/master/tryList.md" target="_blank">练手小项目清单</a>
-              </span>
-            
-              <span class="links-of-author-item">
-              <a href="http://www.imooc.com/" target="_blank">慕课网</a>
-              </span>
-            
-              <span class="links-of-author-item">
-              <a href="http://toutiao.io" target="_blank">开发者头条</a>
+              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">我的iOS资源收集(Swift)</a>
               </span>
             
           

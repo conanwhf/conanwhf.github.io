@@ -30,7 +30,7 @@
 <link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
 
 
-    <meta name="description" content="入门iOS开发，相关不相关乱七八糟的一切" />
+    <meta name="description" content="入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切" />
 
 
 
@@ -45,15 +45,15 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="入门iOS开发，相关不相关乱七八糟的一切">
+<meta name="description" content="入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切">
 <meta property="og:type" content="website">
 <meta property="og:title" content="iOS开发和七七八八">
 <meta property="og:url" content="http://conanwhf.coding.me/page/12/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
-<meta property="og:description" content="入门iOS开发，相关不相关乱七八糟的一切">
+<meta property="og:description" content="入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS开发和七七八八">
-<meta name="twitter:description" content="入门iOS开发，相关不相关乱七八糟的一切">
+<meta name="twitter:description" content="入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -223,6 +223,269 @@
           
           
             
+              <a class="post-title-link" href="/2015/09/03/NewProjectByCode/" itemprop="url">
+                第一个带UI的程序(New Project, Code mode only)
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-03T17:18:08+08:00" content="2015-09-03">
+            2015-09-03
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/CocoaTouch/" itemprop="url" rel="index">
+                  <span itemprop="name">CocoaTouch</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>使用源代码让App跑起来进入界面的方法，但觉得其实StoryBoard比较好用</p>
+<h2 id="u754C_u9762_u521D_u59CB_u5316_u5165_u53E3"><a href="#u754C_u9762_u521D_u59CB_u5316_u5165_u53E3" class="headerlink" title="界面初始化入口"></a>界面初始化入口</h2><p><strong>AppDelegate.swift</strong><br>func <em>application()</em> 中添加：<br>self.window = UIWindow(frame: UIScreen.mainScreen().bounds)<br>self.window！.rootViewController = ViewController()<br>获得了Application的主窗口和根视图</p>
+<h2 id="u89C6_u56FE_u63A7_u5236_u521D_u59CB_u5316_u5165_u53E3"><a href="#u89C6_u56FE_u63A7_u5236_u521D_u59CB_u5316_u5165_u53E3" class="headerlink" title="视图控制初始化入口"></a>视图控制初始化入口</h2><p><strong>ViewContorller.swift</strong></p>
+<ul>
+<li>若已链接rootViewController，则可以着手在_func viewDidLoad()_插入初始代码，绘图等</li>
+<li>通过_self.view_获取根视图对象</li>
+</ul>
+<h2 id="u591A_u4F59_uFF1F"><a href="#u591A_u4F59_uFF1F" class="headerlink" title="多余？"></a>多余？</h2><ul>
+<li>UIScreen 代表一块物理屏幕；</li>
+<li>UIWindow 代表一个窗口，在iPhone上每个app一般只有一个窗口，而在Mac上一个app经常有多个窗口；</li>
+<li>UIView 代表窗口里某一块矩形显示区域，用来展示用户界面和响应用户操作；</li>
+<li>UILabel和UIButton，继承自UIView的特定UI控件，实现了特定的样式和行为</li>
+</ul>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/09/03/CommFunctions/" itemprop="url">
+                Swift常用全局通用函数（Swift1.2 Only）
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-03T17:14:35+08:00" content="2015-09-03">
+            2015-09-03
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Swift/" itemprop="url" rel="index">
+                  <span itemprop="name">Swift</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>//<strong>绝对值</strong><br><code>abs(intValue)</code><br>//<strong>移动</strong><br><code>advance(intValue, 30)</code><br>//<strong>生成随机数</strong><br><code>Int(arc4random()%100)</code><br>//<strong>计算距离</strong><br><code>distance(9, 11)</code><br>//<strong>长度计算</strong><br><code>alignof(Float); alignof(Int)</code><br><code>alignofValue(str);alignofValue(constArr)</code><br>//<strong>包含</strong><br><code>contains(constArr, 2)</code><br><code>contains(str, &quot;C&quot;)</code><br>//统计<strong>元素个数</strong><br><code>count(20...39); count(constArr)</code><br>//<strong>最大最小值</strong><br><code>max(1, 2, 4, 8, 19, 200)</code><br><code>min(0.3, 0.5, 0.111, 9.8)</code><br>//<strong>转换成字符串</strong><br><code>toString(constArr); toString(doubleValue)</code></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/09/03/CommFunctions/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/09/02/MustGet/" itemprop="url">
+                iOS开发必知必会（自己总结的）
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-09-02T17:11:28+08:00" content="2015-09-02">
+            2015-09-02
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/iOS开发杂项/" itemprop="url" rel="index">
+                  <span itemprop="name">iOS开发杂项</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><ol>
+<li>(X) <em>json解析</em></li>
+<li>(X) <em>UI适配(iPhone/iPad, 横屏竖屏)</em></li>
+<li>(X) <em>加广告</em></li>
+<li>( ) 手势识别</li>
+<li>( ) 日程&amp;提醒事件　</li>
+<li>( ) 通知中心：推送通知， 本地通知</li>
+<li>( ) 国际化</li>
+<li>( ) 地图和位置（LBS）</li>
+<li>(X) <em>多线程</em>　</li>
+<li>(X) <em>读写数据/文件</em></li>
+<li>( ) iCloudKit</li>
+<li>( ) 运动数据，陀螺仪</li>
+<li>(X) <em>简单动画</em></li>
+<li>( ) GameCenter</li>
+<li>( ) 加内购<br>　状态于 2016年03月31日更新</li>
+</ol>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/06/02/QnapNAS/" itemprop="url">
                 Qnap NAS笔记
               </a>
@@ -335,25 +598,25 @@
           <img class="site-author-image" src="/images/logo.png" alt="Conan Wang" itemprop="image"/>
           <p class="site-author-name" itemprop="name">Conan Wang</p>
         </div>
-        <p class="site-description motion-element" itemprop="description">入门iOS开发，相关不相关乱七八糟的一切</p>
+        <p class="site-description motion-element" itemprop="description">入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切</p>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">89</span>
+              <span class="site-state-item-count">92</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">7</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-count">39</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -377,11 +640,11 @@
               </span>
             
               <span class="links-of-author-item">
-                <a href="https://git.oschina.net/conanwhf/" target="_blank">OSchina</a>
+                <a href="http://weibo.com/1864854042" target="_blank">Weibo</a>
               </span>
             
               <span class="links-of-author-item">
-                <a href="http://weibo.com/1864854042" target="_blank">Weibo</a>
+                <a href="/atom.xml" target="_blank">rss</a>
               </span>
             
               <span class="links-of-author-item">
@@ -407,23 +670,7 @@
               </span>
             
               <span class="links-of-author-item">
-              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">我的资源收集</a>
-              </span>
-            
-              <span class="links-of-author-item">
-              <a href="http://conanwhf.github.io/2015/09/06/RoadMap/" target="_blank">学习进度表</a>
-              </span>
-            
-              <span class="links-of-author-item">
-              <a href="https://github.com/conanwhf/ResourceDoc/blob/master/tryList.md" target="_blank">练手小项目清单</a>
-              </span>
-            
-              <span class="links-of-author-item">
-              <a href="http://www.imooc.com/" target="_blank">慕课网</a>
-              </span>
-            
-              <span class="links-of-author-item">
-              <a href="http://toutiao.io" target="_blank">开发者头条</a>
+              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">我的iOS资源收集(Swift)</a>
               </span>
             
           

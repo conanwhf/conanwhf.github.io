@@ -30,7 +30,7 @@
 <link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
 
 
-    <meta name="description" content="入门iOS开发，相关不相关乱七八糟的一切" />
+    <meta name="description" content="入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切" />
 
 
 
@@ -45,15 +45,15 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="入门iOS开发，相关不相关乱七八糟的一切">
+<meta name="description" content="入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切">
 <meta property="og:type" content="website">
 <meta property="og:title" content="iOS开发和七七八八">
 <meta property="og:url" content="http://conanwhf.coding.me/page/2/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
-<meta property="og:description" content="入门iOS开发，相关不相关乱七八糟的一切">
+<meta property="og:description" content="入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS开发和七七八八">
-<meta name="twitter:description" content="入门iOS开发，相关不相关乱七八糟的一切">
+<meta name="twitter:description" content="入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -223,6 +223,169 @@
           
           
             
+              <a class="post-title-link" href="/2017/06/09/bootup-3-uboot/" itemprop="url">
+                ARM板移植Linux系统启动（三）UBOOT移植
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2017-06-09T17:31:26+08:00" content="2017-06-09">
+            2017-06-09
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Linux/" itemprop="url" rel="index">
+                  <span itemprop="name">Linux</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>经过这些年的演变，U-boot已经从一个简单的loader慢慢发展成了一个小小系统，硬件上原生支持各种平台、外设，软件上支持Fat&amp;ext234等文件系统、传输协议、测试工具，可以说相当完善了。这种进化，负面影响是让整体变得更复杂臃肿，但也有更多的正面影响，是让我们的移植工作更加简单、模块化。</p>
+<h2 id="Uboot_u4EE3_u7801_u7ED3_u6784"><a href="#Uboot_u4EE3_u7801_u7ED3_u6784" class="headerlink" title="Uboot代码结构"></a>Uboot代码结构</h2><p>代码结构是了解uboot的基础，作为一个成熟的开源软件，uboot的代码结构很清晰。绝大多数的代码都是通用的，所以在移植过程中，基本上只需要找到自己的对应平台，修改板子特有的部分即可。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/06/09/bootup-3-uboot/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2017/06/08/bootup-2-spl/" itemprop="url">
+                ARM板移植Linux系统启动（二）SPL
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2017-06-08T17:31:26+08:00" content="2017-06-08">
+            2017-06-08
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Linux/" itemprop="url" rel="index">
+                  <span itemprop="name">Linux</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h2 id="u542F_u52A8_u6A21_u5F0F"><a href="#u542F_u52A8_u6A21_u5F0F" class="headerlink" title="启动模式"></a>启动模式</h2><p>面对一块完全的空板子，首先要做的当然是让它启动起来。emmc/nand中完全没有内容，意味着没有uboot，没有命令行，所有的硬件包括内存都没有初始化，除了CPU。在上电的CPU之上，还跑了一个小小的叫做BootROM的程序。<br>通常每块芯片，都在硬件中包含了一个BootROM，是一个小程序，上电后自动运行，无法修改，不同的厂家有不同的设计，但都是给定几种不同的启动模式，然后循环检测。TI这块板就支持各种模式，如emmc, nand flash, network, spi, uart等。<br>所谓的不同启动模式，本质上也是类似的，都是从某个设备中读取很少的一点数据放到一定的地方（一般是SRAM或者STACK），然后把PC指针交给它。所以并不是支持什么启动就可以直接在设备上放操作系统了，BootROM能做的只是很基础的硬件初始化工作，更多的事情是需要Uboot来完成。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/06/08/bootup-2-spl/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2017/05/30/bootup-1-main/" itemprop="url">
                 ARM板移植Linux系统启动（一）启动流程
               </a>
@@ -275,6 +438,98 @@
               阅读全文 &raquo;
             </a>
           </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2017/03/31/ReadingList2017-03/" itemprop="url">
+                读书清单 2017-03
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2017-03-31T10:36:54+08:00" content="2017-03-31">
+            2017-03-31
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Life-Other/" itemprop="url" rel="index">
+                  <span itemprop="name">Life & Other</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
+<li>嫌疑人X的献身<br>这本书是因为看到3月31日有凯凯王和鱼蛋演的电影版上映，决定要先读一遍小说，才开始看的。之前在门口徘徊了好多次，也没有拿起过第二本的东野圭吾，这算是第一本真正的东野吧。<br>这本小说比想象中短很多，原本是抱着看大片的心态，结果半集电视剧的长度就结束了……原以为渐入佳境的时候，撇了一眼进度，却是快结束了！如果说这是东野的经典之作，那么多多少少让我失望了。小说的构思和故事结构是唯一经典的地方，但其他血肉和更多细节的缺失，让我有一种在看故事梗概的感觉。也因为之前被书评剧透“看到最后才发现不是你以为的”，所以心里已经有了差不多的猜测，最终的真相大白时我的震撼也小了很多。总的来说，这是个精彩的故事，却不是本出色的小说。有点遗憾作者浪费了一个好故事，明明可以花更多的笔墨，将故事讲得更大更详细，将人物塑造得更深刻更立体。Anyway，花这点时间读到一个好故事，怎么也不算亏。</li>
+</ol>
+<h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2><ol>
+<li>中文传媒精选</li>
+<li>名侦探柯南漫</li>
+</ol>
+<h2 id="u6B63_u5728_u8BFB_u7684_u4E66"><a href="#u6B63_u5728_u8BFB_u7684_u4E66" class="headerlink" title="正在读的书"></a>正在读的书</h2><ol>
+<li>蒋勋说红楼梦</li>
+<li>《经济学人》2016必读精选-当黑天鹅坐上无人车</li>
+<li>大脑使用指南：其实你活在大脑创造的虚拟世界中</li>
+</ol>
+<h2 id="u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_0-99"><a href="#u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_0-99" class="headerlink" title="买的正版非免费书             0.99"></a>买的正版非免费书             <strong>0.99</strong></h2><ol>
+<li>独裁者手册                <strong>0.99</strong></li>
+</ol>
+<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>这个月公婆来了，加上我月中开始重重重感冒到卧床不起，到月底炎症还没全好利索，自然也没怎么读书。除了点杂志漫画，就读了一本小说。新买了一个Switch，玩塞尔达荒野之息玩得不亦乐乎，再加上拼图，哪有时间搞学习啊？想想大人尚且如此，小孩子贪玩也就真的没什么可说的了。</p>
+</span>
         
       
     </div>
@@ -635,267 +890,6 @@
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2017/02/01/ReadingList2017-01/" itemprop="url">
-                读书清单 2017-01
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2017-02-01T17:36:54+08:00" content="2017-02-01">
-            2017-02-01
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li><strong>黑客</strong><br>一本常常出现在IT人书单上的书，然而我却没有看完。从晶体管时代开始，讲述那些以改进系统为唯一目标的天才程序员的故事。也不能说不好看，作为技术人员来说，过去那些事还是挺有意思的，比如思考一下如何用蜂鸣器做出音乐效果而不只是节拍，或者考虑最初的三个CPU指令应该是哪些，要不就是想象怎么在一个资源少到极限的系统中做调试器……这让我每每翻开这本书就有一种很纠结的心情：一方面看得实在是太慢了，大部分地方读起来也挺无聊，感觉不知道啥时候才能看完；另一方面偶尔有点思维体操的惊喜感，又让人不是能那么决绝地放弃这本书。最后我在看到大约三分之一的地方还是半途而废了，确实书里讲的东西离现在太远了，描述也蛮枯燥的。剩下的三分之二我大略地翻了翻，然后看完了后记以及2010年kindle版上市时的后后记。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/02/01/ReadingList2017-01/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2016/12/31/ReadingList2016-12/" itemprop="url">
-                读书清单 2016-12
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-12-31T15:26:54+08:00" content="2016-12-31">
-            2016-12-31
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h1 id="u8BFB_u4E66_u6E05_u53552016-02"><a href="#u8BFB_u4E66_u6E05_u53552016-02" class="headerlink" title="读书清单2016-02"></a>读书清单2016-02</h1><h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li><p><strong>极简投资</strong><br>小白入门书，不过里面讲的投资理念我觉得很好，确实适合懒人以及没投资天分的人，比如说我。后半部对万能险的推崇有做广告的嫌疑，毕竟是出自某商业刊物吧，目前来说万能险肯定是不适合了，P2P也很危险。不过无伤大雅，核心是理解极简投资是怎么一回事，而不是具体该投哪些项目。总结一下，极简投资的核心就是分散、中短期的投资方式。分散指的是将资金分散在几个尽量不相关的方向上（如股市龙头股、债市等），注意是方向，不是单一股票而是指数，这是为了均摊风险，东边不亮西边亮；中短期投资一般就是一年，为了减小市场和投资者心理波动所造成的损失，用长期收益抵消短期浮亏。从数学上来说，极简投资并不是最优投资方案，却是相对来说较安全且兼顾收益的稳健投资方案。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/12/31/ReadingList2016-12/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2016/08/31/Tips201608/" itemprop="url">
-                开发Tips收集-2016年08月
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-08-31T17:25:39+08:00" content="2016-08-31">
-            2016-08-31
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/DevTips/" itemprop="url" rel="index">
-                  <span itemprop="name">DevTips</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>不管你在哪个线程注册了 observer，notification 在哪个线程 post，那么它就将在哪个线程接收</li>
-<li>数据缓存方式选择:<ol>
-<li>fmdata数据库(增删改查)   –数据需要:增删改查</li>
-<li>coreData                –数据需要:增删改查</li>
-<li>序列化(NSUserDefault)    –状态、偏好设置、默认选项</li>
-<li>单独.plist               –列表数据,城市信息等</li>
-<li>单独.json文件           –页面列表数据</li>
-<li>realm框架(增删改查)       –数据需要:增删改查</li>
-</ol>
-</li>
-<li>清除签名文件 删除签名文件 清理Profile文件：Xcode - Preferences - Account - View Details,这个时候左下角有个刷新图标，点击一下就可以了</li>
-<li>TableView头视图不随视图移动，头视图出现错位的错误原因：tableView的 UITableViewStyle 没有明确的声明。解决方法：在tableView声明的时候明确为 UITableViewStyleGrouped</li>
-<li>ViewController生命周期：<br>  alloc -> initWithNibName -> loadView -> viewDidLoad -> viewWillAppear -> viewDidAppear -> viewWillDisappear -> viewDidDisappear -> dealloc<br>  注意1. 不要在loadView中调用父类方法<a href="/">super loadView</a>，因为这会影响CPU性能。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/31/Tips201608/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -930,25 +924,25 @@
           <img class="site-author-image" src="/images/logo.png" alt="Conan Wang" itemprop="image"/>
           <p class="site-author-name" itemprop="name">Conan Wang</p>
         </div>
-        <p class="site-description motion-element" itemprop="description">入门iOS开发，相关不相关乱七八糟的一切</p>
+        <p class="site-description motion-element" itemprop="description">入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切</p>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">89</span>
+              <span class="site-state-item-count">92</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">7</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-count">39</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -972,11 +966,11 @@
               </span>
             
               <span class="links-of-author-item">
-                <a href="https://git.oschina.net/conanwhf/" target="_blank">OSchina</a>
+                <a href="http://weibo.com/1864854042" target="_blank">Weibo</a>
               </span>
             
               <span class="links-of-author-item">
-                <a href="http://weibo.com/1864854042" target="_blank">Weibo</a>
+                <a href="/atom.xml" target="_blank">rss</a>
               </span>
             
               <span class="links-of-author-item">
@@ -1002,23 +996,7 @@
               </span>
             
               <span class="links-of-author-item">
-              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">我的资源收集</a>
-              </span>
-            
-              <span class="links-of-author-item">
-              <a href="http://conanwhf.github.io/2015/09/06/RoadMap/" target="_blank">学习进度表</a>
-              </span>
-            
-              <span class="links-of-author-item">
-              <a href="https://github.com/conanwhf/ResourceDoc/blob/master/tryList.md" target="_blank">练手小项目清单</a>
-              </span>
-            
-              <span class="links-of-author-item">
-              <a href="http://www.imooc.com/" target="_blank">慕课网</a>
-              </span>
-            
-              <span class="links-of-author-item">
-              <a href="http://toutiao.io" target="_blank">开发者头条</a>
+              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">我的iOS资源收集(Swift)</a>
               </span>
             
           

@@ -30,7 +30,7 @@
 <link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
 
 
-    <meta name="description" content="入门iOS开发，相关不相关乱七八糟的一切" />
+    <meta name="description" content="入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切" />
 
 
 
@@ -45,15 +45,15 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="入门iOS开发，相关不相关乱七八糟的一切">
+<meta name="description" content="入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切">
 <meta property="og:type" content="website">
 <meta property="og:title" content="iOS开发和七七八八">
 <meta property="og:url" content="http://conanwhf.coding.me/page/4/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
-<meta property="og:description" content="入门iOS开发，相关不相关乱七八糟的一切">
+<meta property="og:description" content="入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS开发和七七八八">
-<meta name="twitter:description" content="入门iOS开发，相关不相关乱七八糟的一切">
+<meta name="twitter:description" content="入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -211,6 +211,288 @@
       <div class="main-inner">
         <div id="content" class="content"> 
   <section id="posts" class="posts-expand">
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2016/07/01/Tips201606/" itemprop="url">
+                开发Tips收集-2016年06月
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-07-01T17:25:39+08:00" content="2016-07-01">
+            2016-07-01
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/DevTips/" itemprop="url" rel="index">
+                  <span itemprop="name">DevTips</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>iOS获取通知需要注意以：iOS 设备收到一条推送（APNs），用户点击推送通知打开应用时，应用程序根据状态不同进行处理需在 AppDelegate 中的以下两个方法中添加代码以获取apn内容<ol>
+<li>如果 App 状态为未运行，此函数将被调用，如果launchOptions包含UIApplicationLaunchOptionsRemoteNotificationKey表示用户点击apn 通知导致app被启动运行；如果不含有对应键值则表示 App 不是因点击apn而被启动，可能为直接点击icon被启动或其他。<br>(BOOL)application:(UIApplication <em>)application didFinishLaunchingWithOptions:(NSDictionary </em>)launchOptions;<br>// apn 内容获取：<br>NSDictionary *remoteNotification = [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey]</li>
+</ol>
+</li>
+<li>基于iOS 6 及以下的系统版本，如果 App状态为正在前台或者点击通知栏的通知消息，那么此函数将被调用，并且可通过AppDelegate的applicationState是否为UIApplicationStateActive判断程序是否在前台运行。此种情况在此函数中处理：<br>  (void)application:(UIApplication <em>)application didReceiveRemoteNotification:(NSDictionary </em>)userInfo; // apn内容为userInfo</li>
+<li>基于iOS 7 及以上的系统版本，如果是使用 iOS 7 的 Remote Notification 特性那么处理函数需要使用<br>  (void)application:(UIApplication <em>)application didReceiveRemoteNotification:(NSDictionary </em>)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler; // apn内容为userInfo</li>
+<li>触摸事件withEvent:的方法处理流程:首先会在当前视图view上调用pointInside:withEvent:方法来判断触摸事件是否存在当前view中，如果返回NO，则说明触摸事件不在该view范围中，hitText:withEvent:方法返回nil；如果返回YES，则说明触摸在该view中，则向该view的subViews发送htiText:withEvent:消息，所有subviews的数组遍历顺序是从后往前，直至遍历到pointInside:withEvent:返回值为非空或者遍历完所有subview结束。如果遍历有非空对象,则hitTextField:withEvent:返回该对象结束；如果遍历完没有非空对象，则返回自己（self）。</li>
+<li>响应者原理：首先会在触摸view上调用inital view方法，看能否处理此事件，如果不能则会将事件传递给其上级视图（inital view的superView）；如果上级视图仍然无法处理则会继续往上传递；一直传递到视图控制器view controller，首先判断视图控制器的根视图view是否能处理此事件；如果不能则接着判断该视图控制器能否处理此事件，如果还是不能则继续向上传递；（对于第二个图视图控制器本身还在另一个视图控制器中，则继续交给父视图控制器的根视图，如果根视图不能处理则交给父视图控制器处理）；一直到window，如果window还是不能处理此事件则继续交给application（UIApplication单例对象）处理，如果最后application还是不能处理此事件则将其丢弃。</li>
+<li>UITabBarController的subview 共有两个，一个叫 UITabBar，就是底下的那个 Bar；另一个叫UITranstionview，就是 Bar 上面的视图。把UITabBar的 y 向下移49个单位，把UITranstionview 的 hight 加长 49 个单位，也能实现隐藏UITabBar的效果。</li>
+<li>UITextView开始编辑时，文字没有左上角对齐解决办法：其一，没有给textview对齐方式；其二，没有将BOOL类型的“automaticallyAdjustsScrollViewInsets”属性置为yes</li>
+</ul>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2016/05/31/Tips201605/" itemprop="url">
+                开发Tips收集-2016年05月
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-05-31T17:25:39+08:00" content="2016-05-31">
+            2016-05-31
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/DevTips/" itemprop="url" rel="index">
+                  <span itemprop="name">DevTips</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>UIImage两种初始化方式的区别：<br>　　使用<strong>imageNamed</strong>：第一次读取的时候，先把这个图片放到缓存里，下次再使用到这个同名图片的时候直接从缓存中读取；优点：方便快捷，只有第一次使用的时候稍慢，接下来再使用就会稍微快点；缺点：如果在当前工程中只使用一次会浪费内存。（这个内存在程序关闭的时候才释放）<br>　　使用<strong>initWithContentsOfFile</strong>：每次都会根据路径去读取，不会占用内存，如果图片在当前工程中只使用一次，应该选择这个方法</li>
+<li>UIView和CALayer的区别与联系）<ol>
+<li>每个 UIView 内部都有一个 CALayer 在背后提供内容的绘制和显示，并且 UIView 的尺寸样式都由内部的 Layer 所提供。两者都有树状层级结构，layer 内部有 SubLayers，View 内部有 SubViews.但是 Layer 比 View 多了个AnchorPoint</li>
+<li>在 View显示的时候，UIView 做为 Layer 的 CALayerDelegate,View 的显示内容由内部的 CALayer 的 display</li>
+<li>CALayer 是默认修改属性支持隐式动画的，在给 UIView 的 Layer 做动画的时候，View 作为 Layer 的代理，Layer 通过 actionForLayer:forKey:向 View请求相应的 action(动画行为)</li>
+<li>layer 内部维护着三分 layer tree,分别是 presentLayer Tree(动画树),modeLayer Tree(模型树), Render Tree (渲染树),在做 iOS动画的时候，我们修改动画的属性，在动画的其实是 Layer 的 presentLayer的属性值,而最终展示在界面上的其实是提供 View的modelLayer</li>
+<li>两者最明显的区别是 View可以接受并处理事件，而 Layer 不可以</li>
+</ol>
+</li>
+<li>在使用 ImagesQA.xcassets 时需要注意：将图片直接拖入image到ImagesQA.xcassets中时，图片的名字会保留。这个时候如果图片的名字过长，那么这个名字会存入到ImagesQA.xcassets中，名字过长会引起SourceTree判断异常。</li>
+<li>UIScrollView添加了一个很好用的属性keyboardDismissMode，这样可以让键盘在滚动时自动收起。这个属性使用了新的UIScrollViewKeyboardDismissMode enum枚举类型。这个enum枚举类型可能的值如下：
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/05/31/Tips201605/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2016/04/30/Tips201604/" itemprop="url">
+                开发Tips收集-2016年04月
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-04-30T17:25:39+08:00" content="2016-04-30">
+            2016-04-30
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/DevTips/" itemprop="url" rel="index">
+                  <span itemprop="name">DevTips</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>当手势和touchmoved同时加在uiview上面的时候将会优先的识别手势。滑动手势的识别是需要时间的，当手势在被识别出来以前，touchbegan 依旧会被调用。如果你希望在你的手势被识别的过程中touchbegan不被调用，那么你需要调用delaysTouchesBegan。</li>
+<li>修改状态栏字体颜色:只能设置两种颜色，黑色和白色，系统默认黑色。设置为白色方法：<ol>
+<li>在plist里面添加Status bar style，值为UIStatusBarStyleLightContent（白色）或UIStatusBarStyleDefault（黑 色）</li>
+<li>在Info.plist中设置UIViewControllerBasedStatusBarAppearance 为NO</li>
+</ol>
+</li>
+<li>改善APP的流畅度：<ol>
+<li>尽量不要实现drawRect（每次调用该方法时，都要为backing store分配内存，非常消耗CPU）</li>
+<li>避免在drawRect：中进行耗费大量CPU资源的工作</li>
+<li>尽量少调用setNeedsDisplay:（视图内容变化时才调用）</li>
+<li>考虑使用setNeedDisplayInRect: , 传入drawRect:的rect越小，stoke，fill的时间越少, 即使drawRect:是根据视图边界绘制的）</li>
+<li>充分利用GPU的资源，直接设置layer的border，shadow，corner，gradient等属性, GPU将会处理这些属性（相反如果GPU紧张，CPU空闲，应由CPU处理，可在drawRect：中实现）
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/04/30/Tips201604/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -666,251 +948,6 @@
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2016/01/31/Tips201601/" itemprop="url">
-                开发Tips收集-2016年01月
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-01-31T17:25:39+08:00" content="2016-01-31">
-            2016-01-31
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/DevTips/" itemprop="url" rel="index">
-                  <span itemprop="name">DevTips</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>你可以在 Gemfile 中指定 cocoapods gem 的使用版本。<br>  <code>source &#39;https://rubygems.org&#39;</code><br>  <code>gem &#39;cocoapods&#39;, &#39;0.39.0&#39;</code><br>  当你更新了 Gemfile 文件并且自动安装了正确版本的 gem 后，确保团队的每个成员都运行一次 <code>bundle install</code> 这条命令。此后，只需要运行 <code>bundle exec pod install</code> 这条命令来安装新的 CocoaPods——这将会确保通过你在的 Gemfile 中指定 cocoapods gem 的版本后，pods 仍可以被正确的安装。</li>
-<li>instrument调试后，发现没被释放的全是imageIO，差不多就知道了，把读图的方式，从UIImage imageNamed:@”“,改成imageWithContentsOfFile，就可以了。问题原因：imageNamed读取图片的方法，会缓存在内存中，所以较大的图片，还是用
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/31/Tips201601/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2016/01/30/rpi-protocol/" itemprop="url">
-                在树莓派RaspberryPi上几种简单协议的实现
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-01-30T17:31:26+08:00" content="2016-01-30">
-            2016-01-30
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Linux/" itemprop="url" rel="index">
-                  <span itemprop="name">Linux</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>对自己的拖延症也真是恨铁不成钢，这又是一篇拖延得快要放弃的文章。快过年了，怎么也不能拖到年后，打起精神，清空列表！</p>
-<p>想要自己打造一个小小家庭环境监控系统，各种Sensor不可或缺。看了下大部分人在树莓派上都用Python, 我也来凑个热闹。Python果然是一种很容易入门的语言，我只是稍微查了下资料，半天时间，就搞定了好几个Sensor，当然只是最简单的拿数据什么的，但相比之下，虽然自己对于用C写这些协议很熟，碰到问题我也宁可去看看Python的语法也不愿意换C……Python的优势倒不全是语法简洁，最重要的是有巨量的开发库可以用。像这些简单的协议，全是把库装好，直接拿来用就可以了，看看代码量，简直让人不忍再直视C的代码。对于不用追求速度的玩票项目，相当适合。<br>这一篇先介绍几种最常用的基本协议的实现，老规矩，先上源码<a href="https://github.com/conanwhf/RaspberryPi-script">传送门</a><br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/30/rpi-protocol/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2016/01/22/microwave/" itemprop="url">
-                微波炉的悲剧
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-01-22T17:35:25+08:00" content="2016-01-22">
-            2016-01-22
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>早上起床，从冰箱里拿了蛋糕出来，放微波炉转10秒，然后洗漱去了……等我一切停当出来一看，妈呀……我设的不是10秒是10分钟！！！😱 😱 😱 😱 😱一开微波炉，蛋糕烧成碳就不说了，那个呛！别提了！！！<br>开抽油烟机、开风扇、上网搜解救方法（各种橘子皮茶叶醋什么的）、总算感觉好点了。但是、这只是适应环境了的幻觉！午休后从房间出来，一屋子的烟味呛得我……😂 😂 😂 😂 😂无语，外面还下着雨，不能开窗通风，现在全屋开着空调净化器抽风机打字中……🤑 🤑 🤑 🤑 🤑 🤑</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -945,25 +982,25 @@
           <img class="site-author-image" src="/images/logo.png" alt="Conan Wang" itemprop="image"/>
           <p class="site-author-name" itemprop="name">Conan Wang</p>
         </div>
-        <p class="site-description motion-element" itemprop="description">入门iOS开发，相关不相关乱七八糟的一切</p>
+        <p class="site-description motion-element" itemprop="description">入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切</p>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">89</span>
+              <span class="site-state-item-count">92</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">7</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-count">39</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -987,11 +1024,11 @@
               </span>
             
               <span class="links-of-author-item">
-                <a href="https://git.oschina.net/conanwhf/" target="_blank">OSchina</a>
+                <a href="http://weibo.com/1864854042" target="_blank">Weibo</a>
               </span>
             
               <span class="links-of-author-item">
-                <a href="http://weibo.com/1864854042" target="_blank">Weibo</a>
+                <a href="/atom.xml" target="_blank">rss</a>
               </span>
             
               <span class="links-of-author-item">
@@ -1017,23 +1054,7 @@
               </span>
             
               <span class="links-of-author-item">
-              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">我的资源收集</a>
-              </span>
-            
-              <span class="links-of-author-item">
-              <a href="http://conanwhf.github.io/2015/09/06/RoadMap/" target="_blank">学习进度表</a>
-              </span>
-            
-              <span class="links-of-author-item">
-              <a href="https://github.com/conanwhf/ResourceDoc/blob/master/tryList.md" target="_blank">练手小项目清单</a>
-              </span>
-            
-              <span class="links-of-author-item">
-              <a href="http://www.imooc.com/" target="_blank">慕课网</a>
-              </span>
-            
-              <span class="links-of-author-item">
-              <a href="http://toutiao.io" target="_blank">开发者头条</a>
+              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">我的iOS资源收集(Swift)</a>
               </span>
             
           
