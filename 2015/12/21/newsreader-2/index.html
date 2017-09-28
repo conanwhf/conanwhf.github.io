@@ -49,7 +49,7 @@
 class">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从打造新闻app学到的(2)：定义类中的只读属性">
-<meta property="og:url" content="http://conanwhf.coding.me/2015/12/21/newsreader-2/index.html">
+<meta property="og:url" content="http://conanwhf.github.io/2015/12/21/newsreader-2/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="在定义各种接口的过程中，我碰到了这样一个问题：我希望定义一个只读的属性，却找不到合适的前缀（原谅我是Class白痴）。翻了一遍Class的相关文档，找到了个曲线救国的办法：计算属性。所谓的计算属性，就是自己定义一个属性的名字和get/set方法，外人看不见get/set的实现，只能看作是一个普通属性来使用。而如果只实现了get部分，这个属性对外而言就是只读的了。我的数据结构大致这样：
 class">
@@ -96,7 +96,7 @@ class">
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?8da63524978598168c3843bc8001d968";
+      hm.src = "//hm.baidu.com/hm.js?216209cca8026e16aa970c3db256725e";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -131,7 +131,7 @@ class">
   
 
   
-    <ul id="menu" class="menu menu-left">
+    <ul id="menu" class="menu ">
       
         
         <li class="menu-item menu-item-home">
@@ -176,33 +176,9 @@ class">
 
       
       
-        <li class="menu-item menu-item-search">
-          <a href="#" class="st-search-show-outputs">
-            <i class="menu-item-icon icon-next-search"></i> <br />
-            搜索
-          </a>
-        </li>
-      
     </ul>
   
 
-  
-    <div class="site-search">
-      
-  
-
-<script type="text/javascript">
-  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
-    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-
-  _st('install', '-wAdEzF15RczmAqPJh93','2.0.0');
-</script>
-
-
-
-    </div>
   
 </nav>
 
@@ -435,15 +411,15 @@ var ch : typeA {
             <p class="site-author-name">Links</p>
             
               <span class="links-of-author-item">
-              <a href="http://conanwhf.coding.me" target="_blank">本站墙内链接</a>
+              <a href="http://conanwhf.github.io" target="_blank">本站地址</a>
               </span>
             
               <span class="links-of-author-item">
-              <a href="http://conanwhf.github.io" target="_blank">本站墙外链接</a>
+              <a href="http://conanwhf.coding.me" target="_blank">本站镜像</a>
               </span>
             
               <span class="links-of-author-item">
-              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">我的iOS资源收集(Swift)</a>
+              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">iOS资源收集(Swift)</a>
               </span>
             
           

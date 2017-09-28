@@ -49,7 +49,7 @@
 Uboot代码结构代码结构是了解uboot的基础，作为一个成熟的开源软件，uboot的代码结构很">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ARM板移植Linux系统启动（三）UBOOT移植">
-<meta property="og:url" content="http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/index.html">
+<meta property="og:url" content="http://conanwhf.github.io/2017/06/09/bootup-3-uboot/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="经过这些年的演变，U-boot已经从一个简单的loader慢慢发展成了一个小小系统，硬件上原生支持各种平台、外设，软件上支持Fat&amp;amp;ext234等文件系统、传输协议、测试工具，可以说相当完善了。这种进化，负面影响是让整体变得更复杂臃肿，但也有更多的正面影响，是让我们的移植工作更加简单、模块化。
 Uboot代码结构代码结构是了解uboot的基础，作为一个成熟的开源软件，uboot的代码结构很">
@@ -96,7 +96,7 @@ Uboot代码结构代码结构是了解uboot的基础，作为一个成熟的开�
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?8da63524978598168c3843bc8001d968";
+      hm.src = "//hm.baidu.com/hm.js?216209cca8026e16aa970c3db256725e";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -131,7 +131,7 @@ Uboot代码结构代码结构是了解uboot的基础，作为一个成熟的开�
   
 
   
-    <ul id="menu" class="menu menu-left">
+    <ul id="menu" class="menu ">
       
         
         <li class="menu-item menu-item-home">
@@ -176,33 +176,9 @@ Uboot代码结构代码结构是了解uboot的基础，作为一个成熟的开�
 
       
       
-        <li class="menu-item menu-item-search">
-          <a href="#" class="st-search-show-outputs">
-            <i class="menu-item-icon icon-next-search"></i> <br />
-            搜索
-          </a>
-        </li>
-      
     </ul>
   
 
-  
-    <div class="site-search">
-      
-  
-
-<script type="text/javascript">
-  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
-    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-
-  _st('install', '-wAdEzF15RczmAqPJh93','2.0.0');
-</script>
-
-
-
-    </div>
   
 </nav>
 
@@ -269,7 +245,7 @@ Uboot代码结构代码结构是了解uboot的基础，作为一个成熟的开�
 
       
         <span itemprop="articleBody"><p>经过这些年的演变，U-boot已经从一个简单的loader慢慢发展成了一个小小系统，硬件上原生支持各种平台、外设，软件上支持Fat&amp;ext234等文件系统、传输协议、测试工具，可以说相当完善了。这种进化，负面影响是让整体变得更复杂臃肿，但也有更多的正面影响，是让我们的移植工作更加简单、模块化。</p>
-<h2 id="Uboot_u4EE3_u7801_u7ED3_u6784"><a href="#Uboot_u4EE3_u7801_u7ED3_u6784" class="headerlink" title="Uboot代码结构"></a>Uboot代码结构</h2><p>代码结构是了解uboot的基础，作为一个成熟的开源软件，uboot的代码结构很清晰。绝大多数的代码都是通用的，所以在移植过程中，基本上只需要找到自己的对应平台，修改板子特有的部分即可。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/'>ARM板移植Linux系统启动（三）UBOOT移植</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<h2 id="Uboot_u4EE3_u7801_u7ED3_u6784"><a href="#Uboot_u4EE3_u7801_u7ED3_u6784" class="headerlink" title="Uboot代码结构"></a>Uboot代码结构</h2><p>代码结构是了解uboot的基础，作为一个成熟的开源软件，uboot的代码结构很清晰。绝大多数的代码都是通用的，所以在移植过程中，基本上只需要找到自己的对应平台，修改板子特有的部分即可。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/06/09/bootup-3-uboot/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/06/09/bootup-3-uboot/'>ARM板移植Linux系统启动（三）UBOOT移植</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -590,15 +566,15 @@ endif
             <p class="site-author-name">Links</p>
             
               <span class="links-of-author-item">
-              <a href="http://conanwhf.coding.me" target="_blank">本站墙内链接</a>
+              <a href="http://conanwhf.github.io" target="_blank">本站地址</a>
               </span>
             
               <span class="links-of-author-item">
-              <a href="http://conanwhf.github.io" target="_blank">本站墙外链接</a>
+              <a href="http://conanwhf.coding.me" target="_blank">本站镜像</a>
               </span>
             
               <span class="links-of-author-item">
-              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">我的iOS资源收集(Swift)</a>
+              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">iOS资源收集(Swift)</a>
               </span>
             
           

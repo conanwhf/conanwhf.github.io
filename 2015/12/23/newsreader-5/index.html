@@ -50,7 +50,7 @@
 prepareForSegue() -&amp;gt; ne">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从打造新闻app学到的(5)：解决TableCell调用segue的时序问题">
-<meta property="og:url" content="http://conanwhf.coding.me/2015/12/23/newsreader-5/index.html">
+<meta property="og:url" content="http://conanwhf.github.io/2015/12/23/newsreader-5/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="在从TableCell跳转到具体新闻页面的时候，我遇到了一个问题：整个流程的时序跟我想的不太一样。因为我需要在点击Cell的时候知道这是哪个Cell，再将它作为参数传递给下一个View，所以我实现了函数 didSelectRowAtIndexPath，然后设好一个private的变量，供prepareForSegue调用。可是事实上的流程却变成了：
 
@@ -99,7 +99,7 @@ prepareForSegue() -&amp;gt; ne">
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?8da63524978598168c3843bc8001d968";
+      hm.src = "//hm.baidu.com/hm.js?216209cca8026e16aa970c3db256725e";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -134,7 +134,7 @@ prepareForSegue() -&amp;gt; ne">
   
 
   
-    <ul id="menu" class="menu menu-left">
+    <ul id="menu" class="menu ">
       
         
         <li class="menu-item menu-item-home">
@@ -179,33 +179,9 @@ prepareForSegue() -&amp;gt; ne">
 
       
       
-        <li class="menu-item menu-item-search">
-          <a href="#" class="st-search-show-outputs">
-            <i class="menu-item-icon icon-next-search"></i> <br />
-            搜索
-          </a>
-        </li>
-      
     </ul>
   
 
-  
-    <div class="site-search">
-      
-  
-
-<script type="text/javascript">
-  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
-    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-
-  _st('install', '-wAdEzF15RczmAqPJh93','2.0.0');
-</script>
-
-
-
-    </div>
   
 </nav>
 
@@ -278,7 +254,7 @@ prepareForSegue() -&amp;gt; ne">
 <p>也就是说当Cell的点击发生，会先调用StroyBaord中设置的Segue，新的View初始化完成后再回调didSelectRowAtIndexPath，导致我在viewDidLoad()中拿不到想要的数据。<br>在网上搜了一下，有人也遇到了同样的问题，他的解决方法是：<br>1) 将 ->NextView的Segue改为 ->NextViewController(NextView的代理)<br>2) 在StoryBoard中配置此Segue的ID为<strong>“ABC”</strong><br>3) 在didSelectRowAtIndexPath()准备好数据之后手动调用转场：</p>
 <pre><code>//跳转到下一个页面，识别“ABC”
 self.performSegueWithIdentifier(“ABC”, sender: self)
-</code></pre><p>实测这个方法是有效的，不过我总感觉不够漂亮……于是打开Dash把所有tableView()的相关Callback都过了一遍，挑出几个加打印实测，<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2015/12/23/newsreader-5/</p><p>访问原文「<a href='http://conanwhf.coding.me/2015/12/23/newsreader-5/'>从打造新闻app学到的(5)：解决TableCell调用segue的时序问题</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+</code></pre><p>实测这个方法是有效的，不过我总感觉不够漂亮……于是打开Dash把所有tableView()的相关Callback都过了一遍，挑出几个加打印实测，<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2015/12/23/newsreader-5/</p><p>访问原文「<a href='http://conanwhf.github.io/2015/12/23/newsreader-5/'>从打造新闻app学到的(5)：解决TableCell调用segue的时序问题</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -462,15 +438,15 @@ return nil
             <p class="site-author-name">Links</p>
             
               <span class="links-of-author-item">
-              <a href="http://conanwhf.coding.me" target="_blank">本站墙内链接</a>
+              <a href="http://conanwhf.github.io" target="_blank">本站地址</a>
               </span>
             
               <span class="links-of-author-item">
-              <a href="http://conanwhf.github.io" target="_blank">本站墙外链接</a>
+              <a href="http://conanwhf.coding.me" target="_blank">本站镜像</a>
               </span>
             
               <span class="links-of-author-item">
-              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">我的iOS资源收集(Swift)</a>
+              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">iOS资源收集(Swift)</a>
               </span>
             
           

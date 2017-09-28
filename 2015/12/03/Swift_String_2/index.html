@@ -55,7 +55,7 @@ Swift2.0 中的String（五）：String和NS-XXX系列的互相转换
 Swift2.0 中的String（六）：正">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Swift2.0 中的String（二）：基本操作">
-<meta property="og:url" content="http://conanwhf.coding.me/2015/12/03/Swift_String_2/index.html">
+<meta property="og:url" content="http://conanwhf.github.io/2015/12/03/Swift_String_2/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="Swift中的字符串，第二篇，基本操作。其他的几篇传送门：
 
@@ -114,7 +114,7 @@ Swift2.0 中的String（六）：正">
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?8da63524978598168c3843bc8001d968";
+      hm.src = "//hm.baidu.com/hm.js?216209cca8026e16aa970c3db256725e";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -149,7 +149,7 @@ Swift2.0 中的String（六）：正">
   
 
   
-    <ul id="menu" class="menu menu-left">
+    <ul id="menu" class="menu ">
       
         
         <li class="menu-item menu-item-home">
@@ -194,33 +194,9 @@ Swift2.0 中的String（六）：正">
 
       
       
-        <li class="menu-item menu-item-search">
-          <a href="#" class="st-search-show-outputs">
-            <i class="menu-item-icon icon-next-search"></i> <br />
-            搜索
-          </a>
-        </li>
-      
     </ul>
   
 
-  
-    <div class="site-search">
-      
-  
-
-<script type="text/javascript">
-  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
-    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-
-  _st('install', '-wAdEzF15RczmAqPJh93','2.0.0');
-</script>
-
-
-
-    </div>
   
 </nav>
 
@@ -288,12 +264,12 @@ Swift2.0 中的String（六）：正">
       
         <span itemprop="articleBody"><p>Swift中的字符串，第二篇，基本操作。其他的几篇传送门：</p>
 <ul>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性" target="_blank" rel="external">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作" target="_blank" rel="external">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换" target="_blank" rel="external">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换" target="_blank" rel="external">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换" target="_blank" rel="external">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.github.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配" target="_blank" rel="external">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
+<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
+<li><a href="http://conanwhf.github.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages" target="_blank" rel="external">这里</a>看到</li>
 </ul>
 <p>首先，我们要记得使用字符串最常用的两个参数：下标(Index)和范围(Range)，几乎所有API都要用到它们</p>
 <pre><code>let offset = str.startIndex.advancedBy(2)// offset: 3rd char
@@ -302,7 +278,7 @@ let range  = Range(start: str.startIndex.advancedBy(3), end: str.endIndex.advanc
 <pre><code>let n      = Int(str)!
 String(&quot;the number is \(n)&quot;)
 String(format:&quot;%.2f,  %i&quot;, 9.1, 304)
-</code></pre><p><strong>内容反转</strong><a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2015/12/03/Swift_String_2/</p><p>访问原文「<a href='http://conanwhf.coding.me/2015/12/03/Swift_String_2/'>Swift2.0 中的String（二）：基本操作</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+</code></pre><p><strong>内容反转</strong><a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2015/12/03/Swift_String_2/</p><p>访问原文「<a href='http://conanwhf.github.io/2015/12/03/Swift_String_2/'>Swift2.0 中的String（二）：基本操作</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -529,15 +505,15 @@ str.stringByReplacingCharactersInRange(range, withString: &quot;哈哈😄Tes\nt
             <p class="site-author-name">Links</p>
             
               <span class="links-of-author-item">
-              <a href="http://conanwhf.coding.me" target="_blank">本站墙内链接</a>
+              <a href="http://conanwhf.github.io" target="_blank">本站地址</a>
               </span>
             
               <span class="links-of-author-item">
-              <a href="http://conanwhf.github.io" target="_blank">本站墙外链接</a>
+              <a href="http://conanwhf.coding.me" target="_blank">本站镜像</a>
               </span>
             
               <span class="links-of-author-item">
-              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">我的iOS资源收集(Swift)</a>
+              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">iOS资源收集(Swift)</a>
               </span>
             
           

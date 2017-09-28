@@ -48,7 +48,7 @@
 <meta name="description" content="新闻App通常是有个新闻的列表，这个列表一般都用TableView来做，每个Cell显示一条新闻，如下图：在我做的时候，开始Cell是直接从控件库拖到StoryBoard里面，配置了一点东西就OK了：当Cell的Style设成subtilte时，标题、副标题、以及图像都是可用的，在cellForRowAtIndexPath里直接配置就行了：但这样做了之后出现一个问题：新闻配图是从网络获取的，长宽比">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从打造新闻app学到的(8)：自定义TableViewCell">
-<meta property="og:url" content="http://conanwhf.coding.me/2016/01/21/newsreader-8/index.html">
+<meta property="og:url" content="http://conanwhf.github.io/2016/01/21/newsreader-8/index.html">
 <meta property="og:site_name" content="iOS开发和七七八八">
 <meta property="og:description" content="新闻App通常是有个新闻的列表，这个列表一般都用TableView来做，每个Cell显示一条新闻，如下图：在我做的时候，开始Cell是直接从控件库拖到StoryBoard里面，配置了一点东西就OK了：当Cell的Style设成subtilte时，标题、副标题、以及图像都是可用的，在cellForRowAtIndexPath里直接配置就行了：但这样做了之后出现一个问题：新闻配图是从网络获取的，长宽比">
 <meta property="og:image" content="http://whf.d.pr/146XT+">
@@ -95,7 +95,7 @@
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?8da63524978598168c3843bc8001d968";
+      hm.src = "//hm.baidu.com/hm.js?216209cca8026e16aa970c3db256725e";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -130,7 +130,7 @@
   
 
   
-    <ul id="menu" class="menu menu-left">
+    <ul id="menu" class="menu ">
       
         
         <li class="menu-item menu-item-home">
@@ -175,33 +175,9 @@
 
       
       
-        <li class="menu-item menu-item-search">
-          <a href="#" class="st-search-show-outputs">
-            <i class="menu-item-icon icon-next-search"></i> <br />
-            搜索
-          </a>
-        </li>
-      
     </ul>
   
 
-  
-    <div class="site-search">
-      
-  
-
-<script type="text/javascript">
-  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
-    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-
-  _st('install', '-wAdEzF15RczmAqPJh93','2.0.0');
-</script>
-
-
-
-    </div>
   
 </nav>
 
@@ -267,7 +243,7 @@
       
 
       
-        <span itemprop="articleBody"><p>新闻App通常是有个新闻的列表，这个列表一般都用TableView来做，每个Cell显示一条新闻，如下图：<br><img src="http://whf.d.pr/146XT+" alt=""><br>在我做的时候，开始Cell是直接从控件库拖到StoryBoard里面，配置了一点东西就OK了：当Cell的Style设成subtilte时，标题、副标题、以及图像都是可用的，在<strong>cellForRowAtIndexPath</strong>里直接配置就行了：<br><img src="http://whf.d.pr/K486+" alt=""><br>但这样做了之后出现一个问题：新闻配图是从网络获取的，长宽比和大小并不固定。在这种做法中，图像是以高度而不是宽度统一对齐的，也就是经过缩放后变成统一的高度适配当前Cell，再显示出来。这样一来，每个Cell里的图像宽度就参差不齐，很难看。我尝试了很久也没能解决这个问题，看起来无论怎么对Cell.image进行配置，也是无效的。折中的办法是事先修改图像的长宽比，但这不是我想要的效果。于是，只好尝试TableViewCell的自定义了。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/01/21/newsreader-8/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/01/21/newsreader-8/'>从打造新闻app学到的(8)：自定义TableViewCell</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+        <span itemprop="articleBody"><p>新闻App通常是有个新闻的列表，这个列表一般都用TableView来做，每个Cell显示一条新闻，如下图：<br><img src="http://whf.d.pr/146XT+" alt=""><br>在我做的时候，开始Cell是直接从控件库拖到StoryBoard里面，配置了一点东西就OK了：当Cell的Style设成subtilte时，标题、副标题、以及图像都是可用的，在<strong>cellForRowAtIndexPath</strong>里直接配置就行了：<br><img src="http://whf.d.pr/K486+" alt=""><br>但这样做了之后出现一个问题：新闻配图是从网络获取的，长宽比和大小并不固定。在这种做法中，图像是以高度而不是宽度统一对齐的，也就是经过缩放后变成统一的高度适配当前Cell，再显示出来。这样一来，每个Cell里的图像宽度就参差不齐，很难看。我尝试了很久也没能解决这个问题，看起来无论怎么对Cell.image进行配置，也是无效的。折中的办法是事先修改图像的长宽比，但这不是我想要的效果。于是，只好尝试TableViewCell的自定义了。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2016/01/21/newsreader-8/</p><p>访问原文「<a href='http://conanwhf.github.io/2016/01/21/newsreader-8/'>从打造新闻app学到的(8)：自定义TableViewCell</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -472,15 +448,15 @@
             <p class="site-author-name">Links</p>
             
               <span class="links-of-author-item">
-              <a href="http://conanwhf.coding.me" target="_blank">本站墙内链接</a>
+              <a href="http://conanwhf.github.io" target="_blank">本站地址</a>
               </span>
             
               <span class="links-of-author-item">
-              <a href="http://conanwhf.github.io" target="_blank">本站墙外链接</a>
+              <a href="http://conanwhf.coding.me" target="_blank">本站镜像</a>
               </span>
             
               <span class="links-of-author-item">
-              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">我的iOS资源收集(Swift)</a>
+              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">iOS资源收集(Swift)</a>
               </span>
             
           

@@ -3,9 +3,9 @@
   <title><![CDATA[iOS开发和七七八八]]></title>
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
-  <link href="http://conanwhf.coding.me/"/>
+  <link href="http://conanwhf.github.io/"/>
   <updated>2017-09-27T11:28:44.000Z</updated>
-  <id>http://conanwhf.coding.me/</id>
+  <id>http://conanwhf.github.io/</id>
   
   <author>
     <name><![CDATA[Conan Wang]]></name>
@@ -16,13 +16,13 @@
   
   <entry>
     <title><![CDATA[树莓派打造的家庭环境监控]]></title>
-    <link href="http://conanwhf.coding.me/2017/09/16/EnvMonitor/"/>
-    <id>http://conanwhf.coding.me/2017/09/16/EnvMonitor/</id>
+    <link href="http://conanwhf.github.io/2017/09/16/EnvMonitor/"/>
+    <id>http://conanwhf.github.io/2017/09/16/EnvMonitor/</id>
     <published>2017-09-16T09:31:26.000Z</published>
     <updated>2017-09-27T11:28:44.000Z</updated>
     <content type="html"><![CDATA[<p>最近空气质量又有下降的趋势，想想手头的RPI2B，干脆拿来改造成一个环境监控系统吧，放在客厅随时可以看到，情况不对马上开净化器😊。传感器部分都是以前就买了的，平时拿来偶尔玩一下。主要是三个：一个空气质量检测的激光传感器，一个温湿度的DHT22，一个凑数的带光感的数模转换。屏幕是一块5寸的HDMI破电阻屏，用来搭建本体的是两包白色塑料小积木，所有东西均购自淘宝，包括树莓派物料成本大约500+。说起来这个成本很高了，主要是树莓派本身加一个屏幕，光用来做这个有点浪费。好在我本来也是要放在那边当小服务器用，跑个定时脚本，偶尔看个kernel什么的。</p>
 <h2 id="u786C_u4EF6_u90E8_u5206"><a href="#u786C_u4EF6_u90E8_u5206" class="headerlink" title="硬件部分"></a>硬件部分</h2><a id="more"></a>
-<p>因为传感器都是做好了的，树莓派自己也引出了两排Pin脚，硬件其实就是连几根线而已。只有一个问题需要考虑就是传感器都是上电即工作的，如果一直通电的话，过不了多久估计就烧了。所以我决定用GPIO当作开关来控制sensor的电源，只在需要获得数据时打开。这样一来那两个只需要3.3V的sensor还好，直接用GPIO给电即可，空气质量那个传感器需要5V的就麻烦了。还有LCD屏幕，也是要求5V，并且本身是USB供电，只好把原有的拨动开关拆了，小改电路，使用一个接入的5V电源来解决。<br>最终的硬件连线图如下：</p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/09/16/EnvMonitor/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/09/16/EnvMonitor/'>树莓派打造的家庭环境监控</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<p>因为传感器都是做好了的，树莓派自己也引出了两排Pin脚，硬件其实就是连几根线而已。只有一个问题需要考虑就是传感器都是上电即工作的，如果一直通电的话，过不了多久估计就烧了。所以我决定用GPIO当作开关来控制sensor的电源，只在需要获得数据时打开。这样一来那两个只需要3.3V的sensor还好，直接用GPIO给电即可，空气质量那个传感器需要5V的就麻烦了。还有LCD屏幕，也是要求5V，并且本身是USB供电，只好把原有的拨动开关拆了，小改电路，使用一个接入的5V电源来解决。<br>最终的硬件连线图如下：</p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/09/16/EnvMonitor/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/09/16/EnvMonitor/'>树莓派打造的家庭环境监控</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -102,16 +102,16 @@ if __name__ == &quot;__main__&quot;:
     
     </summary>
     
-      <category term="RaspberryPi" scheme="http://conanwhf.coding.me/tags/RaspberryPi/"/>
+      <category term="RaspberryPi" scheme="http://conanwhf.github.io/tags/RaspberryPi/"/>
     
-      <category term="Linux" scheme="http://conanwhf.coding.me/categories/Linux/"/>
+      <category term="Linux" scheme="http://conanwhf.github.io/categories/Linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[在Centos中安装和使用Python3]]></title>
-    <link href="http://conanwhf.coding.me/2017/07/12/CentosPython/"/>
-    <id>http://conanwhf.coding.me/2017/07/12/CentosPython/</id>
+    <link href="http://conanwhf.github.io/2017/07/12/CentosPython/"/>
+    <id>http://conanwhf.github.io/2017/07/12/CentosPython/</id>
     <published>2017-07-12T10:31:26.000Z</published>
     <updated>2017-07-12T12:32:17.000Z</updated>
     <content type="html"><![CDATA[<p>前几天碰到一个有点尴尬的需求：我一直有个Bandwagon的服务器用来做SS，自己写了个Python3的脚本，想用这个服务器定时启动跑一下。结果发现Bandwagon的SS只支持Centos的系统，而Centos系统里又只默认安装了python2.6，并且SS也必须要Python2.6才能跑。<br>虽然Bandwagon支持更换操作系统，可选的版本也很多，但我实在懒得折腾，想想还要自己安装维护SS服务就头大，只好考虑在Centos上安装Python3了。</p>
@@ -121,7 +121,7 @@ yum groupinstall -y ‘development tools’
 yum install epel-release
 yum install -y zlib-devel bzip2-devel openssl-devel xz-libs wget
 yum clean all
-</code></pre> </p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/07/12/CentosPython/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/07/12/CentosPython/'>在Centos中安装和使用Python3</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+</code></pre> </p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/07/12/CentosPython/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/07/12/CentosPython/'>在Centos中安装和使用Python3</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -163,18 +163,18 @@ yum clean all
     
     </summary>
     
-      <category term="Centos" scheme="http://conanwhf.coding.me/tags/Centos/"/>
+      <category term="Centos" scheme="http://conanwhf.github.io/tags/Centos/"/>
     
-      <category term="Python" scheme="http://conanwhf.coding.me/tags/Python/"/>
+      <category term="Python" scheme="http://conanwhf.github.io/tags/Python/"/>
     
-      <category term="Linux" scheme="http://conanwhf.coding.me/categories/Linux/"/>
+      <category term="Linux" scheme="http://conanwhf.github.io/categories/Linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[开发Tips收集-2017年07月]]></title>
-    <link href="http://conanwhf.coding.me/2017/07/12/Tips201707/"/>
-    <id>http://conanwhf.coding.me/2017/07/12/Tips201707/</id>
+    <link href="http://conanwhf.github.io/2017/07/12/Tips201707/"/>
+    <id>http://conanwhf.github.io/2017/07/12/Tips201707/</id>
     <published>2017-07-12T09:25:39.000Z</published>
     <updated>2017-07-12T10:57:50.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
@@ -213,7 +213,7 @@ yum clean all
 <li>NSSystemTimeZoneDidChangeNotification监听修改时间界面的两个按钮状态变化UIApplicationSignificantTimeChangeNotification 监听用户改变时间 （只要点击自动设置按钮就会调用） NSSystemClockDidChangeNotification 监听用户修改时间（时间不同才会调用）</li>
 <li>开发中如果要动态修改tableView的tableHeaderView或者tableFooterView的高度，需要给tableView重新设置，而不是直接更改高度。正确的做法是重新设置一下tableView.tableFooterView = 更改过高度的view。其实在iOS8以上直接改高度是没有问题的，在iOS8中出现了contentSize不准确的问题。</li>
 </ul>
- </p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/07/12/Tips201707/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/07/12/Tips201707/'>开发Tips收集-2017年07月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+ </p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/07/12/Tips201707/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/07/12/Tips201707/'>开发Tips收集-2017年07月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -245,23 +245,23 @@ yum clean all
     
     </summary>
     
-      <category term="Xcode" scheme="http://conanwhf.coding.me/tags/Xcode/"/>
+      <category term="Xcode" scheme="http://conanwhf.github.io/tags/Xcode/"/>
     
-      <category term="iOS - Swift" scheme="http://conanwhf.coding.me/tags/iOS-Swift/"/>
+      <category term="iOS - Swift" scheme="http://conanwhf.github.io/tags/iOS-Swift/"/>
     
-      <category term="DevTips" scheme="http://conanwhf.coding.me/categories/DevTips/"/>
+      <category term="DevTips" scheme="http://conanwhf.github.io/categories/DevTips/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[读书清单 2017-06]]></title>
-    <link href="http://conanwhf.coding.me/2017/06/30/ReadingList2017-06/"/>
-    <id>http://conanwhf.coding.me/2017/06/30/ReadingList2017-06/</id>
+    <link href="http://conanwhf.github.io/2017/06/30/ReadingList2017-06/"/>
+    <id>http://conanwhf.github.io/2017/06/30/ReadingList2017-06/</id>
     <published>2017-06-30T02:36:54.000Z</published>
     <updated>2017-09-27T03:57:08.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
 <li><strong>浪潮之巅</strong><br>这本书好多年前红得发紫，也是那时候就打开读一读，但是不知道为什么一而再再而三地没有读下去。这次在它红了近十年之后，终于终结了，然而我的感觉是：平淡得很。<a id="more"></a>
-</p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/30/ReadingList2017-06/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/30/ReadingList2017-06/'>读书清单 2017-06</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+</p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/06/30/ReadingList2017-06/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/06/30/ReadingList2017-06/'>读书清单 2017-06</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -308,19 +308,19 @@ yum clean all
     
     </summary>
     
-      <category term="BookList" scheme="http://conanwhf.coding.me/tags/BookList/"/>
+      <category term="BookList" scheme="http://conanwhf.github.io/tags/BookList/"/>
     
-      <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
+      <category term="Life &amp; Other" scheme="http://conanwhf.github.io/categories/Life-Other/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[ARM板移植Linux系统启动（七）uBoot中的启动器]]></title>
-    <link href="http://conanwhf.coding.me/2017/06/14/bootup-7-loader/"/>
-    <id>http://conanwhf.coding.me/2017/06/14/bootup-7-loader/</id>
+    <link href="http://conanwhf.github.io/2017/06/14/bootup-7-loader/"/>
+    <id>http://conanwhf.github.io/2017/06/14/bootup-7-loader/</id>
     <published>2017-06-14T09:31:26.000Z</published>
     <updated>2017-06-14T11:33:50.000Z</updated>
-    <content type="html"><![CDATA[<p>前面说了那么多，系统已经烧写完毕，按理说没什么问题了，但是我的系统依然跑不起来！通过debug发现，我的kernel镜像按照debian文件系统的要求重命名成了”vmlinuz-XXX”，但我的烧写进去的uboot却在打印信息中明确表示：我找的是zImage！在BeagleBoneBlack的TF卡烧写启动模式中，它的kernel也是修改了命名，但却能顺利引导，是因为把kernel的文件名信息写入了uEnv.txt文件，但是为什么在我的板子上就会失败呢？<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/14/bootup-7-loader/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/14/bootup-7-loader/'>ARM板移植Linux系统启动（七）uBoot中的启动器</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+    <content type="html"><![CDATA[<p>前面说了那么多，系统已经烧写完毕，按理说没什么问题了，但是我的系统依然跑不起来！通过debug发现，我的kernel镜像按照debian文件系统的要求重命名成了”vmlinuz-XXX”，但我的烧写进去的uboot却在打印信息中明确表示：我找的是zImage！在BeagleBoneBlack的TF卡烧写启动模式中，它的kernel也是修改了命名，但却能顺利引导，是因为把kernel的文件名信息写入了uEnv.txt文件，但是为什么在我的板子上就会失败呢？<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/06/14/bootup-7-loader/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/06/14/bootup-7-loader/'>ARM板移植Linux系统启动（七）uBoot中的启动器</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -447,17 +447,17 @@ endif
     
     </summary>
     
-      <category term="Linux" scheme="http://conanwhf.coding.me/categories/Linux/"/>
+      <category term="Linux" scheme="http://conanwhf.github.io/categories/Linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[ARM板移植Linux系统启动（六）烧写系统到emmc]]></title>
-    <link href="http://conanwhf.coding.me/2017/06/14/bootup-6-flasher/"/>
-    <id>http://conanwhf.coding.me/2017/06/14/bootup-6-flasher/</id>
+    <link href="http://conanwhf.github.io/2017/06/14/bootup-6-flasher/"/>
+    <id>http://conanwhf.github.io/2017/06/14/bootup-6-flasher/</id>
     <published>2017-06-14T04:31:26.000Z</published>
     <updated>2017-06-14T11:31:31.000Z</updated>
-    <content type="html"><![CDATA[<p>能够从Uart把系统跑起来，基本上已经完成了移植工作的关键。但此时自动的引导流程还没有建立好，要想让系统能正常启动，必须将数据烧写到存储设备里去。烧写的原理对于所有的板子都是一样的，只是烧写数据的来源和目标有区别，掌握原理以后就可以自己灵活修改，不用拿着从ftp烧写的脚本对着USB烧写的需求一筹莫展。:-) <a id="more"></a><br> </p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/14/bootup-6-flasher/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/14/bootup-6-flasher/'>ARM板移植Linux系统启动（六）烧写系统到emmc</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+    <content type="html"><![CDATA[<p>能够从Uart把系统跑起来，基本上已经完成了移植工作的关键。但此时自动的引导流程还没有建立好，要想让系统能正常启动，必须将数据烧写到存储设备里去。烧写的原理对于所有的板子都是一样的，只是烧写数据的来源和目标有区别，掌握原理以后就可以自己灵活修改，不用拿着从ftp烧写的脚本对着USB烧写的需求一筹莫展。:-) <a id="more"></a><br> </p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/06/14/bootup-6-flasher/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/06/14/bootup-6-flasher/'>ARM板移植Linux系统启动（六）烧写系统到emmc</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -587,17 +587,17 @@ echo &quot;Syncing: ${destination} complete&quot;
     
     </summary>
     
-      <category term="Linux" scheme="http://conanwhf.coding.me/categories/Linux/"/>
+      <category term="Linux" scheme="http://conanwhf.github.io/categories/Linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[ARM板移植Linux系统启动（五）Uboot命令行]]></title>
-    <link href="http://conanwhf.coding.me/2017/06/13/bootup-5-ubootcmd/"/>
-    <id>http://conanwhf.coding.me/2017/06/13/bootup-5-ubootcmd/</id>
+    <link href="http://conanwhf.github.io/2017/06/13/bootup-5-ubootcmd/"/>
+    <id>http://conanwhf.github.io/2017/06/13/bootup-5-ubootcmd/</id>
     <published>2017-06-13T09:31:26.000Z</published>
     <updated>2017-06-13T17:02:15.000Z</updated>
-    <content type="html"><![CDATA[<p>上次说到uboot的启动方式，最后会使用autoboot尝试引导kernel，如果失败或者被手动取消，则进入uboot的命令行。最新的uboot命令行已经发展得比较完善，很大程度上接近shell，包含了各种基本的驱动和完整的工具。这些工具的源码大多在<code>u-boot/cmd</code>下，查看Makefile可以看到，根据不同的配置编译出很多命令，你也可以通过搜索字符串<code>U_BOOT_CMD(</code>来查找这些命令的命名。这些命令的列表可以通过命令行输入<code>help</code>来查看，大致分成几个大类。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/13/bootup-5-ubootcmd/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/13/bootup-5-ubootcmd/'>ARM板移植Linux系统启动（五）Uboot命令行</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+    <content type="html"><![CDATA[<p>上次说到uboot的启动方式，最后会使用autoboot尝试引导kernel，如果失败或者被手动取消，则进入uboot的命令行。最新的uboot命令行已经发展得比较完善，很大程度上接近shell，包含了各种基本的驱动和完整的工具。这些工具的源码大多在<code>u-boot/cmd</code>下，查看Makefile可以看到，根据不同的配置编译出很多命令，你也可以通过搜索字符串<code>U_BOOT_CMD(</code>来查找这些命令的命名。这些命令的列表可以通过命令行输入<code>help</code>来查看，大致分成几个大类。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/06/13/bootup-5-ubootcmd/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/06/13/bootup-5-ubootcmd/'>ARM板移植Linux系统启动（五）Uboot命令行</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -677,19 +677,19 @@ define CONFIG_ENV_SIZE     (128 &lt;&lt; 10)
     
     </summary>
     
-      <category term="Linux" scheme="http://conanwhf.coding.me/categories/Linux/"/>
+      <category term="Linux" scheme="http://conanwhf.github.io/categories/Linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[ARM板移植Linux系统启动（四）配置Kernel]]></title>
-    <link href="http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/"/>
-    <id>http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/</id>
+    <link href="http://conanwhf.github.io/2017/06/12/bootup-4-kernel/"/>
+    <id>http://conanwhf.github.io/2017/06/12/bootup-4-kernel/</id>
     <published>2017-06-12T09:31:26.000Z</published>
     <updated>2017-06-12T15:07:39.000Z</updated>
     <content type="html"><![CDATA[<p>如今的Linux比uboot要成熟得更多，所有的模块都是可配置的。所以基本上对于kernel的移植，特别是这种已经有基础源码的项目，代码改动其实相当少，更多是时间花在调试和配置上。在所有工作中，最主要的困难恐怕就是怎么把系统跑进console了。</p>
 <h2 id="uImage__26amp_3B_zImage"><a href="#uImage__26amp_3B_zImage" class="headerlink" title="uImage &amp; zImage"></a>uImage &amp; zImage</h2><p>这个问题太基础，只是因为跟手动跑系统有关，所以稍微提一下。kernel编译后的成果是zImage，uImage只是添加了一个长度为0x40的头，用来记录给uboot的相关信息。虽然uImage是专门给uboot用的，但uboot的启动并不一定要uImage，它既可以接受uImage也可以接受zImage。可以说：uImage的头信息本质上是一种启动参数的传递形式。<br>制作uImage的工具是<strong>mkimage</strong>，它是来自于uboot。为了避免各种可能的版本问题，建议直接使用uboot编译后的<code>uboot/tools/mkimage</code>。而uImage的制作脚本则包含在kernel的编译脚本中，使用命令：<br><code>make uImage LOADADDR=0x80008000</code><br>即可编译获得uImage，前提是你已经将mkimage放入了编译环境的/bin/文件夹下。LOADADDR是kernel的启动地址（<strong>注意，这不是真正的kernel运行地址</strong>），uBoot会将kernel拷贝到此地址后（实际中也可能不拷贝）执行。关于uboot使用的几个内存地址的具体讲解也很多，这么些年也没什么变化，需要了解的可以自行去搜索。</p>
-<h2 id="u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C"><a href="#u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C" class="headerlink" title="根文件系统的制作"></a>根文件系统的制作</h2><p>一个系统必须要有文件系统才能跑起来，即使是很小很小的文件系统。目前一个最基本的文件系统都是基于Busybox制作的，制作过程的教程很多也大同小异，我就不赘述了。有的厂商或者Linux系统发行商也会提供根文件系统的下载，不过大多太过冗余，需要自行裁剪。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/12/bootup-4-kernel/'>ARM板移植Linux系统启动（四）配置Kernel</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<h2 id="u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C"><a href="#u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C" class="headerlink" title="根文件系统的制作"></a>根文件系统的制作</h2><p>一个系统必须要有文件系统才能跑起来，即使是很小很小的文件系统。目前一个最基本的文件系统都是基于Busybox制作的，制作过程的教程很多也大同小异，我就不赘述了。有的厂商或者Linux系统发行商也会提供根文件系统的下载，不过大多太过冗余，需要自行裁剪。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/06/12/bootup-4-kernel/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/06/12/bootup-4-kernel/'>ARM板移植Linux系统启动（四）配置Kernel</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -758,18 +758,18 @@ bootm 0x83000000 - 0x82000000
     
     </summary>
     
-      <category term="Linux" scheme="http://conanwhf.coding.me/categories/Linux/"/>
+      <category term="Linux" scheme="http://conanwhf.github.io/categories/Linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[ARM板移植Linux系统启动（三）UBOOT移植]]></title>
-    <link href="http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/"/>
-    <id>http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/</id>
+    <link href="http://conanwhf.github.io/2017/06/09/bootup-3-uboot/"/>
+    <id>http://conanwhf.github.io/2017/06/09/bootup-3-uboot/</id>
     <published>2017-06-09T09:31:26.000Z</published>
     <updated>2017-06-14T10:41:25.000Z</updated>
     <content type="html"><![CDATA[<p>经过这些年的演变，U-boot已经从一个简单的loader慢慢发展成了一个小小系统，硬件上原生支持各种平台、外设，软件上支持Fat&amp;ext234等文件系统、传输协议、测试工具，可以说相当完善了。这种进化，负面影响是让整体变得更复杂臃肿，但也有更多的正面影响，是让我们的移植工作更加简单、模块化。</p>
-<h2 id="Uboot_u4EE3_u7801_u7ED3_u6784"><a href="#Uboot_u4EE3_u7801_u7ED3_u6784" class="headerlink" title="Uboot代码结构"></a>Uboot代码结构</h2><p>代码结构是了解uboot的基础，作为一个成熟的开源软件，uboot的代码结构很清晰。绝大多数的代码都是通用的，所以在移植过程中，基本上只需要找到自己的对应平台，修改板子特有的部分即可。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/09/bootup-3-uboot/'>ARM板移植Linux系统启动（三）UBOOT移植</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<h2 id="Uboot_u4EE3_u7801_u7ED3_u6784"><a href="#Uboot_u4EE3_u7801_u7ED3_u6784" class="headerlink" title="Uboot代码结构"></a>Uboot代码结构</h2><p>代码结构是了解uboot的基础，作为一个成熟的开源软件，uboot的代码结构很清晰。绝大多数的代码都是通用的，所以在移植过程中，基本上只需要找到自己的对应平台，修改板子特有的部分即可。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/06/09/bootup-3-uboot/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/06/09/bootup-3-uboot/'>ARM板移植Linux系统启动（三）UBOOT移植</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -958,17 +958,17 @@ endif
     
     </summary>
     
-      <category term="Linux" scheme="http://conanwhf.coding.me/categories/Linux/"/>
+      <category term="Linux" scheme="http://conanwhf.github.io/categories/Linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[ARM板移植Linux系统启动（二）SPL]]></title>
-    <link href="http://conanwhf.coding.me/2017/06/08/bootup-2-spl/"/>
-    <id>http://conanwhf.coding.me/2017/06/08/bootup-2-spl/</id>
+    <link href="http://conanwhf.github.io/2017/06/08/bootup-2-spl/"/>
+    <id>http://conanwhf.github.io/2017/06/08/bootup-2-spl/</id>
     <published>2017-06-08T09:31:26.000Z</published>
     <updated>2017-06-12T15:12:43.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="u542F_u52A8_u6A21_u5F0F"><a href="#u542F_u52A8_u6A21_u5F0F" class="headerlink" title="启动模式"></a>启动模式</h2><p>面对一块完全的空板子，首先要做的当然是让它启动起来。emmc/nand中完全没有内容，意味着没有uboot，没有命令行，所有的硬件包括内存都没有初始化，除了CPU。在上电的CPU之上，还跑了一个小小的叫做BootROM的程序。<br>通常每块芯片，都在硬件中包含了一个BootROM，是一个小程序，上电后自动运行，无法修改，不同的厂家有不同的设计，但都是给定几种不同的启动模式，然后循环检测。TI这块板就支持各种模式，如emmc, nand flash, network, spi, uart等。<br>所谓的不同启动模式，本质上也是类似的，都是从某个设备中读取很少的一点数据放到一定的地方（一般是SRAM或者STACK），然后把PC指针交给它。所以并不是支持什么启动就可以直接在设备上放操作系统了，BootROM能做的只是很基础的硬件初始化工作，更多的事情是需要Uboot来完成。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/06/08/bootup-2-spl/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/06/08/bootup-2-spl/'>ARM板移植Linux系统启动（二）SPL</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+    <content type="html"><![CDATA[<h2 id="u542F_u52A8_u6A21_u5F0F"><a href="#u542F_u52A8_u6A21_u5F0F" class="headerlink" title="启动模式"></a>启动模式</h2><p>面对一块完全的空板子，首先要做的当然是让它启动起来。emmc/nand中完全没有内容，意味着没有uboot，没有命令行，所有的硬件包括内存都没有初始化，除了CPU。在上电的CPU之上，还跑了一个小小的叫做BootROM的程序。<br>通常每块芯片，都在硬件中包含了一个BootROM，是一个小程序，上电后自动运行，无法修改，不同的厂家有不同的设计，但都是给定几种不同的启动模式，然后循环检测。TI这块板就支持各种模式，如emmc, nand flash, network, spi, uart等。<br>所谓的不同启动模式，本质上也是类似的，都是从某个设备中读取很少的一点数据放到一定的地方（一般是SRAM或者STACK），然后把PC指针交给它。所以并不是支持什么启动就可以直接在设备上放操作系统了，BootROM能做的只是很基础的硬件初始化工作，更多的事情是需要Uboot来完成。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/06/08/bootup-2-spl/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/06/08/bootup-2-spl/'>ARM板移植Linux系统启动（二）SPL</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1099,17 +1099,17 @@ jump_to_image_no_args(&amp;spl_image);
     
     </summary>
     
-      <category term="Linux" scheme="http://conanwhf.coding.me/categories/Linux/"/>
+      <category term="Linux" scheme="http://conanwhf.github.io/categories/Linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[ARM板移植Linux系统启动（一）启动流程]]></title>
-    <link href="http://conanwhf.coding.me/2017/05/30/bootup-1-main/"/>
-    <id>http://conanwhf.coding.me/2017/05/30/bootup-1-main/</id>
+    <link href="http://conanwhf.github.io/2017/05/30/bootup-1-main/"/>
+    <id>http://conanwhf.github.io/2017/05/30/bootup-1-main/</id>
     <published>2017-05-30T09:31:26.000Z</published>
     <updated>2017-06-12T15:12:39.000Z</updated>
-    <content type="html"><![CDATA[<p>几年前，我是一个标准的原厂Linux系统开发人员，用公司自己的芯片，移植整套BSP。对于Linux系统启动方面，自认为摸得很熟了，从上电加载的汇编码到Linux内核及文件系统的配置，无一不留下了我修改的代码，细节精确到nand flash的某block某page放了什么代码，内存某个地址加载的是什么，代码某个改动是为了兼容什么project，一清二楚。所以最近接到这个移植系统的工作，信心挺足，估摸硬件没有问题的话几天之内移植就能完成，哪知道被现实结结实实打脸。<br>之前我用的Linux系统是2.6，Uboot版本不详但Fat32的支持还是我们自己移植进去的，可以说相当跟不上时代了。最新的Kernel早就采用了DTS，Uboot也加了很多功能和驱动，我在移植的过程中几乎完成了一次重新学习的过程。虽然我这次用的板是基于TI的，但我希望能不局限于具体的板子型号，而是把规律性的东西写出来，让后来人有个参考。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/05/30/bootup-1-main/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/05/30/bootup-1-main/'>ARM板移植Linux系统启动（一）启动流程</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+    <content type="html"><![CDATA[<p>几年前，我是一个标准的原厂Linux系统开发人员，用公司自己的芯片，移植整套BSP。对于Linux系统启动方面，自认为摸得很熟了，从上电加载的汇编码到Linux内核及文件系统的配置，无一不留下了我修改的代码，细节精确到nand flash的某block某page放了什么代码，内存某个地址加载的是什么，代码某个改动是为了兼容什么project，一清二楚。所以最近接到这个移植系统的工作，信心挺足，估摸硬件没有问题的话几天之内移植就能完成，哪知道被现实结结实实打脸。<br>之前我用的Linux系统是2.6，Uboot版本不详但Fat32的支持还是我们自己移植进去的，可以说相当跟不上时代了。最新的Kernel早就采用了DTS，Uboot也加了很多功能和驱动，我在移植的过程中几乎完成了一次重新学习的过程。虽然我这次用的板是基于TI的，但我希望能不局限于具体的板子型号，而是把规律性的东西写出来，让后来人有个参考。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/05/30/bootup-1-main/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/05/30/bootup-1-main/'>ARM板移植Linux系统启动（一）启动流程</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1152,14 +1152,14 @@ jump_to_image_no_args(&amp;spl_image);
     
     </summary>
     
-      <category term="Linux" scheme="http://conanwhf.coding.me/categories/Linux/"/>
+      <category term="Linux" scheme="http://conanwhf.github.io/categories/Linux/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[读书清单 2017-03]]></title>
-    <link href="http://conanwhf.coding.me/2017/03/31/ReadingList2017-03/"/>
-    <id>http://conanwhf.coding.me/2017/03/31/ReadingList2017-03/</id>
+    <link href="http://conanwhf.github.io/2017/03/31/ReadingList2017-03/"/>
+    <id>http://conanwhf.github.io/2017/03/31/ReadingList2017-03/</id>
     <published>2017-03-31T02:36:54.000Z</published>
     <updated>2017-09-18T04:05:19.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
@@ -1184,16 +1184,16 @@ jump_to_image_no_args(&amp;spl_image);
 <li>嫌疑人X的献身<br>这本书是因为看]]>
     </summary>
     
-      <category term="BookList" scheme="http://conanwhf.coding.me/tags/BookList/"/>
+      <category term="BookList" scheme="http://conanwhf.github.io/tags/BookList/"/>
     
-      <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
+      <category term="Life &amp; Other" scheme="http://conanwhf.github.io/categories/Life-Other/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[多说评论关闭]]></title>
-    <link href="http://conanwhf.coding.me/2017/03/23/DuoShuoClose/"/>
-    <id>http://conanwhf.coding.me/2017/03/23/DuoShuoClose/</id>
+    <link href="http://conanwhf.github.io/2017/03/23/DuoShuoClose/"/>
+    <id>http://conanwhf.github.io/2017/03/23/DuoShuoClose/</id>
     <published>2017-03-23T09:35:25.000Z</published>
     <updated>2017-05-04T08:55:30.000Z</updated>
     <content type="html"><![CDATA[<p>刚刚发现多说不正常，去官网看，才发现多说已经要关了……</p>
@@ -1208,14 +1208,14 @@ jump_to_image_no_args(&amp;spl_image);
 <p>重要通知: 多说即将关闭<br>多说网 发表于 3月21日<br>因公司业务调整，非常遗憾的向大家宣布多说项目即将关闭。 我们将于2017年6月1日正式关停服务，在此之前您可以通]]>
     </summary>
     
-      <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
+      <category term="Life &amp; Other" scheme="http://conanwhf.github.io/categories/Life-Other/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[开发Tips收集-2017年02月]]></title>
-    <link href="http://conanwhf.coding.me/2017/02/28/Tips201702/"/>
-    <id>http://conanwhf.coding.me/2017/02/28/Tips201702/</id>
+    <link href="http://conanwhf.github.io/2017/02/28/Tips201702/"/>
+    <id>http://conanwhf.github.io/2017/02/28/Tips201702/</id>
     <published>2017-02-28T09:25:39.000Z</published>
     <updated>2017-06-12T15:11:20.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
@@ -1234,7 +1234,7 @@ jump_to_image_no_args(&amp;spl_image);
 <li>分析ipa包，找出大于500K的文件或内容 使用<code>find . -type f -size +500000c | xargs ls -lh</code></li>
 </ol>
 </li>
-<li><strong>给代码排序</strong>：使用Spotlight来搜索Automator，并打开它；然后点击File->New，并选择服务(service)一项；在Actions筛选栏，输入shell，然后双击运行shell脚本；在新添加的服务的菜单栏上,检查Output replaces selected text；<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/02/28/Tips201702/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/02/28/Tips201702/'>开发Tips收集-2017年02月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<li><strong>给代码排序</strong>：使用Spotlight来搜索Automator，并打开它；然后点击File->New，并选择服务(service)一项；在Actions筛选栏，输入shell，然后双击运行shell脚本；在新添加的服务的菜单栏上,检查Output replaces selected text；<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/02/28/Tips201702/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/02/28/Tips201702/'>开发Tips收集-2017年02月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1290,23 +1290,23 @@ jump_to_image_no_args(&amp;spl_image);
     
     </summary>
     
-      <category term="Xcode" scheme="http://conanwhf.coding.me/tags/Xcode/"/>
+      <category term="Xcode" scheme="http://conanwhf.github.io/tags/Xcode/"/>
     
-      <category term="iOS - Swift" scheme="http://conanwhf.coding.me/tags/iOS-Swift/"/>
+      <category term="iOS - Swift" scheme="http://conanwhf.github.io/tags/iOS-Swift/"/>
     
-      <category term="DevTips" scheme="http://conanwhf.coding.me/categories/DevTips/"/>
+      <category term="DevTips" scheme="http://conanwhf.github.io/categories/DevTips/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[读书清单 2017-02]]></title>
-    <link href="http://conanwhf.coding.me/2017/02/28/ReadingList2017-02/"/>
-    <id>http://conanwhf.coding.me/2017/02/28/ReadingList2017-02/</id>
+    <link href="http://conanwhf.github.io/2017/02/28/ReadingList2017-02/"/>
+    <id>http://conanwhf.github.io/2017/02/28/ReadingList2017-02/</id>
     <published>2017-02-28T02:36:54.000Z</published>
     <updated>2017-09-22T09:03:37.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
 <li><strong>术与道:移动应用UI设计必修课</strong><br>家里人这次过来帮我带了不少实体书，这就是其中的一本，亚马逊双十一打折时候买的。整本书内容很少，图特别多，用零碎时间翻了两下就看完了。开始的时候，即使是小白如我也觉得作者在凑字数骗稿费，后来慢慢地看出一点点门道，关于APP设计的思维和规范，虽然书里真的没讲什么，都是基础得不能再基础的东西。不过作为一个一点都不懂设计的开发人员，看完以后有一点点入门的感觉。我猜人家的受众也就是定义在刚毕业啥都不会的菜鸟设计师，作为一本教设计的书来说肯定不合格太简单了，但是对我倒是有点正合适。准备下回写APP的时候认真地按照书中讲的设计规范来做事，也算是没白看。</li>
-<li><strong>金融的解释:金融学二十九讲</strong><br>这本书是早就定下的书单，跟着那本斯坦福极简经济学的，先读读经济原理，再搞清楚金融运作。它经常出现在各种推荐书单上，我原本抱有很大的期望，但也许是珠玉在前，一读之下，有点失望。此书的前面三分之一部分也是讲经济的，后面才引申到金融。跟极简经济学那本相比，明显少了一种脉络感，让人有种盲人摸象无法领悟整体的感觉。同样的内容，这本书就更像是拿教科书来扩充讲解一下，读完了还是有点模模糊糊无法抓住重点；而斯坦福极简经济学则会把经济学中各种概念的因果关系和相互影响的线索讲得很清晰，读完心中自成体系。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/02/28/ReadingList2017-02/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/02/28/ReadingList2017-02/'>读书清单 2017-02</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<li><strong>金融的解释:金融学二十九讲</strong><br>这本书是早就定下的书单，跟着那本斯坦福极简经济学的，先读读经济原理，再搞清楚金融运作。它经常出现在各种推荐书单上，我原本抱有很大的期望，但也许是珠玉在前，一读之下，有点失望。此书的前面三分之一部分也是讲经济的，后面才引申到金融。跟极简经济学那本相比，明显少了一种脉络感，让人有种盲人摸象无法领悟整体的感觉。同样的内容，这本书就更像是拿教科书来扩充讲解一下，读完了还是有点模模糊糊无法抓住重点；而斯坦福极简经济学则会把经济学中各种概念的因果关系和相互影响的线索讲得很清晰，读完心中自成体系。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/02/28/ReadingList2017-02/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/02/28/ReadingList2017-02/'>读书清单 2017-02</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1356,19 +1356,19 @@ jump_to_image_no_args(&amp;spl_image);
     
     </summary>
     
-      <category term="BookList" scheme="http://conanwhf.coding.me/tags/BookList/"/>
+      <category term="BookList" scheme="http://conanwhf.github.io/tags/BookList/"/>
     
-      <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
+      <category term="Life &amp; Other" scheme="http://conanwhf.github.io/categories/Life-Other/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[静境电子书评测]]></title>
-    <link href="http://conanwhf.coding.me/2017/02/12/JingJingTest/"/>
-    <id>http://conanwhf.coding.me/2017/02/12/JingJingTest/</id>
+    <link href="http://conanwhf.github.io/2017/02/12/JingJingTest/"/>
+    <id>http://conanwhf.github.io/2017/02/12/JingJingTest/</id>
     <published>2017-02-12T09:35:25.000Z</published>
     <updated>2017-06-12T15:16:03.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="u6574_u4F53_u611F_u89C9"><a href="#u6574_u4F53_u611F_u89C9" class="headerlink" title="整体感觉"></a>整体感觉</h2><p>我已经有个KPW3，携带方便，其他方面都挺满意，就是觉得屏幕小了点。大屏电子书可选择的太少，我的要求一是要屏大，二是要能看的格式多（我对PDF要求并不多，我的书基本上以azw3&amp;mobi为主，少量epub&amp;pdf），三是不要太重（不能超过iPad），这三条综合下来就已经淘汰了大法、DXG，最终选了静境，带电磁书写款，总价2399。<br>整个静境电子书的大小比普通的教材书籍略小<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/02/12/JingJingTest/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/02/12/JingJingTest/'>静境电子书评测</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+    <content type="html"><![CDATA[<h2 id="u6574_u4F53_u611F_u89C9"><a href="#u6574_u4F53_u611F_u89C9" class="headerlink" title="整体感觉"></a>整体感觉</h2><p>我已经有个KPW3，携带方便，其他方面都挺满意，就是觉得屏幕小了点。大屏电子书可选择的太少，我的要求一是要屏大，二是要能看的格式多（我对PDF要求并不多，我的书基本上以azw3&amp;mobi为主，少量epub&amp;pdf），三是不要太重（不能超过iPad），这三条综合下来就已经淘汰了大法、DXG，最终选了静境，带电磁书写款，总价2399。<br>整个静境电子书的大小比普通的教材书籍略小<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/02/12/JingJingTest/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/02/12/JingJingTest/'>静境电子书评测</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1417,18 +1417,18 @@ jump_to_image_no_args(&amp;spl_image);
     
     </summary>
     
-      <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
+      <category term="Life &amp; Other" scheme="http://conanwhf.github.io/categories/Life-Other/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[读书清单 2017-01]]></title>
-    <link href="http://conanwhf.coding.me/2017/02/01/ReadingList2017-01/"/>
-    <id>http://conanwhf.coding.me/2017/02/01/ReadingList2017-01/</id>
+    <link href="http://conanwhf.github.io/2017/02/01/ReadingList2017-01/"/>
+    <id>http://conanwhf.github.io/2017/02/01/ReadingList2017-01/</id>
     <published>2017-02-01T09:36:54.000Z</published>
     <updated>2017-06-12T15:14:48.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li><strong>黑客</strong><br>一本常常出现在IT人书单上的书，然而我却没有看完。从晶体管时代开始，讲述那些以改进系统为唯一目标的天才程序员的故事。也不能说不好看，作为技术人员来说，过去那些事还是挺有意思的，比如思考一下如何用蜂鸣器做出音乐效果而不只是节拍，或者考虑最初的三个CPU指令应该是哪些，要不就是想象怎么在一个资源少到极限的系统中做调试器……这让我每每翻开这本书就有一种很纠结的心情：一方面看得实在是太慢了，大部分地方读起来也挺无聊，感觉不知道啥时候才能看完；另一方面偶尔有点思维体操的惊喜感，又让人不是能那么决绝地放弃这本书。最后我在看到大约三分之一的地方还是半途而废了，确实书里讲的东西离现在太远了，描述也蛮枯燥的。剩下的三分之二我大略地翻了翻，然后看完了后记以及2010年kindle版上市时的后后记。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2017/02/01/ReadingList2017-01/</p><p>访问原文「<a href='http://conanwhf.coding.me/2017/02/01/ReadingList2017-01/'>读书清单 2017-01</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<li><strong>黑客</strong><br>一本常常出现在IT人书单上的书，然而我却没有看完。从晶体管时代开始，讲述那些以改进系统为唯一目标的天才程序员的故事。也不能说不好看，作为技术人员来说，过去那些事还是挺有意思的，比如思考一下如何用蜂鸣器做出音乐效果而不只是节拍，或者考虑最初的三个CPU指令应该是哪些，要不就是想象怎么在一个资源少到极限的系统中做调试器……这让我每每翻开这本书就有一种很纠结的心情：一方面看得实在是太慢了，大部分地方读起来也挺无聊，感觉不知道啥时候才能看完；另一方面偶尔有点思维体操的惊喜感，又让人不是能那么决绝地放弃这本书。最后我在看到大约三分之一的地方还是半途而废了，确实书里讲的东西离现在太远了，描述也蛮枯燥的。剩下的三分之二我大略地翻了翻，然后看完了后记以及2010年kindle版上市时的后后记。<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/02/01/ReadingList2017-01/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/02/01/ReadingList2017-01/'>读书清单 2017-01</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1489,21 +1489,21 @@ jump_to_image_no_args(&amp;spl_image);
     
     </summary>
     
-      <category term="BookList" scheme="http://conanwhf.coding.me/tags/BookList/"/>
+      <category term="BookList" scheme="http://conanwhf.github.io/tags/BookList/"/>
     
-      <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
+      <category term="Life &amp; Other" scheme="http://conanwhf.github.io/categories/Life-Other/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[读书清单 2016-12]]></title>
-    <link href="http://conanwhf.coding.me/2016/12/31/ReadingList2016-12/"/>
-    <id>http://conanwhf.coding.me/2016/12/31/ReadingList2016-12/</id>
+    <link href="http://conanwhf.github.io/2016/12/31/ReadingList2016-12/"/>
+    <id>http://conanwhf.github.io/2016/12/31/ReadingList2016-12/</id>
     <published>2016-12-31T07:26:54.000Z</published>
     <updated>2017-06-12T15:14:51.000Z</updated>
     <content type="html"><![CDATA[<h1 id="u8BFB_u4E66_u6E05_u53552016-02"><a href="#u8BFB_u4E66_u6E05_u53552016-02" class="headerlink" title="读书清单2016-02"></a>读书清单2016-02</h1><h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
 <li><p><strong>极简投资</strong><br>小白入门书，不过里面讲的投资理念我觉得很好，确实适合懒人以及没投资天分的人，比如说我。后半部对万能险的推崇有做广告的嫌疑，毕竟是出自某商业刊物吧，目前来说万能险肯定是不适合了，P2P也很危险。不过无伤大雅，核心是理解极简投资是怎么一回事，而不是具体该投哪些项目。总结一下，极简投资的核心就是分散、中短期的投资方式。分散指的是将资金分散在几个尽量不相关的方向上（如股市龙头股、债市等），注意是方向，不是单一股票而是指数，这是为了均摊风险，东边不亮西边亮；中短期投资一般就是一年，为了减小市场和投资者心理波动所造成的损失，用长期收益抵消短期浮亏。从数学上来说，极简投资并不是最优投资方案，却是相对来说较安全且兼顾收益的稳健投资方案。 <a id="more"></a></p>
-</p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/12/31/ReadingList2016-12/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/12/31/ReadingList2016-12/'>读书清单 2016-12</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+</p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2016/12/31/ReadingList2016-12/</p><p>访问原文「<a href='http://conanwhf.github.io/2016/12/31/ReadingList2016-12/'>读书清单 2016-12</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1581,16 +1581,16 @@ jump_to_image_no_args(&amp;spl_image);
     
     </summary>
     
-      <category term="BookList" scheme="http://conanwhf.coding.me/tags/BookList/"/>
+      <category term="BookList" scheme="http://conanwhf.github.io/tags/BookList/"/>
     
-      <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
+      <category term="Life &amp; Other" scheme="http://conanwhf.github.io/categories/Life-Other/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[开发Tips收集-2016年08月]]></title>
-    <link href="http://conanwhf.coding.me/2016/08/31/Tips201608/"/>
-    <id>http://conanwhf.coding.me/2016/08/31/Tips201608/</id>
+    <link href="http://conanwhf.github.io/2016/08/31/Tips201608/"/>
+    <id>http://conanwhf.github.io/2016/08/31/Tips201608/</id>
     <published>2016-08-31T09:25:39.000Z</published>
     <updated>2017-06-12T15:11:25.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
@@ -1610,7 +1610,7 @@ jump_to_image_no_args(&amp;spl_image);
 <li>清除签名文件 删除签名文件 清理Profile文件：Xcode - Preferences - Account - View Details,这个时候左下角有个刷新图标，点击一下就可以了</li>
 <li>TableView头视图不随视图移动，头视图出现错位的错误原因：tableView的 UITableViewStyle 没有明确的声明。解决方法：在tableView声明的时候明确为 UITableViewStyleGrouped</li>
 <li>ViewController生命周期：<br>  alloc -> initWithNibName -> loadView -> viewDidLoad -> viewWillAppear -> viewDidAppear -> viewWillDisappear -> viewDidDisappear -> dealloc<br>  注意1. 不要在loadView中调用父类方法<a href="/">super loadView</a>，因为这会影响CPU性能。<a id="more"></a></li>
-<li></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/31/Tips201608/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/31/Tips201608/'>开发Tips收集-2016年08月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<li></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2016/08/31/Tips201608/</p><p>访问原文「<a href='http://conanwhf.github.io/2016/08/31/Tips201608/'>开发Tips收集-2016年08月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1667,23 +1667,23 @@ jump_to_image_no_args(&amp;spl_image);
     
     </summary>
     
-      <category term="Xcode" scheme="http://conanwhf.coding.me/tags/Xcode/"/>
+      <category term="Xcode" scheme="http://conanwhf.github.io/tags/Xcode/"/>
     
-      <category term="iOS - Swift" scheme="http://conanwhf.coding.me/tags/iOS-Swift/"/>
+      <category term="iOS - Swift" scheme="http://conanwhf.github.io/tags/iOS-Swift/"/>
     
-      <category term="DevTips" scheme="http://conanwhf.coding.me/categories/DevTips/"/>
+      <category term="DevTips" scheme="http://conanwhf.github.io/categories/DevTips/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[详细梳理分区表和系统启动相关的各种概念]]></title>
-    <link href="http://conanwhf.coding.me/2016/08/26/GPTandMBR/"/>
-    <id>http://conanwhf.coding.me/2016/08/26/GPTandMBR/</id>
+    <link href="http://conanwhf.github.io/2016/08/26/GPTandMBR/"/>
+    <id>http://conanwhf.github.io/2016/08/26/GPTandMBR/</id>
     <published>2016-08-26T09:30:25.000Z</published>
     <updated>2017-06-12T15:16:14.000Z</updated>
     <content type="html"><![CDATA[<p>MacBookPro的硬盘太小，前几天买了个128G的U盘想装好系统在虚拟机里引导，以节省日益膨胀的虚拟机文件占用的空间。我同时需要Mac、Win、Linux，买不起大容量MBP，天天寻思着删东西，实在是伤不起啊！😭预设的目标是要把Win和Ubuntu都装U盘上，而且支持在我的旧笔记本、Mac、虚拟机里都能正确引导，同时还要有一个数据分区，能在所有的系统中正常识别为U盘。为此，我狠狠研究了一通分区表，被各种缩写和规则搞得头昏脑胀。看看网上的东西也是常有错误，趁着还没忘光，自己梳理一遍吧！<br>声明：本文为作者（<a href="https://github.com/conanwhf" target="_blank" rel="external">Conan</a>）原创，转载请标明<a href="/conanwhf.github.io">出处</a>！</p>
 <h2 id="GPT_u548CMBR"><a href="#GPT_u548CMBR" class="headerlink" title="GPT和MBR"></a>GPT和MBR</h2><p>首先当然是这俩，一切都源于此。最重要的信息是：他们都是<strong>分区表</strong>，一种用来表示硬盘分区信息的格式，不太严格地说是一个<strong>软件概念</strong>。啰嗦一句分区表是干什么的：在操作系统启动之前、硬件初始化之后，确定从硬盘启动的话，需要获得硬盘分区的基本信息，那就需要分区表了。分区表不只包含硬盘的分区信息，也包括一个很小的最基本的引导程序，用到引导第二阶段引导程序，如NTLDR、BOOTMGR和GRUB等，这些第二阶段的引导程序，是需要针对每个分区进一步读取数据才能获得的。</p>
-<h3 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h3><p>全称<strong>主引导记录（Master Boot Record）</strong>，又叫做主引导扇区，位于硬盘的第一个扇区主要分为两个部分：引导程序和分区结构表。有时候也将其开头的446字节引导程序特指为MBR，其后是64字节的“磁盘分区表”（DPT），以及2字节的结束标志（55AA）。因此，在使用“主引导记<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.coding.me/2016/08/26/GPTandMBR/</p><p>访问原文「<a href='http://conanwhf.coding.me/2016/08/26/GPTandMBR/'>详细梳理分区表和系统启动相关的各种概念</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<h3 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h3><p>全称<strong>主引导记录（Master Boot Record）</strong>，又叫做主引导扇区，位于硬盘的第一个扇区主要分为两个部分：引导程序和分区结构表。有时候也将其开头的446字节引导程序特指为MBR，其后是64字节的“磁盘分区表”（DPT），以及2字节的结束标志（55AA）。因此，在使用“主引导记<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2016/08/26/GPTandMBR/</p><p>访问原文「<a href='http://conanwhf.github.io/2016/08/26/GPTandMBR/'>详细梳理分区表和系统启动相关的各种概念</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
 <script type="text/javascript">
 (function() {
   Element.prototype.remove = function() {
@@ -1749,13 +1749,13 @@ jump_to_image_no_args(&amp;spl_image);
     
     </summary>
     
-      <category term="Boot" scheme="http://conanwhf.coding.me/tags/Boot/"/>
+      <category term="Boot" scheme="http://conanwhf.github.io/tags/Boot/"/>
     
-      <category term="GPT" scheme="http://conanwhf.coding.me/tags/GPT/"/>
+      <category term="GPT" scheme="http://conanwhf.github.io/tags/GPT/"/>
     
-      <category term="MBR" scheme="http://conanwhf.coding.me/tags/MBR/"/>
+      <category term="MBR" scheme="http://conanwhf.github.io/tags/MBR/"/>
     
-      <category term="Life &amp; Other" scheme="http://conanwhf.coding.me/categories/Life-Other/"/>
+      <category term="Life &amp; Other" scheme="http://conanwhf.github.io/categories/Life-Other/"/>
     
   </entry>
   
