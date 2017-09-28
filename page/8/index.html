@@ -199,6 +199,97 @@
           
           
             
+              <a class="post-title-link" href="/2015/12/15/fileop/" itemprop="url">
+                文件操作
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-15T16:14:35+08:00" content="2015-12-15">
+            2015-12-15
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Swift/" itemprop="url" rel="index">
+                  <span itemprop="name">Swift</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>（挖坑自己跳系列二）<br>上回说到文件操作，那就把文件操作来一遍吧，先放源码：<a href="https://github.com/conanwhf/swiftplayground/tree/master/Play.playground/Pages/File.xcplaygroundpage">GitHub某个地方</a></p>
+<h2 id="u521D_u59CB_u5316__26amp_3B__u6587_u4EF6_u8DEF_u5F84"><a href="#u521D_u59CB_u5316__26amp_3B__u6587_u4EF6_u8DEF_u5F84" class="headerlink" title="初始化 &amp; 文件路径"></a>初始化 &amp; 文件路径</h2><p>所有的文件操作都要先声明一个根控制器以获得文件的句柄：</p>
+<pre><code>let manager = NSFileManager.defaultManager()
+</code></pre><p>而文件路径的表示有两种方式：String和NSURL。在NSURL的视角中，本地文件作为一种特殊的网络文件而存在，以“file://”开头。多数的操作对于两种路径方式都有两个相对应的接口，要注意对于NSURL，表示本地文件时必须以“file://”开头，否则很多API会失败。为了测试方便，我给String加了个转换的扩展：</p>
+<pre><code>extension String {
+    var toFilePathURL : NSURL {
+    let url =  NSURL( fileURLWithPath: self)
+    return url
+    }
+}
+</code></pre><p>这里使用参数<strong>fileURLWithPath:</strong>而不是<strong>string:</strong>就是为了上述原因。<br>对于路径的修改，String表示方法很简单，直接相加即可；NSURL需要用以下代码：
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/12/15/fileop/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/12/15/runInTerm/" itemprop="url">
                 在终端运行Swift程序
               </a>
@@ -826,98 +917,6 @@ String(format:&quot;%.2f,  %i&quot;, 9.1, 304)
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/03/Swift_String_1/" itemprop="url">
-                Swift2.0 中的String（一）：常用属性
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-12-03T15:20:06+08:00" content="2015-12-03">
-            2015-12-03
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Swift/" itemprop="url" rel="index">
-                  <span itemprop="name">Swift</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>字符串算是平常用的比较多、花样也比较多的一个类型，昨天有空把相关的一些常用操作都写了一遍，总结出来。其实iOS里面的字符串更复杂，还有NSString系列等等，那些API太多将来需要用的时候再慢慢学。<br>这个系列目前写了三篇，这篇是第一部分，String的一些常用属性。其他的几篇传送门：</p>
-<ul>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
-<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
-<li><a href="http://conanwhf.github.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages">这里</a>看到</li>
-</ul>
-<p><strong>判断是否为空</strong></p>
-<pre><code>str.isEmpty
-</code></pre><p><strong>获取字符数组</strong><br>Swfit里面的String很有意思，它并不是由很多个Character组成的，
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/03/Swift_String_1/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -956,7 +955,7 @@ String(format:&quot;%.2f,  %i&quot;, 9.1, 304)
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">92</span>
+              <span class="site-state-item-count">93</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

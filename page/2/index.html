@@ -199,6 +199,89 @@
           
           
             
+              <a class="post-title-link" href="/2017/06/12/bootup-4-kernel/" itemprop="url">
+                ARM板移植Linux系统启动（四）配置Kernel
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2017-06-12T17:31:26+08:00" content="2017-06-12">
+            2017-06-12
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Linux/" itemprop="url" rel="index">
+                  <span itemprop="name">Linux</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>如今的Linux比uboot要成熟得更多，所有的模块都是可配置的。所以基本上对于kernel的移植，特别是这种已经有基础源码的项目，代码改动其实相当少，更多是时间花在调试和配置上。在所有工作中，最主要的困难恐怕就是怎么把系统跑进console了。</p>
+<h2 id="uImage__26amp_3B_zImage"><a href="#uImage__26amp_3B_zImage" class="headerlink" title="uImage &amp; zImage"></a>uImage &amp; zImage</h2><p>这个问题太基础，只是因为跟手动跑系统有关，所以稍微提一下。kernel编译后的成果是zImage，uImage只是添加了一个长度为0x40的头，用来记录给uboot的相关信息。虽然uImage是专门给uboot用的，但uboot的启动并不一定要uImage，它既可以接受uImage也可以接受zImage。可以说：uImage的头信息本质上是一种启动参数的传递形式。<br>制作uImage的工具是<strong>mkimage</strong>，它是来自于uboot。为了避免各种可能的版本问题，建议直接使用uboot编译后的<code>uboot/tools/mkimage</code>。而uImage的制作脚本则包含在kernel的编译脚本中，使用命令：<br><code>make uImage LOADADDR=0x80008000</code><br>即可编译获得uImage，前提是你已经将mkimage放入了编译环境的/bin/文件夹下。LOADADDR是kernel的启动地址（<strong>注意，这不是真正的kernel运行地址</strong>），uBoot会将kernel拷贝到此地址后（实际中也可能不拷贝）执行。关于uboot使用的几个内存地址的具体讲解也很多，这么些年也没什么变化，需要了解的可以自行去搜索。</p>
+<h2 id="u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C"><a href="#u6839_u6587_u4EF6_u7CFB_u7EDF_u7684_u5236_u4F5C" class="headerlink" title="根文件系统的制作"></a>根文件系统的制作</h2><p>一个系统必须要有文件系统才能跑起来，即使是很小很小的文件系统。目前一个最基本的文件系统都是基于Busybox制作的，制作过程的教程很多也大同小异，我就不赘述了。有的厂商或者Linux系统发行商也会提供根文件系统的下载，不过大多太过冗余，需要自行裁剪。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/06/12/bootup-4-kernel/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2017/06/09/bootup-3-uboot/" itemprop="url">
                 ARM板移植Linux系统启动（三）UBOOT移植
               </a>
@@ -785,87 +868,6 @@
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2017/02/12/JingJingTest/" itemprop="url">
-                静境电子书评测
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2017-02-12T17:35:25+08:00" content="2017-02-12">
-            2017-02-12
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="u6574_u4F53_u611F_u89C9"><a href="#u6574_u4F53_u611F_u89C9" class="headerlink" title="整体感觉"></a>整体感觉</h2><p>我已经有个KPW3，携带方便，其他方面都挺满意，就是觉得屏幕小了点。大屏电子书可选择的太少，我的要求一是要屏大，二是要能看的格式多（我对PDF要求并不多，我的书基本上以azw3&amp;mobi为主，少量epub&amp;pdf），三是不要太重（不能超过iPad），这三条综合下来就已经淘汰了大法、DXG，最终选了静境，带电磁书写款，总价2399。<br>整个静境电子书的大小比普通的教材书籍略小
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/02/12/JingJingTest/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -904,7 +906,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">92</span>
+              <span class="site-state-item-count">93</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
