@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.github.io/"/>
-  <updated>2017-09-28T03:39:02.000Z</updated>
+  <updated>2017-09-30T13:42:38.000Z</updated>
   <id>http://conanwhf.github.io/</id>
   
   <author>
@@ -13,6 +13,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[读书清单 2017-09]]></title>
+    <link href="http://conanwhf.github.io/2017/09/30/ReadingList2017-09/"/>
+    <id>http://conanwhf.github.io/2017/09/30/ReadingList2017-09/</id>
+    <published>2017-09-30T02:36:54.000Z</published>
+    <updated>2017-09-30T13:42:38.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
+<li><strong>大脑使用指南：其实你活在大脑创造的虚拟世界中</strong><br>很有意思的一本大脑神经科学科普书，书中内容跟使用指南没有半点关系，但副标题基本可以概括主要思想了。整本书不长，很容易就读完了，也没有讲很多高深的东西，大部分的时候甚至感觉说得太浅了，像是给小孩子看的。但是就内容来说，确实很有意思，对大脑工作的机制和很多现象有了一些了解，值得一读。</li>
+</ol>
+<h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2><ol>
+<li>名侦探柯南漫画</li>
+<li>Pocket</li>
+</ol>
+<h2 id="u6B63_u5728_u8BFB_u7684_u4E66"><a href="#u6B63_u5728_u8BFB_u7684_u4E66" class="headerlink" title="正在读的书"></a>正在读的书</h2><ol>
+<li>机器学习实践</li>
+</ol>
+<h2 id="u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_uFF0807-09_u6708_uFF09_33-75"><a href="#u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_uFF0807-09_u6708_uFF09_33-75" class="headerlink" title="买的正版非免费书（07-09月）             33.75"></a>买的正版非免费书（07-09月）             <strong>33.75</strong></h2><ol>
+<li>程序员代码面试指南:IT名企算法与数据结构题目最优解 <strong>16.76</strong></li>
+<li>Python爬虫开发与项目实战 <strong>16.99</strong></li>
+</ol>
+<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>腰伤基本好了以后，我终于可以恢复运动了。可能是体重的压力太大，也可能是半年没运动肌肉已经退化，乍一开跑才两三公里，第二天的膝盖便开始隐痛，我可不想再伤一回。原本转战泳池，但最近的阳光慢慢不充沛了，泳池的水也常常感觉太凉，于是我选择了椭圆机。在椭圆机上身体相对比较稳定，看书或者看片都是极好的选择。于是这个月虽然恢复运动的时间只有十来天，就着每天这半小时无聊的时间，我的阅读时间也大大增加了。大屏的静境配上蓝牙遥控器，其实还蛮酷炫的。<br>不知道是不是政策原因或者别的什么压力，我订阅的中文传媒精选已经停止发送了，现在每个月的固定项目就只有柯南的漫画。我发现看漫画需要离得很近，即使是椭圆机这种姿势的距离，看漫画也总觉得无法集中精神，看不进去；看专业书又感觉手痒，不对照着写点代码就像没看过书一样。幸好我想起来自己还有堆积如山的pocket没有清掉，一篇文章3-10分钟，正好适用于这种半碎片阅读时间。要不是特意想想还真想不起来我还有pocket这种东西，IFTTT还在每周忠实地把我的RSS订阅转发到Pocet里，一打开已经攒了273条未读了……😰</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
+<li><strong>大脑使用指南：其实你]]>
+    </summary>
+    
+      <category term="BookList" scheme="http://conanwhf.github.io/tags/BookList/"/>
+    
+      <category term="Life &amp; Other" scheme="http://conanwhf.github.io/categories/Life-Other/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[关于域名的一点说明]]></title>
@@ -1626,94 +1659,6 @@ jump_to_image_no_args(&amp;spl_image);
       <category term="BookList" scheme="http://conanwhf.github.io/tags/BookList/"/>
     
       <category term="Life &amp; Other" scheme="http://conanwhf.github.io/categories/Life-Other/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[开发Tips收集-2016年08月]]></title>
-    <link href="http://conanwhf.github.io/2016/08/31/Tips201608/"/>
-    <id>http://conanwhf.github.io/2016/08/31/Tips201608/</id>
-    <published>2016-08-31T09:25:39.000Z</published>
-    <updated>2017-06-12T15:11:25.000Z</updated>
-    <content type="html"><![CDATA[<blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>不管你在哪个线程注册了 observer，notification 在哪个线程 post，那么它就将在哪个线程接收</li>
-<li>数据缓存方式选择:<ol>
-<li>fmdata数据库(增删改查)   –数据需要:增删改查</li>
-<li>coreData                –数据需要:增删改查</li>
-<li>序列化(NSUserDefault)    –状态、偏好设置、默认选项</li>
-<li>单独.plist               –列表数据,城市信息等</li>
-<li>单独.json文件           –页面列表数据</li>
-<li>realm框架(增删改查)       –数据需要:增删改查</li>
-</ol>
-</li>
-<li>清除签名文件 删除签名文件 清理Profile文件：Xcode - Preferences - Account - View Details,这个时候左下角有个刷新图标，点击一下就可以了</li>
-<li>TableView头视图不随视图移动，头视图出现错位的错误原因：tableView的 UITableViewStyle 没有明确的声明。解决方法：在tableView声明的时候明确为 UITableViewStyleGrouped</li>
-<li>ViewController生命周期：<br>  alloc -> initWithNibName -> loadView -> viewDidLoad -> viewWillAppear -> viewDidAppear -> viewWillDisappear -> viewDidDisappear -> dealloc<br>  注意1. 不要在loadView中调用父类方法<a href="/">super loadView</a>，因为这会影响CPU性能。<a id="more"></a></li>
-<li></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2016/08/31/Tips201608/</p><p>访问原文「<a href='http://conanwhf.github.io/2016/08/31/Tips201608/'>开发Tips收集-2016年08月</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-
-  注意2. 切换前后台不会调用viewWillAppear</li>
-<li>关于数据存储需要注意的点，总结在下面：<ol>
-<li>关键数据<br>内容：用户创建的数据文件，无法在删除后自动重新创建<br>路径：主目录/Documents<br>管理：iOS系统即时遇到存储空间不足的情况下，也不会清除，同时会备份到iTunes或iCloud中</li>
-<li>缓存数据<br>内容：可用于离线环境，可被重复下载重复生成，即使在离线时缺失，应用本身也可以正常运行<br>路径：主目录/Library/Caches<br>管理：在存储空间不足的情况下，会清空， 并且不会被自动备份到iTunes和iCloud中</li>
-<li>临时数据<br>内容：应用运行时，为完成某个内部操作临时生成的文件<br>路径：主目录/tmp<br>管理：随时可能被iOS系统清除，且不会自动备份到iTunes和iCloud，尽量在文件不再使用时，应用自己清空，避免对用户设备空间的浪费</li>
-<li>离线数据<br>内容：与缓存数据类似，可以被重新下载和重建，但是用户往往希望这些数据即使在存储紧张时也不会被系统自动删除<br>目录：主目录/Documents  或 主目录/Library/自定义的文件夹<br>管理：与关键数据类似，即使在存储空间不足的情况下也不会被清除，应用自己应该清除已经不再使用的文件，以免浪费用户设备空间 。需要设置”不备份到iCoud” ，否则会审核不过。</li>
-</ol>
-</li>
-<li>App 的沙盒文件目录可以以 NSURL 的形式返回：<br>  <code>let documentURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first</code></li>
-<li>cell被重用如何提前知道? 重写cell的prepareForReuse 官方头文件中有说明.当前已经被分配的cell如果被重用了(通常是滚动出屏幕外了),会调用cell的prepareForReuse通知cell.注意这里重写方法的时候,注意一定要调用父类方法<a href="/">super prepareForReuse</a> .这个在使用cell作为网络访问的代理容器时尤其要注意,需要在这里通知取消掉前一次网络请求.不要再给这个cell发数据了.</li>
-<li>addObserverForName监听消息处理跟addObserver的差别：addObserver的四个参数分别指定了通知的观察者、处理通知的回调、通知名及通知的发送对象；而addObserverForName同样是监听消息处理，只是它并没有观察者，却多出一个队列跟一个block的处理；addObserverForName参数说明，name和obj为nil时的情形与前面一个方法addObserver是相同的。如果queue为nil，则消息是默认在post线程中同步处理，即通知的post与转发是在同一线程中；但如果我们指定了操作队列，情况就变得有点意思了，我们一会再讲。block块会被通知中心拷贝一份(执行copy操作)，以在堆中维护一个block对象，直到观察者被从通知中心中移除。所以，应该特别注意在block中使用外部对象，避免出现对象的循环引用。如果一个给定的通知触发了多个观察者的block操作，则这些操作会在各自的Operation Queue中被并发执行。所以我们不能去假设操作的执行会按照添加观察者的顺序来执行。该方法会返回一个表示观察者的对象，记得在不用时释放这个对象。</li>
-<li>在iOS7之后，默认情况下，状态栏都是由UIViewController管理的，若想通过UIApplication进行管理，则需要配置plist文件:View controller-based status bar appearance 设置成NO (默认值为YES)</li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>不管你在哪个线程注册了 observer，notification 在哪个线程 post，那么它就将在哪个线程接收</li>
-<li>数据缓存方式选择:<ol>
-<li>fmdata数据库(增删改查)   –数据需要:增删改查</li>
-<li>coreData                –数据需要:增删改查</li>
-<li>序列化(NSUserDefault)    –状态、偏好设置、默认选项</li>
-<li>单独.plist               –列表数据,城市信息等</li>
-<li>单独.json文件           –页面列表数据</li>
-<li>realm框架(增删改查)       –数据需要:增删改查</li>
-</ol>
-</li>
-<li>清除签名文件 删除签名文件 清理Profile文件：Xcode - Preferences - Account - View Details,这个时候左下角有个刷新图标，点击一下就可以了</li>
-<li>TableView头视图不随视图移动，头视图出现错位的错误原因：tableView的 UITableViewStyle 没有明确的声明。解决方法：在tableView声明的时候明确为 UITableViewStyleGrouped</li>
-<li>ViewController生命周期：<br>  alloc -> initWithNibName -> loadView -> viewDidLoad -> viewWillAppear -> viewDidAppear -> viewWillDisappear -> viewDidDisappear -> dealloc<br>  注意1. 不要在loadView中调用父类方法<a href="/">super loadView</a>，因为这会影响CPU性能。]]>
-    
-    </summary>
-    
-      <category term="Xcode" scheme="http://conanwhf.github.io/tags/Xcode/"/>
-    
-      <category term="iOS - Swift" scheme="http://conanwhf.github.io/tags/iOS-Swift/"/>
-    
-      <category term="DevTips" scheme="http://conanwhf.github.io/categories/DevTips/"/>
     
   </entry>
   
