@@ -199,6 +199,88 @@
           
           
             
+              <a class="post-title-link" href="/2017/10/02/KNN/" itemprop="url">
+                《机器学习实战》笔记（一）：K近邻
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2017-10-02T13:31:26+08:00" content="2017-10-02">
+            2017-10-02
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/MachineLearning/" itemprop="url" rel="index">
+                  <span itemprop="name">MachineLearning</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>机器学习最近太火，本来不想跟风，但是看到alphaGo的表现和最近的业内新闻，深深感觉到不赶紧跟一跟就要被时代的浪潮拍死在沙滩上了……没太多时间潜心磨练代码，只能从经典《机器学习实战》开始跟着写写，一章一章慢慢过，然后记录一下自己的理解和碰到的问题。事实上，我在大学里已经学过一门机器学习的前身《模式识别》，那时的内容和现在的实际应用相比已经是垂垂老矣，但有的部分也可以算作是复习。整本书的示例代码是python2+numpy，但我觉得照书打一遍一点意思也没有，于是改用自己相对比较熟悉的python3+pandas（其实也不太熟，边百度能写出代码的水平）重构代码，顺便练习python。这里要吐槽一下作者的github，还专门放了个<strong> <a href="https://github.com/pbharrin/machinelearninginaction3x" title="machinelearninginaction3x">machinelearninginaction3x</a></strong>的项目，我估计就是从原版fork出来还没来得及改吧，打开里面还是python2的代码。<br> <!-- indicate-the-source --></p>
+<h2 id="CH01_uFF1A_u673A_u5668_u5B66_u4E60_u57FA_u7840"><a href="#CH01_uFF1A_u673A_u5668_u5B66_u4E60_u57FA_u7840" class="headerlink" title="CH01：机器学习基础"></a>CH01：机器学习基础</h2><p>第一章就没啥可说的了，介绍一点机器学习的概念。我的理解是机器学习并不是一种创造的过程，不能无中生有，它其实就是通过各种数据在学习怎么将事物分类。这个分类和学习都不是狭义上的，学习的数据可以没有正确答案（无监督学习），而分类目标可以不是单纯的类别（预测数值型数据）。简单来说，机器学习的目的就是通过已有数据构造一个分类器，来预测其他数据的结果。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/10/02/KNN/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2017/09/30/ReadingList2017-09/" itemprop="url">
                 读书清单 2017-09
               </a>
@@ -795,87 +877,6 @@
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2017/06/14/bootup-6-flasher/" itemprop="url">
-                ARM板移植Linux系统启动（六）烧写系统到emmc
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2017-06-14T12:31:26+08:00" content="2017-06-14">
-            2017-06-14
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Linux/" itemprop="url" rel="index">
-                  <span itemprop="name">Linux</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>能够从Uart把系统跑起来，基本上已经完成了移植工作的关键。但此时自动的引导流程还没有建立好，要想让系统能正常启动，必须将数据烧写到存储设备里去。烧写的原理对于所有的板子都是一样的，只是烧写数据的来源和目标有区别，掌握原理以后就可以自己灵活修改，不用拿着从ftp烧写的脚本对着USB烧写的需求一筹莫展。:-)
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/06/14/bootup-6-flasher/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -914,7 +915,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">94</span>
+              <span class="site-state-item-count">95</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

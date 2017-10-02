@@ -199,6 +199,92 @@
           
           
             
+              <a class="post-title-link" href="/2015/11/05/Alcatraz/" itemprop="url">
+                升级Xcode后失效的解决办法
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-11-05T17:25:39+08:00" content="2015-11-05">
+            2015-11-05
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/iOS开发杂项/" itemprop="url" rel="index">
+                  <span itemprop="name">iOS开发杂项</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>最近升级Xcode以后，Alcatraz就不见了，从开发者的issue list里面找到了解决办法</p>
+<ol>
+<li>关闭Xcode，卸载Alcatraz：<pre><code>rm -rf ~/Library/Application\ Support/Developer/Shared/Xcode/Plug-ins/Alcatraz.xcplugin
+</code></pre></li>
+<li>清理残留文件：<pre><code>find ~/Library/Application\ Support/Developer/Shared/Xcode/Plug-ins -name Info.plist -maxdepth 3 | xargs -I{} defaults write {} DVTPlugInCompatibilityUUIDs -array-add defaults read /Applications/Xcode.app/Contents/Info DVTPlugInCompatibilityUUID
+sudo xcode-select --reset
+</code></pre></li>
+<li>打开Xcode，重新安装Alcatraz，再重启Xcode，在弹出框中选择”Load Bundles”</li>
+</ol>
+<p>讨论原帖地址：<a href="https://github.com/supermarin/Alcatraz/issues/352#issuecomment-153556597" target="_blank" rel="external">https://github.com/supermarin/Alcatraz/issues/352#issuecomment-153556597</a></p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/11/02/Swift2.xFunction/" itemprop="url">
                 Swift 2.x 函数变化
               </a>
@@ -804,91 +890,6 @@
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/09/20/CocoaPod/" itemprop="url">
-                CocoaPod
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-09-20T17:34:30+08:00" content="2015-09-20">
-            2015-09-20
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/iOS开发杂项/" itemprop="url" rel="index">
-                  <span itemprop="name">iOS开发杂项</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="Install__26amp_3B_update"><a href="#Install__26amp_3B_update" class="headerlink" title="Install &amp; update"></a>Install &amp; update</h2><p>sudo gem install cocoapods<br> 顺便安装文档工具，则cocoapod会自动把文档整合进Xcode<br>brew install appledoc</p>
-<h2 id="search_lib"><a href="#search_lib" class="headerlink" title="search lib"></a>search lib</h2><ul>
-<li>Way 1: shell pod search XXX，拿到List, 每个库列出了名字、源码、版本等信息，其中有一行_ pod ‘XXX’, ‘~> 0.2.0’_，即为此库的标准PodInfo</li>
-<li>Way 2: 官网<a href="https://cocoapods.org">https://cocoapods.org</a>查找，界面上有按钮把Info Copy to clipborad</li>
-</ul>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/09/20/CocoaPod/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -927,7 +928,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">94</span>
+              <span class="site-state-item-count">95</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

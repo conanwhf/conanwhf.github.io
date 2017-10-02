@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.github.io/"/>
-  <updated>2017-09-30T13:42:38.000Z</updated>
+  <updated>2017-10-02T05:43:31.000Z</updated>
   <id>http://conanwhf.github.io/</id>
   
   <author>
@@ -13,6 +13,60 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[《机器学习实战》笔记（一）：K近邻]]></title>
+    <link href="http://conanwhf.github.io/2017/10/02/KNN/"/>
+    <id>http://conanwhf.github.io/2017/10/02/KNN/</id>
+    <published>2017-10-02T05:31:26.000Z</published>
+    <updated>2017-10-02T05:43:31.000Z</updated>
+    <content type="html"><![CDATA[<p>机器学习最近太火，本来不想跟风，但是看到alphaGo的表现和最近的业内新闻，深深感觉到不赶紧跟一跟就要被时代的浪潮拍死在沙滩上了……没太多时间潜心磨练代码，只能从经典《机器学习实战》开始跟着写写，一章一章慢慢过，然后记录一下自己的理解和碰到的问题。事实上，我在大学里已经学过一门机器学习的前身《模式识别》，那时的内容和现在的实际应用相比已经是垂垂老矣，但有的部分也可以算作是复习。整本书的示例代码是python2+numpy，但我觉得照书打一遍一点意思也没有，于是改用自己相对比较熟悉的python3+pandas（其实也不太熟，边百度能写出代码的水平）重构代码，顺便练习python。这里要吐槽一下作者的github，还专门放了个<strong> <a href="https://github.com/pbharrin/machinelearninginaction3x" title="machinelearninginaction3x" target="_blank" rel="external">machinelearninginaction3x</a></strong>的项目，我估计就是从原版fork出来还没来得及改吧，打开里面还是python2的代码。<br> </p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/10/02/KNN/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/10/02/KNN/'>《机器学习实战》笔记（一）：K近邻</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+</p>
+<h2 id="CH01_uFF1A_u673A_u5668_u5B66_u4E60_u57FA_u7840"><a href="#CH01_uFF1A_u673A_u5668_u5B66_u4E60_u57FA_u7840" class="headerlink" title="CH01：机器学习基础"></a>CH01：机器学习基础</h2><p>第一章就没啥可说的了，介绍一点机器学习的概念。我的理解是机器学习并不是一种创造的过程，不能无中生有，它其实就是通过各种数据在学习怎么将事物分类。这个分类和学习都不是狭义上的，学习的数据可以没有正确答案（无监督学习），而分类目标可以不是单纯的类别（预测数值型数据）。简单来说，机器学习的目的就是通过已有数据构造一个分类器，来预测其他数据的结果。<br><a id="more"></a></p>
+<h2 id="CH02_uFF1Ak-_u8FD1_u90BB_u7B97_u6CD5"><a href="#CH02_uFF1Ak-_u8FD1_u90BB_u7B97_u6CD5" class="headerlink" title="CH02：k-近邻算法"></a>CH02：k-近邻算法</h2><h3 id="u7B97_u6CD5"><a href="#u7B97_u6CD5" class="headerlink" title="算法"></a>算法</h3><p>k-近邻(kNN，k-NearestNeighbor)，顾名思义就是通过k个最近的邻居的身份来决定自己身份的分类方法。而所谓的邻居和自己的距离，是通过欧式距离来计算的。具体算法：</p>
+<ol>
+<li>对所有已知数据归一化处理；</li>
+<li>对n组（<strong>即每个邻居</strong>）已知数据（包含m个特征点数据）进行计算，得出这个邻居与待分类数据的欧式距离；</li>
+<li>对得到的所有距离进行排序，取出前k个距离；</li>
+<li>对前k个距离进行统计计数，将最多的一个类别作为待分类数据的类别。<br>以下照搬：<blockquote>
+<p><strong>优点</strong>：精度高、对异常值不敏感、无数据输入假定。<br><strong>缺点</strong>：计算复杂度高、空间复杂度高。 适用数据范围：数值型和标称型。<br>计算复杂度高很容易理解，毕竟如果已知的训练样本集内数据是n组，每组数据包含m个特征点，那么即使不考虑归一化，要获取任何一个新样本的分类，需要n*m次计算。不过我认为空间复杂度倒是还好，毕竟可以通过各种技巧来节约空间，例如每次只读一个样本，并且只记录最小的前k个距离（k一般小于20所以几乎可以忽略），这样最少只需要2*m个数据空间，只是每次分类都要全部重新读取训练样本，时间会大大增加了。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="u5B9E_u8DF5"><a href="#u5B9E_u8DF5" class="headerlink" title="实践"></a>实践</h3><p>这一章的实践内容主要是手写数字识别。程序上的事情没什么好说的，我的主要改动就是把作者的numpy改成了pandas，并且将分类结果存在了dataframe同一个表中而不是单独分开，代码<a href="https://github.com/conanwhf/ML-Action/tree/master/CH02" target="_blank" rel="external">在此</a>。<br>碰到了两个坑。首先是约会对象的demo中，我获得的结果和书上不一样。查了半天确定程序没写错，原来是作者在github上提供的数据集和书中用的不一样。<br>另外一个坑就太坑了：手写数字识别的时候，同一个程序会跑出不一样的结果！这个问题我debug了半天，先是抽出有争议的待测样本专门测试，发现这个问题是random的😱；然后反复加打印看数据，最终发现坑在这里：<br><code>neighbors = data.head(k)[CLASS_COL_NAME].value_counts()</code><br>这个<code>value_counts</code>是pandas中用来统计计数并排序的，会降序输出统计结果。如原始数据是（2，2，2，3，3，1），则会输出（大意，格式可能不对）：2:3, 3:2, 1:1。而问题在于当我的原始数据是(1, 2, 3)时，它的output变成随机的！！！1:1, 2:1, 3:1； 2:1, 1:1, 3:1； 3:1, 2:1, 1:1……一切皆有可能😳！你说它错了吧，它也没错，可是你这个函数输出不确定是什么鬼！我原本是根据<code>value_counts</code>的输出，取第一名作为结果，也就是k近邻中最多的那个类别，但由于这种“并列第一”时的不确定，我的程序判定结果也变得不确定了。最后我只好手动处理，如果有“并列第一”的情况，就选择距离最近的那个邻居的类别作为分类结果。</p>
+<h3 id="u6742_u8C08"><a href="#u6742_u8C08" class="headerlink" title="杂谈"></a>杂谈</h3><p>手写数字识别这个问题刚好大学学模式识别的时候我自己做过。那时候是纯粹用特征点匹配解决的，先把图片框定范围，骨架化，提取特征点，然后对照带权重的特征点计算特征向量，最后匹配最佳结果，识别率大概在85%-90%之间。所以当看到书上用kNN做手写数字识别，真的是震惊到了，从没想过kNN可以做这个，因为在我的想法中，kNN的每个特征都是有意义的，而手写数字图片中每个像素点的0或1，是无意义的。但实践证明，使用kNN的方法，成功率高达98%以上。这个事实让我有一种豁然开朗的感觉：过去模式匹配的那一套确实已经过时了，现在有这么多新的方法，或者是旧方法的新思路在向我招手，加上硬件日益强大的计算能力所能做到的远超从前，仅凭我自己能做到的事一定更多更复杂，想想还挺激动人心的。<br>不过话说回来，我对kNN的神奇功效依然并不那么信任，因为我总觉得kNN的成功率是建立在特征点的有效性上面的。例如一个预测学生成绩的程序，过去的成绩、作业完成度都可以是特征点，但在家喝水的杯子是玻璃杯还是塑料杯这种事就不能作为特征点，因为和学习成绩毫无关系，将其加入计算的话反而会影响预测结果。在手写数字识别这一点上，我依然持同样的保留态度：这一章的图片都是经过特别归一化的，边距、大小都完全统一，风格也基本类似，这就人为地建立了一种像素点和数字本身的特征映射；而在真正的手写体中，不同字体或者风格所带来的区别可能完全毁掉这种映射关系，除非重新建立一套训练样本集。我想这本书将来的东西应该会讲到更多的东西，来解决这个问题吧？拭目以待。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>机器学习最近太火，本来不想跟风，但是看到alphaGo的表现和最近的业内新闻，深深感觉到不赶紧跟一跟就要被时代的浪潮拍死在沙滩上了……没太多时间潜心磨练代码，只能从经典《机器学习实战》开始跟着写写，一章一章慢慢过，然后记录一下自己的理解和碰到的问题。事实上，我在大学里已经学过一门机器学习的前身《模式识别》，那时的内容和现在的实际应用相比已经是垂垂老矣，但有的部分也可以算作是复习。整本书的示例代码是python2+numpy，但我觉得照书打一遍一点意思也没有，于是改用自己相对比较熟悉的python3+pandas（其实也不太熟，边百度能写出代码的水平）重构代码，顺便练习python。这里要吐槽一下作者的github，还专门放了个<strong> <a href="https://github.com/pbharrin/machinelearninginaction3x" title="machinelearninginaction3x">machinelearninginaction3x</a></strong>的项目，我估计就是从原版fork出来还没来得及改吧，打开里面还是python2的代码。<br> <!-- indicate-the-source --></p>
+<h2 id="CH01_uFF1A_u673A_u5668_u5B66_u4E60_u57FA_u7840"><a href="#CH01_uFF1A_u673A_u5668_u5B66_u4E60_u57FA_u7840" class="headerlink" title="CH01：机器学习基础"></a>CH01：机器学习基础</h2><p>第一章就没啥可说的了，介绍一点机器学习的概念。我的理解是机器学习并不是一种创造的过程，不能无中生有，它其实就是通过各种数据在学习怎么将事物分类。这个分类和学习都不是狭义上的，学习的数据可以没有正确答案（无监督学习），而分类目标可以不是单纯的类别（预测数值型数据）。简单来说，机器学习的目的就是通过已有数据构造一个分类器，来预测其他数据的结果。<br>]]>
+    
+    </summary>
+    
+      <category term="kNN" scheme="http://conanwhf.github.io/tags/kNN/"/>
+    
+      <category term="MachineLearning" scheme="http://conanwhf.github.io/categories/MachineLearning/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[读书清单 2017-09]]></title>
@@ -1561,98 +1615,6 @@ jump_to_image_no_args(&amp;spl_image);
     <summary type="html">
     <![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
 <li><strong>黑客</strong><br>一本常常出现在IT人书单上的书，然而我却没有看完。从晶体管时代开始，讲述那些以改进系统为唯一目标的天才程序员的故事。也不能说不好看，作为技术人员来说，过去那些事还是挺有意思的，比如思考一下如何用蜂鸣器做出音乐效果而不只是节拍，或者考虑最初的三个CPU指令应该是哪些，要不就是想象怎么在一个资源少到极限的系统中做调试器……这让我每每翻开这本书就有一种很纠结的心情：一方面看得实在是太慢了，大部分地方读起来也挺无聊，感觉不知道啥时候才能看完；另一方面偶尔有点思维体操的惊喜感，又让人不是能那么决绝地放弃这本书。最后我在看到大约三分之一的地方还是半途而废了，确实书里讲的东西离现在太远了，描述也蛮枯燥的。剩下的三分之二我大略地翻了翻，然后看完了后记以及2010年kindle版上市时的后后记。]]>
-    
-    </summary>
-    
-      <category term="BookList" scheme="http://conanwhf.github.io/tags/BookList/"/>
-    
-      <category term="Life &amp; Other" scheme="http://conanwhf.github.io/categories/Life-Other/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[读书清单 2016-12]]></title>
-    <link href="http://conanwhf.github.io/2016/12/31/ReadingList2016-12/"/>
-    <id>http://conanwhf.github.io/2016/12/31/ReadingList2016-12/</id>
-    <published>2016-12-31T07:26:54.000Z</published>
-    <updated>2017-06-12T15:14:51.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="u8BFB_u4E66_u6E05_u53552016-02"><a href="#u8BFB_u4E66_u6E05_u53552016-02" class="headerlink" title="读书清单2016-02"></a>读书清单2016-02</h1><h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li><p><strong>极简投资</strong><br>小白入门书，不过里面讲的投资理念我觉得很好，确实适合懒人以及没投资天分的人，比如说我。后半部对万能险的推崇有做广告的嫌疑，毕竟是出自某商业刊物吧，目前来说万能险肯定是不适合了，P2P也很危险。不过无伤大雅，核心是理解极简投资是怎么一回事，而不是具体该投哪些项目。总结一下，极简投资的核心就是分散、中短期的投资方式。分散指的是将资金分散在几个尽量不相关的方向上（如股市龙头股、债市等），注意是方向，不是单一股票而是指数，这是为了均摊风险，东边不亮西边亮；中短期投资一般就是一年，为了减小市场和投资者心理波动所造成的损失，用长期收益抵消短期浮亏。从数学上来说，极简投资并不是最优投资方案，却是相对来说较安全且兼顾收益的稳健投资方案。 <a id="more"></a></p>
-</p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2016/12/31/ReadingList2016-12/</p><p>访问原文「<a href='http://conanwhf.github.io/2016/12/31/ReadingList2016-12/'>读书清单 2016-12</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-
-</li>
-<li><p><strong>跑步时该如何呼吸</strong><br>这本书整体看下来还是很有收获的，虽然讲得比较啰嗦，包括各种案例和人们的正面反馈，可以删掉。对我来说，只看关键点就是：<br>A). 跑步的强度可以用呼吸的频率来衡量，应该把对配速的关注转移到对呼吸上来；<br>B). 跑步时身体受到冲击最大的时候是落地且开始呼气的时候，跑者受伤多因为每次呼气都重复在同一侧落地时；<br>C). 韵律呼吸解决的就是上面的两个问题：用有规律且相对步数为单数的周期，平均分散左右两边的冲击，一个周期中呼气时间小于吸气时间，并保持可控的强度；<br>D). 具体到实践上，采取腹式呼吸，n步一吸/(n+1)步一呼的模式（n一般为2-4之间，n越小表示当前的跑步强度越大）<br>问题是理论清楚不代表能做到。实际上我是属于吸气短呼气长的人，操作起来特别别扭，因为往往一步的时间就把气吸到头了，呼气时又来不及把气吐完。正常情况下，就算是跑得最喘的时候，我呼气也要花3-4步的时间，而吸气一步之内就完成了。自己尝试了几次书中的方法，反而更容易岔气，也许要更长时间更多的练习才能熟练掌握吧。</p>
-</li>
-<li><p><strong>无价（洞悉大众心理玩转价格游戏经典版）</strong><br>这本书挺有意思，讲了很多价格心理学的实验，用来解释在经济生活中的各种现象，以及商家在定价时利用这种心理学现象玩的/可以玩的把戏。贯穿全书、至关重要的一个概念是“锚点”，也就是心理上对于事物价值判断的一个参照点。整本书围绕这个“锚点”，讲了很多心理如何被锚点影响的方式和特点，包括提价再打折、建立新的参照物、心理暗示、语言表述等等方式，来利用这个“锚点”最大限度地获取利益。简单地总结一下就是：<br>A). 锚点可以影响人们对价值的判断<br>B). 不论锚点如何离谱，人们总是会无意地将自己的价值判断靠向锚点<br>C). 锚点可以是直接或间接的参照物，也可以是暗示或者背景提示<br>D). 人们都有厌恶风险、厌恶损失的心理倾向，即使明知数学上两者价值相当<br>E). 人们的经济选择不完全依靠利益计算，有时也有道德判断的影响<br>F). 一些世俗偏好例如性别、肤色等也能影响人们在交互活动中的经济选择<br>G). 道德、世俗等的量化判断同样能够被锚点影响<br>H). 人们并不知道任何事物的真正价值，所有的判断依据都是来自于不同参照系中参照物的比较结果，这给我们利用锚点操纵价格甚至人心带来了基础<br>以上这些结论都来自于许多不同的经济学小实验，揭示出人是多么容易受到欺骗和操纵！在读这本书的过程中，我一边做出和实验中人们类似的选择并对结果表示认同，一边也在深深地汗颜心理学、行为学真的深刻地展示了包括我在内的全人类是多么的愚蠢……经济学上所谓的理性自然人现实中根本不可能存在，所以这个世界的经济才会这么难以预测吧！</p>
-</li>
-<li><p><strong>中产富裕阶层金融投资研究报告/中产富裕阶层收入信心研究报告 </strong><br>金融时报的两个个报告，很短，大致总结了一下中产阶级的投资状况。让我不解的是，这个“中产阶级富裕阶层”的标准也太低了，家庭年收入10W即可，就算放在二线，夫妻双方加起来月薪8K也绝对称不上富裕，刚够生活而已。我觉得，除去房贷车贷租房吃饭交通等固定支出，可支配收入在10W的，才能勉强称为“中产富裕阶层”……好在报告说年收入平均在36W，说明高收入家庭还是占了不小比例的，这才看下去。<br>就算如此，这点内容实在也谈不上“研究报告”，说是“抽样统计结果”比较合适。结合30元的售价，更是匪夷所思，如果不是Unlimited借阅，我肯定要退货。统计结果大概包括收入分布、风险偏好、投资项目偏好、实际投资收益分布、2015股灾对收益的影响等；收入信心报告则是对下年收入增长预期不同的人群描像，类似预计收入增长10%以内的人年龄分布之类，比较简单，价值不大。</p>
-</li>
-<li><p><strong>中国休闲旅行需求研究报告</strong><br>跟上面一样，简短的报告，对旅游需求人群的抽样调查，年龄层次、受教育程度、目的地偏好、消费数额等做了个统计，没什么干货。</p>
-</li>
-<li><p><strong>富爸爸房地产投资指南</strong><br>富爸爸这一个系列实在是太多了，看着就像来圈钱的。不过实际看下来，这本书并不差，作者是真的有心得。当然美国的房地产市场跟中国的完全不同，要想从书中学到什么炒房的实战技能，首先你得是一个对国内市场相当了解的人。 整个书的核心思想就是寻找被低估的物业->使其增值->获得收益，作者更关注的是出租所带来的现金流而不是房产升值的差价，这和国内通常的炒房客在理念上就有所不同。不过书里面关于如何选择和评估物业的部分还是有很多可以借鉴的地方，花点时间看看并不亏。有意思的是，这本书最后挺长的篇幅是来自于刚当选的美国总统特朗普和他的两个儿子，写这书的时候应该是以地产大亨的身份吧。</p>
-</li>
-</ol>
-<h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2><ol>
-<li>中文传媒精选</li>
-<li>知乎周刊2015年度300问-经济</li>
-<li>知乎周刊-减脂吃什么</li>
-<li>知乎周刊-XXOO那些事</li>
-</ol>
-<h2 id="u6B63_u5728_u8BFB_u7684_u4E66"><a href="#u6B63_u5728_u8BFB_u7684_u4E66" class="headerlink" title="正在读的书"></a>正在读的书</h2><ol>
-<li>黑客</li>
-</ol>
-<h2 id="u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_uFF0808-12_u6708_uFF09__uFF08390-03_uFF09"><a href="#u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_uFF0808-12_u6708_uFF09__uFF08390-03_uFF09" class="headerlink" title="买的正版非免费书（08-12月）             （390.03）"></a>买的正版非免费书（08-12月）             （<strong>390.03</strong>）</h2><h3 id="u4E2D_u4E9A__uFF08270-05_uFF09"><a href="#u4E2D_u4E9A__uFF08270-05_uFF09" class="headerlink" title="中亚        （270.05）"></a>中亚        （<strong>270.05</strong>）</h3><ol>
-<li>知识青年进阶：从有趣到有料再到变厉害（全15册） (果壳·十五言系列)    <strong>7.99</strong></li>
-<li>牛津通识读本精选集（中文版 套装58册）          <strong>49.99</strong></li>
-<li>哈佛百年经典(01-38卷)(套装共38册)            <strong>19.99</strong></li>
-<li>OpenCV图像处理 (华章程序员书库)              <strong>9.99</strong></li>
-<li>自己动手构造编译系统：编译、汇编与链接 (自己动手系列)  <strong>6.99</strong></li>
-<li>白话大数据与机器学习                         <strong>9.99</strong></li>
-<li>Swift编程实战：iOS应用开发实例及完整解决方案    <strong>12.99</strong></li>
-<li>传记文学书系：从晚清到民国+我们的朋友胡适之+民国三大校长+再见大师(套装共4册) <strong>9.99</strong></li>
-<li>诺贝尔经济学奖获得者丛书·经典必读（套装共5册）    <strong>14.99</strong></li>
-<li>我所理解的Cocos2d-x                         <strong>23.99</strong></li>
-<li>大脑认知系列共9册（《贪婪的大脑》）、《重塑大脑》、《意识与脑》、《上脑与下脑》等） <strong>19.99</strong></li>
-<li>文学回忆录                                  <strong>0.10</strong></li>
-<li>虫：2.5次世界大战（科幻文学“银河奖”获奖作品系列） <strong>0.10</strong></li>
-<li>Xcode江湖录 (iOS/苹果技术丛书)               <strong>12.99</strong></li>
-<li>Kali Linux高级渗透测试 (信息安全技术丛书)      <strong>9.99</strong></li>
-<li>编程珠玑（第2版·修订版）                      <strong>12.99</strong></li>
-<li>编程珠玑（续）（修订版）                      <strong>11.99</strong></li>
-<li>健身达人一本通                              <strong>19.99</strong></li>
-<li>全球证券投资经典译丛(共16卷)                  <strong>12.99</strong></li>
-<li>爆品战略：39个超级爆品案例的故事、逻辑与方法     <strong>1.00</strong></li>
-<li>丝绸之路：一部全新的世界史                    <strong>1.00</strong><h3 id="u56FE_u7075__uFF08119-98_uFF09"><a href="#u56FE_u7075__uFF08119-98_uFF09" class="headerlink" title="图灵      （119.98）"></a>图灵      （<strong>119.98</strong>）</h3></li>
-<li>代码本色：用编程模拟自然系统 <strong>25.00</strong></li>
-<li>黑客攻防技术宝典：浏览器实战篇 <strong>55.00</strong></li>
-<li>垃圾回收的算法与实现 <strong>24.99</strong></li>
-<li>Python数据挖掘入门与实践  <strong>14.99</strong></li>
-</ol>
-<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>回国一趟几个月，很久没有读书。但双十一、双十二剁了不少。已经买了太多太多的书，这辈子也读不完，加上亚马逊的unlimited包年……以后慎买！算一算整年包括实体书，我花了大概1000+，买到的书嘛……实体书大概15-20本，电子书就实在太多懒得算。其实这么看看电子书真的很便宜，如果我小时候有中亚、有kindle，估计我会瞎吧😆看人家写改革开放前的故事，好多爱书之人都是拿出工资的一半来买书，我曾经也暗暗下决心将来工作了要这样，结果可想而知。并且国内的书真的是很便宜，我看到好多专业书甚至翻译版比原版还便宜！书是越来越便宜了，看书的人却越来越少了。不过在新加坡看书的人还挺多，不管是书店还是图书馆都常常人满为患。书店的书，那价格才是让人望而却步，随便一本专业书能抵我这一年的买书钱。更麻烦的是绝大部分书都是英文的，中文以港台版为主😂我还是好好守着我的中亚吧！😁</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="u8BFB_u4E66_u6E05_u53552016-02"><a href="#u8BFB_u4E66_u6E05_u53552016-02" class="headerlink" title="读书清单2016-02"></a>读书清单2016-02</h1><h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li><p><strong>极简投资</strong><br>小白入门书，不过里面讲的投资理念我觉得很好，确实适合懒人以及没投资天分的人，比如说我。后半部对万能险的推崇有做广告的嫌疑，毕竟是出自某商业刊物吧，目前来说万能险肯定是不适合了，P2P也很危险。不过无伤大雅，核心是理解极简投资是怎么一回事，而不是具体该投哪些项目。总结一下，极简投资的核心就是分散、中短期的投资方式。分散指的是将资金分散在几个尽量不相关的方向上（如股市龙头股、债市等），注意是方向，不是单一股票而是指数，这是为了均摊风险，东边不亮西边亮；中短期投资一般就是一年，为了减小市场和投资者心理波动所造成的损失，用长期收益抵消短期浮亏。从数学上来说，极简投资并不是最优投资方案，却是相对来说较安全且兼顾收益的稳健投资方案。]]>
     
     </summary>
     
