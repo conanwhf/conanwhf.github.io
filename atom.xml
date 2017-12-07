@@ -104,50 +104,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[《机器学习实战》笔记（二）：决策树]]></title>
-    <link href="http://conanwhf.github.io/2017/11/02/decisionTree/"/>
-    <id>http://conanwhf.github.io/2017/11/02/decisionTree/</id>
-    <published>2017-11-02T05:31:26.000Z</published>
-    <updated>2017-10-02T10:23:55.000Z</updated>
-    <content type="html"><![CDATA[ </p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/11/02/decisionTree/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/11/02/decisionTree/'>《机器学习实战》笔记（二）：决策树</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-
-<h2 id="CH03_uFF1A_u51B3_u7B56_u6811"><a href="#CH03_uFF1A_u51B3_u7B56_u6811" class="headerlink" title="CH03：决策树"></a>CH03：决策树</h2><h3 id="u7B97_u6CD5"><a href="#u7B97_u6CD5" class="headerlink" title="算法"></a>算法</h3><blockquote>
-<p><strong>优点</strong>：计算复杂度不高，输出结果易于理解，对中间值的缺失不敏感，可以处理不相关特征数据。<br><strong>缺点</strong>：可能会产生过度匹配问题。<br><strong>适用数据类型</strong>：数值型和标称型。</p>
-</blockquote>
-<p>非大师范德萨</p>
-<h3 id="u5B9E_u8DF5"><a href="#u5B9E_u8DF5" class="headerlink" title="实践"></a>实践</h3><p>这一章的实践内容主要是手写数字识别。程序上的事情没什么好说的，我的主要改动就是把作者的numpy改成了pandas，并且将分类结果存在了dataframe同一个表中而不是单独分开，代码<a href="https://github.com/conanwhf/ML-Action/tree/master/CH02" target="_blank" rel="external">在此</a>。</p>
-<h3 id="u6742_u8C08"><a href="#u6742_u8C08" class="headerlink" title="杂谈"></a>杂谈</h3>]]></content>
-    <summary type="html">
-    <![CDATA[ </p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/11/02/decisionTree/</p><p>访问原]]>
-    </summary>
-    
-      <category term="kNN" scheme="http://conanwhf.github.io/tags/kNN/"/>
-    
-      <category term="MachineLearning" scheme="http://conanwhf.github.io/categories/MachineLearning/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[读书清单 2017-10]]></title>
     <link href="http://conanwhf.github.io/2017/10/31/ReadingList2017-10/"/>
     <id>http://conanwhf.github.io/2017/10/31/ReadingList2017-10/</id>
@@ -1592,6 +1548,70 @@ jump_to_image_no_args(&amp;spl_image);
       <category term="iOS - Swift" scheme="http://conanwhf.github.io/tags/iOS-Swift/"/>
     
       <category term="DevTips" scheme="http://conanwhf.github.io/categories/DevTips/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[读书清单 2017-02]]></title>
+    <link href="http://conanwhf.github.io/2017/02/28/ReadingList2017-02/"/>
+    <id>http://conanwhf.github.io/2017/02/28/ReadingList2017-02/</id>
+    <published>2017-02-28T02:36:54.000Z</published>
+    <updated>2017-09-22T09:03:37.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
+<li><strong>术与道:移动应用UI设计必修课</strong><br>家里人这次过来帮我带了不少实体书，这就是其中的一本，亚马逊双十一打折时候买的。整本书内容很少，图特别多，用零碎时间翻了两下就看完了。开始的时候，即使是小白如我也觉得作者在凑字数骗稿费，后来慢慢地看出一点点门道，关于APP设计的思维和规范，虽然书里真的没讲什么，都是基础得不能再基础的东西。不过作为一个一点都不懂设计的开发人员，看完以后有一点点入门的感觉。我猜人家的受众也就是定义在刚毕业啥都不会的菜鸟设计师，作为一本教设计的书来说肯定不合格太简单了，但是对我倒是有点正合适。准备下回写APP的时候认真地按照书中讲的设计规范来做事，也算是没白看。</li>
+<li><strong>金融的解释:金融学二十九讲</strong><br>这本书是早就定下的书单，跟着那本斯坦福极简经济学的，先读读经济原理，再搞清楚金融运作。它经常出现在各种推荐书单上，我原本抱有很大的期望，但也许是珠玉在前，一读之下，有点失望。此书的前面三分之一部分也是讲经济的，后面才引申到金融。跟极简经济学那本相比，明显少了一种脉络感，让人有种盲人摸象无法领悟整体的感觉。同样的内容，这本书就更像是拿教科书来扩充讲解一下，读完了还是有点模模糊糊无法抓住重点；而斯坦福极简经济学则会把经济学中各种概念的因果关系和相互影响的线索讲得很清晰，读完心中自成体系。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/02/28/ReadingList2017-02/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/02/28/ReadingList2017-02/'>读书清单 2017-02</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+
+所以不知道是金融的部分更难，还是确实作者功力有限，后面的金融学部分我读完了还是有点雾里看花的感觉。原本读这本书就是带有功利性的，想多了解一些金融的运作，对自己的投资行为有所帮助。可是读完了只是明白了那些概念是什么，而不明白那些变化是为什么；以我自己的功力，显然不足以自行推演出来。不明白为什么的话，又怎么能进行逻辑分析、指导实践呢？于是这本书完全变成了金融学科普，没有达到想象中的效果。</li>
+<li><strong>几何天才的杰作:伊斯兰图案设计</strong><br>很薄的一本小册子，看中亚的评价都出乎意料地好，于是买了。这本书从最基本的五芒星、正方形、圆形等构件出发，利用各个形状的不同比例，通过各种重复、旋转、组合、扩充（不同图形的顶点相连）来变化出更多更复杂的图形。我一直很喜欢分形的东西，觉得那种无限延伸的秩序感很让人着迷，这本书中的很多图就让我可以发上好久的呆。原本以为这本书会比较偏数学，但其实只是由浅入深比较平实地罗列各种伊斯兰图案而已。让我感到震惊的是，书中讲到，每个图案都有它自己代表的意思，对应古兰经中的内容；甚至他们有一套使用阿拉伯数字以前的数字和符号系统，也能融入图案中去，一幅图可以表明古兰经中的某一章节！我看了那图，感觉前阵子《你一生的故事》中间外星人的文字也不过就是这样了……<br>书的最后还有一些实践性的内容，告诉你如何使用模板自己画一些相对简单的图案（其实也很复杂了）。刚好最近买了点磁力小短棒和钢珠在搭着玩，亲身体会到了书中说的那些奇妙的变换。关于等n边型的不同边长和角度的重复却神奇的变化，图形的世界真是令人着迷！</li>
+</ol>
+<h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2><ol>
+<li>中文传媒精选</li>
+<li>知乎周刊</li>
+<li>名侦探柯南漫画vol.928-985</li>
+</ol>
+<h2 id="u6B63_u5728_u8BFB_u7684_u4E66"><a href="#u6B63_u5728_u8BFB_u7684_u4E66" class="headerlink" title="正在读的书"></a>正在读的书</h2><ol>
+<li>蒋勋说红楼梦</li>
+<li>《经济学人》2016必读精选-当黑天鹅坐上无人车</li>
+<li>大脑使用指南：其实你活在大脑创造的虚拟世界中</li>
+</ol>
+<h2 id="u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_43-96"><a href="#u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_43-96" class="headerlink" title="买的正版非免费书             43.96"></a>买的正版非免费书             <strong>43.96</strong></h2><ol>
+<li>人类砍头小史                <strong>1.99</strong></li>
+<li>第一推动丛书·宇宙系列（套装共6册，一套书读懂宇宙、黑洞与时空）                      <strong>12.99</strong></li>
+<li>科学最前沿·第一辑 (《科学美国人》精选系列·科学最前沿)  <strong>15.99</strong></li>
+<li>科学最前沿·第二辑 (《科学美国人》精选系列·科学最前沿)  <strong>12.99</strong></li>
+</ol>
+<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>这个月过年，年后工作也来了。再加上我迷上了拼图，一下子买买买一大堆，很多业余时间都花在拼图上，花在读书上的时间就更少了。不过年后父母过来，帮我把新买的静境电子书也带来，大屏幕真的很爽！我一口气看完了去年一整年的柯南漫画，还不过瘾，想看《长歌行》硬是忍住了。现在可以直接带着去健身房看书了，不过只有椭圆机上OK，真正跑步的时候看时不时翻页需要稳定手指，严重扰乱呼吸节奏。所以现在都是带着iPad和静境去，有椭圆机就看书、没有就上跑步机看片😊 。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
+<li><strong>术与道:移动应用UI设计必修课</strong><br>家里人这次过来帮我带了不少实体书，这就是其中的一本，亚马逊双十一打折时候买的。整本书内容很少，图特别多，用零碎时间翻了两下就看完了。开始的时候，即使是小白如我也觉得作者在凑字数骗稿费，后来慢慢地看出一点点门道，关于APP设计的思维和规范，虽然书里真的没讲什么，都是基础得不能再基础的东西。不过作为一个一点都不懂设计的开发人员，看完以后有一点点入门的感觉。我猜人家的受众也就是定义在刚毕业啥都不会的菜鸟设计师，作为一本教设计的书来说肯定不合格太简单了，但是对我倒是有点正合适。准备下回写APP的时候认真地按照书中讲的设计规范来做事，也算是没白看。</li>
+<li><strong>金融的解释:金融学二十九讲</strong><br>这本书是早就定下的书单，跟着那本斯坦福极简经济学的，先读读经济原理，再搞清楚金融运作。它经常出现在各种推荐书单上，我原本抱有很大的期望，但也许是珠玉在前，一读之下，有点失望。此书的前面三分之一部分也是讲经济的，后面才引申到金融。跟极简经济学那本相比，明显少了一种脉络感，让人有种盲人摸象无法领悟整体的感觉。同样的内容，这本书就更像是拿教科书来扩充讲解一下，读完了还是有点模模糊糊无法抓住重点；而斯坦福极简经济学则会把经济学中各种概念的因果关系和相互影响的线索讲得很清晰，读完心中自成体系。]]>
+    
+    </summary>
+    
+      <category term="BookList" scheme="http://conanwhf.github.io/tags/BookList/"/>
+    
+      <category term="Life &amp; Other" scheme="http://conanwhf.github.io/categories/Life-Other/"/>
     
   </entry>
   

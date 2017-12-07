@@ -199,87 +199,6 @@
           
           
             
-              <a class="post-title-link" href="/2017/05/30/bootup-1-main/" itemprop="url">
-                ARM板移植Linux系统启动（一）启动流程
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2017-05-30T17:31:26+08:00" content="2017-05-30">
-            2017-05-30
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Linux/" itemprop="url" rel="index">
-                  <span itemprop="name">Linux</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>几年前，我是一个标准的原厂Linux系统开发人员，用公司自己的芯片，移植整套BSP。对于Linux系统启动方面，自认为摸得很熟了，从上电加载的汇编码到Linux内核及文件系统的配置，无一不留下了我修改的代码，细节精确到nand flash的某block某page放了什么代码，内存某个地址加载的是什么，代码某个改动是为了兼容什么project，一清二楚。所以最近接到这个移植系统的工作，信心挺足，估摸硬件没有问题的话几天之内移植就能完成，哪知道被现实结结实实打脸。<br>之前我用的Linux系统是2.6，Uboot版本不详但Fat32的支持还是我们自己移植进去的，可以说相当跟不上时代了。最新的Kernel早就采用了DTS，Uboot也加了很多功能和驱动，我在移植的过程中几乎完成了一次重新学习的过程。虽然我这次用的板是基于TI的，但我希望能不局限于具体的板子型号，而是把规律性的东西写出来，让后来人有个参考。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/05/30/bootup-1-main/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
               <a class="post-title-link" href="/2017/03/31/ReadingList2017-03/" itemprop="url">
                 读书清单 2017-03
               </a>
@@ -867,6 +786,103 @@
 
 
     
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2016/08/31/Tips201608/" itemprop="url">
+                开发Tips收集-2016年08月
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-08-31T17:25:39+08:00" content="2016-08-31">
+            2016-08-31
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/DevTips/" itemprop="url" rel="index">
+                  <span itemprop="name">DevTips</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>不管你在哪个线程注册了 observer，notification 在哪个线程 post，那么它就将在哪个线程接收</li>
+<li>数据缓存方式选择:<ol>
+<li>fmdata数据库(增删改查)   –数据需要:增删改查</li>
+<li>coreData                –数据需要:增删改查</li>
+<li>序列化(NSUserDefault)    –状态、偏好设置、默认选项</li>
+<li>单独.plist               –列表数据,城市信息等</li>
+<li>单独.json文件           –页面列表数据</li>
+<li>realm框架(增删改查)       –数据需要:增删改查</li>
+</ol>
+</li>
+<li>清除签名文件 删除签名文件 清理Profile文件：Xcode - Preferences - Account - View Details,这个时候左下角有个刷新图标，点击一下就可以了</li>
+<li>TableView头视图不随视图移动，头视图出现错位的错误原因：tableView的 UITableViewStyle 没有明确的声明。解决方法：在tableView声明的时候明确为 UITableViewStyleGrouped</li>
+<li>ViewController生命周期：<br>  alloc -> initWithNibName -> loadView -> viewDidLoad -> viewWillAppear -> viewDidAppear -> viewWillDisappear -> viewDidDisappear -> dealloc<br>  注意1. 不要在loadView中调用父类方法<a href="/">super loadView</a>，因为这会影响CPU性能。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/31/Tips201608/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -905,7 +921,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">98</span>
+              <span class="site-state-item-count">97</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
