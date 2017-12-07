@@ -199,6 +199,262 @@
           
           
             
+              <a class="post-title-link" href="/2015/11/30/Tips201511/" itemprop="url">
+                开发Tips收集-2015年11月
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-11-30T17:25:39+08:00" content="2015-11-30">
+            2015-11-30
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/DevTips/" itemprop="url" rel="index">
+                  <span itemprop="name">DevTips</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>UICollectionView如果在数据不够一屏时上下滚动 当数据不多，collectionView.contentSize小于collectionView.frame.size的时候，UICollectionView是不会滚动的，可以增加下面代码就可以： self.myCollectionView.alwaysBounceVertical = YES;</li>
+<li>drawRect &amp; layoutSubviews两个方法都是异步执行，layoutSubviews方便数据计算，drawRect方便视图重绘。 </li>
+<li>drawRect方法使用注意点：<ol>
+<li>若使用UIView绘图，只能在drawRect：方法中获取相应的contextRef并绘图。如果在其他方法中获取将获取到一个invalidate 的ref并且不能用于画图。drawRect：方法不能手动显示调用，必须通过调用setNeedsDisplay 或 者 setNeedsDisplayInRect，让系统自动调该方法。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/11/30/Tips201511/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/11/12/Tips201510/" itemprop="url">
+                开发Tips收集-2015年11月以前
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-11-12T17:25:39+08:00" content="2015-11-12">
+            2015-11-12
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/DevTips/" itemprop="url" rel="index">
+                  <span itemprop="name">DevTips</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>当view被添加其他view中之前时，会调用viewWillAppear，而之后会调用viewDidAppear；当view从其他view中移出之前时，会调用viewWillDisAppear，而之后会调用viewDidDisappear；当view不在使用，而且是disappeared，受到内存警告时，那么viewController会将view释放并将其指向nil</li>
+<li>UIImageView的用户交互是默认关闭的，加在它上面的控件自然也响应不了事件。只要把UIImageView的userInteractionEnabled改为YES就能解决问题了。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/11/12/Tips201510/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/11/05/ResourceInGit/" itemprop="url">
+                iOS开发资源
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-11-05T18:40:05+08:00" content="2015-11-05">
+            2015-11-05
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/iOS开发杂项/" itemprop="url" rel="index">
+                  <span itemprop="name">iOS开发杂项</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><p>把自己收集的iOS开发资源，包括官方教程、视频、社区、插件、第三方库、文章等等， 绝大多数是基于Swift和中文，共享一下，顺便当作备份。绝大多数是基于Swift，中文资源优先，欢迎收藏！<br>网上学习开发的资料多如牛毛，类似的整合项目也比比皆是，多数没有更新且过于纷杂，有的已经过时，质量参差不齐，所以自己重新收录备查。<br>收录原则：内容适合最新版本，尽量iOS8+/Xcode7+/Swift2.0+（教程所用语言版本规则较宽松，无关语法不影响阅读），尽量中文原创/翻译，少量OC（很多控件都是用OC）&amp;英文原文。以总结性文章、教程和可重用项目为主，不收录小的tips，<strong>只收自己看过的觉得有用的、好的东西</strong></p>
+<p><em>目前本人还在学习过程中，开发类教程文章看得不多，第三方库也用得比较少，还在慢慢增补。源码基本上都在Github，资源收集自用，持续更新。如有失效资源或侵权请告知，谢谢！</em></p>
+<p>另外看到一个练手的小项目合集，准备有空就自己跟着练练，开放源码以示鞭策，<a href="https://github.com/conanwhf/ResourceDoc/blob/master/tryList.md" target="_blank" rel="external">列表清单</a>传送门</p>
+<h2 id="u5730_u5740_uFF08_u53EF_u80FD_u9700_u8981_u7FFB_u5899_uFF09"><a href="#u5730_u5740_uFF08_u53EF_u80FD_u9700_u8981_u7FFB_u5899_uFF09" class="headerlink" title="地址（可能需要翻墙）"></a>地址（可能需要翻墙）</h2><blockquote>
+<p>GitHub  <a href="https://github.com/conanwhf/ResourceDoc" target="_blank" rel="external">https://github.com/conanwhf/ResourceDoc</a></p>
+</blockquote>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/11/05/Alcatraz/" itemprop="url">
                 升级Xcode后失效的解决办法
               </a>
@@ -619,282 +875,11 @@ sudo xcode-select --reset
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/10/02/HexoStep2/" itemprop="url">
-                Hexo进阶配置
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-10-02T18:40:05+08:00" content="2015-10-02">
-            2015-10-02
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>Hexo有很多插件和主题可以使用，功能实现丰富。所有插件list:<a href="https://github.com/hexojs/hexo/wiki/Plugins">https://github.com/hexojs/hexo/wiki/Plugins</a></p>
-<h2 id="u547D_u4EE4_u884C_u63D0_u4EA4"><a href="#u547D_u4EE4_u884C_u63D0_u4EA4" class="headerlink" title="命令行提交"></a>命令行提交</h2><p>官方教程：<a href="http://hexo.io/docs/deployment.html">http://hexo.io/docs/deployment.html</a></p>
-<ol>
-<li>安装插件<pre><code>npm install hexo-deployer-git --save
-</code></pre></li>
-<li>修改_config.yml<pre><code>deploy:
- - type: git
-  repo: https://github.com/username/username.github.io.git
-  branch: master
-</code></pre>之后即可使用<code>hexo d</code>来提交</li>
-</ol>
-<h2 id="u6DFB_u52A0RSS"><a href="#u6DFB_u52A0RSS" class="headerlink" title="添加RSS"></a>添加RSS</h2><ol>
-<li>GitHub Source code:
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/10/02/HexoStep2/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/10/02/Git+Hexo+Markdown.Blog/" itemprop="url">
-                Git+Hexo+Markdown搭建Blog
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-10-02T17:35:25+08:00" content="2015-10-02">
-            2015-10-02
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>GitHub提供域名解析和300MB免费空间，利用静态网站生成工具生成网页，提交后即可看到。网页生成工具有Jekyll, Octopress, Hexo等。这里选择Hexo，速度快，对中文支持较好<br>官网：<a href="https://hexo.io/zh-cn/docs/">https://hexo.io/zh-cn/docs/</a></p>
-<h2 id="GitHub_Pages_Setup"><a href="#GitHub_Pages_Setup" class="headerlink" title="GitHub Pages Setup"></a>GitHub Pages Setup</h2><ul>
-<li>New一个repository即可，域名为username.github.io<br><a href="https://pages.github.com">https://pages.github.com</a><br>先不用clone到本地，也不用生成任何类似于index.html的文件</li>
-<li>GitHub客户端：<br><a href="https://central.github.com/mac/latest" title="Download GitHub for Mac">Download GitHub for Mac</a></li>
-</ul>
-<h2 id="Hexo_Setup"><a href="#Hexo_Setup" class="headerlink" title="Hexo Setup"></a>Hexo Setup</h2><ol>
-<li>install node.js<ul>
-<li>命令行：<br>  curl <a href="https://raw.github.com/creationix/nvm/master/install.sh">https://raw.github.com/creationix/nvm/master/install.sh</a> | sh<br>  nvm install 0.10</li>
-</ul>
-</li>
-<li>或者客户端：<a href="https://nodejs.org/dist/v4.1.1/node-v4.1.1.pkg" title="Download for OS X (x64)">Download for OS X (x64)</a>　</li>
-<li>Install Hexo<pre><code>sudo npm install -g hexo-cli
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/10/02/Git+Hexo+Markdown.Blog/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/10/01/ReadingList2015-09/" itemprop="url">
-                读书清单 2015-09
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-10-01T20:02:38+08:00" content="2015-10-01">
-            2015-10-01
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li><strong>程序员的数学思维修炼</strong><br>太小儿科，哪是程序员的思维修炼，高中生数学思维水准，迅速看完</li>
-<li><strong>解忧杂货店</strong><br>第一本东野圭吾的书，对他有了点信心</li>
-<li><strong>Kindle TOP 100人气小说</strong><br>2014年的小说排行榜，里面有每本的介绍和热门评论，看完对那些书还是有一些了解了。里面的小说显然不会每本都看的，过一遍以后感觉一半以上可以不用看了（未必是不好，是没兴趣或者了解梗概即可），除去看过的、正在看的，大概只剩十几本放进将来的书单</li>
-<li><strong>拖延症再见</strong><br>知乎自选集的小册子，还是不错的。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/10/01/ReadingList2015-09/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/9/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/11/">&raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/9/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/11/">&raquo;</a>
   </nav>
 
  </div>
@@ -928,7 +913,7 @@ sudo xcode-select --reset
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">95</span>
+              <span class="site-state-item-count">98</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

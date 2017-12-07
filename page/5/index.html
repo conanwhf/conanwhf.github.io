@@ -199,6 +199,296 @@
           
           
             
+              <a class="post-title-link" href="/2016/04/30/Tips201604/" itemprop="url">
+                开发Tips收集-2016年04月
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-04-30T17:25:39+08:00" content="2016-04-30">
+            2016-04-30
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/DevTips/" itemprop="url" rel="index">
+                  <span itemprop="name">DevTips</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>当手势和touchmoved同时加在uiview上面的时候将会优先的识别手势。滑动手势的识别是需要时间的，当手势在被识别出来以前，touchbegan 依旧会被调用。如果你希望在你的手势被识别的过程中touchbegan不被调用，那么你需要调用delaysTouchesBegan。</li>
+<li>修改状态栏字体颜色:只能设置两种颜色，黑色和白色，系统默认黑色。设置为白色方法：<ol>
+<li>在plist里面添加Status bar style，值为UIStatusBarStyleLightContent（白色）或UIStatusBarStyleDefault（黑 色）</li>
+<li>在Info.plist中设置UIViewControllerBasedStatusBarAppearance 为NO</li>
+</ol>
+</li>
+<li>改善APP的流畅度：<ol>
+<li>尽量不要实现drawRect（每次调用该方法时，都要为backing store分配内存，非常消耗CPU）</li>
+<li>避免在drawRect：中进行耗费大量CPU资源的工作</li>
+<li>尽量少调用setNeedsDisplay:（视图内容变化时才调用）</li>
+<li>考虑使用setNeedDisplayInRect: , 传入drawRect:的rect越小，stoke，fill的时间越少, 即使drawRect:是根据视图边界绘制的）</li>
+<li>充分利用GPU的资源，直接设置layer的border，shadow，corner，gradient等属性, GPU将会处理这些属性（相反如果GPU紧张，CPU空闲，应由CPU处理，可在drawRect：中实现）
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/04/30/Tips201604/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2016/03/31/Tips201603/" itemprop="url">
+                开发Tips收集-2016年03月
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-03-31T17:25:39+08:00" content="2016-03-31">
+            2016-03-31
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/DevTips/" itemprop="url" rel="index">
+                  <span itemprop="name">DevTips</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>UIProgressView 的 subviews 是两个 UIImageView，第一个是 TrackTintColor 层（轨道），第二个是 Progress Tint Color 层（进度）</li>
+<li>如果你对文本显示没有特殊要求，可以参考下 UILabel 内部的实现方式：用 <a href="/">NSAttributedString boundingRectWithSize:options:context:</a> 来计算文本宽高，用 -<a href="/">NSAttributedString drawWithRect:options:context:</a> 来绘制文本。尽管这两个方法性能不错，但仍旧需要放到后台线程进行以避免阻塞主线程</li>
+<li>为了帮助你发现你的代码的问题，你可以使用Xcode来分析你的代码，帮助你找到出现问题的地方。注意，Xcode分析项目，它会指出每一个潜在的可能出现的问题的地方。从Xcode的 Product菜单选择 Analyze或按 Shift-Command-B.Xcode的将需要片刻的时间，但是当它完成的时候你会在左边的 Issue Navigator看到问题列表。由Analyze发现的问题用蓝色高亮显示</li>
+<li>多视图控制器跳转方法<ol>
+<li>Modal：<br> 打开：presentViewController<br> 关闭：dismissViewController</li>
+<li>Push:需搭配NavigationController使用，采用压栈和出栈的方式<br> 打开：pushViewController<br> 关闭：popViewController</li>
+<li>Segue：以上两种方式都可以，如果在打开目标控制器前需要额外处理，可使用perfromSegueWithIdentifier方法。Identifier在storyboard里设置。</li>
+</ol>
+</li>
+<li>设置UIImage的渲染模式：你可以设置一个UIImage在渲染时是否使用当前视图的Tint Color。UIImage新增了一个只读属性：renderingMode，对应的还有一个新增方法：imageWithRenderingMode:，它使用UIImageRenderingMode枚举值来设置图片的renderingMode属性。该枚举中包含下列值：
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/03/31/Tips201603/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2016/03/02/addressUpdate/" itemprop="url">
+                域名更新
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-03-02T17:35:25+08:00" content="2016-03-02">
+            2016-03-02
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Life-Other/" itemprop="url" rel="index">
+                  <span itemprop="name">Life & Other</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="u9996_u5148_uFF0C_http_3A//conanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01"><a href="#u9996_u5148_uFF0C_http_3A//conanwhf-github-io__u8FD8_u662F_u53EF_u7528_u4E3B_u529B_u54C8_uFF01" class="headerlink" title="首先， http://conanwhf.github.io 还是可用主力哈！"></a>首先，<a href="http://conanwhf.github.io"> http://conanwhf.github.io</a> 还是可用主力哈！</h2><p>主要是怕哪天GFW发威上不了了，所以在国内服务商放个镜像而已。</p>
+<h2 id="u5899_u5185_u65B0_u57DF_u540D_uFF1Ahttp_3A//conanwhf-coding-me/"><a href="#u5899_u5185_u65B0_u57DF_u540D_uFF1Ahttp_3A//conanwhf-coding-me/" class="headerlink" title="墙内新域名：http://conanwhf.coding.me/"></a>墙内新域名：<a href="http://conanwhf.coding.me/" target="_blank" rel="external">http://conanwhf.coding.me/</a></h2><p>旧的gitcafe那个，就不用了</p>
+<p>周末爬山下海的，肌肉酸痛还没解除，就看到GitCafe要关闭，整个迁移到Coding去了，晕！连封邮件也没发给我，突然就说什么要全部迁移删除，然后一看时间，最后期限5月份，但是从今天开始就全部只读了……😡我真是服了国内的这些服务商，不靠谱到了一个境界。还能怎么办呢？迁移呗！本来因为是中文博客，我的各种相关配置和网络服务都注册的是GitCafe的域名，这次也都要检查一遍、修改更换，麻烦死了。以后还是准备回归GitHub为主吧！<br>另外，因为gitcafe已经全面只读了，我连提交个域名更新说明的机会都没，真是@#$$(%#^%^)$$%^%$#$%😤😱<br>长长的年过完了，紧接着又巴厘岛玩了几天，以至于留下了太多功课没有做完。家里两位老人天天拉着我聊天修电脑，再加上新接了个项目，搞OpenCV和C++搞得连轴转，更没时间管iOS的东西了。想想每天也没做什么，过个年，跑跑步，吃三顿饭，刷刷新闻社交，帮公婆处理点杂事，研究旅游的各种事情，最后出去玩一趟，怎么哗哗哗一个月就过去了？！搞得我好焦虑，害怕项目进度赶不完。怎么办！！！<br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2016/03/02/addressUpdate/</p><p>访问原文「<a href='http://conanwhf.github.io/2016/03/02/addressUpdate/'>域名更新</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2016/03/01/Tips201602/" itemprop="url">
                 开发Tips收集-2016年02月
               </a>
@@ -616,256 +906,11 @@
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2016/01/22/microwave/" itemprop="url">
-                微波炉的悲剧
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-01-22T17:35:25+08:00" content="2016-01-22">
-            2016-01-22
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody"><p>早上起床，从冰箱里拿了蛋糕出来，放微波炉转10秒，然后洗漱去了……等我一切停当出来一看，妈呀……我设的不是10秒是10分钟！！！😱 😱 😱 😱 😱一开微波炉，蛋糕烧成碳就不说了，那个呛！别提了！！！<br>开抽油烟机、开风扇、上网搜解救方法（各种橘子皮茶叶醋什么的）、总算感觉好点了。但是、这只是适应环境了的幻觉！午休后从房间出来，一屋子的烟味呛得我……😂 😂 😂 😂 😂无语，外面还下着雨，不能开窗通风，现在全屋开着空调净化器抽风机打字中……🤑 🤑 🤑 🤑 🤑 🤑</p>
-</span>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2016/01/21/newsreader-8/" itemprop="url">
-                从打造新闻app学到的(8)：自定义TableViewCell
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-01-21T17:32:45+08:00" content="2016-01-21">
-            2016-01-21
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/CocoaTouch/" itemprop="url" rel="index">
-                  <span itemprop="name">CocoaTouch</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>新闻App通常是有个新闻的列表，这个列表一般都用TableView来做，每个Cell显示一条新闻，如下图：<br><img src="http://whf.d.pr/146XT+" alt=""><br>在我做的时候，开始Cell是直接从控件库拖到StoryBoard里面，配置了一点东西就OK了：当Cell的Style设成subtilte时，标题、副标题、以及图像都是可用的，在<strong>cellForRowAtIndexPath</strong>里直接配置就行了：<br><img src="http://whf.d.pr/K486+" alt=""><br>但这样做了之后出现一个问题：新闻配图是从网络获取的，长宽比和大小并不固定。在这种做法中，图像是以高度而不是宽度统一对齐的，也就是经过缩放后变成统一的高度适配当前Cell，再显示出来。这样一来，每个Cell里的图像宽度就参差不齐，很难看。我尝试了很久也没能解决这个问题，看起来无论怎么对Cell.image进行配置，也是无效的。折中的办法是事先修改图像的长宽比，但这不是我想要的效果。于是，只好尝试TableViewCell的自定义了。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/21/newsreader-8/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2016/01/16/Transform/" itemprop="url">
-                使用.transform旋转带来的坑
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-01-16T17:32:45+08:00" content="2016-01-16">
-            2016-01-16
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/CocoaTouch/" itemprop="url" rel="index">
-                  <span itemprop="name">CocoaTouch</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>这礼拜都在玩树莓派，Xcode都几乎没打开过，该收收心了。OmniFocus里攒了一堆已过期的待办，feedly也有好多未读，都又到周末了，先把上个礼拜留下来的几个准备写的Topic写了吧。<br>关于UIView的旋转，踩了一个小坑，看了看也没人说过。大家都知道使用.transform可以做旋转，用起来也很简单。在我的UIView Demo中（见上周Blog<a href="http://conanwhf.github.io/2016/01/03/UISlider/" title="UIController中Slider监听回调具体实现的分离">UIController中Slider监听回调具体实现的分离</a>），我也添加了旋转的功能，开始是在handler中这么写的(back是一个UIView)：</p>
-<pre><code>let x = (Float(ctl.show.frame.width) - conf[0] )/2
-let y = (Float(ctl.show.frame.height) - conf[1] )/2
-back.frame.size = CGSize(width: CGFloat(conf[0], height: CGFloat(conf[1])
-back.frame.origin = CGPoint(x: Int(x), y: Int(y))
-back.transform = CGAffineTransformMakeRotation( CGFloat(Double(conf[7] * M_PI  / 180.0))
-</code></pre><p>前面几句修改大小和位置，最后一句做旋转。没添加旋转之前缩放和位移都是对的，添加了旋转之后效果却不是我想象的那样以图形中心为圆心转动，而是这样有时候会自己拉扁的：<br><img src="http://whf.d.pr/CNsl+" alt=""><br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/16/Transform/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/6/">&raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/6/">&raquo;</a>
   </nav>
 
  </div>
@@ -899,7 +944,7 @@ back.transform = CGAffineTransformMakeRotation( CGFloat(Double(conf[7] * M_PI  /
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">95</span>
+              <span class="site-state-item-count">98</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

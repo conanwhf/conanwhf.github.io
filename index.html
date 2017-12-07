@@ -199,6 +199,293 @@
           
           
             
+              <a class="post-title-link" href="/2017/12/01/Tips201711/" itemprop="url">
+                开发Tips收集-2017年11月
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2017-12-01T17:25:39+08:00" content="2017-12-01">
+            2017-12-01
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/DevTips/" itemprop="url" rel="index">
+                  <span itemprop="name">DevTips</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>禁止WKWebView的左右弹性属性：让webView的scrollView不能左右滑动即可，也就是让webView的内容一直水平居中。<br>self.webView.scrollView.delegate = self;<ul>
+<li>(void)scrollViewDidScroll:(UIScrollView *)scrollView{<br>  // 让webview的内容一直居中显示<br>  scrollView.contentOffset = CGPointMake((scrollView.contentSize.width - screenWidth) / 2, scrollView.contentOffset.y);<br>}</li>
+</ul>
+</li>
+<li>使用UIWebView装载一个网页后，可能需要提取其内的信息，比较好的方法是使用JavaScript。方法UIWebView.stringByEvaluatingJavaScript可以执行一个脚本。</li>
+<li>xcode9打包版本只能是8.2及以下版本,或者9.0及更高版本；xcode9不支持8.3和8.4版本；xcode9新打包要在构建版本的时候加入1024*1024 AppSore icon</li>
+<li>tableView在iOS11默认使用Self-Sizing，tableView的estimatedRowHeight、estimatedSectionHeaderHeight、estimatedSectionFooterHeight三个高度估算属性由默认的0变成了UITableViewAutomaticDimension</li>
+<li>模拟器网速调整： 限制时输入下面两行，根据需要修改下面的数字：
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/12/01/Tips201711/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2017/11/02/decisionTree/" itemprop="url">
+                《机器学习实战》笔记（二）：决策树
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2017-11-02T13:31:26+08:00" content="2017-11-02">
+            2017-11-02
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/MachineLearning/" itemprop="url" rel="index">
+                  <span itemprop="name">MachineLearning</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"> </p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/11/02/decisionTree/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/11/02/decisionTree/'>《机器学习实战》笔记（二）：决策树</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+
+<h2 id="CH03_uFF1A_u51B3_u7B56_u6811"><a href="#CH03_uFF1A_u51B3_u7B56_u6811" class="headerlink" title="CH03：决策树"></a>CH03：决策树</h2><h3 id="u7B97_u6CD5"><a href="#u7B97_u6CD5" class="headerlink" title="算法"></a>算法</h3><blockquote>
+<p><strong>优点</strong>：计算复杂度不高，输出结果易于理解，对中间值的缺失不敏感，可以处理不相关特征数据。<br><strong>缺点</strong>：可能会产生过度匹配问题。<br><strong>适用数据类型</strong>：数值型和标称型。</p>
+</blockquote>
+<p>非大师范德萨</p>
+<h3 id="u5B9E_u8DF5"><a href="#u5B9E_u8DF5" class="headerlink" title="实践"></a>实践</h3><p>这一章的实践内容主要是手写数字识别。程序上的事情没什么好说的，我的主要改动就是把作者的numpy改成了pandas，并且将分类结果存在了dataframe同一个表中而不是单独分开，代码<a href="https://github.com/conanwhf/ML-Action/tree/master/CH02" target="_blank" rel="external">在此</a>。</p>
+<h3 id="u6742_u8C08"><a href="#u6742_u8C08" class="headerlink" title="杂谈"></a>杂谈</h3></span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2017/10/31/ReadingList2017-10/" itemprop="url">
+                读书清单 2017-10
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2017-10-31T10:36:54+08:00" content="2017-10-31">
+            2017-10-31
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Life-Other/" itemprop="url" rel="index">
+                  <span itemprop="name">Life & Other</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
+<li><strong>大脑使用指南：其实你活在大脑创造的虚拟世界中</strong><br>很有意思的一本大脑神经科学科普书，书中内容跟使用指南没有半点关系，但副标题基本可以概括主要思想了。整本书不长，很容易就读完了，也没有讲很多高深的东西，大部分的时候甚至感觉说得太浅了，像是给小孩子看的。但是就内容来说，确实很有意思，对大脑工作的机制和很多现象有了一些了解，值得一读。</li>
+</ol>
+<h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2><ol>
+<li>名侦探柯南漫画</li>
+<li>Pocket</li>
+</ol>
+<h2 id="u6B63_u5728_u8BFB_u7684_u4E66"><a href="#u6B63_u5728_u8BFB_u7684_u4E66" class="headerlink" title="正在读的书"></a>正在读的书</h2><ol>
+<li>机器学习实践</li>
+</ol>
+<h2 id="u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_uFF0807-09_u6708_uFF09_33-75"><a href="#u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_uFF0807-09_u6708_uFF09_33-75" class="headerlink" title="买的正版非免费书（07-09月）             33.75"></a>买的正版非免费书（07-09月）             <strong>33.75</strong></h2><ol>
+<li>面向机器智能的TensorFlow实践 <strong>12.50</strong></li>
+<li>算法竞赛入门经典——训练指南 <strong>10.02</strong></li>
+<li>算法竞赛入门经典（第2版）   <strong>4.99</strong></li>
+</ol>
+<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>占便宜</p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2017/10/02/KNN/" itemprop="url">
                 《机器学习实战》笔记（一）：K近邻
               </a>
@@ -628,260 +915,11 @@
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2017/07/12/Tips201707/" itemprop="url">
-                开发Tips收集-2017年07月
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2017-07-12T17:25:39+08:00" content="2017-07-12">
-            2017-07-12
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/DevTips/" itemprop="url" rel="index">
-                  <span itemprop="name">DevTips</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
-</blockquote>
-<ul>
-<li>点击通知栏的通知进入程序时，会触发App Delegate里的方法，分为以下两种情况：<ol>
-<li>程序未启动（即底部任务栏里没有进程）时：<br>　　<code>- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions</code>。对于launchOptions参数，需要经过以下处理：<code>NSDictionary* pushNotificationKey = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]</code>，其中的pushNotificationKey才是从服务端推送过来的数据，使用键值对方式就可以读取服务器传递过来的额外参数了。<br>应用还没有加载，这时如果点击通知的显示按钮，会调用didFinishLaunchingWithOptions，不会调用didReceiveRemoteNotification方法。如果点击通知的关闭按钮，再点击应用，只会调用didFinishLaunchingWithOptions方法。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/07/12/Tips201707/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2017/06/30/ReadingList2017-06/" itemprop="url">
-                读书清单 2017-06
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2017-06-30T10:36:54+08:00" content="2017-06-30">
-            2017-06-30
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li><strong>浪潮之巅</strong><br>这本书好多年前红得发紫，也是那时候就打开读一读，但是不知道为什么一而再再而三地没有读下去。这次在它红了近十年之后，终于终结了，然而我的感觉是：平淡得很。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/06/30/ReadingList2017-06/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2017/06/14/bootup-7-loader/" itemprop="url">
-                ARM板移植Linux系统启动（七）uBoot中的启动器
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2017-06-14T17:31:26+08:00" content="2017-06-14">
-            2017-06-14
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Linux/" itemprop="url" rel="index">
-                  <span itemprop="name">Linux</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>前面说了那么多，系统已经烧写完毕，按理说没什么问题了，但是我的系统依然跑不起来！通过debug发现，我的kernel镜像按照debian文件系统的要求重命名成了”vmlinuz-XXX”，但我的烧写进去的uboot却在打印信息中明确表示：我找的是zImage！在BeagleBoneBlack的TF卡烧写启动模式中，它的kernel也是修改了命名，但却能顺利引导，是因为把kernel的文件名信息写入了uEnv.txt文件，但是为什么在我的板子上就会失败呢？
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/06/14/bootup-7-loader/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
   </nav>
 
  </div>
@@ -915,7 +953,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">95</span>
+              <span class="site-state-item-count">98</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
