@@ -26,26 +26,6 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2017/10/31/ReadingList2017-10/</loc>
-    <lastmod>2017-10-26T12:38:10.204Z</lastmod>
-    <data>
-        <display>
-        <title>读书清单 2017-10</title>
-        <pubTime>2017-10-31T02:36:54.000Z</pubTime>
-        
-        <tag>BookList</tag>
-         
-         
-           
-             
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://conanwhf.github.io/2017/10/02/KNN/</loc>
     <lastmod>2017-10-02T06:40:08.000Z</lastmod>
     <data>
@@ -1686,59 +1666,21 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/09/03/NewProjectByCode/</loc>
+    <loc>http://conanwhf.github.io/2015/12/21/newsreader-2/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>第一个带UI的程序(New Project, Code mode only)</title>
-        <pubTime>2015-09-03T09:18:08.000Z</pubTime>
+        <title>从打造新闻app学到的(2)：定义类中的只读属性</title>
+        <pubTime>2015-12-21T09:14:35.000Z</pubTime>
         
-        <tag>iOS</tag>
+        <tag>Class</tag>
+         
+        <tag>NewsAPP</tag>
          
          
            
              
-              <breadCrumb title="CocoaTouch" url="http://conanwhf.github.io/categories/CocoaTouch/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.github.io/2015/09/02/MustGet/</loc>
-    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>iOS开发必知必会（自己总结的）</title>
-        <pubTime>2015-09-02T09:11:28.000Z</pubTime>
-        
-        <tag>iOS</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.github.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.github.io/2015/09/03/StructPic/</loc>
-    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>Cocoa库的架构</title>
-        <pubTime>2015-09-03T09:19:33.000Z</pubTime>
-        
-        <tag>iOS</tag>
-         
-         
-           
-             
-              <breadCrumb title="CocoaTouch" url="http://conanwhf.github.io/categories/CocoaTouch/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
           
         </display>
     </data>
@@ -1768,17 +1710,19 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/16/creatDuoshuo/</loc>
+    <loc>http://conanwhf.github.io/2015/12/20/newsreader-1/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>新配置了多说</title>
-        <pubTime>2015-12-16T05:35:25.000Z</pubTime>
+        <title>从打造新闻app学到的(1)：抽象概念，定义好的数据结构</title>
+        <pubTime>2015-12-20T09:14:35.000Z</pubTime>
         
+        <tag>NewsAPP</tag>
+         
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.github.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
           
         </display>
     </data>
@@ -1804,19 +1748,55 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/20/newsreader-1/</loc>
+    <loc>http://conanwhf.github.io/2015/12/04/Swift_open/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>从打造新闻app学到的(1)：抽象概念，定义好的数据结构</title>
-        <pubTime>2015-12-20T09:14:35.000Z</pubTime>
+        <title>Swift开源了！！！</title>
+        <pubTime>2015-12-04T10:29:26.000Z</pubTime>
         
-        <tag>NewsAPP</tag>
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.github.io/2015/12/16/creatDuoshuo/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>新配置了多说</title>
+        <pubTime>2015-12-16T05:35:25.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.github.io/2015/09/03/NewProjectByCode/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>第一个带UI的程序(New Project, Code mode only)</title>
+        <pubTime>2015-09-03T09:18:08.000Z</pubTime>
+        
+        <tag>iOS</tag>
          
          
            
              
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.github.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
+              <breadCrumb title="CocoaTouch" url="http://conanwhf.github.io/categories/CocoaTouch/"/>
           
         </display>
     </data>
@@ -1842,21 +1822,19 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/21/newsreader-2/</loc>
+    <loc>http://conanwhf.github.io/2015/09/02/MustGet/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>从打造新闻app学到的(2)：定义类中的只读属性</title>
-        <pubTime>2015-12-21T09:14:35.000Z</pubTime>
+        <title>iOS开发必知必会（自己总结的）</title>
+        <pubTime>2015-09-02T09:11:28.000Z</pubTime>
         
-        <tag>Class</tag>
-         
-        <tag>NewsAPP</tag>
+        <tag>iOS</tag>
          
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.github.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
           
         </display>
     </data>
@@ -1882,21 +1860,19 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/21/newsreader-3/</loc>
+    <loc>http://conanwhf.github.io/2015/09/03/StructPic/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>从打造新闻app学到的(3)：让自定义的类可排序</title>
-        <pubTime>2015-12-21T11:14:35.000Z</pubTime>
+        <title>Cocoa库的架构</title>
+        <pubTime>2015-09-03T09:19:33.000Z</pubTime>
         
-        <tag>Class</tag>
-         
-        <tag>NewsAPP</tag>
+        <tag>iOS</tag>
          
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
+              <breadCrumb title="CocoaTouch" url="http://conanwhf.github.io/categories/CocoaTouch/"/>
           
         </display>
     </data>
@@ -1950,13 +1926,17 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/04/Swift_open/</loc>
+    <loc>http://conanwhf.github.io/2015/12/21/newsreader-3/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>Swift开源了！！！</title>
-        <pubTime>2015-12-04T10:29:26.000Z</pubTime>
+        <title>从打造新闻app学到的(3)：让自定义的类可排序</title>
+        <pubTime>2015-12-21T11:14:35.000Z</pubTime>
         
+        <tag>Class</tag>
+         
+        <tag>NewsAPP</tag>
+         
          
            
              

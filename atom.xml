@@ -104,40 +104,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[读书清单 2017-10]]></title>
-    <link href="http://conanwhf.github.io/2017/10/31/ReadingList2017-10/"/>
-    <id>http://conanwhf.github.io/2017/10/31/ReadingList2017-10/</id>
-    <published>2017-10-31T02:36:54.000Z</published>
-    <updated>2017-10-26T12:38:10.204Z</updated>
-    <content type="html"><![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li><strong>大脑使用指南：其实你活在大脑创造的虚拟世界中</strong><br>很有意思的一本大脑神经科学科普书，书中内容跟使用指南没有半点关系，但副标题基本可以概括主要思想了。整本书不长，很容易就读完了，也没有讲很多高深的东西，大部分的时候甚至感觉说得太浅了，像是给小孩子看的。但是就内容来说，确实很有意思，对大脑工作的机制和很多现象有了一些了解，值得一读。</li>
-</ol>
-<h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2><ol>
-<li>名侦探柯南漫画</li>
-<li>Pocket</li>
-</ol>
-<h2 id="u6B63_u5728_u8BFB_u7684_u4E66"><a href="#u6B63_u5728_u8BFB_u7684_u4E66" class="headerlink" title="正在读的书"></a>正在读的书</h2><ol>
-<li>机器学习实践</li>
-</ol>
-<h2 id="u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_uFF0807-09_u6708_uFF09_33-75"><a href="#u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_uFF0807-09_u6708_uFF09_33-75" class="headerlink" title="买的正版非免费书（07-09月）             33.75"></a>买的正版非免费书（07-09月）             <strong>33.75</strong></h2><ol>
-<li>面向机器智能的TensorFlow实践 <strong>12.50</strong></li>
-<li>算法竞赛入门经典——训练指南 <strong>10.02</strong></li>
-<li>算法竞赛入门经典（第2版）   <strong>4.99</strong></li>
-</ol>
-<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>占便宜</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li><strong>大脑使用指南：其实你]]>
-    </summary>
-    
-      <category term="BookList" scheme="http://conanwhf.github.io/tags/BookList/"/>
-    
-      <category term="Life &amp; Other" scheme="http://conanwhf.github.io/categories/Life-Other/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[《机器学习实战》笔记（一）：K近邻]]></title>
     <link href="http://conanwhf.github.io/2017/10/02/KNN/"/>
     <id>http://conanwhf.github.io/2017/10/02/KNN/</id>
@@ -1610,6 +1576,65 @@ jump_to_image_no_args(&amp;spl_image);
     </summary>
     
       <category term="BookList" scheme="http://conanwhf.github.io/tags/BookList/"/>
+    
+      <category term="Life &amp; Other" scheme="http://conanwhf.github.io/categories/Life-Other/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[静境电子书评测]]></title>
+    <link href="http://conanwhf.github.io/2017/02/12/JingJingTest/"/>
+    <id>http://conanwhf.github.io/2017/02/12/JingJingTest/</id>
+    <published>2017-02-12T09:35:25.000Z</published>
+    <updated>2017-06-12T15:16:03.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="u6574_u4F53_u611F_u89C9"><a href="#u6574_u4F53_u611F_u89C9" class="headerlink" title="整体感觉"></a>整体感觉</h2><p>我已经有个KPW3，携带方便，其他方面都挺满意，就是觉得屏幕小了点。大屏电子书可选择的太少，我的要求一是要屏大，二是要能看的格式多（我对PDF要求并不多，我的书基本上以azw3&amp;mobi为主，少量epub&amp;pdf），三是不要太重（不能超过iPad），这三条综合下来就已经淘汰了大法、DXG，最终选了静境，带电磁书写款，总价2399。<br>整个静境电子书的大小比普通的教材书籍略小<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/02/12/JingJingTest/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/02/12/JingJingTest/'>静境电子书评测</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+（见图），重量和加了套的KPW3差不多，和KPW3一样，屏幕凹陷背壳采用塑料材质，但磨砂的手感很好，显得还挺有质感不廉价。标配一个电磁笔和皮套，电子书的身体上没有放笔的地方，略不方便，皮套倒是显得挺有档次。<br><img src="http://whf.d.pr/vvXb+" alt=""><br><img src="http://whf.d.pr/wDJU+" alt=""><br>机器9.7寸显示屏，内部存储12G，没有扩展卡，没有背光，支持WIFI和蓝牙，整个系统是采用的Android4.4，是厂家自己修改过的优化版系统，还自带一个应用商城，里面放的厂家优化过的一些APP，也支持自己另外装APP。从我的测试结果来看，普通的Android应用还是别想了，随便一点点刷新就能闪瞎。让我觉得有点不爽的是，通过USB连到电脑上，Mac居然看不见，我只好去开了Win10的虚拟机。</p>
+<h2 id="u663E_u793A_u6548_u679C"><a href="#u663E_u793A_u6548_u679C" class="headerlink" title="显示效果"></a>显示效果</h2><p>电子书最重要的就是显示效果了，但是关于显示效果，在静境上有两种不同的显示模式：画质优先和速度优先。感觉上它们的区别一是16阶灰度和8阶（可能更低）灰度；一是画质优先时会每次都整屏强制刷新以消除残影，而速度优先的刷新频率不明。因为这个灰度的问题，在速度优先时简直无法使用普通的UI，特别是那些深色为底色的APP(比如Kindle)，不光书的封面图案难辨，甚至是白色图形的按键像是返回的箭头也看不见！<br>在看书的时候，画质优先和速度优先的模式，也会有一些不同。速度优先效果会差一点，字体边缘的颗粒感比较明显，而体现在字体放得比较小的时候就是某些细的笔划会消失；画质优先的显示效果好，但每次的强制刷新让人还是不舒服，我习惯了KPW3的人都难以适应。这两种模式的显示区别，我胡乱猜想一下大概就是KPW3和入门版Kindle的区别吧。下图是KPW3和静境的显示对比，因为静境没有背光，所以我也把Kindle的背光调整到0。<br><img src="http://whf.d.pr/aYMV+" alt=""><br>这是静境的画质优先模式，可以看到，字体的显示两者基本上是差不多的，但静境整体比较暗，估计傍晚看就得开灯了。我自己贴了个DXG的贴膜，但手残没贴好有气泡，各位看官忽略。另外强光下静境的反光比Kindle严重，不过两个设备我都是贴了磨砂膜，所以也不好说。<br>翻页速度方面，速度优先的模式下，静境和Kindle差不多。考虑到屏幕大小差很多，这也算不错了。而画质优先模式下就比较慢，同时点屏幕，Kindle已经翻完了静境才开始翻，然后又是一个同样的时间才翻完。而且翻页的时候强制刷新不知道是全黑了一下还是怎么，反正刷新的时候特别明显。以上这些测试是用的静境应用商城里的Kindle app，其他的应用效果可能略有不同。<br>另外速度模式因为不刷新，所以翻页多了之后会有很明显的重影，不过你可以手动按键刷新。下面的图是速度模式下的显示效果以及翻页4次以后的残影情况。<br><img src="http://whf.d.pr/IsKa+" alt=""><br>综上所述，我觉得这两种模式，看纯文字书的时候适合用速度优先模式，而普通的应用界面和看漫画适合用画质优先。幸好设备的三个按键中间有一个就是调整刷新的，长按就可以迅速切换。</p>
+<h2 id="u6587_u4EF6_u652F_u6301"><a href="#u6587_u4EF6_u652F_u6301" class="headerlink" title="文件支持"></a>文件支持</h2><p>然后谈谈各种文件的支持。我把商城里面的几种阅读应用都下下来了，用几个漫画、不同的格式、几个大文件（400MB左右）、扫描版PDF等挨个测试了一遍：</p>
+<ol>
+<li>系统自带的阅读器：打开文件超级慢，经常死，好处是可以用电磁笔随时涂涂画画作笔记<ol>
+<li>fbreader：支持azw3，太慢，容易死机，</li>
+<li>koreader：我的漫画mobi和chm打开出错，不支持azw3，打开大文件慢但阅读速度不错，支持pdf切边重排</li>
+<li>静读天下：UI不错，不支持azw3，不支持pdf重排，大文件打开快</li>
+<li>alreader，支持azw3但不支持PDF，打开大文件速度比静读天下慢，但打开后反应流畅；看漫画自动缩放比例效果很好，无需特殊调整</li>
+<li>福昕阅读器：专门阅读PDF，支持重排，打开文件快，也可以作笔记，但笔记反应比较慢<br>总的来说，最后我选择alreader作为主力，扫描PDF用福昕，还是足够解决各种需求的。以下是漫画、代码、英文等几种书的阅读实拍：<br><img src="http://whf.d.pr/yuJj+" alt=""><br><img src="http://whf.d.pr/ze4F+" alt=""><br><img src="http://whf.d.pr/VCOy+" alt=""><br><img src="http://whf.d.pr/ERMv+" alt=""><br><img src="http://whf.d.pr/kPMF+" alt=""></li>
+</ol>
+</li>
+</ol>
+<h2 id="u624B_u5199_u7B14"><a href="#u624B_u5199_u7B14" class="headerlink" title="手写笔"></a>手写笔</h2><p>静境配了一个电磁笔，支持电磁触控，号称能提供纸质一般的书写感。实际体验下来，主界面的便利贴和“草稿”应用都偶尔会被压在屏幕上的手掌干扰，但专门的笔记应用不会；书写感觉还是很流畅的，但不太跟笔，写得快了会有明显的时差；在PDF上写出那种像纸质书一样的笔记效果只有自带的阅读软件支持，虽然用起来还不错，但这个自带的阅读器开稍微大一点的文件就会死，打开文件也巨慢，所以普通小一点的文档还是没压力，书就还是算了。让我感到惊喜的是在笔记中笔另一端可以当橡皮擦用，很好玩。写的笔记会自动存成PNG图片，上一张我的测试图，字太丑请忽略：<br><img src="http://whf.d.pr/peSp+" alt=""><br>其实整个静境电子书的触摸反应不是特别灵敏，但对电磁笔的触控很灵敏，我现在已经习惯于左手拿书右手拿笔，感觉还不错。</p>
+<h2 id="u5176_u4ED6"><a href="#u5176_u4ED6" class="headerlink" title="其他"></a>其他</h2><p>受到安卓系统的局限，整个静境的操作简直惨不忍睹。我的日常设备都是Apple系的，已经习惯了各种流畅不折腾的使用，就算我曾经是个Android系统开发人员，也花了很多时间才让它达到可以安安静静看书的状态。几乎每个应用都要做出相应的调整：关闭动画效果、改滑动为翻页、改控制、改背景为白色……即使折腾好了，也要忍受卡卡的界面和并不少见的失去响应。虽然我对大屏显示的书和漫画满心喜欢，也不能忽略这些读书之外难以忍受的操作。</p>
+<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>作为少有的大屏电子书，静境做到了基本的一点：读书。但我建议想下手的同学们，先考虑自己是否符合下面几条：</p>
+<ol>
+<li>常看漫画、PDF文档，或真的很喜欢用大屏看书，嫌Kindle太小</li>
+<li>拥有Kindle，能客观认识到墨水屏的种种局限性，并对此有足够的心理准备</li>
+<li>对看书这件事很热爱，对看书以外的事有耐心（针对卡卡的系统和App）</li>
+<li>不差这两千来块钱<br>都满足的话，勇敢下手吧！大屏看书看漫画真的很爽哒！</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="u6574_u4F53_u611F_u89C9"><a href="#u6574_u4F53_u611F_u89C9" class="headerlink" title="整体感觉"></a>整体感觉</h2><p>我已经有个KPW3，携带方便，其他方面都挺满意，就是觉得屏幕小了点。大屏电子书可选择的太少，我的要求一是要屏大，二是要能看的格式多（我对PDF要求并不多，我的书基本上以azw3&amp;mobi为主，少量epub&amp;pdf），三是不要太重（不能超过iPad），这三条综合下来就已经淘汰了大法、DXG，最终选了静境，带电磁书写款，总价2399。<br>整个静境电子书的大小比普通的教材书籍略小]]>
+    
+    </summary>
     
       <category term="Life &amp; Other" scheme="http://conanwhf.github.io/categories/Life-Other/"/>
     

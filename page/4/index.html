@@ -199,89 +199,6 @@
           
           
             
-              <a class="post-title-link" href="/2016/08/26/GPTandMBR/" itemprop="url">
-                详细梳理分区表和系统启动相关的各种概念
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-08-26T17:30:25+08:00" content="2016-08-26">
-            2016-08-26
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>MacBookPro的硬盘太小，前几天买了个128G的U盘想装好系统在虚拟机里引导，以节省日益膨胀的虚拟机文件占用的空间。我同时需要Mac、Win、Linux，买不起大容量MBP，天天寻思着删东西，实在是伤不起啊！😭预设的目标是要把Win和Ubuntu都装U盘上，而且支持在我的旧笔记本、Mac、虚拟机里都能正确引导，同时还要有一个数据分区，能在所有的系统中正常识别为U盘。为此，我狠狠研究了一通分区表，被各种缩写和规则搞得头昏脑胀。看看网上的东西也是常有错误，趁着还没忘光，自己梳理一遍吧！<br>声明：本文为作者（<a href="https://github.com/conanwhf">Conan</a>）原创，转载请标明<a href="/conanwhf.github.io">出处</a>！</p>
-<h2 id="GPT_u548CMBR"><a href="#GPT_u548CMBR" class="headerlink" title="GPT和MBR"></a>GPT和MBR</h2><p>首先当然是这俩，一切都源于此。最重要的信息是：他们都是<strong>分区表</strong>，一种用来表示硬盘分区信息的格式，不太严格地说是一个<strong>软件概念</strong>。啰嗦一句分区表是干什么的：在操作系统启动之前、硬件初始化之后，确定从硬盘启动的话，需要获得硬盘分区的基本信息，那就需要分区表了。分区表不只包含硬盘的分区信息，也包括一个很小的最基本的引导程序，用到引导第二阶段引导程序，如NTLDR、BOOTMGR和GRUB等，这些第二阶段的引导程序，是需要针对每个分区进一步读取数据才能获得的。</p>
-<h3 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h3><p>全称<strong>主引导记录（Master Boot Record）</strong>，又叫做主引导扇区，位于硬盘的第一个扇区主要分为两个部分：引导程序和分区结构表。有时候也将其开头的446字节引导程序特指为MBR，其后是64字节的“磁盘分区表”（DPT），以及2字节的结束标志（55AA）。因此，在使用“主引导记
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/26/GPTandMBR/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
               <a class="post-title-link" href="/2016/08/25/rpi-cloneimg/" itemprop="url">
                 树莓派RaspberryPi系统备份Image的制作
               </a>
@@ -896,11 +813,105 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
 
 
     
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2016/03/31/Tips201603/" itemprop="url">
+                开发Tips收集-2016年03月
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-03-31T17:25:39+08:00" content="2016-03-31">
+            2016-03-31
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/DevTips/" itemprop="url" rel="index">
+                  <span itemprop="name">DevTips</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>UIProgressView 的 subviews 是两个 UIImageView，第一个是 TrackTintColor 层（轨道），第二个是 Progress Tint Color 层（进度）</li>
+<li>如果你对文本显示没有特殊要求，可以参考下 UILabel 内部的实现方式：用 <a href="/">NSAttributedString boundingRectWithSize:options:context:</a> 来计算文本宽高，用 -<a href="/">NSAttributedString drawWithRect:options:context:</a> 来绘制文本。尽管这两个方法性能不错，但仍旧需要放到后台线程进行以避免阻塞主线程</li>
+<li>为了帮助你发现你的代码的问题，你可以使用Xcode来分析你的代码，帮助你找到出现问题的地方。注意，Xcode分析项目，它会指出每一个潜在的可能出现的问题的地方。从Xcode的 Product菜单选择 Analyze或按 Shift-Command-B.Xcode的将需要片刻的时间，但是当它完成的时候你会在左边的 Issue Navigator看到问题列表。由Analyze发现的问题用蓝色高亮显示</li>
+<li>多视图控制器跳转方法<ol>
+<li>Modal：<br> 打开：presentViewController<br> 关闭：dismissViewController</li>
+<li>Push:需搭配NavigationController使用，采用压栈和出栈的方式<br> 打开：pushViewController<br> 关闭：popViewController</li>
+<li>Segue：以上两种方式都可以，如果在打开目标控制器前需要额外处理，可使用perfromSegueWithIdentifier方法。Identifier在storyboard里设置。</li>
+</ol>
+</li>
+<li>设置UIImage的渲染模式：你可以设置一个UIImage在渲染时是否使用当前视图的Tint Color。UIImage新增了一个只读属性：renderingMode，对应的还有一个新增方法：imageWithRenderingMode:，它使用UIImageRenderingMode枚举值来设置图片的renderingMode属性。该枚举中包含下列值：
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/03/31/Tips201603/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/5/">&raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/5/">&raquo;</a>
   </nav>
 
  </div>
@@ -934,7 +945,7 @@ dd if=raspberrypi-bak.img bs=1M of=/dev/rdisk2
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">97</span>
+              <span class="site-state-item-count">96</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
