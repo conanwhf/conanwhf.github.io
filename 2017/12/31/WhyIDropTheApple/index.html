@@ -1,0 +1,718 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+  <meta name="google-site-verification" content="fm7O971xqa-IgxCWIey5wM-1kAOR1sTDp_gZfHxonGc" />
+
+
+
+  <meta name="baidu-site-verification" content="g1ag6ZODOB" />
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切" />
+
+
+
+  <meta name="keywords" content="iOS," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="iOS开发和七七八八" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="首先是结论：我决定放弃学习iOS开发。在这两年的时间里，我学习了swift语言，学习了简单的iOS应用的一些内容，包括各种控件、界面元素、动画、操作的实现等等。我练习了一些swift语言本身的Demo，并用纯swift写了一些小的app，至今纯属练手，质量和创意都还达不到上架的要求。事实上从第二年开始我就比较少写iOS代码了，但即使是一年这个进度也是很差的了。一直自我评价是个学习速度比较快的人，大">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我为什么放弃学习iOS开发">
+<meta property="og:url" content="http://conanwhf.github.io/2017/12/31/WhyIDropTheApple/index.html">
+<meta property="og:site_name" content="iOS开发和七七八八">
+<meta property="og:description" content="首先是结论：我决定放弃学习iOS开发。在这两年的时间里，我学习了swift语言，学习了简单的iOS应用的一些内容，包括各种控件、界面元素、动画、操作的实现等等。我练习了一些swift语言本身的Demo，并用纯swift写了一些小的app，至今纯属练手，质量和创意都还达不到上架的要求。事实上从第二年开始我就比较少写iOS代码了，但即使是一年这个进度也是很差的了。一直自我评价是个学习速度比较快的人，大">
+<meta property="og:updated_time" content="2018-02-05T10:19:45.608Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="我为什么放弃学习iOS开发">
+<meta name="twitter:description" content="首先是结论：我决定放弃学习iOS开发。在这两年的时间里，我学习了swift语言，学习了简单的iOS应用的一些内容，包括各种控件、界面元素、动画、操作的实现等等。我练习了一些swift语言本身的Demo，并用纯swift写了一些小的app，至今纯属练手，质量和创意都还达不到上架的要求。事实上从第二年开始我就比较少写iOS代码了，但即使是一年这个进度也是很差的了。一直自我评价是个学习速度比较快的人，大">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+  <title> 我为什么放弃学习iOS开发 | iOS开发和七七八八 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-68644901-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?216209cca8026e16aa970c3db256725e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">iOS开发和七七八八</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            <i class="menu-item-icon icon-next-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            <i class="menu-item-icon icon-next-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              我为什么放弃学习iOS开发
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2017-12-31T17:25:39+08:00" content="2017-12-31">
+            2017-12-31
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/iOS开发杂项/" itemprop="url" rel="index">
+                  <span itemprop="name">iOS开发杂项</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>首先是结论：我决定放弃学习iOS开发。在这两年的时间里，我学习了swift语言，学习了简单的iOS应用的一些内容，包括各种控件、界面元素、动画、操作的实现等等。我练习了一些swift语言本身的Demo，并用纯swift写了一些小的app，至今纯属练手，质量和创意都还达不到上架的要求。事实上从第二年开始我就比较少写iOS代码了，但即使是一年这个进度也是很差的了。<br>一直自我评价是个学习速度比较快的人，大学里花很短的时间完成过不少使用不同语言的小项目，但也许是老了学习能力变差了，这次的iOS学习却是让我感觉最困难的。一开始我就碰到了swift语言不稳定的问题，我开始的时候正是1.0到2.0的转换时期，很多用法、API的变化让我搜索问题的时候一头雾水，因为写文章的人并不会特意说明自己使用的版本，对于新人来说，看着1.0的教程，用着2.0的编译器确实有点难受，好在这也不是什么特别大的问题，克服克服就过了。但是后来的3.0、4.0就有点夸张了，我是那种Makefile里面要写-O3还绝对不允许自己代码编译的时候出现任何warning的人，看着更新一下Xcode再打开自己的项目一下子出来几百个红黄感叹号，我真的要晕过去了！！！ </p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/12/31/WhyIDropTheApple/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/12/31/WhyIDropTheApple/'>我为什么放弃学习iOS开发</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+<br>真正的问题出在开始学写应用了之后。 <a id="more"></a>我尝试写一点小的项目，结果发现iOS的开发原来是如此的复杂—各种API和依附其上的潜规则实在是太多了！即使是现在正在吐槽的我，一想到那些巨量的库和函数、属性、各种用法，我就开始脑袋放空半天无从说起。iOS自己是一个精密的系统，开放的功能虽然不全但是用起来绕口，有点不符合日常思维的感觉，需要开发者有很好的iOS的思维。另外它对应用的要求也非常高，动辄出现各种细枝末节的问题，还有很多鸡零狗碎的数据，都需要你花费不少的精力。比如什么任务栏高度是多少像素，如何避免在retina屏幕上使用双倍像素的图片，还有什么底部自动出现的一像素的线条之类，更讨厌的是你想去搜索一下问题的答案，却会见到各种版本的不同处理方式，iOS7，8，9，10，11，12……一路走来的iOS，其多变性让大佬惊喜、让新手哭泣。<br>在学习的过程中，我还在github维护了一个收集swift版iOS开发资源和教程的小项目，订阅了一些相关的信息来源，阅读之后整理在上面。随着读到的东西越来越多，内容越来越广泛，我的心态也越来越崩溃：我离一个成熟的iOS开发者还差了十万八千里。事实上我还在家solo办公接一些Linux系统开发的工作，忙碌起来业余学习的时间便捉衿见肘，更让我感到成功之日遥遥无期。让我首次想到放弃的时刻，是发布了swift3.0之后。当时我对着Xcode发了半天呆，恨不得立刻删掉应用再也不碰什么鬼swift了。后来虽然硬着头皮花了很多时间把swift的语法和函数又过了一遍，但“不能半途而废”和“不要过于在意沉没成本”的两个敌对的想法一直在脑子里打架，直到iPhoneX的问世。看着被iPhoneX+iOS12+Xcode9的适配折磨到奄奄一息还拼命发着教程的各路英雄豪杰，我实在忍不了了：去你的iOS开发！<br>怒摔键盘之后，我冷静地思考了一下自己学习iOS开发的初衷，看看时至今日这些原因还是否存在：</p>
+<ol>
+<li>手机端应用的流行是未来趋势，想学习。手机在日常生活中扮演的重要地位不言而喻，这个趋势依然存在，然而iOS开发的热度明显是在下降。这其中我认为有两方面的原因：一是Apple和Google阵营在手机上的实力差距大不如之前的悬殊，甚至如今谁更厉害大家都是各有所见；二是随着Web端的兴盛，基于系统的应用有衰退的趋势，将来如果系统能全面支持基于H5的应用，那么纯应用的低位便岌岌可危了。</li>
+<li>想学习一门新的语言。开始的时候，我是很喜欢Swift的，对于用了多年C的我来说，不管是语法上还是思想上都有很多高级特性，让人很有尝试的欲望。虽然我对于除C以外的很多语言都略懂皮毛，但swift给我的感觉是能够当作C以外的第二语言，特别是开源这个动作很让人对它的未来有所期待。但是它一次次的迭代升级、糟糕的稳定性，繁琐的语法细节，让我最终不胜其烦。与此同时，由于工作需要接触到了python，其简单易用的程度和海量的公开库都让我惊喜连连，更别提它对各种系统的兼容程度了！虽然也同样有很多让人无从下口的槽点，跟C的严谨度更是不可同日而语，但瑕不掩瑜，我已经把python当作自己的日常语言，写个程序算点东西、画个图分析数据什么的，大大提高效率。一次书写，包括UI全平台可用，我所有的终端：Mac、 Windows7-10、Ubuntu、远程服务器Cento、甚至连树莓派都能一行不用改，简直太美好了！</li>
+<li>Apple的软件开发收入不错。这个就……我不知道是不是一开始我就误会了，当初想用业余时间学点新东西，如果想换份工作选择也大点。但是现在看起来，iOS开发者的市场，在一大波培训班学员的冲击下，已经大不如前，反而Linux开发一直都还算稳定。当个独立开发者，我感觉需要投入全部的时间和精力，光业余玩票是玩不起来的，除非本人特别聪明。<br>目前Apple自身似乎也有日薄西山的趋势，近两年不论是软件还是硬件都频出差错。早些年讨论iOS应用限免或者推荐之类的话题还很有热度，现在好像都进入了瓶颈期或者说平淡期。就我自己而言，从iPhone4就开始每年紧跟时代换手机，这次iPhoneX却不知为何一点欲望也没有。MacbookPro用了三年也不想换，原本很渴望MacPro更新产品线就买，结果出来了之后内心毫无波动……<br>回想一下自己的失败，当然最大的原因是自己不够聪明不够努力，以半吊子的心态去玩玩，然后发现果然玩不转。现在看来，选择从swift入手是一个错误的决定，学习用一个不稳定的语言去写一个不稳定的系统环境（这里的不稳定是指API）上的应用，实在是有点为难自己了。加上大多数教程和资料其实都不是基于swift而是OC，这个难度就更大一点。另外一方面是我的学习方法不系统，对于这种庞大的内容来说是完全不能够适应的。我是一个在编程学习上习惯以结果为导向的码农，不管是新语言还是新功能，需要学什么就直接去写，不会的地方再查资料，写着写着自然就学会了。这种方式一直以来都比较奏效，但在iOS学习的过程中，变化因素比较多，系统本身也很复杂，常常发现不是自己想的那样，为了完成一个功能，从一个切入点能延伸到好几个别的地方，结果把自己搞晕了。<br>不多谈了，总之我决定结束自己的iOS开发学习，中止目前每月进行的开发tips发布，同时这个资源收集项目<a href="https://github.com/conanwhf/ResourceDoc" title="ResourceDoc" target="_blank" rel="external">ResourceDoc</a>也停止更新。以上！</li>
+</ol>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/31/ReadingList2017-12/" rel="next">读书清单 2017-12</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/logo.png" alt="Conan Wang" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Conan Wang</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">入门iOS开发、机器学习，Linux半吊子，相关不相关乱七八糟的一切</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">98</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/conanwhf" target="_blank">Github</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/1864854042" target="_blank">Weibo</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="/atom.xml" target="_blank">rss</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:conan.whf@gmail.com" target="_blank">MailtoMe</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">Links</p>
+            
+              <span class="links-of-author-item">
+              <a href="http://conanwhf.github.io" target="_blank">本站地址</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://conanwhf.coding.me" target="_blank">本站镜像</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">iOS资源收集(Swift)</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp;  2015 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Conan Wang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Conan学习笔记]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://conanwhf.github.io/"/>
-  <updated>2017-12-07T09:04:32.064Z</updated>
+  <updated>2018-02-05T10:19:45.608Z</updated>
   <id>http://conanwhf.github.io/</id>
   
   <author>
@@ -13,6 +13,119 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[我为什么放弃学习iOS开发]]></title>
+    <link href="http://conanwhf.github.io/2017/12/31/WhyIDropTheApple/"/>
+    <id>http://conanwhf.github.io/2017/12/31/WhyIDropTheApple/</id>
+    <published>2017-12-31T09:25:39.000Z</published>
+    <updated>2018-02-05T10:19:45.608Z</updated>
+    <content type="html"><![CDATA[<p>首先是结论：我决定放弃学习iOS开发。在这两年的时间里，我学习了swift语言，学习了简单的iOS应用的一些内容，包括各种控件、界面元素、动画、操作的实现等等。我练习了一些swift语言本身的Demo，并用纯swift写了一些小的app，至今纯属练手，质量和创意都还达不到上架的要求。事实上从第二年开始我就比较少写iOS代码了，但即使是一年这个进度也是很差的了。<br>一直自我评价是个学习速度比较快的人，大学里花很短的时间完成过不少使用不同语言的小项目，但也许是老了学习能力变差了，这次的iOS学习却是让我感觉最困难的。一开始我就碰到了swift语言不稳定的问题，我开始的时候正是1.0到2.0的转换时期，很多用法、API的变化让我搜索问题的时候一头雾水，因为写文章的人并不会特意说明自己使用的版本，对于新人来说，看着1.0的教程，用着2.0的编译器确实有点难受，好在这也不是什么特别大的问题，克服克服就过了。但是后来的3.0、4.0就有点夸张了，我是那种Makefile里面要写-O3还绝对不允许自己代码编译的时候出现任何warning的人，看着更新一下Xcode再打开自己的项目一下子出来几百个红黄感叹号，我真的要晕过去了！！！ </p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/12/31/WhyIDropTheApple/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/12/31/WhyIDropTheApple/'>我为什么放弃学习iOS开发</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+<br>真正的问题出在开始学写应用了之后。 <a id="more"></a>我尝试写一点小的项目，结果发现iOS的开发原来是如此的复杂—各种API和依附其上的潜规则实在是太多了！即使是现在正在吐槽的我，一想到那些巨量的库和函数、属性、各种用法，我就开始脑袋放空半天无从说起。iOS自己是一个精密的系统，开放的功能虽然不全但是用起来绕口，有点不符合日常思维的感觉，需要开发者有很好的iOS的思维。另外它对应用的要求也非常高，动辄出现各种细枝末节的问题，还有很多鸡零狗碎的数据，都需要你花费不少的精力。比如什么任务栏高度是多少像素，如何避免在retina屏幕上使用双倍像素的图片，还有什么底部自动出现的一像素的线条之类，更讨厌的是你想去搜索一下问题的答案，却会见到各种版本的不同处理方式，iOS7，8，9，10，11，12……一路走来的iOS，其多变性让大佬惊喜、让新手哭泣。<br>在学习的过程中，我还在github维护了一个收集swift版iOS开发资源和教程的小项目，订阅了一些相关的信息来源，阅读之后整理在上面。随着读到的东西越来越多，内容越来越广泛，我的心态也越来越崩溃：我离一个成熟的iOS开发者还差了十万八千里。事实上我还在家solo办公接一些Linux系统开发的工作，忙碌起来业余学习的时间便捉衿见肘，更让我感到成功之日遥遥无期。让我首次想到放弃的时刻，是发布了swift3.0之后。当时我对着Xcode发了半天呆，恨不得立刻删掉应用再也不碰什么鬼swift了。后来虽然硬着头皮花了很多时间把swift的语法和函数又过了一遍，但“不能半途而废”和“不要过于在意沉没成本”的两个敌对的想法一直在脑子里打架，直到iPhoneX的问世。看着被iPhoneX+iOS12+Xcode9的适配折磨到奄奄一息还拼命发着教程的各路英雄豪杰，我实在忍不了了：去你的iOS开发！<br>怒摔键盘之后，我冷静地思考了一下自己学习iOS开发的初衷，看看时至今日这些原因还是否存在：</p>
+<ol>
+<li>手机端应用的流行是未来趋势，想学习。手机在日常生活中扮演的重要地位不言而喻，这个趋势依然存在，然而iOS开发的热度明显是在下降。这其中我认为有两方面的原因：一是Apple和Google阵营在手机上的实力差距大不如之前的悬殊，甚至如今谁更厉害大家都是各有所见；二是随着Web端的兴盛，基于系统的应用有衰退的趋势，将来如果系统能全面支持基于H5的应用，那么纯应用的低位便岌岌可危了。</li>
+<li>想学习一门新的语言。开始的时候，我是很喜欢Swift的，对于用了多年C的我来说，不管是语法上还是思想上都有很多高级特性，让人很有尝试的欲望。虽然我对于除C以外的很多语言都略懂皮毛，但swift给我的感觉是能够当作C以外的第二语言，特别是开源这个动作很让人对它的未来有所期待。但是它一次次的迭代升级、糟糕的稳定性，繁琐的语法细节，让我最终不胜其烦。与此同时，由于工作需要接触到了python，其简单易用的程度和海量的公开库都让我惊喜连连，更别提它对各种系统的兼容程度了！虽然也同样有很多让人无从下口的槽点，跟C的严谨度更是不可同日而语，但瑕不掩瑜，我已经把python当作自己的日常语言，写个程序算点东西、画个图分析数据什么的，大大提高效率。一次书写，包括UI全平台可用，我所有的终端：Mac、 Windows7-10、Ubuntu、远程服务器Cento、甚至连树莓派都能一行不用改，简直太美好了！</li>
+<li>Apple的软件开发收入不错。这个就……我不知道是不是一开始我就误会了，当初想用业余时间学点新东西，如果想换份工作选择也大点。但是现在看起来，iOS开发者的市场，在一大波培训班学员的冲击下，已经大不如前，反而Linux开发一直都还算稳定。当个独立开发者，我感觉需要投入全部的时间和精力，光业余玩票是玩不起来的，除非本人特别聪明。<br>目前Apple自身似乎也有日薄西山的趋势，近两年不论是软件还是硬件都频出差错。早些年讨论iOS应用限免或者推荐之类的话题还很有热度，现在好像都进入了瓶颈期或者说平淡期。就我自己而言，从iPhone4就开始每年紧跟时代换手机，这次iPhoneX却不知为何一点欲望也没有。MacbookPro用了三年也不想换，原本很渴望MacPro更新产品线就买，结果出来了之后内心毫无波动……<br>回想一下自己的失败，当然最大的原因是自己不够聪明不够努力，以半吊子的心态去玩玩，然后发现果然玩不转。现在看来，选择从swift入手是一个错误的决定，学习用一个不稳定的语言去写一个不稳定的系统环境（这里的不稳定是指API）上的应用，实在是有点为难自己了。加上大多数教程和资料其实都不是基于swift而是OC，这个难度就更大一点。另外一方面是我的学习方法不系统，对于这种庞大的内容来说是完全不能够适应的。我是一个在编程学习上习惯以结果为导向的码农，不管是新语言还是新功能，需要学什么就直接去写，不会的地方再查资料，写着写着自然就学会了。这种方式一直以来都比较奏效，但在iOS学习的过程中，变化因素比较多，系统本身也很复杂，常常发现不是自己想的那样，为了完成一个功能，从一个切入点能延伸到好几个别的地方，结果把自己搞晕了。<br>不多谈了，总之我决定结束自己的iOS开发学习，中止目前每月进行的开发tips发布，同时这个资源收集项目<a href="https://github.com/conanwhf/ResourceDoc" title="ResourceDoc" target="_blank" rel="external">ResourceDoc</a>也停止更新。以上！</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>首先是结论：我决定放弃学习iOS开发。在这两年的时间里，我学习了swift语言，学习了简单的iOS应用的一些内容，包括各种控件、界面元素、动画、操作的实现等等。我练习了一些swift语言本身的Demo，并用纯swift写了一些小的app，至今纯属练手，质量和创意都还达不到上架的要求。事实上从第二年开始我就比较少写iOS代码了，但即使是一年这个进度也是很差的了。<br>一直自我评价是个学习速度比较快的人，大学里花很短的时间完成过不少使用不同语言的小项目，但也许是老了学习能力变差了，这次的iOS学习却是让我感觉最困难的。一开始我就碰到了swift语言不稳定的问题，我开始的时候正是1.0到2.0的转换时期，很多用法、API的变化让我搜索问题的时候一头雾水，因为写文章的人并不会特意说明自己使用的版本，对于新人来说，看着1.0的教程，用着2.0的编译器确实有点难受，好在这也不是什么特别大的问题，克服克服就过了。但是后来的3.0、4.0就有点夸张了，我是那种Makefile里面要写-O3还绝对不允许自己代码编译的时候出现任何warning的人，看着更新一下Xcode再打开自己的项目一下子出来几百个红黄感叹号，我真的要晕过去了！！！ <!-- indicate-the-source --><br>真正的问题出在开始学写应用了之后。]]>
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://conanwhf.github.io/tags/iOS/"/>
+    
+      <category term="iOS开发杂项" scheme="http://conanwhf.github.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[读书清单 2017-12]]></title>
+    <link href="http://conanwhf.github.io/2017/12/31/ReadingList2017-12/"/>
+    <id>http://conanwhf.github.io/2017/12/31/ReadingList2017-12/</id>
+    <published>2017-12-31T02:36:54.000Z</published>
+    <updated>2018-02-05T10:20:18.498Z</updated>
+    <content type="html"><![CDATA[<h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2><ol>
+<li>名侦探柯南漫画</li>
+<li>Pocket</li>
+</ol>
+<h2 id="u6B63_u5728_u8BFB_u7684_u4E66"><a href="#u6B63_u5728_u8BFB_u7684_u4E66" class="headerlink" title="正在读的书"></a>正在读的书</h2><ol>
+<li>机器学习实践</li>
+</ol>
+<h2 id="u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_uFF0810-12_u6708_uFF09_33-75"><a href="#u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_uFF0810-12_u6708_uFF09_33-75" class="headerlink" title="买的正版非免费书（10-12月）             33.75"></a>买的正版非免费书（10-12月）             <strong>33.75</strong></h2><ol>
+<li>面向机器智能的TensorFlow实践 <strong>12.50</strong></li>
+<li>算法竞赛入门经典——训练指南 <strong>10.02</strong></li>
+<li>算法竞赛入门经典（第2版）   <strong>4.99</strong></li>
+<li>Python金融实战 (异步图书)   <strong>21.22</strong></li>
+</ol>
+<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>兴奋万分地薅羊毛！某天逛亚马逊， <a id="more"></a>看到有“科技好书-下单五折”的活动，里面好像有基本不错，就打开网页浏览一下，顺便看到有另外一个活动：电子工业出版社的部分书，下单五折。再仔细看看，这两个活动的内容有些书是重复的，点进去一看，果然是同时参加两个活动……确实有想买的又同时参加两个活动的书，心里暗爽：技术类书籍一般折扣不多，这次可以25折拿下！一结帐，我惊呆了：免费！亚马逊良心企业啊！两个五折的结果是免费？！我简直兴奋得不行，继某次不知道什么活动开心地狂薅86本之后，又一次机会来了！！当然，激动之下，我也没有把所有的免费都拿下，毕竟有的烂书光是放在自己的库里都觉得碍眼。比较好的有：</p>
+<ul>
+<li>Web信息架构:设计大型网站(第3版) </li>
+<li>有效需求分析 </li>
+<li>机器学习算法原理与编程实践 </li>
+<li>SEO深度解析:全面挖掘搜索引擎优化的核心秘密(第2版)(改版) </li>
+<li>大象无形：虚幻引擎程序设计浅析 </li>
+<li>Swift进阶 </li>
+<li>Android移动性能实战 </li>
+<li>Python 3面向对象编程 </li>
+<li>数据恢复技术深度揭秘(第二版) </li>
+<li>深入理解并行编程 </li>
+<li>跨境电商与国际物流——机遇、模式及运作 </li>
+<li>Python Web开发实战 </li>
+<li>啊哈C语言！逻辑的挑战（修订版） </li>
+<li>安全简史——从隐私保护到量子密码 </li>
+<li>大数据智能——互联网时代的机器学习和自然语言处理技术 </li>
+<li>自己动手设计物联网 </li>
+<li>NLP汉语自然语言处理原理与实践 </li>
+<li>网络爬虫全解析——技术、原理与实践 </li>
+<li>白帽子讲Web扫描 (安全技术大系) </li>
+<li>Python机器学习算法 </li>
+<li>MATLAB计算机视觉与深度学习实战<br>多数是可以拿来当参考书翻翻，不必字字句句阅读的。嗯……很满意！</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2><ol>
+<li>名侦探柯南漫画</li>
+<li>Pocket</li>
+</ol>
+<h2 id="u6B63_u5728_u8BFB_u7684_u4E66"><a href="#u6B63_u5728_u8BFB_u7684_u4E66" class="headerlink" title="正在读的书"></a>正在读的书</h2><ol>
+<li>机器学习实践</li>
+</ol>
+<h2 id="u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_uFF0810-12_u6708_uFF09_33-75"><a href="#u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_uFF0810-12_u6708_uFF09_33-75" class="headerlink" title="买的正版非免费书（10-12月）             33.75"></a>买的正版非免费书（10-12月）             <strong>33.75</strong></h2><ol>
+<li>面向机器智能的TensorFlow实践 <strong>12.50</strong></li>
+<li>算法竞赛入门经典——训练指南 <strong>10.02</strong></li>
+<li>算法竞赛入门经典（第2版）   <strong>4.99</strong></li>
+<li>Python金融实战 (异步图书)   <strong>21.22</strong></li>
+</ol>
+<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>兴奋万分地薅羊毛！某天逛亚马逊，]]>
+    
+    </summary>
+    
+      <category term="BookList" scheme="http://conanwhf.github.io/tags/BookList/"/>
+    
+      <category term="Life &amp; Other" scheme="http://conanwhf.github.io/categories/Life-Other/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[开发Tips收集-2017年11月]]></title>
@@ -1514,129 +1627,6 @@ jump_to_image_no_args(&amp;spl_image);
       <category term="iOS - Swift" scheme="http://conanwhf.github.io/tags/iOS-Swift/"/>
     
       <category term="DevTips" scheme="http://conanwhf.github.io/categories/DevTips/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[读书清单 2017-02]]></title>
-    <link href="http://conanwhf.github.io/2017/02/28/ReadingList2017-02/"/>
-    <id>http://conanwhf.github.io/2017/02/28/ReadingList2017-02/</id>
-    <published>2017-02-28T02:36:54.000Z</published>
-    <updated>2017-09-22T09:03:37.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li><strong>术与道:移动应用UI设计必修课</strong><br>家里人这次过来帮我带了不少实体书，这就是其中的一本，亚马逊双十一打折时候买的。整本书内容很少，图特别多，用零碎时间翻了两下就看完了。开始的时候，即使是小白如我也觉得作者在凑字数骗稿费，后来慢慢地看出一点点门道，关于APP设计的思维和规范，虽然书里真的没讲什么，都是基础得不能再基础的东西。不过作为一个一点都不懂设计的开发人员，看完以后有一点点入门的感觉。我猜人家的受众也就是定义在刚毕业啥都不会的菜鸟设计师，作为一本教设计的书来说肯定不合格太简单了，但是对我倒是有点正合适。准备下回写APP的时候认真地按照书中讲的设计规范来做事，也算是没白看。</li>
-<li><strong>金融的解释:金融学二十九讲</strong><br>这本书是早就定下的书单，跟着那本斯坦福极简经济学的，先读读经济原理，再搞清楚金融运作。它经常出现在各种推荐书单上，我原本抱有很大的期望，但也许是珠玉在前，一读之下，有点失望。此书的前面三分之一部分也是讲经济的，后面才引申到金融。跟极简经济学那本相比，明显少了一种脉络感，让人有种盲人摸象无法领悟整体的感觉。同样的内容，这本书就更像是拿教科书来扩充讲解一下，读完了还是有点模模糊糊无法抓住重点；而斯坦福极简经济学则会把经济学中各种概念的因果关系和相互影响的线索讲得很清晰，读完心中自成体系。<a id="more"></a></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/02/28/ReadingList2017-02/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/02/28/ReadingList2017-02/'>读书清单 2017-02</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-
-所以不知道是金融的部分更难，还是确实作者功力有限，后面的金融学部分我读完了还是有点雾里看花的感觉。原本读这本书就是带有功利性的，想多了解一些金融的运作，对自己的投资行为有所帮助。可是读完了只是明白了那些概念是什么，而不明白那些变化是为什么；以我自己的功力，显然不足以自行推演出来。不明白为什么的话，又怎么能进行逻辑分析、指导实践呢？于是这本书完全变成了金融学科普，没有达到想象中的效果。</li>
-<li><strong>几何天才的杰作:伊斯兰图案设计</strong><br>很薄的一本小册子，看中亚的评价都出乎意料地好，于是买了。这本书从最基本的五芒星、正方形、圆形等构件出发，利用各个形状的不同比例，通过各种重复、旋转、组合、扩充（不同图形的顶点相连）来变化出更多更复杂的图形。我一直很喜欢分形的东西，觉得那种无限延伸的秩序感很让人着迷，这本书中的很多图就让我可以发上好久的呆。原本以为这本书会比较偏数学，但其实只是由浅入深比较平实地罗列各种伊斯兰图案而已。让我感到震惊的是，书中讲到，每个图案都有它自己代表的意思，对应古兰经中的内容；甚至他们有一套使用阿拉伯数字以前的数字和符号系统，也能融入图案中去，一幅图可以表明古兰经中的某一章节！我看了那图，感觉前阵子《你一生的故事》中间外星人的文字也不过就是这样了……<br>书的最后还有一些实践性的内容，告诉你如何使用模板自己画一些相对简单的图案（其实也很复杂了）。刚好最近买了点磁力小短棒和钢珠在搭着玩，亲身体会到了书中说的那些奇妙的变换。关于等n边型的不同边长和角度的重复却神奇的变化，图形的世界真是令人着迷！</li>
-</ol>
-<h2 id="u8BFB_u5B8C_u7684_u6742_u5FD7"><a href="#u8BFB_u5B8C_u7684_u6742_u5FD7" class="headerlink" title="读完的杂志"></a>读完的杂志</h2><ol>
-<li>中文传媒精选</li>
-<li>知乎周刊</li>
-<li>名侦探柯南漫画vol.928-985</li>
-</ol>
-<h2 id="u6B63_u5728_u8BFB_u7684_u4E66"><a href="#u6B63_u5728_u8BFB_u7684_u4E66" class="headerlink" title="正在读的书"></a>正在读的书</h2><ol>
-<li>蒋勋说红楼梦</li>
-<li>《经济学人》2016必读精选-当黑天鹅坐上无人车</li>
-<li>大脑使用指南：其实你活在大脑创造的虚拟世界中</li>
-</ol>
-<h2 id="u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_43-96"><a href="#u4E70_u7684_u6B63_u7248_u975E_u514D_u8D39_u4E66_43-96" class="headerlink" title="买的正版非免费书             43.96"></a>买的正版非免费书             <strong>43.96</strong></h2><ol>
-<li>人类砍头小史                <strong>1.99</strong></li>
-<li>第一推动丛书·宇宙系列（套装共6册，一套书读懂宇宙、黑洞与时空）                      <strong>12.99</strong></li>
-<li>科学最前沿·第一辑 (《科学美国人》精选系列·科学最前沿)  <strong>15.99</strong></li>
-<li>科学最前沿·第二辑 (《科学美国人》精选系列·科学最前沿)  <strong>12.99</strong></li>
-</ol>
-<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>这个月过年，年后工作也来了。再加上我迷上了拼图，一下子买买买一大堆，很多业余时间都花在拼图上，花在读书上的时间就更少了。不过年后父母过来，帮我把新买的静境电子书也带来，大屏幕真的很爽！我一口气看完了去年一整年的柯南漫画，还不过瘾，想看《长歌行》硬是忍住了。现在可以直接带着去健身房看书了，不过只有椭圆机上OK，真正跑步的时候看时不时翻页需要稳定手指，严重扰乱呼吸节奏。所以现在都是带着iPad和静境去，有椭圆机就看书、没有就上跑步机看片😊 。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li><strong>术与道:移动应用UI设计必修课</strong><br>家里人这次过来帮我带了不少实体书，这就是其中的一本，亚马逊双十一打折时候买的。整本书内容很少，图特别多，用零碎时间翻了两下就看完了。开始的时候，即使是小白如我也觉得作者在凑字数骗稿费，后来慢慢地看出一点点门道，关于APP设计的思维和规范，虽然书里真的没讲什么，都是基础得不能再基础的东西。不过作为一个一点都不懂设计的开发人员，看完以后有一点点入门的感觉。我猜人家的受众也就是定义在刚毕业啥都不会的菜鸟设计师，作为一本教设计的书来说肯定不合格太简单了，但是对我倒是有点正合适。准备下回写APP的时候认真地按照书中讲的设计规范来做事，也算是没白看。</li>
-<li><strong>金融的解释:金融学二十九讲</strong><br>这本书是早就定下的书单，跟着那本斯坦福极简经济学的，先读读经济原理，再搞清楚金融运作。它经常出现在各种推荐书单上，我原本抱有很大的期望，但也许是珠玉在前，一读之下，有点失望。此书的前面三分之一部分也是讲经济的，后面才引申到金融。跟极简经济学那本相比，明显少了一种脉络感，让人有种盲人摸象无法领悟整体的感觉。同样的内容，这本书就更像是拿教科书来扩充讲解一下，读完了还是有点模模糊糊无法抓住重点；而斯坦福极简经济学则会把经济学中各种概念的因果关系和相互影响的线索讲得很清晰，读完心中自成体系。]]>
-    
-    </summary>
-    
-      <category term="BookList" scheme="http://conanwhf.github.io/tags/BookList/"/>
-    
-      <category term="Life &amp; Other" scheme="http://conanwhf.github.io/categories/Life-Other/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[静境电子书评测]]></title>
-    <link href="http://conanwhf.github.io/2017/02/12/JingJingTest/"/>
-    <id>http://conanwhf.github.io/2017/02/12/JingJingTest/</id>
-    <published>2017-02-12T09:35:25.000Z</published>
-    <updated>2017-06-12T15:16:03.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="u6574_u4F53_u611F_u89C9"><a href="#u6574_u4F53_u611F_u89C9" class="headerlink" title="整体感觉"></a>整体感觉</h2><p>我已经有个KPW3，携带方便，其他方面都挺满意，就是觉得屏幕小了点。大屏电子书可选择的太少，我的要求一是要屏大，二是要能看的格式多（我对PDF要求并不多，我的书基本上以azw3&amp;mobi为主，少量epub&amp;pdf），三是不要太重（不能超过iPad），这三条综合下来就已经淘汰了大法、DXG，最终选了静境，带电磁书写款，总价2399。<br>整个静境电子书的大小比普通的教材书籍略小<a id="more"></a><br></p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2017/02/12/JingJingTest/</p><p>访问原文「<a href='http://conanwhf.github.io/2017/02/12/JingJingTest/'>静境电子书评测</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
-<script type="text/javascript">
-(function() {
-  Element.prototype.remove = function() {
-    this.parentElement.removeChild(this);
-  }
-  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
-    for(var i = this.length - 1; i >= 0; i--) {
-        if(this[i] && this[i].parentElement) {
-            this[i].parentElement.removeChild(this[i]);
-        }
-    }
-  }
-  var domain = document.domain;
-  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
-  if (white_list.indexOf(domain) >= 0) {
-    var elements = document.getElementsByClassName('source');
-    elements.remove();
-  }
-})()
-</script>
-（见图），重量和加了套的KPW3差不多，和KPW3一样，屏幕凹陷背壳采用塑料材质，但磨砂的手感很好，显得还挺有质感不廉价。标配一个电磁笔和皮套，电子书的身体上没有放笔的地方，略不方便，皮套倒是显得挺有档次。<br><img src="http://whf.d.pr/vvXb+" alt=""><br><img src="http://whf.d.pr/wDJU+" alt=""><br>机器9.7寸显示屏，内部存储12G，没有扩展卡，没有背光，支持WIFI和蓝牙，整个系统是采用的Android4.4，是厂家自己修改过的优化版系统，还自带一个应用商城，里面放的厂家优化过的一些APP，也支持自己另外装APP。从我的测试结果来看，普通的Android应用还是别想了，随便一点点刷新就能闪瞎。让我觉得有点不爽的是，通过USB连到电脑上，Mac居然看不见，我只好去开了Win10的虚拟机。</p>
-<h2 id="u663E_u793A_u6548_u679C"><a href="#u663E_u793A_u6548_u679C" class="headerlink" title="显示效果"></a>显示效果</h2><p>电子书最重要的就是显示效果了，但是关于显示效果，在静境上有两种不同的显示模式：画质优先和速度优先。感觉上它们的区别一是16阶灰度和8阶（可能更低）灰度；一是画质优先时会每次都整屏强制刷新以消除残影，而速度优先的刷新频率不明。因为这个灰度的问题，在速度优先时简直无法使用普通的UI，特别是那些深色为底色的APP(比如Kindle)，不光书的封面图案难辨，甚至是白色图形的按键像是返回的箭头也看不见！<br>在看书的时候，画质优先和速度优先的模式，也会有一些不同。速度优先效果会差一点，字体边缘的颗粒感比较明显，而体现在字体放得比较小的时候就是某些细的笔划会消失；画质优先的显示效果好，但每次的强制刷新让人还是不舒服，我习惯了KPW3的人都难以适应。这两种模式的显示区别，我胡乱猜想一下大概就是KPW3和入门版Kindle的区别吧。下图是KPW3和静境的显示对比，因为静境没有背光，所以我也把Kindle的背光调整到0。<br><img src="http://whf.d.pr/aYMV+" alt=""><br>这是静境的画质优先模式，可以看到，字体的显示两者基本上是差不多的，但静境整体比较暗，估计傍晚看就得开灯了。我自己贴了个DXG的贴膜，但手残没贴好有气泡，各位看官忽略。另外强光下静境的反光比Kindle严重，不过两个设备我都是贴了磨砂膜，所以也不好说。<br>翻页速度方面，速度优先的模式下，静境和Kindle差不多。考虑到屏幕大小差很多，这也算不错了。而画质优先模式下就比较慢，同时点屏幕，Kindle已经翻完了静境才开始翻，然后又是一个同样的时间才翻完。而且翻页的时候强制刷新不知道是全黑了一下还是怎么，反正刷新的时候特别明显。以上这些测试是用的静境应用商城里的Kindle app，其他的应用效果可能略有不同。<br>另外速度模式因为不刷新，所以翻页多了之后会有很明显的重影，不过你可以手动按键刷新。下面的图是速度模式下的显示效果以及翻页4次以后的残影情况。<br><img src="http://whf.d.pr/IsKa+" alt=""><br>综上所述，我觉得这两种模式，看纯文字书的时候适合用速度优先模式，而普通的应用界面和看漫画适合用画质优先。幸好设备的三个按键中间有一个就是调整刷新的，长按就可以迅速切换。</p>
-<h2 id="u6587_u4EF6_u652F_u6301"><a href="#u6587_u4EF6_u652F_u6301" class="headerlink" title="文件支持"></a>文件支持</h2><p>然后谈谈各种文件的支持。我把商城里面的几种阅读应用都下下来了，用几个漫画、不同的格式、几个大文件（400MB左右）、扫描版PDF等挨个测试了一遍：</p>
-<ol>
-<li>系统自带的阅读器：打开文件超级慢，经常死，好处是可以用电磁笔随时涂涂画画作笔记<ol>
-<li>fbreader：支持azw3，太慢，容易死机，</li>
-<li>koreader：我的漫画mobi和chm打开出错，不支持azw3，打开大文件慢但阅读速度不错，支持pdf切边重排</li>
-<li>静读天下：UI不错，不支持azw3，不支持pdf重排，大文件打开快</li>
-<li>alreader，支持azw3但不支持PDF，打开大文件速度比静读天下慢，但打开后反应流畅；看漫画自动缩放比例效果很好，无需特殊调整</li>
-<li>福昕阅读器：专门阅读PDF，支持重排，打开文件快，也可以作笔记，但笔记反应比较慢<br>总的来说，最后我选择alreader作为主力，扫描PDF用福昕，还是足够解决各种需求的。以下是漫画、代码、英文等几种书的阅读实拍：<br><img src="http://whf.d.pr/yuJj+" alt=""><br><img src="http://whf.d.pr/ze4F+" alt=""><br><img src="http://whf.d.pr/VCOy+" alt=""><br><img src="http://whf.d.pr/ERMv+" alt=""><br><img src="http://whf.d.pr/kPMF+" alt=""></li>
-</ol>
-</li>
-</ol>
-<h2 id="u624B_u5199_u7B14"><a href="#u624B_u5199_u7B14" class="headerlink" title="手写笔"></a>手写笔</h2><p>静境配了一个电磁笔，支持电磁触控，号称能提供纸质一般的书写感。实际体验下来，主界面的便利贴和“草稿”应用都偶尔会被压在屏幕上的手掌干扰，但专门的笔记应用不会；书写感觉还是很流畅的，但不太跟笔，写得快了会有明显的时差；在PDF上写出那种像纸质书一样的笔记效果只有自带的阅读软件支持，虽然用起来还不错，但这个自带的阅读器开稍微大一点的文件就会死，打开文件也巨慢，所以普通小一点的文档还是没压力，书就还是算了。让我感到惊喜的是在笔记中笔另一端可以当橡皮擦用，很好玩。写的笔记会自动存成PNG图片，上一张我的测试图，字太丑请忽略：<br><img src="http://whf.d.pr/peSp+" alt=""><br>其实整个静境电子书的触摸反应不是特别灵敏，但对电磁笔的触控很灵敏，我现在已经习惯于左手拿书右手拿笔，感觉还不错。</p>
-<h2 id="u5176_u4ED6"><a href="#u5176_u4ED6" class="headerlink" title="其他"></a>其他</h2><p>受到安卓系统的局限，整个静境的操作简直惨不忍睹。我的日常设备都是Apple系的，已经习惯了各种流畅不折腾的使用，就算我曾经是个Android系统开发人员，也花了很多时间才让它达到可以安安静静看书的状态。几乎每个应用都要做出相应的调整：关闭动画效果、改滑动为翻页、改控制、改背景为白色……即使折腾好了，也要忍受卡卡的界面和并不少见的失去响应。虽然我对大屏显示的书和漫画满心喜欢，也不能忽略这些读书之外难以忍受的操作。</p>
-<h2 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h2><p>作为少有的大屏电子书，静境做到了基本的一点：读书。但我建议想下手的同学们，先考虑自己是否符合下面几条：</p>
-<ol>
-<li>常看漫画、PDF文档，或真的很喜欢用大屏看书，嫌Kindle太小</li>
-<li>拥有Kindle，能客观认识到墨水屏的种种局限性，并对此有足够的心理准备</li>
-<li>对看书这件事很热爱，对看书以外的事有耐心（针对卡卡的系统和App）</li>
-<li>不差这两千来块钱<br>都满足的话，勇敢下手吧！大屏看书看漫画真的很爽哒！</li>
-</ol>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="u6574_u4F53_u611F_u89C9"><a href="#u6574_u4F53_u611F_u89C9" class="headerlink" title="整体感觉"></a>整体感觉</h2><p>我已经有个KPW3，携带方便，其他方面都挺满意，就是觉得屏幕小了点。大屏电子书可选择的太少，我的要求一是要屏大，二是要能看的格式多（我对PDF要求并不多，我的书基本上以azw3&amp;mobi为主，少量epub&amp;pdf），三是不要太重（不能超过iPad），这三条综合下来就已经淘汰了大法、DXG，最终选了静境，带电磁书写款，总价2399。<br>整个静境电子书的大小比普通的教材书籍略小]]>
-    
-    </summary>
-    
-      <category term="Life &amp; Other" scheme="http://conanwhf.github.io/categories/Life-Other/"/>
     
   </entry>
   

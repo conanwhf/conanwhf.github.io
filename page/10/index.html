@@ -199,6 +199,180 @@
           
           
             
+              <a class="post-title-link" href="/2015/11/30/Tips201511/" itemprop="url">
+                开发Tips收集-2015年11月
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-11-30T17:25:39+08:00" content="2015-11-30">
+            2015-11-30
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/DevTips/" itemprop="url" rel="index">
+                  <span itemprop="name">DevTips</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>UICollectionView如果在数据不够一屏时上下滚动 当数据不多，collectionView.contentSize小于collectionView.frame.size的时候，UICollectionView是不会滚动的，可以增加下面代码就可以： self.myCollectionView.alwaysBounceVertical = YES;</li>
+<li>drawRect &amp; layoutSubviews两个方法都是异步执行，layoutSubviews方便数据计算，drawRect方便视图重绘。 </li>
+<li>drawRect方法使用注意点：<ol>
+<li>若使用UIView绘图，只能在drawRect：方法中获取相应的contextRef并绘图。如果在其他方法中获取将获取到一个invalidate 的ref并且不能用于画图。drawRect：方法不能手动显示调用，必须通过调用setNeedsDisplay 或 者 setNeedsDisplayInRect，让系统自动调该方法。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/11/30/Tips201511/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/11/12/Tips201510/" itemprop="url">
+                开发Tips收集-2015年11月以前
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-11-12T17:25:39+08:00" content="2015-11-12">
+            2015-11-12
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/DevTips/" itemprop="url" rel="index">
+                  <span itemprop="name">DevTips</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>这些小Tips为本人近期读书笔记，收集来自网络开发者发布的技术文档，并非原创，共享的目的是为了扩散分享技术，共同进步。<strong>如有侵权不得转载等情况，请联系我告知</strong>，谢谢！</p>
+</blockquote>
+<ul>
+<li>当view被添加其他view中之前时，会调用viewWillAppear，而之后会调用viewDidAppear；当view从其他view中移出之前时，会调用viewWillDisAppear，而之后会调用viewDidDisappear；当view不在使用，而且是disappeared，受到内存警告时，那么viewController会将view释放并将其指向nil</li>
+<li>UIImageView的用户交互是默认关闭的，加在它上面的控件自然也响应不了事件。只要把UIImageView的userInteractionEnabled改为YES就能解决问题了。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/11/12/Tips201510/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/11/05/ResourceInGit/" itemprop="url">
                 iOS开发资源
               </a>
@@ -701,197 +875,11 @@ sudo xcode-select --reset
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/10/02/HexoStep2/" itemprop="url">
-                Hexo进阶配置
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-10-02T18:40:05+08:00" content="2015-10-02">
-            2015-10-02
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>Hexo有很多插件和主题可以使用，功能实现丰富。所有插件list:<a href="https://github.com/hexojs/hexo/wiki/Plugins">https://github.com/hexojs/hexo/wiki/Plugins</a></p>
-<h2 id="u547D_u4EE4_u884C_u63D0_u4EA4"><a href="#u547D_u4EE4_u884C_u63D0_u4EA4" class="headerlink" title="命令行提交"></a>命令行提交</h2><p>官方教程：<a href="http://hexo.io/docs/deployment.html">http://hexo.io/docs/deployment.html</a></p>
-<ol>
-<li>安装插件<pre><code>npm install hexo-deployer-git --save
-</code></pre></li>
-<li>修改_config.yml<pre><code>deploy:
- - type: git
-  repo: https://github.com/username/username.github.io.git
-  branch: master
-</code></pre>之后即可使用<code>hexo d</code>来提交</li>
-</ol>
-<h2 id="u6DFB_u52A0RSS"><a href="#u6DFB_u52A0RSS" class="headerlink" title="添加RSS"></a>添加RSS</h2><ol>
-<li>GitHub Source code:
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/10/02/HexoStep2/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/10/02/Git+Hexo+Markdown.Blog/" itemprop="url">
-                Git+Hexo+Markdown搭建Blog
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-10-02T17:35:25+08:00" content="2015-10-02">
-            2015-10-02
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>GitHub提供域名解析和300MB免费空间，利用静态网站生成工具生成网页，提交后即可看到。网页生成工具有Jekyll, Octopress, Hexo等。这里选择Hexo，速度快，对中文支持较好<br>官网：<a href="https://hexo.io/zh-cn/docs/">https://hexo.io/zh-cn/docs/</a></p>
-<h2 id="GitHub_Pages_Setup"><a href="#GitHub_Pages_Setup" class="headerlink" title="GitHub Pages Setup"></a>GitHub Pages Setup</h2><ul>
-<li>New一个repository即可，域名为username.github.io<br><a href="https://pages.github.com">https://pages.github.com</a><br>先不用clone到本地，也不用生成任何类似于index.html的文件</li>
-<li>GitHub客户端：<br><a href="https://central.github.com/mac/latest" title="Download GitHub for Mac">Download GitHub for Mac</a></li>
-</ul>
-<h2 id="Hexo_Setup"><a href="#Hexo_Setup" class="headerlink" title="Hexo Setup"></a>Hexo Setup</h2><ol>
-<li>install node.js<ul>
-<li>命令行：<br>  curl <a href="https://raw.github.com/creationix/nvm/master/install.sh">https://raw.github.com/creationix/nvm/master/install.sh</a> | sh<br>  nvm install 0.10</li>
-</ul>
-</li>
-<li>或者客户端：<a href="https://nodejs.org/dist/v4.1.1/node-v4.1.1.pkg" title="Download for OS X (x64)">Download for OS X (x64)</a>　</li>
-<li>Install Hexo<pre><code>sudo npm install -g hexo-cli
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/10/02/Git+Hexo+Markdown.Blog/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/9/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/11/">&raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/9/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/11/">&raquo;</a>
   </nav>
 
  </div>
@@ -925,7 +913,7 @@ sudo xcode-select --reset
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">96</span>
+              <span class="site-state-item-count">98</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1013,7 +1001,7 @@ sudo xcode-select --reset
       <div class="footer-inner"> <div class="copyright" >
   
   &copy; &nbsp;  2015 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="icon-next-heart"></i>
   </span>
