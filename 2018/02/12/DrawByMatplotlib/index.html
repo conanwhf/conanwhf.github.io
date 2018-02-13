@@ -1,0 +1,914 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+  <meta name="google-site-verification" content="fm7O971xqa-IgxCWIey5wM-1kAOR1sTDp_gZfHxonGc" />
+
+
+
+  <meta name="baidu-site-verification" content="g1ag6ZODOB" />
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="Linux内核和系统半吊子，曾经的iOS开发者，入门机器学习和Python数据分析，相关不相关乱七八糟的一切" />
+
+
+
+  <meta name="keywords" content="Matplotlib," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Linux开发和七七八八" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="上周做了个股指的回顾，想用Python画图看看最近20年不同指数的变化情况，需要用到常用的matplotlib库来绘制折线图。整个plot函数的功能和参数很多，但作为初学者，我只用到了一些基本和常用的功能，想必普通画图也已经够了。 &amp;lt;!-- indicate-the-source --&amp;gt; 
+基础绘制折线图，实际上是根据x,y两个数组的数据来绘制一组数据点，并将它们用直线连接起来。而将每个点想象在一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="十五分种学会用matplotlib绘制图表">
+<meta property="og:url" content="http://conanwhf.github.io/2018/02/12/DrawByMatplotlib/index.html">
+<meta property="og:site_name" content="Linux开发和七七八八">
+<meta property="og:description" content="上周做了个股指的回顾，想用Python画图看看最近20年不同指数的变化情况，需要用到常用的matplotlib库来绘制折线图。整个plot函数的功能和参数很多，但作为初学者，我只用到了一些基本和常用的功能，想必普通画图也已经够了。 &amp;lt;!-- indicate-the-source --&amp;gt; 
+基础绘制折线图，实际上是根据x,y两个数组的数据来绘制一组数据点，并将它们用直线连接起来。而将每个点想象在一">
+<meta property="og:image" content="https://whf.d.pr/nlyXhY+">
+<meta property="og:image" content="https://whf.d.pr/aXw2r1+">
+<meta property="og:image" content="https://whf.d.pr/dtabEv+">
+<meta property="og:image" content="https://whf.d.pr/DEP4ZQ+">
+<meta property="og:image" content="https://whf.d.pr/SSoFoW+">
+<meta property="og:image" content="https://whf.d.pr/kTWNwb+">
+<meta property="og:updated_time" content="2018-02-13T03:35:59.271Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="十五分种学会用matplotlib绘制图表">
+<meta name="twitter:description" content="上周做了个股指的回顾，想用Python画图看看最近20年不同指数的变化情况，需要用到常用的matplotlib库来绘制折线图。整个plot函数的功能和参数很多，但作为初学者，我只用到了一些基本和常用的功能，想必普通画图也已经够了。 &amp;lt;!-- indicate-the-source --&amp;gt; 
+基础绘制折线图，实际上是根据x,y两个数组的数据来绘制一组数据点，并将它们用直线连接起来。而将每个点想象在一">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+  <title> 十五分种学会用matplotlib绘制图表 | Linux开发和七七八八 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-68644901-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?216209cca8026e16aa970c3db256725e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">Linux开发和七七八八</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            <i class="menu-item-icon icon-next-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            <i class="menu-item-icon icon-next-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              十五分种学会用matplotlib绘制图表
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2018-02-12T17:31:26+08:00" content="2018-02-12">
+            2018-02-12
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Python/" itemprop="url" rel="index">
+                  <span itemprop="name">Python</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>上周做了个股指的回顾，想用Python画图看看最近20年不同指数的变化情况，需要用到常用的matplotlib库来绘制折线图。整个plot函数的功能和参数很多，但作为初学者，我只用到了一些基本和常用的功能，想必普通画图也已经够了。<br> </p><span class='source'><blockquote><p>你看到的是非授权版本！爬虫凶猛，请尊重知识产权！</p><p>转载请注明出处：http://conanwhf.github.io/2018/02/12/DrawByMatplotlib/</p><p>访问原文「<a href='http://conanwhf.github.io/2018/02/12/DrawByMatplotlib/'>十五分种学会用matplotlib绘制图表</a>」获取最佳阅读体验并参与讨论</p></blockquote></span>
+<script type="text/javascript">
+(function() {
+  Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+  }
+  var domain = document.domain;
+  var white_list = ['conanwhf.github.io', 'conanwhf.coding.me', 'toutiao.io', '0.0.0.0'];
+  if (white_list.indexOf(domain) >= 0) {
+    var elements = document.getElementsByClassName('source');
+    elements.remove();
+  }
+})()
+</script>
+ </p>
+<h1 id="u57FA_u7840"><a href="#u57FA_u7840" class="headerlink" title="基础"></a>基础</h1><p>绘制折线图，实际上是根据x,y两个数组的数据来绘制一组数据点，并将它们用直线连接起来。而将每个点想象在一个直角坐标系中，x,y两个数组中的数据，也就是每个点的xy坐标。所以，在绘制函数中，要求x,y的数目相等，否则便会报错：<code>ValueError: x and y must have same first dimension</code>。<br>下面是一个最简单的绘制折线的例子，如果你用过Matlab的话一定感到非常熟悉（绘制结果略）：</p>
+<pre><code>#加载库
+import matplotlib.pyplot as plt
+#定义数据
+x=[1,2,3,4,5]
+y=[1,4,9,16,25]
+
+fig,ax = plt.subplots()     #初始化
+plt.plot(x, y)              #绘制函数
+plt.show()                  #显示
+</code></pre> <a id="more"></a> 
+<p>其中plot()函数是最重要的一步，它也同样可以有很多参数，包括颜色，函数的标识名称，绘制点的样式等等，这些参数常用的部分大致如下：</p>
+<table>
+<thead>
+<tr>
+<th>标记</th>
+<th>连接线型</th>
+<th>标记</th>
+<th>数据点型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>实线（默认）</td>
+<td>+</td>
+<td>加号</td>
+</tr>
+<tr>
+<td>–</td>
+<td>虚线</td>
+<td>o</td>
+<td>圆圈</td>
+</tr>
+<tr>
+<td>:</td>
+<td>点线</td>
+<td>*</td>
+<td>星号</td>
+</tr>
+<tr>
+<td>-.</td>
+<td>点横线</td>
+<td>.</td>
+<td>实心点</td>
+</tr>
+<tr>
+<td><strong>标记</strong></td>
+<td><strong>颜色</strong></td>
+<td>x</td>
+<td>叉</td>
+</tr>
+<tr>
+<td>r</td>
+<td>红</td>
+<td>s</td>
+<td>正方形</td>
+</tr>
+<tr>
+<td>g</td>
+<td>绿</td>
+<td>d</td>
+<td>钻石</td>
+</tr>
+<tr>
+<td>b</td>
+<td>蓝</td>
+<td>^</td>
+<td>上三角</td>
+</tr>
+<tr>
+<td>c</td>
+<td>蓝绿</td>
+<td>v</td>
+<td>下三角</td>
+</tr>
+<tr>
+<td>m</td>
+<td>紫红</td>
+<td>\&lt;</td>
+<td>左三角</td>
+</tr>
+<tr>
+<td>y</td>
+<td>黄</td>
+<td>></td>
+<td>右三角</td>
+</tr>
+<tr>
+<td>k</td>
+<td>黑</td>
+<td>p</td>
+<td>正五角形</td>
+</tr>
+<tr>
+<td>w</td>
+<td>白</td>
+<td>h</td>
+<td>正六角形</td>
+</tr>
+</tbody>
+</table>
+<p>除了对绘制的折线本身的样式定义，还有对于x,y轴和图例的定义。而在实际中，由于我们通常只是想绘制某个函数或者一组数据的图像，x轴并不那么重要，常常简化为<code>range(0,n)</code>，用得更多的是对y轴的定义：<br><code>ax.set_ylim(min, max)</code>以及<code>set_yticks(range(min, max, step))</code>。下面是一个更常用的定制版折线图绘制：</p>
+<pre><code>y=[1,4,9,16,25]
+
+fig,ax = plt.subplots()
+plt.title(&quot;This is a plot image&quot;)       #图像名称
+ax.set_ylim(0, 30, 2)                   # y坐标轴的范围  
+ax.set_yticks(range(0, 30, 2))      # y坐标轴的刻度
+#绘制折线，其中数据点为实心正五边形，用虚线连接，颜色为蓝色
+plt.plot(range(0,5), y, &quot;p:&quot;,label=&quot;sample&quot;, color=&apos;b&apos;)
+plt.legend(loc=&apos;best&apos;)                  # 设定图例的位置
+plt.grid(True)                          # 打开网格
+plt.show()
+</code></pre><p>绘制后的结果如下图。其他更多高级的用法随便搜索一下就能找到无数详细介绍，我就不啰嗦了。<br><img src="https://whf.d.pr/nlyXhY+" alt=""></p>
+<h1 id="u591A_u6761_u6298_u7EBF_u7684_u7ED8_u5236"><a href="#u591A_u6761_u6298_u7EBF_u7684_u7ED8_u5236" class="headerlink" title="多条折线的绘制"></a>多条折线的绘制</h1><p>有时候我们需要绘制多条折线，用于将不同的函数放在一起比较，会有各种不同的需求。首先定义一下基本概念：下文所谓的“图表”，就是一幅折线图，或者说是一个“子图”；而”窗口”，就是运行之后弹出来的一个window，带有最小化、关闭等按钮。运行语句<code>fig,ax = plt.subplots()</code>后，拿到的两个变量fig, ax实际上就是指初始化的窗口和图像。</p>
+<h2 id="u5728_u540C_u4E00_u4E2A_u7A97_u53E3_u7ED8_u5236_u51E0_u4E2A_u4E0D_u540C_u7684_u56FE_u8868"><a href="#u5728_u540C_u4E00_u4E2A_u7A97_u53E3_u7ED8_u5236_u51E0_u4E2A_u4E0D_u540C_u7684_u56FE_u8868" class="headerlink" title="在同一个窗口绘制几个不同的图表"></a>在同一个窗口绘制几个不同的图表</h2><p>如果我们需要在同一个窗口中绘制几个不同的图，即将几幅图并排显示在一块儿，可以使用<code>add_subplot()</code>函数来做到。<code>add_subplot(a,b,c)</code>定义了一个新的图表，它首先将窗口分割成a*b的网格，然后返回第c格（按照从上到下、从左至右的顺序，从1数起）。下面这个例子能比较清晰地看到如何来绘制好几个折线图。</p>
+<pre><code>import matplotlib.pyplot as plt
+#生成数据
+y1=[1,4,9,16,25]
+y2=[2,3,4,5,6]
+y4=[12,10,1,7,-3]
+#在同一个fig中初始化几个不同的图
+fig = plt.figure()
+ax1 = fig.add_subplot(2,2,1)
+#ax2 = fig.add_subplot(2,2,2)
+ax3 = fig.add_subplot(2,2,3)
+ax4 = fig.add_subplot(2,2,4)
+#依次在几个图表上绘制线条
+ax1.plot(range(0,5), y1, &quot;p:&quot;,label=&quot;ax1&quot;, color=&apos;r&apos;)
+ax1.legend(loc=&apos;best&apos;)
+ax1.grid(True)
+ax4.plot(range(0,5), y4, &quot;o-&quot;,label=&quot;y4&quot;, color=&apos;k&apos;)
+# 不指定目的图表，则绘制在最后一个初始化的窗口中
+plt.plot(range(0,5), y2, &quot;o-&quot;,label=&quot;y2&quot;, color=&apos;b&apos;)
+
+plt.show()
+</code></pre><p>画出的图像：<br><img src="https://whf.d.pr/aXw2r1+" alt=""><br>从图像对照代码我们可以知道：</p>
+<ol>
+<li>当使用ax.plot()时，绘制会指定在某个图表中</li>
+<li>如果不初始化网格内的某个图(add_subplot)，那一部份会自动留白（见ax2部分）</li>
+<li>如果使用add_subplot初始化了一个图表却没有画线，则会只有一个自动生成的坐标系和刻度</li>
+<li>如果使用plt.plot/legend等实际上是配置某个图表而不是整个窗口的函数，那么系统会自动使用最后一个<strong>初始化</strong>的图表，在上面的例子中是ax4。</li>
+</ol>
+<h2 id="u5728_u540C_u4E00_u5F20_u56FE_u8868_u4E0A_u753B_u51E0_u6761_u4E0D_u540C_u7684_u6298_u7EBF"><a href="#u5728_u540C_u4E00_u5F20_u56FE_u8868_u4E0A_u753B_u51E0_u6761_u4E0D_u540C_u7684_u6298_u7EBF" class="headerlink" title="在同一张图表上画几条不同的折线"></a>在同一张图表上画几条不同的折线</h2><p>有时候需要在同一个图表上画几条不同的折线，也是很简单，直接重复绘制就可以了：</p>
+<pre><code>import matplotlib.pyplot as plt
+#生成待绘制数据
+data=range(-20,20)
+A = list(map(lambda x:x**2, data))
+B = list(map(lambda x:x**2+100, data))
+C = list(map(lambda x:(x+5)**2, data))
+#初始化窗口和图表
+fig,ax = plt.subplots()
+#绘制A，B，C三条线
+ax.plot(data, A, label=&quot;y=x^2&quot;, color=&apos;r&apos;)
+ax.plot(data, B, label=&quot;y=x^2+10&quot;, color=&apos;g&apos;)
+ax.plot(data, C, label=&quot;y=(x+1)^2&quot;, color=&apos;b&apos;)
+plt.legend(loc=&apos;best&apos;)
+plt.show()
+</code></pre><p>这样得到的结果是：<br><img src="https://whf.d.pr/dtabEv+" alt=""></p>
+<h2 id="u5728_u4E0D_u540C_u7684_u7A97_u53E3_u7ED8_u5236_u56FE_u8868"><a href="#u5728_u4E0D_u540C_u7684_u7A97_u53E3_u7ED8_u5236_u56FE_u8868" class="headerlink" title="在不同的窗口绘制图表"></a>在不同的窗口绘制图表</h2><p>接下来改讨论下在不同的窗口绘制图表了。有了之前的经验，我们很快能知道，这种方式的不同就是将折线画在不同的fig上。但要注意的是，在前一个窗口绘制结束时，需要调用plt.close(0)，然后在最后调用plt.show()来显示所有图像。还是使用之前的数据为例，这次的绘制部分稍有不同：</p>
+<pre><code>#首次初始化，并绘制两条折线
+fig,ax = plt.subplots()
+ax.plot(data, A, label=&quot;y=x^2&quot;, color=&apos;r&apos;)
+ax.plot(data, B, label=&quot;y=x^2+100&quot;, color=&apos;g&apos;)
+#结束当前窗口绘制
+plt.close(0)
+#重新初始化窗口和图表，并再次绘制
+fig,ax = plt.subplots()
+ax.plot(data, C, label=&quot;y=(x+5)^2&quot;, color=&apos;b&apos;)
+#结束绘制，显示所有
+plt.show()
+</code></pre><p>跑完程序得到了两个窗口：<br><img src="https://whf.d.pr/DEP4ZQ+" alt=""><br>可以看到窗口的标题上分别标记为Figure1和Figure2。如果在程序中不是用plt.close(0)而是直接使用plt.show()，第一个窗口会绘制完毕并弹出，然而整个进程会阻塞，直到你手动关闭Figure1，才会继续跑后面的内容。</p>
+<h2 id="u5728_u540C_u4E00_u5F20_u56FE_u4E0A_u7ED8_u5236_u957F_u5EA6_u4E0D_u540C_u7684_u51E0_u6761_u6298_u7EBF"><a href="#u5728_u540C_u4E00_u5F20_u56FE_u4E0A_u7ED8_u5236_u957F_u5EA6_u4E0D_u540C_u7684_u51E0_u6761_u6298_u7EBF" class="headerlink" title="在同一张图上绘制长度不同的几条折线"></a>在同一张图上绘制长度不同的几条折线</h2><p>关于图表和窗口的问题讨论完了，但我还遇到了一个需求：如果几条折线的数据长度不同怎么办？例如统计年度数据，有的项目从2000年到2009年，有的却从2001到2007？之前我们绘制的数据长度都是一样的，plot()函数本身也要求x,y的长度一致，不然拒绝绘制。开始我采用将数据不足的部分补0的方法，但效果还是不完美，后来发现实际上这个问题的解决方案也很简单：只要在每个plot()函数中指定x的范围，让其和传入的y数据个数相同就可以了。</p>
+<pre><code>import matplotlib.pyplot as plt
+A=[1,2,3,4,5]
+B=[5,6,3,4,8,1,-2]
+C=[0.1, 0.4, 10]
+x=range(2001,2010)
+fig,ax = plt.subplots()
+ax.plot(x[0:len(A)], A, label=&quot;A&quot;, color=&apos;r&apos;)
+ax.plot(x[0:len(B)], B, label=&quot;B&quot;, color=&apos;g&apos;)
+ax.plot(x[0:len(C)], C, label=&quot;C&quot;, color=&apos;b&apos;)
+plt.show()
+</code></pre><p>于是，在图上可以看到长度不同的三条折线：<br><img src="https://whf.d.pr/SSoFoW+" alt=""></p>
+<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><p>为了自己使用方便，我写了一个函数，用来在同一个图中绘制一组折线图。支持可变折线数目，支持不同数据长度，自动变化折线颜色，支持绘制多组图表，也可以作为这篇文章的一个相对完整的Demo。源码地址：<a href="https://github.com/conanwhf/PythonLab/blob/master/Lab03.py" target="_blank" rel="external">Demo</a>，自取。</p>
+<h1 id="u4E3E_u4E00_u53CD_u4E09"><a href="#u4E3E_u4E00_u53CD_u4E09" class="headerlink" title="举一反三"></a>举一反三</h1><p>说了这么半天，图表、图表，光说折线图了，其他的图呢？其实其他几种图表的绘制本质上是一样的，完全可以自己举一反三。例如把plot()替换成别的函数：</p>
+<pre><code>ax1.plot(range(0,5), y, color=&apos;r&apos;)
+ax2.scatter(range(0,5), y, color=&apos;k&apos;)
+ax3.bar(range(0,5), y, color=&apos;b&apos;)
+ax4.barh(range(0,5), y, color=&apos;y&apos;)
+</code></pre><p>画出的图像如下图。同一组数据，几个不同的绘制函数分别画了折线图、散点图、柱状图、条状图四种样式。当然，他们的高级参数还是有些许不同的，在实际使用中根据需要再查细节即可。<br><img src="https://whf.d.pr/kTWNwb+" alt=""></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Matplotlib/" rel="tag">#Matplotlib</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/31/WhyIDropTheApple/" rel="next">我为什么放弃学习iOS开发</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/logo.png" alt="Conan Wang" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Conan Wang</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Linux内核和系统半吊子，曾经的iOS开发者，入门机器学习和Python数据分析，相关不相关乱七八糟的一切</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">99</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">40</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/conanwhf" target="_blank">Github</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/1864854042" target="_blank">Weibo</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="/atom.xml" target="_blank">rss</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:conan.whf@gmail.com" target="_blank">MailtoMe</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">Links</p>
+            
+              <span class="links-of-author-item">
+              <a href="http://conanwhf.github.io" target="_blank">本站地址</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://conanwhf.coding.me" target="_blank">本站镜像</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/conanwhf/ResourceDoc" target="_blank">iOS资源收集(Swift)</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#u57FA_u7840"><span class="nav-number">1.</span> <span class="nav-text">基础</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u591A_u6761_u6298_u7EBF_u7684_u7ED8_u5236"><span class="nav-number">2.</span> <span class="nav-text">多条折线的绘制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u5728_u540C_u4E00_u4E2A_u7A97_u53E3_u7ED8_u5236_u51E0_u4E2A_u4E0D_u540C_u7684_u56FE_u8868"><span class="nav-number">2.1.</span> <span class="nav-text">在同一个窗口绘制几个不同的图表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5728_u540C_u4E00_u5F20_u56FE_u8868_u4E0A_u753B_u51E0_u6761_u4E0D_u540C_u7684_u6298_u7EBF"><span class="nav-number">2.2.</span> <span class="nav-text">在同一张图表上画几条不同的折线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5728_u4E0D_u540C_u7684_u7A97_u53E3_u7ED8_u5236_u56FE_u8868"><span class="nav-number">2.3.</span> <span class="nav-text">在不同的窗口绘制图表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5728_u540C_u4E00_u5F20_u56FE_u4E0A_u7ED8_u5236_u957F_u5EA6_u4E0D_u540C_u7684_u51E0_u6761_u6298_u7EBF"><span class="nav-number">2.4.</span> <span class="nav-text">在同一张图上绘制长度不同的几条折线</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Demo"><span class="nav-number">3.</span> <span class="nav-text">Demo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u4E3E_u4E00_u53CD_u4E09"><span class="nav-number">4.</span> <span class="nav-text">举一反三</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp;  2015 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Conan Wang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>

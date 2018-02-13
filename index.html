@@ -199,6 +199,98 @@
           
           
             
+              <a class="post-title-link" href="/2018/02/12/DrawByMatplotlib/" itemprop="url">
+                十五分种学会用matplotlib绘制图表
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2018-02-12T17:31:26+08:00" content="2018-02-12">
+            2018-02-12
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Python/" itemprop="url" rel="index">
+                  <span itemprop="name">Python</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>上周做了个股指的回顾，想用Python画图看看最近20年不同指数的变化情况，需要用到常用的matplotlib库来绘制折线图。整个plot函数的功能和参数很多，但作为初学者，我只用到了一些基本和常用的功能，想必普通画图也已经够了。<br> <!-- indicate-the-source --> </p>
+<h1 id="u57FA_u7840"><a href="#u57FA_u7840" class="headerlink" title="基础"></a>基础</h1><p>绘制折线图，实际上是根据x,y两个数组的数据来绘制一组数据点，并将它们用直线连接起来。而将每个点想象在一个直角坐标系中，x,y两个数组中的数据，也就是每个点的xy坐标。所以，在绘制函数中，要求x,y的数目相等，否则便会报错：<code>ValueError: x and y must have same first dimension</code>。<br>下面是一个最简单的绘制折线的例子，如果你用过Matlab的话一定感到非常熟悉（绘制结果略）：</p>
+<pre><code>#加载库
+import matplotlib.pyplot as plt
+#定义数据
+x=[1,2,3,4,5]
+y=[1,4,9,16,25]
+
+fig,ax = plt.subplots()     #初始化
+plt.plot(x, y)              #绘制函数
+plt.show()                  #显示
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2018/02/12/DrawByMatplotlib/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2017/12/31/WhyIDropTheApple/" itemprop="url">
                 我为什么放弃学习iOS开发
               </a>
@@ -301,8 +393,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
+                <a href="/categories/Reading/" itemprop="url" rel="index">
+                  <span itemprop="name">Reading</span>
                 </a>
               </span>
 
@@ -569,8 +661,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
+                <a href="/categories/Reading/" itemprop="url" rel="index">
+                  <span itemprop="name">Reading</span>
                 </a>
               </span>
 
@@ -813,88 +905,6 @@
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2017/07/12/CentosPython/" itemprop="url">
-                在Centos中安装和使用Python3
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2017-07-12T18:31:26+08:00" content="2017-07-12">
-            2017-07-12
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Linux/" itemprop="url" rel="index">
-                  <span itemprop="name">Linux</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>前几天碰到一个有点尴尬的需求：我一直有个Bandwagon的服务器用来做SS，自己写了个Python3的脚本，想用这个服务器定时启动跑一下。结果发现Bandwagon的SS只支持Centos的系统，而Centos系统里又只默认安装了python2.6，并且SS也必须要Python2.6才能跑。<br>虽然Bandwagon支持更换操作系统，可选的版本也很多，但我实在懒得折腾，想想还要自己安装维护SS服务就头大，只好考虑在Centos上安装Python3了。</p>
-<h2 id="Install_python3"><a href="#Install_python3" class="headerlink" title="Install python3"></a>Install python3</h2><p>不同于Ubuntu和Debian的apt-get，在Centos上的安装工具是yum，这个我没用过，但是也大同小异。首先是需要安装几个开发工具库，脚本也是网上看到的，有的是已经有了的，姑且无脑安装一下吧。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/07/12/CentosPython/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -933,21 +943,21 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">98</span>
+              <span class="site-state-item-count">99</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-count">40</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

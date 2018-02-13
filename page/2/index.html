@@ -199,6 +199,88 @@
           
           
             
+              <a class="post-title-link" href="/2017/07/12/CentosPython/" itemprop="url">
+                在Centos中安装和使用Python3
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2017-07-12T18:31:26+08:00" content="2017-07-12">
+            2017-07-12
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Linux/" itemprop="url" rel="index">
+                  <span itemprop="name">Linux</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>前几天碰到一个有点尴尬的需求：我一直有个Bandwagon的服务器用来做SS，自己写了个Python3的脚本，想用这个服务器定时启动跑一下。结果发现Bandwagon的SS只支持Centos的系统，而Centos系统里又只默认安装了python2.6，并且SS也必须要Python2.6才能跑。<br>虽然Bandwagon支持更换操作系统，可选的版本也很多，但我实在懒得折腾，想想还要自己安装维护SS服务就头大，只好考虑在Centos上安装Python3了。</p>
+<h2 id="Install_python3"><a href="#Install_python3" class="headerlink" title="Install python3"></a>Install python3</h2><p>不同于Ubuntu和Debian的apt-get，在Centos上的安装工具是yum，这个我没用过，但是也大同小异。首先是需要安装几个开发工具库，脚本也是网上看到的，有的是已经有了的，姑且无脑安装一下吧。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/07/12/CentosPython/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2017/07/12/Tips201707/" itemprop="url">
                 开发Tips收集-2017年07月
               </a>
@@ -306,8 +388,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Life-Other/" itemprop="url" rel="index">
-                  <span itemprop="name">Life & Other</span>
+                <a href="/categories/Reading/" itemprop="url" rel="index">
+                  <span itemprop="name">Reading</span>
                 </a>
               </span>
 
@@ -764,87 +846,6 @@
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2017/06/08/bootup-2-spl/" itemprop="url">
-                ARM板移植Linux系统启动（二）SPL
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2017-06-08T17:31:26+08:00" content="2017-06-08">
-            2017-06-08
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Linux/" itemprop="url" rel="index">
-                  <span itemprop="name">Linux</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="u542F_u52A8_u6A21_u5F0F"><a href="#u542F_u52A8_u6A21_u5F0F" class="headerlink" title="启动模式"></a>启动模式</h2><p>面对一块完全的空板子，首先要做的当然是让它启动起来。emmc/nand中完全没有内容，意味着没有uboot，没有命令行，所有的硬件包括内存都没有初始化，除了CPU。在上电的CPU之上，还跑了一个小小的叫做BootROM的程序。<br>通常每块芯片，都在硬件中包含了一个BootROM，是一个小程序，上电后自动运行，无法修改，不同的厂家有不同的设计，但都是给定几种不同的启动模式，然后循环检测。TI这块板就支持各种模式，如emmc, nand flash, network, spi, uart等。<br>所谓的不同启动模式，本质上也是类似的，都是从某个设备中读取很少的一点数据放到一定的地方（一般是SRAM或者STACK），然后把PC指针交给它。所以并不是支持什么启动就可以直接在设备上放操作系统了，BootROM能做的只是很基础的硬件初始化工作，更多的事情是需要Uboot来完成。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/06/08/bootup-2-spl/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -883,21 +884,21 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">98</span>
+              <span class="site-state-item-count">99</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-count">40</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
