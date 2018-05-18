@@ -199,6 +199,195 @@
           
           
             
+              <a class="post-title-link" href="/2015/12/03/Swift_String_2/" itemprop="url">
+                Swift2.0 中的String（二）：基本操作
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-03T15:20:16+08:00" content="2015-12-03">
+            2015-12-03
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Swift/" itemprop="url" rel="index">
+                  <span itemprop="name">Swift</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>Swift中的字符串，第二篇，基本操作。其他的几篇传送门：</p>
+<ul>
+<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
+<li><a href="http://conanwhf.github.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages">这里</a>看到</li>
+</ul>
+<p>首先，我们要记得使用字符串最常用的两个参数：下标(Index)和范围(Range)，几乎所有API都要用到它们</p>
+<pre><code>let offset = str.startIndex.advancedBy(2)// offset: 3rd char
+let range  = Range(start: str.startIndex.advancedBy(3), end: str.endIndex.advancedBy(-2))// range: 3..&lt;6, &quot;345&quot;
+</code></pre><p><strong>强制类型转换</strong></p>
+<pre><code>let n      = Int(str)!
+String(&quot;the number is \(n)&quot;)
+String(format:&quot;%.2f,  %i&quot;, 9.1, 304)
+</code></pre><p><strong>内容反转</strong>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/12/03/Swift_String_2/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2015/12/03/Swift_String_1/" itemprop="url">
+                Swift2.0 中的String（一）：常用属性
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-03T15:20:06+08:00" content="2015-12-03">
+            2015-12-03
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Swift/" itemprop="url" rel="index">
+                  <span itemprop="name">Swift</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>字符串算是平常用的比较多、花样也比较多的一个类型，昨天有空把相关的一些常用操作都写了一遍，总结出来。其实iOS里面的字符串更复杂，还有NSString系列等等，那些API太多将来需要用的时候再慢慢学。<br>这个系列目前写了三篇，这篇是第一部分，String的一些常用属性。其他的几篇传送门：</p>
+<ul>
+<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_1/" title="Swift2.0 中的String（一）：常用属性">Swift2.0 中的String（一）：常用属性</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_2/" title="Swift2.0 中的String（二）：基本操作">Swift2.0 中的String（二）：基本操作</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/03/Swift_String_3/" title="Swift2.0 中的String（三）：类型转换">Swift2.0 中的String（三）：类型转换</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_4/" title="Swift2.0 中的String（四）：编码转换">Swift2.0 中的String（四）：编码转换</a></li>
+<li><a href="http://conanwhf.github.io/2015/12/08/Swift_String_5/" title="Swift2.0 中的String（五）：String和NS-XXX系列的互相转换">Swift2.0 中的String（五）：String和NS-XXX系列的互相转换 </a></li>
+<li><a href="http://conanwhf.github.io/2015/12/09/Swift_String_6/" title="Swift2.0 中的String（六）：正则匹配">Swift2.0 中的String（六）：正则匹配</a><br>我的关于String练习源代码可以在<a href="https://github.com/conanwhf/swiftplayground/tree/master/String.playground/Pages">这里</a>看到</li>
+</ul>
+<p><strong>判断是否为空</strong></p>
+<pre><code>str.isEmpty
+</code></pre><p><strong>获取字符数组</strong><br>Swfit里面的String很有意思，它并不是由很多个Character组成的，
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/12/03/Swift_String_1/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2015/12/02/Swift_Syntax/" itemprop="url">
                 Swift2.0语法笔记
               </a>
@@ -701,182 +890,6 @@ sudo xcode-select --reset
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/11/02/Swift2.xFunction/" itemprop="url">
-                Swift 2.x 函数变化
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-11-02T23:29:26+08:00" content="2015-11-02">
-            2015-11-02
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Swift/" itemprop="url" rel="index">
-                  <span itemprop="name">Swift</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>之前写了一篇全局函数，现在Swift2.1后，使用方法大变样-_-|||<br><strong>示例代码：</strong><br><a href="https://github.com/conanwhf/swiftplayground/blob/master/Swift_StandardFunc.playground/Contents.swift">https://github.com/conanwhf/swiftplayground/blob/master/Swift_StandardFunc.playground/Contents.swift</a></p>
-<blockquote>
-<p>!!!<br>String不再是一个集合序列，所有相关调用需要改为<strong>String.chatacters</strong><br>e.g. <em>find(<strong>String</strong>, X)-> String.characters.indexOf(X)</em></p>
-</blockquote>
-<h2 id="func_28obj_2C_optional_29-_3Eobj-func_28optional_29"><a href="#func_28obj_2C_optional_29-_3Eobj-func_28optional_29" class="headerlink" title="func(obj, optional)->obj.func(optional)"></a>func(obj, <em>optional</em>)->obj.func(<em>optional</em>)</h2><ul>
-<li>enumerate()</li>
-<li>dropFirst()</li>
-<li>dropLast()</li>
-<li>contains() (不适用于String)</li>
-<li>indices()</li>
-<li>maxElement()
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/11/02/Swift2.xFunction/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2015/11/01/ReadingList2015-10/" itemprop="url">
-                读书清单 2015-10
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2015-11-01T20:02:38+08:00" content="2015-11-01">
-            2015-11-01
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Reading/" itemprop="url" rel="index">
-                  <span itemprop="name">Reading</span>
-                </a>
-              </span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-        
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="u8BFB_u5B8C_u7684_u4E66"><a href="#u8BFB_u5B8C_u7684_u4E66" class="headerlink" title="读完的书"></a>读完的书</h2><ol>
-<li><strong>新加坡的那些事儿</strong><br>讲新加坡的方方面面，社会、规则、历史、文化，等等。有些东西闻所未闻未免怀疑，就我所知道的部分来说，基本上没有胡说八道。想适当了解新加坡的话，还是值得一看。</li>
-<li><strong>时代的变换</strong><br>不愧为中国人写的凑字数的东西，只能说是个PPT，还是个没什么内容光有废话的PPT。题目很大，其实就是讲讲新时代的信息传播方式变化，或者说，就是讲“现在是信息化时代了，有好多好多巨大的变化哦！”，没了，别奢望看到更多具体的。</li>
-<li><strong>Swift for Beginners</strong><br>图书馆借的。开始的时候很浅，后来又有点点深得过快了，总的来说还是本好书，就是字有点小，看着累。</li>
-<li><strong>罗辑思维1</strong><br>有点类似于梁文道的我读，夹带的私货比较少，基本上都是在讲书里的观点和故事，每个topic短短三篇，蛮容易看的，内容也挺有意思。据说就是脱口秀的文字记录，文学性几乎为0，相当口语化，不过内容好看的话倒不必在乎这个。我讨厌的是没多远就插一段网友的评论或者留言，在kindle上是浅色字体看着费劲，又出戏，后来都跳过去了。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/11/01/ReadingList2015-10/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -915,7 +928,7 @@ sudo xcode-select --reset
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">100</span>
+              <span class="site-state-item-count">102</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

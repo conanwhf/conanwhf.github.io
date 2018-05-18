@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://conanwhf.github.io/2018/03/31/ReadingList2018-03/</loc>
+    <lastmod>2018-04-23T04:31:06.919Z</lastmod>
+    <data>
+        <display>
+        <title>读书清单 2018-03</title>
+        <pubTime>2018-03-31T02:36:54.000Z</pubTime>
+        
+        <tag>BookList</tag>
+         
+         
+           
+             
+              <breadCrumb title="Reading" url="http://conanwhf.github.io/categories/Reading/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.github.io/2018/02/13/Swimming/</loc>
     <lastmod>2018-02-13T08:46:31.255Z</lastmod>
     <data>
@@ -15,6 +35,26 @@
            
              
               <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.github.io/2018/02/22/decisionTree/</loc>
+    <lastmod>2018-02-13T03:37:08.335Z</lastmod>
+    <data>
+        <display>
+        <title>《机器学习实战》笔记（二）：决策树</title>
+        <pubTime>2018-02-22T05:31:26.000Z</pubTime>
+        
+        <tag>kNN</tag>
+         
+         
+           
+             
+              <breadCrumb title="MachineLearning" url="http://conanwhf.github.io/categories/MachineLearning/"/>
           
         </display>
     </data>
@@ -1744,24 +1784,6 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/04/Swift_open/</loc>
-    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>Swift开源了！！！</title>
-        <pubTime>2015-12-04T10:29:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://conanwhf.github.io/2015/12/16/creatDuoshuo/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
@@ -1773,32 +1795,6 @@
            
              
               <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://conanwhf.github.io/2015/12/22/newsreader-4/</loc>
-    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
-    <data>
-        <display>
-        <title>从打造新闻app学到的(4)：使用Segue在ViewController之间传递数据</title>
-        <pubTime>2015-12-22T13:14:35.000Z</pubTime>
-        
-        <tag>NewsAPP</tag>
-         
-        <tag>Segue</tag>
-         
-        <tag>StroyBoard</tag>
-         
-        <tag>iOS</tag>
-         
-         
-           
-             
-              <breadCrumb title="CocoaTouch" url="http://conanwhf.github.io/categories/CocoaTouch/"/>
           
         </display>
     </data>
@@ -1828,6 +1824,28 @@
 
     
   <url>
+    <loc>http://conanwhf.github.io/2015/12/21/newsreader-2/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>从打造新闻app学到的(2)：定义类中的只读属性</title>
+        <pubTime>2015-12-21T09:14:35.000Z</pubTime>
+        
+        <tag>Class</tag>
+         
+        <tag>NewsAPP</tag>
+         
+         
+           
+             
+              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://conanwhf.github.io/2015/09/03/StructPic/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
@@ -1841,6 +1859,26 @@
            
              
               <breadCrumb title="CocoaTouch" url="http://conanwhf.github.io/categories/CocoaTouch/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://conanwhf.github.io/2015/12/20/newsreader-1/</loc>
+    <lastmod>2017-05-04T08:55:30.000Z</lastmod>
+    <data>
+        <display>
+        <title>从打造新闻app学到的(1)：抽象概念，定义好的数据结构</title>
+        <pubTime>2015-12-20T09:14:35.000Z</pubTime>
+        
+        <tag>NewsAPP</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.github.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
           
         </display>
     </data>
@@ -1906,21 +1944,17 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/21/newsreader-2/</loc>
+    <loc>http://conanwhf.github.io/2016/01/22/microwave/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>从打造新闻app学到的(2)：定义类中的只读属性</title>
-        <pubTime>2015-12-21T09:14:35.000Z</pubTime>
+        <title>微波炉的悲剧</title>
+        <pubTime>2016-01-22T09:35:25.000Z</pubTime>
         
-        <tag>Class</tag>
-         
-        <tag>NewsAPP</tag>
-         
          
            
              
-              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
+              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
           
         </display>
     </data>
@@ -1946,19 +1980,17 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/12/20/newsreader-1/</loc>
+    <loc>http://conanwhf.github.io/2015/12/04/Swift_open/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>从打造新闻app学到的(1)：抽象概念，定义好的数据结构</title>
-        <pubTime>2015-12-20T09:14:35.000Z</pubTime>
+        <title>Swift开源了！！！</title>
+        <pubTime>2015-12-04T10:29:26.000Z</pubTime>
         
-        <tag>NewsAPP</tag>
-         
          
            
              
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.github.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
+              <breadCrumb title="Swift" url="http://conanwhf.github.io/categories/Swift/"/>
           
         </display>
     </data>
@@ -1966,17 +1998,21 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2016/01/22/microwave/</loc>
+    <loc>http://conanwhf.github.io/2015/11/05/ResourceInGit/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>微波炉的悲剧</title>
-        <pubTime>2016-01-22T09:35:25.000Z</pubTime>
+        <title>iOS开发资源</title>
+        <pubTime>2015-11-05T10:40:05.000Z</pubTime>
         
+        <tag>Git</tag>
+         
+        <tag>iOS</tag>
+         
          
            
              
-              <breadCrumb title="Life &amp; Other" url="http://conanwhf.github.io/categories/Life-Other/"/>
+              <breadCrumb title="iOS开发杂项" url="http://conanwhf.github.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
           
         </display>
     </data>
@@ -2004,21 +2040,25 @@
 
     
   <url>
-    <loc>http://conanwhf.github.io/2015/11/05/ResourceInGit/</loc>
+    <loc>http://conanwhf.github.io/2015/12/22/newsreader-4/</loc>
     <lastmod>2017-05-04T08:55:30.000Z</lastmod>
     <data>
         <display>
-        <title>iOS开发资源</title>
-        <pubTime>2015-11-05T10:40:05.000Z</pubTime>
+        <title>从打造新闻app学到的(4)：使用Segue在ViewController之间传递数据</title>
+        <pubTime>2015-12-22T13:14:35.000Z</pubTime>
         
-        <tag>Git</tag>
+        <tag>NewsAPP</tag>
+         
+        <tag>Segue</tag>
+         
+        <tag>StroyBoard</tag>
          
         <tag>iOS</tag>
          
          
            
              
-              <breadCrumb title="iOS开发杂项" url="http://conanwhf.github.io/categories/iOS%E5%BC%80%E5%8F%91%E6%9D%82%E9%A1%B9/"/>
+              <breadCrumb title="CocoaTouch" url="http://conanwhf.github.io/categories/CocoaTouch/"/>
           
         </display>
     </data>
